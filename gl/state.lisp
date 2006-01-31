@@ -110,8 +110,8 @@
 
 (defun make-bitfield (enum-name attributes)
   (apply #'logior 0 (mapcar (lambda (x)
-			      (foreign-enum-value enum-name x))
-			    attributes)))
+                              (foreign-enum-value enum-name x))
+                            attributes)))
 
 ;; external
 (defun push-attrib (&rest attributes)
