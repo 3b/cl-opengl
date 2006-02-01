@@ -1,0 +1,157 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename cl-glu.info
+@settitle CL-GLU User Manual
+@exampleindent 2
+
+@c ============================= Macros =============================
+@c The following macros are used throughout this manual. Taken from
+@c the CFFI User Manual, most of them written by Stephen Compall.
+
+@macro Function {args}
+@defun \args\
+@end defun
+@end macro
+
+@macro Macro {args}
+@defmac \args\
+@end defmac
+@end macro
+
+@macro Accessor {args}
+@deffn {Accessor} \args\
+@end deffn
+@end macro
+
+@macro GenericFunction {args}
+@deffn {Generic Function} \args\
+@end deffn
+@end macro
+
+@macro Type {args}
+@deftp {Type} \args\
+@end deftp
+@end macro
+
+@macro Variable {args}
+@defvr {Special Variable} \args\
+@end defvr
+@end macro
+
+@macro Condition {args}
+@deftp {Condition Type} \args\
+@end deftp
+@end macro
+
+@macro clglu
+@acronym{CL-GLU}
+@end macro
+
+@macro impnote {text}
+@quotation
+@strong{Implementor's note:} @emph{\text\}
+@end quotation
+@end macro
+
+@c Info "requires" that x-refs end in a period or comma, or ) in the
+@c case of @pxref.  So the following implements that requirement for
+@c the "See also" subheadings that permeate this manual, but only in
+@c Info mode.
+@c
+@c Most of them are also dictionary symbols, so I use this also to
+@c print a pretty section name.  Non-dictionary seealsos should not
+@c exist; refer to them inline in the descriptive text.
+@ifinfo
+@macro seealso {name}
+@ref{\name\}.
+@end macro
+@end ifinfo
+
+@ifnotinfo
+@alias seealso = ref
+@end ifnotinfo
+
+@c ============================= Macros =============================
+
+
+@c Show types, functions, and concepts in the same index.
+@syncodeindex tp cp
+@syncodeindex fn cp
+
+@copying
+Copyright @copyright{} 2006, Oliver Markovic <entrox at entrox.org> @*
+Copyright @copyright{} 2006, Lu@'{@dotless{i}}s Oliveira
+  <loliveira at common-lisp.net>
+
+@quotation
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+@itemize @bullet
+@item
+Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+@item
+Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+@item
+Neither the name of the author nor the names of the contributors may
+be used to endorse or promote products derived from this software
+without specific prior written permission.
+@end itemize
+
+@sc{This software is provided by the copyright holders and contributors
+``as is'' and any express or implied warranties, including, but not
+limited to, the implied warranties of merchantability and fitness for
+a particular purpose are disclaimed.  In no event shall the copyright
+owner or contributors be liable for any direct, indirect, incidental,
+special, exemplary, or consequential damages (including, but not
+limited to, procurement of substitute goods or services; loss of use,
+data, or profits; or business interruption) however caused and on any
+theory of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use
+of this software, even if advised of the possibility of such damage.}
+@end quotation
+@end copying
+
+@titlepage
+@title @clglu{} User Manual
+@c @subtitle Version X.X
+@c @author foobar
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top, Introduction, (dir), (dir)
+@top cl-glu
+@insertcopying
+@end ifnottex
+
+@menu
+* Introduction::                
+* Comprehensive Index::         
+
+@end menu
+
+@node Introduction, Comprehensive Index, Top, Top
+@chapter Introduction
+
+@clglu{} is a set of @acronym{CFFI} bindings to @sc{GLU} 1.3.
+
+
+@node Comprehensive Index,  , Introduction, Top
+@unnumbered Index
+@printindex cp
+
+@bye
