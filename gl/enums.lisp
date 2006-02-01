@@ -29,20 +29,18 @@
 
 (in-package :cl-opengl)
 
-
 ;;; A
 
-(defcenum accum-op
+(defcenum (accum-op enum)
   (:accum #x100)
   (:load #x101)
   (:return #x102)
   (:mult #x103)
   (:add #x104))
 
-
 ;;; B
 
-(defcenum begin-mode
+(defcenum (begin-mode enum)
   (:points #x0)
   (:lines #x1)
   (:line-loop #x2)
@@ -54,7 +52,7 @@
   (:quad-strip #x8)
   (:polygon #x9))
 
-(defcenum blend-equation
+(defcenum (blend-equation enum)
   (:func-add #x8006)
   (:func-subtract #x800A)
   (:func-reverse-subtract #x800B)
@@ -62,7 +60,7 @@
   (:max #x8008)
   (:logic-op #xBF1))
 
-(defcenum blend-func
+(defcenum (blend-func enum)
   (:zero #x0)
   (:one #x1)
   (:src-color #x300)
@@ -82,7 +80,7 @@
 
 ;;; C
 
-(defcenum call-lists-type
+(defcenum (call-lists-type enum)
   (:byte #x1400)
   (:unsigned-byte #x1401)
   (:short #x1402)
@@ -91,18 +89,18 @@
   (:unsigned-int #x1405)
   (:float #x1406))
 
-(defcenum client-attributes
+(defcenum (client-attributes enum)
   (:client-pixel-store-bit #x1)
   (:client-vertex-array-bit #x2)
   (:client-all-attrib-bits #xFFFFFFFF))
 
-(defcenum clear-buffer-bits
+(defcenum (clear-buffer-bits enum)
   (:depth-buffer-bit #x100)
   (:accum-buffer-bit #x200)
   (:stencil-buffer-bit #x400)
   (:color-buffer-bit #x4000))
 
-(defcenum clip-plane-name
+(defcenum (clip-plane-name enum)
   (:clip-plane0 #x3000)
   (:clip-plane1)
   (:clip-plane2)
@@ -110,14 +108,14 @@
   (:clip-plane4)
   (:clip-plane5))
 
-(defcenum color-material-mode
+(defcenum (color-material-mode enum)
   (:emission #x1600)
   (:ambient #x1200)
   (:diffuse #x1201)
   (:specular #x1202)
   (:ambient-and-diffuse #x1602))
 
-(defcenum color-table-name
+(defcenum (color-table-name enum)
   (:color-table #x80D0)
   (:post-convolution-color-table #x80D1)
   (:post-color-matrix-color-table #x80D2)
@@ -125,7 +123,7 @@
   (:proxy-post-convolution-color-table #x80D4)
   (:proxy-post-color-matrix-color-table #x80D5))
 
-(defcenum compare-func
+(defcenum (compare-func enum)
   (:never #x200)
   (:less #x201)
   (:equal #x202)
@@ -135,23 +133,23 @@
   (:gequal #x206)
   (:always #x207))
 
-(defcenum copy-pixels-type
+(defcenum (copy-pixels-type enum)
   (:color #x1800)
   (:depth #x18001)
   (:stencil #x1802))
 
 ;;; D
 
-(defcenum depth-texture-mode
+(defcenum (depth-texture-mode enum)
   (:luminance #x1909)
   (:intensity #x8049)
   (:alpha #x1906))
 
-(defcenum display-list-mode
+(defcenum (display-list-mode enum)
   (:compile #x1300)
   (:compile-and-execute #x1301))
 
-(defcenum draw-buffer
+(defcenum (draw-buffer enum)
   (:none #x0)
   (:front-left #x400)
   (:front-right #x401)
@@ -170,7 +168,7 @@
 
 ;;; E
 
-(defcenum enable-cap
+(defcenum (enable-cap enum)
   (:point-smooth #xB10)
   (:line-smooth #xB20)
   (:line-stipple #xB24)
@@ -245,11 +243,11 @@
   (:vertex-program-two-side #x8643)
   (:point-sprite #x8861))
 
-(defcenum eval-mesh-1-mode
+(defcenum (eval-mesh-1-mode enum)
   (:point #x1B00)
   (:line #x1B01))
 
-(defcenum eval-mesh-2-mode
+(defcenum (eval-mesh-2-mode enum)
   (:point #x1B00)
   (:line #x1B01)
   (:fill #x1B02))
@@ -257,27 +255,27 @@
 
 ;;; F
 
-(defcenum face-direction
+(defcenum (face-direction enum)
   (:cw #x900)
   (:ccw #x901))
 
-(defcenum feedback-type
+(defcenum (feedback-type enum)
   (:2d #x600)
   (:3d #x601)
   (:3d-color #x602)
   (:3d-color-texture #x603)
   (:4d-color-texture #x604))
 
-(defcenum fog-coord-src
+(defcenum (fog-coord-src enum)
   (:fragment-depth #x8452)
   (:fog-coord #x8451))
 
-(defcenum fog-mode
+(defcenum (fog-mode enum)
   (:exp #x800)
   (:exp2 #x801)
   (:linear #x2601))
 
-(defcenum fog-parameter
+(defcenum (fog-parameter enum)
   (:fog-mode #xB65)
   (:fog-coord-src #x8450)
   (:fog-density #xB62)
@@ -287,7 +285,7 @@
 
 ;;; G
 
-(defcenum gl-error
+(defcenum (gl-error enum)
   (:no-error #x0)
   (:invalid-enum #x500)
   (:invalid-value #x501)
@@ -300,12 +298,12 @@
 
 ;;; H
 
-(defcenum hint
+(defcenum (hint enum)
   (:dont-care #x1100)
   (:fastest #x1101)
   (:nicest #x1102))
 
-(defcenum hint-target
+(defcenum (hint-target enum)
   (:perspective-correction-hint #xC50)
   (:point-smooth-hint #xC51)
   (:line-smooth-hint #xC52)
@@ -318,17 +316,17 @@
 
 ;;; L
 
-(defcenum light-model-color-control
+(defcenum (light-model-color-control enum)
   (:single-color #x81F9)
   (:separate-specular-color #x81FA))
 
-(defcenum light-model-parameter
+(defcenum (light-model-parameter enum)
   (:light-model-ambient #xB53)
   (:light-model-local-viewer #xB51)
   (:light-model-two-side #xB52)
   (:light-model-color-sontrol #x81F8))
 
-(defcenum light-name
+(defcenum (light-name enum)
   (:light0 #x4000)
   (:light1)
   (:light2)
@@ -338,7 +336,7 @@
   (:light6)
   (:light7))
 
-(defcenum light-parameter
+(defcenum (light-parameter enum)
   (:ambient #x1200)
   (:diffuse #x1201)
   (:specular #x1202)
@@ -350,7 +348,7 @@
   (:linear-attenuation #x1208)
   (:quadratic-attenuation #x1209))
 
-(defcenum logic-op
+(defcenum (logic-op enum)
   (:clear #x1500)
   (:and #x1501)
   (:and-reverse #x1502)
@@ -371,7 +369,7 @@
 
 ;;; M
 
-(defcenum map1-target
+(defcenum (map1-target enum)
   (:map1-vertex-3 #xD97)
   (:map1-vertex-4 #xD98)
   (:map1-index #xD91)
@@ -382,7 +380,7 @@
   (:map1-texture-coord-3 #xD95)
   (:map1-texture-coord-4 #xD96))
 
-(defcenum map2-target
+(defcenum (map2-target enum)
   (:map2-vertex-3 #xDB7)
   (:map2-vertex-4 #xDB8)
   (:map2-index #xDB1)
@@ -393,7 +391,7 @@
   (:map2-texture-coord-3 #xDB5)
   (:map2-texture-coord-4 #xDB6))
 
-(defcenum material-parameter
+(defcenum (material-parameter enum)
   (:ambient #x1200)
   (:diffuse #x1201)
   (:ambient-and-diffuse #x1602)
@@ -402,7 +400,7 @@
   (:shininess #x1601)
   (:color-indexes #x1603))
 
-(defcenum matrix-mode
+(defcenum (matrix-mode enum)
   (:modelview #x1700)
   (:projection #x1701)
   (:texture #x1702)
@@ -411,7 +409,7 @@
 
 ;;; P
 
-(defcenum pixel-data-type
+(defcenum (pixel-data-type enum)
   (:byte #x1400)
   (:unsigned-byte #x1401)
   (:bitmap #x1A00)
@@ -433,7 +431,7 @@
   (:unsigned-int-10-10-10-2 #x8036)
   (:unsigned-int-2-10-10-10-rev #x8368))
 
-(defcenum pixel-data-format
+(defcenum (pixel-data-format enum)
   (:color-index #x1900)
   (:stencil-index #x1901)
   (:depth-component #x1902)
@@ -448,7 +446,7 @@
   (:luminance #x1909)
   (:luminance-alpha #x190A))
 
-(defcenum pixel-data-internal-format
+(defcenum (pixel-data-internal-format enum)
   (:alpha #x1906)
   (:alpha4 #x803B)
   (:alpha8 #x803C)
@@ -492,7 +490,7 @@
   (:rgba12 #x805A)
   (:rgba16 #x805B))
 
-(defcenum pixel-map
+(defcenum (pixel-map enum)
   (:pixel-map-i-to-i #xC70)
   (:pixel-map-s-to-s #xC71)
   (:pixel-map-i-to-r #xC72)
@@ -504,7 +502,7 @@
   (:pixel-map-b-to-b #xC78)
   (:pixel-map-a-to-a #xC79))
 
-(defcenum pixel-store-mode
+(defcenum (pixel-store-mode enum)
   (:unpack-swap-bytes #xCF0)
   (:unpack-lsb-first #xCF1)
   (:unpack-row-length #xCF2)
@@ -514,7 +512,7 @@
   (:unpack-image-height #x806E)
   (:unpack-skip-images #x806D))
 
-(defcenum pixel-transfer-mode
+(defcenum (pixel-transfer-mode enum)
   (:map-color #xD10)
   (:map-stencil #xD11)
   (:index-shift #xD12)
@@ -546,28 +544,28 @@
   (:post-color-matrix-blue-bias #x80BA)
   (:post-color-matrix-alpha-bias #x80BB))
 
-(defcenum point-parameter
+(defcenum (point-parameter enum)
   (:point-size-min #x8126)
   (:point-size-max #x8127)
   (:point-fade-threshold-size #x8128)
   (:point-distance-attenuation #x8129)
   (:point-sprite-coord-origin #x8CA0))
 
-(defcenum point-sprite-coord-origin
+(defcenum (point-sprite-coord-origin enum)
   (:lower-left #x8CA1)
   (:upper-left #x8CA2))
 
-(defcenum polygon-face
+(defcenum (polygon-face enum)
   (:front #x404)
   (:back #x405)
   (:front-and-back #x408))
 
-(defcenum polygon-mode
+(defcenum (polygon-mode enum)
   (:point #x1B00)
   (:line #x1B01)
   (:fill #x1B02))
 
-(defcenum program-attribute-type
+(defcenum (program-attribute-type enum)
   (:float #x1406)
   (:float-vec2 #x8B50)
   (:float-vec3 #x8B51)
@@ -576,7 +574,7 @@
   (:float-mat3 #x8B5B)
   (:float-mat4 #x8B5C))
 
-(defcenum program-uniform-type
+(defcenum (program-uniform-type enum)
   (:float #x1406)
   (:float-vec2 #x8B50)
   (:float-vec3 #x8B51)
@@ -602,13 +600,13 @@
 
 ;;; Q
 
-(defcenum query-target
+(defcenum (query-target enum)
   (:samples-passed #x8914))
 
 
 ;;; R
 
-(defcenum render-mode
+(defcenum (render-mode enum)
   (:render )
   (:select)
   (:feedback))
@@ -616,7 +614,7 @@
 
 ;;; S
 
-(defcenum server-attributes
+(defcenum (server-attributes enum)
   (:current-bit #x1)
   (:point-bit #x2)
   (:line-bit #x4)
@@ -640,15 +638,15 @@
   (:multisample-bit #x20000000)
   (:all-attrib-bits #xFFFFF))
 
-(defcenum shade-model
+(defcenum (shade-model enum)
   (:smooth #x1D01)
   (:flat #x1D00))
 
-(defcenum shader-type
+(defcenum (shader-type enum)
   (:vertex-shader #x8b31)
   (:fragment-shader #x8b30))
 
-(defcenum stencil-op
+(defcenum (stencil-op enum)
   (:keep #x1E00)
   (:zero #x0)
   (:replace #x1E01)
@@ -658,7 +656,7 @@
   (:incr-wrap #x8507)
   (:decr-wrap #x8508))
 
-(defcenum string-name
+(defcenum (string-name enum)
   (:vendor #x1F00)
   (:renderer #x1F01)
   (:version #x1F02)
@@ -668,15 +666,15 @@
 
 ;;; T
 
-(defcenum texture-compare-mode
+(defcenum (texture-compare-mode enum)
   (:none #x0)
   (:compare-r-to-texture #x884E))
 
-(defcenum tex-image-1d-target
+(defcenum (tex-image-1d-target enum)
   (:texture-1d #xDE0)
   (:proxy-texture-1d #x8063))
 
-(defcenum tex-image-2d-target
+(defcenum (tex-image-2d-target enum)
   (:texture-2d #xDE1)
   (:proxy-texture-2d #x8064)
   (:proxy-texture-cube-map #x851B)
@@ -687,15 +685,15 @@
   (:texture-cube-map-negative-y #x8518)
   (:texture-cube-map-negative-z #x851A))
 
-(defcenum tex-image-3d-target
+(defcenum (tex-image-3d-target enum)
   (:texture-3d #x806F)
   (:proxy-texture-3d #x8070))
 
-(defcenum texture-mag-filter
+(defcenum (texture-mag-filter enum)
   (:nearest #x2600)
   (:linear #x2601))
 
-(defcenum texture-min-filter
+(defcenum (texture-min-filter enum)
   (:nearest #x2600)
   (:linear #x2601)
   (:nearest-mipmap-nearest #x2700)
@@ -703,7 +701,7 @@
   (:nearest-mipmap-linear #x2702)
   (:linear-mipmap-linear #x2703))
 
-(defcenum texture-name
+(defcenum (texture-name enum)
   (:texture0 #x84C0)
   (:texture1)
   (:texture2)
@@ -737,7 +735,7 @@
   (:texture30)
   (:texture31))
 
-(defcenum texture-parameter
+(defcenum (texture-parameter enum)
   (:texture-wrap-s #x2802)
   (:texture-wrap-t #x2803)
   (:texture-wrap-r #x8072)
@@ -755,13 +753,13 @@
   (:texture-compare-func #x884D)
   (:generate-mipmap #x8191))
 
-(defcenum texture-target
+(defcenum (texture-target enum)
   (:texture-1d #xDE0)
   (:texture-2d #xDE1)
   (:texture-3d #x806F)
   (:texture-cube-map #x8513))
 
-(defcenum texture-wrap-mode
+(defcenum (texture-wrap-mode enum)
   (:clamp #x2900)
   (:clamp-to-edge #x812F)
   (:clamp-to-border #x812D)

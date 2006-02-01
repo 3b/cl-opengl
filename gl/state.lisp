@@ -29,7 +29,6 @@
 
 (in-package :cl-opengl)
 
-
 ;;;
 ;;; Chapter 6 - State and State Requests
 ;;;
@@ -45,7 +44,7 @@
 
 (defcfun ("glEnable" %glEnable) :void (target enable-cap))
 (defcfun ("glDisable" %glDisable) :void (target enable-cap))
-(defcfun ("glIsEnabled" %glIsEnabled) GLboolean (target enable-cap))
+(defcfun ("glIsEnabled" %glIsEnabled) boolean (target enable-cap))
 
 ;; external
 (defun enable (&rest caps)
@@ -96,17 +95,13 @@
 (defun extension-present-p (name)
   (not (null (search name (get-string :extensions)))))
 
-
-
-
-
 ;;; 6.1.15 Saving and Restoring State
 
 (defcfun ("glPushAttrib" %glPushAttrib) :void
-  (mask GLbitfield))
+  (mask bitfield))
 
 (defcfun ("glPushClientAttrib" %glPushClientAttrib) :void
-  (mask GLbitfield))
+  (mask bitfield))
 
 (defun make-bitfield (enum-name attributes)
   (apply #'logior 0 (mapcar (lambda (x)

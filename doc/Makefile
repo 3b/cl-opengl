@@ -32,14 +32,12 @@
 
 docs:
 	sh gendocs.sh -o cl-opengl --html "--css-include=style.css" cl-opengl "CL-OpenGL User Manual"
-	sh gendocs.sh -o cl-glu --html "--css-include=style.css" cl-glu "CL-GLU User Manual"
-	sh gendocs.sh -o cl-glut --html "--css-include=style.css" cl-glut "CL-GLUT User Manual"
 
 clean:
 	find . \( -name "*.info" -o -name "*.aux" -o -name "*.cp" -o -name "*.fn" -o -name "*.fns" -o -name "*.ky" -o -name "*.log" -o -name "*.pg" -o -name "*.toc" -o -name "*.tp" -o -name "*.vr" \) -exec rm {} \;
-	rm -rf cl-opengl cl-glu cl-glut 
+	rm -rf cl-opengl
 
 upload-docs:
-	rsync -av --delete -e ssh cl-opengl cl-glu cl-glut common-lisp.net:/project/cl-opengl/public_html/manual/
+	rsync -av --delete -e ssh cl-opengl common-lisp.net:/project/cl-opengl/public_html/manual/
 
 # vim: ft=make ts=3 noet

@@ -1,8 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; file.extension --- Description.
+;;; init.lisp --- GLUT Initialization API.
 ;;;
-;;; Copyright (c) 2006, Oliver Markovic <entrox@entrox.org>
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
@@ -30,3 +29,50 @@
 ;;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+(in-package #:cl-glut)
+
+(defcfun ("glutInit" %glutInit) :void
+  (argcp :pointer)  ; int*
+  (argv  :pointer)) ; char**
+
+;;; Being paranoid about whether the memory allocated for argc and argv
+;;; should be kept around as opposed to free right after calling
+;;; %glutInit(). Is this really necessary? --luis
+
+(defparameter *argcp* (null-pointer))
+(defparameter *argv* (null-pointer))
+
+(defun init (&optional (program-name (lisp-implementation-type)))
+  (when (not (null-pointer-p *argcp*))
+    (foreign-free *argcp*))
+  (when (not (null-pointer-p *argv*))
+    (foreign-free (mem-aref *argv* :pointer 0))
+    (foreign-free *argv*))
+  (setq *argcp* (foreign-alloc :int :initial-element 1))
+  (setq *argv* (foreign-alloc
+                :pointer
+                :initial-element (foreign-string-alloc program-name)))
+  (%glutInit *argcp* *argv*))
+
+(defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
+  (mode :unsigned-int))
+
+(defun make-bitfield (enum-name attributes)
+  (apply #'logior 0 (mapcar (lambda (x)
+                              (foreign-enum-value enum-name x))
+                            attributes)))
+
+(defun init-display-mode (&rest options)
+  (declare (dynamic-extent options))
+  (%glutInitDisplayMode (make-bitfield 'display-mode options)))
+
+(defcfun ("glutInitWindowSize" init-window-size) :void
+  (width  :int)
+  (height :int))
+
+(defcfun ("glutInitWindowPosition" init-window-position) :void
+  (x :int)
+  (y :int))
+
+(defcfun ("glutMainLoop" main-loop) :void)

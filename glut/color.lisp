@@ -1,8 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; file.extension --- Description.
+;;; color.lisp --- GLUT Color Index Colormap Management API.
 ;;;
-;;; Copyright (c) 2006, Oliver Markovic <entrox@entrox.org>
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
@@ -30,3 +29,15 @@
 ;;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+(in-package #:cl-glut)
+
+(defcfun ("glutSetColor" %glutSetColor) :void
+  (ndx   :int)
+  (red   gl:float)
+  (green gl:float)
+  (blue  gl:float))
+
+(declaim (inline set-color))
+(defun set-color (cell red green blue)
+  (%glutSetColor cell (float red) (float green) (float blue)))

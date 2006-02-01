@@ -1,8 +1,8 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; library.lisp --- Foreign library definition
+;;; cl-glut-examples.asd --- ASDF system definition for various examples.
 ;;;
-;;; Copyright (C) 2006, Luis Oliveira  <loliveira@common-lisp.net>
+;;; Copyright (c) 2006, Luis Oliveira  <loliveira@common-lisp.net>
 ;;;   All rights reserved. 
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
@@ -30,11 +30,35 @@
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+(defpackage #:cl-glut-examples-system
+  (:use #:cl #:asdf))
+(in-package #:cl-glut-examples-system)
 
-(define-foreign-library opengl
-  (:darwin (:framework "OpenGL"))
-  (:windows "opengl32.dll")
-  (:unix (:or "libGL" "libGL.so.2" "libGL.so.1")))
+(defsystem cl-glut-examples
+  :description "Examples using cl-opengl, cl-glu and cl-glut."
+  :depends-on (cffi cl-opengl cl-glu cl-glut)
+  :components
+  ((:module "examples"
+    :components
+    ((:module "redbook"
+      :components
+      (#+nil(:file "redbook")
+       #+nil(:file "rb1-hello"  :depends-on ("redbook"))
+       #+nil(:file "rb2-double" :depends-on ("redbook"))
+       #+nil(:file "rb3-lines"  :depends-on ("redbook"))
+       #+nil(:file "rb4-polys"  :depends-on ("redbook"))
+       #+nil(:file "rb5-cube"   :depends-on ("redbook"))))
+     (:module "mesademos"
+      :components
+      (#+nil(:file "mesademos")
+       #+nil(:file "bounce"    :depends-on ("mesademos"))
+       #+nil(:file "gamma"     :depends-on ("mesademos"))
+       (:file "gears")
+       #+nil(:file "offset"    :depends-on ("mesademos"))
+       #+nil(:file "reflect"   :depends-on ("mesademos"))
+       #+nil(:file "spin"      :depends-on ("mesademos"))
+       #+nil(:file "tess-demo" :depends-on ("mesademos"))
+       #+nil(:file "texobj"    :depends-on ("mesademos"))
+       #+nil(:file "trdemo"    :depends-on ("mesademos"))))))))
 
-(use-foreign-library opengl)
+;;; vim: ft=lisp et

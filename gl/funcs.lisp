@@ -29,23 +29,22 @@
 
 (in-package :cl-opengl)
 
-
 ;;; A
 
 (defcfun ("glAccum" %glAccum) :void
   (op accum-op)
-  (value GLfloat))
+  (value float))
 
 (defcfun ("glActiveTexture" %glActiveTexture) :void
   (name texture-name))
 
 (defcfun ("glAlphaFunc" %glAlphaFunc) :void
   (func compare-func)
-  (ref GLclampf))
+  (ref clampf))
 
 (defcfun ("glAttachShader" %glAttachShader) :void
-  (program GLuint)
-  (shader GLuint))
+  (program uint)
+  (shader uint))
 
 ;;; B
 
@@ -54,18 +53,18 @@
 
 (defcfun ("glBeginQuery" %glBeginQuery) :void
   (target query-target)
-  (id GLuint))
+  (id uint))
 
 (defcfun ("glBindAttribLocation" %glBindAttribLocation) :void
-  (program GLuint)
-  (index GLuint)
+  (program uint)
+  (index uint)
   (name :pointer))
 
 (defcfun ("glBlendColor" %glBlendColor) :void
-  (red GLclampf)
-  (green GLclampf)
-  (blue GLclampf)
-  (alpha GLclampf))
+  (red clampf)
+  (green clampf)
+  (blue clampf)
+  (alpha clampf))
 
 (defcfun ("glBlendEquation" %glBlendEquation) :void
   (mode blend-equation))
@@ -84,128 +83,124 @@
   (src-alpha blend-func)
   (dst-alpha blend-func))
 
-
 ;;; C
 
 (defcfun ("glCallList" %glCallList) :void
-  (n GLuint))
+  (n uint))
 
 (defcfun ("glCallLists" %glCallLists) :void
-  (n GLsizei)
+  (n sizei)
   (type call-lists-type)
   (lists :pointer))
 
 (defcfun ("glClear" %glClear) :void
-  (bufs GLbitfield))
+  (bufs bitfield))
 
 (defcfun ("glClearAccum" %glClearAccum) :void
-  (r GLfloat)
-  (g GLfloat)
-  (b GLfloat)
-  (a GLfloat))
+  (r float)
+  (g float)
+  (b float)
+  (a float))
 
 (defcfun ("glClearColor" %glClearColor) :void
-  (r GLclampf)
-  (g GLclampf)
-  (b GLclampf)
-  (a GLclampf))
+  (r clampf)
+  (g clampf)
+  (b clampf)
+  (a clampf))
 
 (defcfun ("glClearDepth" %glClearDepth) :void
-  (depth GLclampd))
+  (depth clampd))
 
 (defcfun ("glClearIndex" %glClearIndex) :void
-  (index GLfloat))
+  (index float))
 
 (defcfun ("glClearStencil" %glClearStencil) :void
-  (s GLint))
+  (s int))
 
 (defcfun ("glClipPlane" %glClipPlane) :void
   (p clip-plane-name)
   (eqn :pointer))
 
 (defcfun ("glColor3f" %glColor3f) :void
-  (r GLfloat)
-  (g GLfloat)
-  (b GLfloat))
+  (r float)
+  (g float)
+  (b float))
 
 (defcfun ("glColor4f" %glColor4f) :void
-  (r GLfloat)
-  (g GLfloat)
-  (b GLfloat)
-  (a GLfloat))
+  (r float)
+  (g float)
+  (b float)
+  (a float))
 
 (defcfun ("glColorMask" %glColorMask) :void
-  (r GLboolean)
-  (g GLboolean)
-  (b GLboolean)
-  (a GLboolean))
+  (r boolean)
+  (g boolean)
+  (b boolean)
+  (a boolean))
 
 (defcfun ("glColorMaterial" %glColorMaterial) :void
   (face polygon-face)
   (mode color-material-mode))
 
 (defcfun ("glCompileShader" %glCompileShader) :void
-  (shader GLuint))
+  (shader uint))
 
 (defcfun ("glCopyPixels" %glCopyPixels) :void
-  (x GLint)
-  (y GLint)
-  (width GLsizei)
-  (height GLsizei)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
   (type copy-pixels-type))
 
-(defcfun ("glCreateProgram" %glCreateProgram) GLuint)
+(defcfun ("glCreateProgram" %glCreateProgram) uint)
 
-(defcfun ("glCreateShader" %glCreateShader) GLuint
+(defcfun ("glCreateShader" %glCreateShader) uint
   (type shader-type))
 
 (defcfun ("glCullFace" %glCullFace) :void
   (face polygon-face))
 
-
 ;;; D
 
 (defcfun ("glDeleteLists" %glDeleteLists) :void
-  (list GLuint)
-  (range GLsizei))
+  (list uint)
+  (range sizei))
 
 (defcfun ("glDeleteProgram" %glDeleteProgram) :void
-  (object GLuint))
+  (object uint))
 
 (defcfun ("glDeleteQueries" %glDeleteQueries) :void
-  (n GLsizei)
+  (n sizei)
   (ids :pointer))
 
 (defcfun ("glDeleteShader" %glDeleteShader) :void
-  (shader GLuint))
+  (shader uint))
 
 (defcfun ("glDepthFunc" %glDepthFunc) :void
   (func compare-func))
 
 (defcfun ("glDepthMask" %glDepthMask) :void
-  (mask GLboolean))
+  (mask boolean))
 
 (defcfun ("glDepthRange" %glDepthRange) :void
-  (n GLclampd)
-  (f GLclampd))
+  (n clampd)
+  (f clampd))
 
 (defcfun ("glDetachShader" %glDetachShader) :void
-  (program GLuint)
-  (shader GLuint))
+  (program uint)
+  (shader uint))
 
 (defcfun ("glDrawBuffer" %glDrawBuffer) :void
   (buffer draw-buffer))
 
 (defcfun ("glDrawBuffers" %glDrawBuffers) :void
-  (n GLsizei)
+  (n sizei)
   (bufs :pointer))
-
-
 
 ;;; E
 
 (defcfun ("glEdgeFlag" %glEdgeFlag) :void
-  (flag GLboolean))
+  (flag boolean))
 
 (defcfun ("glEnd" %glEnd) :void)
 
@@ -215,36 +210,35 @@
   (target query-target))
 
 (defcfun ("glEvalCoord1f" %glEvalCoord1f) :void
-  (x GLfloat))
+  (x float))
 
 (defcfun ("glEvalCoord2f" %glEvalCoord2f) :void
-  (x GLfloat)
-  (y GLfloat))
+  (x float)
+  (y float))
 
 (defcfun ("glEvalMesh1" %glEvalMesh1) :void
   (mode eval-mesh-1-mode)
-  (p1 GLint)
-  (p2 GLint))
+  (p1 int)
+  (p2 int))
 
 (defcfun ("glEvalMesh2" %glEvalMesh2) :void
   (mode eval-mesh-2-mode)
-  (p1 GLint)
-  (p2 GLint)
-  (q1 GLint)
-  (q2 GLint))
+  (p1 int)
+  (p2 int)
+  (q1 int)
+  (q2 int))
 
 (defcfun ("glEvalPoint1" %glEvalPoint1) :void
-  (p GLint))
+  (p int))
 
 (defcfun ("glEvalPoint2" %glEvalPoint2) :void
-  (p GLint)
-  (q GLint))
-
+  (p int)
+  (q int))
 
 ;;; F
 
 (defcfun ("glFeedbackBuffer" %glFeedbackBuffer) :void
-  (n GLsizei)
+  (n sizei)
   (type feedback-type)
   (buffer :pointer))
 
@@ -253,65 +247,63 @@
 (defcfun ("glFlush" %glFlush) :void)
 
 (defcfun ("glFogCoordf" %glFogCoordf) :void
-  (coord GLfloat))
+  (coord float))
 
 (defcfun ("glFogi" %glFogi) :void
   (pname fog-parameter)
-  (value GLint))
+  (value int))
 
 (defcfun ("glFogf" %glFogf) :void
   (pname fog-parameter)
-  (value GLfloat))
+  (value float))
 
 (defcfun ("glFrontFace" %glFrontFace) :void
   (dir face-direction))
 
 (defcfun ("glFrustum" %glFrustum) :void
-  (left GLdouble)
-  (right GLdouble)
-  (bottom GLdouble)
-  (top GLdouble)
-  (near GLdouble)
-  (far GLdouble))
-
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (near double)
+  (far double))
 
 ;;; G
 
-(defcfun ("glGenLists" %glGenLists) GLuint
-  (range GLsizei))
+(defcfun ("glGenLists" %glGenLists) uint
+  (range sizei))
 
 (defcfun ("glGenQueries" %glGenQueries) :void
-  (n GLsizei)
+  (n sizei)
   (ids :pointer))
 
 (defcfun ("glGetActiveAttrib" %glGetActiveAttrib) :void
-  (program GLuint)
-  (index GLuint)
-  (buffer-size GLsizei)
+  (program uint)
+  (index uint)
+  (buffer-size sizei)
   (length :pointer)
   (size :pointer)
   (type :pointer)
   (name :pointer))
 
 (defcfun ("glGetActiveUniform" %glGetActiveUniform) :void
-  (program GLuint)
-  (index GLuint)
-  (buffer-size GLsizei)
+  (program uint)
+  (index uint)
+  (buffer-size sizei)
   (length :pointer)
   (size :pointer)
   (type :pointer)
   (name :pointer))
 
-(defcfun ("glGetAttribLocation" %glGetAttribLocation) GLint
-  (program GLuint)
+(defcfun ("glGetAttribLocation" %glGetAttribLocation) int
+  (program uint)
   (name :pointer))
 
 (defcfun ("glGetError" %glGetError) gl-error)
 
-(defcfun ("glGetUniformLocation" %glGetUniformLocation) GLint
-  (program GLuint)
+(defcfun ("glGetUniformLocation" %glGetUniformLocation) int
+  (program uint)
   (name :pointer))
-
 
 ;;; H
 
@@ -319,33 +311,29 @@
   (target hint-target)
   (hint hint))
 
-
 ;;; I
 
 (defcfun ("glIndexi" %glIndexi) :void
-  (index GLint))
+  (index int))
 
 (defcfun ("glIndexMask" %glIndexMask) :void
-  (mask GLuint))
+  (mask uint))
 
 (defcfun ("glInitNames" %glInitNames) :void)
 
-(defcfun ("glIsList" %glIsList) GLboolean
-  (list GLuint))
-
+(defcfun ("glIsList" %glIsList) boolean
+  (list uint))
 
 ;;; J
 
-
 ;;; K
-
 
 ;;; L
 
 (defcfun ("glLightf" %glLightf) :void
   (light light-name)
   (pname light-parameter)
-  (param GLfloat))
+  (param float))
 
 (defcfun ("glLightfv" %glLightfv) :void
   (light light-name)
@@ -358,20 +346,20 @@
 
 (defcfun ("glLightModeli" %glLightModeli) :void
   (pname light-model-parameter)
-  (value GLint))
+  (value int))
 
 (defcfun ("glLineStipple" %glLineStipple) :void
-  (factor GLint)
-  (pattern GLushort))
+  (factor int)
+  (pattern ushort))
 
 (defcfun ("glLineWidth" %glLineWidth) :void
-  (width GLfloat))
+  (width float))
 
 (defcfun ("glLinkProgram" %glLinkProgram) :void
-  (program GLuint))
+  (program uint))
 
 (defcfun ("glListBase" %glListBase) :void
-  (base GLuint))
+  (base uint))
 
 (defcfun ("glLoadIdentity" %glLoadIdentity) :void)
 
@@ -379,7 +367,7 @@
   (matrix :pointer))
 
 (defcfun ("glLoadName" %glLoadName) :void
-  (name GLuint))
+  (name uint))
 
 (defcfun ("glLoadTransposeMatrixf" %glLoadTransposeMatrixf) :void
   (matrix :pointer))
@@ -387,46 +375,45 @@
 (defcfun ("glLogicOp" %glLogicOp) :void
   (op logic-op))
 
-
 ;;; M
 
 (defcfun ("glMap1f" %glMap1f) :void
   (target map1-target)
-  (u1 GLfloat)
-  (u2 GLfloat)
-  (stride GLint)
-  (order GLint)
+  (u1 float)
+  (u2 float)
+  (stride int)
+  (order int)
   (points :pointer))
 
 (defcfun ("glMap2f" %glMap2f) :void
   (target map2-target)
-  (u1 GLfloat)
-  (u2 GLfloat)
-  (ustride GLint)
-  (uorder GLint)
-  (v1 GLfloat)
-  (v2 GLfloat)
-  (vstride GLint)
-  (vorder GLint)
+  (u1 float)
+  (u2 float)
+  (ustride int)
+  (uorder int)
+  (v1 float)
+  (v2 float)
+  (vstride int)
+  (vorder int)
   (points :pointer))
 
 (defcfun ("glMapGrid1f" %glMapGrid1f) :void
-  (n GLint)
-  (u1 GLfloat)
-  (u2 GLfloat))
+  (n int)
+  (u1 float)
+  (u2 float))
 
 (defcfun ("glMapGrid2f" %glMapGrid2f) :void
-  (nu GLint)
-  (u1 GLfloat)
-  (u2 GLfloat)
-  (nv GLint)
-  (v1 GLfloat)
-  (v2 GLfloat))
+  (nu int)
+  (u1 float)
+  (u2 float)
+  (nv int)
+  (v1 float)
+  (v2 float))
 
 (defcfun ("glMaterialf" %glMaterialf) :void
   (face polygon-face)
   (pname material-parameter)
-  (param GLfloat))
+  (param float))
 
 (defcfun ("glMaterialfv" %glMaterialfv) :void
   (face polygon-face)
@@ -443,10 +430,10 @@
 
 (defcfun ("glMultiTexCoord4f" %glMultiTexCoord4f) :void
   (texture texture-name)
-  (s GLfloat)
-  (t* GLfloat)
-  (r GLfloat)
-  (q GLfloat))
+  (s float)
+  (t* float)
+  (r float)
+  (q float))
 
 (defcfun ("glMultMatrixf" %glMultMatrixf) :void
   (matrix :pointer))
@@ -454,63 +441,60 @@
 (defcfun ("glMultTransposeMatrixf" %glMultTransposeMatrixf) :void
   (matrix :pointer))
 
-
 ;;; N
 
 (defcfun ("glNewList" %glNewList) :void
-  (n GLuint)
+  (n uint)
   (mode display-list-mode))
 
 (defcfun ("glNormal3f" %glNormal3f) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
-
+  (x float)
+  (y float)
+  (z float))
 
 ;;; O
 
 (defcfun ("glOrtho" %glOrtho) :void
-  (left GLdouble)
-  (right GLdouble)
-  (bottom GLdouble)
-  (top GLdouble)
-  (near GLdouble)
-  (far GLdouble))
-
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (near double)
+  (far double))
 
 ;;; P
 
 (defcfun ("glPassThrough" %glPassThrough) :void
-  (token GLfloat))
+  (token float))
 
 (defcfun ("glPixelMapfv" %glPixelMapfv) :void
   (map pixel-map)
-  (size GLsizei)
+  (size sizei)
   (values :pointer))
 
 (defcfun ("glPixelStorei" %glPixelStorei) :void
   (pname pixel-store-mode)
-  (value GLint))
+  (value int))
 
 (defcfun ("glPixelStoref" %glPixelStoref) :void
   (pname pixel-store-mode)
-  (value GLfloat))
+  (value float))
 
 (defcfun ("glPixelTransferi" %glPixelTransferi) :void
   (pname pixel-transfer-mode)
-  (value GLint))
+  (value int))
 
 (defcfun ("glPixelTransferf" %glPixelTransferf) :void
   (pname pixel-transfer-mode)
-  (value GLfloat))
+  (value float))
 
 (defcfun ("glPointParameteri" %glPointParameteri) :void
   (pname point-parameter)
-  (value GLint))
+  (value int))
 
 (defcfun ("glPointParameterf" %glPointParameterf) :void
   (pname point-parameter)
-  (value GLfloat))
+  (value float))
 
 (defcfun ("glPointParameteriv" %glPointParameteriv) :void
   (pname point-parameter)
@@ -521,15 +505,15 @@
   (value :pointer))
 
 (defcfun ("glPointSize" %glPointSize) :void
-  (size GLfloat))
+  (size float))
 
 (defcfun ("glPolygonMode" %glPolygonMode) :void
   (face polygon-face)
   (mode polygon-mode))
 
-(defcfun ("glPolygonOffst" %glPolygonOffset) :void
-  (factor GLfloat)
-  (units GLfloat))
+(defcfun ("glPolygonOffset" %glPolygonOffset) :void
+  (factor float)
+  (units float))
 
 (defcfun ("glPopMatrix" %glPopMatrix) :void)
 
@@ -538,100 +522,97 @@
 (defcfun ("glPushMatrix" %glPushMatrix) :void)
 
 (defcfun ("glPushName" %glPushName) :void
-  (name GLuint))
-
+  (name uint))
 
 ;;; Q
-
 
 ;;; R
 
 (defcfun ("glRasterPos4f" %glRasterPos4f) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat)
-  (w GLfloat))
+  (x float)
+  (y float)
+  (z float)
+  (w float))
 
 (defcfun ("glReadBuffer" %glReadBuffer) :void
   (src draw-buffer))
 
 (defcfun ("glReadPixels" %glReadPixels) :void
-  (x GLint)
-  (y GLint)
-  (width GLsizei)
-  (height GLsizei)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))
 
 (defcfun ("glRectf" %glRectf) :void
-  (x1 GLfloat)
-  (y1 GLfloat)
-  (x2 GLfloat)
-  (y2 GLfloat))
+  (x1 float)
+  (y1 float)
+  (x2 float)
+  (y2 float))
 
-(defcfun ("glRenderMode" %glRenderMode) GLint
+(defcfun ("glRenderMode" %glRenderMode) int
   (mode render-mode))
 
 (defcfun ("glRotatef" %glRotatef) :void
-  (theta GLfloat)
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
-
+  (theta float)
+  (x float)
+  (y float)
+  (z float))
 
 ;;; S
 
 (defcfun ("glSampleCoverage" %glSampleCoverage) :void
-  (value GLclampf)
-  (invert GLboolean))
+  (value clampf)
+  (invert boolean))
 
 (defcfun ("glScalef" %glScalef) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
+  (x float)
+  (y float)
+  (z float))
 
 (defcfun ("glScissor" %glScissor) :void
-  (left GLint)
-  (bottom GLint)
-  (width GLsizei)
-  (height GLsizei))
+  (left int)
+  (bottom int)
+  (width sizei)
+  (height sizei))
 
 (defcfun ("glSecondaryColor3f" %glSecondaryColor3f) :void
-  (r GLfloat)
-  (g GLfloat)
-  (b GLfloat))
+  (r float)
+  (g float)
+  (b float))
 
 (defcfun ("glSelectBuffer" %glSelectBuffer) :void
-  (n GLsizei)
+  (n sizei)
   (buffer :pointer))
 
 (defcfun ("glShadeModel" %glShadeModel) :void
   (mode shade-model))
 
 (defcfun ("glShaderSource" %glShaderSource) :void
-  (shader GLuint)
-  (num-strings GLsizei)
+  (shader uint)
+  (num-strings sizei)
   (strings :pointer)
   (lengths :pointer))
 
 (defcfun ("glStencilFunc" %glStencilFunc) :void
   (func compare-func)
-  (ref GLint)
-  (mask GLuint))
+  (ref int)
+  (mask uint))
 
 (defcfun ("glStencilFuncSeparate" %glStencilFuncSeparate) :void
   (face polygon-face)
   (func compare-func)
-  (ref GLint)
-  (mask GLuint))
+  (ref int)
+  (mask uint))
 
 (defcfun ("glStencilMask" %glStencilMask) :void
-  (mask GLuint))
+  (mask uint))
 
 (defcfun ("glStencilMaskSeparate" %glStencilMaskSeparate) :void
   (face polygon-face)
-  (mask GLuint))
+  (mask uint))
 
 (defcfun ("glStencilOp" %glStencilOp) :void
   (sfail stencil-op)
@@ -644,36 +625,35 @@
   (dpfail stencil-op)
   (dppass stencil-op))
 
-
 ;;; T
 
 (defcfun ("glTexCoord1f" %glTexCoord1f) :void
-  (s GLfloat))
+  (s float))
 
 (defcfun ("glTexCoord2f" %glTexCoord2f) :void
-  (s GLfloat)
-  (t* GLfloat))
+  (s float)
+  (t* float))
 
 (defcfun ("glTexCoord3f" %glTexCoord3f) :void
-  (s GLfloat)
-  (t* GLfloat)
-  (r GLfloat))
+  (s float)
+  (t* float)
+  (r float))
 
 (defcfun ("glTexCoord4f" %glTexCoord4f) :void
-  (s GLfloat)
-  (t* GLfloat)
-  (r GLfloat)
-  (q GLfloat))
+  (s float)
+  (t* float)
+  (r float)
+  (q float))
 
 (defcfun ("glTexParameteri" %glTexParameteri) :void
   (target texture-target)
   (pname texture-parameter)
-  (param GLint))
+  (param int))
 
 (defcfun ("glTexParameterf" %glTexParameterf) :void
   (target texture-target)
   (pname texture-parameter)
-  (param GLfloat))
+  (param float))
 
 (defcfun ("glTexParameterfv" %glTexParameterfv) :void
   (target texture-target)
@@ -682,172 +662,166 @@
 
 (defcfun ("glTexImage1D" %glTexImage1D) :void
   (target tex-image-1d-target)
-  (level GLint)
-  (internal-format GLint)
-  (width GLsizei)
-  (border GLint)
+  (level int)
+  (internal-format int)
+  (width sizei)
+  (border int)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))
 
 (defcfun ("glTexImage2D" %glTexImage2D) :void
   (target tex-image-2d-target)
-  (level GLint)
-  (internal-format GLint)
-  (width GLsizei)
-  (height GLsizei)
-  (border GLint)
+  (level int)
+  (internal-format int)
+  (width sizei)
+  (height sizei)
+  (border int)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))
 
 (defcfun ("glTexImage3D" %glTexImage3D) :void
   (target tex-image-3d-target)
-  (level GLint)
-  (internal-format GLint)
-  (width GLsizei)
-  (height GLsizei)
-  (depth GLsizei)
-  (border GLint)
+  (level int)
+  (internal-format int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))
 
 (defcfun ("glTranslatef" %glTranslatef) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
-
+  (x float)
+  (y float)
+  (z float))
 
 ;;; U
 
 (defcfun ("glUniform1f" %glUniform1f) :void
-  (location GLint)
-  (x GLfloat))
+  (location int)
+  (x float))
 
 (defcfun ("glUniform2f" %glUniform2f) :void
-  (location GLint)
-  (x GLfloat)
-  (y GLfloat))
+  (location int)
+  (x float)
+  (y float))
 
 (defcfun ("glUniform3f" %glUniform3f) :void
-  (location GLint)
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
+  (location int)
+  (x float)
+  (y float)
+  (z float))
 
 (defcfun ("glUniform4f" %glUniform4f) :void
-  (location GLint)
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat)
-  (w GLfloat))
+  (location int)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
 
 (defcfun ("glUniform1i" %glUniform1i) :void
-  (location GLint)
-  (x GLint))
+  (location int)
+  (x int))
 
 (defcfun ("glUniform2i" %glUniform2i) :void
-  (location GLint)
-  (x GLint)
-  (y GLint))
+  (location int)
+  (x int)
+  (y int))
 
 (defcfun ("glUniform3i" %glUniform3i) :void
-  (location GLint)
-  (x GLint)
-  (y GLint)
-  (z GLint))
+  (location int)
+  (x int)
+  (y int)
+  (z int))
 
 (defcfun ("glUniform4i" %glUniform4i) :void
-  (location GLint)
-  (x GLint)
-  (y GLint)
-  (z GLint)
-  (w GLint))
+  (location int)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
 
 (defcfun ("glUniformMatrix2fv" %glUniformMatrix2fv) :void
-  (location GLint)
-  (count GLsizei)
-  (transpose GLboolean)
+  (location int)
+  (count sizei)
+  (transpose boolean)
   (value :pointer))
 
 (defcfun ("glUniformMatrix3fv" %glUniformMatrix3fv) :void
-  (location GLint)
-  (count GLsizei)
-  (transpose GLboolean)
+  (location int)
+  (count sizei)
+  (transpose boolean)
   (value :pointer))
 
 (defcfun ("glUniformMatrix4fv" %glUniformMatrix4fv) :void
-  (location GLint)
-  (count GLsizei)
-  (transpose GLboolean)
+  (location int)
+  (count sizei)
+  (transpose boolean)
   (value :pointer))
 
 (defcfun ("glUseProgram" %glUseProgram) :void
-  (program GLuint))
-
+  (program uint))
 
 ;;; V
 
 (defcfun ("glValidateProgram" %glValidateProgram) :void
-  (program GLuint))
+  (program uint))
 
 (defcfun ("glVertex2f" %glVertex2f) :void
-  (x GLfloat)
-  (y GLfloat))
+  (x float)
+  (y float))
 
 (defcfun ("glVertex3f" %glVertex3f) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
+  (x float)
+  (y float)
+  (z float))
 
 (defcfun ("glVertex4f" %glVertex4f) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat)
-  (w GLfloat))
+  (x float)
+  (y float)
+  (z float)
+  (w float))
 
 (defcfun ("glVertexAttrib1f" %glVertexAttrib1f) :void
-  (index GLuint)
-  (x GLfloat))
+  (index uint)
+  (x float))
 
 (defcfun ("glVertexAttrib2f" %glVertexAttrib2f) :void
-  (index GLuint)
-  (x GLfloat)
-  (y GLfloat))
+  (index uint)
+  (x float)
+  (y float))
 
 (defcfun ("glVertexAttrib3f" %glVertexAttrib3f) :void
-  (index GLuint)
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
+  (index uint)
+  (x float)
+  (y float)
+  (z float))
 
 (defcfun ("glVertexAttrib4f" %glVertexAttrib4f) :void
-  (index GLuint)
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat)
-  (w GLfloat))
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
 
 (defcfun ("glViewport" %glViewport) :void
-  (x GLint)
-  (y GLint)
-  (w GLsizei)
-  (h GLsizei))
-
+  (x int)
+  (y int)
+  (w sizei)
+  (h sizei))
 
 ;;; W
 
 (defcfun ("glWindowPos3f" %glWindowPos3f) :void
-  (x GLfloat)
-  (y GLfloat)
-  (z GLfloat))
-
+  (x float)
+  (y float)
+  (z float))
 
 ;;; X
 
-
 ;;; Y
-
 
 ;;; Z

@@ -1,8 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; file.extension --- Description.
+;;; types.lisp --- GLUT enum and bitfield definitions.
 ;;;
-;;; Copyright (c) 2006, Oliver Markovic <entrox@entrox.org>
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
@@ -30,3 +29,58 @@
 ;;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+(in-package #:cl-glut)
+
+;; XXX: fix defcenum in CFFI
+(defcenum display-mode
+  (:rgb 0)
+  ;(:rgba 0)
+  (:index 1)
+  ;(:single 0)
+  (:double 2)
+  (:accum 4)
+  (:alpha 8)
+  (:depth 16)
+  (:stencil 32)
+  (:multisample 128)
+  (:stereo 256)
+  (:luminance 512))
+
+(defcenum mouse-button
+  :left-button
+  :middle-button
+  :right-button)
+
+(defcenum mouse-button-state
+  :down
+  :up)
+
+(defcenum special-keys
+  ;; Function keys.
+  (:key-f1 1)
+  :key-f2
+  :key-f3
+  :key-f4
+  :key-f5
+  :key-f6
+  :key-f7
+  :key-f8
+  :key-f9
+  :key-f10
+  :key-f11
+  :key-f12
+  ;; Directional keys.
+  (:key-left 100)
+  :key-up
+  :key-right
+  :key-down
+  :key-page-up
+  :key-page-down
+  :key-home
+  :key-end
+  :key-insert)
+
+(defcenum visibility-state
+  :not-visible
+  :visible)

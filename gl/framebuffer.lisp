@@ -127,18 +127,18 @@ query object."
   "Returns N previously unused query object names in a list. These names are marked
 as used, but no object is associated with them until the first time they are used by
 BEGIN-QUERY."
-  (with-foreign-object (ids 'GLuint n)
+  (with-foreign-object (ids 'uint n)
     (%glGenQueries n ids)
     (loop for i below n
-          collecting (mem-aref ids 'GLuint i))))
+          collecting (mem-aref ids 'uint i))))
 
 (defun delete-queries (ids)
   "Deletes the names of the query objects contained in the sequence IDS."
   (let ((count (length ids)))
-    (with-foreign-object (id-array 'GLuint count)
+    (with-foreign-object (id-array 'uint count)
       (loop for id in ids
 	    counting id into i
-	    do (setf (mem-aref id-array 'GLuint (1- i)) id))
+	    do (setf (mem-aref id-array 'uint (1- i)) id))
       (%glDeleteQueries count id-array))))
 
 
@@ -209,7 +209,7 @@ enabled. Possible values are :CLEAR, :AND, :AND-REVERSE, :COPY, :AND-INVERTED,
   (%glDrawBuffer buffer))
 
 (defun draw-buffers (buffers)
-  (with-opengl-sequence (seq 'GLenum buffers)
+  (with-opengl-sequence (seq 'enum buffers)
     (%glDrawBuffers (length buffers) seq)))
 
 

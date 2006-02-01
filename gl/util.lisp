@@ -29,7 +29,6 @@
 
 (in-package :cl-opengl)
 
-
 ;;; the following three where taken from CFFI
 
 (defun starts-with (list x)
@@ -61,30 +60,28 @@
              variables temps)
       .,body)))))
 
-
 (defun symbolic-type->real-type (type)
   (ecase type
-    (:byte 'GLbyte)
-    (:unsigned-byte 'GLubyte)
-    (:bitmap 'GLubyte)
-    (:short 'GLshort)
-    (:unsigned-short 'GLushort)
-    (:int 'GLint)
-    (:unsigned-int 'GLuint)
-    (:float 'GLfloat)
-    (:unsigned-byte-3-3-2 'GLubyte)
-    (:unsigned-byte-2-3-3-rev 'GLubyte)
-    (:unsigned-short-5-6-5 'GLushort)
-    (:unsigned-short-5-6-5-rev 'GLushort)
-    (:unsigned-short-4-4-4-4 'GLushort)
-    (:unsigned-short-4-4-4-4-rev 'GLushort)
-    (:unsigned-short-5-5-5-1 'GLushort)
-    (:unsigned-short-1-5-5-5-rev 'GLushort)
-    (:unsigned-int-8-8-8-8 'GLuint)
-    (:unsigned-int-8-8-8-8-rev 'GLuint)
-    (:unsigned-int-10-10-10-2 'GLuint)
-    (:unsigned-int-2-10-10-10-rev 'GLuint)))
-
+    (:byte 'byte)
+    (:unsigned-byte 'ubyte)
+    (:bitmap 'ubyte)
+    (:short 'short)
+    (:unsigned-short 'ushort)
+    (:int 'int)
+    (:unsigned-int 'uint)
+    (:float 'float)
+    (:unsigned-byte-3-3-2 'ubyte)
+    (:unsigned-byte-2-3-3-rev 'ubyte)
+    (:unsigned-short-5-6-5 'ushort)
+    (:unsigned-short-5-6-5-rev 'ushort)
+    (:unsigned-short-4-4-4-4 'ushort)
+    (:unsigned-short-4-4-4-4-rev 'ushort)
+    (:unsigned-short-5-5-5-1 'ushort)
+    (:unsigned-short-1-5-5-5-rev 'ushort)
+    (:unsigned-int-8-8-8-8 'uint)
+    (:unsigned-int-8-8-8-8-rev 'uint)
+    (:unsigned-int-10-10-10-2 'uint)
+    (:unsigned-int-2-10-10-10-rev 'uint)))
 
 (defmacro with-opengl-array ((var type lisp-array) &body body)
   (check-type var symbol)
@@ -100,7 +97,6 @@
 (defmacro with-pixel-array ((var type lisp-array) &body body)
   `(with-opengl-array (,var (symbolic-type->real-type ,type) ,lisp-array)
      ,@body))
-
 
 (defmacro with-opengl-sequence ((var type lisp-sequence) &body body)
   (check-type var symbol)

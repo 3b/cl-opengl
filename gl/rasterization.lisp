@@ -48,9 +48,9 @@
     (:point-sprite-coord-origin
      (%glPointParameteri pname (foreign-enum-value 'point-sprite-coord-origin value)))
     (:point-distance-attenuation
-     (with-foreign-object (p 'GLfloat 3)
+     (with-foreign-object (p 'float 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'GLfloat i) (float (elt value i))))
+         (setf (mem-aref p 'float i) (float (elt value i))))
        (%glPointParameterfv pname p)))))
 
 
@@ -113,9 +113,9 @@
 
 (defun pixel-map (map values)
   (let ((n (length values)))
-    (with-foreign-object (p 'GLfloat n)
+    (with-foreign-object (p 'float n)
       (dotimes (i n)
-        (setf (mem-aref p 'GLfloat i) (float (elt values i))))
+        (setf (mem-aref p 'float i) (float (elt values i))))
       (%glPixelMapfv map n p))))
 
 
@@ -125,7 +125,7 @@
 (defcfun ("glColorTable" %glColorTable) :void
   (target color-table-name)
   (internal-format pixel-data-internal-format)
-  (width GLsizei)
+  (width sizei)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))
@@ -165,9 +165,9 @@
     (:texture-mag-filter
      (%glTexParameteri target pname (foreign-enum-value 'texture-mag-filter param)))
     (:texture-border-color
-     (with-foreign-object (array 'GLfloat 4)
+     (with-foreign-object (array 'float 4)
        (dotimes (i 4)
-         (setf (mem-aref array 'GLfloat i) (float (aref param i))))
+         (setf (mem-aref array 'float i) (float (aref param i))))
        (%glTexParameterfv target pname array)))
     ((:texture-priority :texture-min-lod :texture-max-lod)
      (%glTexParameterf target pname (float param)))
@@ -188,35 +188,35 @@
 ;; external
 (defcfun ("glBindTexture" bind-texture) :void
   (target texture-target)
-  (handle GLuint))
+  (handle uint))
 
 
 (defcfun ("glDeleteTextures" %glDeleteTextures) :void
-  (n GLsizei)
+  (n sizei)
   (textures :pointer))
 
 ;; external
 (defun delete-textures (&rest textures)
   (declare (dynamic-extent textures))
   (let ((count (length textures)))
-    (with-foreign-object (texture-array 'GLuint count)
+    (with-foreign-object (texture-array 'uint count)
       (loop for tex in textures
             counting tex into i
-            do (setf (mem-aref texture-array 'GLuint (1- i)) tex))
+            do (setf (mem-aref texture-array 'uint (1- i)) tex))
       (%glDeleteTextures count texture-array))
     count))
 
 
 (defcfun ("glGenTextures" %glGenTextures) :void
-  (n GLsizei)
+  (n sizei)
   (textures :pointer))
 
 ;; external
 (defun gen-textures (count)
-  (with-foreign-object (texture-array 'GLuint count)
+  (with-foreign-object (texture-array 'uint count)
     (%glGenTextures count texture-array)
     (loop for i below count
-	  collecting (mem-aref texture-array 'GLuint i))))
+          collecting (mem-aref texture-array 'uint i))))
 
 
 ;;;

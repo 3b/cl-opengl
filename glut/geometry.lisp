@@ -1,8 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; file.extension --- Description.
+;;; geometry.lisp --- GLUT Geometric Object Rendering API.
 ;;;
-;;; Copyright (c) 2006, Oliver Markovic <entrox@entrox.org>
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
@@ -30,3 +29,12 @@
 ;;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+(in-package #:cl-glut)
+
+(defcfun ("glutWireCube" %glutWireCube) :void
+  (size gl:double))
+
+(declaim (inline wire-cube))
+(defun wire-cube (size)
+  (%glutWireCube (float size 1.0d0)))

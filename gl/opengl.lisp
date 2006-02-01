@@ -29,7 +29,6 @@
 
 (in-package :cl-opengl)
 
-
 ;;;
 ;;; Chapter 2 - OpenGL Operation
 ;;;
@@ -39,7 +38,7 @@
 (define-condition opengl-error (simple-error)
   ((error-code :initarg :error-code :reader opengl-error.error-code))
   (:report (lambda (c s)
-	     (format s "OpenGL signalled ~A."
+             (format s "OpenGL signalled ~A."
                      (opengl-error.error-code c)))))
 
 (defun get-error ()
@@ -70,14 +69,11 @@
        (progn ,@body)
      (end)))
 
-
 ;;; 2.6.2 Polygon Edges
 
 (declaim (inline edge-flag))
 (defun edge-flag (flag)
   (%glEdgeFlag (if flag 1 0)))
-
-
 
 ;;;
 ;;; 2.7 Vertex Specification
@@ -119,8 +115,6 @@
 (defun vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
   (%glVertexAttrib4f index (float x) (float y) (float z) (float w)))
 
-
-
 ;;;
 ;;; 2.10 Rectangles
 ;;;
@@ -128,7 +122,6 @@
 (declaim (inline rect))
 (defun rect (x1 y1 x2 y2)
   (%glRectf (float x1) (float y1) (float x2) (float y2)))
-
 
 ;;;
 ;;; 2.11 Coordinate Transformations
@@ -144,7 +137,6 @@
 (defun viewport (x y width height)
   (%glViewport (truncate x) (truncate y) (truncate width) (truncate height)))
 
-
 ;;; 2.11.2 Matrices
 
 (defun matrix-mode (mode)
@@ -155,7 +147,6 @@
      (dotimes (i 16)
        (setf (mem-aref ,sym :float i) (row-major-aref ,matrix i)))
      ,@body))
-
 
 (defun load-matrix (matrix)
   (with-foreign-matrix (foreign-matrix matrix)
@@ -173,8 +164,6 @@
   (with-foreign-matrix (foreign-matrix matrix)
     (%glMultTransposeMatrixf foreign-matrix)))
 
-
-
 (declaim (inline rotate))
 (defun rotate (theta x y z)
   (%glRotatef (float theta) (float x) (float y) (float z)))
@@ -190,15 +179,14 @@
 (declaim (inline frustum))
 (defun frustum (left right bottom top near far)
   (%glFrustum (float left 1.0d0) (float right 1.0d0)
-	      (float bottom 1.0d0) (float top 1.0d0)
-	      (float near 1.0d0) (float far 1.0d0)))
+              (float bottom 1.0d0) (float top 1.0d0)
+              (float near 1.0d0) (float far 1.0d0)))
 
 (declaim (inline ortho))
 (defun ortho (left right bottom top near far)
   (%glOrtho (float left 1.0d0) (float right 1.0d0)
-	    (float bottom 1.0d0) (float top 1.0d0)
-	    (float near 1.0d0) (float far 1.0d0)))
-
+            (float bottom 1.0d0) (float top 1.0d0)
+            (float near 1.0d0) (float far 1.0d0)))
 
 (declaim (inline active-texture))
 (defun active-texture (texture)
@@ -216,7 +204,6 @@
 (defun pop-matrix ()
   (%glPopMatrix))
 
-
 ;;;
 ;;; 2.12 Clipping
 ;;;
@@ -224,9 +211,8 @@
 (defun clip-plane (plane eqn)
   (when (< (length eqn) 4)
     (error "EQN must have 4 coefficents."))
-  (with-opengl-sequence (p 'GLdouble eqn)
+  (with-opengl-sequence (p 'double eqn)
     (%glClipPlane plane p)))
-
 
 ;;;
 ;;; 2.13 Current Raster Position
@@ -239,8 +225,6 @@
 (declaim (inline window-pos))
 (defun window-pos (x y &optional (z 0.0))
   (%glWindowPos3f (float x) (float y) (float z)))
-
-
 
 ;;;
 ;;; 2.14 Colors and Coloring
@@ -257,44 +241,44 @@
 (defun material (face pname param)
   (ecase pname
     ((:ambient :diffuse :ambient-and-diffuse :specular :emission)
-     (with-foreign-object (p 'GLfloat 4)
+     (with-foreign-object (p 'float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'GLfloat i) (float (elt param i))))
+         (setf (mem-aref p 'float i) (float (elt param i))))
        (%glMaterialfv face pname p)))
     (:shininess
      (%glMaterialf face pname (float param)))
     (:color-indexes
-     (with-foreign-object (p 'GLint 3)
+     (with-foreign-object (p 'int 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'GLint i) (elt param i)))
+         (setf (mem-aref p 'int i) (elt param i)))
        (%glMaterialiv face pname p)))))
-
 
 (defun light (light pname value)
   (ecase pname
     ((:ambient :diffuse :specular :position)
-     (with-foreign-object (p 'GLfloat 4)
+     (with-foreign-object (p 'float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'GLfloat i) (float (elt value i))))
+         (setf (mem-aref p 'float i) (float (elt value i))))
        (%glLightfv light pname p)))
     (:spot-direction
-     (with-foreign-object (p 'GLfloat 3)
+     (with-foreign-object (p 'float 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'GLfloat i) (float (elt value i))))
+         (setf (mem-aref p 'float i) (float (elt value i))))
        (%glLightfv light pname p)))
-    ((:spot-exponent :spot-cutoff :constant-attenuation:linear-attenuation :quadratic-attenuation)
+    ((:spot-exponent :spot-cutoff :constant-attenuation :linear-attenuation
+      :quadratic-attenuation)
      (%glLightf light pname (float value)))))
-
 
 (defun light-model (pname value)
   (ecase pname
     (:light-model-ambient
-     (with-foreign-object (p 'GLfloat 4)
+     (with-foreign-object (p 'float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'GLfloat i) (float (elt value i))))
+         (setf (mem-aref p 'float i) (float (elt value i))))
        (%glLightModelfv pname p)))
     (:light-model-color-control
-     (%glLightmodeli pname (foreign-enum-value 'light-model-color-control value)))
+     (%glLightmodeli pname
+                     (foreign-enum-value 'light-model-color-control value)))
     ((:light-model-local-viewer :light-model-two-side)
      (%glLightModeli pname (if value 1 0)))))
 
@@ -310,8 +294,6 @@
 (declaim (inline shade-model))
 (defun shade-model (mode)
   (%glShadeModel mode))
-
-
 
 ;;;
 ;;; 2.15 Vertex Shaders
@@ -329,11 +311,10 @@
       ;; copy the list of Lisp strings into an array of C strings
       (loop for line in string-list
             count line into i
-            do (setf (mem-aref string-array :pointer (1- i)) (foreign-string-alloc line)))
-
+            do (setf (mem-aref string-array :pointer (1- i))
+                     (foreign-string-alloc line)))
         ;; set the source
         (%glShaderSource shader num-lines string-array (null-pointer))
-
         ;; free all allocated strings
         (dotimes (i num-lines)
           (foreign-string-free (mem-aref string-array :pointer i)))))
@@ -346,8 +327,6 @@
 (declaim (inline delete-shader))
 (defun delete-shader (shader)
   (%glDeleteShader shader))
-
-
 
 ;;; 2.15.2 Program Objects
 
@@ -369,25 +348,23 @@
 (defun delete-program (program)
   (%glDeleteProgram program))
 
-
-
 ;;; 2.15.3 Shader Variables
 
 (defun get-active-attrib (program index)
-  "Returns information about the active attribute variable at index INDEX in program PROGRAM
-as multiple values. 1: Size of attribute. 2: Type of attribute. 3: Name of attribute"
+  "Returns information about the active attribute variable at index INDEX in
+program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
+3: Name of attribute"
   ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written 'GLsizei)
-                         (size 'GLint)
+  (with-foreign-objects ((characters-written 'sizei)
+                         (size 'int)
                          (type :long)
-                         (name 'GLchar 1024))
+                         (name 'char 1024))
     (%glGetActiveAttrib program index 1024 characters-written size type name)
-
-    (when (< 0 characters-written)
-      (values (mem-ref size 'GLint)
-              (foreign-enum-keyword 'program-attribute-type (mem-ref type :long))
+    (when (< 0 (mem-ref characters-written 'sizei))
+      (values (mem-ref size 'int)
+              (foreign-enum-keyword 'program-attribute-type
+                                    (mem-ref type :long))
               (foreign-string-to-lisp name)))))
-
 
 (defun get-attrib-location (program name)
   (with-foreign-string (s name)
@@ -402,21 +379,19 @@ as multiple values. 1: Size of attribute. 2: Type of attribute. 3: Name of attri
     (%glGetUniformLocation program s)))
 
 (defun get-active-uniform (program index)
-  "Returns information about the active uniform attribute at index INDEX in program PROGRAM
-as multiple values. 1: Size of attribute. 2: Type of attribute. 3: Name of attribute"
+  "Returns information about the active uniform attribute at index INDEX in
+program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
+3: Name of attribute"
   ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written 'GLsizei)
-                         (size 'GLint)
+  (with-foreign-objects ((characters-written 'sizei)
+                         (size 'int)
                          (type :long)
-                         (name 'GLchar 1024))
+                         (name 'char 1024))
     (%glGetActiveUniform program index 1024 characters-written size type name)
-
-    (when (< 0 characters-written)
-      (values (mem-ref size 'GLint)
+    (when (< 0 (mem-ref characters-written 'sizei))
+      (values (mem-ref size 'int)
               (foreign-enum-keyword 'program-uniform-type (mem-ref type :long))
               (foreign-string-to-lisp name)))))
-
-
 
 (defun uniformi (location x &optional y z w)
   (cond
@@ -426,12 +401,12 @@ as multiple values. 1: Size of attribute. 2: Type of attribute. 3: Name of attri
     (x (%glUniform1i location x))))
 
 (define-compiler-macro uniformi (&whole form location x &optional y z w)
+  (declare (ignore form))
   (cond
     (w `(%glUniform4i ,location ,x ,y ,z ,w))
     (z `(%glUniform3i ,location ,x ,y ,z))
     (y `(%glUniform2i ,location ,x ,y))
     (x `(%glUniform1i ,location ,x))))
-
 
 (defun uniformf (location x &optional y z w)
   (cond
@@ -441,27 +416,30 @@ as multiple values. 1: Size of attribute. 2: Type of attribute. 3: Name of attri
     (x (%glUniform1f location (float x)))))
 
 (define-compiler-macro uniformf (&whole form location x &optional y z w)
+  (declare (ignore form))
   (cond
     (w `(%glUniform4f ,location ,(float x) ,(float y) ,(float z) ,(float w)))
     (z `(%glUniform3f ,location ,(float x) ,(float y) ,(float z)))
     (y `(%glUniform2f ,location ,(float x) ,(float y)))
     (x `(%glUniform1f ,location ,(float x)))))
 
-
 (defun uniform-matrix (location dim matrices &optional (transpose t))
-  (check-type dim '(integer 2 4))
+  (check-type dim (integer 2 4))
   (let ((matrix-count (length matrices))
         (matrix-size (* dim dim)))
-    (with-foreign-object (array 'GLfloat (* matrix-count matrix-size))
+    (with-foreign-object (array 'float (* matrix-count matrix-size))
       (dotimes (i matrix-count)
         (let ((matrix (aref matrices i)))
           (dotimes (j matrix-size)
-            (setf (mem-aref array 'GLfloat (* i j)) (row-major-aref matrix j)))))
+            (setf (mem-aref array 'float (* i j))
+                  (row-major-aref matrix j)))))
       (case dim
-        (2 (%glUniformMatrix2fv location matrix-count (if transpose 1 0) array))
-        (3 (%glUniformMatrix3fv location matrix-count (if transpose 1 0) array))
-        (4 (%glUniformMatrix4fv location matrix-count (if transpose 1 0) array))))))
-
+        (2 (%glUniformMatrix2fv
+            location matrix-count (if transpose 1 0) array))
+        (3 (%glUniformMatrix3fv
+            location matrix-count (if transpose 1 0) array))
+        (4 (%glUniformMatrix4fv
+            location matrix-count (if transpose 1 0) array))))))
 
 ;;; 2.15.4 Shader Execution
 

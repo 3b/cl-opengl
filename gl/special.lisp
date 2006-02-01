@@ -33,7 +33,6 @@
 ;;; Chapter 5 - Special Functions
 ;;;
 
-
 ;;;
 ;;; 5.1 Evaluators
 ;;;
@@ -42,9 +41,9 @@
   (let* ((stride (array-dimension points 1))
          (order (array-dimension points 0))
          (count (* stride order)))
-    (with-foreign-object (array 'GLfloat count)
+    (with-foreign-object (array 'float count)
       (dotimes (i count)
-        (setf (mem-aref array 'GLfloat i) (row-major-aref array i)))
+        (setf (mem-aref array 'float i) (row-major-aref points i)))
       (%glMap1f target (float u1) (float u2) stride order array))))
 
 (defun map2 (target u1 u2 v1 v2 points)
@@ -53,14 +52,13 @@
          (vstride (* ustride uorder))
          (vorder (array-dimension points 0))
          (count (* vorder ustride uorder)))
-    (with-foreign-object (array 'GLfloat count)
+    (with-foreign-object (array 'float count)
       (dotimes (i count)
-        (setf (mem-aref array 'GLfloat i) (row-major-aref array i)))
+        (setf (mem-aref array 'float i) (row-major-aref points i)))
       (%glMap2f target
                 (float u1) (float u2) ustride uorder
                 (float v1) (float v2) vstride vorder
                 array))))
-
 
 (declaim (inline eval-coord-1))
 (defun eval-coord-1 (x)

@@ -1,8 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; file.extension --- Description.
+;;; package.lisp --- cl-glut package definition.
 ;;;
-;;; Copyright (c) 2006, Oliver Markovic <entrox@entrox.org>
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
@@ -30,3 +29,44 @@
 ;;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+(in-package #:cl-user)
+
+(defpackage #:cl-glut
+  (:nicknames #:glut)
+  (:use #:cl #:cffi)
+  (:export
+   ;; Enums
+   mouse-button
+   mouse-button-state
+   special-keys
+   visibility-state
+   display-mode
+
+   ;; initialization api
+   init
+   init-display-mode
+   init-window-size
+   init-window-position
+   main-loop
+
+   ;; window api
+   create-window
+   post-redisplay
+   swap-buffers
+
+   ;; color index api
+   set-color
+   
+   ;; window callback api
+   display-func
+   reshape-func
+   keyboard-func
+   mouse-func
+   visibility-func
+   idle-func
+   special-func
+   
+   ;; geometry api
+   wire-cube
+   ))
