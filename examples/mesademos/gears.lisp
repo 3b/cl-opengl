@@ -8,6 +8,8 @@
   (:export #:run))
 (in-package #:mesademos-gears)
 
+;(declaim (optimize (speed 3) (safety 0) (compilation-speed 0) (debug 0)))
+
 (defconstant +pif+ (coerce pi 'single-float))
 
 (defun gear (inner-radius outer-radius width n-teeth tooth-depth)
@@ -153,8 +155,8 @@
   (let ((time (get-internal-real-time)))
     (when (= *t0* 0)
       (setq *t0* time))
-    (when (>= (- time *t0*) 5000)
-      (let* ((seconds (/ (- time *t0*) 1000.0))
+    (when (>= (- time *t0*) (* 5 internal-time-units-per-second))
+      (let* ((seconds (/ (- time *t0*) internal-time-units-per-second))
              (fps (/ *count* seconds)))
         (format *terminal-io* "~D frames in ~3,1F seconds = ~6,3F FPS~%"
                 *count* seconds fps))
