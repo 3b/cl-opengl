@@ -84,3 +84,11 @@
 (defcenum visibility-state
   :not-visible
   :visible)
+
+(defcenum window-state
+  (:action-on-close #x01F9))
+
+(defcenum window-state-value
+  :exit
+  :loop-returns
+  :continue-execution)

@@ -54,6 +54,7 @@
    create-window
    post-redisplay
    swap-buffers
+   set-option
 
    ;; color index api
    set-color

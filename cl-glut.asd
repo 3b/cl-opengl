@@ -53,7 +53,7 @@
      ;(:file "menu"       :depends-on ("types"))
      (:file "callbacks"  :depends-on ("types"))
      (:file "color"      :depends-on ("types"))
-     ;(:file "state"      :depends-on ("types"))
+     (:file "state"      :depends-on ("types"))
      ;(:file "fonts"      :depends-on ("types"))
      (:file "geometry"   :depends-on ("types"))))))
 
