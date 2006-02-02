@@ -38,6 +38,7 @@
   (:mult #x103)
   (:add #x104))
 
+
 ;;; B
 
 (defcenum (begin-mode enum)
@@ -122,6 +123,24 @@
   (:proxy-color-table #x80D3)
   (:proxy-post-convolution-color-table #x80D4)
   (:proxy-post-color-matrix-color-table #x80D5))
+
+(defcenum (combine-alpha-function enum)
+  (:replace #x1E01)
+  (:modulate #x2100)
+  (:add #x104)
+  (:add-signed #x8574)
+  (:interpolate #x8575)
+  (:subtract #x84E7))
+
+(defcenum (combine-rgb-function enum)
+  (:replace #x1E01)
+  (:modulate #x2100)
+  (:add #x104)
+  (:add-signed #x8574)
+  (:interpolate #x8575)
+  (:subtract #x84E7)
+  (:dot3-rgb #x86AE)
+  (:dot3-rgba #x86AF))
 
 (defcenum (compare-func enum)
   (:never #x200)
@@ -670,6 +689,18 @@
   (:none #x0)
   (:compare-r-to-texture #x884E))
 
+(defcenum (tex-env-point-sprite enum)
+  (:coord-replace #x8862))
+
+(defcenum (tex-env-texture-environment enum)
+  (:texture-env-mode #x2200)
+  (:texture-env-color #x2201)
+  (:combine-rgb #x8571)
+  (:combine-alpha #x8572))
+
+(defcenum (tex-env-texture-filter-control enum)
+  (:texture-lod-bias #x8501))
+
 (defcenum (tex-image-1d-target enum)
   (:texture-1d #xDE0)
   (:proxy-texture-1d #x8063))
@@ -688,6 +719,19 @@
 (defcenum (tex-image-3d-target enum)
   (:texture-3d #x806F)
   (:proxy-texture-3d #x8070))
+
+(defcenum (texture-environment-mode enum)
+  (:replace #x1E01)
+  (:modulate #x2100)
+  (:decal #x2101)
+  (:blend #xBE2)
+  (:add #x104)
+  (:combine #x8570))
+
+(defcenum (texture-environment-target enum)
+  (:point-sprite #x8861)
+  (:texture-env #x2300)
+  (:texture-filter-control #x8500))
 
 (defcenum (texture-mag-filter enum)
   (:nearest #x2600)

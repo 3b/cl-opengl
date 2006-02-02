@@ -127,13 +127,30 @@
    #:polygon-mode
    #:polygon-offset
    ;; 3.8.1 Texture Image Specification
+   #:tex-image-1d
    #:tex-image-2d
+   #:tex-image-3d
+   ;; 3.8.2 Alternate Texture Image Specification Commands
+   #:copy-tex-image-1d
+   #:copy-tex-image-2d
+   #:tex-sub-image-1d
+   #:tex-sub-image-2d
+   #:tex-sub-image-3d
+   #:copy-tex-sub-image-1d
+   #:copy-tex-sub-image-2d
+   #:copy-tex-sub-image-3d
    ;; 3.8.4 Texture Parameters
    #:tex-parameter
    ;; 3.8.12 Texture Objects
    #:bind-texture
    #:delete-textures
    #:gen-textures
+   #:are-textures-resident
+   #:prioritize-textures
+   #:texture-resident-p
+   #:prioritize-texture
+   ;; 3.8.13 Texture Environments and Texture Functions
+   #:tex-env
    ;; 3.10 Fog
    #:fog
    ;; 5.4 Display Lists

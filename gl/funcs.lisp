@@ -29,6 +29,7 @@
 
 (in-package :cl-opengl)
 
+
 ;;; A
 
 (defcfun ("glAccum" %glAccum) :void
@@ -46,6 +47,12 @@
   (program uint)
   (shader uint))
 
+(defcfun ("glAreTexturesResident" %glAreTexturesResident) boolean
+  (n sizei)
+  (textures :pointer)
+  (residences :pointer))
+
+
 ;;; B
 
 (defcfun ("glBegin" %glBegin) :void
@@ -59,6 +66,10 @@
   (program uint)
   (index uint)
   (name :pointer))
+
+(defcfun ("glBindTexture" %glBindTexture) :void
+  (target texture-target)
+  (handle uint))
 
 (defcfun ("glBlendColor" %glBlendColor) :void
   (red clampf)
@@ -82,6 +93,7 @@
   (dst-rgb blend-func)
   (src-alpha blend-func)
   (dst-alpha blend-func))
+
 
 ;;; C
 
@@ -152,6 +164,55 @@
   (height sizei)
   (type copy-pixels-type))
 
+(defcfun ("glCopyTexImage1D" %glCopyTexImage1D) :void
+  (target tex-image-1d-target)
+  (level int)
+  (internal-format int)
+  (x int)
+  (y int)
+  (width sizei)
+  (border int))
+
+(defcfun ("glCopyTexImage2D" %glCopyTexImage2D) :void
+  (target tex-image-2d-target)
+  (level int)
+  (internal-format int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (border int))
+
+
+(defcfun ("glCopyTexSubImage1D" %glCopyTexSubImage1D) :void
+  (target tex-image-1d-target)
+  (level int)
+  (xoffset int)
+  (x int)
+  (y int)
+  (width sizei))
+
+(defcfun ("glCopyTexSubImage3D" %glCopyTexSubImage3D) :void
+  (target tex-image-3d-target)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+(defcfun ("glCopyTexSubImage2D" %glCopyTexSubImage2D) :void
+  (target tex-image-2d-target)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
 (defcfun ("glCreateProgram" %glCreateProgram) uint)
 
 (defcfun ("glCreateShader" %glCreateShader) uint
@@ -159,6 +220,7 @@
 
 (defcfun ("glCullFace" %glCullFace) :void
   (face polygon-face))
+
 
 ;;; D
 
@@ -175,6 +237,10 @@
 
 (defcfun ("glDeleteShader" %glDeleteShader) :void
   (shader uint))
+
+(defcfun ("glDeleteTextures" %glDeleteTextures) :void
+  (n sizei)
+  (textures :pointer))
 
 (defcfun ("glDepthFunc" %glDepthFunc) :void
   (func compare-func))
@@ -276,6 +342,10 @@
 (defcfun ("glGenQueries" %glGenQueries) :void
   (n sizei)
   (ids :pointer))
+
+(defcfun ("glGenTextures" %glGenTextures) :void
+  (n sizei)
+  (textures :pointer))
 
 (defcfun ("glGetActiveAttrib" %glGetActiveAttrib) :void
   (program uint)
@@ -519,6 +589,11 @@
 
 (defcfun ("glPopName" %glPopName) :void)
 
+(defcfun ("glPrioritizeTextures" %glPrioritizeTextures) :void
+  (n sizei)
+  (textures :pointer)
+  (priorities :pointer))
+
 (defcfun ("glPushMatrix" %glPushMatrix) :void)
 
 (defcfun ("glPushName" %glPushName) :void
@@ -645,6 +720,26 @@
   (r float)
   (q float))
 
+(defcfun ("glTexEnvi" %glTexEnvi) :void
+  (target texture-environment-target)
+  (pname enum)
+  (param int))
+
+(defcfun ("glTexEnvf" %glTexEnvf) :void
+  (target texture-environment-target)
+  (pname enum)
+  (param float))
+
+(defcfun ("glTexEnviv" %glTexEnviv) :void
+  (target texture-environment-target)
+  (pname enum)
+  (params :pointer))
+
+(defcfun ("glTexEnvfv" %glTexEnvfv) :void
+  (target texture-environment-target)
+  (pname enum)
+  (params :pointer))
+
 (defcfun ("glTexParameteri" %glTexParameteri) :void
   (target texture-target)
   (pname texture-parameter)
@@ -689,6 +784,39 @@
   (height sizei)
   (depth sizei)
   (border int)
+  (format pixel-data-format)
+  (type pixel-data-type)
+  (data :pointer))
+
+(defcfun ("glTexSubImage1D" %glTexSubImage1D) :void
+  (target tex-image-1d-target)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format pixel-data-format)
+  (type pixel-data-type)
+  (data :pointer))
+
+(defcfun ("glTexSubImage2D" %glTexSubImage2D) :void
+  (target tex-image-2d-target)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format pixel-data-format)
+  (type pixel-data-type)
+  (data :pointer))
+
+(defcfun ("glTexSubImage3D" %glTexSubImage3D) :void
+  (target tex-image-3d-target)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
   (format pixel-data-format)
   (type pixel-data-type)
   (data :pointer))

@@ -138,6 +138,7 @@
 
 ;;; 3.8.1 Texture image specification
 
+
 (defun internal-format->int (format)
   (if (keywordp format)
       (foreign-enum-value 'pixel-data-internal-format format)
@@ -145,13 +146,69 @@
           format
           (error "Internal format must be either a keyword or an integer in the range [1,4]."))))
 
+(defun tex-image-3d (target level internal-format width height depth border format type data)
+  (let ((internal-size (internal-format->int internal-format)))
+    (if (pointerp data)
+        (%glTexImage3D target level internal-size width height depth border format type data )
+        (with-pixel-array (array type data)
+          (%glTexImage3D target level internal-size width height depth border format type array)))))
+
 (defun tex-image-2d (target level internal-format width height border format type data)
   (let ((internal-size (internal-format->int internal-format)))
     (if (pointerp data)
-        (%glTexImage2D target level internal-size width height border format type data )
+        (%glTexImage2D target level internal-size width height border format type data)
         (with-pixel-array (array type data)
           (%glTexImage2D target level internal-size width height border format type array)))))
 
+(defun tex-image-1d (target level internal-format width border format type data)
+  (let ((internal-size (internal-format->int internal-format)))
+    (if (pointerp data)
+        (%glTexImage1D target level internal-size width border format type data)
+        (with-pixel-array (array type data)
+          (%glTexImage1D target level internal-size width border format type array)))))
+
+
+;;; 3.8.2 Alternate Texture Image Specification Commands
+
+(defun copy-tex-image-2d (target level internal-format x y width height border)
+  (%glCopyTexImage2D target level (internal-format->int internal-format) x y width height border))
+
+(defun copy-tex-image-1d (target level internal-format x y width border)
+  (%glCopyTexImage1D target level (internal-format->int internal-format) x y width border))
+
+
+(defun tex-sub-image-1d (target level xoffset width format type data)
+  (if (pointerp data)
+      (%glTexSubImage1D target level xoffset width format type data)
+      (with-pixel-array (array type data)
+        (%glTexSubImage1D target level xoffset width format type array))))
+
+(defun tex-sub-image-2d (target level xoffset yoffset width height format type data)
+  (if (pointerp data)
+      (%glTexSubImage2D target level xoffset yoffset width height format type data)
+      (with-pixel-array (array type data)
+        (%glTexSubImage2D target level xoffset yoffset width height format type array))))
+
+(defun tex-sub-image-3d (target level xoffset yoffset zoffset width height depth format type data)
+  (if (pointerp data)
+      (%glTexSubImage3D target level xoffset yoffset zoffset width height depth format type data)
+      (with-pixel-array (array type data)
+        (%glTexSubImage3D target level xoffset yoffset zoffset width height depth format type array))))
+
+
+(defun copy-tex-sub-image-1d (target level xoffset x y width)
+  (%glCopyTexSubImage1D target level xoffset x y width))
+
+(defun copy-tex-sub-image-2d (target level xoffset yoffset x y width height)
+  (%glCopyTexSubImage2D target level xoffset yoffset x y width height))
+
+(defun copy-tex-sub-image-3d (target level xoffset yoffset zoffset x y width height)
+  (%glCopyTexSubImage3D target level xoffset yoffset zoffset x y width height))
+
+
+;;; 3.8.3 Compressed Texture Images
+
+;; TODO
 
 
 ;;; 3.8.4 Texture parameters
@@ -183,35 +240,16 @@
      (%glTexParameteri target pname (if param 1 0)))))
 
 
-;;; 3.8.12 Texture Objects
+;;; 3.8.12 Texture Objectsﬂ
 
-;; external
-(defcfun ("glBindTexture" bind-texture) :void
-  (target texture-target)
-  (handle uint))
+(declaim (inline bind-texture))
+(defun bind-texture (target handle)
+  (%glBindTexture target handle))
 
+(defun delete-textures (textures)
+  (with-opengl-sequence (array 'uint textures)
+    (%glDeleteTextures (length textures) array)))
 
-(defcfun ("glDeleteTextures" %glDeleteTextures) :void
-  (n sizei)
-  (textures :pointer))
-
-;; external
-(defun delete-textures (&rest textures)
-  (declare (dynamic-extent textures))
-  (let ((count (length textures)))
-    (with-foreign-object (texture-array 'uint count)
-      (loop for tex in textures
-            counting tex into i
-            do (setf (mem-aref texture-array 'uint (1- i)) tex))
-      (%glDeleteTextures count texture-array))
-    count))
-
-
-(defcfun ("glGenTextures" %glGenTextures) :void
-  (n sizei)
-  (textures :pointer))
-
-;; external
 (defun gen-textures (count)
   (with-foreign-object (texture-array 'uint count)
     (%glGenTextures count texture-array)
@@ -219,11 +257,81 @@
           collecting (mem-aref texture-array 'uint i))))
 
 
+;;; The following two functions look awkward to use, so we'll provide the two
+;;; lispier functions TEXTURE-RESIDENT-P and PRIORITIZE-TEXTURE, which can be
+;;; used in mapping functions or like (every #'texture-resident-p texture-list).
+
+(defun are-textures-resident (textures)
+  (let ((count (length textures)))
+    (with-opengl-sequence (texture-array 'uint textures)
+      (with-foreign-object (residence-array 'boolean count)
+        (if (zerop (%glAreTexturesResident count texture-array residence-array))
+            (loop for i below count
+                  collecting (mem-aref residence-array 'boolean i))
+            t)))))
+
+(defun prioritize-textures (textures priorities)
+  (let ((texture-count (length textures))
+        (priority-count (length priorities)))
+    (when (/= texture-count priority-count)
+      (error "There needs to be an equal number of textures and priorities."))
+    (with-opengl-sequence (texture-array 'uint textures)
+      (with-opengl-sequence (priority-array 'clampf priorities)
+        (%glPrioritizeTextures texture-count texture-array priority-array)))))
+
+
+(defun texture-resident-p (texture)
+  (with-foreign-objects ((texture-pointer 'uint)
+                         (residence-pointer 'boolean))
+    (setf (mem-ref texture-pointer 'uint) texture)
+    (not (zerop (%glAreTexturesResident 1 texture-pointer residence-pointer)))))
+
+(defun prioritize-texture (texture priority)
+  (with-foreign-objects ((texture-pointer 'uint)
+                         (priority-pointer 'clampf))
+    (setf (mem-ref texture-pointer 'uint) texture
+          (mem-ref priority-pointer 'clampf) (float priority))
+    (%glPrioritizeTextures 1 texture-pointer priority-pointer)))
+
+
+;;; 3.8.13 Texture Environments and Texture Functions
+
+
+;;; Ye gods, have mercy!
+
+(defun tex-env (target pname value)
+  (let (pname-value)
+    (ecase target
+      (:texture-filter-control
+       (setf pname-value (foreign-enum-value 'tex-env-texture-filter-control pname))
+       (ecase pname
+         (:texture-lod-bias (%glTexEnvf target pname-value (float value)))))
+
+      (:texture-env
+       (setf pname-value (foreign-enum-value 'tex-env-texture-environment pname))
+       (ecase pname
+         (:texture-env-mode
+          (%glTexEnvi target pname-value (foreign-enum-value 'texture-environment-mode value)))
+         (:texture-env-color
+          (with-foreign-object (p 'float 4)
+            (dotimes (i 4)
+              (setf (mem-aref p 'float i) (float (elt value i))))
+            (%glTexEnvfv target pname-value p)))
+         (:combine-rgb
+          (%glTexEnvi target pname-value (foreign-enum-value 'combine-rgb-function value)))
+         (:combine-alpha
+          (%glTexEnvi target pname-value (foreign-enum-value 'combine-alpha-function value)))))
+
+     (:point-sprite
+      (setf pname-value (foreign-enum-value 'tex-env-point-sprite pname))
+      (ecase pname
+        (:coord-replace (%glTexEnvi target pname-value (if value 1 0))))))))
+
+
 ;;;
 ;;; 3.10 Fog
 ;;;
 
-;; external
 (defun fog (pname param)
   (ecase pname
     (:fog-mode
