@@ -119,6 +119,7 @@
 (defvar *angle* 0.0)
 (defvar *limit*)
 (defvar *count* 1)
+(defvar *t0* 0)
 
 (cffi:defcallback draw :void ()
   (gl:clear :color-buffer-bit :depth-buffer-bit)
@@ -147,9 +148,18 @@
   ;; ..
   (gl:pop-matrix)
   (glut:swap-buffers)
-  ;(incf *count*)
-  ;; if count == limit: exit
-  )
+  ;; Calculating frame rate
+  (incf *count*)   ; if count == limit: exit? nahhh
+  (let ((time (get-internal-real-time)))
+    (when (= *t0* 0)
+      (setq *t0* time))
+    (when (>= (- time *t0*) 5000)
+      (let* ((seconds (/ (- time *t0*) 1000.0))
+             (fps (/ *count* seconds)))
+        (format *terminal-io* "~D frames in ~3,1F seconds = ~6,3F FPS~%"
+                *count* seconds fps))
+      (setq *t0* time)
+      (setq *count* 0))))
 
 (cffi:defcallback idle :void ()
   (incf *angle* 2.0)
