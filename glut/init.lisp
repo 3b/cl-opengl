@@ -43,36 +43,63 @@
 (defparameter *argcp* (null-pointer))
 (defparameter *argv* (null-pointer))
 
+#-(and)
+(defvar *initialized* nil)
+
+;;; Could a with-glut macro be useful too? It would just call
+;;; init and eval its body though...
 (defun init (&optional (program-name (lisp-implementation-type)))
-  (when (not (null-pointer-p *argcp*))
-    (foreign-free *argcp*))
-  (when (not (null-pointer-p *argv*))
-    (foreign-free (mem-aref *argv* :pointer 0))
-    (foreign-free *argv*))
-  (setq *argcp* (foreign-alloc :int :initial-element 1))
-  (setq *argv* (foreign-alloc
-                :pointer
-                :initial-element (foreign-string-alloc program-name)))
-  (%glutInit *argcp* *argv*))
+  (unless (getp :init-state)
+    ;; freeglut will exit() if we try to call initGlut() when
+    ;; things are already initialized.
+    (when (not (null-pointer-p *argcp*))
+      (foreign-free *argcp*))
+    (when (not (null-pointer-p *argv*))
+      (foreign-free (mem-aref *argv* :pointer 0))
+      (foreign-free *argv*))
+    (setq *argcp* (foreign-alloc :int :initial-element 1))
+    (setq *argv* (foreign-alloc
+                  :pointer
+                  :initial-element (foreign-string-alloc program-name)))
+    (%glutInit *argcp* *argv*)
+    ;; By default, we choose the saner option to return from the event
+    ;; loop on window close instead of exit()ing.
+    (set-action-on-window-close :action-glutmainloop-returns)
+    #-(and)(setq *initialized* t)))
+
+;;; We call init at load-time in order to ensure a usable glut as
+;;; often as possible. Also, we call init when the main event loop
+;;; returns in main.lisp. We do this to avoid having freeglut call
+;;; exit() when performing some operation that needs previous
+;;; initialization.
+(init)
+
+;;; Previous approach:
+;;; We use this function throught the code to init freeglut
+;;; whenever that is required in order to avoid it calling exit()
+;(declaim (inline ensure-init))
+#-(and)
+(defun ensure-init ()
+  (unless *initialized*
+    (warn "Implicitely calling glutInit() in order to avoid shutdown!")
+    (init)))
 
 (defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
-  (mode :unsigned-int))
+  (mode display-mode))
 
-(defun make-bitfield (enum-name attributes)
-  (apply #'logior 0 (mapcar (lambda (x)
-                              (foreign-enum-value enum-name x))
-                            attributes)))
-
+;;; freeglut_ext.h says: "Only one GLUT_AUXn bit may be used at a time."
 (defun init-display-mode (&rest options)
   (declare (dynamic-extent options))
-  (%glutInitDisplayMode (make-bitfield 'display-mode options)))
+  (%glutInitDisplayMode options))
 
-(defcfun ("glutInitWindowSize" init-window-size) :void
-  (width  :int)
-  (height :int))
+;;; useless?
+(defcfun ("glutInitDisplayString" init-display-string) :void
+  (display-mode :string))
 
 (defcfun ("glutInitWindowPosition" init-window-position) :void
   (x :int)
   (y :int))
 
-(defcfun ("glutMainLoop" main-loop) :void)
+(defcfun ("glutInitWindowSize" init-window-size) :void
+  (width  :int)
+  (height :int))

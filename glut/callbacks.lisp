@@ -34,30 +34,120 @@
 
 ;;; Low-level functions (exported nevertheless)
 
-(defcfun ("glutDisplayFunc" display-func) :void
-  ;; void (*func)(void)
-  (callback-pointer :pointer))
+(defcfun ("glutTimerFunc" timer-func) :void
+  (millis :unsigned-int)
+  (callback-pointer :pointer) ; void (*func)(int value)
+  (value :int))
 
-(defcfun ("glutReshapeFunc" reshape-func) :void
-  ;; void (*func)(int width, int height)
+(defcfun ("glutIdleFunc" idle-func) :void
+   ;; void (*func)(void)
   (callback-pointer :pointer))
 
 (defcfun ("glutKeyboardFunc" keyboard-func) :void
-  ;; void (*func)(unsigned char int, int state, int x, int y)
-  (callback-pointer :pointer))
-
-(defcfun ("glutMouseFunc" mouse-func) :void
-  ;; void (*func)(int button, int state, int x, int y)
+  ;; void (*func)(unsigned char int, int x, int y)
   (callback-pointer :pointer))
 
 (defcfun ("glutSpecialFunc" special-func) :void
   ;; void (*func)(int key, int x, int y)
   (callback-pointer :pointer))
 
+(defcfun ("glutReshapeFunc" reshape-func) :void
+  ;; void (*func)(int width, int height)
+  (callback-pointer :pointer))
+
 (defcfun ("glutVisibilityFunc" visibility-func) :void
    ;; void (*func)(int state)
   (callback-pointer :pointer))
 
-(defcfun ("glutIdleFunc" idle-func) :void
-   ;; void (*func)(void)
+(defcfun ("glutDisplayFunc" display-func) :void
+  ;; void (*func)(void)
+  (callback-pointer :pointer))
+
+(defcfun ("glutMouseFunc" mouse-func) :void
+  ;; void (*func)(int button, int state, int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutMotionFunc" motion-func) :void
+  ;; void (*func)(int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutEntryFunc" entry-func) :void
+  ;; void (*func)(int state)
+  (callback-pointer :pointer))
+
+(defcfun ("glutMenuStateFunc" menu-state-func) :void
+  ;; void (*func)(int state)
+  (callback-pointer :pointer))
+
+(defcfun ("glutSpaceballMotionFunc" spaceball-motion-func) :void
+  ;; void (*func)(int x, int y, int z)
+  (callback-pointer :pointer))
+
+(defcfun ("glutSpaceballRotateFunc" spaceball-rotate-func) :void
+  ;; void (*func)(int x, int y, int z)
+  (callback-pointer :pointer))
+
+(defcfun ("glutSpaceballButtonFunc" spaceball-button-func) :void
+  ;; void (*func)(int button, int state)
+  (callback-pointer :pointer))
+
+(defcfun ("glutButtonBoxFunc" button-box-func) :void
+  ;; void (*func)(int button, int state)
+  (callback-pointer :pointer))
+
+(defcfun ("glutDialsFunc" dials-func) :void
+  ;; void (*func)(int dial, int value)
+  (callback-pointer :pointer))
+
+(defcfun ("glutTabletMotionFunc" tablet-motion-func) :void
+  ;; void (*func)(int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutTabletButtonFunc" tablet-button-func) :void
+  ;; void (*func)(int button, int state, int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutMenuStatusFunc" menu-status-func) :void
+  ;; void (*func)(int status, int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutOverlayDisplayFunc" overlay-display-func) :void
+  ;; void (*func)(void)
+  (callback-pointer :pointer))
+
+(defcfun ("glutWindowStatusFunc" window-status-func) :void
+  ;; void (*func)(int state)
+  (callback-pointer :pointer))
+
+(defcfun ("glutKeyboardUpFunc" keyboard-up-func) :void
+  ;; void (*func)(unsigned char key, int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutSpecialUpFunc" special-up-func) :void
+  ;; void (*func)(int key, int x, int y)
+  (callback-pointer :pointer))
+
+(defcfun ("glutJoystickFunc" joystick-func) :void
+  ;; void (*func)(unsigned int buttonMask, int x, int y, int z)
+  (callback-pointer :pointer)
+  (poll-interval :int))
+
+;; freeglut ext
+(defcfun ("glutMouseWheelFunc" mouse-wheel-func) :void
+  ;; void (*func)(int button, int pressed, int x, int y)
+  (callback-pointer :pointer))
+
+;; freeglut ext
+(defcfun ("glutCloseFunc" close-func) :void
+  ;; void (*func)(void)
+  (callback-pointer :pointer))
+
+;; freeglut ext
+(defcfun ("glutWMCloseFunc" wm-close-func) :void
+  ;; void (*func)(void)
+  (callback-pointer :pointer))
+
+;; freeglut ext
+(defcfun ("glutMenuDestroyFunc" menu-destroy-func) :void
+  ;; void (*func)(void)
   (callback-pointer :pointer))

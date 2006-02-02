@@ -34,8 +34,8 @@
 (in-package :cl-glut)
 
 (define-foreign-library glut
-  (:darwin (:framework "GLUT"))
-  (:windows "opengl32.dll") ; XXX: certainly wrong
+  (:darwin (:or "libglut.dylib" "libglut.3.dylib" #-(and)(:framework "GLUT")))
+  (:windows "freeglut.dll") ; XXX: is this right?
   (:unix (:or "libglut.so" "libglut.so.3")))
 
 (use-foreign-library glut)

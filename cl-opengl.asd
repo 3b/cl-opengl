@@ -41,7 +41,7 @@
      (:file "library" :depends-on ("package"))
      (:file "types" :depends-on ("package"))
      (:file "enums" :depends-on ("types"))
-     (:file "funcs" :depends-on ("enums"))
+     (:file "funcs" :depends-on ("enums" "library"))
      (:file "util" :depends-on ("enums" "types"))
      (:file "opengl" :depends-on ("funcs" "util"))
      (:file "rasterization" :depends-on ("funcs" "util"))

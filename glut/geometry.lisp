@@ -32,9 +32,100 @@
 
 (in-package #:cl-glut)
 
-(defcfun ("glutWireCube" %glutWireCube) :void
-  (size gl:double))
+(defctype coerce-to-double gl:double)
 
-(declaim (inline wire-cube))
-(defun wire-cube (size)
-  (%glutWireCube (float size 1.0d0)))
+(defmethod translate-to-foreign (value (type (eql 'coerce-to-double)))
+  (float value 1.0d0))
+
+;;; Functions.
+
+(defcfun ("glutWireCube" wire-cube) :void
+  (size coerce-to-double))
+
+(defcfun ("glutSolidCube" solid-cube) :void
+  (size coerce-to-double))
+
+(defcfun ("glutWireSphere" wire-sphere) :void
+  (radius coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))
+
+(defcfun ("glutSolidSphere" solid-sphere) :void
+  (radius coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))
+
+(defcfun ("glutWireCone" wire-cone) :void
+  (base coerce-to-double)
+  (height coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))
+
+(defcfun ("glutSolidCone" solid-cone) :void
+  (base coerce-to-double)
+  (height coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))
+
+(defcfun ("glutWireTorus" wire-torus) :void
+  (inner-radius coerce-to-double)
+  (outer-radius coerce-to-double)
+  (slices gl:int)
+  (rings gl:int))
+
+(defcfun ("glutSolidTorus" solid-torus) :void
+  (inner-radius coerce-to-double)
+  (outer-radius coerce-to-double)
+  (slices gl:int)
+  (rings gl:int))
+
+(defcfun ("glutWireDodecahedron" wire-dodecahedron) :void)
+(defcfun ("glutWireOctahedron" wire-octahedron) :void)
+(defcfun ("glutWireTetrahedron" wire-tetrahedron) :void)
+(defcfun ("glutWireIcosahedron" wire-icosahedron) :void)
+
+(defcfun ("glutSolidDodecahedron" solid-dodecahedron) :void)
+(defcfun ("glutSolidOctahedron" solid-octahedron) :void)
+(defcfun ("glutSolidTetrahedron" solid-tetrahedron) :void)
+(defcfun ("glutSolidIcosahedron" solid-icosahedron) :void)
+
+(defcfun ("glutWireTeapot" wire-teapot) :void
+  (size coerce-to-double))
+
+(defcfun ("glutSolidTeapot" solid-teapot) :void
+  (size coerce-to-double))
+
+;;; The following are freeglut extensions:
+
+(defcfun ("glutWireRhombicDodecahedron" wire-rhombic-dodecahedron) :void)
+(defcfun ("glutSolidRhombicDodecahedron" solid-rhombic-dodecahedron) :void)
+
+(defcfun ("glutWireSierpinskiSponge" %glutWireSierpinskiSponge) :void
+  (num-levels :int)
+  (offset-seq :pointer) ; GLdouble offset[3]
+  (scale coerce-to-double))
+
+(defun wire-sierpinski-sponge (num-levels offset-seq scale)
+  (gl::with-opengl-sequence (offset 'gl:double offset-seq)
+    (%glutWireSierpinskiSponge num-levels offset scale)))
+
+(defcfun ("glutSolidSierpinskiSponge" %glutSolidSierpinskiSponge) :void
+  (num-levels :int)
+  (offset-seq :pointer) ; GLdouble offset[3]
+  (scale coerce-to-double))
+
+(defun solid-sierpinski-sponge (num-levels offset-seq scale)
+  (gl::with-opengl-sequence (offset 'gl:double offset-seq)
+    (%glutSolidSierpinskiSponge num-levels offset scale)))
+
+(defcfun ("glutWireCylinder" wire-cylinder) :void
+  (radius coerce-to-double)
+  (height coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))
+
+(defcfun ("glutSolidCylinder" solid-cylinder) :void
+  (radius coerce-to-double)
+  (height coerce-to-double)
+  (slices gl:int)
+  (stacks gl:int))

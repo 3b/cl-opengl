@@ -147,7 +147,7 @@
   ;; ..
   (gl:pop-matrix)
   (glut:swap-buffers)
-  (incf *count*)
+  ;(incf *count*)
   ;; if count == limit: exit
   )
 
@@ -159,7 +159,7 @@
   (case (code-char key)
     (#\z (incf *view-rotz* 5.0))
     (#\Z (decf *view-rotz* 5.0))
-    (#\Esc (write-line "exiting?")))
+    (#\Esc (glut:leave-main-loop)))
   (glut:post-redisplay))
 
 (cffi:defcallback special :void ((key glut:special-keys) (x :int) (y :int))

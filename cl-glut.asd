@@ -35,7 +35,7 @@
 (in-package #:cl-glut-system)
 
 (defsystem cl-glut
-  :description "Common Lisp bindings to the GLUT API v3."
+  :description "Common Lisp bindings to Freeglut."
   :author "Luis Oliveira  <loliveira@common-lisp.net>"
   :version "0.1.0"
   :licence "BSD"
@@ -44,17 +44,17 @@
   ((:module "glut"
     :components
     ((:file "package")
-     (:file "library"    :depends-on ("package"))
-     (:file "types"      :depends-on ("library"))
-     (:file "init"       :depends-on ("types"))
-     ;(:file "event-loop" :depends-on ("types"))
-     (:file "window"     :depends-on ("types"))
-     ;(:file "overlay"    :depends-on ("types"))
-     ;(:file "menu"       :depends-on ("types"))
-     (:file "callbacks"  :depends-on ("types"))
-     (:file "color"      :depends-on ("types"))
-     (:file "state"      :depends-on ("types"))
-     ;(:file "fonts"      :depends-on ("types"))
-     (:file "geometry"   :depends-on ("types"))))))
+     (:file "library"   :depends-on ("package"))
+     (:file "types"     :depends-on ("library"))
+     (:file "state"     :depends-on ("types"))
+     (:file "init"      :depends-on ("types" "state"))
+     (:file "main"      :depends-on ("types" "init"))     
+     (:file "window"    :depends-on ("types"))
+     (:file "overlay"   :depends-on ("types"))
+     (:file "menu"      :depends-on ("types"))
+     (:file "callbacks" :depends-on ("types"))
+     (:file "misc"      :depends-on ("types")) 
+     (:file "fonts"     :depends-on ("types"))
+     (:file "geometry"  :depends-on ("types"))))))
 
 ;; vim: ft=lisp et

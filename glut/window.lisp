@@ -32,7 +32,7 @@
 
 (in-package #:cl-glut)
 
-(defcfun ("glutCreateWindow" %glutCreateWindow) :void
+(defcfun ("glutCreateWindow" %glutCreateWindow) :int
   (title :pointer))
 
 ;;; Being paranoid about whether the memory allocated for title
@@ -47,5 +47,53 @@
   (setq *create-window-title-string* (foreign-string-alloc title))
   (%glutCreateWindow *create-window-title-string*))
 
+(defcfun ("glutCreateSubWindow" create-sub-window) :int
+  (window-id :int)
+  (x :int)
+  (y :int)
+  (width :int)
+  (height :int))
+
+(defcfun ("glutDestroyWindow" destroy-window) :void
+  (window-id :int))
+
+(defcfun ("glutSetWindow" set-window) :void
+  (window-id :int))
+
+(defcfun ("glutGetWindow" get-window) :int)
+
+;;; Do we need to be paranoid here too? See create-window.
+(defcfun ("glutSetWindowTitle" set-window-title) :void
+  (string :string))
+
+(defcfun ("glutSetIconTitle" set-icon-title) :void
+  (string :string))
+
+(defcfun ("glutReshapeWindow" reshape-window) :void
+  (width :int)
+  (height :int))
+
+(defcfun ("glutPositionWindow" position-window) :void
+  (x :int)
+  (y :int))
+
+(defcfun ("glutShowWindow" show-window) :void)
+(defcfun ("glutHideWindow" hide-window) :void)
+(defcfun ("glutIconifyWindow" iconify-window) :void)
+(defcfun ("glutPushWindow" push-window) :void)
+(defcfun ("glutPopWindow" pop-window) :void)
+(defcfun ("glutFullScreen" full-screen) :void)
+
+(defcfun ("glutPostWindowRedisplay" post-window-redisplay) :void
+  (window-id :int))
+
 (defcfun ("glutPostRedisplay" post-redisplay) :void)
 (defcfun ("glutSwapBuffers" swap-buffers) :void)
+
+;; freeglut ext?
+(defcfun ("glutWarpPointer" warp-pointer) :void
+  (x :int)
+  (y :int))
+
+(defcfun ("glutSetCursor" set-cursor) :void
+  (cursor cursor))

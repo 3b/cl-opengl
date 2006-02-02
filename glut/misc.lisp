@@ -1,6 +1,6 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; color.lisp --- GLUT Color Index Colormap Management API.
+;;; misc.lisp --- Misc functions from the GLUT API.
 ;;;
 ;;; Copyright (c) 2006, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
@@ -32,6 +32,8 @@
 
 (in-package #:cl-glut)
 
+;;; Color API
+
 (defcfun ("glutSetColor" %glutSetColor) :void
   (ndx   :int)
   (red   gl:float)
@@ -41,3 +43,65 @@
 (declaim (inline set-color))
 (defun set-color (cell red green blue)
   (%glutSetColor cell (float red) (float green) (float blue)))
+
+(defcfun ("glutGetColor" get-color) gl:float
+  (color :int)
+  (component color-component))
+
+(defcfun ("glutCopyColormap" copy-colormap) :void
+  (window-id :int))
+
+;;; Misc keyboard and joystick functions.
+
+(defcfun ("glutIgnoreKeyRepeat" ignore-key-repeat) :void
+  (ignore :int))
+
+(defcenum key-repeat-mode
+  :key-repeat-off
+  :key-repeat-on
+  :key-repeat-default)
+
+(defcfun ("glutSetKeyRepeat" set-key-repeat) :void
+  (repeat-mode key-repeat-mode))
+
+(defcfun ("glutForceJoystickFunc" force-joystick-func) :void)
+(defcfun ("glutReportErrors" report-errors) :void)
+
+;;; Game Mode API
+
+(defcfun ("glutGameModeString" game-mode-string) :void
+  (string :string))
+
+(defcfun ("glutEnterGameMode" enter-game-mode) :void)
+(defcfun ("glutLeaveGameMode" leave-game-mode) :void)
+
+(defcfun ("glutGameModeGet" game-mode-get) :int
+  (query game-mode-param))
+
+(defcfun ("glutGameModeGet" game-mode-getp) :boolean
+  (query game-mode-param))
+
+;;; Video API
+
+;;; freeglut doesn't implement any of these
+
+(defcfun ("glutVideoResizeGet" video-resize-get) :int
+  (query video-resize-param))
+
+(defcfun ("glutVideoResizeGet" video-resize-getp) :boolean
+  (query video-resize-param))
+
+(defcfun ("glutSetupVideoResizing" setup-video-resizing) :void)
+(defcfun ("glutStopVideoResizing" stop-video-resizing) :void)
+
+(defcfun ("glutVideoResize" video-resize) :void
+  (x :int)
+  (y :int)
+  (width :int)
+  (height :int))
+
+(defcfun ("glutVideoPan" video-pan) :void
+  (x :int)
+  (y :int)
+  (width :int)
+  (height :int))
