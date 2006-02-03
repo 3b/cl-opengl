@@ -13,6 +13,8 @@
 (defconstant +pif+ (coerce pi 'single-float))
 
 (defun gear (inner-radius outer-radius width n-teeth tooth-depth)
+  (declare (single-float inner-radius outer-radius width tooth-depth)
+           ((integer 0 100) n-teeth))
   (let ((r0 inner-radius)
         (r1 (- outer-radius (/ tooth-depth 2.0)))
         (r2 (+ outer-radius (/ tooth-depth 2.0)))
@@ -112,6 +114,8 @@
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* (- width) 0.5))
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width 0.5)))))))
 
+(declaim (single-float *view-rotx* *view-roty* *view-rotz* *angle*)
+         (fixnum *gear1* *gear2* *gear3* *limit* *count* *t0*))
 (defvar *view-rotx* 20.0)
 (defvar *view-roty* 30.0)
 (defvar *view-rotz* 0.0)
@@ -153,6 +157,7 @@
   ;; Calculating frame rate
   (incf *count*)   ; if count == limit: exit? nahhh
   (let ((time (get-internal-real-time)))
+    (declare (fixnum time)) ;  bogus?
     (when (= *t0* 0)
       (setq *t0* time))
     (when (>= (- time *t0*) (* 5 internal-time-units-per-second))
@@ -182,7 +187,7 @@
     (:key-right (decf *view-roty* 5.0)))
   (glut:post-redisplay))
 
-(cffi:defcallback reshape :void ((width :int) (height :int))
+(cffi:defcallback reshape :void ((width :int) (height :int)) 
   (gl:viewport 0 0 width height)
   (gl:matrix-mode :projection)
   (gl:load-identity)
