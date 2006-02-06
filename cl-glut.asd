@@ -55,6 +55,8 @@
      (:file "callbacks" :depends-on ("types"))
      (:file "misc"      :depends-on ("types")) 
      (:file "fonts"     :depends-on ("types"))
-     (:file "geometry"  :depends-on ("types"))))))
+     (:file "geometry"  :depends-on ("types"))
+     (:file "interface"
+            :depends-on ("init" "main" "window" "types" "callbacks"))))))
 
 ;; vim: ft=lisp et

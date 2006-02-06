@@ -76,6 +76,7 @@
    #:load-identity
    #:push-matrix
    #:pop-matrix
+   #:with-pushed-matrix
    ;; 2.12 Clipping
    #:clip-plane
    ;; 2.13 Current Raster Position

@@ -3,19 +3,19 @@
 ;;;
 ;;; Simple program with rotating 3-D gear wheels.
 
-;;; (lispier version)
+;;; This is an example using the raw bindings to GLUT and CFFI.
+;;; Compare with the CLOS version in gears.lisp
 
-(defpackage #:mesademos-gears
+(defpackage #:mesademos-gears-raw
   (:use #:cl)
   (:export #:run))
-(in-package #:mesademos-gears)
+(in-package #:mesademos-gears-raw)
 
 ;(declaim (optimize (speed 3) (safety 0) (compilation-speed 0) (debug 0)))
 
 (defconstant +pif+ (coerce pi 'single-float))
 
-(defun draw-gear (inner-radius outer-radius width n-teeth tooth-depth)
-  "Draw a gear."
+(defun gear (inner-radius outer-radius width n-teeth tooth-depth)
   (declare (single-float inner-radius outer-radius width tooth-depth)
            (fixnum n-teeth))
   (let ((r0 inner-radius)
@@ -117,117 +117,128 @@
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* (- width) 0.5))
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width 0.5)))))))
 
-(defclass gears-window (glut:window)
-  ((view-rotx :initform 20.0)
-   (view-roty :initform 30.0)
-   (view-rotz :initform 0.0)
-   gear1 gear2 gear3
-   (angle :initform 0.0)
-   (count :initform 1)
-   (t0 :initform 0)))
+(declaim (single-float *view-rotx* *view-roty* *view-rotz* *angle*)
+         (fixnum *gear1* *gear2* *gear3* *limit* *count* *t0*))
+(defvar *view-rotx* 20.0)
+(defvar *view-roty* 30.0)
+(defvar *view-rotz* 0.0)
+(defvar *gear1*)
+(defvar *gear2*)
+(defvar *gear3*)
+(defvar *angle* 0.0)
+(defvar *limit*)
+(defvar *count* 1)
+(defvar *t0* 0)
 
-(defmethod initialize-instance :after ((window gears-window) &key)
-  (with-slots (gear1 gear2 gear3) window
-    (gl:light :light0 :position #(5.0 5.0 10.0 0.0))
-    (gl:enable :cull-face :lighting :light0 :depth-test)
-    ;; gear 1
-    (setq gear1 (gl:gen-lists 1))
-    (gl:new-list gear1 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.8 0.1 0.0 1.0)) ; red
-    (draw-gear 1.0 4.0 1.0 20 0.7)
-    (gl:end-list)
-    ;; gear 2
-    (setq gear2 (gl:gen-lists 1))
-    (gl:new-list gear2 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.0 0.8 0.2 1.0)) ; green
-    (draw-gear 0.5 2.0 2.0 10 0.7)
-    (gl:end-list)
-    ;; gear 3
-    (setq gear3 (gl:gen-lists 1))
-    (gl:new-list gear3 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.2 0.2 1.0 1.0)) ; blue
-    (draw-gear 1.3 2.0 0.5 10 0.7)
-    (gl:end-list)
-    (gl:enable :normalize)))
+(cffi:defcallback draw :void ()
+  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:push-matrix)
+  (gl:rotate *view-rotx* 1 0 0)
+  (gl:rotate *view-roty* 0 1 0)
+  (gl:rotate *view-rotz* 0 0 1)
+  ;; gear 1
+  (gl:push-matrix)
+  (gl:translate -3 -2 0)
+  (gl:rotate *angle* 0 0 1)
+  (gl:call-list *gear1*)
+  (gl:pop-matrix)
+  ;; gear 2
+  (gl:push-matrix)
+  (gl:translate 3.1 -2 0)
+  (gl:rotate (- (* -2 *angle*) 9) 0 0 1)
+  (gl:call-list *gear2*)
+  (gl:pop-matrix)
+  ;; gear 3
+  (gl:push-matrix)
+  (gl:translate -3.1 4.2 0.0)
+  (gl:rotate (- (* -2 *angle*) 25) 0 0 1)
+  (gl:call-list *gear3*)
+  (gl:pop-matrix)
+  ;; ..
+  (gl:pop-matrix)
+  (glut:swap-buffers)
+  ;; Calculating frame rate
+  (incf *count*)   ; if count == limit: exit? nahhh
+  (let ((time (get-internal-real-time)))
+    (declare (fixnum time)) ;  bogus?
+    (when (= *t0* 0)
+      (setq *t0* time))
+    (when (>= (- time *t0*) (* 5 internal-time-units-per-second))
+      (let* ((seconds (/ (- time *t0*) internal-time-units-per-second))
+             (fps (/ *count* seconds)))
+        (format *terminal-io* "~D frames in ~3,1F seconds = ~6,3F FPS~%"
+                *count* seconds fps))
+      (setq *t0* time)
+      (setq *count* 0))))
 
-(defun print-frame-rate (window)
-  "Prints the frame rate every ~5 seconds."
-  (with-slots (count t0) window
-    (incf count)
-    (let ((time (get-internal-real-time)))
-      (when (= t0 0)
-        (setq t0 time))
-      (when (>= (- time t0) (* 5 internal-time-units-per-second))
-        (let* ((seconds (/ (- time t0) internal-time-units-per-second))
-               (fps (/ count seconds)))
-          (format *terminal-io* "~D frames in ~3,1F seconds = ~6,3F FPS~%"
-                  count seconds fps))
-        (setq t0 time)
-        (setq count 0)))))
-
-(defmethod glut:display ((window gears-window))
-  (with-slots (view-rotx view-roty view-rotz angle gear1 gear2 gear3)
-      window
-    (gl:clear :color-buffer-bit :depth-buffer-bit)
-    (gl:with-pushed-matrix
-      (gl:rotate view-rotx 1 0 0)
-      (gl:rotate view-roty 0 1 0)
-      (gl:rotate view-rotz 0 0 1)
-      (gl:with-pushed-matrix ; gear1
-        (gl:translate -3 -2 0)
-        (gl:rotate angle 0 0 1)
-        (gl:call-list gear1)) 
-      (gl:with-pushed-matrix ; gear2
-        (gl:translate 3.1 -2 0)
-        (gl:rotate (- (* -2 angle) 9) 0 0 1)
-        (gl:call-list gear2))
-      (gl:with-pushed-matrix ; gear3
-        (gl:translate -3.1 4.2 0.0)
-        (gl:rotate (- (* -2 angle) 25) 0 0 1)
-        (gl:call-list gear3)))
-    (glut:swap-buffers)
-    (print-frame-rate window)))
-
-(defmethod glut:idle ((window gears-window))
-  (incf (slot-value window 'angle) 2.0)
+(cffi:defcallback idle :void ()
+  (incf *angle* 2.0)
   (glut:post-redisplay))
 
-(defmethod glut:keyboard ((window gears-window) key x y)
-  (declare (ignore x y)) 
-  (case key
-    (#\z (incf (slot-value window 'view-rotz) 5.0))
-    (#\Z (decf (slot-value window 'view-rotz) 5.0))
+(cffi:defcallback key :void ((key :uchar) (x :int) (y :int))
+  (case (code-char key)
+    (#\z (incf *view-rotz* 5.0))
+    (#\Z (decf *view-rotz* 5.0))
     (#\Esc (glut:leave-main-loop)))
   (glut:post-redisplay))
 
-(defmethod glut:special ((window gears-window) special-key x y)
-  (declare (ignore x y))
-  (with-slots (view-rotx view-roty) window
-    (case special-key
-      (:key-up (incf view-rotx 5.0))
-      (:key-down (decf view-rotx 5.0))
-      (:key-left (incf view-roty 5.0))
-      (:key-right (decf view-roty 5.0)))
-    (glut:post-redisplay)))
+(cffi:defcallback special :void ((key glut:special-keys) (x :int) (y :int))
+  (case key
+    (:key-up (incf *view-rotx* 5.0))
+    (:key-down (decf *view-rotx* 5.0))
+    (:key-left (incf *view-roty* 5.0))
+    (:key-right (decf *view-roty* 5.0)))
+  (glut:post-redisplay))
 
-(defmethod glut:reshape ((window gears-window) width height)
+(cffi:defcallback reshape :void ((width :int) (height :int)) 
   (gl:viewport 0 0 width height)
   (gl:matrix-mode :projection)
   (gl:load-identity)
-  (let ((h (/ height width)))
+  (let ((h (coerce (/ height width) 'double-float)))
     (gl:frustum -1 1 (- h) h 5 60))
   (gl:matrix-mode :modelview)
   (gl:load-identity)
   (gl:translate 0 0 -40))
 
-(defmethod glut:visibility ((w gears-window) state)
-  (case state
-    (:visible (glut:enable-event w :idle))
-    (t (glut:disable-event w :idle))))
+(defun init ()
+  (gl:light :light0 :position #(5.0 5.0 10.0 0.0))
+  (gl:enable :cull-face :lighting :light0 :depth-test)
+  ;; Make the gears.
+  ;; gear 1
+  (setq *gear1* (gl:gen-lists 1))
+  (gl:new-list *gear1* :compile)
+  (gl:material :front :ambient-and-diffuse #(0.8 0.1 0.0 1.0)) ; red
+  (gear 1.0 4.0 1.0 20 0.7)
+  (gl:end-list)
+  ;; gear 2
+  (setq *gear2* (gl:gen-lists 1))
+  (gl:new-list *gear2* :compile)
+  (gl:material :front :ambient-and-diffuse #(0.0 0.8 0.2 1.0)) ; green
+  (gear 0.5 2.0 2.0 10 0.7)
+  (gl:end-list)
+  ;; gear 3
+  (setq *gear3* (gl:gen-lists 1))
+  (gl:new-list *gear3* :compile)
+  (gl:material :front :ambient-and-diffuse #(0.2 0.2 1.0 1.0)) ; blue
+  (gear 1.3 2.0 0.5 10 0.7)
+  (gl:end-list)
+  ;; ..
+  (gl:enable :normalize))
 
-(defun run ()
+(cffi:defcallback visible :void ((visibility glut:visibility-state))
+  (if (eq visibility :visible)
+      (glut:idle-func (cffi:callback idle))
+      (glut:idle-func (cffi:null-pointer))))
+
+(defun run (&optional (limit 0))
+  (glut:init)
+  (setq *limit* limit)
   (glut:init-display-mode :double :rgb :depth)
-  (make-instance 'gears-window :title "Gears"
-                 :events '(:visibility :reshape :special
-                           :keyboard :display :idle))
+  (glut:create-window "Gears")
+  (init)
+  (glut:display-func (cffi:callback draw))
+  (glut:reshape-func (cffi:callback reshape))
+  (glut:keyboard-func (cffi:callback key))
+  (glut:special-func (cffi:callback special))
+  (glut:visibility-func (cffi:callback visible))
   (glut:main-loop))

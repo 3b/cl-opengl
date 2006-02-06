@@ -54,6 +54,7 @@
        #+nil(:file "bounce"    :depends-on ("mesademos"))
        #+nil(:file "gamma"     :depends-on ("mesademos"))
        (:file "gears")
+       (:file "gears-raw")
        #+nil(:file "offset"    :depends-on ("mesademos"))
        #+nil(:file "reflect"   :depends-on ("mesademos"))
        #+nil(:file "spin"      :depends-on ("mesademos"))

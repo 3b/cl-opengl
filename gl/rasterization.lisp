@@ -240,7 +240,7 @@
      (%glTexParameteri target pname (if param 1 0)))))
 
 
-;;; 3.8.12 Texture Objectsß
+;;; 3.8.12 Texture Objects
 
 (declaim (inline bind-texture))
 (defun bind-texture (target handle)

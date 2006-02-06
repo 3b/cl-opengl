@@ -32,20 +32,10 @@
 
 (in-package #:cl-glut)
 
-(defcfun ("glutCreateWindow" %glutCreateWindow) :int
-  (title :pointer))
-
-;;; Being paranoid about whether the memory allocated for title
-;;; should be kept around as opposed to free right after calling
-;;; %glutCreateWindow(). Is this really necessary? --luis
-
-(defparameter *create-window-title-string* (null-pointer))
-
-(defun create-window (title)
-  (when (not (null-pointer-p *create-window-title-string*))
-    (foreign-free *create-window-title-string*))
-  (setq *create-window-title-string* (foreign-string-alloc title))
-  (%glutCreateWindow *create-window-title-string*))
+;;; TODO: make sure if it's safe to free the window title
+;;; right after calling glutCreateWindow().
+(defcfun ("glutCreateWindow" create-window) :int
+  (title :string))
 
 (defcfun ("glutCreateSubWindow" create-sub-window) :int
   (window-id :int)

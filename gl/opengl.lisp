@@ -204,6 +204,11 @@
 (defun pop-matrix ()
   (%glPopMatrix))
 
+(defmacro with-pushed-matrix (&body body)
+  `(prog2 (push-matrix)
+       (progn ,@body)
+     (pop-matrix)))
+
 ;;;
 ;;; 2.12 Clipping
 ;;;
