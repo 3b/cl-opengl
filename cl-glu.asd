@@ -43,13 +43,12 @@
   :components
   ((:module "glu"
     :components
-    (;(:file "package")
-     ;(:file "library" :depends-on ("package"))
-     ;(:file "types" :depends-on ("library"))
-     ;; XXX: fill out dependencies
+    ((:file "package")
+     (:file "library" :depends-on ("package"))
+     (:file "types" :depends-on ("library"))
      ;(:file "errors")
      ;(:file "init")
-     ;(:file "matrix")
+     (:file "matrix" :depends-on ("types"))
      ;(:file "mipmapping")
      ;(:file "nurbs")
      ;(:file "quadrics")

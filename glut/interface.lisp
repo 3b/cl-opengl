@@ -125,7 +125,7 @@ CURRENT-WINDOW to the respective object."
 (define-type-translator-macro ascii-to-char :from-foreign (value)
   `(code-char ,value))
 
-(defmethod translate-to-foreign (value (type (eql 'ascii-to-char)))
+(defmethod translate-from-foreign (value (type (eql 'ascii-to-char)))
   (code-char value))
 
 (defmacro define-glut-events (&body event-specs)
@@ -217,7 +217,7 @@ CURRENT-WINDOW to the respective object."
     ((w base-window) &key (pos-x -1) (pos-y -1) (height 300) (width 300) title)
   (with-glut-window w
     (glut:position-window pos-x pos-y)
-    (glut:reshape-window height width)
+    (glut:reshape-window width height)
     (when title
       (glut:set-window-title title))
     (dolist (event (events w))
@@ -240,10 +240,13 @@ CURRENT-WINDOW to the respective object."
 
 ;;;## Top-level Windows
 
+(defparameter +default-title+
+  (concatenate 'string (lisp-implementation-type) " "
+               (lisp-implementation-version)))
+
 (defclass window (base-window)
    ((title :reader title :initarg :title
-           :initform (concatenate 'string (lisp-implementation-type) " "
-                                  (lisp-implementation-version)))
+           :initform +default-title+)
     (sub-windows :accessor sub-windows :initform nil)
     icon-title))
 

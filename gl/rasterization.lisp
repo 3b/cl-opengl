@@ -66,8 +66,6 @@
 (defun line-stipple (factor pattern)
   (%glLineStipple factor pattern))
 
-
-
 ;;;
 ;;; 3.5 Polygons
 ;;;
@@ -77,6 +75,15 @@
 (defun cull-face (face)
   (%glCullFace face))
 
+;;; 3.5.2 Stippling
+
+(declaim (inline %glPolygonStipple))
+(defcfun ("glPolygonStipple" %glPolygonStipple) :void
+  (pattern :pointer)) ; ubyte*
+
+(defun polygon-stipple (pattern)
+  (with-opengl-sequence (p 'gl:ubyte pattern)
+    (%glPolygonStipple p)))
 
 ;;; 3.5.4 Options Controlling Polygon Rasterization
 
@@ -87,8 +94,6 @@
 (declaim (inline polygon-offset))
 (defun polygon-offset (factor units)
   (%glPolygonOffset (float factor) (float units)))
-
-
 
 ;;;
 ;;; 3.6 Pixel Rectangles

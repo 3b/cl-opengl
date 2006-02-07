@@ -5,10 +5,7 @@
 
 ;;; (lispier version)
 
-(defpackage #:mesademos-gears
-  (:use #:cl)
-  (:export #:run))
-(in-package #:mesademos-gears)
+(in-package #:mesademos)
 
 ;(declaim (optimize (speed 3) (safety 0) (compilation-speed 0) (debug 0)))
 
@@ -225,7 +222,7 @@
     (:visible (glut:enable-event w :idle))
     (t (glut:disable-event w :idle))))
 
-(defun run ()
+(defun gears ()
   (glut:init-display-mode :double :rgb :depth)
   (make-instance 'gears-window :title "Gears"
                  :events '(:visibility :reshape :special

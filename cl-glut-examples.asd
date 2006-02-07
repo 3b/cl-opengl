@@ -42,19 +42,19 @@
     :components
     ((:module "redbook"
       :components
-      (#+nil(:file "redbook")
-       #+nil(:file "rb1-hello"  :depends-on ("redbook"))
-       #+nil(:file "rb2-double" :depends-on ("redbook"))
-       #+nil(:file "rb3-lines"  :depends-on ("redbook"))
-       #+nil(:file "rb4-polys"  :depends-on ("redbook"))
-       #+nil(:file "rb5-cube"   :depends-on ("redbook"))))
+      ((:file "package")
+       (:file "rb1-hello"  :depends-on ("package"))
+       (:file "rb2-double" :depends-on ("package"))
+       (:file "rb3-lines"  :depends-on ("package"))
+       (:file "rb4-polys"  :depends-on ("package"))
+       (:file "rb5-cube"   :depends-on ("package"))))
      (:module "mesademos"
       :components
-      (#+nil(:file "mesademos")
+      ((:file "gears-raw")
+       (:file "package")
        #+nil(:file "bounce"    :depends-on ("mesademos"))
        #+nil(:file "gamma"     :depends-on ("mesademos"))
-       (:file "gears")
-       (:file "gears-raw")
+       (:file "gears" :depends-on ("package"))
        #+nil(:file "offset"    :depends-on ("mesademos"))
        #+nil(:file "reflect"   :depends-on ("mesademos"))
        #+nil(:file "spin"      :depends-on ("mesademos"))
