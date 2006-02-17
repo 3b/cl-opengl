@@ -42,17 +42,10 @@
   :depends-on (cffi cl-opengl)
   :components
   ((:module "glu"
+    :serial t
     :components
     ((:file "package")
-     (:file "library" :depends-on ("package"))
-     (:file "types" :depends-on ("library"))
-     ;(:file "errors")
-     ;(:file "init")
-     (:file "matrix" :depends-on ("types"))
-     ;(:file "mipmapping")
-     ;(:file "nurbs")
-     ;(:file "quadrics")
-     ;(:file "tess")
-     ))))
+     (:file "library")
+     (:file "glu")))))
 
 ;; vim: ft=lisp et

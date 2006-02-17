@@ -36,13 +36,12 @@
   (:nicknames #:glu)
   (:use #:cl #:cffi)
   (:export
-   ;;# Bitmask constants
-
-   ;;# Enums
-   
    ;;# Functions
-   look-at
-   ortho-2d 
-   
-   ;;# Macros
+   #:get-string
+   #:check-extension
+   #:scale-image
+   #:ortho-2d
+   #:perspective
+   #:look-at
+   #:pick-matrix
    ))
