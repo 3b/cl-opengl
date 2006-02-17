@@ -98,13 +98,20 @@
   `(with-opengl-array (,var (symbolic-type->real-type ,type) ,lisp-array)
      ,@body))
 
+;;; TODO: maybe define opengl-sequence as a CFFI type. possibly something
+;;; that would enforce a given length and type.
 (defmacro with-opengl-sequence ((var type lisp-sequence) &body body)
   (check-type var symbol)
-  (let ((count (gensym "COUNT")))
-    (once-only (type)
-     (once-only (lisp-sequence)
-       `(let ((,count (length ,lisp-sequence)))
-          (with-foreign-object (,var ,type ,count)
-            (loop for i below ,count
-                  do (setf (mem-aref ,var ,type i) (elt ,lisp-sequence i)))
-            ,@body))))))
+  (flet ((converting (form)            ; um, assuming type is constant
+           (case (eval type)           ; silly hack.. FIXME
+             (float `(float ,form))
+             (double `(float ,form 1.0d0))
+             (t form))))
+    (let ((count (gensym "COUNT")))
+      (once-only (type lisp-sequence)
+        `(let ((,count (length ,lisp-sequence)))
+           (with-foreign-object (,var ,type ,count)
+             (loop for i below ,count
+                   do (setf (mem-aref ,var ,type i)
+                            ,(converting `(elt ,lisp-sequence i))))
+             ,@body))))))
