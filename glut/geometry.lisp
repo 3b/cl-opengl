@@ -32,50 +32,45 @@
 
 (in-package #:cl-glut)
 
-(defctype coerce-to-double gl:double)
-
-(defmethod translate-to-foreign (value (type (eql 'coerce-to-double)))
-  (float value 1.0d0))
-
 ;;; Functions.
 
 (defcfun ("glutWireCube" wire-cube) :void
-  (size coerce-to-double))
+  (size gl:ensure-double))
 
 (defcfun ("glutSolidCube" solid-cube) :void
-  (size coerce-to-double))
+  (size gl:ensure-double))
 
 (defcfun ("glutWireSphere" wire-sphere) :void
-  (radius coerce-to-double)
+  (radius gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
 
 (defcfun ("glutSolidSphere" solid-sphere) :void
-  (radius coerce-to-double)
+  (radius gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
 
 (defcfun ("glutWireCone" wire-cone) :void
-  (base coerce-to-double)
-  (height coerce-to-double)
+  (base gl:ensure-double)
+  (height gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
 
 (defcfun ("glutSolidCone" solid-cone) :void
-  (base coerce-to-double)
-  (height coerce-to-double)
+  (base gl:ensure-double)
+  (height gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
 
 (defcfun ("glutWireTorus" wire-torus) :void
-  (inner-radius coerce-to-double)
-  (outer-radius coerce-to-double)
+  (inner-radius gl:ensure-double)
+  (outer-radius gl:ensure-double)
   (slices gl:int)
   (rings gl:int))
 
 (defcfun ("glutSolidTorus" solid-torus) :void
-  (inner-radius coerce-to-double)
-  (outer-radius coerce-to-double)
+  (inner-radius gl:ensure-double)
+  (outer-radius gl:ensure-double)
   (slices gl:int)
   (rings gl:int))
 
@@ -90,10 +85,10 @@
 (defcfun ("glutSolidIcosahedron" solid-icosahedron) :void)
 
 (defcfun ("glutWireTeapot" wire-teapot) :void
-  (size coerce-to-double))
+  (size gl:ensure-double))
 
 (defcfun ("glutSolidTeapot" solid-teapot) :void
-  (size coerce-to-double))
+  (size gl:ensure-double))
 
 ;;; The following are freeglut extensions:
 
@@ -103,7 +98,7 @@
 (defcfun ("glutWireSierpinskiSponge" %glutWireSierpinskiSponge) :void
   (num-levels :int)
   (offset-seq :pointer) ; GLdouble offset[3]
-  (scale coerce-to-double))
+  (scale gl:ensure-double))
 
 (defun wire-sierpinski-sponge (num-levels offset-seq scale)
   (gl::with-opengl-sequence (offset 'gl:double offset-seq)
@@ -112,20 +107,20 @@
 (defcfun ("glutSolidSierpinskiSponge" %glutSolidSierpinskiSponge) :void
   (num-levels :int)
   (offset-seq :pointer) ; GLdouble offset[3]
-  (scale coerce-to-double))
+  (scale gl:ensure-double))
 
 (defun solid-sierpinski-sponge (num-levels offset-seq scale)
   (gl::with-opengl-sequence (offset 'gl:double offset-seq)
     (%glutSolidSierpinskiSponge num-levels offset scale)))
 
 (defcfun ("glutWireCylinder" wire-cylinder) :void
-  (radius coerce-to-double)
-  (height coerce-to-double)
+  (radius gl:ensure-double)
+  (height gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
 
 (defcfun ("glutSolidCylinder" solid-cylinder) :void
-  (radius coerce-to-double)
-  (height coerce-to-double)
+  (radius gl:ensure-double)
+  (height gl:ensure-double)
   (slices gl:int)
   (stacks gl:int))
