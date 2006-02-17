@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+(in-package #:cl-opengl)
 
 (defctype enum :unsigned-long :translate-p nil)
 (defctype boolean :unsigned-char :translate-p nil)
@@ -48,3 +48,24 @@
 
 (defctype char :char :translate-p nil)
 (defctype handle :pointer :translate-p nil)
+
+
+(defctype ensure-float :float)
+
+(defmethod translate-to-foreign (value (type (eql 'ensure-float)))
+  (float value))
+
+(defmethod expand-to-foreign (value (type (eql 'ensure-float)))
+  (if (constantp value)
+      (float (eval value))
+      `(float ,value)))
+
+(defctype ensure-double :double)
+
+(defmethod translate-to-foreign (value (type (eql 'ensure-double)))
+  (float value 1.0d0))
+
+(defmethod expand-to-foreign (value (type (eql 'ensure-double)))
+  (if (constantp value)
+      (float (eval value) 1.0d0)
+      `(float ,value 1.0d0)))

@@ -32,8 +32,13 @@
   (:nicknames #:opengl #:gl)
   (:export
    ;; Types
-   enum boolean bitfield byte short int sizei ubyte ushort uint float
-   clampf double clampd intptr sizeiptr char handle
+   #:enum #:boolean #:bitfield #:byte #:short #:int #:sizei #:ubyte
+   #:ushort #:uint #:float #:clampf #:double #:clampd #:intptr #:sizeiptr
+   #:char #:handle #:ensure-float #:ensure-double
+   ;; Enums
+   ;; TODO: do we want to export more of these? --luis
+   #:pixel-data-format #:pixel-data-type
+   #:tex-image-1d-target #:tex-image-2d-target #:tex-image-3d-target
    ;; 2.5 GL Errors
    #:get-error
    #:opengl-error
