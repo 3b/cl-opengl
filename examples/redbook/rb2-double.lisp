@@ -1,5 +1,13 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; rb1-double.lisp --- Lisp version of double.c (Red Book examples)
+;;;
+;;; Original C version contains the following copyright notice:
+;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
+;;;   ALL RIGHTS RESERVED
+
+;;; This is a simple double buffered program.
+;;; Pressing the left mouse button rotates the rectangle.
+;;; Pressing the middle mouse button stops the rotation.
 
 (in-package #:redbook-examples)
 

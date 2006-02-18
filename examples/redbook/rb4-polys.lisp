@@ -1,5 +1,11 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; rb4-polys.lisp --- Lisp version of polys.c (Red Book examples)
+;;;
+;;; Original C version contains the following copyright notice:
+;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
+;;;   ALL RIGHTS RESERVED
+
+;;; This program demonstrates polygon stippling.
 
 (in-package #:redbook-examples)
 
@@ -53,7 +59,7 @@
   ;; stippled rectangles.
   (gl:rect 25 25 125 125)
   (gl:enable :polygon-stipple)
-  (gl:polygon-stipple *halftone*)
+  (gl:polygon-stipple *fly*)
   (gl:rect 125 25 225 125)
   (gl:polygon-stipple *halftone*)
   (gl:rect 225 25 325 125)

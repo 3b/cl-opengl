@@ -1,5 +1,11 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; rb2-hello.lisp --- Lisp version of hello.c (Red Book examples)
+;;;
+;;; Original C version contains the following copyright notice:
+;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
+;;;   ALL RIGHTS RESERVED
+
+;;; This is a simple, introductory OpenGL program.
 
 (in-package #:redbook-examples)
 

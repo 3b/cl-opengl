@@ -1,5 +1,13 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; rb5-cube.lisp --- Lisp version of cube.c (Red Book examples)
+;;;
+;;; Original C version contains the following copyright notice:
+;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
+;;;   ALL RIGHTS RESERVED
+
+;;; This program demonstrates a single modeling transformation,
+;;; GL:SCALE and a single viewing transformation, GLU:LOOK-AT.
+;;; A wireframe cube is rendered.
 
 (in-package #:redbook-examples)
 

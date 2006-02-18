@@ -129,22 +129,19 @@
     (gl:enable :cull-face :lighting :light0 :depth-test)
     ;; gear 1
     (setq gear1 (gl:gen-lists 1))
-    (gl:new-list gear1 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.8 0.1 0.0 1.0)) ; red
-    (draw-gear 1.0 4.0 1.0 20 0.7)
-    (gl:end-list)
+    (gl:with-new-list (gear1 :compile)
+      (gl:material :front :ambient-and-diffuse #(0.8 0.1 0.0 1.0)) ; red
+      (draw-gear 1.0 4.0 1.0 20 0.7))
     ;; gear 2
     (setq gear2 (gl:gen-lists 1))
-    (gl:new-list gear2 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.0 0.8 0.2 1.0)) ; green
-    (draw-gear 0.5 2.0 2.0 10 0.7)
-    (gl:end-list)
+    (gl:with-new-list (gear2 :compile)
+      (gl:material :front :ambient-and-diffuse #(0.0 0.8 0.2 1.0)) ; green
+      (draw-gear 0.5 2.0 2.0 10 0.7))
     ;; gear 3
     (setq gear3 (gl:gen-lists 1))
-    (gl:new-list gear3 :compile)
-    (gl:material :front :ambient-and-diffuse #(0.2 0.2 1.0 1.0)) ; blue
-    (draw-gear 1.3 2.0 0.5 10 0.7)
-    (gl:end-list)
+    (gl:with-new-list (gear3 :compile)
+      (gl:material :front :ambient-and-diffuse #(0.2 0.2 1.0 1.0)) ; blue
+      (draw-gear 1.3 2.0 0.5 10 0.7))
     (gl:enable :normalize)))
 
 (defun print-frame-rate (window)

@@ -1,5 +1,12 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; rb3-lines.lisp --- Lisp version of lines.c (Red Book examples)
+;;;
+;;; Original C version contains the following copyright notice:
+;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
+;;;   ALL RIGHTS RESERVED
+
+;;; This program demonstrates geometric primitives and
+;;; their attributes.
 
 (in-package #:redbook-examples)
 

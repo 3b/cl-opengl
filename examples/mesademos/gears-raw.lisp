@@ -176,6 +176,7 @@
   (glut:post-redisplay))
 
 (cffi:defcallback key :void ((key :uchar) (x :int) (y :int))
+  (declare (ignore x y))
   (case (code-char key)
     (#\z (incf *view-rotz* 5.0))
     (#\Z (decf *view-rotz* 5.0))
@@ -183,6 +184,7 @@
   (glut:post-redisplay))
 
 (cffi:defcallback special :void ((key glut:special-keys) (x :int) (y :int))
+  (declare (ignore x y))
   (case key
     (:key-up (incf *view-rotx* 5.0))
     (:key-down (decf *view-rotx* 5.0))
