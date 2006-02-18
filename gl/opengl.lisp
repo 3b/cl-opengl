@@ -69,6 +69,13 @@
        (progn ,@body)
      (end)))
 
+;;; synonym for with-primitives.
+(defmacro with-primitive (mode &body body)
+  `(prog2
+       (begin ,mode)
+       (progn ,@body)
+     (end)))
+
 ;;; 2.6.2 Polygon Edges
 
 (declaim (inline edge-flag))

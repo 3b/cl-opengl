@@ -48,6 +48,7 @@
    ;; 2.6.1 Begin and End
    #:begin
    #:end
+   #:with-primitive
    #:with-primitives
    ;; 2.6.2 Polygon Edges
    #:edge-flag
@@ -164,7 +165,9 @@
    ;; 5.4 Display Lists
    #:new-list
    #:end-list
+   #:with-new-list
    #:call-list
+   #:call-lists
    #:list-base
    #:gen-lists
    #:display-list-p

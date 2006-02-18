@@ -139,9 +139,7 @@
 (defun pass-through (token)
   (%glPassThrough (float token)))
 
-
-
-;;; 
+;;;
 ;;; 5.4 Display Lists
 ;;;
 
@@ -157,9 +155,13 @@
 (defun call-list (n)
   (%glCallList n))
 
+;;; Maybe we could optimize some more here if LISTS is vector
+;;; with a suitable element-type.
 (defun call-lists (lists)
-  (declare (ignore lists))
-  (error "not implemented"))
+  (with-opengl-sequence (array 'uint lists)
+    (%glCallLists (length lists)
+                  #.(foreign-enum-value 'call-lists-type :unsigned-int)
+                  array)))
 
 (declaim (inline list-base))
 (defun list-base (base)
@@ -177,6 +179,11 @@
 (defun delete-lists (first range)
   (%glDeleteLists first range))
 
+;;; Maybe UNWIND-PROTECT instead of PROG2?
+(defmacro with-new-list ((id mode) &body body)
+  `(prog2 (new-list ,id ',mode)
+       (progn ,@body)
+     (end-list)))
 
 ;;;
 ;;; 5.5 Flush and Finish
