@@ -45,8 +45,7 @@
 (defmethod glut:keyboard ((w planet-window) key x y)
   (declare (ignore x y))
   (flet ((update (slot n)
-           (setf (slot-value w slot)
-                 (nth-value 1 (floor (+ (slot-value w slot) n) 360)))
+           (setf (slot-value w slot) (mod (+ (slot-value w slot) n) 360))
            (glut:post-redisplay)))
     (case key
       (#\d (update 'day 10))

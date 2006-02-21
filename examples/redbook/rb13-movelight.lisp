@@ -58,9 +58,10 @@
   (gl:load-identity))
 
 (defmethod glut:mouse ((w movelight-window) button state x y)
+  (declare (ignore x y))
   (when (and (eq button :left-button) (eq state :down))
     (with-slots (spin) w
-      (setf spin (nth-value 1 (floor (+ spin 30) 360))))
+      (setf spin (mod (+ spin 30) 360)))
     (glut:post-redisplay)))
 
 (defmethod glut:keyboard ((w movelight-window) key x y)
