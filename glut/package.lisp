@@ -89,7 +89,7 @@
    #:iconify-window
    #:push-window
    #:pop-window
-   #:fullscreen
+   #:full-screen
    #:post-window-redisplay
    #:post-redisplay
    #:swap-buffers
@@ -128,6 +128,7 @@
    #:display-func 
    #:mouse-func
    #:motion-func
+   #:passive-motion-func
    #:entry-func
    #:menu-state-func
    #:spaceball-motion-func

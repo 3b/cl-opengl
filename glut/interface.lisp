@@ -45,10 +45,10 @@
 
 (export '(;; events / GFs
           timer idle keyboard special reshape visibility display mouse
-          motion entry menu-state spaceball-motion spaceball-rotate
-          spaceball-button button-box dials tablet-motion tablet-button
-          menu-status overlay-display window-status keyboard-up special-up
-          joystick mouse-wheel close wm-close menu-destroy
+          motion passive-motion entry menu-state spaceball-motion
+          spaceball-rotate spaceball-button button-box dials tablet-motion
+          tablet-button menu-status overlay-display window-status keyboard-up
+          special-up joystick mouse-wheel close wm-close menu-destroy
           enable-event disable-event
           ;; classes and accessors
           base-window window sub-window
@@ -79,12 +79,12 @@
 
 (defparameter +event-alist+
   (loop for event in '(:timer :idle :keyboard :special :reshape :visibility
-                       :display :mouse :motion :entry :menu-state
-                       :spaceball-motion :spaceball-rotate :spaceball-button
-                       :button-box :dials :tablet-motion :tablet-button
-                       :menu-status :overlay-display :window-status
-                       :keyboard-up :special-up :joystick :mouse-wheel :close
-                       :wm-close :menu-destroy)
+                       :display :mouse :motion :passive-motion :entry
+                       :menu-state :spaceball-motion :spaceball-rotate
+                       :spaceball-button :button-box :dials :tablet-motion
+                       :tablet-button :menu-status :overlay-display
+                       :window-status :keyboard-up :special-up :joystick
+                       :mouse-wheel :close :wm-close :menu-destroy)
         collect (let ((name (symbol-name event)))
                   (list event (intern name)
                         (intern (concatenate 'string "%" name))
@@ -151,6 +151,7 @@ CURRENT-WINDOW to the respective object."
   (mouse            (window (button mouse-button) (state mouse-button-state)
                             (x :int) (y :int)))
   (motion           (window (x :int) (y :int)))
+  (passive-motion   (window (x :int) (y :int)))
   (entry            (window (state entry-state)))
   (menu-state       (window (state menu-state)))
   (spaceball-motion (window (x :int) (y :int) (z :int)))
@@ -245,14 +246,13 @@ CURRENT-WINDOW to the respective object."
                (lisp-implementation-version)))
 
 (defclass window (base-window)
-   ((title :reader title :initarg :title
+   ((title :accessor title :initarg :title
            :initform +default-title+)
     (sub-windows :accessor sub-windows :initform nil)
     icon-title))
 
-(defmethod (setf title) (string (w window))
-  (set-window-title string)
-  (setf (slot-value w 'title) string))
+(defmethod (setf title) :before (string (w window))
+  (set-window-title string))
 
 (defmethod initialize-instance :before ((w window) &key)
   (setf (slot-value w 'id) (glut:create-window "")))

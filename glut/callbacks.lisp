@@ -71,6 +71,10 @@
   ;; void (*func)(int x, int y)
   (callback-pointer :pointer))
 
+(defcfun ("glutPassiveMotionFunc" passive-motion-func) :void
+  ;; void (*func)(int x, int y)
+  (callback-pointer :pointer))
+
 (defcfun ("glutEntryFunc" entry-func) :void
   ;; void (*func)(int state)
   (callback-pointer :pointer))
