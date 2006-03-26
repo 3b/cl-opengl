@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; redbook.lisp --- Lisp version of the Red Book examples.
+;;; package.lisp --- Package definition for the Red Book examples.
 ;;;
 ;;; The original Red Book examples carry the following copyright
 ;;; and permission notices:

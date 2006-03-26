@@ -68,6 +68,10 @@
        #+nil(:file "spin"      :depends-on ("mesademos"))
        #+nil(:file "tess-demo" :depends-on ("mesademos"))
        #+nil(:file "texobj"    :depends-on ("mesademos"))
-       #+nil(:file "trdemo"    :depends-on ("mesademos"))))))))
+       #+nil(:file "trdemo"    :depends-on ("mesademos"))))
+     (:module "misc"
+      :components
+      ((:file "package")
+       (:file "glut-teapot" :depends-on ("package"))))))))
 
 ;;; vim: ft=lisp et

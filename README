@@ -1,3 +1,3 @@
-cl-opengl is a set of bindings and utilites for accessing the OpenGL,
+cl-opengl is a set of bindings and utilities for accessing the OpenGL,
 GLU and GLUT APIs using CFFI.
 
