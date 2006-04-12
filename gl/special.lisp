@@ -43,7 +43,7 @@
          (count (* stride order)))
     (with-foreign-object (array 'float count)
       (dotimes (i count)
-        (setf (mem-aref array 'float i) (row-major-aref points i)))
+        (setf (mem-aref array 'float i) (float (row-major-aref points i))))
       (%glMap1f target (float u1) (float u2) stride order array))))
 
 (defun map2 (target u1 u2 v1 v2 points)
@@ -54,7 +54,7 @@
          (count (* vorder ustride uorder)))
     (with-foreign-object (array 'float count)
       (dotimes (i count)
-        (setf (mem-aref array 'float i) (row-major-aref points i)))
+        (setf (mem-aref array 'float i) (float (row-major-aref points i))))
       (%glMap2f target
                 (float u1) (float u2) ustride uorder
                 (float v1) (float v2) vstride vorder
