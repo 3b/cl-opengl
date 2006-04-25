@@ -40,40 +40,58 @@
 ;;; Unless it's windows, in which case it's a sort of enum-as-pointer
 ;;; thing. "So here it goes:"
 (defparameter +stroke-roman+
-  #+windows (make-pointer 0)
-  #-windows (foreign-symbol-pointer "glutStrokeRoman" :data))
+  #+cffi-features:windows
+  (make-pointer 0)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutStrokeRoman" :data))
 
 (defparameter +stroke-mono-roman+
-  #+windows (make-pointer 1)
-  #-windows (foreign-symbol-pointer "glutStrokeMonoRoman" :data))
+  #+cffi-features:windows
+  (make-pointer 1)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutStrokeMonoRoman" :data))
 
 (defparameter +bitmap-9-by-15+
-  #+windows (make-pointer 2)
-  #-windows (foreign-symbol-pointer "glutBitmap9By15" :data))
+  #+cffi-features:windows
+  (make-pointer 2)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmap9By15" :data))
 
 (defparameter +bitmap-8-by-13+
-  #+windows (make-pointer 3)
-  #-windows (foreign-symbol-pointer "glutBitmap8By13" :data))
+  #+cffi-features:windows
+  (make-pointer 3)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmap8By13" :data))
 
 (defparameter +bitmap-times-roman-10+
-  #+windows (make-pointer 4)
-  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman10" :data))
+  #+cffi-features:windows
+  (make-pointer 4)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmapTimesRoman10" :data))
 
 (defparameter +bitmap-times-roman-24+
-  #+windows (make-pointer 5)
-  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman24" :data))
+  #+cffi-features:windows
+  (make-pointer 5)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmapTimesRoman24" :data))
 
 (defparameter +bitmap-helvetica-10+
-  #+windows (make-pointer 6)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica10" :data))
+  #+cffi-features:windows
+  (make-pointer 6)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmapHelvetica10" :data))
 
 (defparameter +bitmap-helvetica-12+
-  #+windows (make-pointer 7)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica12" :data))
+  #+cffi-features:windows
+  (make-pointer 7)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmapHelvetica12" :data))
 
 (defparameter +bitmap-helvetica-18+
-  #+windows (make-pointer 8)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica18" :data))
+  #+cffi-features:windows
+  (make-pointer 8)
+  #-cffi-features:windows
+  (foreign-symbol-pointer "glutBitmapHelvetica18" :data))
 
 ;;; Functions
 
