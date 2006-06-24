@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb5-cube.lisp --- Lisp version of cube.c (Red Book examples)
+;;; cube.lisp --- Lisp version of cube.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -9,12 +9,14 @@
 ;;; GL:SCALE and a single viewing transformation, GLU:LOOK-AT.
 ;;; A wireframe cube is rendered.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass cube-window (glut:window)
-  ())
+  ()
+  (:default-initargs :width 500 :height 500 :title "cube.lisp"
+                     :mode '(:single :rgb)))
 
-(defmethod initialize-instance :after ((w cube-window) &key)
+(defmethod glut:display-window :before ((w cube-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -39,12 +41,7 @@
 (defmethod glut:keyboard ((w cube-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun rb5 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'cube-window
-                 :width 500 :height 500
-                 :title "rb5-cube.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-cube ()
+  (glut:display-window (make-instance 'cube-window)))

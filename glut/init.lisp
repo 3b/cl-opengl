@@ -43,11 +43,6 @@
 (defparameter *argcp* (null-pointer))
 (defparameter *argv* (null-pointer))
 
-#-(and)
-(defvar *initialized* nil)
-
-;;; Could a with-glut macro be useful too? It would just call
-;;; init and eval its body though...
 (defun init (&optional (program-name (lisp-implementation-type)))
   (unless (getp :init-state)
     ;; freeglut will exit() if we try to call initGlut() when
@@ -64,26 +59,16 @@
     (%glutInit *argcp* *argv*)
     ;; By default, we choose the saner option to return from the event
     ;; loop on window close instead of exit()ing.
-    (set-action-on-window-close :action-glutmainloop-returns)
-    #-(and)(setq *initialized* t)))
+    (set-action-on-window-close :action-continue-execution)))
 
-;;; We call init at load-time in order to ensure a usable glut as
-;;; often as possible. Also, we call init when the main event loop
-;;; returns in main.lisp. We do this to avoid having freeglut call
-;;; exit() when performing some operation that needs previous
-;;; initialization.
+;; We call init at load-time in order to ensure a usable glut as
+;; often as possible. Also, we call init when the main event loop
+;; returns in main.lisp. We do this to avoid having freeglut call
+;; exit() when performing some operation that needs previous
+;; initialization.
 (init)
 
-;;; Previous approach:
-;;; We use this function throught the code to init freeglut
-;;; whenever that is required in order to avoid it calling exit()
-;(declaim (inline ensure-init))
-#-(and)
-(defun ensure-init ()
-  (unless *initialized*
-    (warn "Implicitely calling glutInit() in order to avoid shutdown!")
-    (init)))
-
+;;; The display-mode bitfield is defined in state.lisp
 (defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
   (mode display-mode))
 

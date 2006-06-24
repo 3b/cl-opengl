@@ -85,5 +85,30 @@
   (x :int)
   (y :int))
 
+(defcenum cursor
+  :cursor-right-arrow
+  :cursor-left-arrow
+  :cursor-info
+  :cursor-destroy
+  :cursor-help
+  :cursor-cycle
+  :cursor-spray
+  :cursor-wait
+  :cursor-text
+  :cursor-crosshair
+  :cursor-up-down
+  :cursor-left-right
+  :cursor-top-side
+  :cursor-bottom-side
+  :cursor-left-side
+  :cursor-right-side
+  :cursor-top-left-corner
+  :cursor-top-right-corner
+  :cursor-bottom-right-corner
+  :cursor-bottom-left-corner
+  (:cursor-inherit #x0064)
+  :cursor-none
+  :cursor-full-crosshair)
+
 (defcfun ("glutSetCursor" set-cursor) :void
   (cursor cursor))

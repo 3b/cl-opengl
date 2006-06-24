@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb3-lines.lisp --- Lisp version of lines.c (Red Book examples)
+;;; lines.lisp --- Lisp version of lines.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -8,7 +8,7 @@
 ;;; This program demonstrates geometric primitives and
 ;;; their attributes.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defun draw-one-line (x1 y1 x2 y2)
   (gl:with-primitives :lines
@@ -16,9 +16,12 @@
     (gl:vertex x2 y2)))
 
 (defclass lines-window (glut:window)
-  ())
+  ()
+  (:default-initargs
+   :width 400 :height 150 :pos-x 100 :pos-y 100
+   :mode '(:single :rgb) :title "lines.lisp"))
 
-(defmethod initialize-instance :after ((w lines-window) &key)
+(defmethod glut:display-window :before ((w lines-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -70,13 +73,7 @@
 (defmethod glut:keyboard ((w lines-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun rb3 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'lines-window
-                 :width 400 :height 150
-                 :pos-x 100 :pos-y 100
-                 :title "rb3-lines.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-lines ()
+  (glut:display-window (make-instance 'lines-window)))

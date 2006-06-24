@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb9-robot.lisp --- Lisp version of robot.c (Red Book examples)
+;;; robot.lisp --- Lisp version of robot.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -10,13 +10,16 @@
 ;;; Interaction:  pressing the s and e keys (shoulder and elbow)
 ;;; alters the rotation of the robot arm.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass robot-window (glut:window)
   ((shoulder :accessor shoulder :initform 0)
-   (elbow :accessor elbow :initform 0)))
+   (elbow :accessor elbow :initform 0))
+  (:default-initargs
+   :pos-x 100 :pos-y 100 :width 500 :height 500
+   :mode '(:double :rgb) :title "robot.lisp"))
 
-(defmethod initialize-instance :after ((w robot-window) &key)
+(defmethod glut:display-window :before ((w robot-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -58,13 +61,7 @@
       (#\S (update 'shoulder -10))
       (#\e (update 'elbow 5))
       (#\E (update 'elbow -5))
-      (#\Esc (glut:leave-main-loop)))))
+      (#\Esc (glut:destroy-current-window)))))
 
-(defun rb9 ()
-  (glut:init-display-mode :double :rgb)
-  (make-instance 'robot-window
-                 :pos-x 100 :pos-y 100
-                 :width 500 :height 500
-                 :title "rb9-robot.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-robot ()
+  (glut:display-window (make-instance 'robot-window)))

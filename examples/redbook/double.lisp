@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb1-double.lisp --- Lisp version of double.c (Red Book examples)
+;;; double.lisp --- Lisp version of double.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -9,12 +9,14 @@
 ;;; Pressing the left mouse button rotates the rectangle.
 ;;; Pressing the middle mouse button stops the rotation.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass double-window (glut:window)
-  ((spin :initform 0.0)))
+  ((spin :initform 0.0))
+  (:default-initargs :width 250 :height 250 :pos-x 100 :pos-y 100
+                     :mode '(:double :rgb) :title "double.lisp"))
 
-(defmethod initialize-instance :after ((w double-window) &key)
+(defmethod glut:display-window :before ((w double-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -51,11 +53,5 @@
      (when (eq state :down)
        (glut:disable-event w :idle)))))
 
-(defun rb2 ()
-  (glut:init-display-mode :double :rgb)
-  (make-instance 'double-window
-                 :width 250 :height 250
-                 :pos-x 100 :pos-y 100
-                 :title "rb2-double.lisp"
-                 :events '(:display :reshape :mouse))
-  (glut:main-loop))
+(defun rb-double ()
+  (glut:display-window (make-instance 'double-window)))

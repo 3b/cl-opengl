@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb12-smooth.lisp --- Lisp version of smooth.c (Red Book examples)
+;;; smooth.lisp --- Lisp version of smooth.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -8,12 +8,14 @@
 ;;; This program demonstrates smooth shading.
 ;;; A smooth shaded polygon is drawn in a 2-D projection.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass smooth-window (glut:window)
-  ())
+  ()
+  (:default-initargs :width 500 :height 500 :pos-x 100 :pos-y 100
+                     :mode '(:single :rgb) :title "smooth.lisp"))
 
-(defmethod initialize-instance :after ((w smooth-window) &key)
+(defmethod glut:display-window :before ((w smooth-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :smooth))
 
@@ -40,13 +42,7 @@
 (defmethod glut:keyboard ((w smooth-window) key x y)
   (declare (ignore x y))
   (case key
-    (#\Esc (glut:leave-main-loop))))
+    (#\Esc (glut:destroy-current-window))))
 
-(defun rb12 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'smooth-window
-                 :width 500 :height 500
-                 :pos-x 100 :pos-y 100
-                 :title "rb12-smooth.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-smooth ()
+  (glut:display-window (make-instance 'smooth-window)))

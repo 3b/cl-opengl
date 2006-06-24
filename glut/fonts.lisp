@@ -39,59 +39,60 @@
 ;;; to a couple of global variables that point somewhere else.
 ;;; Unless it's windows, in which case it's a sort of enum-as-pointer
 ;;; thing. "So here it goes:"
+
 (defparameter +stroke-roman+
   #+cffi-features:windows
   (make-pointer 0)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutStrokeRoman" :data))
+  (foreign-symbol-pointer "glutStrokeRoman"))
 
 (defparameter +stroke-mono-roman+
   #+cffi-features:windows
   (make-pointer 1)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutStrokeMonoRoman" :data))
+  (foreign-symbol-pointer "glutStrokeMonoRoman"))
 
 (defparameter +bitmap-9-by-15+
   #+cffi-features:windows
   (make-pointer 2)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmap9By15" :data))
+  (foreign-symbol-pointer "glutBitmap9By15"))
 
 (defparameter +bitmap-8-by-13+
   #+cffi-features:windows
   (make-pointer 3)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmap8By13" :data))
+  (foreign-symbol-pointer "glutBitmap8By13"))
 
 (defparameter +bitmap-times-roman-10+
   #+cffi-features:windows
   (make-pointer 4)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapTimesRoman10" :data))
+  (foreign-symbol-pointer "glutBitmapTimesRoman10"))
 
 (defparameter +bitmap-times-roman-24+
   #+cffi-features:windows
   (make-pointer 5)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapTimesRoman24" :data))
+  (foreign-symbol-pointer "glutBitmapTimesRoman24"))
 
 (defparameter +bitmap-helvetica-10+
   #+cffi-features:windows
   (make-pointer 6)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica10" :data))
+  (foreign-symbol-pointer "glutBitmapHelvetica10"))
 
 (defparameter +bitmap-helvetica-12+
   #+cffi-features:windows
   (make-pointer 7)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica12" :data))
+  (foreign-symbol-pointer "glutBitmapHelvetica12"))
 
 (defparameter +bitmap-helvetica-18+
   #+cffi-features:windows
   (make-pointer 8)
   #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica18" :data))
+  (foreign-symbol-pointer "glutBitmapHelvetica18"))
 
 ;;; Functions
 

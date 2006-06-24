@@ -40,38 +40,39 @@
   :components
   ((:module "examples"
     :components
-    ((:module "redbook"
+    ((:file "examples")
+     (:module "redbook"
+      :depends-on ("examples")
       :components
-      ((:file "package")
-       (:file "rb1-hello"  :depends-on ("package"))
-       (:file "rb2-double" :depends-on ("package"))
-       (:file "rb3-lines" :depends-on ("package"))
-       (:file "rb4-polys" :depends-on ("package"))
-       (:file "rb5-cube"  :depends-on ("package"))
-       (:file "rb6-model" :depends-on ("package"))
-       (:file "rb7-clip"  :depends-on ("package"))
-       (:file "rb8-planet" :depends-on ("package"))
-       (:file "rb9-robot"  :depends-on ("package"))
-       (:file "rb10-list"  :depends-on ("package"))
-       (:file "rb11-stroke" :depends-on ("package"))
-       (:file "rb12-smooth" :depends-on ("package"))
-       (:file "rb13-movelight" :depends-on ("package"))))
+      ((:file "hello")
+       (:file "double")
+       (:file "lines")
+       (:file "polys")
+       (:file "cube")
+       (:file "model")
+       (:file "clip")
+       (:file "planet")
+       (:file "robot")
+       (:file "list")
+       (:file "stroke")
+       (:file "smooth")
+       (:file "movelight")))
      (:module "mesademos"
+      :depends-on ("examples")
       :components
       ((:file "gears-raw")
-       (:file "package")
-       #+nil(:file "bounce"    :depends-on ("mesademos"))
-       #+nil(:file "gamma"     :depends-on ("mesademos"))
-       (:file "gears" :depends-on ("package"))
-       #+nil(:file "offset"    :depends-on ("mesademos"))
-       #+nil(:file "reflect"   :depends-on ("mesademos"))
-       #+nil(:file "spin"      :depends-on ("mesademos"))
-       #+nil(:file "tess-demo" :depends-on ("mesademos"))
-       #+nil(:file "texobj"    :depends-on ("mesademos"))
-       #+nil(:file "trdemo"    :depends-on ("mesademos"))))
+       #+nil(:file "bounce")
+       #+nil(:file "gamma")
+       (:file "gears")
+       #+nil(:file "offset")
+       #+nil(:file "reflect")
+       #+nil(:file "spin")
+       #+nil(:file "tess-demo")
+       #+nil(:file "texobj")
+       #+nil(:file "trdemo")))
      (:module "misc"
+      :depends-on ("examples")
       :components
-      ((:file "package")
-       (:file "glut-teapot" :depends-on ("package"))))))))
+      ((:file "glut-teapot")))))))
 
 ;;; vim: ft=lisp et

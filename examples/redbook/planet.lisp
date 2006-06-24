@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb8-planet.lisp --- Lisp version of planet.c (Red Book examples)
+;;; planet.lisp --- Lisp version of planet.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -10,13 +10,16 @@
 ;;; Interaction:  pressing the d and y keys (day and year)
 ;;; alters the rotation of the planet around the sun.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass planet-window (glut:window)
   ((year :accessor year :initform 0)
-   (day :accessor day :initform 0)))
+   (day :accessor day :initform 0))
+  (:default-initargs
+   :pos-x 100 :pos-y 100 :width 500 :height 500
+   :mode '(:double :rgb) :title "planet.lisp"))
 
-(defmethod initialize-instance :after ((w planet-window) &key)
+(defmethod glut:display-window :before ((w planet-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -52,13 +55,7 @@
       (#\D (update 'day -10))
       (#\y (update 'year 5))
       (#\Y (update 'year -5))
-      (#\Esc (glut:leave-main-loop)))))
+      (#\Esc (glut:destroy-current-window)))))
 
-(defun rb8 ()
-  (glut:init-display-mode :double :rgb)
-  (make-instance 'planet-window
-                 :pos-x 100 :pos-y 100
-                 :width 500 :height 500
-                 :title "rb8-planet.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-planet ()
+  (glut:display-window (make-instance 'planet-window)))

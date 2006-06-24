@@ -1,12 +1,14 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; glut-teapot.lisp --- Simple usage of glut:solid-teapot.
 
-(in-package #:misc-glut-examples)
+(in-package #:cl-glut-examples)
 
 (defclass glut-teapot-window (glut:window)
-  ())
+  ()
+  (:default-initargs :width 250 :height 250 :title "glut-teapot.lisp"
+                     :mode '(:single :rgb :depth)))
 
-(defmethod initialize-instance :after ((w glut-teapot-window) &key)
+(defmethod glut:display-window :before ((w glut-teapot-window))
   (gl:clear-color 0 0 0 0)
   (gl:cull-face :back)
   (gl:depth-func :less)
@@ -40,12 +42,7 @@
 (defmethod glut:keyboard ((window glut-teapot-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun teapot ()
-  (glut:init-display-mode :single :rgb :depth)
-  (make-instance 'glut-teapot-window
-                 :width 250 :height 250
-                 :title "glut-teapot.lisp"
-                 :events '(:display :keyboard :reshape))
-  (glut:main-loop))
+(defun glut-teapot ()
+  (glut:display-window (make-instance 'glut-teapot-window)))

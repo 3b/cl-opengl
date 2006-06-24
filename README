@@ -1,3 +1,7 @@
 cl-opengl is a set of bindings and utilities for accessing the OpenGL,
 GLU and GLUT APIs using CFFI.
 
+The examples/ directory contains a couple of examples using cl-glut,
+cl-opengl and cl-glu. Note, however, that you can use each of these
+independently. In particular, you can use a windowing toolkit other
+than (Free)GLUT, if you wish.

@@ -115,3 +115,38 @@
                    do (setf (mem-aref ,var ,type i)
                             ,(converting `(elt ,lisp-sequence i))))
              ,@body))))))
+
+;;; The following utils were taken from SBCL's
+;;; src/code/*-extensions.lisp
+
+(defun symbolicate (&rest things)
+  "Concatenate together the names of some strings and symbols,
+producing a symbol in the current package."
+  (let* ((length (reduce #'+ things
+                         :key (lambda (x) (length (string x)))))
+         (name (make-array length :element-type 'character)))
+    (let ((index 0))
+      (dolist (thing things (values (intern name)))
+        (let* ((x (string thing))
+               (len (length x)))
+          (replace name x :start1 index)
+          (incf index len))))))
+
+;;; Automate an idiom often found in macros:
+;;;   (LET ((FOO (GENSYM "FOO"))
+;;;         (MAX-INDEX (GENSYM "MAX-INDEX-")))
+;;;     ...)
+;;;
+;;; "Good notation eliminates thought." -- Eric Siggia
+;;;
+;;; Incidentally, this is essentially the same operator which
+;;; _On Lisp_ calls WITH-GENSYMS.
+(defmacro with-unique-names (symbols &body body)
+  `(let ,(mapcar (lambda (symbol)
+                   (let* ((symbol-name (symbol-name symbol))
+                          (stem (if (every #'alpha-char-p symbol-name)
+                                    symbol-name
+                                    (concatenate 'string symbol-name "-"))))
+                     `(,symbol (gensym ,stem))))
+                 symbols)
+     ,@body))

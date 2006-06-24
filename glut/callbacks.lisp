@@ -155,3 +155,68 @@
 (defcfun ("glutMenuDestroyFunc" menu-destroy-func) :void
   ;; void (*func)(void)
   (callback-pointer :pointer))
+
+;;;; Types used for callbacks.
+
+(defcenum entry-state
+  :left
+  :entered)
+
+(defbitfield (joystick-buttons :unsigned-int)
+  (:joystick-button-a 1)
+  (:joystick-button-b 2)
+  (:joystick-button-c 4)
+  (:joystick-button-d 8))
+
+(defcenum menu-state
+  :menu-not-in-use
+  :menu-in-use)
+
+(defbitfield modifiers
+  (:active-shift 1)
+  (:active-ctrl 2)
+  (:active-alt 4))
+
+(defcenum mouse-button
+  :left-button
+  :middle-button
+  :right-button)
+
+(defcenum mouse-button-state
+  :down
+  :up)
+
+(defcenum special-keys
+  ;; Function keys.
+  (:key-f1 1)
+  :key-f2
+  :key-f3
+  :key-f4
+  :key-f5
+  :key-f6
+  :key-f7
+  :key-f8
+  :key-f9
+  :key-f10
+  :key-f11
+  :key-f12
+  ;; Directional keys.
+  (:key-left 100)
+  :key-up
+  :key-right
+  :key-down
+  :key-page-up
+  :key-page-down
+  :key-home
+  :key-end
+  :key-insert)
+
+(defcenum visibility-state
+  :not-visible
+  :visible)
+
+(defcenum window-status
+  :hidden
+  :fully-retained
+  :partially-retained
+  :fully-covered)

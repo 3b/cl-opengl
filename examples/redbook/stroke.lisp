@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb11-stroke.lisp --- Lisp version of stroke.c (Red Book examples)
+;;; stroke.lisp --- Lisp version of stroke.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -11,15 +11,17 @@
 ;;; correspond to the ASCII values of the characters.
 ;;; Use of GL:CALL-LISTS is demonstrated.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass stroke-window (glut:window)
-  ())
+  ()
+  (:default-initargs :width 440 :height 120 :title "stroke.lisp"
+                     :mode '(:single :rgb)))
 
-;;; FIXME: like in the RB10 example we'll want some sort of mechanismm to
-;;; automatically deallocate display lists.
+;;; FIXME: like in the RB-LIST example we'll want some sort of
+;;; mechanism to automatically deallocate display lists.
 
-(defmethod initialize-instance :after ((w stroke-window) &key)
+(defmethod glut:display-window :before ((w stroke-window))
   (let ((a '(#\A (0 0 pt) (0 9 pt) (1 10 pt) (4 10 pt) (5 9 pt) (5 0 stroke)
                  (0 5 pt) (5 5 end)))
         (e '(#\E (5 0 pt) (0 0 pt) (0 10 pt) (5 10 stroke) (0 5 pt) (4 5 end)))
@@ -77,12 +79,7 @@
   (declare (ignore x y))
   (case key
     (#\Space (glut:post-redisplay))
-    (#\Esc (glut:leave-main-loop))))
+    (#\Esc (glut:destroy-current-window))))
 
-(defun rb11 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'stroke-window
-                 :width 440 :height 120
-                 :title "rb11-stroke.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-stroke ()
+  (glut:display-window (make-instance 'stroke-window)))

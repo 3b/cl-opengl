@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb13-movelight.lisp --- Lisp version of movelight.c (Red Book examples)
+;;; movelight.lisp --- Lisp version of movelight.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -18,12 +18,14 @@
 ;;; the modeling transformation (x rotation) by 30 degrees.
 ;;; The scene is then redrawn with the light in a new position.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass movelight-window (glut:window)
-  ((spin :initform 0)))
+  ((spin :initform 0))
+  (:default-initargs :width 500 :height 500 :pos-x 100 :pos-y 100
+                     :mode '(:single :rgb) :title "movelight.lisp"))
 
-(defmethod initialize-instance :after ((w movelight-window) &key)
+(defmethod glut:display-window :before ((w movelight-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :smooth)
   (gl:enable :lighting)
@@ -67,13 +69,7 @@
 (defmethod glut:keyboard ((w movelight-window) key x y)
   (declare (ignore x y))
   (case key
-    (#\Esc (glut:leave-main-loop))))
+    (#\Esc (glut:destroy-current-window))))
 
-(defun rb13 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'movelight-window
-                 :width 500 :height 500
-                 :pos-x 100 :pos-y 100
-                 :title "rb13-movelight.lisp"
-                 :events '(:display :reshape :keyboard :mouse))
-  (glut:main-loop))
+(defun rb-movelight ()
+  (glut:display-window (make-instance 'movelight-window)))

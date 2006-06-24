@@ -5,7 +5,7 @@
 
 ;;; (lispier version)
 
-(in-package #:mesademos)
+(in-package #:cl-glut-examples)
 
 ;(declaim (optimize (speed 3) (safety 0) (compilation-speed 0) (debug 0)))
 
@@ -121,9 +121,10 @@
    gear1 gear2 gear3
    (angle :initform 0.0)
    (count :initform 1)
-   (t0 :initform 0)))
+   (t0 :initform 0))
+  (:default-initargs :title "Gears" :mode '(:double :rgb :depth)))
 
-(defmethod initialize-instance :after ((window gears-window) &key)
+(defmethod glut:display-window :before ((window gears-window))
   (with-slots (gear1 gear2 gear3) window
     (gl:light :light0 :position #(5.0 5.0 10.0 0.0))
     (gl:enable :cull-face :lighting :light0 :depth-test)
@@ -189,10 +190,11 @@
 (defmethod glut:keyboard ((window gears-window) key x y)
   (declare (ignore x y)) 
   (case key
-    (#\z (incf (slot-value window 'view-rotz) 5.0))
-    (#\Z (decf (slot-value window 'view-rotz) 5.0))
-    (#\Esc (glut:leave-main-loop)))
-  (glut:post-redisplay))
+    (#\z (incf (slot-value window 'view-rotz) 5.0)
+         (glut:post-redisplay))
+    (#\Z (decf (slot-value window 'view-rotz) 5.0)
+         (glut:post-redisplay))
+    (#\Esc (glut:destroy-current-window))))
 
 (defmethod glut:special ((window gears-window) special-key x y)
   (declare (ignore x y))
@@ -204,7 +206,7 @@
       (:key-right (decf view-roty 5.0)))
     (glut:post-redisplay)))
 
-(defmethod glut:reshape ((window gears-window) width height)
+(defmethod glut:reshape ((w gears-window) width height)
   (gl:viewport 0 0 width height)
   (gl:matrix-mode :projection)
   (gl:load-identity)
@@ -220,8 +222,4 @@
     (t (glut:disable-event w :idle))))
 
 (defun gears ()
-  (glut:init-display-mode :double :rgb :depth)
-  (make-instance 'gears-window :title "Gears"
-                 :events '(:visibility :reshape :special
-                           :keyboard :display :idle))
-  (glut:main-loop))
+  (glut:display-window (make-instance 'gears-window)))

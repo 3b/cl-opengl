@@ -39,4 +39,5 @@
   (init))
 
 (defcfun ("glutMainLoopEvent" main-loop-event) :void)
+
 (defcfun ("glutLeaveMainLoop" leave-main-loop) :void)

@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb10-list.lisp --- Lisp version of list.c (Red Book examples)
+;;; list.lisp --- Lisp version of list.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -9,14 +9,16 @@
 ;;; display list.  Note that attributes, such as current 
 ;;; color and matrix, are changed.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass list-window (glut:window)
   ;; TODO: use some more interesting interface for (de)allocating
   ;; display lists...
-  ((list-name :accessor list-name :initform (gl:gen-lists 1))))
+  ((list-name :accessor list-name :initform (gl:gen-lists 1)))
+  (:default-initargs
+   :width 600 :height 50 :title "list.lisp" :mode '(:single :rgb)))
 
-(defmethod initialize-instance :after ((w list-window) &key)
+(defmethod glut:display-window :before ((w list-window))
   (gl:with-new-list ((list-name w) :compile)
     (gl:color 1 0 0)                    ; red
     (gl:with-primitives :triangles
@@ -48,12 +50,7 @@
 (defmethod glut:keyboard ((w list-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun rb10 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'list-window
-                 :width 600 :height 50
-                 :title "rb10-list.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-list ()
+  (glut:display-window (make-instance 'list-window)))

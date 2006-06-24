@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb4-polys.lisp --- Lisp version of polys.c (Red Book examples)
+;;; polys.lisp --- Lisp version of polys.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -7,12 +7,14 @@
 
 ;;; This program demonstrates polygon stippling.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass polys-window (glut:window)
-  ())
+  ()
+  (:default-initargs :width 350 :height 150 :title "polys.lisp"
+                     :mode '(:single :rgb)))
 
-(defmethod initialize-instance :after ((w polys-window) &key)
+(defmethod glut:display-window :before ((w polys-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -75,12 +77,7 @@
 (defmethod glut:keyboard ((w polys-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun rb4 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'polys-window
-                 :width 350 :height 150
-                 :title "rb4-polys.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-polys ()
+  (glut:display-window (make-instance 'polys-window)))

@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; rb7-clip.lisp --- Lisp version of clip.c (Red Book examples)
+;;; clip.lisp --- Lisp version of clip.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -7,12 +7,14 @@
 
 ;;; This program demonstrates arbitrary clipping planes.
 
-(in-package #:redbook-examples)
+(in-package #:cl-glut-examples)
 
 (defclass clip-window (glut:window)
-  ())
+  ()
+  (:default-initargs :pos-x 100 :pos-y 100 :width 500 :height 500
+                     :mode '(:single :rgb) :title "clip.lisp"))
 
-(defmethod initialize-instance :after ((w clip-window) &key)
+(defmethod glut:display-window :before ((w clip-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat))
 
@@ -42,13 +44,7 @@
 (defmethod glut:keyboard ((w clip-window) key x y)
   (declare (ignore x y))
   (when (eql key #\Esc)
-    (glut:leave-main-loop)))
+    (glut:destroy-current-window)))
 
-(defun rb7 ()
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'clip-window
-                 :pos-x 100 :pos-y 100
-                 :width 500 :height 500
-                 :title "rb7-clip.lisp"
-                 :events '(:display :reshape :keyboard))
-  (glut:main-loop))
+(defun rb-clip ()
+  (glut:display-window (make-instance 'clip-window)))
