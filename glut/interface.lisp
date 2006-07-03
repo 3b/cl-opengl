@@ -326,11 +326,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
   ((parent :reader parent
            :initform (error "Must specify a PARENT window."))))
 
-(defmethod initialize-instance :after ((win sub-window) &key)
+(defmethod initialize-instance :after ((win sub-window) &key parent
+                                       &allow-other-keys)
   (let ((parent-window (typecase parent
                          (window parent)
                          (symbol (find-window parent)))))
     (check-type parent-window window)
+    (setf (slot-value win 'parent) parent-window)
     (push win (sub-windows parent-window))))
 
 (defmethod display-window :around ((win sub-window))
