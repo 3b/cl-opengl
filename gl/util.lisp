@@ -85,14 +85,15 @@
 
 (defmacro with-opengl-array ((var type lisp-array) &body body)
   (check-type var symbol)
-  (let ((count (gensym "COUNT")))
+  (let ((count (gensym "COUNT"))
+        (array (gensym "ARRAY")))
     (once-only (type)
-     (once-only (lisp-array)
-       `(let ((,count (length ,lisp-array)))
-          (with-foreign-object (,var ,type ,count)
-            (loop for i below ,count
-                  do (setf (mem-aref ,var ,type i) (aref ,lisp-array i)))
-            ,@body))))))
+      `(let* ((,array ,lisp-array)
+              (,count (length ,array)))
+         (with-foreign-object (,var ,type ,count)
+           (loop for i below ,count
+                 do (setf (mem-aref ,var ,type i) (aref ,array i)))
+           ,@body)))))
 
 (defmacro with-pixel-array ((var type lisp-array) &body body)
   `(with-opengl-array (,var (symbolic-type->real-type ,type) ,lisp-array)
