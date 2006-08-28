@@ -77,10 +77,6 @@
 
 ;;; 3.5.2 Stippling
 
-(declaim (inline %glPolygonStipple))
-(defcfun ("glPolygonStipple" %glPolygonStipple) :void
-  (pattern :pointer)) ; ubyte*
-
 (defun polygon-stipple (pattern)
   (with-opengl-sequence (p 'gl:ubyte pattern)
     (%glPolygonStipple p)))
@@ -122,19 +118,6 @@
       (dotimes (i n)
         (setf (mem-aref p 'float i) (float (elt values i))))
       (%glPixelMapfv map n p))))
-
-
-
-
-
-(defcfun ("glColorTable" %glColorTable) :void
-  (target color-table-name)
-  (internal-format pixel-data-internal-format)
-  (width sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
-  (data :pointer))
-
 
 ;;;
 ;;; 3.8 Texturing

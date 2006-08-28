@@ -29,7 +29,6 @@
 
 (in-package :cl-opengl)
 
-
 ;;; A
 
 (defcfun ("glAccum" %glAccum) :void
@@ -154,6 +153,14 @@
   (face polygon-face)
   (mode color-material-mode))
 
+(defcfun ("glColorTable" %glColorTable) :void
+  (target color-table-name)
+  (internal-format pixel-data-internal-format)
+  (width sizei)
+  (format pixel-data-format)
+  (type pixel-data-type)
+  (data :pointer))
+
 (defcfun ("glCompileShader" %glCompileShader) :void
   (shader uint))
 
@@ -256,6 +263,9 @@
   (program uint)
   (shader uint))
 
+(defcfun ("glDisable" %glDisable) :void
+  (target enable-cap))
+
 (defcfun ("glDrawBuffer" %glDrawBuffer) :void
   (buffer draw-buffer))
 
@@ -267,6 +277,9 @@
 
 (defcfun ("glEdgeFlag" %glEdgeFlag) :void
   (flag boolean))
+
+(defcfun ("glEnable" %glEnable) :void
+  (target enable-cap))
 
 (defcfun ("glEnd" %glEnd) :void)
 
@@ -371,6 +384,9 @@
 
 (defcfun ("glGetError" %glGetError) gl-error)
 
+(defcfun ("glGetString" %glGetString) :pointer
+  (name string-name))
+
 (defcfun ("glGetUniformLocation" %glGetUniformLocation) int
   (program uint)
   (name :pointer))
@@ -390,6 +406,9 @@
   (mask uint))
 
 (defcfun ("glInitNames" %glInitNames) :void)
+
+(defcfun ("glIsEnabled" %glIsEnabled) boolean
+  (target enable-cap))
 
 (defcfun ("glIsList" %glIsList) boolean
   (list uint))
@@ -585,6 +604,13 @@
   (factor float)
   (units float))
 
+(defcfun ("glPolygonStipple" %glPolygonStipple) :void
+  (pattern :pointer))
+
+(defcfun ("glPopAttrib" pop-attrib) :void)
+
+(defcfun ("glPopClientAttrib" pop-client-attrib) :void)
+
 (defcfun ("glPopMatrix" %glPopMatrix) :void)
 
 (defcfun ("glPopName" %glPopName) :void)
@@ -593,6 +619,12 @@
   (n sizei)
   (textures :pointer)
   (priorities :pointer))
+
+(defcfun ("glPushAttrib" %glPushAttrib) :void
+  (mask bitfield))
+
+(defcfun ("glPushClientAttrib" %glPushClientAttrib) :void
+  (mask bitfield))
 
 (defcfun ("glPushMatrix" %glPushMatrix) :void)
 

@@ -42,10 +42,6 @@
 ;;; place to put them. They appear the first time in 2.11.3, but that's
 ;;; about normal transformations.
 
-(defcfun ("glEnable" %glEnable) :void (target enable-cap))
-(defcfun ("glDisable" %glDisable) :void (target enable-cap))
-(defcfun ("glIsEnabled" %glIsEnabled) boolean (target enable-cap))
-
 ;; external
 (defun enable (&rest caps)
   (declare (dynamic-extent caps))
@@ -62,16 +58,9 @@
 (defun enabledp (cap)
   (not (zerop (%glIsEnabled cap))))
 
-
-
-
-
 ;;; 6.1.11 Pointer and String Queries
 
 ;;; FIXME: missing glGetPointer
-
-(defcfun ("glGetString" %glGetString) :pointer
-  (name string-name))
 
 ;; external
 (defun get-string (name)
@@ -97,12 +86,6 @@
 
 ;;; 6.1.15 Saving and Restoring State
 
-(defcfun ("glPushAttrib" %glPushAttrib) :void
-  (mask bitfield))
-
-(defcfun ("glPushClientAttrib" %glPushClientAttrib) :void
-  (mask bitfield))
-
 (defun make-bitfield (enum-name attributes)
   (apply #'logior 0 (mapcar (lambda (x)
                               (foreign-enum-value enum-name x))
@@ -127,10 +110,3 @@
   (if (every #'keywordp attributes)
       `(%glPushClientAttrib ,(make-bitfield 'client-attributes attributes))
       form))
-
-
-;; external
-(defcfun ("glPopAttrib" pop-attrib) :void)
-
-;; external
-(defcfun ("glPopClientAttrib" pop-client-attrib) :void)
