@@ -54,14 +54,14 @@
 ;;;; 3.1 Image Scaling
 
 (defcfun ("gluScaleImage" %gluScaleImage) :int
-  (format gl:pixel-data-format)
+  (format gl:enum)
   (width-in gl:sizei)
   (height-in gl:sizei)
-  (type-in gl:pixel-data-type)
+  (type-in gl:enum)
   (data-in :pointer)
   (width-out gl:sizei)
   (height-out gl:sizei)
-  (type-out gl:pixel-data-type)
+  (type-out gl:enum)
   (data-out :pointer))
 
 ;;(defun scale-image (format width-in height-in type-in data-in

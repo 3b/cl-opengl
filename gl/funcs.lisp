@@ -42,14 +42,14 @@
 ;;; A
 
 (defglfun ("glAccum" %glAccum) :void
-  (op accum-op)
+  (op enum)
   (value float))
 
 (defglfun ("glActiveTexture" %glActiveTexture) :void
-  (name texture-name))
+  (name enum))
 
 (defglfun ("glAlphaFunc" %glAlphaFunc) :void
-  (func compare-func)
+  (func enum)
   (ref clampf))
 
 (defglfun ("glAttachShader" %glAttachShader) :void
@@ -65,10 +65,10 @@
 ;;; B
 
 (defglfun ("glBegin" %glBegin) :void
-  (mode begin-mode))
+  (mode enum))
 
 (defglfun ("glBeginQuery" %glBeginQuery) :void
-  (target query-target)
+  (target enum)
   (id uint))
 
 (defglfun ("glBindAttribLocation" %glBindAttribLocation) :void
@@ -77,7 +77,7 @@
   (name :pointer))
 
 (defglfun ("glBindTexture" %glBindTexture) :void
-  (target texture-target)
+  (target enum)
   (handle uint))
 
 (defglfun ("glBlendColor" %glBlendColor) :void
@@ -87,21 +87,21 @@
   (alpha clampf))
 
 (defglfun ("glBlendEquation" %glBlendEquation) :void
-  (mode blend-equation))
+  (mode enum))
 
 (defglfun ("glBlendEquationSeparate" %glBlendEquationSeparate) :void
-  (mode-rgb blend-equation)
-  (mode-alpha blend-equation))
+  (mode-rgb enum)
+  (mode-alpha enum))
 
 (defglfun ("glBlendFunc" %glBlendFunc) :void
-  (src blend-func)
-  (dst blend-func))
+  (src enum)
+  (dst enum))
 
 (defglfun ("glBlendFuncSeparate" %glBlendFuncSeparate) :void
-  (src-rgb blend-func)
-  (dst-rgb blend-func)
-  (src-alpha blend-func)
-  (dst-alpha blend-func))
+  (src-rgb enum)
+  (dst-rgb enum)
+  (src-alpha enum)
+  (dst-alpha enum))
 
 
 ;;; C
@@ -111,7 +111,7 @@
 
 (defglfun ("glCallLists" %glCallLists) :void
   (n sizei)
-  (type call-lists-type)
+  (type enum)
   (lists :pointer))
 
 (defglfun ("glClear" %glClear) :void
@@ -139,7 +139,7 @@
   (s int))
 
 (defglfun ("glClipPlane" %glClipPlane) :void
-  (p clip-plane-name)
+  (p enum)
   (eqn :pointer))
 
 (defglfun ("glColor3f" %glColor3f) :void
@@ -160,15 +160,15 @@
   (a boolean))
 
 (defglfun ("glColorMaterial" %glColorMaterial) :void
-  (face polygon-face)
-  (mode color-material-mode))
+  (face enum)
+  (mode enum))
 
 (defglfun ("glColorTable" %glColorTable) :void
-  (target color-table-name)
-  (internal-format pixel-data-internal-format)
+  (target enum)
+  (internal-format enum)
   (width sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glCompileShader" %glCompileShader) :void
@@ -179,10 +179,10 @@
   (y int)
   (width sizei)
   (height sizei)
-  (type copy-pixels-type))
+  (type enum))
 
 (defglfun ("glCopyTexImage1D" %glCopyTexImage1D) :void
-  (target tex-image-1d-target)
+  (target enum)
   (level int)
   (internal-format int)
   (x int)
@@ -191,7 +191,7 @@
   (border int))
 
 (defglfun ("glCopyTexImage2D" %glCopyTexImage2D) :void
-  (target tex-image-2d-target)
+  (target enum)
   (level int)
   (internal-format int)
   (x int)
@@ -202,7 +202,7 @@
 
 
 (defglfun ("glCopyTexSubImage1D" %glCopyTexSubImage1D) :void
-  (target tex-image-1d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (x int)
@@ -210,7 +210,7 @@
   (width sizei))
 
 (defglfun ("glCopyTexSubImage3D" %glCopyTexSubImage3D) :void
-  (target tex-image-3d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (yoffset int)
@@ -221,7 +221,7 @@
   (height sizei))
 
 (defglfun ("glCopyTexSubImage2D" %glCopyTexSubImage2D) :void
-  (target tex-image-2d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (yoffset int)
@@ -233,10 +233,10 @@
 (defglfun ("glCreateProgram" %glCreateProgram) uint)
 
 (defglfun ("glCreateShader" %glCreateShader) uint
-  (type shader-type))
+  (type enum))
 
 (defglfun ("glCullFace" %glCullFace) :void
-  (face polygon-face))
+  (face enum))
 
 
 ;;; D
@@ -260,7 +260,7 @@
   (textures :pointer))
 
 (defglfun ("glDepthFunc" %glDepthFunc) :void
-  (func compare-func))
+  (func enum))
 
 (defglfun ("glDepthMask" %glDepthMask) :void
   (mask boolean))
@@ -274,10 +274,10 @@
   (shader uint))
 
 (defglfun ("glDisable" %glDisable) :void
-  (target enable-cap))
+  (target enum))
 
 (defglfun ("glDrawBuffer" %glDrawBuffer) :void
-  (buffer draw-buffer))
+  (buffer enum))
 
 (defglfun ("glDrawBuffers" %glDrawBuffers) :void
   (n sizei)
@@ -289,14 +289,14 @@
   (flag boolean))
 
 (defglfun ("glEnable" %glEnable) :void
-  (target enable-cap))
+  (target enum))
 
 (defglfun ("glEnd" %glEnd) :void)
 
 (defglfun ("glEndList" %glEndList) :void)
 
 (defglfun ("glEndQuery" %glEndQuery) :void
-  (target query-target))
+  (target enum))
 
 (defglfun ("glEvalCoord1f" %glEvalCoord1f) :void
   (x float))
@@ -306,12 +306,12 @@
   (y float))
 
 (defglfun ("glEvalMesh1" %glEvalMesh1) :void
-  (mode eval-mesh-1-mode)
+  (mode enum)
   (p1 int)
   (p2 int))
 
 (defglfun ("glEvalMesh2" %glEvalMesh2) :void
-  (mode eval-mesh-2-mode)
+  (mode enum)
   (p1 int)
   (p2 int)
   (q1 int)
@@ -328,7 +328,7 @@
 
 (defglfun ("glFeedbackBuffer" %glFeedbackBuffer) :void
   (n sizei)
-  (type feedback-type)
+  (type enum)
   (buffer :pointer))
 
 (defglfun ("glFinish" %glFinish) :void)
@@ -339,15 +339,15 @@
   (coord float))
 
 (defglfun ("glFogi" %glFogi) :void
-  (pname fog-parameter)
+  (pname enum)
   (value int))
 
 (defglfun ("glFogf" %glFogf) :void
-  (pname fog-parameter)
+  (pname enum)
   (value float))
 
 (defglfun ("glFrontFace" %glFrontFace) :void
-  (dir face-direction))
+  (dir enum))
 
 (defglfun ("glFrustum" %glFrustum) :void
   (left double)
@@ -392,10 +392,20 @@
   (program uint)
   (name :pointer))
 
+(defcenum (gl-error enum)
+  (:no-error #x0)
+  (:invalid-enum #x500)
+  (:invalid-value #x501)
+  (:invalid-operation #x502)
+  (:stack-overflow #x503)
+  (:stack-underflow #x504)
+  (:out-of-memory #x505)
+  (:table-too-large #x8031))
+
 (defglfun ("glGetError" %glGetError) gl-error)
 
 (defglfun ("glGetString" %glGetString) :pointer
-  (name string-name))
+  (name enum))
 
 (defglfun ("glGetUniformLocation" %glGetUniformLocation) int
   (program uint)
@@ -404,8 +414,8 @@
 ;;; H
 
 (defglfun ("glHint" %glHint) :void
-  (target hint-target)
-  (hint hint))
+  (target enum)
+  (hint enum))
 
 ;;; I
 
@@ -418,7 +428,7 @@
 (defglfun ("glInitNames" %glInitNames) :void)
 
 (defglfun ("glIsEnabled" %glIsEnabled) boolean
-  (target enable-cap))
+  (target enum))
 
 (defglfun ("glIsList" %glIsList) boolean
   (list uint))
@@ -430,21 +440,21 @@
 ;;; L
 
 (defglfun ("glLightf" %glLightf) :void
-  (light light-name)
-  (pname light-parameter)
+  (light enum)
+  (pname enum)
   (param float))
 
 (defglfun ("glLightfv" %glLightfv) :void
-  (light light-name)
-  (pname light-parameter)
+  (light enum)
+  (pname enum)
   (param :pointer))
 
 (defglfun ("glLightModelfv" %glLightModelfv) :void
-  (pname light-model-parameter)
+  (pname enum)
   (value :pointer))
 
 (defglfun ("glLightModeli" %glLightModeli) :void
-  (pname light-model-parameter)
+  (pname enum)
   (value int))
 
 (defglfun ("glLineStipple" %glLineStipple) :void
@@ -472,12 +482,12 @@
   (matrix :pointer))
 
 (defglfun ("glLogicOp" %glLogicOp) :void
-  (op logic-op))
+  (op enum))
 
 ;;; M
 
 (defglfun ("glMap1f" %glMap1f) :void
-  (target map1-target)
+  (target enum)
   (u1 float)
   (u2 float)
   (stride int)
@@ -485,7 +495,7 @@
   (points :pointer))
 
 (defglfun ("glMap2f" %glMap2f) :void
-  (target map2-target)
+  (target enum)
   (u1 float)
   (u2 float)
   (ustride int)
@@ -510,25 +520,25 @@
   (v2 float))
 
 (defglfun ("glMaterialf" %glMaterialf) :void
-  (face polygon-face)
-  (pname material-parameter)
+  (face enum)
+  (pname enum)
   (param float))
 
 (defglfun ("glMaterialfv" %glMaterialfv) :void
-  (face polygon-face)
-  (pname material-parameter)
+  (face enum)
+  (pname enum)
   (param :pointer))
 
 (defglfun ("glMaterialiv" %glMaterialiv) :void
-  (face polygon-face)
-  (pname material-parameter)
+  (face enum)
+  (pname enum)
   (param :pointer))
 
 (defglfun ("glMatrixMode" %glMatrixMode) :void
-  (mode matrix-mode))
+  (mode enum))
 
 (defglfun ("glMultiTexCoord4f" %glMultiTexCoord4f) :void
-  (texture texture-name)
+  (texture enum)
   (s float)
   (t* float)
   (r float)
@@ -544,7 +554,7 @@
 
 (defglfun ("glNewList" %glNewList) :void
   (n uint)
-  (mode display-list-mode))
+  (mode enum))
 
 (defglfun ("glNormal3f" %glNormal3f) :void
   (x float)
@@ -567,48 +577,48 @@
   (token float))
 
 (defglfun ("glPixelMapfv" %glPixelMapfv) :void
-  (map pixel-map)
+  (map enum)
   (size sizei)
   (values :pointer))
 
 (defglfun ("glPixelStorei" %glPixelStorei) :void
-  (pname pixel-store-mode)
+  (pname enum)
   (value int))
 
 (defglfun ("glPixelStoref" %glPixelStoref) :void
-  (pname pixel-store-mode)
+  (pname enum)
   (value float))
 
 (defglfun ("glPixelTransferi" %glPixelTransferi) :void
-  (pname pixel-transfer-mode)
+  (pname enum)
   (value int))
 
 (defglfun ("glPixelTransferf" %glPixelTransferf) :void
-  (pname pixel-transfer-mode)
+  (pname enum)
   (value float))
 
 (defglfun ("glPointParameteri" %glPointParameteri) :void
-  (pname point-parameter)
+  (pname enum)
   (value int))
 
 (defglfun ("glPointParameterf" %glPointParameterf) :void
-  (pname point-parameter)
+  (pname enum)
   (value float))
 
 (defglfun ("glPointParameteriv" %glPointParameteriv) :void
-  (pname point-parameter)
+  (pname enum)
   (value :pointer))
 
 (defglfun ("glPointParameterfv" %glPointParameterfv) :void
-  (pname point-parameter)
+  (pname enum)
   (value :pointer))
 
 (defglfun ("glPointSize" %glPointSize) :void
   (size float))
 
 (defglfun ("glPolygonMode" %glPolygonMode) :void
-  (face polygon-face)
-  (mode polygon-mode))
+  (face enum)
+  (mode enum))
 
 (defglfun ("glPolygonOffset" %glPolygonOffset) :void
   (factor float)
@@ -652,15 +662,15 @@
   (w float))
 
 (defglfun ("glReadBuffer" %glReadBuffer) :void
-  (src draw-buffer))
+  (src enum))
 
 (defglfun ("glReadPixels" %glReadPixels) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glRectf" %glRectf) :void
@@ -670,7 +680,7 @@
   (y2 float))
 
 (defglfun ("glRenderMode" %glRenderMode) int
-  (mode render-mode))
+  (mode enum))
 
 (defglfun ("glRotatef" %glRotatef) :void
   (theta float)
@@ -705,7 +715,7 @@
   (buffer :pointer))
 
 (defglfun ("glShadeModel" %glShadeModel) :void
-  (mode shade-model))
+  (mode enum))
 
 (defglfun ("glShaderSource" %glShaderSource) :void
   (shader uint)
@@ -714,13 +724,13 @@
   (lengths :pointer))
 
 (defglfun ("glStencilFunc" %glStencilFunc) :void
-  (func compare-func)
+  (func enum)
   (ref int)
   (mask uint))
 
 (defglfun ("glStencilFuncSeparate" %glStencilFuncSeparate) :void
-  (face polygon-face)
-  (func compare-func)
+  (face enum)
+  (func enum)
   (ref int)
   (mask uint))
 
@@ -728,19 +738,19 @@
   (mask uint))
 
 (defglfun ("glStencilMaskSeparate" %glStencilMaskSeparate) :void
-  (face polygon-face)
+  (face enum)
   (mask uint))
 
 (defglfun ("glStencilOp" %glStencilOp) :void
-  (sfail stencil-op)
-  (dpfail stencil-op)
-  (dppass stencil-op))
+  (sfail enum)
+  (dpfail enum)
+  (dppass enum))
 
 (defglfun ("glStencilOpSeparate" %glStencilOpSeparate) :void
-  (face polygon-face)
-  (sfail stencil-op)
-  (dpfail stencil-op)
-  (dppass stencil-op))
+  (face enum)
+  (sfail enum)
+  (dpfail enum)
+  (dppass enum))
 
 ;;; T
 
@@ -763,95 +773,95 @@
   (q float))
 
 (defglfun ("glTexEnvi" %glTexEnvi) :void
-  (target texture-environment-target)
+  (target enum)
   (pname enum)
   (param int))
 
 (defglfun ("glTexEnvf" %glTexEnvf) :void
-  (target texture-environment-target)
+  (target enum)
   (pname enum)
   (param float))
 
 (defglfun ("glTexEnviv" %glTexEnviv) :void
-  (target texture-environment-target)
+  (target enum)
   (pname enum)
   (params :pointer))
 
 (defglfun ("glTexEnvfv" %glTexEnvfv) :void
-  (target texture-environment-target)
+  (target enum)
   (pname enum)
   (params :pointer))
 
 (defglfun ("glTexParameteri" %glTexParameteri) :void
-  (target texture-target)
-  (pname texture-parameter)
+  (target enum)
+  (pname enum)
   (param int))
 
 (defglfun ("glTexParameterf" %glTexParameterf) :void
-  (target texture-target)
-  (pname texture-parameter)
+  (target enum)
+  (pname enum)
   (param float))
 
 (defglfun ("glTexParameterfv" %glTexParameterfv) :void
-  (target texture-target)
-  (pname texture-parameter)
+  (target enum)
+  (pname enum)
   (params :pointer))
 
 (defglfun ("glTexImage1D" %glTexImage1D) :void
-  (target tex-image-1d-target)
+  (target enum)
   (level int)
   (internal-format int)
   (width sizei)
   (border int)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTexImage2D" %glTexImage2D) :void
-  (target tex-image-2d-target)
+  (target enum)
   (level int)
   (internal-format int)
   (width sizei)
   (height sizei)
   (border int)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTexImage3D" %glTexImage3D) :void
-  (target tex-image-3d-target)
+  (target enum)
   (level int)
   (internal-format int)
   (width sizei)
   (height sizei)
   (depth sizei)
   (border int)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTexSubImage1D" %glTexSubImage1D) :void
-  (target tex-image-1d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (width sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTexSubImage2D" %glTexSubImage2D) :void
-  (target tex-image-2d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (yoffset int)
   (width sizei)
   (height sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTexSubImage3D" %glTexSubImage3D) :void
-  (target tex-image-3d-target)
+  (target enum)
   (level int)
   (xoffset int)
   (yoffset int)
@@ -859,8 +869,8 @@
   (width sizei)
   (height sizei)
   (depth sizei)
-  (format pixel-data-format)
-  (type pixel-data-type)
+  (format enum)
+  (type enum)
   (data :pointer))
 
 (defglfun ("glTranslatef" %glTranslatef) :void

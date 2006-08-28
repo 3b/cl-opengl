@@ -289,8 +289,7 @@
          (setf (mem-aref p 'float i) (float (elt value i))))
        (%glLightModelfv pname p)))
     (:light-model-color-control
-     (%glLightmodeli pname
-                     (foreign-enum-value 'light-model-color-control value)))
+     (%glLightmodeli pname (foreign-enum-value 'enum value)))
     ((:light-model-local-viewer :light-model-two-side)
      (%glLightModeli pname (if value 1 0)))))
 
@@ -374,8 +373,7 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
     (%glGetActiveAttrib program index 1024 characters-written size type name)
     (when (< 0 (mem-ref characters-written 'sizei))
       (values (mem-ref size 'int)
-              (foreign-enum-keyword 'program-attribute-type
-                                    (mem-ref type :long))
+              (foreign-enum-keyword 'enum (mem-ref type :long))
               (foreign-string-to-lisp name)))))
 
 (defun get-attrib-location (program name)
@@ -402,7 +400,7 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
     (%glGetActiveUniform program index 1024 characters-written size type name)
     (when (< 0 (mem-ref characters-written 'sizei))
       (values (mem-ref size 'int)
-              (foreign-enum-keyword 'program-uniform-type (mem-ref type :long))
+              (foreign-enum-keyword 'enum (mem-ref type :long))
               (foreign-string-to-lisp name)))))
 
 (defun uniformi (location x &optional y z w)

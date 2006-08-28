@@ -241,11 +241,11 @@ enabled. Possible values are :CLEAR, :AND, :AND-REVERSE, :COPY, :AND-INVERTED,
 
 (declaim (inline clear))
 (defun clear (&rest bufs)
-  (%glClear (make-bitfield 'clear-buffer-bits bufs)))
+  (%glClear (make-bitfield 'enum bufs)))
 
 (define-compiler-macro clear (&whole form &rest bufs)
   (if (every #'keywordp bufs)
-      `(%glClear ,(make-bitfield 'clear-buffer-bits bufs))
+      `(%glClear ,(make-bitfield 'enum bufs))
       form))
 
 (declaim (inline clear-color))

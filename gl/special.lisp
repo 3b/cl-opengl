@@ -160,7 +160,7 @@
 (defun call-lists (lists)
   (with-opengl-sequence (array 'uint lists)
     (%glCallLists (length lists)
-                  #.(foreign-enum-value 'call-lists-type :unsigned-int)
+                  #.(foreign-enum-value 'enum :unsigned-int)
                   array)))
 
 (declaim (inline list-base))

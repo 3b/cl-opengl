@@ -46,7 +46,7 @@
     ((:point-size-min :point-size-max :point-fade-threshold-size)
      (%glPointParameterf pname (float value)))
     (:point-sprite-coord-origin
-     (%glPointParameteri pname (foreign-enum-value 'point-sprite-coord-origin value)))
+     (%glPointParameteri pname (foreign-enum-value 'enum value)))
     (:point-distance-attenuation
      (with-foreign-object (p 'float 3)
        (dotimes (i 3)
@@ -129,7 +129,7 @@
 
 (defun internal-format->int (format)
   (if (keywordp format)
-      (foreign-enum-value 'pixel-data-internal-format format)
+      (foreign-enum-value 'enum format)
       (if (and (numberp format) (< 0 format 5))
           format
           (error "Internal format must be either a keyword or an integer in the range [1,4]."))))
@@ -204,11 +204,11 @@
 (defun tex-parameter (target pname param)
   (ecase pname
     ((:texture-wrap-s :texture-wrap-t :texture-wrap-r)
-     (%glTexParameteri target pname (foreign-enum-value 'texture-wrap-mode param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:texture-min-filter
-     (%glTexParameteri target pname (foreign-enum-value 'texture-min-filter param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:texture-mag-filter
-     (%glTexParameteri target pname (foreign-enum-value 'texture-mag-filter param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:texture-border-color
      (with-foreign-object (array 'float 4)
        (dotimes (i 4)
@@ -219,11 +219,11 @@
     ((:texture-base-level :texture-lod-bias)
      (%glTexParameteri target pname (truncate param)))
     (:depth-texture-mode
-     (%glTexParameteri target pname (foreign-enum-value 'depth-texture-mode param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:texture-compare-mode
-     (%glTexParameteri target pname (foreign-enum-value 'texture-compare-mode param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:texture-compare-func
-     (%glTexParameteri target pname (foreign-enum-value 'compare-func param)))
+     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
     (:generate-mipmap
      (%glTexParameteri target pname (if param 1 0)))))
 
@@ -291,27 +291,27 @@
   (let (pname-value)
     (ecase target
       (:texture-filter-control
-       (setf pname-value (foreign-enum-value 'tex-env-texture-filter-control pname))
+       (setf pname-value (foreign-enum-value 'enum pname))
        (ecase pname
          (:texture-lod-bias (%glTexEnvf target pname-value (float value)))))
 
       (:texture-env
-       (setf pname-value (foreign-enum-value 'tex-env-texture-environment pname))
+       (setf pname-value (foreign-enum-value 'enum pname))
        (ecase pname
          (:texture-env-mode
-          (%glTexEnvi target pname-value (foreign-enum-value 'texture-environment-mode value)))
+          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))
          (:texture-env-color
           (with-foreign-object (p 'float 4)
             (dotimes (i 4)
               (setf (mem-aref p 'float i) (float (elt value i))))
             (%glTexEnvfv target pname-value p)))
          (:combine-rgb
-          (%glTexEnvi target pname-value (foreign-enum-value 'combine-rgb-function value)))
+          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))
          (:combine-alpha
-          (%glTexEnvi target pname-value (foreign-enum-value 'combine-alpha-function value)))))
+          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))))
 
      (:point-sprite
-      (setf pname-value (foreign-enum-value 'tex-env-point-sprite pname))
+      (setf pname-value (foreign-enum-value 'enum pname))
       (ecase pname
         (:coord-replace (%glTexEnvi target pname-value (if value 1 0))))))))
 
@@ -323,8 +323,8 @@
 (defun fog (pname param)
   (ecase pname
     (:fog-mode
-     (%glFogi pname (foreign-enum-value 'fog-mode param)))
+     (%glFogi pname (foreign-enum-value 'enum param)))
     (:fog-coord-src
-     (%glFogi pname (foreign-enum-value 'fog-coord-src param)))
+     (%glFogi pname (foreign-enum-value 'enum param)))
     ((:fog-density :fog-start :fog-end)
      (%glFogf pname (float param)))))
