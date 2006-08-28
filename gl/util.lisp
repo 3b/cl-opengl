@@ -95,6 +95,13 @@
                  do (setf (mem-aref ,var ,type i) (aref ,array i)))
            ,@body)))))
 
+(defmacro with-opengl-arrays (bindings &body body)
+  (if (null bindings)
+      `(let nil ,@body)
+      `(with-opengl-array ,(car bindings)
+         (with-opengl-arrays ,(cdr bindings)
+           ,@body))))
+
 (defmacro with-pixel-array ((var type lisp-array) &body body)
   `(with-opengl-array (,var (symbolic-type->real-type ,type) ,lisp-array)
      ,@body))

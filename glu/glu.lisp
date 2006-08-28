@@ -38,6 +38,18 @@
   (:version 100800)
   :extensions)
 
+;;; Some GLU functions return an integer error code indicating success
+;;; or failure.  When the error code is zero, we can use glGetError to
+;;; obtain the actual error that occurred.  This type adds a
+;;; translation to signal GLU-ERROR conditions for these errors.
+(defctype glu-result gl:int)
+
+;;; Check GLU result codes and signal errors on zero values.
+(defmethod translate-from-foreign (value (name (eql 'glu-result)))
+  (when (zerop value)
+    (gl:check-error))
+  value)
+
 ;;;; 2. Initialization
 
 (defcfun ("gluGetString" get-string) :string
@@ -117,7 +129,105 @@
 
 ;;;; 4.2 Coordinate Projection
 
-;;; TODO: gluProject, gluUnProject, gluUnProject4
+(defcfun ("gluProject" %gluProject) glu-result
+  (obj-x gl:ensure-double)
+  (obj-y gl:ensure-double)
+  (obj-z gl:ensure-double)
+  (modelview (:pointer gl:double))
+  (projection (:pointer gl:double))
+  (viewport (:pointer gl:int))
+  (win-x (:pointer gl:double))
+  (win-y (:pointer gl:double))
+  (win-z (:pointer gl:double)))
+
+(defcfun ("gluUnProject" %gluUnProject) glu-result
+  (win-x gl:ensure-double)
+  (win-y gl:ensure-double)
+  (win-z gl:ensure-double)
+  (modelview (:pointer gl:double))
+  (projection (:pointer gl:double))
+  (viewport (:pointer gl:int))
+  (obj-x (:pointer gl:double))
+  (obj-y (:pointer gl:double))
+  (obj-z (:pointer gl:double)))
+
+(defcfun ("gluUnProject4" %gluUnProject4) glu-result
+  (win-x gl:ensure-double)
+  (win-y gl:ensure-double)
+  (win-z gl:ensure-double)
+  (clip-w gl:ensure-double)
+  (modelview (:pointer gl:double))
+  (projection (:pointer gl:double))
+  (viewport (:pointer gl:int))
+  (near gl:ensure-double)
+  (far gl:ensure-double)
+  (obj-x (:pointer gl:double))
+  (obj-y (:pointer gl:double))
+  (obj-z (:pointer gl:double))
+  (obj-w (:pointer gl:double)))
+
+;;; Bind each symbol in NAMES to a foreign double float allocated with
+;;; dynamic-extent, returing the final value of each of them as
+;;; multiple values.  The return value of BODY is ignored.
+(defmacro with-double-floats/values (names &body body)
+  `(with-foreign-objects (,@(mapcar (lambda (name)
+                                      `(,name 'gl:double)) names))
+     ,@body
+     (values ,@(mapcar (lambda (name)
+                         `(mem-ref ,name 'gl:double)) names))))
+
+;;; Rebind MODEL, PROJ, and VIEWPORT to foreign arrays of the
+;;; appropriate type to contain the modelview matrix, projection
+;;; matrix, and viewport for calls to GLU projection functions.
+(defmacro with-projection-arrays ((model proj viewport) &body body)
+  (gl::once-only (model proj viewport)
+    `(progn
+       (assert (= (length ,model) 16))
+       (assert (= (length ,proj) 16))
+       (assert (= (length ,viewport) 4))
+       (gl::with-opengl-arrays ((,model 'gl:double ,model)
+                                (,proj 'gl:double ,proj)
+                                (,viewport 'gl:int ,viewport))
+         ,@body))))
+
+;;; Map object coordinates to window coordinates.  The MODELVIEW
+;;; matrix, PROJECTION matrix, and VIEWPORT dimensions will be queried
+;;; from the OpenGL state if not supplied.  Returns the window X, Y,
+;;; and Z as multiple values.
+(defun project (obj-x obj-y obj-z &key
+                (modelview (gl:get-double :modelview-matrix))
+                (projection (gl:get-double :projection-matrix))
+                (viewport (gl:get-integer :viewport)))
+  (with-projection-arrays (modelview projection viewport)
+    (with-double-floats/values (x y z)
+      (%gluProject obj-x obj-y obj-z modelview projection viewport x y z))))
+
+;;; Map window coordinates to object coordinates.  The MODELVIEW
+;;; matrix, PROJECTION matrix, and VIEWPORT dimensions will be queried
+;;; from the OpenGL state if not supplied.  Returns the object X, Y,
+;;; and Z as multiple values.
+(defun un-project (win-x win-y win-z &key
+                   (modelview (gl:get-double :modelview-matrix))
+                   (projection (gl:get-double :projection-matrix))
+                   (viewport (gl:get-integer :viewport)))
+  (with-projection-arrays (modelview projection viewport)
+    (with-double-floats/values (x y z)
+      (%gluUnProject win-x win-y win-z modelview projection viewport x y z))))
+
+;;; Map window and clip coordinates to object coordinates.  The
+;;; MODELVIEW matrix, PROJECTION matrix, and VIEWPORT dimensions will
+;;; be queried from the OpenGL state if not supplied.  Returns the
+;;; object X, Y, Z, and W as multiple values.
+(defun un-project4 (win-x win-y win-z clip-w &key
+                    (near 0.0d0)
+                    (far 1.0d0)
+                    (modelview (gl:get-double :modelview-matrix))
+                    (projection (gl:get-double :projection-matrix))
+                    (viewport (gl:get-integer :viewport)))
+  (with-projection-arrays (modelview projection viewport)
+    (with-double-floats/values (x y z w)
+      (%gluUnProject4 win-x win-y win-z clip-w modelview projection
+                      viewport near far x y z w))))
 
 ;;;; 5. Polygon Tessellation
 

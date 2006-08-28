@@ -44,4 +44,6 @@
    #:perspective
    #:look-at
    #:pick-matrix
-   ))
+   #:project
+   #:un-project
+   #:un-project4))
