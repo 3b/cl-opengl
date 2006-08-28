@@ -256,6 +256,11 @@
    ;; 5.6 Hints
    #:hint
    ;; 6.1.1 Simple Queries
+   #:get-boolean
+   #:get-integer
+   #:get-float
+   #:get-double
+   #:get-enum
    #:enable
    #:disable
    #:enabledp

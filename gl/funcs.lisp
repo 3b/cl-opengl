@@ -392,6 +392,14 @@
   (program uint)
   (name :pointer))
 
+(defglfun ("glGetBooleanv" %glGetBooleanv) :void
+  (value enum)
+  (data :pointer))
+
+(defglfun ("glGetDoublev" %glGetDoublev) :void
+  (value enum)
+  (data :pointer))
+
 (defcenum (gl-error enum)
   (:no-error #x0)
   (:invalid-enum #x500)
@@ -403,6 +411,14 @@
   (:table-too-large #x8031))
 
 (defglfun ("glGetError" %glGetError) gl-error)
+
+(defglfun ("glGetFloatv" %glGetFloatv) :void
+  (value enum)
+  (data :pointer))
+
+(defglfun ("glGetIntegerv" %glGetIntegerv) :void
+  (value enum)
+  (data :pointer))
 
 (defglfun ("glGetString" %glGetString) :pointer
   (name enum))
