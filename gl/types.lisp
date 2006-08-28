@@ -29,20 +29,23 @@
 
 (in-package #:cl-opengl)
 
-(defctype enum :unsigned-long :translate-p nil)
+(defctype enum :unsigned-int :translate-p nil)
 (defctype boolean :unsigned-char :translate-p nil)
-(defctype bitfield :unsigned-long :translate-p nil)
+(defctype bitfield :unsigned-int :translate-p nil)
 (defctype byte :char :translate-p nil)
 (defctype short :short :translate-p nil)
 (defctype int :int :translate-p nil)
 (defctype sizei :int :translate-p nil)
 (defctype ubyte :unsigned-char :translate-p nil)
 (defctype ushort :unsigned-short :translate-p nil)
-(defctype uint :unsigned-long :translate-p nil)
+(defctype uint :unsigned-int :translate-p nil)
 (defctype float :float :translate-p nil)
 (defctype clampf :float :translate-p nil)
 (defctype double :double :translate-p nil)
 (defctype clampd :double :translate-p nil)
+
+;;; XXX these will be broken on 64-bit systems that do not have 64-bit longs,
+;;; such as Win64.
 (defctype intptr :long :translate-p nil)
 (defctype sizeiptr :long :translate-p nil)
 
