@@ -148,7 +148,7 @@
   (let* ((enums (parser-enums parser))
          (keys (sort (hash-table-keys enums) #'string-lessp)))
     (dolist (key keys)
-      (format stream "~%  ~((~S #x~X)~)" key (gethash key enums))))
+      (format stream "~%  (~S #x~X)" key (gethash key enums))))
   (format stream ")~%"))
 
 ;;; Generate the CL-OPENGL source file containing the enums from the
