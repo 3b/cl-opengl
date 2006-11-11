@@ -100,9 +100,9 @@
 ;;; FIXME: the rotations are dependent on the frame rate.
 ;;; I'd need to calculate the frametime, but I'm too lazy right now.
 
-(defparameter *teapot-rotation-x* 0.5)
-(defparameter *teapot-rotation-y* 55.0)
-(defparameter *teapot-rotation-z* 40.0)
+(defparameter *teapot-rotation-x* 0.0)
+(defparameter *teapot-rotation-y* 0.0)
+(defparameter *teapot-rotation-z* 0.0)
 
 (defun draw-teapot ()
   (gl:clear-color 0 0.3 0.5 1.0)
@@ -125,9 +125,9 @@
   (gl:color 1 1 1)
   (glut:solid-teapot 1.3)
 
-  #+nil(incf *teapot-rotation-x* 0.01)
-  #+nil(incf *teapot-rotation-y* 0.05)
-  #+nil(incf *teapot-rotation-z* 0.03))
+  (incf *teapot-rotation-x* 0.01)
+  (incf *teapot-rotation-y* 0.05)
+  (incf *teapot-rotation-z* 0.03))
 
 
 (defparameter *quad-rotation* 0.0)
