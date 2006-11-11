@@ -62,6 +62,14 @@
    #:secondary-color
    #:index
    #:vertex-attrib
+   ;; 2.9 Buffer Objects
+   #:bind-buffer
+   #:delete-buffers
+   #:gen-buffers
+   #:buffer-data
+   #:buffer-sub-data
+   #:map-buffer
+   #:unmap-buffer
    ;; 2.10 Rectangles
    #:rect
    ;; 2.11.2 Controlling the Viewport
@@ -273,4 +281,22 @@
    #:push-attrib
    #:push-client-attrib
    #:pop-attrib
-   #:pop-client-attrib))
+   #:pop-client-attrib
+   ;; Extensions
+   #:is-renderbuffer-ext
+   #:bind-renderbuffer-ext
+   #:delete-renderbuffers-ext
+   #:gen-renderbuffers-ext
+   #:renderbuffer-storage-ext
+   #:is-framebuffer-ext
+   #:bind-framebuffer-ext
+   #:delete-framebuffers-ext
+   #:gen-framebuffers-ext
+   #:check-framebuffer-status-ext
+   #:framebuffer-texture-1d-ext
+   #:framebuffer-texture-2d-ext
+   #:framebuffer-texture-3d-ext
+   #:framebuffer-renderbuffer-ext
+   #:generate-mipmap-ext
+   ))
+

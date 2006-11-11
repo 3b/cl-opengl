@@ -76,6 +76,18 @@
   (index uint)
   (name :pointer))
 
+(defglfun ("glBindBuffer" %glBindBuffer) :void
+  (target enum)
+  (buffer uint))
+
+(defglfun ("glBindFramebufferEXT" %glBindFramebufferEXT) :void
+  (target enum)
+  (framebuffer uint))
+
+(defglfun ("glBindRenderbufferEXT" %glBindRenderbufferEXT) :void
+  (target enum)
+  (renderbuffer uint))
+
 (defglfun ("glBindTexture" %glBindTexture) :void
   (target enum)
   (handle uint))
@@ -103,6 +115,17 @@
   (src-alpha enum)
   (dst-alpha enum))
 
+(defglfun ("glBufferData" %glBufferData) :void
+  (target enum)
+  (size sizeiptr)
+  (data :pointer)
+  (usage enum))
+
+(defglfun ("glBufferSubData" %glBufferSubData) :void
+  (target enum)
+  (offset intptr)
+  (size sizeiptr)
+  (data :pointer))
 
 ;;; C
 
@@ -113,6 +136,9 @@
   (n sizei)
   (type enum)
   (lists :pointer))
+
+(defglfun ("glCheckFramebufferStatusEXT" %glCheckFramebufferStatusEXT) enum
+  (target enum))
 
 (defglfun ("glClear" %glClear) :void
   (bufs bitfield))
@@ -241,6 +267,14 @@
 
 ;;; D
 
+(defglfun ("glDeleteBuffers" %glDeleteBuffers) :void
+  (n sizei)
+  (buffers :pointer))
+
+(defglfun ("glDeleteFramebuffersEXT" %glDeleteFramebuffersEXT) :void
+  (n sizei)
+  (framebuffers :pointer))
+
 (defglfun ("glDeleteLists" %glDeleteLists) :void
   (list uint)
   (range sizei))
@@ -251,6 +285,10 @@
 (defglfun ("glDeleteQueries" %glDeleteQueries) :void
   (n sizei)
   (ids :pointer))
+
+(defglfun ("glDeleteRenderbuffersEXT" %glDeleteRenderbuffersEXT) :void
+  (n sizei)
+  (renderbuffers :pointer))
 
 (defglfun ("glDeleteShader" %glDeleteShader) :void
   (shader uint))
@@ -346,6 +384,34 @@
   (pname enum)
   (value float))
 
+(defglfun ("glFramebufferRenderbufferEXT" %glFramebufferRenderbufferEXT) :void
+  (target enum)
+  (attachment enum)
+  (renderbuffertarget enum)
+  (renderbuffer uint))
+
+(defglfun ("glFramebufferTexture1DEXT" %glFramebufferTexture1DEXT) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+(defglfun ("glFramebufferTexture2DEXT" %glFramebufferTexture2DEXT) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+(defglfun ("glFramebufferTexture3DEXT" %glFramebufferTexture3DEXT) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int)
+  (zoffset int))
+
 (defglfun ("glFrontFace" %glFrontFace) :void
   (dir enum))
 
@@ -359,6 +425,14 @@
 
 ;;; G
 
+(defglfun ("glGenBuffers" %glGenBuffers) :void
+  (n sizei)
+  (buffers :pointer))
+
+(defglfun ("glGenFramebuffersEXT" %glGenFramebuffersEXT) :void
+  (n sizei)
+  (framebuffers :pointer))
+
 (defglfun ("glGenLists" %glGenLists) uint
   (range sizei))
 
@@ -366,9 +440,16 @@
   (n sizei)
   (ids :pointer))
 
+(defglfun ("glGenRenderbuffersEXT" %glGenRenderbuffersEXT) :void
+  (n sizei)
+  (renderbuffers :pointer))
+
 (defglfun ("glGenTextures" %glGenTextures) :void
   (n sizei)
   (textures :pointer))
+
+(defglfun ("glGenerateMipmapEXT" %glGenerateMipmapEXT) :void
+  (target enum))
 
 (defglfun ("glGetActiveAttrib" %glGetActiveAttrib) :void
   (program uint)
@@ -416,9 +497,20 @@
   (value enum)
   (data :pointer))
 
+(defglfun ("glGetFramebufferAttachmentParameterivEXT" %glGetFramebufferAttachmentParameterivEXT) :void
+  (target enum)
+  (attachment enum)
+  (pname enum)
+  (params :pointer))
+
 (defglfun ("glGetIntegerv" %glGetIntegerv) :void
   (value enum)
   (data :pointer))
+
+(defglfun ("glGetRenderbufferParameterivEXT" %glGetRenderbufferParameterivEXT) :void
+  (target enum)
+  (pname enum)
+  (params :pointer))
 
 (defglfun ("glGetString" %glGetString) :pointer
   (name enum))
@@ -446,8 +538,16 @@
 (defglfun ("glIsEnabled" %glIsEnabled) boolean
   (target enum))
 
+(defglfun ("glIsFramebufferEXT" %glIsFramebufferEXT) boolean
+  (framebuffer uint))
+
 (defglfun ("glIsList" %glIsList) boolean
   (list uint))
+
+(defglfun ("glIsRenderbufferEXT" %glIsRenderbufferEXT) boolean
+  (renderbuffer uint))
+
+
 
 ;;; J
 
@@ -521,6 +621,10 @@
   (vstride int)
   (vorder int)
   (points :pointer))
+
+(defglfun ("glMapBuffer" %glMapBuffer) :pointer
+  (target enum)
+  (access enum))
 
 (defglfun ("glMapGrid1f" %glMapGrid1f) :void
   (n int)
@@ -694,6 +798,12 @@
   (y1 float)
   (x2 float)
   (y2 float))
+
+(defglfun ("glRenderbufferStorageEXT" %glRenderbufferStorageEXT) :void
+  (target enum)
+  (internal-format enum)
+  (width sizei)
+  (height sizei))
 
 (defglfun ("glRenderMode" %glRenderMode) int
   (mode enum))
@@ -957,6 +1067,9 @@
   (count sizei)
   (transpose boolean)
   (value :pointer))
+
+(defglfun ("glUnmapBuffer" %glUnmapBuffer) :void
+  (target enum))
 
 (defglfun ("glUseProgram" %glUseProgram) :void
   (program uint))

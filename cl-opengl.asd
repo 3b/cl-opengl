@@ -47,4 +47,5 @@
      (:file "rasterization" :depends-on ("funcs" "util"))
      (:file "framebuffer" :depends-on ("funcs" "util"))
      (:file "special" :depends-on ("funcs" "util"))
-     (:file "state" :depends-on ("funcs" "util"))))))
+     (:file "state" :depends-on ("funcs" "util"))
+     (:file "extensions" :depends-on ("funcs" "util"))))))

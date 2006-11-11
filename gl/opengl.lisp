@@ -122,6 +122,38 @@
 (defun vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
   (%glVertexAttrib4f index (float x) (float y) (float z) (float w)))
 
+
+;;;
+;;; 2.9 Buffer Objects
+;;;
+
+(declaim (inline bind-buffer))
+(defun bind-buffer (target buffer)
+  (%glBindBuffer target buffer))
+
+(defun delete-buffers (buffers)
+  (with-opengl-sequence (array 'uint buffers)
+    (%glDeleteBuffers (length buffers) array)))
+
+(defun gen-buffers (count)
+  (with-foreign-object (buffer-array 'uint count)
+    (%glGenBuffers count buffer-array)
+    (loop for i below count
+          collecting (mem-aref buffer-array 'uint i))))
+
+(defun buffer-data (target size data usage)
+  (%glBufferData target size data usage))
+
+(defun buffer-sub-data (target offset size data)
+  (%glBufferSubData target offset size data))
+
+(defun map-buffer (target access)
+  (%glMapBuffer target access))
+
+(defun unmap-buffer (target)
+  (%glUnmapBuffer target))
+
+
 ;;;
 ;;; 2.10 Rectangles
 ;;;
@@ -129,6 +161,7 @@
 (declaim (inline rect))
 (defun rect (x1 y1 x2 y2)
   (%glRectf (float x1) (float y1) (float x2) (float y2)))
+
 
 ;;;
 ;;; 2.11 Coordinate Transformations
