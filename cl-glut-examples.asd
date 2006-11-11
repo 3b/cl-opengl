@@ -73,6 +73,7 @@
      (:module "misc"
       :depends-on ("examples")
       :components
-      ((:file "glut-teapot")))))))
+      ((:file "glut-teapot")
+       (:file "render-to-texture")))))))
 
 ;;; vim: ft=lisp et

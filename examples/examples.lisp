@@ -14,7 +14,8 @@
      gears)
     ("SGI Samples")
     ("Other Examples"
-     glut-teapot)))
+     glut-teapot
+     render-to-texture)))
 
 ;;; export symbols
 (dolist (section +examples+)
