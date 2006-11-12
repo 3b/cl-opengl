@@ -127,7 +127,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
        ;; When we put #'foo-func instead of 'foo-func in the
        ;; FUNC slot weird stuff happens. No idea why.
        (push (make-event :name ,event-name :gf #',name :cb ',event-cb
-                         :func ',event-func :arg-count ,(length args))
+                         :func ',event-func :arg-count ,(length arg-names))
              *events*))))
 
 (defmacro define-glut-events (&body event-specs)
