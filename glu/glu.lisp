@@ -55,6 +55,7 @@
 (defcfun ("gluGetString" get-string) :string
   (name-keyword string-name))
 
+#-cffi-features:windows
 (defcfun ("gluCheckExtension" check-extension) (:boolean gl:boolean)
   (extension-name :string)
   (extension-string :string))
@@ -151,6 +152,7 @@
   (obj-y (:pointer gl:double))
   (obj-z (:pointer gl:double)))
 
+#-cffi-features:windows
 (defcfun ("gluUnProject4" %gluUnProject4) glu-result
   (win-x gl:ensure-double)
   (win-y gl:ensure-double)

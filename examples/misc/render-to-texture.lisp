@@ -28,6 +28,8 @@
     (gl:tex-parameter :texture-2d :texture-min-filter :linear-mipmap-linear)
     (gl:tex-parameter :texture-2d :texture-mag-filter :linear)
     (gl:tex-image-2d :texture-2d 0 :rgba 512 512 0 :rgba :unsigned-byte (cffi:null-pointer))
+    (gl:generate-mipmap-ext :texture-2d)
+    (gl:bind-texture :texture-2d 0)
     (gl:framebuffer-texture-2d-ext :framebuffer-ext
                                    :color-attachment0-ext
                                    :texture-2d
