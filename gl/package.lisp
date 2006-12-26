@@ -62,6 +62,26 @@
    #:secondary-color
    #:index
    #:vertex-attrib
+   ;; 2.8 Vertex Arrays
+   #:vertex-pointer
+   #:normal-pointer
+   #:color-pointer
+   #:secondary-color-pointer
+   #:index-pointer
+   #:edge-flag-pointer
+   #:fog-coord-pointer
+   #:tex-coord-pointer
+   #:vertex-attrib-pointer
+   #:enable-client-state
+   #:disable-client-state
+   #:client-active-texture
+   #:array-element
+   #:draw-arrays
+;; #:multi-draw-arrays
+   #:draw-elements
+;; #:multi-draw-elements
+;; #:draw-range-elements
+   #:interleaved-arrays
    ;; 2.9 Buffer Objects
    #:bind-buffer
    #:delete-buffers

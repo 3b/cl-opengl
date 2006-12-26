@@ -108,21 +108,25 @@
 
 ;;; TODO: maybe define opengl-sequence as a CFFI type. possibly something
 ;;; that would enforce a given length and type.
+
+(defun convert-seq (type lisp-sequence)
+  (case type
+    ((float :float) (mapcar #'float lisp-sequence))
+    ((double :double) (mapcar #'(lambda (x) (float x 1.0d0))
+                              lisp-sequence))
+    (t lisp-sequence)))
+
 (defmacro with-opengl-sequence ((var type lisp-sequence) &body body)
   (check-type var symbol)
-  (flet ((converting (form)            ; um, assuming type is constant
-           (case (eval type)           ; silly hack.. FIXME
-             (float `(float ,form))
-             (double `(float ,form 1.0d0))
-             (t form))))
-    (let ((count (gensym "COUNT")))
-      (once-only (type lisp-sequence)
-        `(let ((,count (length ,lisp-sequence)))
-           (with-foreign-object (,var ,type ,count)
-             (loop for i below ,count
-                   do (setf (mem-aref ,var ,type i)
-                            ,(converting `(elt ,lisp-sequence i))))
-             ,@body))))))
+  (let ((count (gensym "COUNT"))
+        (typed-seq (convert-seq type lisp-sequence)))
+    (once-only (type typed-seq)
+      `(let ((,count (length ,typed-seq)))
+         (with-foreign-object (,var ,type ,count)
+           (loop for i below ,count
+              do (setf (mem-aref ,var ,type i)
+                       (elt ,typed-seq i)))
+           ,@body)))))
 
 ;;; The following utils were taken from SBCL's
 ;;; src/code/*-extensions.lisp

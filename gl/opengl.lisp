@@ -122,6 +122,80 @@
 (defun vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
   (%glVertexAttrib4f index (float x) (float y) (float z) (float w)))
 
+;;;
+;;; 2.8 Vertex Arrays
+;;;
+
+(defun vertex-pointer (size type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glVertexPointer size type stride array)))
+
+(defun normal-pointer (type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glNormalPointer type stride array)))
+
+(defun color-pointer (size type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glColorPointer size type stride array)))
+
+(defun secondary-color-pointer (size type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glSecondaryColorPointer size type stride array)))
+
+(defun index-pointer (type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glIndexPointer type stride array)))
+
+(defun edge-flag-pointer (stride lisp-array)
+  (with-opengl-sequence (array 'boolean lisp-array)
+    (%glEdgeFlagPointer stride array)))
+
+(defun fog-coord-pointer (type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glFogCoordPointer type stride array)))
+
+(defun tex-coord-pointer (size type stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glTexCoordPointer size type stride array)))
+
+(defun vertex-attrib-pointer (index size type normalized stride lisp-array)
+  (with-opengl-sequence (array type lisp-array)
+    (%glVertexAttribPointer index size type normalized stride array)))
+
+(declaim (inline enable-client-state))
+(defun enable-client-state (state)
+  (%glEnableClientState state))
+
+(declaim (inline disable-client-state))
+(defun disable-client-state (state)
+  (%glDisableClientState state))
+
+(declaim (inline client-active-texture))
+(defun client-active-texture (enum)
+  (%glClientActiveTexture enum))
+
+(declaim (inline array-element))
+(defun array-element (i)
+  (%glArrayElement i))
+
+(declaim (inline draw-arrays))
+(defun draw-arrays (mode first count)
+  (%glDrawArrays mode first count))
+
+;; (defun multi-draw-arrays ())
+
+(defun draw-elements (mode count type lisp-indices)
+  (with-opengl-sequence (indices type lisp-indices)
+    (%glDrawElements mode count type indices)))
+
+;; (defun draw-range-elements ())
+
+(defun interleaved-arrays (format stride lisp-array)
+  ;;array type needs more logic I think
+  ;;float is quick hack to get working with redbook varray example
+  (with-opengl-sequence (array 'float lisp-array)
+    (%glInterleavedArrays format stride array)))
+
 
 ;;;
 ;;; 2.9 Buffer Objects

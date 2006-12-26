@@ -52,6 +52,9 @@
   (func enum)
   (ref clampf))
 
+(defglfun ("glArrayElement" %glArrayElement) :void
+  (i int))
+
 (defglfun ("glAttachShader" %glAttachShader) :void
   (program uint)
   (shader uint))
@@ -164,6 +167,9 @@
 (defglfun ("glClearStencil" %glClearStencil) :void
   (s int))
 
+(defglfun ("glClientActiveTexture" %glClientActiveTexture) :void
+  (texture enum))
+
 (defglfun ("glClipPlane" %glClipPlane) :void
   (p enum)
   (eqn :pointer))
@@ -188,6 +194,12 @@
 (defglfun ("glColorMaterial" %glColorMaterial) :void
   (face enum)
   (mode enum))
+
+(defglfun ("glColorPointer" %glColorPointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
 
 (defglfun ("glColorTable" %glColorTable) :void
   (target enum)
@@ -314,6 +326,17 @@
 (defglfun ("glDisable" %glDisable) :void
   (target enum))
 
+(defglfun ("glDisableClientState" %glDisableClientState) :void
+  (array enum))
+
+(defglfun ("glDisableVertexAttribArray" %glDisableVertexAttribArray) :void
+  (index uint))
+
+(defglfun ("glDrawArrays" %glDrawArrays) :void
+  (mode enum)
+  (first int)
+  (count sizei))
+
 (defglfun ("glDrawBuffer" %glDrawBuffer) :void
   (buffer enum))
 
@@ -321,13 +344,29 @@
   (n sizei)
   (bufs :pointer))
 
+(defglfun ("glDrawElements" %glDrawElements) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices :pointer))
+
 ;;; E
 
 (defglfun ("glEdgeFlag" %glEdgeFlag) :void
   (flag boolean))
 
+(defglfun ("glEdgeFlagPointer" %glEdgeFlagPointer) :void
+  (stride sizei)
+  (pointer :pointer))
+
 (defglfun ("glEnable" %glEnable) :void
   (target enum))
+
+(defglfun ("glEnableClientState" %glEnableClientState) :void
+  (array enum))
+
+(defglfun ("glEnableVertexAttribArray" %glEnableVertexAttribArray) :void
+  (index uint))
 
 (defglfun ("glEnd" %glEnd) :void)
 
@@ -375,6 +414,11 @@
 
 (defglfun ("glFogCoordf" %glFogCoordf) :void
   (coord float))
+
+(defglfun ("glFogCoordPointer" %glFogCoordPointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
 
 (defglfun ("glFogi" %glFogi) :void
   (pname enum)
@@ -533,7 +577,17 @@
 (defglfun ("glIndexMask" %glIndexMask) :void
   (mask uint))
 
+(defglfun ("glIndexPointer" %glIndexPointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
+
 (defglfun ("glInitNames" %glInitNames) :void)
+
+(defglfun ("glInterleavedArrays" %glInterleavedArrays) :void
+  (frmat enum)
+  (stride sizei)
+  (pointer :pointer))
 
 (defglfun ("glIsEnabled" %glIsEnabled) boolean
   (target enum))
@@ -680,6 +734,11 @@
   (x float)
   (y float)
   (z float))
+
+(defglfun ("glNormalPointer" %glNormalPointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
 
 ;;; O
 
@@ -836,6 +895,12 @@
   (g float)
   (b float))
 
+(defglfun ("glSecondaryColorPointer" %glSecondaryColorPointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
+
 (defglfun ("glSelectBuffer" %glSelectBuffer) :void
   (n sizei)
   (buffer :pointer))
@@ -897,6 +962,12 @@
   (t* float)
   (r float)
   (q float))
+
+(defglfun ("glTexCoordPointer" %glTexCoordPointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
 
 (defglfun ("glTexEnvi" %glTexEnvi) :void
   (target enum)
@@ -1115,6 +1186,20 @@
   (y float)
   (z float)
   (w float))
+
+(defglfun ("glVertexAttribPointer" %glVertexAttribPointer) :void
+  (index uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (stride sizei)
+  (pointer :pointer))
+
+(defglfun ("glVertexPointer" %glVertexPointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer :pointer))
 
 (defglfun ("glViewport" %glViewport) :void
   (x int)

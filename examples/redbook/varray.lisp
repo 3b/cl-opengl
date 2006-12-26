@@ -11,51 +11,49 @@
 
 (defclass varray-window (glut:window)
   ((setup-method :accessor setup-method :initform 'pointer)
-   (deref-method :accessor deref-method :initform 'draw-array)))
+   (deref-method :accessor deref-method :initform 'draw-array))
+  (:default-initargs :width 350 :height 350 :title "varray.lisp"
+                     :mode '(:single :rgb)))
 
 (defun setup-pointers ()
-  ;; XXX TODO
-#||
-     static GLint vertices[] = {25, 25,
-                       100, 325,
-                       175, 25,
-                       175, 325,
-                       250, 25,
-                       325, 325};
-   static GLfloat colors[] = {1.0, 0.2, 0.2,
-                       0.2, 0.2, 1.0,
-                       0.8, 1.0, 0.2,
-                       0.75, 0.75, 0.75,
-                       0.35, 0.35, 0.35,
-                       0.5, 0.5, 0.5};
+  (let ((vertices '(25 25
+                    100 325
+                    175 25
+                    175 325
+                    250 25
+                    325 325))
+        (colors '(1.0 0.2 0.2
+                  0.2 0.2 1.0
+                  0.8 1.0 0.2
+                  0.75 0.75 0.75
+                  0.35 0.35 0.35
+                  0.5 0.5 0.5)))
 
-   glEnableClientState (GL_VERTEX_ARRAY);
-   glEnableClientState (GL_COLOR_ARRAY);
+    (gl:enable-client-state :vertex-array)
+    (gl:enable-client-state :color-array)
+    
+    (gl:vertex-pointer 2 :int 0 vertices)
+    (gl:color-pointer 3 :float 0 colors)))
+  
 
-   glVertexPointer (2, GL_INT, 0, vertices);
-   glColorPointer (3, GL_FLOAT, 0, colors);
-||#   )
+(defun setup-interleave ()
+  (let ((intertwined '(1.0 0.2 1.0 100.0 100.0 0.0
+                       1.0 0.2 0.2 0.0 200.0 0.0
+                       1.0 1.0 0.2 100.0 300.0 0.0
+                       0.2 1.0 0.2 200.0 300.0 0.0
+                       0.2 1.0 1.0 300.0 200.0 0.0
+                       0.2 0.2 1.0 200.0 100.0 0.0)))
+    
+    (gl:interleaved-arrays :c3f-v3f 0 intertwined)))
 
-(defun setup-interlave ()
-#||   static GLfloat intertwined[] =
-      {1.0, 0.2, 1.0, 100.0, 100.0, 0.0,
-       1.0, 0.2, 0.2, 0.0, 200.0, 0.0,
-       1.0, 1.0, 0.2, 100.0, 300.0, 0.0,
-       0.2, 1.0, 0.2, 200.0, 300.0, 0.0,
-       0.2, 1.0, 1.0, 300.0, 200.0, 0.0,
-       0.2, 0.2, 1.0, 200.0, 100.0, 0.0};
-   
-   glInterleavedArrays (GL_C3F_V3F, 0, intertwined);
-  ||#)
-
-(defmethod initialize-instance :after ((w varray-window) &key)
+(defmethod glut:display-window :before ((w varray-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :smooth)
   (setup-pointers))
 
 (defmethod glut:display ((w varray-window))
   (gl:clear :color-buffer-bit)
-  (ecase deref-method
+  (ecase (deref-method w)
     (draw-array
      (gl:draw-arrays :triangles 0 6))
     (array-element
@@ -78,18 +76,18 @@
   (case button
     (:left-button
      (when (eql state :down)
-       (case (setup-method varray-window)
+       (case (setup-method w)
          (pointer
-          (setf (setup-method varray-window) 'interleaved)
+          (setf (setup-method w) 'interleaved)
           (setup-interleave))
-         (interlaved
-          (setf (setup-method varray-window) 'pointer)
+         (interleaved
+          (setf (setup-method w) 'pointer)
           (setup-pointers)))
        (glut:post-redisplay)))
     ((:middle-button :right-button)
      (when (eql state :down)
-       (setf (deref-method varray-window)
-             (case (deref-method varray-window)
+       (setf (deref-method w)
+             (ecase (deref-method w)
                (draw-array 'array-element)
                (array-element 'draw-elements)
                (draw-elements 'draw-array)))
@@ -97,17 +95,16 @@
 
 (defmethod glut:keyboard ((w varray-window) key x y)
   (declare (ignore x y))
-  (case key
+  (case (code-char key)
     (#\Esc (glut:leave-main-loop))))
 
 ;;; XXX verificar GL_VERSION_1_1
 
 (defun rb-varray ()
-  
-  (glut:init-display-mode :single :rgb)
-  (make-instance 'varray-window
-                 :width 350 :height 350
-                 :pos-x 100 :pos-y 100
-                 :title "varray.lisp"
-                 :events '(:display :reshape :mouse :keyboard))
-  (glut:main-loop))
+  (glut:display-window (make-instance 'varray-window)))
+
+
+
+
+
+
