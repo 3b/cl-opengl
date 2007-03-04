@@ -44,8 +44,13 @@
 ;;; translation to signal GLU-ERROR conditions for these errors.
 (defctype glu-result gl:int)
 
+(define-foreign-type glu-result ()
+  ()
+  (:actual-type gl:int)
+  (:simple-parser glu-result))
+
 ;;; Check GLU result codes and signal errors on zero values.
-(defmethod translate-from-foreign (value (name (eql 'glu-result)))
+(defmethod translate-from-foreign (value (type glu-result))
   (when (zerop value)
     (gl:check-error))
   value)
@@ -237,7 +242,7 @@
 
 ;;;; 5.1 The Tessellation Object
 
-(defctype tesselator :pointer :translate-p nil)
+(defctype tesselator :pointer)
 
 (defcfun ("gluNewTess" new-tess) tesselator)
 
@@ -285,7 +290,7 @@
 
 ;;; TODO: make a clos class for these too
 
-(defctype quadric-obj :pointer :translate-p nil)
+(defctype quadric-obj :pointer)
 
 (defcfun ("gluNewQuadric" new-quadric) quadric-obj)
 

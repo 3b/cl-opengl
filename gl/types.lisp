@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -29,46 +29,51 @@
 
 (in-package #:cl-opengl)
 
-(defctype enum :unsigned-int :translate-p nil)
-(defctype boolean :unsigned-char :translate-p nil)
-(defctype bitfield :unsigned-int :translate-p nil)
-(defctype byte :char :translate-p nil)
-(defctype short :short :translate-p nil)
-(defctype int :int :translate-p nil)
-(defctype sizei :int :translate-p nil)
-(defctype ubyte :unsigned-char :translate-p nil)
-(defctype ushort :unsigned-short :translate-p nil)
-(defctype uint :unsigned-int :translate-p nil)
-(defctype float :float :translate-p nil)
-(defctype clampf :float :translate-p nil)
-(defctype double :double :translate-p nil)
-(defctype clampd :double :translate-p nil)
+(defctype enum :unsigned-int)
+(defctype boolean :unsigned-char)
+(defctype bitfield :unsigned-int)
+(defctype byte :char)
+(defctype short :short)
+(defctype int :int)
+(defctype sizei :int)
+(defctype ubyte :unsigned-char)
+(defctype ushort :unsigned-short)
+(defctype uint :unsigned-int)
+(defctype float :float)
+(defctype clampf :float)
+(defctype double :double)
+(defctype clampd :double)
 
 ;;; XXX these will be broken on 64-bit systems that do not have 64-bit longs,
 ;;; such as Win64.
-(defctype intptr :long :translate-p nil)
-(defctype sizeiptr :long :translate-p nil)
+(defctype intptr :long)
+(defctype sizeiptr :long)
 
-(defctype char :char :translate-p nil)
-(defctype handle :pointer :translate-p nil)
+(defctype char :char)
+(defctype handle :pointer)
 
+(define-foreign-type ensure-float ()
+  ()
+  (:actual-type :float)
+  (:simple-parser ensure-float))
 
-(defctype ensure-float :float)
-
-(defmethod translate-to-foreign (value (type (eql 'ensure-float)))
+(defmethod translate-to-foreign (value (type ensure-float))
   (float value))
 
-(defmethod expand-to-foreign (value (type (eql 'ensure-float)))
+(defmethod expand-to-foreign (value (type ensure-float))
   (if (constantp value)
       (float (eval value))
       `(float ,value)))
 
-(defctype ensure-double :double)
+(define-foreign-type ensure-double ()
+  ()
+  (:actual-type :double)
+  (:simple-parser ensure-double))
 
-(defmethod translate-to-foreign (value (type (eql 'ensure-double)))
+(defmethod translate-to-foreign (value (type ensure-double))
   (float value 1.0d0))
 
-(defmethod expand-to-foreign (value (type (eql 'ensure-double)))
+(defmethod expand-to-foreign (value (type ensure-double))
   (if (constantp value)
       (float (eval value) 1.0d0)
       `(float ,value 1.0d0)))

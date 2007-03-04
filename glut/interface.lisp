@@ -108,9 +108,12 @@ Lexically binds CURRENT-WINDOW to the respective object."
              ;;(format t "glut callback: ~A -> ~A~%" ,id current-window)
              ,@body))))))
 
-(defctype ascii-to-char :unsigned-char)
+(define-foreign-type ascii-to-char ()
+  ()
+  (:actual-type :unsigned-char)
+  (:simple-parser ascii-to-char))
 
-(defmethod expand-from-foreign (value (type (eql 'ascii-to-char)))
+(defmethod expand-from-foreign (value (type ascii-to-char))
   `(code-char ,value))
 
 ;;; The first element in ARGS is a dummy name for the first argument

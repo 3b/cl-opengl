@@ -34,7 +34,7 @@
 ;;; FIXME: LISP-FUNCTION-NAME should probably be exported from CFFI
 ;;; for helper macros like this one.
 (defmacro defglfun (name result-type &body body)
-  (let ((lisp-name (cffi::lisp-function-name name)))
+  (let ((lisp-name (cffi::lisp-name name)))
     `(progn
        (declaim (inline ,lisp-name))
        (defcfun ,name ,result-type ,@body))))
