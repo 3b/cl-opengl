@@ -46,18 +46,19 @@
   (shadow '(cl:special cl:close)))
 
 (export '(;; events / GFs
-          timer idle keyboard special reshape visibility display mouse
+          idle keyboard special reshape visibility display mouse
           motion passive-motion entry menu-state spaceball-motion
           spaceball-rotate spaceball-button button-box dials tablet-motion
           tablet-button menu-status overlay-display window-status keyboard-up
           special-up joystick mouse-wheel close wm-close menu-destroy
-          enable-event disable-event display-window
+          enable-event disable-event display-window tick
           ;; classes
           base-window window sub-window
           ;; accessors
           title name id events parent pos-x pos-y width height mode
           ;; other functions and macros
           display-window find-window with-window destroy-current-window
+          schedule-timer enable-tick disable-tick
           ;; specials
           *run-main-loop-after-display*))
 
@@ -65,6 +66,22 @@
   "Mapping of GLUT window IDs to instances of the BASE-WINDOW class.")
 
 (defvar *windows-with-idle-event* '())
+
+;;;; Timers
+
+(defparameter *timer-functions* nil)
+
+(defcallback timer-cb :void ((id :int))
+  (let ((function (cdr (assoc id *timer-functions*))))
+    (when function
+      (funcall function))))
+
+(defvar *timer-id-counter* 0)
+
+(defun schedule-timer (millis function)
+  (setf *timer-id-counter* (logand (1+ *timer-id-counter*) #xFFFFFFFF))
+  (push (cons *timer-id-counter* function) *timer-functions*)
+  (timer-func millis (callback timer-cb) *timer-id-counter*))
 
 ;;;; Events
 
@@ -79,12 +96,10 @@
 ;;; Ugh, some of these event are not implemented by Freeglut, which
 ;;; is what we care about... Better remove them?
 ;;;
-;;; TODO: the TIMER event is not related to a GLUT window and therefore
-;;;       doesn't fit this pattern. Implement it in some other way.
-;;;
 ;;; TODO: The JOYSTICK event has parameters, meaning a way to accept
 ;;;       parameters eg: (:joystick n m) when enabling an event is
-;;;       necessary.
+;;;       necessary.  Unlikely to be implemented anytime soon; I
+;;;       haven't seen a joystick in years.
 
 (defparameter *events* '())
 
@@ -177,10 +192,10 @@ Lexically binds CURRENT-WINDOW to the respective object."
 ;;; These two functions should not be called directly and are called
 ;;; by ENABLE-EVENT and DISABLE-EVENT. See below.
 
-(defun register-callback (event) 
+(defun register-callback (event)
   (funcall (event-func event) (get-callback (event-cb event))))
 
-(defun unregister-callback (event) 
+(defun unregister-callback (event)
   (funcall (event-func event) (null-pointer)))
 
 ;;;; Windows
@@ -207,6 +222,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
    (height :accessor height :initarg :height :initform 300)
    (width  :accessor width  :initarg :width  :initform 300)
    (title  :accessor title  :initarg :title  :initform +default-title+)
+   (tick-interval :accessor tick-interval :initarg :tick-interval :initform nil)
    ;; When this slot unbound, DISPLAY-WINDOW calls
    ;; FIND-APPLICABLE-EVENTS to populate it.
    (events :accessor events :initarg :events)))
@@ -246,6 +262,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
               (cons window (loop repeat (event-arg-count event) collect t)))
         collect event))
 
+(defun enable-tick (window millis)
+  (setf (tick-interval window) millis)
+  (timer-func millis (callback tick-timer-cb) (id window)))
+
+(defun disable-tick (window)
+  (setf (tick-interval window) nil))
+
 (defmethod display-window :around ((win base-window))
   (unless (slot-boundp win 'events)
     (setf (events win) (find-applicable-events win)))
@@ -262,13 +285,16 @@ Lexically binds CURRENT-WINDOW to the respective object."
     (setq *id->window*
           (adjust-array *id->window* (1+ (id win)) :initial-element nil)))
   (setf (aref *id->window* (id win)) win)
+  ;; setup tick timer
+  (when (tick-interval win)
+    (enable-tick win (tick-interval win)))
   (call-next-method))
 
 (defmethod display-window ((win base-window))
   (values))
 
 (defmethod enable-event ((window base-window) event-name)
-  (let ((event (find-event-or-lose event-name))) 
+  (let ((event (find-event-or-lose event-name)))
     (with-window window
       (register-callback event))
     (pushnew event (events window))
@@ -279,7 +305,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (if (eq event-name :display)
       (warn "GLUT would be upset if we set the DISPLAY callback to NULL. ~
              So we won't do that.")
-      (let ((event (find-event-or-lose event-name))) 
+      (let ((event (find-event-or-lose event-name)))
         ;; We don't actually disable the CLOSE event since we need it
         ;; for bookkeeping. See the CLOSE methods below.
         (unless (or (eq event-name :idle) (eq event-name :close))
@@ -303,6 +329,17 @@ Lexically binds CURRENT-WINDOW to the respective object."
 
 (defmethod close ((w base-window))
   (values))
+
+(defgeneric tick (window))
+
+(defcallback tick-timer-cb :void ((id :int))
+  (when (> (length *id->window*) id)
+    (let ((window (aref *id->window* id)))
+      (unless (null window)
+        (tick window)
+        (when (tick-interval window)
+          (timer-func (tick-interval window)
+                      (callback tick-timer-cb) id))))))
 
 ;;;; Top-level Windows
 
@@ -342,8 +379,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (setf (slot-value win 'id) (create-sub-window (id (parent win)) 0 0 0 0))
   (call-next-method))
 
-;;; For posterity:
-;;;
+;;;; For posterity
+
 ;;; "This is quite ugly: OS X is very picky about which thread gets to handle
 ;;; events and only allows the main thread to do so. We need to run any event
 ;;; loops in the initial thread on multithreaded Lisps, or in this case,
