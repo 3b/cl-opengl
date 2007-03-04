@@ -133,24 +133,42 @@ of this software, even if advised of the possibility of such damage.}
 @contents
 
 @ifnottex
-@node Top, Introduction, (dir), (dir)
 @top cl-opengl
 @insertcopying
 @end ifnottex
 
 @menu
 * Introduction::                
+* OpenGL::                      
 * Comprehensive Index::         
-
 @end menu
 
-@node Introduction, Comprehensive Index, Top, Top
+@c ===================================================================
+@node Introduction
 @chapter Introduction
 
-@clopengl{} is a set of @acronym{CFFI} bindings to @sc{OpenGL} 2.0.
+@clopengl{} is a set of @acronym{CFFI} bindings to @sc{OpenGL}
+2.0. @acronym{GLU} and Free@acronym{GLUT} bindings are also
+included.
 
+Notice that the @acronym{GLUT} bindings are mostly provided
+for the purpose of supporting the examples included in the
+distribution and you are free to use another windowing toolkit.
 
-@node Comprehensive Index,  , Introduction, Top
+@c ===================================================================
+@node OpenGL
+@chapter OpenGL
+
+@c ===================================================================
+@node GLU
+@chapter GLU
+
+@c ===================================================================
+@node GLUT
+@chapter GLUT
+
+@c ===================================================================
+@node Comprehensive Index
 @unnumbered Index
 @printindex cp
 
