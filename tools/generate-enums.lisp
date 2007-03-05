@@ -53,6 +53,11 @@
 (defun whitespacep (char)
   (member char '(#\Space #\Tab #\Newline #\Return)))
 
+(defun string-ends-with (string1 string2)
+  (when (>= (length string1) (length string2))
+    (string-equal string1 string2
+                  :start1 (- (length string1) (length string2)))))
+
 ;;; Smash comments from a line of input (assumed without newlines).
 ;;; Returns a fresh copy of LINE with comments removed, or LINE
 ;;; unchanged if no comments were present.
@@ -104,6 +109,14 @@
    (block-type :initform nil :accessor parser-block-type)
    (enums :initform (make-hash-table) :accessor parser-enums)))
 
+(defun maybe-generate-shorthand-name (symbol)
+  (let* ((name (symbol-name symbol))
+         (len (length name)))
+    (or (and (string-ends-with name "-BITS")
+             (intern (subseq name 0 (- len 5)) '#:keyword))
+        (and (string-ends-with name "-BIT")
+             (intern (subseq name 0 (- len 4)) '#:keyword)))))
+
 ;;; Process the next line of input for the spec parser.
 (defun parse-line (parser line)
   (let ((line (smash-trailing-whitespace (smash-comments line)))
@@ -127,6 +140,11 @@
                (let ((sym (convert-enum-name name))
                      (value (convert-value value)))
                  (when value
+                   ;; We additionally generate versions without the
+                   ;; -BIT and -BITS suffixes.
+                   (let ((short-symbol (maybe-generate-shorthand-name sym)))
+                     (when short-symbol
+                       (setf (gethash short-symbol enums) value)))
                    (setf (gethash sym enums) value)))))))))))
 
 ;;; Parse a file and build a data structure containing its enums.
@@ -143,12 +161,17 @@
 
 ;;; Write an expression to define a CFFI enum for the enums in PARSER
 ;;; to STREAM.
+;;;
+;;; We print them downcased for the convenience of "modern" lisps, and
+;;; that requires ~A instead of ~S, otherwise we'd get things like
+;;; :|3d|.
 (defun write-enums (enum-name parser stream)
   (format stream "(defcenum (~A :unsigned-int)" enum-name)
   (let* ((enums (parser-enums parser))
-         (keys (sort (hash-table-keys enums) #'string-lessp)))
+         (keys (sort (hash-table-keys enums) #'string-lessp))
+         (*print-case* :downcase))
     (dolist (key keys)
-      (format stream "~%  (~S #x~X)" key (gethash key enums))))
+      (format stream "~%  (:~A #x~X)" key (gethash key enums))))
   (format stream ")~%"))
 
 ;;; Generate the CL-OPENGL source file containing the enums from the

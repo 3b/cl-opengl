@@ -1,34 +1,4 @@
-# License Applicability. Except to the extent portions of this file are
-# made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.1 (the "License"), the contents of this
-# file are subject only to the provisions of the License. You may not use
-# this file except in compliance with the License. You may obtain a copy
-# of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
-# Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
-#
-# http://oss.sgi.com/projects/FreeB
-#
-# Note that, as provided in the License, the Software is distributed on an
-# "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
-# DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
-# CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
-# PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-#
-# Original Code. The Original Code is: OpenGL Sample Implementation,
-# Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
-# Inc. The Original Code is Copyright (c) 1991-2005 Silicon Graphics, Inc.
-# Copyright in any portions created by third parties is as indicated
-# elsewhere herein. All Rights Reserved.
-#
-# Additional Notice Provisions: This software was created using the
-# OpenGL(R) version 1.2.1 Sample Implementation published by SGI, but has
-# not been independently verified as being compliant with the OpenGL(R)
-# version 1.2.1 Specification.
-#
-# $Date: 2005/03/18 01:32:38 $ $Revision: 1.17 $
-# $Header: /oss/CVS/cvs/projects/ogl-sample/main/doc/registry/specs/enum.spec,v 1.17 2005/03/18 01:32:38 ljp Exp $
-
-# This is the OpenGL enumerant registry.
+# This is the OpenGL and OpenGL ES enumerant registry.
 #
 # It is an extremely important file. Do not mess with it unless
 # you know what you're doing and have permission to do so.
@@ -37,20 +7,20 @@
 #
 # Before modifying this file, read the following:
 #
-#   ONLY SGI's ARB representative (currently Jon Leech, ljp@sgi.com) may
-#   allocate new enumerants outside the 'experimental' range described
-#   below. Any modifications to this file not performed by SGI are
-#   incompatible with the OpenGL API. The master copy of the registry,
+#   ONLY the Khronos API Registrar (Jon Leech, jon 'at' alumni.caltech.edu)
+#   may allocate new enumerants outside the 'experimental' range described
+#   below. Any modifications to this file not performed by the Registrar
+#   are incompatible with the OpenGL API. The master copy of the registry,
 #   showing up-to-date enumerant allocations, is maintained in the
 #   OpenGL registry at
 #
-#	http://oss.sgi.com/projects/ogl-sample/registry
+#	http://www.opengl.org/registry/
 #
 #   The following guidelines are thus only for reference purposes
-#   (unless you're SGI's ARB representative :-)
+#   (unless you're the Registrar)
 #
 #   Enumerant values for extensions CANNOT be chosen arbitrarily, since
-#   the enumerant value space is shared by all GL licensees. It is
+#   the enumerant value space is shared by all GL implementations. It is
 #   therefore imperative that the procedures described in this file be
 #   followed carefully when allocating extension enum values.
 #
@@ -60,20 +30,15 @@
 #   as a guide.
 #
 # - When a vendor has committed to releasing a new extension and needs to
-#   allocate enum values for that extension, the vendor may request that SGI
-#   allocate a previously unallocated block of 16 enum values, in the range
-#   0x8000-0xFFFF, for the vendor's exclusive use.
-#
-#   New enumerants MUST be allocated by request to Jon Leech in the OpenGL
-#   engineering group. For reference, the registry is being maintained in
-#   the OpenGL group's Perforce repository as of this writing, and mirrored
-#   to the CVS repository on oss.sgi.com for public viewing.
+#   allocate enum values for that extension, the vendor may request that the
+#   ARB allocate a previously unallocated block of 16 enum values, in the
+#   range 0x8000-0xFFFF, for the vendor's exclusive use.
 #
 # - The vendor that introduces an extension will allocate enum values for
 #   it as if it is a single-vendor extension, even if it is a multi-vendor
 #   (EXT) extension.
 #
-# - The file enum.spec is principally a reference. The file enumext.spec
+# - The file enum.spec is primarily a reference. The file enumext.spec
 #   contains enumerants for all OpenGL 1.2 and OpenGL extensions in a form
 #   used to generate <GL/glext.h>.
 #
@@ -278,6 +243,11 @@ BeginMode enum:
 	QUADS						= 0x0007
 	QUAD_STRIP					= 0x0008
 	POLYGON						= 0x0009
+# NV_geometry_program4 enum: (additional; see below)
+#	LINES_ADJACENCY_EXT				= 0x000A
+#	LINE_STRIP_ADJACENCY_EXT			= 0x000B
+#	TRIANGLES_ADJACENCY_EXT				= 0x000C
+#	TRIANGLE_STRIP_ADJACENCY_EXT			= 0x000D
 
 ###############################################################################
 
@@ -3446,7 +3416,8 @@ SGIX_resample enum:
 #	SECONDARY_COLOR_ARRAY				= 0x845E # 1 I
 #	SECONDARY_COLOR_ARRAY_EXT			= 0x845E # 1 I
 
-# SGI_future_use (actually Id Software, see above): 0x845F
+# VERSION_2_1 enum:
+#	CURRENT_RASTER_SECONDARY_COLOR			= 0x845F
 
 ###############################################################################
 
@@ -3648,8 +3619,11 @@ VERSION_1_2 enum:
 #	MAX_RECTANGLE_TEXTURE_SIZE_ARB			= 0x84F8
 #	MAX_RECTANGLE_TEXTURE_SIZE_NV			= 0x84F8
 
+# EXT_packed_depth_stencil enum:
 # NV_packed_depth_stencil enum:
+#	DEPTH_STENCIL_EXT				= 0x84F9
 #	DEPTH_STENCIL_NV				= 0x84F9
+#	UNSIGNED_INT_24_8_EXT				= 0x84FA
 #	UNSIGNED_INT_24_8_NV				= 0x84FA
 
 # NV_future_use: 0x84FB-0x84FC
@@ -3954,11 +3928,18 @@ SGIX_subsample enum:
 #	UNPACK_CLIENT_STORAGE_APPLE			= 0x85B2
 
 # APPLE_future_use: 0x85B3-0x85B4
+## From Jeremy 2006/10/18 (Bugzilla bug 632) - unknown extension name
+#	BUFFER_OBJECT_APPLE				= 0x85B3
+#	STORAGE_CLIENT_APPLE				= 0x85B4
 
 # APPLE_vertex_array_object enum:
 #	VERTEX_ARRAY_BINDING_APPLE			= 0x85B5
 
 # APPLE_future_use: 0x85B6-0x85B8
+## From Jeremy 2006/10/18 (Bugzilla bug 632) - unknown extension name
+#	TEXTURE_MINIMIZE_STORAGE_APPLE			= 0x85B6
+#	TEXTURE_RANGE_LENGTH_APPLE			= 0x85B7
+#	TEXTURE_RANGE_POINTER_APPLE			= 0x85B8
 
 # APPLE_ycbcr_422 enum:
 #	YCBCR_422_APPLE					= 0x85B9
@@ -3969,7 +3950,10 @@ SGIX_subsample enum:
 #	UNSIGNED_SHORT_8_8_MESA				= 0x85BA
 #	UNSIGNED_SHORT_8_8_REV_MESA			= 0x85BB
 
-# APPLE_future_use: 0x85BA-0x85BD
+# APPLE_future_use: 0x85BC-0x85BD
+## From Jeremy 2006/10/18 (Bugzilla bug 632) - unknown extension name
+#	TEXTURE_STORAGE_HINT_APPLE			= 0x85BC
+#	STORAGE_PRIVATE_APPLE				= 0x85BD
 
 # APPLE_vertex_array_range (additional; see above): 0x85BE-0x85BF
 
@@ -4138,6 +4122,9 @@ SGIX_subsample enum:
 #	MAP2_VERTEX_ATTRIB15_4_NV			= 0x867F
 
 # NV_texture_shader (additional; see below): 0x864C-0x864E
+
+# NV_geometry_program4 enum: (additional; see below)
+#	PROGRAM_POINT_SIZE_EXT				= 0x8642
 
 # NV_depth_clamp enum:
 #	DEPTH_CLAMP_NV					= 0x864F
@@ -4392,10 +4379,22 @@ SGIX_subsample enum:
 
 ###############################################################################
 
-# Mesa: 0x8750-0x875F
+# MESA: 0x8750-0x875F
+
+# MESA_future_use: 0x8750-0x8757
 
 # MESA_pack_invert enum:
 #	PACK_INVERT_MESA				= 0x8758
+
+# MESAX_texture_stack enum:
+#	TEXTURE_1D_STACK_MESAX				= 0x8759
+#	TEXTURE_2D_STACK_MESAX				= 0x875A
+#	PROXY_TEXTURE_1D_STACK_MESAX			= 0x875B
+#	PROXY_TEXTURE_2D_STACK_MESAX			= 0x875C
+#	TEXTURE_1D_STACK_BINDING_MESAX			= 0x875D
+#	TEXTURE_2D_STACK_BINDING_MESAX			= 0x875E
+
+# MESA_future_use: 0x875F
 
 ###############################################################################
 
@@ -4730,12 +4729,14 @@ SGIX_subsample enum:
 
 # VERSION_1_4 enum: (Promoted for OpenGL 1.4)
 # ARB_shadow enum:
+# EXT_texture_array enum: (additional; see below)
 #	TEXTURE_COMPARE_MODE				= 0x884C
 #	TEXTURE_COMPARE_MODE_ARB			= 0x884C
 #	TEXTURE_COMPARE_FUNC				= 0x884D
 #	TEXTURE_COMPARE_FUNC_ARB			= 0x884D
 #	COMPARE_R_TO_TEXTURE				= 0x884E
 #	COMPARE_R_TO_TEXTURE_ARB			= 0x884E
+#	COMPARE_REF_DEPTH_TO_TEXTURE_EXT		= 0x884E
 
 # ARB_future_use: 0x884F
 
@@ -4934,7 +4935,10 @@ SGIX_subsample enum:
 #	BUFFER_MAP_POINTER				= 0x88BD
 #	BUFFER_MAP_POINTER_ARB				= 0x88BD
 
-# NV_future_use: 0x88BE-0x88BF
+# NV_future_use: 0x88BE
+
+# EXT_timer_query enum:
+#	TIME_ELAPSED_EXT				= 0x88BF
 
 # ARB_vertex_program enum: (additional; see above)
 # ARB_fragment_program enum: (additional; see above)
@@ -4992,21 +4996,32 @@ SGIX_subsample enum:
 #	DYNAMIC_COPY					= 0x88EA
 #	DYNAMIC_COPY_ARB				= 0x88EA
 
+# VERSION_2_1 enum:
 # ARB_pixel_buffer_object enum:
 # EXT_pixel_buffer_object enum:
-#	PIXEL_PACK_BUFFER_ARB				= 0x88EB
-#	PIXEL_PACK_BUFFER_EXT				= 0x88EB
-#	PIXEL_UNPACK_BUFFER_ARB				= 0x88EC
-#	PIXEL_UNPACK_BUFFER_EXT				= 0x88EC
-#	PIXEL_PACK_BUFFER_BINDING_ARB			= 0x88ED
-#	PIXEL_PACK_BUFFER_BINDING_EXT			= 0x88ED
-#	PIXEL_UNPACK_BUFFER_BINDING_ARB			= 0x88EF
-#	PIXEL_UNPACK_BUFFER_BINDING_EXT			= 0x88EF
+#	PIXEL_PACK_BUFFER				= 0x88EB    # VERSION_2_1
+#	PIXEL_PACK_BUFFER_ARB				= 0x88EB    # ARB_pixel_buffer_object
+#	PIXEL_PACK_BUFFER_EXT				= 0x88EB    # EXT_pixel_buffer_object
+#	PIXEL_UNPACK_BUFFER				= 0x88EC    # VERSION_2_1
+#	PIXEL_UNPACK_BUFFER_ARB				= 0x88EC    # ARB_pixel_buffer_object
+#	PIXEL_UNPACK_BUFFER_EXT				= 0x88EC    # EXT_pixel_buffer_object
+#	PIXEL_PACK_BUFFER_BINDING			= 0x88ED    # VERSION_2_1
+#	PIXEL_PACK_BUFFER_BINDING_ARB			= 0x88ED    # ARB_pixel_buffer_object
+#	PIXEL_PACK_BUFFER_BINDING_EXT			= 0x88ED    # EXT_pixel_buffer_object
+#	PIXEL_UNPACK_BUFFER_BINDING			= 0x88EF    # VERSION_2_1
+#	PIXEL_UNPACK_BUFFER_BINDING_ARB			= 0x88EF    # ARB_pixel_buffer_object
+#	PIXEL_UNPACK_BUFFER_BINDING_EXT			= 0x88EF    # EXT_pixel_buffer_object
 
 # ARB_future_use: 0x88E3, 0x88E7, 0x88EE
 # (for extending ARB_vertex_buffer_object):
 
-# NV_future_use: 0x88F0-0x88F3
+# EXT_packed_depth_stencil enum: (additional; see above)
+#	DEPTH24_STENCIL8_EXT				= 0x88F0
+#	TEXTURE_STENCIL_SIZE_EXT			= 0x88F1
+
+# EXT_stencil_clear_tag enum:
+#	STENCIL_TAG_BITS_EXT				= 0x88F2
+#	STENCIL_CLEAR_TAG_VALUE_EXT			= 0x88F3
 
 # NV_vertex_program2_option enum: (duplicated in NV_fragment_prgoram2 below)
 #	MAX_PROGRAM_EXEC_INSTRUCTIONS_NV		= 0x88F4
@@ -5019,13 +5034,29 @@ SGIX_subsample enum:
 #	MAX_PROGRAM_LOOP_DEPTH_NV			= 0x88F7
 #	MAX_PROGRAM_LOOP_COUNT_NV			= 0x88F8
 
-# NV_future_use: 0x88F9-0x890F
+# NV_future_use: 0x88F9-0x88FC
+
+# NV_vertex_program4 enum:
+#	VERTEX_ATTRIB_ARRAY_INTEGER_NV			= 0x88FD
+
+# NV_future_use: 0x88FE
+
+# EXT_texture_array enum: (additional; see below)
+#	MAX_ARRAY_TEXTURE_LAYERS_EXT			= 0x88FF
+
+# NV_gpu_program4 enum:
+#	MIN_PROGRAM_TEXEL_OFFSET_NV			= 0x8904
+#	MAX_PROGRAM_TEXEL_OFFSET_NV			= 0x8905
+#	PROGRAM_ATTRIB_COMPONENTS_NV			= 0x8906
+#	PROGRAM_RESULT_COMPONENTS_NV			= 0x8907
+#	MAX_PROGRAM_ATTRIB_COMPONENTS_NV		= 0x8908
+#	MAX_PROGRAM_RESULT_COMPONENTS_NV		= 0x8909
 
 # EXT_stencil_two_side enum:
 #	STENCIL_TEST_TWO_SIDE_EXT			= 0x8910
 #	ACTIVE_STENCIL_FACE_EXT				= 0x8911
 
-# EXT_texture_mirror_clamp enum: (additional; see above): 0x8912
+# EXT_texture_mirror_clamp enum: (additional; see above):
 #	MIRROR_CLAMP_TO_BORDER_EXT			= 0x8912
 
 # NV_future_use: 0x8913
@@ -5199,7 +5230,20 @@ SGIX_subsample enum:
 #	DRAW_PIXELS_APPLE				= 0x8A0A
 #	FENCE_APPLE					= 0x8A0B
 
-# APPLE_future_use: 0x8A10-0x8A7F
+# APPLE_future_use: 0x8A0C-0x8A11
+## From Jeremy 2006/10/18 (Bugzilla bug 632) - unknown extension name
+#	ELEMENT_ARRAY_APPLE				= 0x8A0C
+#	ELEMENT_ARRAY_TYPE_APPLE			= 0x8A0D
+#	ELEMENT_ARRAY_POINTER_APPLE			= 0x8A0E
+#	COLOR_FLOAT_APPLE				= 0x8A0F
+#	MIN_PBUFFER_VIEWPORT_DIMS_APPLE			= 0x8A10
+#	ELEMENT_BUFFER_BINDING_APPLE			= 0x8A11
+
+# APPLE_flush_buffer_range enum:
+#	BUFFER_SERIALIZED_MODIFY_APPLE			= 0x8A12
+#	BUFFER_FLUSHING_UNMAP_APPLE			= 0x8A13
+
+# APPLE_future_use: 0x8A14-0x8A7F
 
 ###############################################################################
 
@@ -5281,7 +5325,13 @@ SGIX_subsample enum:
 #	SAMPLER_2D_SHADOW_ARB				= 0x8B62    # ARB_shader_objects
 #	SAMPLER_2D_RECT_ARB				= 0x8B63    # ARB_shader_objects
 #	SAMPLER_2D_RECT_SHADOW_ARB			= 0x8B64    # ARB_shader_objects
-# ARB_future_use: 0x8B65-0x8B7F (for attribute types)
+#	FLOAT_MAT2x3					= 0x8B65    # VERSION_2_1
+#	FLOAT_MAT2x4					= 0x8B66    # VERSION_2_1
+#	FLOAT_MAT3x2					= 0x8B67    # VERSION_2_1
+#	FLOAT_MAT3x4					= 0x8B68    # VERSION_2_1
+#	FLOAT_MAT4x2					= 0x8B69    # VERSION_2_1
+#	FLOAT_MAT4x3					= 0x8B6A    # VERSION_2_1
+# ARB_future_use: 0x8B6B-0x8B7F (for attribute types)
 #	DELETE_STATUS					= 0x8B80    # VERSION_2_0 (renamed)
 #	OBJECT_DELETE_STATUS_ARB			= 0x8B80    # ARB_shader_objects
 #	COMPILE_STATUS					= 0x8B81    # VERSION_2_0 (renamed)
@@ -5308,6 +5358,9 @@ SGIX_subsample enum:
 #	FRAGMENT_SHADER_DERIVATIVE_HINT_ARB		= 0x8B8B    # ARB_fragment_shader
 #	SHADING_LANGUAGE_VERSION			= 0x8B8C    # VERSION_2_0
 #	SHADING_LANGUAGE_VERSION_ARB			= 0x8B8C    # ARB_shading_language_100
+
+# EXT_geometry_shader4 enum: (additional; see below)
+#	MAX_VARYING_COMPONENTS_EXT			= 0x8B4B
 
 # VERSION_2_0 enum:
 #	CURRENT_PROGRAM					= 0x8B8D
@@ -5363,16 +5416,119 @@ SGIX_subsample enum:
 # NVIDIA: 0x8C10-0x8C8F (Pat Brown)
 
 # ARB_texture_float enum: (additional; see above)
-#	TEXTURE_RED_TYPE_ARB		 0x8C10
-#	TEXTURE_GREEN_TYPE_ARB		 0x8C11
-#	TEXTURE_BLUE_TYPE_ARB		 0x8C12
-#	TEXTURE_ALPHA_TYPE_ARB		 0x8C13
-#	TEXTURE_LUMINANCE_TYPE_ARB	 0x8C14
-#	TEXTURE_INTENSITY_TYPE_ARB	 0x8C15
-#	TEXTURE_DEPTH_TYPE_ARB		 0x8C16
-#	UNSIGNED_NORMALIZED_ARB		 0x8C17
+#	TEXTURE_RED_TYPE_ARB				= 0x8C10
+#	TEXTURE_GREEN_TYPE_ARB				= 0x8C11
+#	TEXTURE_BLUE_TYPE_ARB				= 0x8C12
+#	TEXTURE_ALPHA_TYPE_ARB				= 0x8C13
+#	TEXTURE_LUMINANCE_TYPE_ARB			= 0x8C14
+#	TEXTURE_INTENSITY_TYPE_ARB			= 0x8C15
+#	TEXTURE_DEPTH_TYPE_ARB				= 0x8C16
+#	UNSIGNED_NORMALIZED_ARB				= 0x8C17
 
-# NVIDIA_future_use: 0x8C18-0x8C8F
+# EXT_texture_array enum:
+#	TEXTURE_1D_ARRAY_EXT				= 0x8C18
+#	PROXY_TEXTURE_1D_ARRAY_EXT			= 0x8C19
+#	TEXTURE_2D_ARRAY_EXT				= 0x8C1A
+#	PROXY_TEXTURE_2D_ARRAY_EXT			= 0x8C1B
+#	TEXTURE_BINDING_1D_ARRAY_EXT			= 0x8C1C
+#	TEXTURE_BINDING_2D_ARRAY_EXT			= 0x8C1D
+
+# NV_future_use: 0x8C1E-0x8C25
+
+# NV_geometry_program4 enum:
+#	GEOMETRY_PROGRAM_NV				= 0x8C26
+#	MAX_PROGRAM_OUTPUT_VERTICES_NV			= 0x8C27
+#	MAX_PROGRAM_TOTAL_OUTPUT_COMPONENTS_NV		= 0x8C28
+#	MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT		= 0x8C29
+
+# NV_future_use: 0x8C2A-0x8C29
+
+# EXT_texture_buffer_object enum:
+#	TEXTURE_BUFFER_EXT				= 0x8C2A
+#	MAX_TEXTURE_BUFFER_SIZE_EXT			= 0x8C2B
+#	TEXTURE_BINDING_BUFFER_EXT			= 0x8C2C
+#	TEXTURE_BUFFER_DATA_STORE_BINDING_EXT		= 0x8C2D
+#	TEXTURE_BUFFER_FORMAT_EXT			= 0x8C2E
+
+# NV_future_use: 0x8C2F-0x8C39
+
+# EXT_packed_float enum:
+#	R11F_G11F_B10F_EXT				= 0x8C3A
+#	UNSIGNED_INT_10F_11F_11F_REV_EXT		= 0x8C3B
+#	RGBA_SIGNED_COMPONENTS_EXT			= 0x8C3C
+
+# EXT_texture_shared_exponent enum:
+#	RGB9_E5_EXT					= 0x8C3D
+#	UNSIGNED_INT_5_9_9_9_REV_EXT			= 0x8C3E
+#	TEXTURE_SHARED_SIZE_EXT				= 0x8C3F
+
+# VERSION_2_1 enum: (Generic formats promoted for OpenGL 2.1)
+# EXT_texture_sRGB enum:
+#	SRGB						= 0x8C40    # VERSION_2_1
+#	SRGB_EXT					= 0x8C40    # EXT_texture_sRGB
+#	SRGB8						= 0x8C41    # VERSION_2_1
+#	SRGB8_EXT					= 0x8C41    # EXT_texture_sRGB
+#	SRGB_ALPHA					= 0x8C42    # VERSION_2_1
+#	SRGB_ALPHA_EXT					= 0x8C42    # EXT_texture_sRGB
+#	SRGB8_ALPHA8					= 0x8C43    # VERSION_2_1
+#	SRGB8_ALPHA8_EXT				= 0x8C43    # EXT_texture_sRGB
+#	SLUMINANCE_ALPHA				= 0x8C44    # VERSION_2_1
+#	SLUMINANCE_ALPHA_EXT				= 0x8C44    # EXT_texture_sRGB
+#	SLUMINANCE8_ALPHA8				= 0x8C45    # VERSION_2_1
+#	SLUMINANCE8_ALPHA8_EXT				= 0x8C45    # EXT_texture_sRGB
+#	SLUMINANCE					= 0x8C46    # VERSION_2_1
+#	SLUMINANCE_EXT					= 0x8C46    # EXT_texture_sRGB
+#	SLUMINANCE8					= 0x8C47    # VERSION_2_1
+#	SLUMINANCE8_EXT					= 0x8C47    # EXT_texture_sRGB
+#	COMPRESSED_SRGB					= 0x8C48    # VERSION_2_1
+#	COMPRESSED_SRGB_EXT				= 0x8C48    # EXT_texture_sRGB
+#	COMPRESSED_SRGB_ALPHA				= 0x8C49    # VERSION_2_1
+#	COMPRESSED_SRGB_ALPHA_EXT			= 0x8C49    # EXT_texture_sRGB
+#	COMPRESSED_SLUMINANCE				= 0x8C4A    # VERSION_2_1
+#	COMPRESSED_SLUMINANCE_EXT			= 0x8C4A    # EXT_texture_sRGB
+#	COMPRESSED_SLUMINANCE_ALPHA			= 0x8C4B    # VERSION_2_1
+#	COMPRESSED_SLUMINANCE_ALPHA_EXT			= 0x8C4B    # EXT_texture_sRGB
+#	COMPRESSED_SRGB_S3TC_DXT1_EXT			= 0x8C4C
+#	COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT		= 0x8C4D
+#	COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT		= 0x8C4E
+#	COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT		= 0x8C4F
+
+# NV_future_use: 0x8C50-0x8C6F
+
+# EXT_texture_compression_latc enum:
+#	COMPRESSED_LUMINANCE_LATC1_EXT			= 0x8C70
+#	COMPRESSED_SIGNED_LUMINANCE_LATC1_EXT		= 0x8C71
+#	COMPRESSED_LUMINANCE_ALPHA_LATC2_EXT		= 0x8C72
+#	COMPRESSED_SIGNED_LUMINANCE_ALPHA_LATC2_EXT	= 0x8C73
+
+# NV_future_use: 0x8C74-0x8C76
+
+# NV_transform_feedback enum:
+#	BACK_PRIMARY_COLOR_NV				= 0x8C77
+#	BACK_SECONDARY_COLOR_NV				= 0x8C78
+#	TEXTURE_COORD_NV				= 0x8C79
+#	CLIP_DISTANCE_NV				= 0x8C7A
+#	VERTEX_ID_NV					= 0x8C7B
+#	PRIMITIVE_ID_NV					= 0x8C7C
+#	GENERIC_ATTRIB_NV				= 0x8C7D
+#	TRANSFORM_FEEDBACK_ATTRIBS_NV			= 0x8C7E
+#	TRANSFORM_FEEDBACK_BUFFER_MODE_NV		= 0x8C7F
+#	MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS_NV	= 0x8C80
+#	ACTIVE_VARYINGS_NV				= 0x8C81
+#	ACTIVE_VARYING_MAX_LENGTH_NV			= 0x8C82
+#	TRANSFORM_FEEDBACK_VARYINGS_NV			= 0x8C83
+#	TRANSFORM_FEEDBACK_BUFFER_START_NV		= 0x8C84
+#	TRANSFORM_FEEDBACK_BUFFER_SIZE_NV		= 0x8C85
+#	TRANSFORM_FEEDBACK_RECORD_NV			= 0x8C86
+#	PRIMITIVES_GENERATED_NV				= 0x8C87
+#	TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_NV	= 0x8C88
+#	RASTERIZER_DISCARD_NV				= 0x8C89
+#	MAX_TRANSFORM_FEEDBACK_INTERLEAVED_ATTRIBS_NV	= 0x8C8A
+#	MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS_NV	= 0x8C8B
+#	INTERLEAVED_ATTRIBS_NV				= 0x8C8C
+#	SEPARATE_ATTRIBS_NV				= 0x8C8D
+#	TRANSFORM_FEEDBACK_BUFFER_NV			= 0x8C8E
+#	TRANSFORM_FEEDBACK_BUFFER_BINDING_NV		= 0x8C8F
 
 ###############################################################################
 
@@ -5392,14 +5548,25 @@ SGIX_subsample enum:
 # EXT_framebuffer_object enum: (additional; see below)
 #	FRAMEBUFFER_BINDING_EXT				= 0x8CA6
 #	RENDERBUFFER_BINDING_EXT			= 0x8CA7
+# EXT_framebuffer_blit enum:
+#	READ_FRAMEBUFFER_EXT				= 0x8CA8
+#	DRAW_FRAMEBUFFER_EXT				= 0x8CA9
+#	READ_FRAMEBUFFER_BINDING_EXT			= GL_FRAMEBUFFER_BINDING_EXT
+#	DRAW_FRAMEBUFFER_BINDING_EXT			= 0x8CAA
+# EXT_framebuffer_multisample enum:
+# NV_framebuffer_multisample_coverage enum: (additional; see below)
+#	RENDERBUFFER_SAMPLES_EXT			= 0x8CAB
+#	RENDERBUFFER_COVERAGE_SAMPLES_NV		= 0x8CAB
 
-# ARB_future_use: 0x8CA8-08CAF
+# ARB_future_use: 0x8CAC-08CAF
 
 ###############################################################################
 
 # 3Dlabs: 0x8CB0-0x8CCF (Barthold Lichtenbelt, 2004/12/1)
 
 ###############################################################################
+
+# OpenGL ARB: 0x8CD0-0x8D5F (Framebuffer object specification + headroom)
 
 # EXT_framebuffer_object enum: (additional; see above)
 #	FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE_EXT		= 0x8CD0
@@ -5410,13 +5577,15 @@ SGIX_subsample enum:
 #	FRAMEBUFFER_COMPLETE_EXT			= 0x8CD5
 #	FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT		= 0x8CD6
 #	FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT	= 0x8CD7
-#	FRAMEBUFFER_INCOMPLETE_DUPLICATE_ATTACHMENT_EXT = 0x8CD8
+## Removed 2005/09/26 in revision #117 of the extension:
+##	  FRAMEBUFFER_INCOMPLETE_DUPLICATE_ATTACHMENT_EXT = 0x8CD8
 #	FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT		= 0x8CD9
 #	FRAMEBUFFER_INCOMPLETE_FORMATS_EXT		= 0x8CDA
 #	FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT		= 0x8CDB
 #	FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT		= 0x8CDC
 #	FRAMEBUFFER_UNSUPPORTED_EXT			= 0x8CDD
-#	FRAMEBUFFER_STATUS_ERROR_EXT			= 0x8CDE
+## Removed 2005/05/31 in revision #113 of the extension:
+## FRAMEBUFFER_STATUS_ERROR_EXT			   = 0x8CDE
 #	MAX_COLOR_ATTACHMENTS_EXT			= 0x8CDF
 #	COLOR_ATTACHMENT0_EXT				= 0x8CE0
 #	COLOR_ATTACHMENT1_EXT				= 0x8CE1
@@ -5444,19 +5613,219 @@ SGIX_subsample enum:
 #	RENDERBUFFER_WIDTH_EXT				= 0x8D42
 #	RENDERBUFFER_HEIGHT_EXT				= 0x8D43
 #	RENDERBUFFER_INTERNAL_FORMAT_EXT		= 0x8D44
-#	STENCIL_INDEX_EXT				= 0x8D45
+# 0x8D45 unused (reserved for STENCIL_INDEX_EXT, but now use core STENCIL_INDEX instead)
 #	STENCIL_INDEX1_EXT				= 0x8D46
 #	STENCIL_INDEX4_EXT				= 0x8D47
 #	STENCIL_INDEX8_EXT				= 0x8D48
 #	STENCIL_INDEX16_EXT				= 0x8D49
 # 0x8D4A-0x8D4D reserved for additional stencil formats
+# Added 2005/05/31 in revision #113 of the extension:
+#	RENDERBUFFER_RED_SIZE_EXT			= 0x8D50
+#	RENDERBUFFER_GREEN_SIZE_EXT			= 0x8D51
+#	RENDERBUFFER_BLUE_SIZE_EXT			= 0x8D52
+#	RENDERBUFFER_ALPHA_SIZE_EXT			= 0x8D53
+#	RENDERBUFFER_DEPTH_SIZE_EXT			= 0x8D54
+#	RENDERBUFFER_STENCIL_SIZE_EXT			= 0x8D55
+# EXT_framebuffer_multisample enum: (additional; see above)
+# Added 2006/10/10 in revision #6b of the extension.
+#	FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT		= 0x8D56
+#	MAX_SAMPLES_EXT					= 0x8D57
+# 0x8D58-0x8D5F reserved for additional FBO enums
+
+# NV_geometry_program4 enum: (additional; see above)
+#	FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT	= 0x8CD4
 
 ###############################################################################
-### PLEASE REMEMBER THAT NEW ENUMERANT ALLOCATIONS MUST BE OBTAINED BY
-### REQUEST TO SGI'S ARB REPRESENTATIVE (see comments at the top of this file)
+
+# Khronos OpenGL ES WG: 0x8D60-0x8D6F
+
+# Khronos_future_use: 0x8D60-0x8D6F
+
 ###############################################################################
 
-# Any_vendor_future_use: 0x8D50-0xFFFF
+# NVIDIA: 0x8D70-0x8DEF
+# Reserved per email from Pat Brown 2005/10/13
+
+# EXT_texture_integer enum:
+#	RGBA32UI_EXT					= 0x8D70
+#	RGB32UI_EXT					= 0x8D71
+#	ALPHA32UI_EXT					= 0x8D72
+#	INTENSITY32UI_EXT				= 0x8D73
+#	LUMINANCE32UI_EXT				= 0x8D74
+#	LUMINANCE_ALPHA32UI_EXT				= 0x8D75
+#	RGBA16UI_EXT					= 0x8D76
+#	RGB16UI_EXT					= 0x8D77
+#	ALPHA16UI_EXT					= 0x8D78
+#	INTENSITY16UI_EXT				= 0x8D79
+#	LUMINANCE16UI_EXT				= 0x8D7A
+#	LUMINANCE_ALPHA16UI_EXT				= 0x8D7B
+#	RGBA8UI_EXT					= 0x8D7C
+#	RGB8UI_EXT					= 0x8D7D
+#	ALPHA8UI_EXT					= 0x8D7E
+#	INTENSITY8UI_EXT				= 0x8D7F
+#	LUMINANCE8UI_EXT				= 0x8D80
+#	LUMINANCE_ALPHA8UI_EXT				= 0x8D81
+#	RGBA32I_EXT					= 0x8D82
+#	RGB32I_EXT					= 0x8D83
+#	ALPHA32I_EXT					= 0x8D84
+#	INTENSITY32I_EXT				= 0x8D85
+#	LUMINANCE32I_EXT				= 0x8D86
+#	LUMINANCE_ALPHA32I_EXT				= 0x8D87
+#	RGBA16I_EXT					= 0x8D88
+#	RGB16I_EXT					= 0x8D89
+#	ALPHA16I_EXT					= 0x8D8A
+#	INTENSITY16I_EXT				= 0x8D8B
+#	LUMINANCE16I_EXT				= 0x8D8C
+#	LUMINANCE_ALPHA16I_EXT				= 0x8D8D
+#	RGBA8I_EXT					= 0x8D8E
+#	RGB8I_EXT					= 0x8D8F
+#	ALPHA8I_EXT					= 0x8D90
+#	INTENSITY8I_EXT					= 0x8D91
+#	LUMINANCE8I_EXT					= 0x8D92
+#	LUMINANCE_ALPHA8I_EXT				= 0x8D93
+#	RED_INTEGER_EXT					= 0x8D94
+#	GREEN_INTEGER_EXT				= 0x8D95
+#	BLUE_INTEGER_EXT				= 0x8D96
+#	ALPHA_INTEGER_EXT				= 0x8D97
+#	RGB_INTEGER_EXT					= 0x8D98
+#	RGBA_INTEGER_EXT				= 0x8D99
+#	BGR_INTEGER_EXT					= 0x8D9A
+#	BGRA_INTEGER_EXT				= 0x8D9B
+#	LUMINANCE_INTEGER_EXT				= 0x8D9C
+#	LUMINANCE_ALPHA_INTEGER_EXT			= 0x8D9D
+#	RGBA_INTEGER_MODE_EXT				= 0x8D9E
+
+# NV_future_use: 0x8D9F
+
+# NV_parameter_buffer_object enum:
+#	MAX_PROGRAM_PARAMETER_BUFFER_BINDINGS_NV	= 0x8DA0
+#	MAX_PROGRAM_PARAMETER_BUFFER_SIZE_NV		= 0x8DA1
+#	VERTEX_PROGRAM_PARAMETER_BUFFER_NV		= 0x8DA2
+#	GEOMETRY_PROGRAM_PARAMETER_BUFFER_NV		= 0x8DA3
+#	FRAGMENT_PROGRAM_PARAMETER_BUFFER_NV		= 0x8DA4
+
+# NV_gpu_program4 enum: (additional; see above)
+#	MAX_PROGRAM_GENERIC_ATTRIBS_NV			= 0x8DA5
+#	MAX_PROGRAM_GENERIC_RESULTS_NV			= 0x8DA6
+
+# NV_geometry_program4 enum: (additional; see above)
+#	FRAMEBUFFER_ATTACHMENT_LAYERED_EXT		= 0x8DA7
+#	FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT	= 0x8DA8
+#	FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT		= 0x8DA9
+
+# NV_future_use: 0x8DAA
+
+# NV_depth_buffer_float enum:
+#	DEPTH_COMPONENT32F_NV				= 0x8DAB
+#	DEPTH32F_STENCIL8_NV				= 0x8DAC
+#	FLOAT_32_UNSIGNED_INT_24_8_REV_NV		= 0x8DAD
+#	DEPTH_BUFFER_FLOAT_MODE_NV			= 0x8DAF
+
+# NV_future_use: 0x8DB0-0x8DB8
+
+# EXT_framebuffer_sRGB enum:
+#	FRAMEBUFFER_SRGB_EXT				= 0x8DB9
+#	FRAMEBUFFER_SRGB_CAPABLE_EXT			= 0x8DBA
+
+# EXT_texture_compression_rgtc enum:
+#	COMPRESSED_RED_RGTC1_EXT			= 0x8DBB
+#	COMPRESSED_SIGNED_RED_RGTC1_EXT			= 0x8DBC
+#	COMPRESSED_RED_GREEN_RGTC2_EXT			= 0x8DBD
+#	COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT		= 0x8DBE
+
+# NV_future_use: 0x8DBF
+
+# EXT_gpu_shader4 enum:
+#	SAMPLER_1D_ARRAY_EXT				= 0x8DC0
+#	SAMPLER_2D_ARRAY_EXT				= 0x8DC1
+#	SAMPLER_BUFFER_EXT				= 0x8DC2
+#	SAMPLER_1D_ARRAY_SHADOW_EXT			= 0x8DC3
+#	SAMPLER_2D_ARRAY_SHADOW_EXT			= 0x8DC4
+#	SAMPLER_CUBE_SHADOW_EXT				= 0x8DC5
+#	UNSIGNED_INT_VEC2_EXT				= 0x8DC6
+#	UNSIGNED_INT_VEC3_EXT				= 0x8DC7
+#	UNSIGNED_INT_VEC4_EXT				= 0x8DC8
+#	INT_SAMPLER_1D_EXT				= 0x8DC9
+#	INT_SAMPLER_2D_EXT				= 0x8DCA
+#	INT_SAMPLER_3D_EXT				= 0x8DCB
+#	INT_SAMPLER_CUBE_EXT				= 0x8DCC
+#	INT_SAMPLER_2D_RECT_EXT				= 0x8DCD
+#	INT_SAMPLER_1D_ARRAY_EXT			= 0x8DCE
+#	INT_SAMPLER_2D_ARRAY_EXT			= 0x8DCF
+#	INT_SAMPLER_BUFFER_EXT				= 0x8DD0
+#	UNSIGNED_INT_SAMPLER_1D_EXT			= 0x8DD1
+#	UNSIGNED_INT_SAMPLER_2D_EXT			= 0x8DD2
+#	UNSIGNED_INT_SAMPLER_3D_EXT			= 0x8DD3
+#	UNSIGNED_INT_SAMPLER_CUBE_EXT			= 0x8DD4
+#	UNSIGNED_INT_SAMPLER_2D_RECT_EXT		= 0x8DD5
+#	UNSIGNED_INT_SAMPLER_1D_ARRAY_EXT		= 0x8DD6
+#	UNSIGNED_INT_SAMPLER_2D_ARRAY_EXT		= 0x8DD7
+#	UNSIGNED_INT_SAMPLER_BUFFER_EXT			= 0x8DD8
+
+# EXT_geometry_shader4 enum:
+#	GEOMETRY_SHADER_EXT				= 0x8DD9
+
+# NV_geometry_program4 enum: (additional; see above)
+#	GEOMETRY_VERTICES_OUT_EXT			= 0x8DDA
+#	GEOMETRY_INPUT_TYPE_EXT				= 0x8DDB
+#	GEOMETRY_OUTPUT_TYPE_EXT			= 0x8DDC
+
+# EXT_geometry_shader4 enum: (additional; see above)
+#	MAX_GEOMETRY_VARYING_COMPONENTS_EXT		= 0x8DDD
+#	MAX_VERTEX_VARYING_COMPONENTS_EXT		= 0x8DDE
+#	MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT		= 0x8DDF
+#	MAX_GEOMETRY_OUTPUT_VERTICES_EXT		= 0x8DE0
+#	MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT	= 0x8DE1
+
+# EXT_bindable_uniform enum:
+#	MAX_VERTEX_BINDABLE_UNIFORMS_EXT		= 0x8DE2
+#	MAX_FRAGMENT_BINDABLE_UNIFORMS_EXT		= 0x8DE3
+#	MAX_GEOMETRY_BINDABLE_UNIFORMS_EXT		= 0x8DE4
+
+# NV_future_use: 0x8DE5-0x8DEC
+
+# EXT_bindable_uniform enum: (additional; see above)
+#	MAX_BINDABLE_UNIFORM_SIZE_EXT			= 0x8DED
+#	UNIFORM_BUFFER_EXT				= 0x8DEE
+#	UNIFORM_BUFFER_BINDING_EXT			= 0x8DEF
+
+###############################################################################
+
+# Khronos OpenGL ES WG: 0x8DF0-0x8E0F
+
+# Khronos_future_use: 0x8DF0-0x8E0F
+
+###############################################################################
+
+# NVIDIA: 0x8E10-0x8E8F
+# Reserved per email from Michael Gold 2006/8/7
+
+# NV_framebuffer_multisample_coverage enum:
+#	RENDERBUFFER_COLOR_SAMPLES_NV			= 0x8E10
+#	MAX_MULTISAMPLE_COVERAGE_MODES_NV		= 0x8E11
+#	MULTISAMPLE_COVERAGE_MODES_NV			= 0x8E12
+
+# NV_future_use: 0x8E13-0x8E8F
+
+###############################################################################
+
+# QNX: 0x8E90-0x8E9F
+# https://cvs.khronos.org/bugzilla/show_bug.cgi?id=696
+# For GL_QNX_texture_tiling, GL_QNX_complex_polygon, GL_QNX_stippled_lines
+
+# QNX_future_use: 0x8E90-0x8E9F
+
+###############################################################################
+
+# Imagination Tech.: 0x8EA0-0x8EAF
+
+###############################################################################
+### Please remember that new enumerant allocations must be obtained by request
+### to the Khronos API registrar (see comments at the top of this file)
+### File requests in the Khronos Bugzilla, OpenGL project, Registry component.
+###############################################################################
+
+# Any_vendor_future_use: 0x8EB0-0xFFFF
 #
 #   This range must be the last range in the file.  To generate a new
 #   range, allocate multiples of 16 from the beginning of the
