@@ -129,7 +129,7 @@
   (font :pointer))
 
 ;; freeglut ext
-(defcfun ("glutStrokeHeight" stroke-height) gl:float
+(defcfun ("glutStrokeHeight" stroke-height) %gl:float
   (font :pointer))
 
 ;; freeglut ext

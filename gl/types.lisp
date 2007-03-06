@@ -72,12 +72,12 @@
   (:simple-parser ensure-float))
 
 (defmethod translate-to-foreign (value (type ensure-float))
-  (float value))
+  (cl:float value))
 
 (defmethod expand-to-foreign (value (type ensure-float))
   (if (constantp value)
-      (float (eval value))
-      `(float ,value)))
+      (cl:float (eval value))
+      `(cl:float ,value)))
 
 (define-foreign-type ensure-double ()
   ()
@@ -85,12 +85,12 @@
   (:simple-parser ensure-double))
 
 (defmethod translate-to-foreign (value (type ensure-double))
-  (float value 1.0d0))
+  (cl:float value 1.0d0))
 
 (defmethod expand-to-foreign (value (type ensure-double))
   (if (constantp value)
-      (float (eval value) 1.0d0)
-      `(float ,value 1.0d0)))
+      (cl:float (eval value) 1.0d0)
+      `(cl:float ,value 1.0d0)))
 
 (defctype float ensure-float)
 (defctype clampf ensure-float)

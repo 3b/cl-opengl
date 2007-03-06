@@ -36,16 +36,16 @@
 
 (defcfun ("glutSetColor" set-color) :void
   (ndx   :int)
-  (red   gl:ensure-float)
-  (green gl:ensure-float)
-  (blue  gl:ensure-float))
+  (red   %gl:float)
+  (green %gl:float)
+  (blue  %gl:float))
 
 (defcenum color-component
   :red
   :green
   :blue)
 
-(defcfun ("glutGetColor" get-color) gl:float
+(defcfun ("glutGetColor" get-color) %gl:float
   (color :int)
   (component color-component))
 
@@ -76,7 +76,7 @@
 (defcfun ("glutEnterGameMode" enter-game-mode) :void)
 (defcfun ("glutLeaveGameMode" leave-game-mode) :void)
 
-(defcenum (game-mode-param gl:enum)
+(defcenum (game-mode-param %gl:enum)
   :game-mode-active
   :game-mode-possible
   :game-mode-width
@@ -95,7 +95,7 @@
 
 ;;; freeglut doesn't implement any of these
 
-(defcenum (video-resize-param gl:enum)
+(defcenum (video-resize-param %gl:enum)
   (:video-resize-possible #x0384)
   :video-resize-in-use
   :video-resize-x-delta

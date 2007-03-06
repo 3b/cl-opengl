@@ -42,7 +42,7 @@
 ;;; Setting Options
 
 ;; freeglut ext
-(defcenum (options gl:enum)
+(defcenum (options %gl:enum)
   (:init-window-x #x01F4)
   :init-window-y
   :init-window-width
@@ -114,7 +114,7 @@
 
 ;;; Getting Options
 
-(defcenum (get-param gl:enum)
+(defcenum (get-param %gl:enum)
   (:window-x #x0064)
   :window-y
   :window-width
@@ -177,7 +177,7 @@
 
 ;;; Other Getters
 
-(defcenum (device-get-param gl:enum)
+(defcenum (device-get-param %gl:enum)
   (:has-keyboard #x0258)
   :has-mouse
   :has-spaceball
@@ -204,7 +204,7 @@
       nil
       t))
 
-(defcenum (layer-get-param gl:enum)
+(defcenum (layer-get-param %gl:enum)
   (:overlay-possible #x0320)
   :layer-in-use
   :has-overlay

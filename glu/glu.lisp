@@ -34,7 +34,7 @@
 
 ;;;; Types
 
-(defcenum (string-name gl:enum)
+(defcenum (string-name %gl:enum)
   (:version 100800)
   :extensions)
 
@@ -42,11 +42,11 @@
 ;;; or failure.  When the error code is zero, we can use glGetError to
 ;;; obtain the actual error that occurred.  This type adds a
 ;;; translation to signal GLU-ERROR conditions for these errors.
-(defctype glu-result gl:int)
+(defctype glu-result %gl:int)
 
 (define-foreign-type glu-result ()
   ()
-  (:actual-type gl:int)
+  (:actual-type %gl:int)
   (:simple-parser glu-result))
 
 ;;; Check GLU result codes and signal errors on zero values.
@@ -61,7 +61,7 @@
   (name-keyword string-name))
 
 #-cffi-features:windows
-(defcfun ("gluCheckExtension" check-extension) (:boolean gl:boolean)
+(defcfun ("gluCheckExtension" check-extension) %gl:boolean
   (extension-name :string)
   (extension-string :string))
 
@@ -72,14 +72,14 @@
 ;;;; 3.1 Image Scaling
 
 (defcfun ("gluScaleImage" %gluScaleImage) :int
-  (format gl:enum)
-  (width-in gl:sizei)
-  (height-in gl:sizei)
-  (type-in gl:enum)
+  (format %gl:enum)
+  (width-in %gl:sizei)
+  (height-in %gl:sizei)
+  (type-in %gl:enum)
   (data-in :pointer)
-  (width-out gl:sizei)
-  (height-out gl:sizei)
-  (type-out gl:enum)
+  (width-out %gl:sizei)
+  (height-out %gl:sizei)
+  (type-out %gl:enum)
   (data-out :pointer))
 
 ;;(defun scale-image (format width-in height-in type-in data-in
@@ -99,89 +99,89 @@
 ;;;; 4.1 Matrix Setup
 
 (defcfun ("gluOrtho2D" ortho-2d) :void
-  (left   gl:ensure-double)
-  (right  gl:ensure-double)
-  (bottom gl:ensure-double)
-  (top    gl:ensure-double))
+  (left   %gl:double)
+  (right  %gl:double)
+  (bottom %gl:double)
+  (top    %gl:double))
 
 (defcfun ("gluPerspective" perspective) :void
-  (fov-y  gl:ensure-double)
-  (right  gl:ensure-double)
-  (bottom gl:ensure-double)
-  (top    gl:ensure-double))
+  (fov-y  %gl:double)
+  (right  %gl:double)
+  (bottom %gl:double)
+  (top    %gl:double))
 
 (defcfun ("gluLookAt" look-at) :void
-  (eye-x gl:ensure-double)
-  (eye-y gl:ensure-double)
-  (eye-z gl:ensure-double)
-  (center-x gl:ensure-double)
-  (center-y gl:ensure-double)
-  (center-z gl:ensure-double)
-  (up-x gl:ensure-double)
-  (up-y gl:ensure-double)
-  (up-z gl:ensure-double))
+  (eye-x %gl:double)
+  (eye-y %gl:double)
+  (eye-z %gl:double)
+  (center-x %gl:double)
+  (center-y %gl:double)
+  (center-z %gl:double)
+  (up-x %gl:double)
+  (up-y %gl:double)
+  (up-z %gl:double))
 
 (defcfun ("gluPickMatrix" %gluPickMatrix) :void
-  (x gl:ensure-double)
-  (y gl:ensure-double)
-  (delta-x gl:ensure-double)
-  (delta-y gl:ensure-double)
+  (x %gl:double)
+  (y %gl:double)
+  (delta-x %gl:double)
+  (delta-y %gl:double)
   (viewport :pointer))
 
 (defun pick-matrix (x y delta-x delta-y viewport)
   (assert (= (length viewport) 4))
-  (gl::with-opengl-sequence (array 'gl:int viewport)
+  (gl::with-opengl-sequence (array '%gl:int viewport)
     (%gluPickMatrix x y delta-x delta-y array)))
 
 ;;;; 4.2 Coordinate Projection
 
 (defcfun ("gluProject" %gluProject) glu-result
-  (obj-x gl:ensure-double)
-  (obj-y gl:ensure-double)
-  (obj-z gl:ensure-double)
-  (modelview (:pointer gl:double))
-  (projection (:pointer gl:double))
-  (viewport (:pointer gl:int))
-  (win-x (:pointer gl:double))
-  (win-y (:pointer gl:double))
-  (win-z (:pointer gl:double)))
+  (obj-x %gl:double)
+  (obj-y %gl:double)
+  (obj-z %gl:double)
+  (modelview (:pointer %gl:double))
+  (projection (:pointer %gl:double))
+  (viewport (:pointer %gl:int))
+  (win-x (:pointer %gl:double))
+  (win-y (:pointer %gl:double))
+  (win-z (:pointer %gl:double)))
 
 (defcfun ("gluUnProject" %gluUnProject) glu-result
-  (win-x gl:ensure-double)
-  (win-y gl:ensure-double)
-  (win-z gl:ensure-double)
-  (modelview (:pointer gl:double))
-  (projection (:pointer gl:double))
-  (viewport (:pointer gl:int))
-  (obj-x (:pointer gl:double))
-  (obj-y (:pointer gl:double))
-  (obj-z (:pointer gl:double)))
+  (win-x %gl:double)
+  (win-y %gl:double)
+  (win-z %gl:double)
+  (modelview (:pointer %gl:double))
+  (projection (:pointer %gl:double))
+  (viewport (:pointer %gl:int))
+  (obj-x (:pointer %gl:double))
+  (obj-y (:pointer %gl:double))
+  (obj-z (:pointer %gl:double)))
 
 #-cffi-features:windows
 (defcfun ("gluUnProject4" %gluUnProject4) glu-result
-  (win-x gl:ensure-double)
-  (win-y gl:ensure-double)
-  (win-z gl:ensure-double)
-  (clip-w gl:ensure-double)
-  (modelview (:pointer gl:double))
-  (projection (:pointer gl:double))
-  (viewport (:pointer gl:int))
-  (near gl:ensure-double)
-  (far gl:ensure-double)
-  (obj-x (:pointer gl:double))
-  (obj-y (:pointer gl:double))
-  (obj-z (:pointer gl:double))
-  (obj-w (:pointer gl:double)))
+  (win-x %gl:double)
+  (win-y %gl:double)
+  (win-z %gl:double)
+  (clip-w %gl:double)
+  (modelview (:pointer %gl:double))
+  (projection (:pointer %gl:double))
+  (viewport (:pointer %gl:int))
+  (near %gl:double)
+  (far %gl:double)
+  (obj-x (:pointer %gl:double))
+  (obj-y (:pointer %gl:double))
+  (obj-z (:pointer %gl:double))
+  (obj-w (:pointer %gl:double)))
 
 ;;; Bind each symbol in NAMES to a foreign double float allocated with
 ;;; dynamic-extent, returing the final value of each of them as
 ;;; multiple values.  The return value of BODY is ignored.
 (defmacro with-double-floats/values (names &body body)
   `(with-foreign-objects (,@(mapcar (lambda (name)
-                                      `(,name 'gl:double)) names))
+                                      `(,name '%gl:double)) names))
      ,@body
      (values ,@(mapcar (lambda (name)
-                         `(mem-ref ,name 'gl:double)) names))))
+                         `(mem-ref ,name '%gl:double)) names))))
 
 ;;; Rebind MODEL, PROJ, and VIEWPORT to foreign arrays of the
 ;;; appropriate type to contain the modelview matrix, projection
@@ -192,9 +192,9 @@
        (assert (= (length ,model) 16))
        (assert (= (length ,proj) 16))
        (assert (= (length ,viewport) 4))
-       (gl::with-opengl-arrays ((,model 'gl:double ,model)
-                                (,proj 'gl:double ,proj)
-                                (,viewport 'gl:int ,viewport))
+       (gl::with-opengl-arrays ((,model '%gl:double ,model)
+                                (,proj '%gl:double ,proj)
+                                (,viewport '%gl:int ,viewport))
          ,@body))))
 
 ;;; Map object coordinates to window coordinates.  The MODELVIEW
@@ -318,33 +318,33 @@
 
 (defcfun ("gluSphere" sphere) :void
   (quadric-object quadric-obj)
-  (radius gl:ensure-double)
-  (slices gl:int)
-  (stacks gl:int))
+  (radius %gl:double)
+  (slices %gl:int)
+  (stacks %gl:int))
 
 (defcfun ("gluCylinder" cylinder) :void
   (quadric-object quadric-obj)
-  (base-radius gl:ensure-double)
-  (top-radius gl:ensure-double)
-  (height gl:ensure-double)
-  (slices gl:int)
-  (stacks gl:int))
+  (base-radius %gl:double)
+  (top-radius %gl:double)
+  (height %gl:double)
+  (slices %gl:int)
+  (stacks %gl:int))
 
 (defcfun ("gluDisk" disk) :void
   (quadric-object quadric-obj)
-  (inner-radius gl:ensure-double)
-  (outer-radius gl:ensure-double)
-  (slices gl:int)
-  (loops gl:int))
+  (inner-radius %gl:double)
+  (outer-radius %gl:double)
+  (slices %gl:int)
+  (loops %gl:int))
 
 (defcfun ("gluPartialDisk" partial-disk) :void
   (quadric-object quadric-obj)
-  (inner-radius gl:ensure-double)
-  (outer-radius gl:ensure-double)
-  (slices gl:int)
-  (loops gl:int)
-  (start-angle gl:ensure-double)
-  (sweep-angle gl:ensure-double))
+  (inner-radius %gl:double)
+  (outer-radius %gl:double)
+  (slices %gl:int)
+  (loops %gl:int)
+  (start-angle %gl:double)
+  (sweep-angle %gl:double))
 
 ;;;; 7. NURBS
 ;;;; 7.1 The NURBS Object
@@ -370,7 +370,7 @@
 
 ;; (defcfun ("gluNurbsCurve" nurbs-curve) :void
 ;;   (nurbs-object nurbs-obj)
-;;   (n-knots gl:int)
+;;   (n-knots %gl:int)
 ;;   ...)
 
 ;;; 7.4 NURBS Surfaces
@@ -418,7 +418,7 @@
   (:report (lambda (c s)
              (write-string (slot-value c 'error-message) s))))
 
-(defcenum (error-codes gl:enum)
+(defcenum (error-codes %gl:enum)
   (:invalid-enum 100900)
   :invalid-value
   :out-of-memory
@@ -429,4 +429,4 @@
   )
 
 (defcfun ("gluErrorString" error-string) :string
-  (error-code gl:enum))
+  (error-code %gl:enum))

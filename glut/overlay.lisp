@@ -35,7 +35,7 @@
 (defcfun ("glutEstablishOverlay" establish-overlay) :void)
 (defcfun ("glutRemoveOverlay" remove-overlay) :void)
 
-(defcenum (layer-type gl:enum)
+(defcenum (layer-type %gl:enum)
   :normal
   :overlay)
 
