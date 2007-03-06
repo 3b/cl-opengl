@@ -61,7 +61,7 @@
 
 (declaim (inline end))
 (defun end ()
-  (%gl-end))
+  (%gl:end))
 
 (defmacro with-primitives (mode &body body)
   `(prog2
