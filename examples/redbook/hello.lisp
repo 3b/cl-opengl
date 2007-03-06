@@ -28,7 +28,7 @@
   (gl:ortho 0 1 0 1 -1 1))
 
 (defmethod glut:display ((w hello-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   ;; Draw white polygon (rectangle) with corners at
   ;; (0.25, 0.25, 0.0) and (0.75, 0.75, 0.0).
   (gl:color 1 1 1)

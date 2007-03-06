@@ -25,7 +25,7 @@
     (gl:shade-model :flat)
     (gl:normal 0 0 1)
     ;; Draw front face.
-    (gl:with-primitives :quad-strip 
+    (gl:with-primitives :quad-strip
       (dotimes (i (1+ n-teeth))
         (let ((angle (/ (* i 2.0 +pif+) n-teeth)))
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width 0.5))
@@ -57,7 +57,7 @@
           (gl:vertex (* r1 (cos (+ angle (* 3 da))))
                        (* r1 (sin (+ angle (* 3 da))))
                        (* width -0.5))
-          (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width -0.5))))) 
+          (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width -0.5)))))
     ;; Draw back sides of teeth.
     (gl:with-primitives :quads
       (dotimes (i n-teeth)
@@ -131,7 +131,7 @@
 (defvar *t0* 0)
 
 (cffi:defcallback draw :void ()
-  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:clear :color-buffer :depth-buffer)
   (gl:push-matrix)
   (gl:rotate *view-rotx* 1 0 0)
   (gl:rotate *view-roty* 0 1 0)
@@ -192,7 +192,7 @@
     (:key-right (decf *view-roty* 5.0)))
   (glut:post-redisplay))
 
-(cffi:defcallback reshape :void ((width :int) (height :int)) 
+(cffi:defcallback reshape :void ((width :int) (height :int))
   (gl:viewport 0 0 width height)
   (gl:matrix-mode :projection)
   (gl:load-identity)

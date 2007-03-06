@@ -26,7 +26,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w lines-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   ;; Select white for all lines.
   (gl:color 1 1 1)
   ;; In 1st row, 3 lines, each with a different stipple.

@@ -24,7 +24,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w planet-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:color 1 1 1)
   (gl:with-pushed-matrix
     ;; draw sun

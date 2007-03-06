@@ -5,15 +5,13 @@
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
 ;;;   ALL RIGHTS RESERVED
 
-;;; This program demonstrates how to make and execute a 
-;;; display list.  Note that attributes, such as current 
+;;; This program demonstrates how to make and execute a
+;;; display list.  Note that attributes, such as current
 ;;; color and matrix, are changed.
 
 (in-package #:cl-glut-examples)
 
 (defclass list-window (glut:window)
-  ;; TODO: use some more interesting interface for (de)allocating
-  ;; display lists...
   ((list-name :accessor list-name :initform (gl:gen-lists 1)))
   (:default-initargs
    :width 600 :height 50 :title "list.lisp" :mode '(:single :rgb)))
@@ -29,7 +27,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w list-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:color 0 1 0)                      ; current color green
   (loop repeat 10 do (gl:call-list (list-name w)))
   (gl:with-primitives :lines            ; is this line green? NO!

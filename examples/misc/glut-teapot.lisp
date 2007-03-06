@@ -24,7 +24,7 @@
   (gl:rotate 30 1 1 0)
   (gl:light :light0 :position '(0 1 1 0))
   (gl:light :light0 :diffuse '(0.2 0.4 0.6 0))
-  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:clear :color-buffer :depth-buffer)
   (gl:color 1 1 1)
   (gl:front-face :cw)
   (glut:solid-teapot 1.3)

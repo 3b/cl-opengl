@@ -37,7 +37,7 @@
 ;;; light at a new position in world coordinates.  The cube
 ;;; represents the position of the light.
 (defmethod glut:display ((w movelight-window))
-  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:clear :color-buffer :depth-buffer)
   (gl:with-pushed-matrix
     (glu:look-at 0 0 5 0 0 0 0 1 0)
     (gl:with-pushed-matrix

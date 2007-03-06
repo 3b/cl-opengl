@@ -163,7 +163,7 @@
 (defmethod glut:display ((window gears-window))
   (with-slots (view-rotx view-roty view-rotz angle gear1 gear2 gear3)
       window
-    (gl:clear :color-buffer-bit :depth-buffer-bit)
+    (gl:clear :color-buffer :depth-buffer)
     (gl:with-pushed-matrix
       (gl:rotate view-rotx 1 0 0)
       (gl:rotate view-roty 0 1 0)

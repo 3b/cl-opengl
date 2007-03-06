@@ -20,7 +20,7 @@
   (gl:shade-model :smooth))
 
 (defmethod glut:display ((w smooth-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:with-primitives :triangles
     (gl:color 1 0 0)
     (gl:vertex 5 5)

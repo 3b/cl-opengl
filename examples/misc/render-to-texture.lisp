@@ -108,7 +108,7 @@
 
 (defun draw-teapot ()
   (gl:clear-color 0 0.3 0.5 1.0)
-  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:clear :color-buffer :depth-buffer)
 
   (gl:disable :blend :texture-2d)
   (gl:enable :lighting :light0 :depth-test)
@@ -123,7 +123,7 @@
   (gl:rotate *teapot-rotation-x* 1 0 0)
   (gl:rotate *teapot-rotation-y* 0 1 0)
   (gl:rotate *teapot-rotation-z* 0 0 1)
-    
+
   (gl:color 1 1 1)
   (glut:solid-teapot 1.3)
 
@@ -136,7 +136,7 @@
 
 (defun draw-spinning-quad (texture)
   (gl:clear-color 0 0 0 0)
-  (gl:clear :color-buffer-bit :depth-buffer-bit)
+  (gl:clear :color-buffer :depth-buffer)
 
   (gl:disable :lighting)
   (gl:enable :blend :texture-2d :depth-test)
@@ -175,5 +175,5 @@
     (gl:color 1 1 1 0)
     (gl:vertex 1 -1)
     (gl:tex-coord 0 0.5)
-    (gl:vertex -1 -1)) 
+    (gl:vertex -1 -1))
   (incf *quad-rotation* 0.1))

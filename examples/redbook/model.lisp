@@ -24,7 +24,7 @@
              (gl:vertex 0 25)
              (gl:vertex 25 -25)
              (gl:vertex -25 -25))))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:color 1 1 1)
   ;; triangle with solid-lines
   (gl:load-identity)

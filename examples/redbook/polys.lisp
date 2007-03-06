@@ -37,25 +37,25 @@
     #x10 #x18 #x18 #x08 #x10 #x00 #x00 #x08))
 
 (defparameter *halftone*
-  #(#xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
+  #(#xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
-    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55 
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
+    #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55
     #xAA #xAA #xAA #xAA #x55 #x55 #x55 #x55))
 
 (defmethod glut:display ((w polys-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:color 1 1 1)
   ;; Draw one solid, unstippled rectangles then two
   ;; stippled rectangles.

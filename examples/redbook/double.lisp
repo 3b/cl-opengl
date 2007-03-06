@@ -21,7 +21,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w double-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:with-pushed-matrix
     (gl:rotate (slot-value w 'spin) 0 0 1)
     (gl:color 1 1 1)

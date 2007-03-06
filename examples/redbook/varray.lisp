@@ -28,13 +28,10 @@
                   0.75 0.75 0.75
                   0.35 0.35 0.35
                   0.5 0.5 0.5)))
-
     (gl:enable-client-state :vertex-array)
     (gl:enable-client-state :color-array)
-    
     (gl:vertex-pointer 2 :int 0 vertices)
     (gl:color-pointer 3 :float 0 colors)))
-  
 
 (defun setup-interleave ()
   (let ((intertwined '(1.0 0.2 1.0 100.0 100.0 0.0
@@ -43,7 +40,6 @@
                        0.2 1.0 0.2 200.0 300.0 0.0
                        0.2 1.0 1.0 300.0 200.0 0.0
                        0.2 0.2 1.0 200.0 100.0 0.0)))
-    
     (gl:interleaved-arrays :c3f-v3f 0 intertwined)))
 
 (defmethod glut:display-window :before ((w varray-window))
@@ -52,7 +48,7 @@
   (setup-pointers))
 
 (defmethod glut:display ((w varray-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (ecase (deref-method w)
     (draw-array
      (gl:draw-arrays :triangles 0 6))

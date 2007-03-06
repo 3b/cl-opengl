@@ -24,7 +24,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w robot-window))
-  (gl:clear :color-buffer-bit)
+  (gl:clear :color-buffer)
   (gl:with-pushed-matrix
     ;; first cube
     (gl:translate -1 0 0)

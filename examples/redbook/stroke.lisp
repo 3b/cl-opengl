@@ -5,9 +5,9 @@
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
 ;;;   ALL RIGHTS RESERVED
 
-;;; This program demonstrates some characters of a 
+;;; This program demonstrates some characters of a
 ;;; stroke (vector) font.  The characters are represented
-;;; by display lists, which are given numbers which 
+;;; by display lists, which are given numbers which
 ;;; correspond to the ASCII values of the characters.
 ;;; Use of GL:CALL-LISTS is demonstrated.
 
@@ -57,7 +57,7 @@
 (defmethod glut:display ((w stroke-window))
   (flet ((print-stroked-string (string)
            (gl:call-lists (map 'vector #'char-code string))))
-    (gl:clear :color-buffer-bit)
+    (gl:clear :color-buffer)
     (gl:color 1 1 1)
     (gl:with-pushed-matrix
       (gl:scale 2 2 2)
