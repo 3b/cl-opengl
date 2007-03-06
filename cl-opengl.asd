@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,25 +27,23 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(defpackage :cl-opengl-system
-  (:use :cl :asdf))
-(in-package :cl-opengl-system)
-
-
 (defsystem :cl-opengl
   :depends-on (:cffi)
   :components
   ((:module "gl"
     :components
-    ((:file "package")
-     (:file "library" :depends-on ("package"))
-     (:file "types" :depends-on ("package"))
-     (:file "constants" :depends-on ("types"))
-     (:file "funcs" :depends-on ("constants" "library"))
+    ((:file "bindings-package")
+     (:file "bindings" :depends-on ("bindings-package"))
+     (:file "types" :depends-on ("bindings-package"))
+     (:file "library" :depends-on ("bindings-package"))
+     (:file "constants" :depends-on ("bindings"))
+     (:file "funcs" :depends-on ("bindings" "constants" "library"))
+     ;; Lispifications.
+     (:file "package" :depends-on ("bindings-package"))
      (:file "util" :depends-on ("constants" "types"))
      (:file "opengl" :depends-on ("funcs" "util"))
      (:file "rasterization" :depends-on ("funcs" "util"))
      (:file "framebuffer" :depends-on ("funcs" "util"))
-     (:file "special" :depends-on ("funcs" "util"))
+     (:file "special" :depends-on ("funcs" "util" "constants"))
      (:file "state" :depends-on ("funcs" "util"))
      (:file "extensions" :depends-on ("funcs" "util"))))))

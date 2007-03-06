@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+(in-package #:cl-opengl)
 
 ;;;
 ;;; Chapter 2 - OpenGL Operation
@@ -123,81 +123,6 @@
   (%glVertexAttrib4f index (float x) (float y) (float z) (float w)))
 
 ;;;
-;;; 2.8 Vertex Arrays
-;;;
-
-(defun vertex-pointer (size type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glVertexPointer size type stride array)))
-
-(defun normal-pointer (type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glNormalPointer type stride array)))
-
-(defun color-pointer (size type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glColorPointer size type stride array)))
-
-(defun secondary-color-pointer (size type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glSecondaryColorPointer size type stride array)))
-
-(defun index-pointer (type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glIndexPointer type stride array)))
-
-(defun edge-flag-pointer (stride lisp-array)
-  (with-opengl-sequence (array 'boolean lisp-array)
-    (%glEdgeFlagPointer stride array)))
-
-(defun fog-coord-pointer (type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glFogCoordPointer type stride array)))
-
-(defun tex-coord-pointer (size type stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glTexCoordPointer size type stride array)))
-
-(defun vertex-attrib-pointer (index size type normalized stride lisp-array)
-  (with-opengl-sequence (array type lisp-array)
-    (%glVertexAttribPointer index size type normalized stride array)))
-
-(declaim (inline enable-client-state))
-(defun enable-client-state (state)
-  (%glEnableClientState state))
-
-(declaim (inline disable-client-state))
-(defun disable-client-state (state)
-  (%glDisableClientState state))
-
-(declaim (inline client-active-texture))
-(defun client-active-texture (enum)
-  (%glClientActiveTexture enum))
-
-(declaim (inline array-element))
-(defun array-element (i)
-  (%glArrayElement i))
-
-(declaim (inline draw-arrays))
-(defun draw-arrays (mode first count)
-  (%glDrawArrays mode first count))
-
-;; (defun multi-draw-arrays ())
-
-(defun draw-elements (mode count type lisp-indices)
-  (with-opengl-sequence (indices type lisp-indices)
-    (%glDrawElements mode count type indices)))
-
-;; (defun draw-range-elements ())
-
-(defun interleaved-arrays (format stride lisp-array)
-  ;;array type needs more logic I think
-  ;;float is quick hack to get working with redbook varray example
-  (with-opengl-sequence (array 'float lisp-array)
-    (%glInterleavedArrays format stride array)))
-
-
-;;;
 ;;; 2.9 Buffer Objects
 ;;;
 
@@ -206,14 +131,14 @@
   (%glBindBuffer target buffer))
 
 (defun delete-buffers (buffers)
-  (with-opengl-sequence (array 'uint buffers)
+  (with-opengl-sequence (array '%gl:uint buffers)
     (%glDeleteBuffers (length buffers) array)))
 
 (defun gen-buffers (count)
-  (with-foreign-object (buffer-array 'uint count)
+  (with-foreign-object (buffer-array '%gl:uint count)
     (%glGenBuffers count buffer-array)
     (loop for i below count
-          collecting (mem-aref buffer-array 'uint i))))
+          collecting (mem-aref buffer-array '%gl:uint i))))
 
 (defun buffer-data (target size data usage)
   (%glBufferData target size data usage))
@@ -235,7 +160,6 @@
 (declaim (inline rect))
 (defun rect (x1 y1 x2 y2)
   (%glRectf (float x1) (float y1) (float x2) (float y2)))
-
 
 ;;;
 ;;; 2.11 Coordinate Transformations
@@ -330,7 +254,7 @@
 (defun clip-plane (plane eqn)
   (when (< (length eqn) 4)
     (error "EQN must have 4 coefficents."))
-  (with-opengl-sequence (p 'double eqn)
+  (with-opengl-sequence (p '%gl:double eqn)
     (%glClipPlane plane p)))
 
 ;;;
@@ -360,29 +284,29 @@
 (defun material (face pname param)
   (ecase pname
     ((:ambient :diffuse :ambient-and-diffuse :specular :emission)
-     (with-foreign-object (p 'float 4)
+     (with-foreign-object (p '%gl:float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'float i) (float (elt param i))))
+         (setf (mem-aref p '%gl:float i) (float (elt param i))))
        (%glMaterialfv face pname p)))
     (:shininess
      (%glMaterialf face pname (float param)))
     (:color-indexes
-     (with-foreign-object (p 'int 3)
+     (with-foreign-object (p '%gl:int 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'int i) (elt param i)))
+         (setf (mem-aref p '%gl:int i) (elt param i)))
        (%glMaterialiv face pname p)))))
 
 (defun light (light pname value)
   (ecase pname
     ((:ambient :diffuse :specular :position)
-     (with-foreign-object (p 'float 4)
+     (with-foreign-object (p '%gl:float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'float i) (float (elt value i))))
+         (setf (mem-aref p '%gl:float i) (float (elt value i))))
        (%glLightfv light pname p)))
     (:spot-direction
-     (with-foreign-object (p 'float 3)
+     (with-foreign-object (p '%gl:float 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'float i) (float (elt value i))))
+         (setf (mem-aref p '%gl:float i) (float (elt value i))))
        (%glLightfv light pname p)))
     ((:spot-exponent :spot-cutoff :constant-attenuation :linear-attenuation
       :quadratic-attenuation)
@@ -391,12 +315,12 @@
 (defun light-model (pname value)
   (ecase pname
     (:light-model-ambient
-     (with-foreign-object (p 'float 4)
+     (with-foreign-object (p '%gl:float 4)
        (dotimes (i 4)
-         (setf (mem-aref p 'float i) (float (elt value i))))
+         (setf (mem-aref p '%gl:float i) (float (elt value i))))
        (%glLightModelfv pname p)))
     (:light-model-color-control
-     (%glLightmodeli pname (foreign-enum-value 'enum value)))
+     (%glLightmodeli pname (foreign-enum-value '%gl:enum value)))
     ((:light-model-local-viewer :light-model-two-side)
      (%glLightModeli pname (if value 1 0)))))
 
@@ -473,14 +397,14 @@
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
   ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written 'sizei)
-                         (size 'int)
+  (with-foreign-objects ((characters-written '%gl:sizei)
+                         (size '%gl:int)
                          (type :long)
-                         (name 'char 1024))
+                         (name '%gl:char 1024))
     (%glGetActiveAttrib program index 1024 characters-written size type name)
-    (when (< 0 (mem-ref characters-written 'sizei))
-      (values (mem-ref size 'int)
-              (foreign-enum-keyword 'enum (mem-ref type :long))
+    (when (< 0 (mem-ref characters-written '%gl:sizei))
+      (values (mem-ref size '%gl:int)
+              (foreign-enum-keyword '%gl:enum (mem-ref type :long))
               (foreign-string-to-lisp name)))))
 
 (defun get-attrib-location (program name)
@@ -500,14 +424,14 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
   ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written 'sizei)
-                         (size 'int)
+  (with-foreign-objects ((characters-written '%gl:sizei)
+                         (size '%gl:int)
                          (type :long)
-                         (name 'char 1024))
+                         (name '%gl:char 1024))
     (%glGetActiveUniform program index 1024 characters-written size type name)
-    (when (< 0 (mem-ref characters-written 'sizei))
-      (values (mem-ref size 'int)
-              (foreign-enum-keyword 'enum (mem-ref type :long))
+    (when (< 0 (mem-ref characters-written '%gl:sizei))
+      (values (mem-ref size '%gl:int)
+              (foreign-enum-keyword '%gl:enum (mem-ref type :long))
               (foreign-string-to-lisp name)))))
 
 (defun uniformi (location x &optional y z w)
@@ -544,11 +468,11 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
   (check-type dim (integer 2 4))
   (let ((matrix-count (length matrices))
         (matrix-size (* dim dim)))
-    (with-foreign-object (array 'float (* matrix-count matrix-size))
+    (with-foreign-object (array '%gl:float (* matrix-count matrix-size))
       (dotimes (i matrix-count)
         (let ((matrix (aref matrices i)))
           (dotimes (j matrix-size)
-            (setf (mem-aref array 'float (* i j))
+            (setf (mem-aref array '%gl:float (* i j))
                   (row-major-aref matrix j)))))
       (case dim
         (2 (%glUniformMatrix2fv

@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -31,14 +31,6 @@
   (:use #:cl #:cffi)
   (:nicknames #:opengl #:gl)
   (:export
-   ;; Types
-   #:enum #:boolean #:bitfield #:byte #:short #:int #:sizei #:ubyte
-   #:ushort #:uint #:float #:clampf #:double #:clampd #:intptr #:sizeiptr
-   #:char #:handle #:ensure-float #:ensure-double
-   ;; Enums
-   ;; TODO: do we want to export more of these? --luis
-   #:pixel-data-format #:pixel-data-type
-   #:tex-image-1d-target #:tex-image-2d-target #:tex-image-3d-target
    ;; 2.5 GL Errors
    #:get-error
    #:opengl-error
@@ -62,26 +54,6 @@
    #:secondary-color
    #:index
    #:vertex-attrib
-   ;; 2.8 Vertex Arrays
-   #:vertex-pointer
-   #:normal-pointer
-   #:color-pointer
-   #:secondary-color-pointer
-   #:index-pointer
-   #:edge-flag-pointer
-   #:fog-coord-pointer
-   #:tex-coord-pointer
-   #:vertex-attrib-pointer
-   #:enable-client-state
-   #:disable-client-state
-   #:client-active-texture
-   #:array-element
-   #:draw-arrays
-;; #:multi-draw-arrays
-   #:draw-elements
-;; #:multi-draw-elements
-;; #:draw-range-elements
-   #:interleaved-arrays
    ;; 2.9 Buffer Objects
    #:bind-buffer
    #:delete-buffers
@@ -319,4 +291,3 @@
    #:framebuffer-renderbuffer-ext
    #:generate-mipmap-ext
    ))
-

@@ -1,670 +1,1632 @@
-;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
+;;; generated file, do not edit
+
+;;; generated from files with following copyright:
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; License Applicability. Except to the extent portions of this file are
+;;; made subject to an alternative license as permitted in the SGI Free
+;;; Software License B, Version 1.1 (the "License"), the contents of this
+;;; file are subject only to the provisions of the License. You may not use
+;;; this file except in compliance with the License. You may obtain a copy
+;;; of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+;;; Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+;;; 
+;;; http://oss.sgi.com/projects/FreeB
+;;; 
+;;; Note that, as provided in the License, the Software is distributed on an
+;;; "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+;;; DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+;;; CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+;;; PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+;;; 
+;;; Original Code. The Original Code is: OpenGL Sample Implementation,
+;;; Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+;;; Inc. The Original Code is Copyright (c) 1991-2002 Silicon Graphics, Inc.
+;;; Copyright in any portions created by third parties is as indicated
+;;; elsewhere herein. All Rights Reserved.
+;;; 
+;;; Additional Notice Provisions: This software was created using the
+;;; OpenGL(R) version 1.2.1 Sample Implementation published by SGI, but has
+;;; not been independently verified as being compliant with the OpenGL(R)
+;;; version 1.2.1 Specification.
 ;;;
-;;; Redistribution and use in source and binary forms, with or without
-;;; modification, are permitted provided that the following conditions are met:
-;;;
-;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
-;;;  o Redistributions in binary form must reproduce the above copyright
-;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
-;;;  o Neither the name of the author nor the names of the contributors may be
-;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
-;;;
-;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-;;; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-;;; ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-;;; LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-;;; CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-;;; SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-;;; INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-;;; CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+;;; glext version 39 ( 2007/02/12 )
 
-;;; Helper macro to define a GL API function and declare it inline.
-;;;
-;;; FIXME: LISP-FUNCTION-NAME should probably be exported from CFFI
-;;; for helper macros like this one.
-(defmacro defglfun (name result-type &body body)
-  (let ((lisp-name (cffi::lisp-name name)))
-    `(progn
-       (declaim (inline ,lisp-name))
-       (defcfun ,name ,result-type ,@body))))
+(in-package #:cl-opengl-bindings)
 
-;;; A
+(defparameter *glext-version* 39)
+(defparameter *glext-last-updated* "2007/02/12")
 
-(defglfun ("glAccum" %glAccum) :void
-  (op enum)
-  (value float))
-
-(defglfun ("glActiveTexture" %glActiveTexture) :void
-  (name enum))
-
-(defglfun ("glAlphaFunc" %glAlphaFunc) :void
-  (func enum)
-  (ref clampf))
-
-(defglfun ("glArrayElement" %glArrayElement) :void
-  (i int))
-
-(defglfun ("glAttachShader" %glAttachShader) :void
-  (program uint)
-  (shader uint))
-
-(defglfun ("glAreTexturesResident" %glAreTexturesResident) boolean
-  (n sizei)
-  (textures :pointer)
-  (residences :pointer))
-
-
-;;; B
-
-(defglfun ("glBegin" %glBegin) :void
+;;; GL version: 1.0, display-list
+(defglfun ("glNewList" new-list
+           :library opengl)
+    :void
+  (list uint)
   (mode enum))
 
-(defglfun ("glBeginQuery" %glBeginQuery) :void
+;;; GL version: 1.0, display-list
+(defglfun ("glEndList" end-list
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, display-list
+(defglfun ("glCallList" call-list
+           :library opengl)
+    :void
+  (list uint))
+
+;;; GL version: 1.0, display-list
+(defglfun ("glCallLists" call-lists
+           :library opengl)
+    :void
+  (n sizei)
+  (type enum)
+  (lists (:pointer void)))
+
+;;; GL version: 1.0, display-list
+(defglfun ("glDeleteLists" delete-lists
+           :library opengl)
+    :void
+  (list uint)
+  (range sizei))
+
+;;; GL version: 1.0, display-list
+(defglfun ("glGenLists" gen-lists
+           :library opengl)
+    uint
+  (range sizei))
+
+;;; GL version: 1.0, display-list
+(defglfun ("glListBase" list-base
+           :library opengl)
+    :void
+  (base uint))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glBegin" begin
+           :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glBitmap" bitmap
+           :library opengl)
+    :void
+  (width sizei)
+  (height sizei)
+  (xorig float)
+  (yorig float)
+  (xmove float)
+  (ymove float)
+  (bitmap (:pointer ubyte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3b" color-3b
+           :library opengl)
+    :void
+  (red byte)
+  (green byte)
+  (blue byte))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3bv" color-3bv
+           :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3d" color-3d
+           :library opengl)
+    :void
+  (red double)
+  (green double)
+  (blue double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3dv" color-3dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3f" color-3f
+           :library opengl)
+    :void
+  (red float)
+  (green float)
+  (blue float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3fv" color-3fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3i" color-3i
+           :library opengl)
+    :void
+  (red int)
+  (green int)
+  (blue int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3iv" color-3iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3s" color-3s
+           :library opengl)
+    :void
+  (red short)
+  (green short)
+  (blue short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3sv" color-3sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3ub" color-3ub
+           :library opengl)
+    :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3ubv" color-3ubv
+           :library opengl)
+    :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3ui" color-3ui
+           :library opengl)
+    :void
+  (red uint)
+  (green uint)
+  (blue uint))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3uiv" color-3uiv
+           :library opengl)
+    :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3us" color-3us
+           :library opengl)
+    :void
+  (red ushort)
+  (green ushort)
+  (blue ushort))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor3usv" color-3usv
+           :library opengl)
+    :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4b" color-4b
+           :library opengl)
+    :void
+  (red byte)
+  (green byte)
+  (blue byte)
+  (alpha byte))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4bv" color-4bv
+           :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4d" color-4d
+           :library opengl)
+    :void
+  (red double)
+  (green double)
+  (blue double)
+  (alpha double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4dv" color-4dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4f" color-4f
+           :library opengl)
+    :void
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4fv" color-4fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4i" color-4i
+           :library opengl)
+    :void
+  (red int)
+  (green int)
+  (blue int)
+  (alpha int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4iv" color-4iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4s" color-4s
+           :library opengl)
+    :void
+  (red short)
+  (green short)
+  (blue short)
+  (alpha short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4sv" color-4sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4ub" color-4ub
+           :library opengl)
+    :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte)
+  (alpha ubyte))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4ubv" color-4ubv
+           :library opengl)
+    :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4ui" color-4ui
+           :library opengl)
+    :void
+  (red uint)
+  (green uint)
+  (blue uint)
+  (alpha uint))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4uiv" color-4uiv
+           :library opengl)
+    :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4us" color-4us
+           :library opengl)
+    :void
+  (red ushort)
+  (green ushort)
+  (blue ushort)
+  (alpha ushort))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glColor4usv" color-4usv
+           :library opengl)
+    :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glEdgeFlag" edge-flag
+           :library opengl)
+    :void
+  (flag boolean))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glEdgeFlagv" edge-flag-v
+           :library opengl)
+    :void
+  (flag (:pointer boolean)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glEnd" end
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexd" index-d
+           :library opengl)
+    :void
+  (c double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexdv" index-dv
+           :library opengl)
+    :void
+  (c (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexf" index-f
+           :library opengl)
+    :void
+  (c float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexfv" index-fv
+           :library opengl)
+    :void
+  (c (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexi" index-i
+           :library opengl)
+    :void
+  (c int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexiv" index-iv
+           :library opengl)
+    :void
+  (c (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexs" index-s
+           :library opengl)
+    :void
+  (c short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glIndexsv" index-sv
+           :library opengl)
+    :void
+  (c (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3b" normal-3b
+           :library opengl)
+    :void
+  (nx byte)
+  (ny byte)
+  (nz byte))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3bv" normal-3bv
+           :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3d" normal-3d
+           :library opengl)
+    :void
+  (nx double)
+  (ny double)
+  (nz double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3dv" normal-3dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3f" normal-3f
+           :library opengl)
+    :void
+  (nx float)
+  (ny float)
+  (nz float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3fv" normal-3fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3i" normal-3i
+           :library opengl)
+    :void
+  (nx int)
+  (ny int)
+  (nz int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3iv" normal-3iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3s" normal-3s
+           :library opengl)
+    :void
+  (nx short)
+  (ny short)
+  (nz short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glNormal3sv" normal-3sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2d" raster-pos-2d
+           :library opengl)
+    :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2dv" raster-pos-2dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2f" raster-pos-2f
+           :library opengl)
+    :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2fv" raster-pos-2fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2i" raster-pos-2i
+           :library opengl)
+    :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2iv" raster-pos-2iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2s" raster-pos-2s
+           :library opengl)
+    :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos2sv" raster-pos-2sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3d" raster-pos-3d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3dv" raster-pos-3dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3f" raster-pos-3f
+           :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3fv" raster-pos-3fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3i" raster-pos-3i
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3iv" raster-pos-3iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3s" raster-pos-3s
+           :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos3sv" raster-pos-3sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4d" raster-pos-4d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4dv" raster-pos-4dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4f" raster-pos-4f
+           :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4fv" raster-pos-4fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4i" raster-pos-4i
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4iv" raster-pos-4iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4s" raster-pos-4s
+           :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRasterPos4sv" raster-pos-4sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectd" rect-d
+           :library opengl)
+    :void
+  (x1 double)
+  (y1 double)
+  (x2 double)
+  (y2 double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectdv" rect-dv
+           :library opengl)
+    :void
+  (v1 (:pointer double))
+  (v2 (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectf" rect-f
+           :library opengl)
+    :void
+  (x1 float)
+  (y1 float)
+  (x2 float)
+  (y2 float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectfv" rect-fv
+           :library opengl)
+    :void
+  (v1 (:pointer float))
+  (v2 (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRecti" rect-i
+           :library opengl)
+    :void
+  (x1 int)
+  (y1 int)
+  (x2 int)
+  (y2 int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectiv" rect-iv
+           :library opengl)
+    :void
+  (v1 (:pointer int))
+  (v2 (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRects" rect-s
+           :library opengl)
+    :void
+  (x1 short)
+  (y1 short)
+  (x2 short)
+  (y2 short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glRectsv" rect-sv
+           :library opengl)
+    :void
+  (v1 (:pointer short))
+  (v2 (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1d" tex-coord-1d
+           :library opengl)
+    :void
+  (s double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1dv" tex-coord-1dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1f" tex-coord-1f
+           :library opengl)
+    :void
+  (s float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1fv" tex-coord-1fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1i" tex-coord-1i
+           :library opengl)
+    :void
+  (s int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1iv" tex-coord-1iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1s" tex-coord-1s
+           :library opengl)
+    :void
+  (s short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord1sv" tex-coord-1sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2d" tex-coord-2d
+           :library opengl)
+    :void
+  (s double)
+  (tee double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2dv" tex-coord-2dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2f" tex-coord-2f
+           :library opengl)
+    :void
+  (s float)
+  (tee float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2fv" tex-coord-2fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2i" tex-coord-2i
+           :library opengl)
+    :void
+  (s int)
+  (tee int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2iv" tex-coord-2iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2s" tex-coord-2s
+           :library opengl)
+    :void
+  (s short)
+  (tee short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord2sv" tex-coord-2sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3d" tex-coord-3d
+           :library opengl)
+    :void
+  (s double)
+  (tee double)
+  (r double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3dv" tex-coord-3dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3f" tex-coord-3f
+           :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (r float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3fv" tex-coord-3fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3i" tex-coord-3i
+           :library opengl)
+    :void
+  (s int)
+  (tee int)
+  (r int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3iv" tex-coord-3iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3s" tex-coord-3s
+           :library opengl)
+    :void
+  (s short)
+  (tee short)
+  (r short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord3sv" tex-coord-3sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4d" tex-coord-4d
+           :library opengl)
+    :void
+  (s double)
+  (tee double)
+  (r double)
+  (q double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4dv" tex-coord-4dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4f" tex-coord-4f
+           :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (r float)
+  (q float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4fv" tex-coord-4fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4i" tex-coord-4i
+           :library opengl)
+    :void
+  (s int)
+  (tee int)
+  (r int)
+  (q int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4iv" tex-coord-4iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4s" tex-coord-4s
+           :library opengl)
+    :void
+  (s short)
+  (tee short)
+  (r short)
+  (q short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glTexCoord4sv" tex-coord-4sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2d" vertex-2d
+           :library opengl)
+    :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2dv" vertex-2dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2f" vertex-2f
+           :library opengl)
+    :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2fv" vertex-2fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2i" vertex-2i
+           :library opengl)
+    :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2iv" vertex-2iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2s" vertex-2s
+           :library opengl)
+    :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex2sv" vertex-2sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3d" vertex-3d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3dv" vertex-3dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3f" vertex-3f
+           :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3fv" vertex-3fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3i" vertex-3i
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3iv" vertex-3iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3s" vertex-3s
+           :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex3sv" vertex-3sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4d" vertex-4d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4dv" vertex-4dv
+           :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4f" vertex-4f
+           :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4fv" vertex-4fv
+           :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4i" vertex-4i
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4iv" vertex-4iv
+           :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4s" vertex-4s
+           :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.0, drawing
+(defglfun ("glVertex4sv" vertex-4sv
+           :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glClipPlane" clip-plane
+           :library opengl)
+    :void
+  (plane enum)
+  (equation (:pointer double)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glColorMaterial" color-material
+           :library opengl)
+    :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glCullFace" cull-face
+           :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glFogf" fog-f
+           :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glFogfv" fog-fv
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glFogi" fog-i
+           :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glFogiv" fog-iv
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glFrontFace" front-face
+           :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glHint" hint
+           :library opengl)
+    :void
   (target enum)
-  (id uint))
+  (mode enum))
 
-(defglfun ("glBindAttribLocation" %glBindAttribLocation) :void
-  (program uint)
-  (index uint)
-  (name :pointer))
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightf" light-f
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (param float))
 
-(defglfun ("glBindBuffer" %glBindBuffer) :void
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightfv" light-fv
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLighti" light-i
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightiv" light-iv
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightModelf" light-model-f
+           :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightModelfv" light-model-fv
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightModeli" light-model-i
+           :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLightModeliv" light-model-iv
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLineStipple" line-stipple
+           :library opengl)
+    :void
+  (factor int)
+  (pattern ushort))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glLineWidth" line-width
+           :library opengl)
+    :void
+  (width float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glMaterialf" material-f
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glMaterialfv" material-fv
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glMateriali" material-i
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glMaterialiv" material-iv
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glPointSize" point-size
+           :library opengl)
+    :void
+  (size float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glPolygonMode" polygon-mode
+           :library opengl)
+    :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glPolygonStipple" polygon-stipple
+           :library opengl)
+    :void
+  (mask (:pointer ubyte)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glScissor" scissor
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glShadeModel" shade-model
+           :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexParameterf" tex-parameter-f
+           :library opengl)
+    :void
   (target enum)
-  (buffer uint))
+  (pname enum)
+  (param float))
 
-(defglfun ("glBindFramebufferEXT" %glBindFramebufferEXT) :void
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexParameterfv" tex-parameter-fv
+           :library opengl)
+    :void
   (target enum)
-  (framebuffer uint))
+  (pname enum)
+  (params (:pointer float)))
 
-(defglfun ("glBindRenderbufferEXT" %glBindRenderbufferEXT) :void
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexParameteri" tex-parameter-i
+           :library opengl)
+    :void
   (target enum)
-  (renderbuffer uint))
+  (pname enum)
+  (param int))
 
-(defglfun ("glBindTexture" %glBindTexture) :void
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexParameteriv" tex-parameter-iv
+           :library opengl)
+    :void
   (target enum)
-  (handle uint))
+  (pname enum)
+  (params (:pointer int)))
 
-(defglfun ("glBlendColor" %glBlendColor) :void
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexImage1D" tex-image-1d
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat int)
+  (width sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexImage2D" tex-image-2d
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat int)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexEnvf" tex-env-f
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexEnvfv" tex-env-fv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexEnvi" tex-env-i
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexEnviv" tex-env-iv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGend" tex-gen-d
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (param double))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGendv" tex-gen-dv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGenf" tex-gen-f
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGenfv" tex-gen-fv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGeni" tex-gen-i
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, drawing-control
+(defglfun ("glTexGeniv" tex-gen-iv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glFeedbackBuffer" feedback-buffer
+           :library opengl)
+    :void
+  (size sizei)
+  (type enum)
+  (buffer (:pointer float)))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glSelectBuffer" select-buffer
+           :library opengl)
+    :void
+  (size sizei)
+  (buffer (:pointer uint)))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glRenderMode" render-mode
+           :library opengl)
+    int
+  (mode enum))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glInitNames" init-names
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, feedback
+(defglfun ("glLoadName" load-name
+           :library opengl)
+    :void
+  (name uint))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glPassThrough" pass-through
+           :library opengl)
+    :void
+  (token float))
+
+;;; GL version: 1.0, feedback
+(defglfun ("glPopName" pop-name
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, feedback
+(defglfun ("glPushName" push-name
+           :library opengl)
+    :void
+  (name uint))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glDrawBuffer" draw-buffer
+           :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glClear" clear
+           :library opengl)
+    :void
+  (mask bitfield))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glClearAccum" clear-accum
+           :library opengl)
+    :void
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glClearIndex" clear-index
+           :library opengl)
+    :void
+  (c float))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glClearColor" clear-color
+           :library opengl)
+    :void
   (red clampf)
   (green clampf)
   (blue clampf)
   (alpha clampf))
 
-(defglfun ("glBlendEquation" %glBlendEquation) :void
-  (mode enum))
-
-(defglfun ("glBlendEquationSeparate" %glBlendEquationSeparate) :void
-  (mode-rgb enum)
-  (mode-alpha enum))
-
-(defglfun ("glBlendFunc" %glBlendFunc) :void
-  (src enum)
-  (dst enum))
-
-(defglfun ("glBlendFuncSeparate" %glBlendFuncSeparate) :void
-  (src-rgb enum)
-  (dst-rgb enum)
-  (src-alpha enum)
-  (dst-alpha enum))
-
-(defglfun ("glBufferData" %glBufferData) :void
-  (target enum)
-  (size sizeiptr)
-  (data :pointer)
-  (usage enum))
-
-(defglfun ("glBufferSubData" %glBufferSubData) :void
-  (target enum)
-  (offset intptr)
-  (size sizeiptr)
-  (data :pointer))
-
-;;; C
-
-(defglfun ("glCallList" %glCallList) :void
-  (n uint))
-
-(defglfun ("glCallLists" %glCallLists) :void
-  (n sizei)
-  (type enum)
-  (lists :pointer))
-
-(defglfun ("glCheckFramebufferStatusEXT" %glCheckFramebufferStatusEXT) enum
-  (target enum))
-
-(defglfun ("glClear" %glClear) :void
-  (bufs bitfield))
-
-(defglfun ("glClearAccum" %glClearAccum) :void
-  (r float)
-  (g float)
-  (b float)
-  (a float))
-
-(defglfun ("glClearColor" %glClearColor) :void
-  (r clampf)
-  (g clampf)
-  (b clampf)
-  (a clampf))
-
-(defglfun ("glClearDepth" %glClearDepth) :void
-  (depth clampd))
-
-(defglfun ("glClearIndex" %glClearIndex) :void
-  (index float))
-
-(defglfun ("glClearStencil" %glClearStencil) :void
+;;; GL version: 1.0, framebuf
+(defglfun ("glClearStencil" clear-stencil
+           :library opengl)
+    :void
   (s int))
 
-(defglfun ("glClientActiveTexture" %glClientActiveTexture) :void
-  (texture enum))
-
-(defglfun ("glClipPlane" %glClipPlane) :void
-  (p enum)
-  (eqn :pointer))
-
-(defglfun ("glColor3f" %glColor3f) :void
-  (r float)
-  (g float)
-  (b float))
-
-(defglfun ("glColor4f" %glColor4f) :void
-  (r float)
-  (g float)
-  (b float)
-  (a float))
-
-(defglfun ("glColorMask" %glColorMask) :void
-  (r boolean)
-  (g boolean)
-  (b boolean)
-  (a boolean))
-
-(defglfun ("glColorMaterial" %glColorMaterial) :void
-  (face enum)
-  (mode enum))
-
-(defglfun ("glColorPointer" %glColorPointer) :void
-  (size int)
-  (type enum)
-  (stride sizei)
-  (pointer :pointer))
-
-(defglfun ("glColorTable" %glColorTable) :void
-  (target enum)
-  (internal-format enum)
-  (width sizei)
-  (format enum)
-  (type enum)
-  (data :pointer))
-
-(defglfun ("glCompileShader" %glCompileShader) :void
-  (shader uint))
-
-(defglfun ("glCopyPixels" %glCopyPixels) :void
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei)
-  (type enum))
-
-(defglfun ("glCopyTexImage1D" %glCopyTexImage1D) :void
-  (target enum)
-  (level int)
-  (internal-format int)
-  (x int)
-  (y int)
-  (width sizei)
-  (border int))
-
-(defglfun ("glCopyTexImage2D" %glCopyTexImage2D) :void
-  (target enum)
-  (level int)
-  (internal-format int)
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei)
-  (border int))
-
-
-(defglfun ("glCopyTexSubImage1D" %glCopyTexSubImage1D) :void
-  (target enum)
-  (level int)
-  (xoffset int)
-  (x int)
-  (y int)
-  (width sizei))
-
-(defglfun ("glCopyTexSubImage3D" %glCopyTexSubImage3D) :void
-  (target enum)
-  (level int)
-  (xoffset int)
-  (yoffset int)
-  (zoffset int)
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei))
-
-(defglfun ("glCopyTexSubImage2D" %glCopyTexSubImage2D) :void
-  (target enum)
-  (level int)
-  (xoffset int)
-  (yoffset int)
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei))
-
-(defglfun ("glCreateProgram" %glCreateProgram) uint)
-
-(defglfun ("glCreateShader" %glCreateShader) uint
-  (type enum))
-
-(defglfun ("glCullFace" %glCullFace) :void
-  (face enum))
-
-
-;;; D
-
-(defglfun ("glDeleteBuffers" %glDeleteBuffers) :void
-  (n sizei)
-  (buffers :pointer))
-
-(defglfun ("glDeleteFramebuffersEXT" %glDeleteFramebuffersEXT) :void
-  (n sizei)
-  (framebuffers :pointer))
-
-(defglfun ("glDeleteLists" %glDeleteLists) :void
-  (list uint)
-  (range sizei))
-
-(defglfun ("glDeleteProgram" %glDeleteProgram) :void
-  (object uint))
-
-(defglfun ("glDeleteQueries" %glDeleteQueries) :void
-  (n sizei)
-  (ids :pointer))
-
-(defglfun ("glDeleteRenderbuffersEXT" %glDeleteRenderbuffersEXT) :void
-  (n sizei)
-  (renderbuffers :pointer))
-
-(defglfun ("glDeleteShader" %glDeleteShader) :void
-  (shader uint))
-
-(defglfun ("glDeleteTextures" %glDeleteTextures) :void
-  (n sizei)
-  (textures :pointer))
-
-(defglfun ("glDepthFunc" %glDepthFunc) :void
-  (func enum))
-
-(defglfun ("glDepthMask" %glDepthMask) :void
-  (mask boolean))
-
-(defglfun ("glDepthRange" %glDepthRange) :void
-  (n clampd)
-  (f clampd))
-
-(defglfun ("glDetachShader" %glDetachShader) :void
-  (program uint)
-  (shader uint))
-
-(defglfun ("glDisable" %glDisable) :void
-  (target enum))
-
-(defglfun ("glDisableClientState" %glDisableClientState) :void
-  (array enum))
-
-(defglfun ("glDisableVertexAttribArray" %glDisableVertexAttribArray) :void
-  (index uint))
-
-(defglfun ("glDrawArrays" %glDrawArrays) :void
-  (mode enum)
-  (first int)
-  (count sizei))
-
-(defglfun ("glDrawBuffer" %glDrawBuffer) :void
-  (buffer enum))
-
-(defglfun ("glDrawBuffers" %glDrawBuffers) :void
-  (n sizei)
-  (bufs :pointer))
-
-(defglfun ("glDrawElements" %glDrawElements) :void
-  (mode enum)
-  (count sizei)
-  (type enum)
-  (indices :pointer))
-
-;;; E
-
-(defglfun ("glEdgeFlag" %glEdgeFlag) :void
-  (flag boolean))
-
-(defglfun ("glEdgeFlagPointer" %glEdgeFlagPointer) :void
-  (stride sizei)
-  (pointer :pointer))
-
-(defglfun ("glEnable" %glEnable) :void
-  (target enum))
-
-(defglfun ("glEnableClientState" %glEnableClientState) :void
-  (array enum))
-
-(defglfun ("glEnableVertexAttribArray" %glEnableVertexAttribArray) :void
-  (index uint))
-
-(defglfun ("glEnd" %glEnd) :void)
-
-(defglfun ("glEndList" %glEndList) :void)
-
-(defglfun ("glEndQuery" %glEndQuery) :void
-  (target enum))
-
-(defglfun ("glEvalCoord1f" %glEvalCoord1f) :void
-  (x float))
-
-(defglfun ("glEvalCoord2f" %glEvalCoord2f) :void
-  (x float)
-  (y float))
-
-(defglfun ("glEvalMesh1" %glEvalMesh1) :void
-  (mode enum)
-  (p1 int)
-  (p2 int))
-
-(defglfun ("glEvalMesh2" %glEvalMesh2) :void
-  (mode enum)
-  (p1 int)
-  (p2 int)
-  (q1 int)
-  (q2 int))
-
-(defglfun ("glEvalPoint1" %glEvalPoint1) :void
-  (p int))
-
-(defglfun ("glEvalPoint2" %glEvalPoint2) :void
-  (p int)
-  (q int))
-
-;;; F
-
-(defglfun ("glFeedbackBuffer" %glFeedbackBuffer) :void
-  (n sizei)
-  (type enum)
-  (buffer :pointer))
-
-(defglfun ("glFinish" %glFinish) :void)
-
-(defglfun ("glFlush" %glFlush) :void)
-
-(defglfun ("glFogCoordf" %glFogCoordf) :void
-  (coord float))
-
-(defglfun ("glFogCoordPointer" %glFogCoordPointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer :pointer))
-
-(defglfun ("glFogi" %glFogi) :void
-  (pname enum)
-  (value int))
-
-(defglfun ("glFogf" %glFogf) :void
-  (pname enum)
-  (value float))
-
-(defglfun ("glFramebufferRenderbufferEXT" %glFramebufferRenderbufferEXT) :void
-  (target enum)
-  (attachment enum)
-  (renderbuffertarget enum)
-  (renderbuffer uint))
-
-(defglfun ("glFramebufferTexture1DEXT" %glFramebufferTexture1DEXT) :void
-  (target enum)
-  (attachment enum)
-  (textarget enum)
-  (texture uint)
-  (level int))
-
-(defglfun ("glFramebufferTexture2DEXT" %glFramebufferTexture2DEXT) :void
-  (target enum)
-  (attachment enum)
-  (textarget enum)
-  (texture uint)
-  (level int))
-
-(defglfun ("glFramebufferTexture3DEXT" %glFramebufferTexture3DEXT) :void
-  (target enum)
-  (attachment enum)
-  (textarget enum)
-  (texture uint)
-  (level int)
-  (zoffset int))
-
-(defglfun ("glFrontFace" %glFrontFace) :void
-  (dir enum))
-
-(defglfun ("glFrustum" %glFrustum) :void
-  (left double)
-  (right double)
-  (bottom double)
-  (top double)
-  (near double)
-  (far double))
-
-;;; G
-
-(defglfun ("glGenBuffers" %glGenBuffers) :void
-  (n sizei)
-  (buffers :pointer))
-
-(defglfun ("glGenFramebuffersEXT" %glGenFramebuffersEXT) :void
-  (n sizei)
-  (framebuffers :pointer))
-
-(defglfun ("glGenLists" %glGenLists) uint
-  (range sizei))
-
-(defglfun ("glGenQueries" %glGenQueries) :void
-  (n sizei)
-  (ids :pointer))
-
-(defglfun ("glGenRenderbuffersEXT" %glGenRenderbuffersEXT) :void
-  (n sizei)
-  (renderbuffers :pointer))
-
-(defglfun ("glGenTextures" %glGenTextures) :void
-  (n sizei)
-  (textures :pointer))
-
-(defglfun ("glGenerateMipmapEXT" %glGenerateMipmapEXT) :void
-  (target enum))
-
-(defglfun ("glGetActiveAttrib" %glGetActiveAttrib) :void
-  (program uint)
-  (index uint)
-  (buffer-size sizei)
-  (length :pointer)
-  (size :pointer)
-  (type :pointer)
-  (name :pointer))
-
-(defglfun ("glGetActiveUniform" %glGetActiveUniform) :void
-  (program uint)
-  (index uint)
-  (buffer-size sizei)
-  (length :pointer)
-  (size :pointer)
-  (type :pointer)
-  (name :pointer))
-
-(defglfun ("glGetAttribLocation" %glGetAttribLocation) int
-  (program uint)
-  (name :pointer))
-
-(defglfun ("glGetBooleanv" %glGetBooleanv) :void
-  (value enum)
-  (data :pointer))
-
-(defglfun ("glGetDoublev" %glGetDoublev) :void
-  (value enum)
-  (data :pointer))
-
-(defcenum (gl-error enum)
-  (:no-error #x0)
-  (:invalid-enum #x500)
-  (:invalid-value #x501)
-  (:invalid-operation #x502)
-  (:stack-overflow #x503)
-  (:stack-underflow #x504)
-  (:out-of-memory #x505)
-  (:table-too-large #x8031))
-
-(defglfun ("glGetError" %glGetError) gl-error)
-
-(defglfun ("glGetFloatv" %glGetFloatv) :void
-  (value enum)
-  (data :pointer))
-
-(defglfun ("glGetFramebufferAttachmentParameterivEXT" %glGetFramebufferAttachmentParameterivEXT) :void
-  (target enum)
-  (attachment enum)
-  (pname enum)
-  (params :pointer))
-
-(defglfun ("glGetIntegerv" %glGetIntegerv) :void
-  (value enum)
-  (data :pointer))
-
-(defglfun ("glGetRenderbufferParameterivEXT" %glGetRenderbufferParameterivEXT) :void
-  (target enum)
-  (pname enum)
-  (params :pointer))
-
-(defglfun ("glGetString" %glGetString) :pointer
-  (name enum))
-
-(defglfun ("glGetUniformLocation" %glGetUniformLocation) int
-  (program uint)
-  (name :pointer))
-
-;;; H
-
-(defglfun ("glHint" %glHint) :void
-  (target enum)
-  (hint enum))
-
-;;; I
-
-(defglfun ("glIndexi" %glIndexi) :void
-  (index int))
-
-(defglfun ("glIndexMask" %glIndexMask) :void
+;;; GL version: 1.0, framebuf
+(defglfun ("glClearDepth" clear-depth
+           :library opengl)
+    :void
+  (depth clampd))
+
+;;; GL version: 1.0, framebuf
+(defglfun ("glStencilMask" stencil-mask
+           :library opengl)
+    :void
   (mask uint))
 
-(defglfun ("glIndexPointer" %glIndexPointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer :pointer))
+;;; GL version: 1.0, framebuf
+(defglfun ("glColorMask" color-mask
+           :library opengl)
+    :void
+  (red boolean)
+  (green boolean)
+  (blue boolean)
+  (alpha boolean))
 
-(defglfun ("glInitNames" %glInitNames) :void)
+;;; GL version: 1.0, framebuf
+(defglfun ("glDepthMask" depth-mask
+           :library opengl)
+    :void
+  (flag boolean))
 
-(defglfun ("glInterleavedArrays" %glInterleavedArrays) :void
-  (frmat enum)
-  (stride sizei)
-  (pointer :pointer))
+;;; GL version: 1.0, framebuf
+(defglfun ("glIndexMask" index-mask
+           :library opengl)
+    :void
+  (mask uint))
 
-(defglfun ("glIsEnabled" %glIsEnabled) boolean
-  (target enum))
+;;; GL version: 1.0, misc
+(defglfun ("glAccum" accum
+           :library opengl)
+    :void
+  (op enum)
+  (value float))
 
-(defglfun ("glIsFramebufferEXT" %glIsFramebufferEXT) boolean
-  (framebuffer uint))
+;;; GL version: 1.0, misc
+(defglfun ("glDisable" disable
+           :library opengl)
+    :void
+  (cap enum))
 
-(defglfun ("glIsList" %glIsList) boolean
-  (list uint))
+;;; GL version: 1.0, misc
+(defglfun ("glEnable" enable
+           :library opengl)
+    :void
+  (cap enum))
 
-(defglfun ("glIsRenderbufferEXT" %glIsRenderbufferEXT) boolean
-  (renderbuffer uint))
+;;; GL version: 1.0, misc
+(defglfun ("glFinish" finish
+           :library opengl)
+    :void)
 
+;;; GL version: 1.0, misc
+(defglfun ("glFlush" flush
+           :library opengl)
+    :void)
 
+;;; GL version: 1.0, misc
+(defglfun ("glPopAttrib" pop-attrib
+           :library opengl)
+    :void)
 
-;;; J
+;;; GL version: 1.0, misc
+(defglfun ("glPushAttrib" push-attrib
+           :library opengl)
+    :void
+  (mask bitfield))
 
-;;; K
+;;; GL version: 1.0, modeling
+(defglfun ("glMap1d" map-1d
+           :library opengl)
+    :void
+  (target enum)
+  (u1 double)
+  (u2 double)
+  (stride int)
+  (order int)
+  (points (:pointer double)))
 
-;;; L
-
-(defglfun ("glLightf" %glLightf) :void
-  (light enum)
-  (pname enum)
-  (param float))
-
-(defglfun ("glLightfv" %glLightfv) :void
-  (light enum)
-  (pname enum)
-  (param :pointer))
-
-(defglfun ("glLightModelfv" %glLightModelfv) :void
-  (pname enum)
-  (value :pointer))
-
-(defglfun ("glLightModeli" %glLightModeli) :void
-  (pname enum)
-  (value int))
-
-(defglfun ("glLineStipple" %glLineStipple) :void
-  (factor int)
-  (pattern ushort))
-
-(defglfun ("glLineWidth" %glLineWidth) :void
-  (width float))
-
-(defglfun ("glLinkProgram" %glLinkProgram) :void
-  (program uint))
-
-(defglfun ("glListBase" %glListBase) :void
-  (base uint))
-
-(defglfun ("glLoadIdentity" %glLoadIdentity) :void)
-
-(defglfun ("glLoadMatrixf" %glLoadMatrixf) :void
-  (matrix :pointer))
-
-(defglfun ("glLoadName" %glLoadName) :void
-  (name uint))
-
-(defglfun ("glLoadTransposeMatrixf" %glLoadTransposeMatrixf) :void
-  (matrix :pointer))
-
-(defglfun ("glLogicOp" %glLogicOp) :void
-  (op enum))
-
-;;; M
-
-(defglfun ("glMap1f" %glMap1f) :void
+;;; GL version: 1.0, modeling
+(defglfun ("glMap1f" map-1f
+           :library opengl)
+    :void
   (target enum)
   (u1 float)
   (u2 float)
   (stride int)
   (order int)
-  (points :pointer))
+  (points (:pointer float)))
 
-(defglfun ("glMap2f" %glMap2f) :void
+;;; GL version: 1.0, modeling
+(defglfun ("glMap2d" map-2d
+           :library opengl)
+    :void
+  (target enum)
+  (u1 double)
+  (u2 double)
+  (ustride int)
+  (uorder int)
+  (v1 double)
+  (v2 double)
+  (vstride int)
+  (vorder int)
+  (points (:pointer double)))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glMap2f" map-2f
+           :library opengl)
+    :void
   (target enum)
   (u1 float)
   (u2 float)
@@ -674,379 +1636,796 @@
   (v2 float)
   (vstride int)
   (vorder int)
-  (points :pointer))
+  (points (:pointer float)))
 
-(defglfun ("glMapBuffer" %glMapBuffer) :pointer
-  (target enum)
-  (access enum))
+;;; GL version: 1.0, modeling
+(defglfun ("glMapGrid1d" map-grid-1d
+           :library opengl)
+    :void
+  (un int)
+  (u1 double)
+  (u2 double))
 
-(defglfun ("glMapGrid1f" %glMapGrid1f) :void
-  (n int)
+;;; GL version: 1.0, modeling
+(defglfun ("glMapGrid1f" map-grid-1f
+           :library opengl)
+    :void
+  (un int)
   (u1 float)
   (u2 float))
 
-(defglfun ("glMapGrid2f" %glMapGrid2f) :void
-  (nu int)
+;;; GL version: 1.0, modeling
+(defglfun ("glMapGrid2d" map-grid-2d
+           :library opengl)
+    :void
+  (un int)
+  (u1 double)
+  (u2 double)
+  (vn int)
+  (v1 double)
+  (v2 double))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glMapGrid2f" map-grid-2f
+           :library opengl)
+    :void
+  (un int)
   (u1 float)
   (u2 float)
-  (nv int)
+  (vn int)
   (v1 float)
   (v2 float))
 
-(defglfun ("glMaterialf" %glMaterialf) :void
-  (face enum)
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord1d" eval-coord-1d
+           :library opengl)
+    :void
+  (u double))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord1dv" eval-coord-1dv
+           :library opengl)
+    :void
+  (u (:pointer double)))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord1f" eval-coord-1f
+           :library opengl)
+    :void
+  (u float))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord1fv" eval-coord-1fv
+           :library opengl)
+    :void
+  (u (:pointer float)))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord2d" eval-coord-2d
+           :library opengl)
+    :void
+  (u double)
+  (v double))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord2dv" eval-coord-2dv
+           :library opengl)
+    :void
+  (u (:pointer double)))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord2f" eval-coord-2f
+           :library opengl)
+    :void
+  (u float)
+  (v float))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalCoord2fv" eval-coord-2fv
+           :library opengl)
+    :void
+  (u (:pointer float)))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalMesh1" eval-mesh-1
+           :library opengl)
+    :void
+  (mode enum)
+  (i1 int)
+  (i2 int))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalPoint1" eval-point-1
+           :library opengl)
+    :void
+  (i int))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalMesh2" eval-mesh-2
+           :library opengl)
+    :void
+  (mode enum)
+  (i1 int)
+  (i2 int)
+  (j1 int)
+  (j2 int))
+
+;;; GL version: 1.0, modeling
+(defglfun ("glEvalPoint2" eval-point-2
+           :library opengl)
+    :void
+  (i int)
+  (j int))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glAlphaFunc" alpha-func
+           :library opengl)
+    :void
+  (func enum)
+  (ref clampf))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glBlendFunc" blend-func
+           :library opengl)
+    :void
+  (sfactor enum)
+  (dfactor enum))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glLogicOp" logic-op
+           :library opengl)
+    :void
+  (opcode enum))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glStencilFunc" stencil-func
+           :library opengl)
+    :void
+  (func enum)
+  (ref int)
+  (mask uint))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glStencilOp" stencil-op
+           :library opengl)
+    :void
+  (fail enum)
+  (zfail enum)
+  (zpass enum))
+
+;;; GL version: 1.0, pixel-op
+(defglfun ("glDepthFunc" depth-func
+           :library opengl)
+    :void
+  (func enum))
+
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelZoom" pixel-zoom
+           :library opengl)
+    :void
+  (xfactor float)
+  (yfactor float))
+
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelTransferf" pixel-transfer-f
+           :library opengl)
+    :void
   (pname enum)
   (param float))
 
-(defglfun ("glMaterialfv" %glMaterialfv) :void
-  (face enum)
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelTransferi" pixel-transfer-i
+           :library opengl)
+    :void
   (pname enum)
-  (param :pointer))
+  (param int))
 
-(defglfun ("glMaterialiv" %glMaterialiv) :void
-  (face enum)
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelStoref" pixel-store-f
+           :library opengl)
+    :void
   (pname enum)
-  (param :pointer))
+  (param float))
 
-(defglfun ("glMatrixMode" %glMatrixMode) :void
-  (mode enum))
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelStorei" pixel-store-i
+           :library opengl)
+    :void
+  (pname enum)
+  (param int))
 
-(defglfun ("glMultiTexCoord4f" %glMultiTexCoord4f) :void
-  (texture enum)
-  (s float)
-  (t* float)
-  (r float)
-  (q float))
-
-(defglfun ("glMultMatrixf" %glMultMatrixf) :void
-  (matrix :pointer))
-
-(defglfun ("glMultTransposeMatrixf" %glMultTransposeMatrixf) :void
-  (matrix :pointer))
-
-;;; N
-
-(defglfun ("glNewList" %glNewList) :void
-  (n uint)
-  (mode enum))
-
-(defglfun ("glNormal3f" %glNormal3f) :void
-  (x float)
-  (y float)
-  (z float))
-
-(defglfun ("glNormalPointer" %glNormalPointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer :pointer))
-
-;;; O
-
-(defglfun ("glOrtho" %glOrtho) :void
-  (left double)
-  (right double)
-  (bottom double)
-  (top double)
-  (near double)
-  (far double))
-
-;;; P
-
-(defglfun ("glPassThrough" %glPassThrough) :void
-  (token float))
-
-(defglfun ("glPixelMapfv" %glPixelMapfv) :void
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelMapfv" pixel-map-fv
+           :library opengl)
+    :void
   (map enum)
-  (size sizei)
-  (values :pointer))
+  (mapsize int)
+  (values (:pointer float)))
 
-(defglfun ("glPixelStorei" %glPixelStorei) :void
-  (pname enum)
-  (value int))
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelMapuiv" pixel-map-uiv
+           :library opengl)
+    :void
+  (map enum)
+  (mapsize int)
+  (values (:pointer uint)))
 
-(defglfun ("glPixelStoref" %glPixelStoref) :void
-  (pname enum)
-  (value float))
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glPixelMapusv" pixel-map-usv
+           :library opengl)
+    :void
+  (map enum)
+  (mapsize int)
+  (values (:pointer ushort)))
 
-(defglfun ("glPixelTransferi" %glPixelTransferi) :void
-  (pname enum)
-  (value int))
-
-(defglfun ("glPixelTransferf" %glPixelTransferf) :void
-  (pname enum)
-  (value float))
-
-(defglfun ("glPointParameteri" %glPointParameteri) :void
-  (pname enum)
-  (value int))
-
-(defglfun ("glPointParameterf" %glPointParameterf) :void
-  (pname enum)
-  (value float))
-
-(defglfun ("glPointParameteriv" %glPointParameteriv) :void
-  (pname enum)
-  (value :pointer))
-
-(defglfun ("glPointParameterfv" %glPointParameterfv) :void
-  (pname enum)
-  (value :pointer))
-
-(defglfun ("glPointSize" %glPointSize) :void
-  (size float))
-
-(defglfun ("glPolygonMode" %glPolygonMode) :void
-  (face enum)
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glReadBuffer" read-buffer
+           :library opengl)
+    :void
   (mode enum))
 
-(defglfun ("glPolygonOffset" %glPolygonOffset) :void
-  (factor float)
-  (units float))
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glCopyPixels" copy-pixels
+           :library opengl)
+    :void
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (type enum))
 
-(defglfun ("glPolygonStipple" %glPolygonStipple) :void
-  (pattern :pointer))
-
-(defglfun ("glPopAttrib" pop-attrib) :void)
-
-(defglfun ("glPopClientAttrib" pop-client-attrib) :void)
-
-(defglfun ("glPopMatrix" %glPopMatrix) :void)
-
-(defglfun ("glPopName" %glPopName) :void)
-
-(defglfun ("glPrioritizeTextures" %glPrioritizeTextures) :void
-  (n sizei)
-  (textures :pointer)
-  (priorities :pointer))
-
-(defglfun ("glPushAttrib" %glPushAttrib) :void
-  (mask bitfield))
-
-(defglfun ("glPushClientAttrib" %glPushClientAttrib) :void
-  (mask bitfield))
-
-(defglfun ("glPushMatrix" %glPushMatrix) :void)
-
-(defglfun ("glPushName" %glPushName) :void
-  (name uint))
-
-;;; Q
-
-;;; R
-
-(defglfun ("glRasterPos4f" %glRasterPos4f) :void
-  (x float)
-  (y float)
-  (z float)
-  (w float))
-
-(defglfun ("glReadBuffer" %glReadBuffer) :void
-  (src enum))
-
-(defglfun ("glReadPixels" %glReadPixels) :void
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glReadPixels" read-pixels
+           :library opengl)
+    :void
   (x int)
   (y int)
   (width sizei)
   (height sizei)
   (format enum)
   (type enum)
-  (data :pointer))
+  (pixels (:pointer void)))
 
-(defglfun ("glRectf" %glRectf) :void
-  (x1 float)
-  (y1 float)
-  (x2 float)
-  (y2 float))
-
-(defglfun ("glRenderbufferStorageEXT" %glRenderbufferStorageEXT) :void
-  (target enum)
-  (internal-format enum)
+;;; GL version: 1.0, pixel-rw
+(defglfun ("glDrawPixels" draw-pixels
+           :library opengl)
+    :void
   (width sizei)
-  (height sizei))
+  (height sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
 
-(defglfun ("glRenderMode" %glRenderMode) int
+;;; GL version: 1.0, state-req
+(defglfun ("glGetBooleanv" get-boolean-v
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer boolean)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetClipPlane" get-clip-plane
+           :library opengl)
+    :void
+  (plane enum)
+  (equation (:pointer double)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetDoublev" get-double-v
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetError" get-error
+           :library opengl)
+    enum)
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetFloatv" get-float-v
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetIntegerv" get-integer-v
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetLightfv" get-light-fv
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetLightiv" get-light-iv
+           :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetMapdv" get-map-dv
+           :library opengl)
+    :void
+  (target enum)
+  (query enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetMapfv" get-map-fv
+           :library opengl)
+    :void
+  (target enum)
+  (query enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetMapiv" get-map-iv
+           :library opengl)
+    :void
+  (target enum)
+  (query enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetMaterialfv" get-material-fv
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetMaterialiv" get-material-iv
+           :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetPixelMapfv" get-pixel-map-fv
+           :library opengl)
+    :void
+  (map enum)
+  (values (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetPixelMapuiv" get-pixel-map-uiv
+           :library opengl)
+    :void
+  (map enum)
+  (values (:pointer uint)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetPixelMapusv" get-pixel-map-usv
+           :library opengl)
+    :void
+  (map enum)
+  (values (:pointer ushort)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetPolygonStipple" get-polygon-stipple
+           :library opengl)
+    :void
+  (mask (:pointer ubyte)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetString" get-string
+           :library opengl)
+    string
+  (name enum))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexEnvfv" get-tex-env-fv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexEnviv" get-tex-env-iv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexGendv" get-tex-gen-dv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexGenfv" get-tex-gen-fv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexGeniv" get-tex-gen-iv
+           :library opengl)
+    :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexImage" get-tex-image
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexParameterfv" get-tex-parameter-fv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexParameteriv" get-tex-parameter-iv
+           :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexLevelParameterfv" get-tex-level-parameter-fv
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glGetTexLevelParameteriv" get-tex-level-parameter-iv
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glIsEnabled" is-enabled
+           :library opengl)
+    boolean
+  (cap enum))
+
+;;; GL version: 1.0, state-req
+(defglfun ("glIsList" is-list
+           :library opengl)
+    boolean
+  (list uint))
+
+;;; GL version: 1.0, xform
+(defglfun ("glDepthRange" depth-range
+           :library opengl)
+    :void
+  (near clampd)
+  (far clampd))
+
+;;; GL version: 1.0, xform
+(defglfun ("glFrustum" frustum
+           :library opengl)
+    :void
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (zNear double)
+  (zFar double))
+
+;;; GL version: 1.0, xform
+(defglfun ("glLoadIdentity" load-identity
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, xform
+(defglfun ("glLoadMatrixf" load-matrix-f
+           :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.0, xform
+(defglfun ("glLoadMatrixd" load-matrix-d
+           :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.0, xform
+(defglfun ("glMatrixMode" matrix-mode
+           :library opengl)
+    :void
   (mode enum))
 
-(defglfun ("glRotatef" %glRotatef) :void
-  (theta float)
+;;; GL version: 1.0, xform
+(defglfun ("glMultMatrixf" mult-matrix-f
+           :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.0, xform
+(defglfun ("glMultMatrixd" mult-matrix-d
+           :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.0, xform
+(defglfun ("glOrtho" ortho
+           :library opengl)
+    :void
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (zNear double)
+  (zFar double))
+
+;;; GL version: 1.0, xform
+(defglfun ("glPopMatrix" pop-matrix
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, xform
+(defglfun ("glPushMatrix" push-matrix
+           :library opengl)
+    :void)
+
+;;; GL version: 1.0, xform
+(defglfun ("glRotated" rotate-d
+           :library opengl)
+    :void
+  (angle double)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, xform
+(defglfun ("glRotatef" rotate-f
+           :library opengl)
+    :void
+  (angle float)
   (x float)
   (y float)
   (z float))
 
-;;; S
+;;; GL version: 1.0, xform
+(defglfun ("glScaled" scale-d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
 
-(defglfun ("glSampleCoverage" %glSampleCoverage) :void
-  (value clampf)
-  (invert boolean))
-
-(defglfun ("glScalef" %glScalef) :void
+;;; GL version: 1.0, xform
+(defglfun ("glScalef" scale-f
+           :library opengl)
+    :void
   (x float)
   (y float)
   (z float))
 
-(defglfun ("glScissor" %glScissor) :void
-  (left int)
-  (bottom int)
+;;; GL version: 1.0, xform
+(defglfun ("glTranslated" translate-d
+           :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, xform
+(defglfun ("glTranslatef" translate-f
+           :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, xform
+(defglfun ("glViewport" viewport
+           :library opengl)
+    :void
+  (x int)
+  (y int)
   (width sizei)
   (height sizei))
 
-(defglfun ("glSecondaryColor3f" %glSecondaryColor3f) :void
-  (r float)
-  (g float)
-  (b float))
+;;; GL version: 1.1, 1_1
+(defglfun ("glArrayElement" array-element
+           :library opengl)
+    :void
+  (i int))
 
-(defglfun ("glSecondaryColorPointer" %glSecondaryColorPointer) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glColorPointer" color-pointer
+           :library opengl)
+    :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer :pointer))
+  (pointer (:pointer void)))
 
-(defglfun ("glSelectBuffer" %glSelectBuffer) :void
-  (n sizei)
-  (buffer :pointer))
+;;; GL version: 1.1, 1_1
+(defglfun ("glDisableClientState" disable-client-state
+           :library opengl)
+    :void
+  (array enum))
 
-(defglfun ("glShadeModel" %glShadeModel) :void
-  (mode enum))
+;;; GL version: 1.1, 1_1
+(defglfun ("glDrawArrays" draw-arrays
+           :library opengl)
+    :void
+  (mode enum)
+  (first int)
+  (count sizei))
 
-(defglfun ("glShaderSource" %glShaderSource) :void
-  (shader uint)
-  (num-strings sizei)
-  (strings :pointer)
-  (lengths :pointer))
+;;; GL version: 1.1, 1_1
+(defglfun ("glDrawElements" draw-elements
+           :library opengl)
+    :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void)))
 
-(defglfun ("glStencilFunc" %glStencilFunc) :void
-  (func enum)
-  (ref int)
-  (mask uint))
+;;; GL version: 1.1, 1_1
+(defglfun ("glEdgeFlagPointer" edge-flag-pointer
+           :library opengl)
+    :void
+  (stride sizei)
+  (pointer (:pointer void)))
 
-(defglfun ("glStencilFuncSeparate" %glStencilFuncSeparate) :void
-  (face enum)
-  (func enum)
-  (ref int)
-  (mask uint))
+;;; GL version: 1.1, 1_1
+(defglfun ("glEnableClientState" enable-client-state
+           :library opengl)
+    :void
+  (array enum))
 
-(defglfun ("glStencilMask" %glStencilMask) :void
-  (mask uint))
+;;; GL version: 1.1, 1_1
+(defglfun ("glGetPointerv" get-pointer-v
+           :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer :pointer)))
 
-(defglfun ("glStencilMaskSeparate" %glStencilMaskSeparate) :void
-  (face enum)
-  (mask uint))
+;;; GL version: 1.1, 1_1
+(defglfun ("glIndexPointer" index-pointer
+           :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
 
-(defglfun ("glStencilOp" %glStencilOp) :void
-  (sfail enum)
-  (dpfail enum)
-  (dppass enum))
+;;; GL version: 1.1, 1_1
+(defglfun ("glInterleavedArrays" interleaved-arrays
+           :library opengl)
+    :void
+  (format enum)
+  (stride sizei)
+  (pointer (:pointer void)))
 
-(defglfun ("glStencilOpSeparate" %glStencilOpSeparate) :void
-  (face enum)
-  (sfail enum)
-  (dpfail enum)
-  (dppass enum))
+;;; GL version: 1.1, 1_1
+(defglfun ("glNormalPointer" normal-pointer
+           :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
 
-;;; T
-
-(defglfun ("glTexCoord1f" %glTexCoord1f) :void
-  (s float))
-
-(defglfun ("glTexCoord2f" %glTexCoord2f) :void
-  (s float)
-  (t* float))
-
-(defglfun ("glTexCoord3f" %glTexCoord3f) :void
-  (s float)
-  (t* float)
-  (r float))
-
-(defglfun ("glTexCoord4f" %glTexCoord4f) :void
-  (s float)
-  (t* float)
-  (r float)
-  (q float))
-
-(defglfun ("glTexCoordPointer" %glTexCoordPointer) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glTexCoordPointer" tex-coord-pointer
+           :library opengl)
+    :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer :pointer))
+  (pointer (:pointer void)))
 
-(defglfun ("glTexEnvi" %glTexEnvi) :void
-  (target enum)
-  (pname enum)
-  (param int))
-
-(defglfun ("glTexEnvf" %glTexEnvf) :void
-  (target enum)
-  (pname enum)
-  (param float))
-
-(defglfun ("glTexEnviv" %glTexEnviv) :void
-  (target enum)
-  (pname enum)
-  (params :pointer))
-
-(defglfun ("glTexEnvfv" %glTexEnvfv) :void
-  (target enum)
-  (pname enum)
-  (params :pointer))
-
-(defglfun ("glTexParameteri" %glTexParameteri) :void
-  (target enum)
-  (pname enum)
-  (param int))
-
-(defglfun ("glTexParameterf" %glTexParameterf) :void
-  (target enum)
-  (pname enum)
-  (param float))
-
-(defglfun ("glTexParameterfv" %glTexParameterfv) :void
-  (target enum)
-  (pname enum)
-  (params :pointer))
-
-(defglfun ("glTexImage1D" %glTexImage1D) :void
-  (target enum)
-  (level int)
-  (internal-format int)
-  (width sizei)
-  (border int)
-  (format enum)
+;;; GL version: 1.1, 1_1
+(defglfun ("glVertexPointer" vertex-pointer
+           :library opengl)
+    :void
+  (size int)
   (type enum)
-  (data :pointer))
+  (stride sizei)
+  (pointer (:pointer void)))
 
-(defglfun ("glTexImage2D" %glTexImage2D) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glPolygonOffset" polygon-offset
+           :library opengl)
+    :void
+  (factor float)
+  (units float))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glCopyTexImage1D" copy-tex-image-1d
+           :library opengl)
+    :void
   (target enum)
   (level int)
-  (internal-format int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (border int))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glCopyTexImage2D" copy-tex-image-2d
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
   (width sizei)
   (height sizei)
-  (border int)
-  (format enum)
-  (type enum)
-  (data :pointer))
+  (border int))
 
-(defglfun ("glTexImage3D" %glTexImage3D) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glCopyTexSubImage1D" copy-tex-sub-image-1d
+           :library opengl)
+    :void
   (target enum)
   (level int)
-  (internal-format int)
-  (width sizei)
-  (height sizei)
-  (depth sizei)
-  (border int)
-  (format enum)
-  (type enum)
-  (data :pointer))
+  (xoffset int)
+  (x int)
+  (y int)
+  (width sizei))
 
-(defglfun ("glTexSubImage1D" %glTexSubImage1D) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glCopyTexSubImage2D" copy-tex-sub-image-2d
+           :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glTexSubImage1D" tex-sub-image-1d
+           :library opengl)
+    :void
   (target enum)
   (level int)
   (xoffset int)
   (width sizei)
   (format enum)
   (type enum)
-  (data :pointer))
+  (pixels (:pointer void)))
 
-(defglfun ("glTexSubImage2D" %glTexSubImage2D) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glTexSubImage2D" tex-sub-image-2d
+           :library opengl)
+    :void
   (target enum)
   (level int)
   (xoffset int)
@@ -1055,9 +2434,408 @@
   (height sizei)
   (format enum)
   (type enum)
-  (data :pointer))
+  (pixels (:pointer void)))
 
-(defglfun ("glTexSubImage3D" %glTexSubImage3D) :void
+;;; GL version: 1.1, 1_1
+(defglfun ("glAreTexturesResident" are-textures-resident
+           :library opengl)
+    boolean
+  (n sizei)
+  (textures (:pointer uint))
+  (residences (:pointer boolean)))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glBindTexture" bind-texture
+           :library opengl)
+    :void
+  (target enum)
+  (texture uint))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glDeleteTextures" delete-textures
+           :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glGenTextures" gen-textures
+           :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glIsTexture" is-texture
+           :library opengl)
+    boolean
+  (texture uint))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glPrioritizeTextures" prioritize-textures
+           :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint))
+  (priorities (:pointer clampf)))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glIndexub" index-ub
+           :library opengl)
+    :void
+  (c ubyte))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glIndexubv" index-ubv
+           :library opengl)
+    :void
+  (c (:pointer ubyte)))
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glPopClientAttrib" pop-client-attrib
+           :library opengl)
+    :void)
+
+;;; GL version: 1.1, 1_1
+(defglfun ("glPushClientAttrib" push-client-attrib
+           :library opengl)
+    :void
+  (mask bitfield))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glBlendColor" blend-color
+              :library opengl)
+    :void
+  (red clampf)
+  (green clampf)
+  (blue clampf)
+  (alpha clampf))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glBlendEquation" blend-equation
+              :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glDrawRangeElements" draw-range-elements
+              :library opengl)
+    :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glColorTable" color-table
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glColorTableParameterfv" color-table-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glColorTableParameteriv" color-table-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glCopyColorTable" copy-color-table
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetColorTable" get-color-table
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetColorTableParameterfv" get-color-table-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetColorTableParameteriv" get-color-table-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glColorSubTable" color-sub-table
+              :library opengl)
+    :void
+  (target enum)
+  (start sizei)
+  (count sizei)
+  (format enum)
+  (type enum)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glCopyColorSubTable" copy-color-sub-table
+              :library opengl)
+    :void
+  (target enum)
+  (start sizei)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionFilter1D" convolution-filter-1d
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionFilter2D" convolution-filter-2d
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionParameterf" convolution-parameter-f
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params float))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionParameterfv" convolution-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionParameteri" convolution-parameter-i
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params int))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glConvolutionParameteriv" convolution-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glCopyConvolutionFilter1D" copy-convolution-filter-1d
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glCopyConvolutionFilter2D" copy-convolution-filter-2d
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetConvolutionFilter" get-convolution-filter
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetConvolutionParameterfv" get-convolution-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetConvolutionParameteriv" get-convolution-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetSeparableFilter" get-separable-filter
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void))
+  (span (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glSeparableFilter2D" separable-filter-2d
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetHistogram" get-histogram
+              :library opengl)
+    :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetHistogramParameterfv" get-histogram-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetHistogramParameteriv" get-histogram-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetMinmax" get-minmax
+              :library opengl)
+    :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetMinmaxParameterfv" get-minmax-parameter-fv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glGetMinmaxParameteriv" get-minmax-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glHistogram" histogram
+              :library opengl)
+    :void
+  (target enum)
+  (width sizei)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glMinmax" minmax
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glResetHistogram" reset-histogram
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glResetMinmax" reset-minmax
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glTexImage3D" tex-image-3d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glTexSubImage3D" tex-sub-image-3d
+              :library opengl)
+    :void
   (target enum)
   (level int)
   (xoffset int)
@@ -1068,154 +2846,9177 @@
   (depth sizei)
   (format enum)
   (type enum)
-  (data :pointer))
+  (pixels (:pointer void)))
 
-(defglfun ("glTranslatef" %glTranslatef) :void
-  (x float)
-  (y float)
-  (z float))
+;;; GL version: 1.2, VERSION_1_2
+(defglextfun ("glCopyTexSubImage3D" copy-tex-sub-image-3d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
 
-;;; U
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glActiveTexture" active-texture
+              :library opengl)
+    :void
+  (texture enum))
 
-(defglfun ("glUniform1f" %glUniform1f) :void
-  (location int)
-  (x float))
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glClientActiveTexture" client-active-texture
+              :library opengl)
+    :void
+  (texture enum))
 
-(defglfun ("glUniform2f" %glUniform2f) :void
-  (location int)
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d
+              :library opengl)
+    :void
+  (target enum)
+  (s double))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1dv" multi-tex-coord-1dv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1f" multi-tex-coord-1f
+              :library opengl)
+    :void
+  (target enum)
+  (s float))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1fv" multi-tex-coord-1fv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1i" multi-tex-coord-1i
+              :library opengl)
+    :void
+  (target enum)
+  (s int))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1iv" multi-tex-coord-1iv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1s" multi-tex-coord-1s
+              :library opengl)
+    :void
+  (target enum)
+  (s short))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord1sv" multi-tex-coord-1sv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2d" multi-tex-coord-2d
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2dv" multi-tex-coord-2dv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2f" multi-tex-coord-2f
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2fv" multi-tex-coord-2fv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2i" multi-tex-coord-2i
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2iv" multi-tex-coord-2iv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2s" multi-tex-coord-2s
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord2sv" multi-tex-coord-2sv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3d" multi-tex-coord-3d
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3dv" multi-tex-coord-3dv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3f" multi-tex-coord-3f
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3fv" multi-tex-coord-3fv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3i" multi-tex-coord-3i
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3iv" multi-tex-coord-3iv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3s" multi-tex-coord-3s
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord3sv" multi-tex-coord-3sv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4d" multi-tex-coord-4d
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double)
+  (q double))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4dv" multi-tex-coord-4dv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4f" multi-tex-coord-4f
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float)
+  (q float))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4fv" multi-tex-coord-4fv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4i" multi-tex-coord-4i
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int)
+  (q int))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4iv" multi-tex-coord-4iv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4s" multi-tex-coord-4s
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short)
+  (q short))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultiTexCoord4sv" multi-tex-coord-4sv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glLoadTransposeMatrixf" load-transpose-matrix-f
+              :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glLoadTransposeMatrixd" load-transpose-matrix-d
+              :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultTransposeMatrixf" mult-transpose-matrix-f
+              :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glMultTransposeMatrixd" mult-transpose-matrix-d
+              :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glSampleCoverage" sample-coverage
+              :library opengl)
+    :void
+  (value clampf)
+  (invert boolean))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexImage3D" compressed-tex-image-3d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexImage2D" compressed-tex-image-2d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexImage1D" compressed-tex-image-1d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexSubImage3D" compressed-tex-sub-image-3d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.3, VERSION_1_3
+(defglextfun ("glGetCompressedTexImage" get-compressed-tex-image
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (img (:pointer void)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glBlendFuncSeparate" blend-func-separate
+              :library opengl)
+    :void
+  (sfactorRGB enum)
+  (dfactorRGB enum)
+  (sfactorAlpha enum)
+  (dfactorAlpha enum))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glFogCoordf" fog-coord-f
+              :library opengl)
+    :void
+  (coord float))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glFogCoordfv" fog-coord-fv
+              :library opengl)
+    :void
+  (coord (:pointer float)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glFogCoordd" fog-coord-d
+              :library opengl)
+    :void
+  (coord double))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glFogCoorddv" fog-coord-dv
+              :library opengl)
+    :void
+  (coord (:pointer double)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glFogCoordPointer" fog-coord-pointer
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glMultiDrawArrays" multi-draw-arrays
+              :library opengl)
+    :void
+  (mode enum)
+  (first (:pointer int))
+  (count (:pointer sizei))
+  (primcount sizei))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glMultiDrawElements" multi-draw-elements
+              :library opengl)
+    :void
+  (mode enum)
+  (count (:pointer sizei))
+  (type enum)
+  (indices (:pointer :pointer))
+  (primcount sizei))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glPointParameterf" point-parameter-f
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glPointParameterfv" point-parameter-fv
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glPointParameteri" point-parameter-i
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glPointParameteriv" point-parameter-iv
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3b" secondary-color-3b
+              :library opengl)
+    :void
+  (red byte)
+  (green byte)
+  (blue byte))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3bv" secondary-color-3bv
+              :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3d" secondary-color-3d
+              :library opengl)
+    :void
+  (red double)
+  (green double)
+  (blue double))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3dv" secondary-color-3dv
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3f" secondary-color-3f
+              :library opengl)
+    :void
+  (red float)
+  (green float)
+  (blue float))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3fv" secondary-color-3fv
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3i" secondary-color-3i
+              :library opengl)
+    :void
+  (red int)
+  (green int)
+  (blue int))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3iv" secondary-color-3iv
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3s" secondary-color-3s
+              :library opengl)
+    :void
+  (red short)
+  (green short)
+  (blue short))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3sv" secondary-color-3sv
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3ub" secondary-color-3ub
+              :library opengl)
+    :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3ubv" secondary-color-3ubv
+              :library opengl)
+    :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3ui" secondary-color-3ui
+              :library opengl)
+    :void
+  (red uint)
+  (green uint)
+  (blue uint))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3uiv" secondary-color-3uiv
+              :library opengl)
+    :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3us" secondary-color-3us
+              :library opengl)
+    :void
+  (red ushort)
+  (green ushort)
+  (blue ushort))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColor3usv" secondary-color-3usv
+              :library opengl)
+    :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glSecondaryColorPointer" secondary-color-pointer
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2d" window-pos-2d
+              :library opengl)
+    :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2dv" window-pos-2dv
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2f" window-pos-2f
+              :library opengl)
+    :void
   (x float)
   (y float))
 
-(defglfun ("glUniform3f" %glUniform3f) :void
-  (location int)
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2fv" window-pos-2fv
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2i" window-pos-2i
+              :library opengl)
+    :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2iv" window-pos-2iv
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2s" window-pos-2s
+              :library opengl)
+    :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos2sv" window-pos-2sv
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3d" window-pos-3d
+              :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3dv" window-pos-3dv
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3f" window-pos-3f
+              :library opengl)
+    :void
   (x float)
   (y float)
   (z float))
 
-(defglfun ("glUniform4f" %glUniform4f) :void
-  (location int)
-  (x float)
-  (y float)
-  (z float)
-  (w float))
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3fv" window-pos-3fv
+              :library opengl)
+    :void
+  (v (:pointer float)))
 
-(defglfun ("glUniform1i" %glUniform1i) :void
-  (location int)
-  (x int))
-
-(defglfun ("glUniform2i" %glUniform2i) :void
-  (location int)
-  (x int)
-  (y int))
-
-(defglfun ("glUniform3i" %glUniform3i) :void
-  (location int)
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3i" window-pos-3i
+              :library opengl)
+    :void
   (x int)
   (y int)
   (z int))
 
-(defglfun ("glUniform4i" %glUniform4i) :void
-  (location int)
-  (x int)
-  (y int)
-  (z int)
-  (w int))
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3iv" window-pos-3iv
+              :library opengl)
+    :void
+  (v (:pointer int)))
 
-(defglfun ("glUniformMatrix2fv" %glUniformMatrix2fv) :void
-  (location int)
-  (count sizei)
-  (transpose boolean)
-  (value :pointer))
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3s" window-pos-3s
+              :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short))
 
-(defglfun ("glUniformMatrix3fv" %glUniformMatrix3fv) :void
-  (location int)
-  (count sizei)
-  (transpose boolean)
-  (value :pointer))
+;;; GL version: 1.4, VERSION_1_4
+(defglextfun ("glWindowPos3sv" window-pos-3sv
+              :library opengl)
+    :void
+  (v (:pointer short)))
 
-(defglfun ("glUniformMatrix4fv" %glUniformMatrix4fv) :void
-  (location int)
-  (count sizei)
-  (transpose boolean)
-  (value :pointer))
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGenQueries" gen-queries
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
 
-(defglfun ("glUnmapBuffer" %glUnmapBuffer) :void
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glDeleteQueries" delete-queries
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glIsQuery" is-query
+              :library opengl)
+    boolean
+  (id uint))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glBeginQuery" begin-query
+              :library opengl)
+    :void
+  (target enum)
+  (id uint))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glEndQuery" end-query
+              :library opengl)
+    :void
   (target enum))
 
-(defglfun ("glUseProgram" %glUseProgram) :void
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetQueryiv" get-query-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetQueryObjectiv" get-query-object-iv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetQueryObjectuiv" get-query-object-uiv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glBindBuffer" bind-buffer
+              :library opengl)
+    :void
+  (target enum)
+  (buffer uint))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glDeleteBuffers" delete-buffers
+              :library opengl)
+    :void
+  (n sizei)
+  (buffers (:pointer uint)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGenBuffers" gen-buffers
+              :library opengl)
+    :void
+  (n sizei)
+  (buffers (:pointer uint)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glIsBuffer" is-buffer
+              :library opengl)
+    boolean
+  (buffer uint))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glBufferData" buffer-data
+              :library opengl)
+    :void
+  (target enum)
+  (size sizeiptr)
+  (data (:pointer void))
+  (usage enum))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glBufferSubData" buffer-sub-data
+              :library opengl)
+    :void
+  (target enum)
+  (offset intptr)
+  (size sizeiptr)
+  (data (:pointer void)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetBufferSubData" get-buffer-sub-data
+              :library opengl)
+    :void
+  (target enum)
+  (offset intptr)
+  (size sizeiptr)
+  (data (:pointer void)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glMapBuffer" map-buffer
+              :library opengl)
+    :pointer
+  (target enum)
+  (access enum))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glUnmapBuffer" unmap-buffer
+              :library opengl)
+    boolean
+  (target enum))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetBufferParameteriv" get-buffer-parameter-iv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.5, VERSION_1_5
+(defglextfun ("glGetBufferPointerv" get-buffer-pointer-v
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer :pointer)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glBlendEquationSeparate" blend-equation-separate
+              :library opengl)
+    :void
+  (modeRGB enum)
+  (modeAlpha enum))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glDrawBuffers" draw-buffers
+              :library opengl)
+    :void
+  (n sizei)
+  (bufs (:pointer enum)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glStencilOpSeparate" stencil-op-separate
+              :library opengl)
+    :void
+  (face enum)
+  (sfail enum)
+  (dpfail enum)
+  (dppass enum))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glStencilFuncSeparate" stencil-func-separate
+              :library opengl)
+    :void
+  (frontfunc enum)
+  (backfunc enum)
+  (ref int)
+  (mask uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glStencilMaskSeparate" stencil-mask-separate
+              :library opengl)
+    :void
+  (face enum)
+  (mask uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glAttachShader" attach-shader
+              :library opengl)
+    :void
+  (program uint)
+  (shader uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glBindAttribLocation" bind-attrib-location
+              :library opengl)
+    :void
+  (program uint)
+  (index uint)
+  (name (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glCompileShader" compile-shader
+              :library opengl)
+    :void
+  (shader uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glCreateProgram" create-program
+              :library opengl)
+    uint)
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glCreateShader" create-shader
+              :library opengl)
+    uint
+  (type enum))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glDeleteProgram" delete-program
+              :library opengl)
+    :void
   (program uint))
 
-;;; V
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glDeleteShader" delete-shader
+              :library opengl)
+    :void
+  (shader uint))
 
-(defglfun ("glValidateProgram" %glValidateProgram) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glDetachShader" detach-shader
+              :library opengl)
+    :void
+  (program uint)
+  (shader uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glDisableVertexAttribArray" disable-vertex-attrib-array
+              :library opengl)
+    :void
+  (index uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glEnableVertexAttribArray" enable-vertex-attrib-array
+              :library opengl)
+    :void
+  (index uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetActiveAttrib" get-active-attrib
+              :library opengl)
+    :void
+  (program uint)
+  (index uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (size (:pointer int))
+  (type (:pointer enum))
+  (name (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetActiveUniform" get-active-uniform
+              :library opengl)
+    :void
+  (program uint)
+  (index uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (size (:pointer int))
+  (type (:pointer enum))
+  (name (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetAttachedShaders" get-attached-shaders
+              :library opengl)
+    :void
+  (program uint)
+  (maxCount sizei)
+  (count (:pointer sizei))
+  (obj (:pointer uint)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetAttribLocation" get-attrib-location
+              :library opengl)
+    int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetProgramiv" get-program-iv
+              :library opengl)
+    :void
+  (program uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetProgramInfoLog" get-program-info-log
+              :library opengl)
+    :void
+  (program uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (infoLog (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetShaderiv" get-shader-iv
+              :library opengl)
+    :void
+  (shader uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetShaderInfoLog" get-shader-info-log
+              :library opengl)
+    :void
+  (shader uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (infoLog (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetShaderSource" get-shader-source
+              :library opengl)
+    :void
+  (shader uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (source (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetUniformLocation" get-uniform-location
+              :library opengl)
+    int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetUniformfv" get-uniform-fv
+              :library opengl)
+    :void
+  (program uint)
+  (location int)
+  (params (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetUniformiv" get-uniform-iv
+              :library opengl)
+    :void
+  (program uint)
+  (location int)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetVertexAttribdv" get-vertex-attrib-dv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetVertexAttribfv" get-vertex-attrib-fv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetVertexAttribiv" get-vertex-attrib-iv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glGetVertexAttribPointerv" get-vertex-attrib-pointer-v
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glIsProgram" is-program
+              :library opengl)
+    boolean
   (program uint))
 
-(defglfun ("glVertex2f" %glVertex2f) :void
-  (x float)
-  (y float))
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glIsShader" is-shader
+              :library opengl)
+    boolean
+  (shader uint))
 
-(defglfun ("glVertex3f" %glVertex3f) :void
-  (x float)
-  (y float)
-  (z float))
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glLinkProgram" link-program
+              :library opengl)
+    :void
+  (program uint))
 
-(defglfun ("glVertex4f" %glVertex4f) :void
-  (x float)
-  (y float)
-  (z float)
-  (w float))
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glShaderSource" shader-source
+              :library opengl)
+    :void
+  (shader uint)
+  (count sizei)
+  (string (:pointer :pointer))
+  (length (:pointer int)))
 
-(defglfun ("glVertexAttrib1f" %glVertexAttrib1f) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUseProgram" use-program
+              :library opengl)
+    :void
+  (program uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform1f" uniform-1f
+              :library opengl)
+    :void
+  (location int)
+  (v0 float))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform2f" uniform-2f
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform3f" uniform-3f
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform4f" uniform-4f
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float)
+  (v3 float))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform1i" uniform-1i
+              :library opengl)
+    :void
+  (location int)
+  (v0 int))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform2i" uniform-2i
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform3i" uniform-3i
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform4i" uniform-4i
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int)
+  (v3 int))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform1fv" uniform-1fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform2fv" uniform-2fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform3fv" uniform-3fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform4fv" uniform-4fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform1iv" uniform-1iv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform2iv" uniform-2iv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform3iv" uniform-3iv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniform4iv" uniform-4iv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniformMatrix2fv" uniform-matrix-2fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniformMatrix3fv" uniform-matrix-3fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glUniformMatrix4fv" uniform-matrix-4fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glValidateProgram" validate-program
+              :library opengl)
+    :void
+  (program uint))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1d" vertex-attrib-1d
+              :library opengl)
+    :void
+  (index uint)
+  (x double))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1dv" vertex-attrib-1dv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1f" vertex-attrib-1f
+              :library opengl)
+    :void
   (index uint)
   (x float))
 
-(defglfun ("glVertexAttrib2f" %glVertexAttrib2f) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1fv" vertex-attrib-1fv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1s" vertex-attrib-1s
+              :library opengl)
+    :void
+  (index uint)
+  (x short))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib1sv" vertex-attrib-1sv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2d" vertex-attrib-2d
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2dv" vertex-attrib-2dv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2f" vertex-attrib-2f
+              :library opengl)
+    :void
   (index uint)
   (x float)
   (y float))
 
-(defglfun ("glVertexAttrib3f" %glVertexAttrib3f) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2fv" vertex-attrib-2fv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2s" vertex-attrib-2s
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib2sv" vertex-attrib-2sv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3d" vertex-attrib-3d
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3dv" vertex-attrib-3dv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3f" vertex-attrib-3f
+              :library opengl)
+    :void
   (index uint)
   (x float)
   (y float)
   (z float))
 
-(defglfun ("glVertexAttrib4f" %glVertexAttrib4f) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3fv" vertex-attrib-3fv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3s" vertex-attrib-3s
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib3sv" vertex-attrib-3sv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nbv" vertex-attrib-4nbv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Niv" vertex-attrib-4niv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nsv" vertex-attrib-4nsv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nub" vertex-attrib-4nub
+              :library opengl)
+    :void
+  (index uint)
+  (x ubyte)
+  (y ubyte)
+  (z ubyte)
+  (w ubyte))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nubv" vertex-attrib-4nubv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nuiv" vertex-attrib-4nuiv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4Nusv" vertex-attrib-4nusv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4bv" vertex-attrib-4bv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4d" vertex-attrib-4d
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4dv" vertex-attrib-4dv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4f" vertex-attrib-4f
+              :library opengl)
+    :void
   (index uint)
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglfun ("glVertexAttribPointer" %glVertexAttribPointer) :void
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4fv" vertex-attrib-4fv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4iv" vertex-attrib-4iv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4s" vertex-attrib-4s
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4sv" vertex-attrib-4sv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4ubv" vertex-attrib-4ubv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4uiv" vertex-attrib-4uiv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttrib4usv" vertex-attrib-4usv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 2.0, VERSION_2_0
+(defglextfun ("glVertexAttribPointer" vertex-attrib-pointer
+              :library opengl)
+    :void
   (index uint)
   (size int)
   (type enum)
   (normalized boolean)
   (stride sizei)
-  (pointer :pointer))
+  (pointer (:pointer void)))
 
-(defglfun ("glVertexPointer" %glVertexPointer) :void
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix2x3fv" uniform-matrix-2x3-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix3x2fv" uniform-matrix-3x2-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix2x4fv" uniform-matrix-2x4-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix4x2fv" uniform-matrix-4x2-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix3x4fv" uniform-matrix-3x4-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 2.1, VERSION_2_1
+(defglextfun ("glUniformMatrix4x3fv" uniform-matrix-4x3-fv
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glActiveTextureARB" active-texture-arb
+              :library opengl)
+    :void
+  (texture enum))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glClientActiveTextureARB" client-active-texture-arb
+              :library opengl)
+    :void
+  (texture enum))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1dARB" multi-tex-coord-1d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s double))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1dvARB" multi-tex-coord-1dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1fARB" multi-tex-coord-1f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s float))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1fvARB" multi-tex-coord-1fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1iARB" multi-tex-coord-1i-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s int))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1ivARB" multi-tex-coord-1iv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1sARB" multi-tex-coord-1s-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s short))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord1svARB" multi-tex-coord-1sv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2dARB" multi-tex-coord-2d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2dvARB" multi-tex-coord-2dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2fARB" multi-tex-coord-2f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2fvARB" multi-tex-coord-2fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2iARB" multi-tex-coord-2i-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2ivARB" multi-tex-coord-2iv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2sARB" multi-tex-coord-2s-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord2svARB" multi-tex-coord-2sv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3dARB" multi-tex-coord-3d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3dvARB" multi-tex-coord-3dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3fARB" multi-tex-coord-3f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3fvARB" multi-tex-coord-3fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3iARB" multi-tex-coord-3i-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3ivARB" multi-tex-coord-3iv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3sARB" multi-tex-coord-3s-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord3svARB" multi-tex-coord-3sv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4dARB" multi-tex-coord-4d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double)
+  (q double))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4dvARB" multi-tex-coord-4dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4fARB" multi-tex-coord-4f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float)
+  (q float))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4fvARB" multi-tex-coord-4fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4iARB" multi-tex-coord-4i-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int)
+  (q int))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4ivARB" multi-tex-coord-4iv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4sARB" multi-tex-coord-4s-arb
+              :library opengl)
+    :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short)
+  (q short))
+
+;;; GL version: 1.2, ARB_multitexture
+(defglextfun ("glMultiTexCoord4svARB" multi-tex-coord-4sv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, ARB_transpose_matrix
+(defglextfun ("glLoadTransposeMatrixfARB" load-transpose-matrixf-arb
+              :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.2, ARB_transpose_matrix
+(defglextfun ("glLoadTransposeMatrixdARB" load-transpose-matrixd-arb
+              :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.2, ARB_transpose_matrix
+(defglextfun ("glMultTransposeMatrixfARB" mult-transpose-matrixf-arb
+              :library opengl)
+    :void
+  (m (:pointer float)))
+
+;;; GL version: 1.2, ARB_transpose_matrix
+(defglextfun ("glMultTransposeMatrixdARB" mult-transpose-matrixd-arb
+              :library opengl)
+    :void
+  (m (:pointer double)))
+
+;;; GL version: 1.2, ARB_multisample
+(defglextfun ("glSampleCoverageARB" sample-coverage-arb
+              :library opengl)
+    :void
+  (value clampf)
+  (invert boolean))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexImage3DARB" compressed-tex-image-3d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexImage2DARB" compressed-tex-image-2d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexImage1DARB" compressed-tex-image-1d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexSubImage3DARB" compressed-tex-sub-image-3d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexSubImage2DARB" compressed-tex-sub-image-2d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glCompressedTexSubImage1DARB" compressed-tex-sub-image-1d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (imageSize sizei)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_texture_compression
+(defglextfun ("glGetCompressedTexImageARB" get-compressed-tex-image-arb
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (img (:pointer void)))
+
+;;; GL version: 1.0, ARB_point_parameters
+(defglextfun ("glPointParameterfARB" point-parameterf-arb
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, ARB_point_parameters
+(defglextfun ("glPointParameterfvARB" point-parameterfv-arb
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightbvARB" weightbv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer byte)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightsvARB" weightsv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer short)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightivARB" weightiv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer int)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightfvARB" weightfv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer float)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightdvARB" weightdv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer double)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightubvARB" weightubv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer ubyte)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightusvARB" weightusv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer ushort)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightuivARB" weightuiv-arb
+              :library opengl)
+    :void
+  (size int)
+  (weights (:pointer uint)))
+
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glWeightPointerARB" weight-pointer-arb
+              :library opengl)
+    :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer :pointer))
+  (pointer (:pointer void)))
 
-(defglfun ("glViewport" %glViewport) :void
+;;; GL version: 1.1, ARB_vertex_blend
+(defglextfun ("glVertexBlendARB" vertex-blend-arb
+              :library opengl)
+    :void
+  (count int))
+
+;;; GL version: 1.1, ARB_matrix_palette
+(defglextfun ("glCurrentPaletteMatrixARB" current-palette-matrix-arb
+              :library opengl)
+    :void
+  (index int))
+
+;;; GL version: 1.1, ARB_matrix_palette
+(defglextfun ("glMatrixIndexubvARB" matrix-indexubv-arb
+              :library opengl)
+    :void
+  (size int)
+  (indices (:pointer ubyte)))
+
+;;; GL version: 1.1, ARB_matrix_palette
+(defglextfun ("glMatrixIndexusvARB" matrix-indexusv-arb
+              :library opengl)
+    :void
+  (size int)
+  (indices (:pointer ushort)))
+
+;;; GL version: 1.1, ARB_matrix_palette
+(defglextfun ("glMatrixIndexuivARB" matrix-indexuiv-arb
+              :library opengl)
+    :void
+  (size int)
+  (indices (:pointer uint)))
+
+;;; GL version: 1.1, ARB_matrix_palette
+(defglextfun ("glMatrixIndexPointerARB" matrix-index-pointer-arb
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2dARB" window-pos-2d-arb
+              :library opengl)
+    :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2dvARB" window-pos-2dv-arb
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2fARB" window-pos-2f-arb
+              :library opengl)
+    :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2fvARB" window-pos-2fv-arb
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2iARB" window-pos-2i-arb
+              :library opengl)
+    :void
   (x int)
-  (y int)
-  (w sizei)
-  (h sizei))
+  (y int))
 
-;;; W
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2ivARB" window-pos-2iv-arb
+              :library opengl)
+    :void
+  (v (:pointer int)))
 
-(defglfun ("glWindowPos3f" %glWindowPos3f) :void
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2sARB" window-pos-2s-arb
+              :library opengl)
+    :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos2svARB" window-pos-2sv-arb
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3dARB" window-pos-3d-arb
+              :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3dvARB" window-pos-3dv-arb
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3fARB" window-pos-3f-arb
+              :library opengl)
+    :void
   (x float)
   (y float)
   (z float))
 
-;;; X
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3fvARB" window-pos-3fv-arb
+              :library opengl)
+    :void
+  (v (:pointer float)))
 
-;;; Y
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3iARB" window-pos-3i-arb
+              :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int))
 
-;;; Z
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3ivARB" window-pos-3iv-arb
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3sARB" window-pos-3s-arb
+              :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, ARB_window_pos
+(defglextfun ("glWindowPos3svARB" window-pos-3sv-arb
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1dARB" vertex-attrib-1d-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1dvARB" vertex-attrib-1dv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1fARB" vertex-attrib-1f-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1fvARB" vertex-attrib-1fv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1sARB" vertex-attrib-1s-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x short))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib1svARB" vertex-attrib-1sv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2dARB" vertex-attrib-2d-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2dvARB" vertex-attrib-2dv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2fARB" vertex-attrib-2f-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2fvARB" vertex-attrib-2fv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2sARB" vertex-attrib-2s-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib2svARB" vertex-attrib-2sv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3dARB" vertex-attrib-3d-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3dvARB" vertex-attrib-3dv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3fARB" vertex-attrib-3f-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3fvARB" vertex-attrib-3fv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3sARB" vertex-attrib-3s-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib3svARB" vertex-attrib-3sv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NbvARB" vertex-attrib-4nbv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NivARB" vertex-attrib-4niv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NsvARB" vertex-attrib-4nsv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NubARB" vertex-attrib-4nub-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x ubyte)
+  (y ubyte)
+  (z ubyte)
+  (w ubyte))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NubvARB" vertex-attrib-4nubv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NuivARB" vertex-attrib-4nuiv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4NusvARB" vertex-attrib-4nusv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4bvARB" vertex-attrib-4bv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4dARB" vertex-attrib-4d-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4dvARB" vertex-attrib-4dv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4fARB" vertex-attrib-4f-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4fvARB" vertex-attrib-4fv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4ivARB" vertex-attrib-4iv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4sARB" vertex-attrib-4s-arb
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4svARB" vertex-attrib-4sv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4ubvARB" vertex-attrib-4ubv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4uivARB" vertex-attrib-4uiv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttrib4usvARB" vertex-attrib-4usv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glVertexAttribPointerARB" vertex-attrib-pointer-arb
+              :library opengl)
+    :void
+  (index uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glEnableVertexAttribArrayARB" enable-vertex-attrib-array-arb
+              :library opengl)
+    :void
+  (index uint))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glDisableVertexAttribArrayARB" disable-vertex-attrib-array-arb
+              :library opengl)
+    :void
+  (index uint))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramStringARB" program-string-arb
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (len sizei)
+  (string (:pointer void)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glBindProgramARB" bind-program-arb
+              :library opengl)
+    :void
+  (target enum)
+  (program uint))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glDeleteProgramsARB" delete-programs-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (programs (:pointer uint)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGenProgramsARB" gen-programs-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (programs (:pointer uint)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramEnvParameter4dARB" program-env-parameter-4d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramEnvParameter4dvARB" program-env-parameter-4dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramEnvParameter4fARB" program-env-parameter-4f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramEnvParameter4fvARB" program-env-parameter-4fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramLocalParameter4dARB" program-local-parameter-4d-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramLocalParameter4dvARB" program-local-parameter-4dv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramLocalParameter4fARB" program-local-parameter-4f-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glProgramLocalParameter4fvARB" program-local-parameter-4fv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramEnvParameterdvARB" get-program-env-parameterdv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramEnvParameterfvARB" get-program-env-parameterfv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramLocalParameterdvARB" get-program-local-parameterdv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramLocalParameterfvARB" get-program-local-parameterfv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramivARB" get-programiv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetProgramStringARB" get-program-string-arb
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (string (:pointer void)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetVertexAttribdvARB" get-vertex-attribdv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetVertexAttribfvARB" get-vertex-attribfv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetVertexAttribivARB" get-vertex-attribiv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glGetVertexAttribPointervARB" get-vertex-attrib-pointerv-arb
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.3, ARB_vertex_program
+(defglextfun ("glIsProgramARB" is-program-arb
+              :library opengl)
+    boolean
+  (program uint))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glBindBufferARB" bind-buffer-arb
+              :library opengl)
+    :void
+  (target enum)
+  (buffer uint))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glDeleteBuffersARB" delete-buffers-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (buffers (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glGenBuffersARB" gen-buffers-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (buffers (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glIsBufferARB" is-buffer-arb
+              :library opengl)
+    boolean
+  (buffer uint))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glBufferDataARB" buffer-data-arb
+              :library opengl)
+    :void
+  (target enum)
+  (size sizeiptr-arb)
+  (data (:pointer void))
+  (usage enum))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glBufferSubDataARB" buffer-sub-data-arb
+              :library opengl)
+    :void
+  (target enum)
+  (offset intptr-arb)
+  (size sizeiptr-arb)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glGetBufferSubDataARB" get-buffer-sub-data-arb
+              :library opengl)
+    :void
+  (target enum)
+  (offset intptr-arb)
+  (size sizeiptr-arb)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glMapBufferARB" map-buffer-arb
+              :library opengl)
+    :pointer
+  (target enum)
+  (access enum))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glUnmapBufferARB" unmap-buffer-arb
+              :library opengl)
+    boolean
+  (target enum))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glGetBufferParameterivARB" get-buffer-parameteriv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_vertex_buffer_object
+(defglextfun ("glGetBufferPointervARB" get-buffer-pointerv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer :pointer)))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glGenQueriesARB" gen-queries-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glDeleteQueriesARB" delete-queries-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glIsQueryARB" is-query-arb
+              :library opengl)
+    boolean
+  (id uint))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glBeginQueryARB" begin-query-arb
+              :library opengl)
+    :void
+  (target enum)
+  (id uint))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glEndQueryARB" end-query-arb
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glGetQueryivARB" get-queryiv-arb
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glGetQueryObjectivARB" get-query-objectiv-arb
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.5, ARB_occlusion_query
+(defglextfun ("glGetQueryObjectuivARB" get-query-objectuiv-arb
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glDeleteObjectARB" delete-object-arb
+              :library opengl)
+    :void
+  (obj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetHandleARB" get-handle-arb
+              :library opengl)
+    handle-arb
+  (pname enum))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glDetachObjectARB" detach-object-arb
+              :library opengl)
+    :void
+  (containerObj handle-arb)
+  (attachedObj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glCreateShaderObjectARB" create-shader-object-arb
+              :library opengl)
+    handle-arb
+  (shaderType enum))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glShaderSourceARB" shader-source-arb
+              :library opengl)
+    :void
+  (shaderObj handle-arb)
+  (count sizei)
+  (string (:pointer :pointer))
+  (length (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glCompileShaderARB" compile-shader-arb
+              :library opengl)
+    :void
+  (shaderObj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glCreateProgramObjectARB" create-program-object-arb
+              :library opengl)
+    handle-arb)
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glAttachObjectARB" attach-object-arb
+              :library opengl)
+    :void
+  (containerObj handle-arb)
+  (obj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glLinkProgramARB" link-program-arb
+              :library opengl)
+    :void
+  (programObj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUseProgramObjectARB" use-program-object-arb
+              :library opengl)
+    :void
+  (programObj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glValidateProgramARB" validate-program-arb
+              :library opengl)
+    :void
+  (programObj handle-arb))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform1fARB" uniform-1f-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 float))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform2fARB" uniform-2f-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform3fARB" uniform-3f-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform4fARB" uniform-4f-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float)
+  (v3 float))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform1iARB" uniform-1i-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 int))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform2iARB" uniform-2i-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform3iARB" uniform-3i-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform4iARB" uniform-4i-arb
+              :library opengl)
+    :void
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int)
+  (v3 int))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform1fvARB" uniform-1fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform2fvARB" uniform-2fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform3fvARB" uniform-3fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform4fvARB" uniform-4fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform1ivARB" uniform-1iv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform2ivARB" uniform-2iv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform3ivARB" uniform-3iv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniform4ivARB" uniform-4iv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniformMatrix2fvARB" uniform-matrix-2fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniformMatrix3fvARB" uniform-matrix-3fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glUniformMatrix4fvARB" uniform-matrix-4fv-arb
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetObjectParameterfvARB" get-object-parameterfv-arb
+              :library opengl)
+    :void
+  (obj handle-arb)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetObjectParameterivARB" get-object-parameteriv-arb
+              :library opengl)
+    :void
+  (obj handle-arb)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetInfoLogARB" get-info-log-arb
+              :library opengl)
+    :void
+  (obj handle-arb)
+  (maxLength sizei)
+  (length (:pointer sizei))
+  (infoLog (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetAttachedObjectsARB" get-attached-objects-arb
+              :library opengl)
+    :void
+  (containerObj handle-arb)
+  (maxCount sizei)
+  (count (:pointer sizei))
+  (obj (:pointer handle-arb)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetUniformLocationARB" get-uniform-location-arb
+              :library opengl)
+    int
+  (programObj handle-arb)
+  (name (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetActiveUniformARB" get-active-uniform-arb
+              :library opengl)
+    :void
+  (programObj handle-arb)
+  (index uint)
+  (maxLength sizei)
+  (length (:pointer sizei))
+  (size (:pointer int))
+  (type (:pointer enum))
+  (name (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetUniformfvARB" get-uniformfv-arb
+              :library opengl)
+    :void
+  (programObj handle-arb)
+  (location int)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetUniformivARB" get-uniformiv-arb
+              :library opengl)
+    :void
+  (programObj handle-arb)
+  (location int)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_objects
+(defglextfun ("glGetShaderSourceARB" get-shader-source-arb
+              :library opengl)
+    :void
+  (obj handle-arb)
+  (maxLength sizei)
+  (length (:pointer sizei))
+  (source (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_vertex_shader
+(defglextfun ("glBindAttribLocationARB" bind-attrib-location-arb
+              :library opengl)
+    :void
+  (programObj handle-arb)
+  (index uint)
+  (name (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_vertex_shader
+(defglextfun ("glGetActiveAttribARB" get-active-attrib-arb
+              :library opengl)
+    :void
+  (programObj handle-arb)
+  (index uint)
+  (maxLength sizei)
+  (length (:pointer sizei))
+  (size (:pointer int))
+  (type (:pointer enum))
+  (name (:pointer char-arb)))
+
+;;; GL version: 1.2, ARB_vertex_shader
+(defglextfun ("glGetAttribLocationARB" get-attrib-location-arb
+              :library opengl)
+    int
+  (programObj handle-arb)
+  (name (:pointer char-arb)))
+
+;;; GL version: 1.5, ARB_draw_buffers
+(defglextfun ("glDrawBuffersARB" draw-buffers-arb
+              :library opengl)
+    :void
+  (n sizei)
+  (bufs (:pointer enum)))
+
+;;; GL version: 1.5, ARB_color_buffer_float
+(defglextfun ("glClampColorARB" clamp-color-arb
+              :library opengl)
+    :void
+  (target enum)
+  (clamp enum))
+
+;;; GL version: 1.0, EXT_blend_color
+(defglextfun ("glBlendColorEXT" blend-color-ext
+              :library opengl)
+    :void
+  (red clampf)
+  (green clampf)
+  (blue clampf)
+  (alpha clampf))
+
+;;; GL version: 1.0, EXT_polygon_offset
+(defglextfun ("glPolygonOffsetEXT" polygon-offset-ext
+              :library opengl)
+    :void
+  (factor float)
+  (bias float))
+
+;;; GL version: 1.0, EXT_texture3D
+(defglextfun ("glTexImage3DEXT" tex-image-3d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_texture3D
+(defglextfun ("glTexSubImage3DEXT" tex-sub-image-3d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, SGIS_texture_filter4
+(defglextfun ("glGetTexFilterFuncSGIS" get-tex-filter-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (filter enum)
+  (weights (:pointer float)))
+
+;;; GL version: 1.0, SGIS_texture_filter4
+(defglextfun ("glTexFilterFuncSGIS" tex-filter-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (filter enum)
+  (n sizei)
+  (weights (:pointer float)))
+
+;;; GL version: 1.0, EXT_subtexture
+(defglextfun ("glTexSubImage1DEXT" tex-sub-image-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_subtexture
+(defglextfun ("glTexSubImage2DEXT" tex-sub-image-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_copy_texture
+(defglextfun ("glCopyTexImage1DEXT" copy-tex-image-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_copy_texture
+(defglextfun ("glCopyTexImage2DEXT" copy-tex-image-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_copy_texture
+(defglextfun ("glCopyTexSubImage1DEXT" copy-tex-sub-image-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.0, EXT_copy_texture
+(defglextfun ("glCopyTexSubImage2DEXT" copy-tex-sub-image-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_copy_texture
+(defglextfun ("glCopyTexSubImage3DEXT" copy-tex-sub-image-3d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetHistogramEXT" get-histogram-ext
+              :library opengl)
+    :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetHistogramParameterfvEXT" get-histogram-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetHistogramParameterivEXT" get-histogram-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetMinmaxEXT" get-minmax-ext
+              :library opengl)
+    :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetMinmaxParameterfvEXT" get-minmax-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glGetMinmaxParameterivEXT" get-minmax-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glHistogramEXT" histogram-ext
+              :library opengl)
+    :void
+  (target enum)
+  (width sizei)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glMinmaxEXT" minmax-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glResetHistogramEXT" reset-histogram-ext
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.0, EXT_histogram
+(defglextfun ("glResetMinmaxEXT" reset-minmax-ext
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionFilter1DEXT" convolution-filter-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionFilter2DEXT" convolution-filter-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionParameterfEXT" convolution-parameterf-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params float))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionParameterfvEXT" convolution-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionParameteriEXT" convolution-parameteri-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params int))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glConvolutionParameterivEXT" convolution-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glCopyConvolutionFilter1DEXT" copy-convolution-filter-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glCopyConvolutionFilter2DEXT" copy-convolution-filter-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glGetConvolutionFilterEXT" get-convolution-filter-ext
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glGetConvolutionParameterfvEXT" get-convolution-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glGetConvolutionParameterivEXT" get-convolution-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glGetSeparableFilterEXT" get-separable-filter-ext
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void))
+  (span (:pointer void)))
+
+;;; GL version: 1.0, EXT_convolution
+(defglextfun ("glSeparableFilter2DEXT" separable-filter-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glColorTableSGI" color-table-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glColorTableParameterfvSGI" color-table-parameterfv-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glColorTableParameterivSGI" color-table-parameteriv-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glCopyColorTableSGI" copy-color-table-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glGetColorTableSGI" get-color-table-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glGetColorTableParameterfvSGI" get-color-table-parameterfv-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGI_color_table
+(defglextfun ("glGetColorTableParameterivSGI" get-color-table-parameteriv-sgi
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_pixel_texture
+(defglextfun ("glPixelTexGenSGIX" pixel-tex-gen-sgix
+              :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glPixelTexGenParameteriSGIS" pixel-tex-gen-parameteri-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glPixelTexGenParameterivSGIS" pixel-tex-gen-parameteriv-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glPixelTexGenParameterfSGIS" pixel-tex-gen-parameterf-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glPixelTexGenParameterfvSGIS" pixel-tex-gen-parameterfv-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glGetPixelTexGenParameterivSGIS" get-pixel-tex-gen-parameteriv-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIS_pixel_texture
+(defglextfun ("glGetPixelTexGenParameterfvSGIS" get-pixel-tex-gen-parameterfv-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIS_texture4D
+(defglextfun ("glTexImage4DSGIS" tex-image-4d-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (size4d sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, SGIS_texture4D
+(defglextfun ("glTexSubImage4DSGIS" tex-sub-image-4d-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (woffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (size4d sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glAreTexturesResidentEXT" are-textures-resident-ext
+              :library opengl)
+    boolean
+  (n sizei)
+  (textures (:pointer uint))
+  (residences (:pointer boolean)))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glBindTextureEXT" bind-texture-ext
+              :library opengl)
+    :void
+  (target enum)
+  (texture uint))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glDeleteTexturesEXT" delete-textures-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glGenTexturesEXT" gen-textures-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glIsTextureEXT" is-texture-ext
+              :library opengl)
+    boolean
+  (texture uint))
+
+;;; GL version: 1.0, EXT_texture_object
+(defglextfun ("glPrioritizeTexturesEXT" prioritize-textures-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (textures (:pointer uint))
+  (priorities (:pointer clampf)))
+
+;;; GL version: 1.0, SGIS_detail_texture
+(defglextfun ("glDetailTexFuncSGIS" detail-tex-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (n sizei)
+  (points (:pointer float)))
+
+;;; GL version: 1.0, SGIS_detail_texture
+(defglextfun ("glGetDetailTexFuncSGIS" get-detail-tex-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (points (:pointer float)))
+
+;;; GL version: 1.0, SGIS_sharpen_texture
+(defglextfun ("glSharpenTexFuncSGIS" sharpen-tex-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (n sizei)
+  (points (:pointer float)))
+
+;;; GL version: 1.0, SGIS_sharpen_texture
+(defglextfun ("glGetSharpenTexFuncSGIS" get-sharpen-tex-func-sgis
+              :library opengl)
+    :void
+  (target enum)
+  (points (:pointer float)))
+
+;;; GL version: 1.1, SGIS_multisample
+(defglextfun ("glSampleMaskSGIS" sample-mask-sgis
+              :library opengl)
+    :void
+  (value clampf)
+  (invert boolean))
+
+;;; GL version: 1.0, SGIS_multisample
+(defglextfun ("glSamplePatternSGIS" sample-pattern-sgis
+              :library opengl)
+    :void
+  (pattern enum))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glArrayElementEXT" array-element-ext
+              :library opengl)
+    :void
+  (i int))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glColorPointerEXT" color-pointer-ext
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glDrawArraysEXT" draw-arrays-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (first int)
+  (count sizei))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glEdgeFlagPointerEXT" edge-flag-pointer-ext
+              :library opengl)
+    :void
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer boolean)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glGetPointervEXT" get-pointerv-ext
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer :pointer)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glIndexPointerEXT" index-pointer-ext
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glNormalPointerEXT" normal-pointer-ext
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glTexCoordPointerEXT" tex-coord-pointer-ext
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_vertex_array
+(defglextfun ("glVertexPointerEXT" vertex-pointer-ext
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (count sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_blend_minmax
+(defglextfun ("glBlendEquationEXT" blend-equation-ext
+              :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.0, SGIX_sprite
+(defglextfun ("glSpriteParameterfSGIX" sprite-parameterf-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIX_sprite
+(defglextfun ("glSpriteParameterfvSGIX" sprite-parameterfv-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_sprite
+(defglextfun ("glSpriteParameteriSGIX" sprite-parameteri-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIX_sprite
+(defglextfun ("glSpriteParameterivSGIX" sprite-parameteriv-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_point_parameters
+(defglextfun ("glPointParameterfEXT" point-parameterf-ext
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, EXT_point_parameters
+(defglextfun ("glPointParameterfvEXT" point-parameterfv-ext
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIS_point_parameters
+(defglextfun ("glPointParameterfSGIS" point-parameterf-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIS_point_parameters
+(defglextfun ("glPointParameterfvSGIS" point-parameterfv-sgis
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glGetInstrumentsSGIX" get-instruments-sgix
+              :library opengl)
+    int)
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glInstrumentsBufferSGIX" instruments-buffer-sgix
+              :library opengl)
+    :void
+  (size sizei)
+  (buffer (:pointer int)))
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glPollInstrumentsSGIX" poll-instruments-sgix
+              :library opengl)
+    int
+  (marker_p (:pointer int)))
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glReadInstrumentsSGIX" read-instruments-sgix
+              :library opengl)
+    :void
+  (marker int))
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glStartInstrumentsSGIX" start-instruments-sgix
+              :library opengl)
+    :void)
+
+;;; GL version: 1.0, SGIX_instruments
+(defglextfun ("glStopInstrumentsSGIX" stop-instruments-sgix
+              :library opengl)
+    :void
+  (marker int))
+
+;;; GL version: 1.0, SGIX_framezoom
+(defglextfun ("glFrameZoomSGIX" frame-zoom-sgix
+              :library opengl)
+    :void
+  (factor int))
+
+;;; GL version: 1.0, SGIX_tag_sample_buffer
+(defglextfun ("glTagSampleBufferSGIX" tag-sample-buffer-sgix
+              :library opengl)
+    :void)
+
+;;; GL version: 1.0, SGIX_polynomial_ffd
+(defglextfun ("glDeformationMap3dSGIX" deformation-map-3d-sgix
+              :library opengl)
+    :void
+  (target enum)
+  (u1 double)
+  (u2 double)
+  (ustride int)
+  (uorder int)
+  (v1 double)
+  (v2 double)
+  (vstride int)
+  (vorder int)
+  (w1 double)
+  (w2 double)
+  (wstride int)
+  (worder int)
+  (points (:pointer double)))
+
+;;; GL version: 1.0, SGIX_polynomial_ffd
+(defglextfun ("glDeformationMap3fSGIX" deformation-map-3f-sgix
+              :library opengl)
+    :void
+  (target enum)
+  (u1 float)
+  (u2 float)
+  (ustride int)
+  (uorder int)
+  (v1 float)
+  (v2 float)
+  (vstride int)
+  (vorder int)
+  (w1 float)
+  (w2 float)
+  (wstride int)
+  (worder int)
+  (points (:pointer float)))
+
+;;; GL version: 1.0, SGIX_polynomial_ffd
+(defglextfun ("glDeformSGIX" deform-sgix
+              :library opengl)
+    :void
+  (mask bitfield))
+
+;;; GL version: 1.0, SGIX_polynomial_ffd
+(defglextfun ("glLoadIdentityDeformationMapSGIX" load-identity-deformation-map-sgix
+              :library opengl)
+    :void
+  (mask bitfield))
+
+;;; GL version: 1.0, SGIX_reference_plane
+(defglextfun ("glReferencePlaneSGIX" reference-plane-sgix
+              :library opengl)
+    :void
+  (equation (:pointer double)))
+
+;;; GL version: 1.0, SGIX_flush_raster
+(defglextfun ("glFlushRasterSGIX" flush-raster-sgix
+              :library opengl)
+    :void)
+
+;;; GL version: 1.1, SGIS_fog_function
+(defglextfun ("glFogFuncSGIS" fog-func-sgis
+              :library opengl)
+    :void
+  (n sizei)
+  (points (:pointer float)))
+
+;;; GL version: 1.1, SGIS_fog_function
+(defglextfun ("glGetFogFuncSGIS" get-fog-func-sgis
+              :library opengl)
+    :void
+  (points (:pointer float)))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glImageTransformParameteriHP" image-transform-parameteri-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glImageTransformParameterfHP" image-transform-parameterf-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glImageTransformParameterivHP" image-transform-parameteriv-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glImageTransformParameterfvHP" image-transform-parameterfv-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glGetImageTransformParameterivHP" get-image-transform-parameteriv-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, HP_image_transform
+(defglextfun ("glGetImageTransformParameterfvHP" get-image-transform-parameterfv-hp
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, EXT_color_subtable
+(defglextfun ("glColorSubTableEXT" color-sub-table-ext
+              :library opengl)
+    :void
+  (target enum)
+  (start sizei)
+  (count sizei)
+  (format enum)
+  (type enum)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, EXT_color_subtable
+(defglextfun ("glCopyColorSubTableEXT" copy-color-sub-table-ext
+              :library opengl)
+    :void
+  (target enum)
+  (start sizei)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.1, PGI_misc_hints
+(defglextfun ("glHintPGI" hint-pgi
+              :library opengl)
+    :void
+  (target enum)
+  (mode int))
+
+;;; GL version: 1.1, EXT_paletted_texture
+(defglextfun ("glColorTableEXT" color-table-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalFormat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.1, EXT_paletted_texture
+(defglextfun ("glGetColorTableEXT" get-color-table-ext
+              :library opengl)
+    :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (data (:pointer void)))
+
+;;; GL version: 1.1, EXT_paletted_texture
+(defglextfun ("glGetColorTableParameterivEXT" get-color-table-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, EXT_paletted_texture
+(defglextfun ("glGetColorTableParameterfvEXT" get-color-table-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glGetListParameterfvSGIX" get-list-parameterfv-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glGetListParameterivSGIX" get-list-parameteriv-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glListParameterfSGIX" list-parameterf-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glListParameterfvSGIX" list-parameterfv-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glListParameteriSGIX" list-parameteri-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIX_list_priority
+(defglextfun ("glListParameterivSGIX" list-parameteriv-sgix
+              :library opengl)
+    :void
+  (list uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, EXT_index_material
+(defglextfun ("glIndexMaterialEXT" index-material-ext
+              :library opengl)
+    :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.1, EXT_index_func
+(defglextfun ("glIndexFuncEXT" index-func-ext
+              :library opengl)
+    :void
+  (func enum)
+  (ref clampf))
+
+;;; GL version: 1.1, EXT_compiled_vertex_array
+(defglextfun ("glLockArraysEXT" lock-arrays-ext
+              :library opengl)
+    :void
+  (first int)
+  (count sizei))
+
+;;; GL version: 1.1, EXT_compiled_vertex_array
+(defglextfun ("glUnlockArraysEXT" unlock-arrays-ext
+              :library opengl)
+    :void)
+
+;;; GL version: 1.1, EXT_cull_vertex
+(defglextfun ("glCullParameterdvEXT" cull-parameterdv-ext
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.1, EXT_cull_vertex
+(defglextfun ("glCullParameterfvEXT" cull-parameterfv-ext
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentColorMaterialSGIX" fragment-color-material-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightfSGIX" fragment-lightf-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightfvSGIX" fragment-lightfv-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightiSGIX" fragment-lighti-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightivSGIX" fragment-lightiv-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightModelfSGIX" fragment-light-modelf-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightModelfvSGIX" fragment-light-modelfv-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightModeliSGIX" fragment-light-modeli-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentLightModelivSGIX" fragment-light-modeliv-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentMaterialfSGIX" fragment-materialf-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentMaterialfvSGIX" fragment-materialfv-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentMaterialiSGIX" fragment-materiali-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glFragmentMaterialivSGIX" fragment-materialiv-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glGetFragmentLightfvSGIX" get-fragment-lightfv-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glGetFragmentLightivSGIX" get-fragment-lightiv-sgix
+              :library opengl)
+    :void
+  (light enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glGetFragmentMaterialfvSGIX" get-fragment-materialfv-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glGetFragmentMaterialivSGIX" get-fragment-materialiv-sgix
+              :library opengl)
+    :void
+  (face enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, SGIX_fragment_lighting
+(defglextfun ("glLightEnviSGIX" light-envi-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.1, EXT_draw_range_elements
+(defglextfun ("glDrawRangeElementsEXT" draw-range-elements-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void)))
+
+;;; GL version: 1.1, EXT_light_texture
+(defglextfun ("glApplyTextureEXT" apply-texture-ext
+              :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.1, EXT_light_texture
+(defglextfun ("glTextureLightEXT" texture-light-ext
+              :library opengl)
+    :void
+  (pname enum))
+
+;;; GL version: 1.1, EXT_light_texture
+(defglextfun ("glTextureMaterialEXT" texture-material-ext
+              :library opengl)
+    :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glAsyncMarkerSGIX" async-marker-sgix
+              :library opengl)
+    :void
+  (marker uint))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glFinishAsyncSGIX" finish-async-sgix
+              :library opengl)
+    int
+  (markerp (:pointer uint)))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glPollAsyncSGIX" poll-async-sgix
+              :library opengl)
+    int
+  (markerp (:pointer uint)))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glGenAsyncMarkersSGIX" gen-async-markers-sgix
+              :library opengl)
+    uint
+  (range sizei))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glDeleteAsyncMarkersSGIX" delete-async-markers-sgix
+              :library opengl)
+    :void
+  (marker uint)
+  (range sizei))
+
+;;; GL version: 1.0, SGIX_async
+(defglextfun ("glIsAsyncMarkerSGIX" is-async-marker-sgix
+              :library opengl)
+    boolean
+  (marker uint))
+
+;;; GL version: 1.1, INTEL_parallel_arrays
+(defglextfun ("glVertexPointervINTEL" vertex-pointerv-intel
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.1, INTEL_parallel_arrays
+(defglextfun ("glNormalPointervINTEL" normal-pointerv-intel
+              :library opengl)
+    :void
+  (type enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.1, INTEL_parallel_arrays
+(defglextfun ("glColorPointervINTEL" color-pointerv-intel
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.1, INTEL_parallel_arrays
+(defglextfun ("glTexCoordPointervINTEL" tex-coord-pointerv-intel
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.1, EXT_pixel_transform
+(defglextfun ("glPixelTransformParameteriEXT" pixel-transform-parameteri-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.1, EXT_pixel_transform
+(defglextfun ("glPixelTransformParameterfEXT" pixel-transform-parameterf-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.1, EXT_pixel_transform
+(defglextfun ("glPixelTransformParameterivEXT" pixel-transform-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, EXT_pixel_transform
+(defglextfun ("glPixelTransformParameterfvEXT" pixel-transform-parameterfv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3bEXT" secondary-color-3b-ext
+              :library opengl)
+    :void
+  (red byte)
+  (green byte)
+  (blue byte))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3bvEXT" secondary-color-3bv-ext
+              :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3dEXT" secondary-color-3d-ext
+              :library opengl)
+    :void
+  (red double)
+  (green double)
+  (blue double))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3dvEXT" secondary-color-3dv-ext
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3fEXT" secondary-color-3f-ext
+              :library opengl)
+    :void
+  (red float)
+  (green float)
+  (blue float))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3fvEXT" secondary-color-3fv-ext
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3iEXT" secondary-color-3i-ext
+              :library opengl)
+    :void
+  (red int)
+  (green int)
+  (blue int))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3ivEXT" secondary-color-3iv-ext
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3sEXT" secondary-color-3s-ext
+              :library opengl)
+    :void
+  (red short)
+  (green short)
+  (blue short))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3svEXT" secondary-color-3sv-ext
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3ubEXT" secondary-color-3ub-ext
+              :library opengl)
+    :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3ubvEXT" secondary-color-3ubv-ext
+              :library opengl)
+    :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3uiEXT" secondary-color-3ui-ext
+              :library opengl)
+    :void
+  (red uint)
+  (green uint)
+  (blue uint))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3uivEXT" secondary-color-3uiv-ext
+              :library opengl)
+    :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3usEXT" secondary-color-3us-ext
+              :library opengl)
+    :void
+  (red ushort)
+  (green ushort)
+  (blue ushort))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColor3usvEXT" secondary-color-3usv-ext
+              :library opengl)
+    :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.1, EXT_secondary_color
+(defglextfun ("glSecondaryColorPointerEXT" secondary-color-pointer-ext
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, EXT_texture_perturb_normal
+(defglextfun ("glTextureNormalEXT" texture-normal-ext
+              :library opengl)
+    :void
+  (mode enum))
+
+;;; GL version: 1.1, EXT_multi_draw_arrays
+(defglextfun ("glMultiDrawArraysEXT" multi-draw-arrays-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (first (:pointer int))
+  (count (:pointer sizei))
+  (primcount sizei))
+
+;;; GL version: 1.1, EXT_multi_draw_arrays
+(defglextfun ("glMultiDrawElementsEXT" multi-draw-elements-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (count (:pointer sizei))
+  (type enum)
+  (indices (:pointer :pointer))
+  (primcount sizei))
+
+;;; GL version: 1.1, EXT_fog_coord
+(defglextfun ("glFogCoordfEXT" fog-coordf-ext
+              :library opengl)
+    :void
+  (coord float))
+
+;;; GL version: 1.1, EXT_fog_coord
+(defglextfun ("glFogCoordfvEXT" fog-coordfv-ext
+              :library opengl)
+    :void
+  (coord (:pointer float)))
+
+;;; GL version: 1.1, EXT_fog_coord
+(defglextfun ("glFogCoorddEXT" fog-coordd-ext
+              :library opengl)
+    :void
+  (coord double))
+
+;;; GL version: 1.1, EXT_fog_coord
+(defglextfun ("glFogCoorddvEXT" fog-coorddv-ext
+              :library opengl)
+    :void
+  (coord (:pointer double)))
+
+;;; GL version: 1.1, EXT_fog_coord
+(defglextfun ("glFogCoordPointerEXT" fog-coord-pointer-ext
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3bEXT" tangent-3b-ext
+              :library opengl)
+    :void
+  (tx byte)
+  (ty byte)
+  (tz byte))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3bvEXT" tangent-3bv-ext
+              :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3dEXT" tangent-3d-ext
+              :library opengl)
+    :void
+  (tx double)
+  (ty double)
+  (tz double))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3dvEXT" tangent-3dv-ext
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3fEXT" tangent-3f-ext
+              :library opengl)
+    :void
+  (tx float)
+  (ty float)
+  (tz float))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3fvEXT" tangent-3fv-ext
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3iEXT" tangent-3i-ext
+              :library opengl)
+    :void
+  (tx int)
+  (ty int)
+  (tz int))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3ivEXT" tangent-3iv-ext
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3sEXT" tangent-3s-ext
+              :library opengl)
+    :void
+  (tx short)
+  (ty short)
+  (tz short))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangent3svEXT" tangent-3sv-ext
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3bEXT" binormal-3b-ext
+              :library opengl)
+    :void
+  (bx byte)
+  (by byte)
+  (bz byte))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3bvEXT" binormal-3bv-ext
+              :library opengl)
+    :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3dEXT" binormal-3d-ext
+              :library opengl)
+    :void
+  (bx double)
+  (by double)
+  (bz double))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3dvEXT" binormal-3dv-ext
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3fEXT" binormal-3f-ext
+              :library opengl)
+    :void
+  (bx float)
+  (by float)
+  (bz float))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3fvEXT" binormal-3fv-ext
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3iEXT" binormal-3i-ext
+              :library opengl)
+    :void
+  (bx int)
+  (by int)
+  (bz int))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3ivEXT" binormal-3iv-ext
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3sEXT" binormal-3s-ext
+              :library opengl)
+    :void
+  (bx short)
+  (by short)
+  (bz short))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormal3svEXT" binormal-3sv-ext
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glTangentPointerEXT" tangent-pointer-ext
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, EXT_coordinate_frame
+(defglextfun ("glBinormalPointerEXT" binormal-pointer-ext
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, SUNX_constant_data
+(defglextfun ("glFinishTextureSUNX" finish-texture-sunx
+              :library opengl)
+    :void)
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactorbSUN" global-alpha-factorb-sun
+              :library opengl)
+    :void
+  (factor byte))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactorsSUN" global-alpha-factor-s-sun
+              :library opengl)
+    :void
+  (factor short))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactoriSUN" global-alpha-factori-sun
+              :library opengl)
+    :void
+  (factor int))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactorfSUN" global-alpha-factorf-sun
+              :library opengl)
+    :void
+  (factor float))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactordSUN" global-alpha-factord-sun
+              :library opengl)
+    :void
+  (factor double))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactorubSUN" global-alpha-factorub-sun
+              :library opengl)
+    :void
+  (factor ubyte))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactorusSUN" global-alpha-factorus-sun
+              :library opengl)
+    :void
+  (factor ushort))
+
+;;; GL version: 1.1, SUN_global_alpha
+(defglextfun ("glGlobalAlphaFactoruiSUN" global-alpha-factorui-sun
+              :library opengl)
+    :void
+  (factor uint))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeuiSUN" replacement-codeui-sun
+              :library opengl)
+    :void
+  (code uint))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeusSUN" replacement-codeus-sun
+              :library opengl)
+    :void
+  (code ushort))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeubSUN" replacement-codeub-sun
+              :library opengl)
+    :void
+  (code ubyte))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeuivSUN" replacement-codeuiv-sun
+              :library opengl)
+    :void
+  (code (:pointer uint)))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeusvSUN" replacement-codeusv-sun
+              :library opengl)
+    :void
+  (code (:pointer ushort)))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodeubvSUN" replacement-codeubv-sun
+              :library opengl)
+    :void
+  (code (:pointer ubyte)))
+
+;;; GL version: 1.1, SUN_triangle_list
+(defglextfun ("glReplacementCodePointerSUN" replacement-code-pointer-sun
+              :library opengl)
+    :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4ubVertex2fSUN" color-4ub-vertex-2f-sun
+              :library opengl)
+    :void
+  (r ubyte)
+  (g ubyte)
+  (b ubyte)
+  (a ubyte)
+  (x float)
+  (y float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4ubVertex2fvSUN" color-4ub-vertex-2fv-sun
+              :library opengl)
+    :void
+  (c (:pointer ubyte))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4ubVertex3fSUN" color-4ub-vertex-3f-sun
+              :library opengl)
+    :void
+  (r ubyte)
+  (g ubyte)
+  (b ubyte)
+  (a ubyte)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4ubVertex3fvSUN" color-4ub-vertex-3fv-sun
+              :library opengl)
+    :void
+  (c (:pointer ubyte))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor3fVertex3fSUN" color-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (r float)
+  (g float)
+  (b float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor3fVertex3fvSUN" color-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (c (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glNormal3fVertex3fSUN" normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glNormal3fVertex3fvSUN" normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4fNormal3fVertex3fSUN" color-4f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (r float)
+  (g float)
+  (b float)
+  (a float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glColor4fNormal3fVertex3fvSUN" color-4f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (c (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fVertex3fSUN" tex-coord-2f-vertex-3f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fVertex3fvSUN" tex-coord-2f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord4fVertex4fSUN" tex-coord-4f-vertex-4f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (p float)
+  (q float)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord4fVertex4fvSUN" tex-coord-4f-vertex-4fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor4ubVertex3fSUN" tex-coord-2f-color-4ub-vertex-3f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (r ubyte)
+  (g ubyte)
+  (b ubyte)
+  (a ubyte)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor4ubVertex3fvSUN" tex-coord-2f-color-4ub-vertex-3fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (c (:pointer ubyte))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor3fVertex3fSUN" tex-coord-2f-color-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (r float)
+  (g float)
+  (b float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor3fVertex3fvSUN" tex-coord-2f-color-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (c (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fNormal3fVertex3fSUN" tex-coord-2f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fNormal3fVertex3fvSUN" tex-coord-2f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fSUN" tex-coord-2f-color-4f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (r float)
+  (g float)
+  (b float)
+  (a float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fvSUN" tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (c (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fSUN" tex-coord-4f-color-4f-normal-3f-vertex-4f-sun
+              :library opengl)
+    :void
+  (s float)
+  (tee float)
+  (p float)
+  (q float)
+  (r float)
+  (g float)
+  (b float)
+  (a float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fvSUN" tex-coord-4f-color-4f-normal-3f-vertex-4fv-sun
+              :library opengl)
+    :void
+  (tc (:pointer float))
+  (c (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiVertex3fSUN" replacement-codeui-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiVertex3fvSUN" replacement-codeui-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor4ubVertex3fSUN" replacement-codeui-color-4ub-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (r ubyte)
+  (g ubyte)
+  (b ubyte)
+  (a ubyte)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor4ubVertex3fvSUN" replacement-codeui-color-4ub-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (c (:pointer ubyte))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor3fVertex3fSUN" replacement-codeui-color-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (r float)
+  (g float)
+  (b float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor3fVertex3fvSUN" replacement-codeui-color-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (c (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiNormal3fVertex3fSUN" replacement-codeui-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiNormal3fVertex3fvSUN" replacement-codeui-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fSUN" replacement-codeui-color-4f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (r float)
+  (g float)
+  (b float)
+  (a float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fvSUN" replacement-codeui-color-4f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (c (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fSUN" replacement-codeui-tex-coord-2f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (s float)
+  (tee float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fvSUN" replacement-codeui-tex-coord-2f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (tc (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN" replacement-codeui-tex-coord-2f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (s float)
+  (tee float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN" replacement-codeui-tex-coord-2f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (tc (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN" replacement-codeui-tex-coord-2f-color-4f-normal-3f-vertex-3f-sun
+              :library opengl)
+    :void
+  (rc uint)
+  (s float)
+  (tee float)
+  (r float)
+  (g float)
+  (b float)
+  (a float)
+  (nx float)
+  (ny float)
+  (nz float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.1, SUN_vertex
+(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN" replacement-codeui-tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun
+              :library opengl)
+    :void
+  (rc (:pointer uint))
+  (tc (:pointer float))
+  (c (:pointer float))
+  (n (:pointer float))
+  (v (:pointer float)))
+
+;;; GL version: 1.0, EXT_blend_func_separate
+(defglextfun ("glBlendFuncSeparateEXT" blend-func-separate-ext
+              :library opengl)
+    :void
+  (sfactorRGB enum)
+  (dfactorRGB enum)
+  (sfactorAlpha enum)
+  (dfactorAlpha enum))
+
+;;; GL version: 1.0, INGR_blend_func_separate
+(defglextfun ("glBlendFuncSeparateINGR" blend-func-separate-ingr
+              :library opengl)
+    :void
+  (sfactorRGB enum)
+  (dfactorRGB enum)
+  (sfactorAlpha enum)
+  (dfactorAlpha enum))
+
+;;; GL version: 1.1, EXT_vertex_weighting
+(defglextfun ("glVertexWeightfEXT" vertex-weightf-ext
+              :library opengl)
+    :void
+  (weight float))
+
+;;; GL version: 1.1, EXT_vertex_weighting
+(defglextfun ("glVertexWeightfvEXT" vertex-weightfv-ext
+              :library opengl)
+    :void
+  (weight (:pointer float)))
+
+;;; GL version: 1.1, EXT_vertex_weighting
+(defglextfun ("glVertexWeightPointerEXT" vertex-weight-pointer-ext
+              :library opengl)
+    :void
+  (size sizei)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, NV_vertex_array_range
+(defglextfun ("glFlushVertexArrayRangeNV" flush-vertex-array-range-nv
+              :library opengl)
+    :void)
+
+;;; GL version: 1.1, NV_vertex_array_range
+(defglextfun ("glVertexArrayRangeNV" vertex-array-range-nv
+              :library opengl)
+    :void
+  (length sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerParameterfvNV" combiner-parameterfv-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerParameterfNV" combiner-parameterf-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerParameterivNV" combiner-parameteriv-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerParameteriNV" combiner-parameteri-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerInputNV" combiner-input-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (variable enum)
+  (input enum)
+  (mapping enum)
+  (componentUsage enum))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glCombinerOutputNV" combiner-output-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (abOutput enum)
+  (cdOutput enum)
+  (sumOutput enum)
+  (scale enum)
+  (bias enum)
+  (abDotProduct boolean)
+  (cdDotProduct boolean)
+  (muxSum boolean))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glFinalCombinerInputNV" final-combiner-input-nv
+              :library opengl)
+    :void
+  (variable enum)
+  (input enum)
+  (mapping enum)
+  (componentUsage enum))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetCombinerInputParameterfvNV" get-combiner-input-parameterfv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (variable enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetCombinerInputParameterivNV" get-combiner-input-parameteriv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (variable enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetCombinerOutputParameterfvNV" get-combiner-output-parameterfv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetCombinerOutputParameterivNV" get-combiner-output-parameteriv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (portion enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetFinalCombinerInputParameterfvNV" get-final-combiner-input-parameterfv-nv
+              :library opengl)
+    :void
+  (variable enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_register_combiners
+(defglextfun ("glGetFinalCombinerInputParameterivNV" get-final-combiner-input-parameteriv-nv
+              :library opengl)
+    :void
+  (variable enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, MESA_resize_buffers
+(defglextfun ("glResizeBuffersMESA" resize-buffers-mesa
+              :library opengl)
+    :void)
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2dMESA" window-pos-2d-mesa
+              :library opengl)
+    :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2dvMESA" window-pos-2dv-mesa
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2fMESA" window-pos-2f-mesa
+              :library opengl)
+    :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2fvMESA" window-pos-2fv-mesa
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2iMESA" window-pos-2i-mesa
+              :library opengl)
+    :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2ivMESA" window-pos-2iv-mesa
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2sMESA" window-pos-2s-mesa
+              :library opengl)
+    :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos2svMESA" window-pos-2sv-mesa
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3dMESA" window-pos-3d-mesa
+              :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3dvMESA" window-pos-3dv-mesa
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3fMESA" window-pos-3f-mesa
+              :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3fvMESA" window-pos-3fv-mesa
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3iMESA" window-pos-3i-mesa
+              :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3ivMESA" window-pos-3iv-mesa
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3sMESA" window-pos-3s-mesa
+              :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos3svMESA" window-pos-3sv-mesa
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4dMESA" window-pos-4d-mesa
+              :library opengl)
+    :void
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4dvMESA" window-pos-4dv-mesa
+              :library opengl)
+    :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4fMESA" window-pos-4f-mesa
+              :library opengl)
+    :void
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4fvMESA" window-pos-4fv-mesa
+              :library opengl)
+    :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4iMESA" window-pos-4i-mesa
+              :library opengl)
+    :void
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4ivMESA" window-pos-4iv-mesa
+              :library opengl)
+    :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4sMESA" window-pos-4s-mesa
+              :library opengl)
+    :void
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.0, MESA_window_pos
+(defglextfun ("glWindowPos4svMESA" window-pos-4sv-mesa
+              :library opengl)
+    :void
+  (v (:pointer short)))
+
+;;; GL version: 1.1, IBM_multimode_draw_arrays
+(defglextfun ("glMultiModeDrawArraysIBM" multi-mode-draw-arrays-ibm
+              :library opengl)
+    :void
+  (mode (:pointer enum))
+  (first (:pointer int))
+  (count (:pointer sizei))
+  (primcount sizei)
+  (modestride int))
+
+;;; GL version: 1.1, IBM_multimode_draw_arrays
+(defglextfun ("glMultiModeDrawElementsIBM" multi-mode-draw-elements-ibm
+              :library opengl)
+    :void
+  (mode (:pointer enum))
+  (count (:pointer sizei))
+  (type enum)
+  (indices (:pointer :pointer))
+  (primcount sizei)
+  (modestride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glColorPointerListIBM" color-pointer-list-ibm
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glSecondaryColorPointerListIBM" secondary-color-pointer-list-ibm
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glEdgeFlagPointerListIBM" edge-flag-pointer-list-ibm
+              :library opengl)
+    :void
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glFogCoordPointerListIBM" fog-coord-pointer-list-ibm
+              :library opengl)
+    :void
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glIndexPointerListIBM" index-pointer-list-ibm
+              :library opengl)
+    :void
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glNormalPointerListIBM" normal-pointer-list-ibm
+              :library opengl)
+    :void
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glTexCoordPointerListIBM" tex-coord-pointer-list-ibm
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.1, IBM_vertex_array_lists
+(defglextfun ("glVertexPointerListIBM" vertex-pointer-list-ibm
+              :library opengl)
+    :void
+  (size int)
+  (type enum)
+  (stride int)
+  (pointer (:pointer :pointer))
+  (ptrstride int))
+
+;;; GL version: 1.2, 3DFX_tbuffer
+(defglextfun ("glTbufferMask3DFX" tbuffer-mask-3dfx
+              :library opengl)
+    :void
+  (mask uint))
+
+;;; GL version: 1.0, EXT_multisample
+(defglextfun ("glSampleMaskEXT" sample-mask-ext
+              :library opengl)
+    :void
+  (value clampf)
+  (invert boolean))
+
+;;; GL version: 1.0, EXT_multisample
+(defglextfun ("glSamplePatternEXT" sample-pattern-ext
+              :library opengl)
+    :void
+  (pattern enum))
+
+;;; GL version: 1.1, SGIS_texture_color_mask
+(defglextfun ("glTextureColorMaskSGIS" texture-color-mask-sgis
+              :library opengl)
+    :void
+  (red boolean)
+  (green boolean)
+  (blue boolean)
+  (alpha boolean))
+
+;;; GL version: 1.0, SGIX_igloo_interface
+(defglextfun ("glIglooInterfaceSGIX" igloo-interface-sgix
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer void)))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glDeleteFencesNV" delete-fences-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (fences (:pointer uint)))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glGenFencesNV" gen-fences-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (fences (:pointer uint)))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glIsFenceNV" is-fence-nv
+              :library opengl)
+    boolean
+  (fence uint))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glTestFenceNV" test-fence-nv
+              :library opengl)
+    boolean
+  (fence uint))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glGetFenceivNV" get-fenceiv-nv
+              :library opengl)
+    :void
+  (fence uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glFinishFenceNV" finish-fence-nv
+              :library opengl)
+    :void
+  (fence uint))
+
+;;; GL version: 1.2, NV_fence
+(defglextfun ("glSetFenceNV" set-fence-nv
+              :library opengl)
+    :void
+  (fence uint)
+  (condition enum))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glMapControlPointsNV" map-control-points-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (type enum)
+  (ustride sizei)
+  (vstride sizei)
+  (uorder int)
+  (vorder int)
+  (packed boolean)
+  (points (:pointer void)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glMapParameterivNV" map-parameteriv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glMapParameterfvNV" map-parameterfv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glGetMapControlPointsNV" get-map-control-points-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (type enum)
+  (ustride sizei)
+  (vstride sizei)
+  (packed boolean)
+  (points (:pointer void)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glGetMapParameterivNV" get-map-parameteriv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glGetMapParameterfvNV" get-map-parameterfv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glGetMapAttribParameterivNV" get-map-attrib-parameteriv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glGetMapAttribParameterfvNV" get-map-attrib-parameterfv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_evaluators
+(defglextfun ("glEvalMapsNV" eval-maps-nv
+              :library opengl)
+    :void
+  (target enum)
+  (mode enum))
+
+;;; GL version: 1.1, NV_register_combiners2
+(defglextfun ("glCombinerStageParameterfvNV" combiner-stage-parameterfv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.1, NV_register_combiners2
+(defglextfun ("glGetCombinerStageParameterfvNV" get-combiner-stage-parameterfv-nv
+              :library opengl)
+    :void
+  (stage enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glAreProgramsResidentNV" are-programs-resident-nv
+              :library opengl)
+    boolean
+  (n sizei)
+  (programs (:pointer uint))
+  (residences (:pointer boolean)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glBindProgramNV" bind-program-nv
+              :library opengl)
+    :void
+  (target enum)
+  (id uint))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glDeleteProgramsNV" delete-programs-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (programs (:pointer uint)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glExecuteProgramNV" execute-program-nv
+              :library opengl)
+    :void
+  (target enum)
+  (id uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGenProgramsNV" gen-programs-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (programs (:pointer uint)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetProgramParameterdvNV" get-program-parameterdv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetProgramParameterfvNV" get-program-parameterfv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetProgramivNV" get-programiv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetProgramStringNV" get-program-string-nv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (program (:pointer ubyte)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetTrackMatrixivNV" get-track-matrixiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (address uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetVertexAttribdvNV" get-vertex-attribdv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetVertexAttribfvNV" get-vertex-attribfv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetVertexAttribivNV" get-vertex-attribiv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glGetVertexAttribPointervNV" get-vertex-attrib-pointerv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (pointer (:pointer :pointer)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glIsProgramNV" is-program-nv
+              :library opengl)
+    boolean
+  (id uint))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glLoadProgramNV" load-program-nv
+              :library opengl)
+    :void
+  (target enum)
+  (id uint)
+  (len sizei)
+  (program (:pointer ubyte)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameter4dNV" program-parameter-4d-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameter4dvNV" program-parameter-4dv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameter4fNV" program-parameter-4f-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameter4fvNV" program-parameter-4fv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameters4dvNV" program-parameters-4dv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glProgramParameters4fvNV" program-parameters-4fv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glRequestResidentProgramsNV" request-resident-programs-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (programs (:pointer uint)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glTrackMatrixNV" track-matrix-nv
+              :library opengl)
+    :void
+  (target enum)
+  (address uint)
+  (matrix enum)
+  (transform enum))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribPointerNV" vertex-attrib-pointer-nv
+              :library opengl)
+    :void
+  (index uint)
+  (fsize int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1dNV" vertex-attrib-1d-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x double))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1dvNV" vertex-attrib-1dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1fNV" vertex-attrib-1f-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x float))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1fvNV" vertex-attrib-1fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1sNV" vertex-attrib-1s-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x short))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib1svNV" vertex-attrib-1sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2dNV" vertex-attrib-2d-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2dvNV" vertex-attrib-2dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2fNV" vertex-attrib-2f-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2fvNV" vertex-attrib-2fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2sNV" vertex-attrib-2s-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib2svNV" vertex-attrib-2sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3dNV" vertex-attrib-3d-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3dvNV" vertex-attrib-3dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3fNV" vertex-attrib-3f-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3fvNV" vertex-attrib-3fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3sNV" vertex-attrib-3s-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib3svNV" vertex-attrib-3sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4dNV" vertex-attrib-4d-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4dvNV" vertex-attrib-4dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4fNV" vertex-attrib-4f-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4fvNV" vertex-attrib-4fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4sNV" vertex-attrib-4s-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4svNV" vertex-attrib-4sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4ubNV" vertex-attrib-4ub-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x ubyte)
+  (y ubyte)
+  (z ubyte)
+  (w ubyte))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttrib4ubvNV" vertex-attrib-4ubv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs1dvNV" vertex-attribs-1dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs1fvNV" vertex-attribs-1fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs1svNV" vertex-attribs-1sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs2dvNV" vertex-attribs-2dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs2fvNV" vertex-attribs-2fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs2svNV" vertex-attribs-2sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs3dvNV" vertex-attribs-3dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs3fvNV" vertex-attribs-3fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs3svNV" vertex-attribs-3sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs4dvNV" vertex-attribs-4dv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs4fvNV" vertex-attribs-4fv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs4svNV" vertex-attribs-4sv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer short)))
+
+;;; GL version: 1.2, NV_vertex_program
+(defglextfun ("glVertexAttribs4ubvNV" vertex-attribs-4ubv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (count sizei)
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.2, ATI_envmap_bumpmap
+(defglextfun ("glTexBumpParameterivATI" tex-bump-parameteriv-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param (:pointer int)))
+
+;;; GL version: 1.2, ATI_envmap_bumpmap
+(defglextfun ("glTexBumpParameterfvATI" tex-bump-parameterfv-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param (:pointer float)))
+
+;;; GL version: 1.2, ATI_envmap_bumpmap
+(defglextfun ("glGetTexBumpParameterivATI" get-tex-bump-parameteriv-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param (:pointer int)))
+
+;;; GL version: 1.2, ATI_envmap_bumpmap
+(defglextfun ("glGetTexBumpParameterfvATI" get-tex-bump-parameterfv-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param (:pointer float)))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glGenFragmentShadersATI" gen-fragment-shaders-ati
+              :library opengl)
+    uint
+  (range uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glBindFragmentShaderATI" bind-fragment-shader-ati
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glDeleteFragmentShaderATI" delete-fragment-shader-ati
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glBeginFragmentShaderATI" begin-fragment-shader-ati
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glEndFragmentShaderATI" end-fragment-shader-ati
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glPassTexCoordATI" pass-tex-coord-ati
+              :library opengl)
+    :void
+  (dst uint)
+  (coord uint)
+  (swizzle enum))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glSampleMapATI" sample-map-ati
+              :library opengl)
+    :void
+  (dst uint)
+  (interp uint)
+  (swizzle enum))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glColorFragmentOp1ATI" color-fragment-op-1-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMask uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glColorFragmentOp2ATI" color-fragment-op-2-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMask uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint)
+  (arg2 uint)
+  (arg2Rep uint)
+  (arg2Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glColorFragmentOp3ATI" color-fragment-op-3-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMask uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint)
+  (arg2 uint)
+  (arg2Rep uint)
+  (arg2Mod uint)
+  (arg3 uint)
+  (arg3Rep uint)
+  (arg3Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glAlphaFragmentOp1ATI" alpha-fragment-op-1-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glAlphaFragmentOp2ATI" alpha-fragment-op-2-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint)
+  (arg2 uint)
+  (arg2Rep uint)
+  (arg2Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glAlphaFragmentOp3ATI" alpha-fragment-op-3-ati
+              :library opengl)
+    :void
+  (op enum)
+  (dst uint)
+  (dstMod uint)
+  (arg1 uint)
+  (arg1Rep uint)
+  (arg1Mod uint)
+  (arg2 uint)
+  (arg2Rep uint)
+  (arg2Mod uint)
+  (arg3 uint)
+  (arg3Rep uint)
+  (arg3Mod uint))
+
+;;; GL version: 1.2, ATI_fragment_shader
+(defglextfun ("glSetFragmentShaderConstantATI" set-fragment-shader-constant-ati
+              :library opengl)
+    :void
+  (dst uint)
+  (value (:pointer float)))
+
+;;; GL version: 1.2, ATI_pn_triangles
+(defglextfun ("glPNTrianglesiATI" pntrianglesi-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.2, ATI_pn_triangles
+(defglextfun ("glPNTrianglesfATI" pntrianglesf-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glNewObjectBufferATI" new-object-buffer-ati
+              :library opengl)
+    uint
+  (size sizei)
+  (pointer (:pointer void))
+  (usage enum))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glIsObjectBufferATI" is-object-buffer-ati
+              :library opengl)
+    boolean
+  (buffer uint))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glUpdateObjectBufferATI" update-object-buffer-ati
+              :library opengl)
+    :void
+  (buffer uint)
+  (offset uint)
+  (size sizei)
+  (pointer (:pointer void))
+  (preserve enum))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetObjectBufferfvATI" get-object-bufferfv-ati
+              :library opengl)
+    :void
+  (buffer uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetObjectBufferivATI" get-object-bufferiv-ati
+              :library opengl)
+    :void
+  (buffer uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glFreeObjectBufferATI" free-object-buffer-ati
+              :library opengl)
+    :void
+  (buffer uint))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glArrayObjectATI" array-object-ati
+              :library opengl)
+    :void
+  (array enum)
+  (size int)
+  (type enum)
+  (stride sizei)
+  (buffer uint)
+  (offset uint))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetArrayObjectfvATI" get-array-objectfv-ati
+              :library opengl)
+    :void
+  (array enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetArrayObjectivATI" get-array-objectiv-ati
+              :library opengl)
+    :void
+  (array enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glVariantArrayObjectATI" variant-array-object-ati
+              :library opengl)
+    :void
+  (id uint)
+  (type enum)
+  (stride sizei)
+  (buffer uint)
+  (offset uint))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetVariantArrayObjectfvATI" get-variant-array-objectfv-ati
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_array_object
+(defglextfun ("glGetVariantArrayObjectivATI" get-variant-array-objectiv-ati
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBeginVertexShaderEXT" begin-vertex-shader-ext
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glEndVertexShaderEXT" end-vertex-shader-ext
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindVertexShaderEXT" bind-vertex-shader-ext
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGenVertexShadersEXT" gen-vertex-shaders-ext
+              :library opengl)
+    uint
+  (range uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glDeleteVertexShaderEXT" delete-vertex-shader-ext
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glShaderOp1EXT" shader-op-1-ext
+              :library opengl)
+    :void
+  (op enum)
+  (res uint)
+  (arg1 uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glShaderOp2EXT" shader-op-2-ext
+              :library opengl)
+    :void
+  (op enum)
+  (res uint)
+  (arg1 uint)
+  (arg2 uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glShaderOp3EXT" shader-op-3-ext
+              :library opengl)
+    :void
+  (op enum)
+  (res uint)
+  (arg1 uint)
+  (arg2 uint)
+  (arg3 uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glSwizzleEXT" swizzle-ext
+              :library opengl)
+    :void
+  (res uint)
+  (in uint)
+  (outX enum)
+  (outY enum)
+  (outZ enum)
+  (outW enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glWriteMaskEXT" write-mask-ext
+              :library opengl)
+    :void
+  (res uint)
+  (in uint)
+  (outX enum)
+  (outY enum)
+  (outZ enum)
+  (outW enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glInsertComponentEXT" insert-component-ext
+              :library opengl)
+    :void
+  (res uint)
+  (src uint)
+  (num uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glExtractComponentEXT" extract-component-ext
+              :library opengl)
+    :void
+  (res uint)
+  (src uint)
+  (num uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGenSymbolsEXT" gen-symbols-ext
+              :library opengl)
+    uint
+  (datatype enum)
+  (storagetype enum)
+  (range enum)
+  (components uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glSetInvariantEXT" set-invariant-ext
+              :library opengl)
+    :void
+  (id uint)
+  (type enum)
+  (addr (:pointer void)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glSetLocalConstantEXT" set-local-constant-ext
+              :library opengl)
+    :void
+  (id uint)
+  (type enum)
+  (addr (:pointer void)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantbvEXT" variantbv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer byte)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantsvEXT" variantsv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer short)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantivEXT" variantiv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer int)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantfvEXT" variantfv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer float)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantdvEXT" variantdv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer double)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantubvEXT" variantubv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer ubyte)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantusvEXT" variantusv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer ushort)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantuivEXT" variantuiv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (addr (:pointer uint)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glVariantPointerEXT" variant-pointer-ext
+              :library opengl)
+    :void
+  (id uint)
+  (type enum)
+  (stride uint)
+  (addr (:pointer void)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glEnableVariantClientStateEXT" enable-variant-client-state-ext
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glDisableVariantClientStateEXT" disable-variant-client-state-ext
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindLightParameterEXT" bind-light-parameter-ext
+              :library opengl)
+    uint
+  (light enum)
+  (value enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindMaterialParameterEXT" bind-material-parameter-ext
+              :library opengl)
+    uint
+  (face enum)
+  (value enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindTexGenParameterEXT" bind-tex-gen-parameter-ext
+              :library opengl)
+    uint
+  (unit enum)
+  (coord enum)
+  (value enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindTextureUnitParameterEXT" bind-texture-unit-parameter-ext
+              :library opengl)
+    uint
+  (unit enum)
+  (value enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glBindParameterEXT" bind-parameter-ext
+              :library opengl)
+    uint
+  (value enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glIsVariantEnabledEXT" is-variant-enabled-ext
+              :library opengl)
+    boolean
+  (id uint)
+  (cap enum))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetVariantBooleanvEXT" get-variant-booleanv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer boolean)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetVariantIntegervEXT" get-variant-integerv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer int)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetVariantFloatvEXT" get-variant-floatv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer float)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetVariantPointervEXT" get-variant-pointerv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer :pointer)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetInvariantBooleanvEXT" get-invariant-booleanv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer boolean)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetInvariantIntegervEXT" get-invariant-integerv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer int)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetInvariantFloatvEXT" get-invariant-floatv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer float)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetLocalConstantBooleanvEXT" get-local-constant-booleanv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer boolean)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetLocalConstantIntegervEXT" get-local-constant-integerv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer int)))
+
+;;; GL version: 1.2, EXT_vertex_shader
+(defglextfun ("glGetLocalConstantFloatvEXT" get-local-constant-floatv-ext
+              :library opengl)
+    :void
+  (id uint)
+  (value enum)
+  (data (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1sATI" vertex-stream-1s-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x short))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1svATI" vertex-stream-1sv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer short)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1iATI" vertex-stream-1i-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1ivATI" vertex-stream-1iv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1fATI" vertex-stream-1f-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x float))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1fvATI" vertex-stream-1fv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1dATI" vertex-stream-1d-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x double))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream1dvATI" vertex-stream-1dv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer double)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2sATI" vertex-stream-2s-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x short)
+  (y short))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2svATI" vertex-stream-2sv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer short)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2iATI" vertex-stream-2i-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x int)
+  (y int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2ivATI" vertex-stream-2iv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2fATI" vertex-stream-2f-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x float)
+  (y float))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2fvATI" vertex-stream-2fv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2dATI" vertex-stream-2d-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x double)
+  (y double))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream2dvATI" vertex-stream-2dv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer double)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3sATI" vertex-stream-3s-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3svATI" vertex-stream-3sv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer short)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3iATI" vertex-stream-3i-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3ivATI" vertex-stream-3iv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3fATI" vertex-stream-3f-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3fvATI" vertex-stream-3fv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3dATI" vertex-stream-3d-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream3dvATI" vertex-stream-3dv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer double)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4sATI" vertex-stream-4s-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4svATI" vertex-stream-4sv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer short)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4iATI" vertex-stream-4i-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4ivATI" vertex-stream-4iv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4fATI" vertex-stream-4f-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4fvATI" vertex-stream-4fv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4dATI" vertex-stream-4d-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexStream4dvATI" vertex-stream-4dv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer double)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3bATI" normal-stream-3b-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (nx byte)
+  (ny byte)
+  (nz byte))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3bvATI" normal-stream-3bv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer byte)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3sATI" normal-stream-3s-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (nx short)
+  (ny short)
+  (nz short))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3svATI" normal-stream-3sv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer short)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3iATI" normal-stream-3i-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (nx int)
+  (ny int)
+  (nz int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3ivATI" normal-stream-3iv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer int)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3fATI" normal-stream-3f-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (nx float)
+  (ny float)
+  (nz float))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3fvATI" normal-stream-3fv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3dATI" normal-stream-3d-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (nx double)
+  (ny double)
+  (nz double))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glNormalStream3dvATI" normal-stream-3dv-ati
+              :library opengl)
+    :void
+  (stream enum)
+  (coords (:pointer double)))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glClientActiveVertexStreamATI" client-active-vertex-stream-ati
+              :library opengl)
+    :void
+  (stream enum))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexBlendEnviATI" vertex-blend-envi-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.2, ATI_vertex_streams
+(defglextfun ("glVertexBlendEnvfATI" vertex-blend-envf-ati
+              :library opengl)
+    :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.2, ATI_element_array
+(defglextfun ("glElementPointerATI" element-pointer-ati
+              :library opengl)
+    :void
+  (type enum)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, ATI_element_array
+(defglextfun ("glDrawElementArrayATI" draw-element-array-ati
+              :library opengl)
+    :void
+  (mode enum)
+  (count sizei))
+
+;;; GL version: 1.2, ATI_element_array
+(defglextfun ("glDrawRangeElementArrayATI" draw-range-element-array-ati
+              :library opengl)
+    :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (count sizei))
+
+;;; GL version: 1.1, SUN_mesh_array
+(defglextfun ("glDrawMeshArraysSUN" draw-mesh-arrays-sun
+              :library opengl)
+    :void
+  (mode enum)
+  (first int)
+  (count sizei)
+  (width sizei))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glGenOcclusionQueriesNV" gen-occlusion-queries-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glDeleteOcclusionQueriesNV" delete-occlusion-queries-nv
+              :library opengl)
+    :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glIsOcclusionQueryNV" is-occlusion-query-nv
+              :library opengl)
+    boolean
+  (id uint))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glBeginOcclusionQueryNV" begin-occlusion-query-nv
+              :library opengl)
+    :void
+  (id uint))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glEndOcclusionQueryNV" end-occlusion-query-nv
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glGetOcclusionQueryivNV" get-occlusion-queryiv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_occlusion_query
+(defglextfun ("glGetOcclusionQueryuivNV" get-occlusion-queryuiv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.2, NV_point_sprite
+(defglextfun ("glPointParameteriNV" point-parameteri-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.2, NV_point_sprite
+(defglextfun ("glPointParameterivNV" point-parameteriv-nv
+              :library opengl)
+    :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, EXT_stencil_two_side
+(defglextfun ("glActiveStencilFaceEXT" active-stencil-face-ext
+              :library opengl)
+    :void
+  (face enum))
+
+;;; GL version: 1.2, APPLE_element_array
+(defglextfun ("glElementPointerAPPLE" element-pointer-apple
+              :library opengl)
+    :void
+  (type enum)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, APPLE_element_array
+(defglextfun ("glDrawElementArrayAPPLE" draw-element-array-apple
+              :library opengl)
+    :void
+  (mode enum)
+  (first int)
+  (count sizei))
+
+;;; GL version: 1.2, APPLE_element_array
+(defglextfun ("glDrawRangeElementArrayAPPLE" draw-range-element-array-apple
+              :library opengl)
+    :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (first int)
+  (count sizei))
+
+;;; GL version: 1.2, APPLE_element_array
+(defglextfun ("glMultiDrawElementArrayAPPLE" multi-draw-element-array-apple
+              :library opengl)
+    :void
+  (mode enum)
+  (first (:pointer int))
+  (count (:pointer sizei))
+  (primcount sizei))
+
+;;; GL version: 1.2, APPLE_element_array
+(defglextfun ("glMultiDrawRangeElementArrayAPPLE" multi-draw-range-element-array-apple
+              :library opengl)
+    :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (first (:pointer int))
+  (count (:pointer sizei))
+  (primcount sizei))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glGenFencesAPPLE" gen-fences-apple
+              :library opengl)
+    :void
+  (n sizei)
+  (fences (:pointer uint)))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glDeleteFencesAPPLE" delete-fences-apple
+              :library opengl)
+    :void
+  (n sizei)
+  (fences (:pointer uint)))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glSetFenceAPPLE" set-fence-apple
+              :library opengl)
+    :void
+  (fence uint))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glIsFenceAPPLE" is-fence-apple
+              :library opengl)
+    boolean
+  (fence uint))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glTestFenceAPPLE" test-fence-apple
+              :library opengl)
+    boolean
+  (fence uint))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glFinishFenceAPPLE" finish-fence-apple
+              :library opengl)
+    :void
+  (fence uint))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glTestObjectAPPLE" test-object-apple
+              :library opengl)
+    boolean
+  (object enum)
+  (name uint))
+
+;;; GL version: 1.2, APPLE_fence
+(defglextfun ("glFinishObjectAPPLE" finish-object-apple
+              :library opengl)
+    :void
+  (object enum)
+  (name int))
+
+;;; GL version: 1.2, APPLE_vertex_array_object
+(defglextfun ("glBindVertexArrayAPPLE" bind-vertex-array-apple
+              :library opengl)
+    :void
+  (array uint))
+
+;;; GL version: 1.2, APPLE_vertex_array_object
+(defglextfun ("glDeleteVertexArraysAPPLE" delete-vertex-arrays-apple
+              :library opengl)
+    :void
+  (n sizei)
+  (arrays (:pointer uint)))
+
+;;; GL version: 1.2, APPLE_vertex_array_object
+(defglextfun ("glGenVertexArraysAPPLE" gen-vertex-arrays-apple
+              :library opengl)
+    :void
+  (n sizei)
+  (arrays (:pointer uint)))
+
+;;; GL version: 1.2, APPLE_vertex_array_object
+(defglextfun ("glIsVertexArrayAPPLE" is-vertex-array-apple
+              :library opengl)
+    boolean
+  (array uint))
+
+;;; GL version: 1.2, APPLE_vertex_array_range
+(defglextfun ("glVertexArrayRangeAPPLE" vertex-array-range-apple
+              :library opengl)
+    :void
+  (length sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, APPLE_vertex_array_range
+(defglextfun ("glFlushVertexArrayRangeAPPLE" flush-vertex-array-range-apple
+              :library opengl)
+    :void
+  (length sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, APPLE_vertex_array_range
+(defglextfun ("glVertexArrayParameteriAPPLE" vertex-array-parameteri-apple
+              :library opengl)
+    :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.2, ATI_draw_buffers
+(defglextfun ("glDrawBuffersATI" draw-buffers-ati
+              :library opengl)
+    :void
+  (n sizei)
+  (bufs (:pointer enum)))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glProgramNamedParameter4fNV" program-named-parameter-4f-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glProgramNamedParameter4dNV" program-named-parameter-4d-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glProgramNamedParameter4fvNV" program-named-parameter-4fv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (v (:pointer float)))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glProgramNamedParameter4dvNV" program-named-parameter-4dv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (v (:pointer double)))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glGetProgramNamedParameterfvNV" get-program-named-parameterfv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_fragment_program
+(defglextfun ("glGetProgramNamedParameterdvNV" get-program-named-parameterdv-nv
+              :library opengl)
+    :void
+  (id uint)
+  (len sizei)
+  (name (:pointer ubyte))
+  (params (:pointer double)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex2hNV" vertex-2h-nv
+              :library opengl)
+    :void
+  (x half-nv)
+  (y half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex2hvNV" vertex-2hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex3hNV" vertex-3h-nv
+              :library opengl)
+    :void
+  (x half-nv)
+  (y half-nv)
+  (z half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex3hvNV" vertex-3hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex4hNV" vertex-4h-nv
+              :library opengl)
+    :void
+  (x half-nv)
+  (y half-nv)
+  (z half-nv)
+  (w half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertex4hvNV" vertex-4hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glNormal3hNV" normal-3h-nv
+              :library opengl)
+    :void
+  (nx half-nv)
+  (ny half-nv)
+  (nz half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glNormal3hvNV" normal-3hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glColor3hNV" color-3h-nv
+              :library opengl)
+    :void
+  (red half-nv)
+  (green half-nv)
+  (blue half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glColor3hvNV" color-3hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glColor4hNV" color-4h-nv
+              :library opengl)
+    :void
+  (red half-nv)
+  (green half-nv)
+  (blue half-nv)
+  (alpha half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glColor4hvNV" color-4hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord1hNV" tex-coord-1h-nv
+              :library opengl)
+    :void
+  (s half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord1hvNV" tex-coord-1hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord2hNV" tex-coord-2h-nv
+              :library opengl)
+    :void
+  (s half-nv)
+  (tee half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord2hvNV" tex-coord-2hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord3hNV" tex-coord-3h-nv
+              :library opengl)
+    :void
+  (s half-nv)
+  (tee half-nv)
+  (r half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord3hvNV" tex-coord-3hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord4hNV" tex-coord-4h-nv
+              :library opengl)
+    :void
+  (s half-nv)
+  (tee half-nv)
+  (r half-nv)
+  (q half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glTexCoord4hvNV" tex-coord-4hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord1hNV" multi-tex-coord-1h-nv
+              :library opengl)
+    :void
+  (target enum)
+  (s half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord1hvNV" multi-tex-coord-1hv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord2hNV" multi-tex-coord-2h-nv
+              :library opengl)
+    :void
+  (target enum)
+  (s half-nv)
+  (tee half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord2hvNV" multi-tex-coord-2hv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord3hNV" multi-tex-coord-3h-nv
+              :library opengl)
+    :void
+  (target enum)
+  (s half-nv)
+  (tee half-nv)
+  (r half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord3hvNV" multi-tex-coord-3hv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord4hNV" multi-tex-coord-4h-nv
+              :library opengl)
+    :void
+  (target enum)
+  (s half-nv)
+  (tee half-nv)
+  (r half-nv)
+  (q half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glMultiTexCoord4hvNV" multi-tex-coord-4hv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glFogCoordhNV" fog-coordh-nv
+              :library opengl)
+    :void
+  (fog half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glFogCoordhvNV" fog-coordhv-nv
+              :library opengl)
+    :void
+  (fog (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glSecondaryColor3hNV" secondary-color-3h-nv
+              :library opengl)
+    :void
+  (red half-nv)
+  (green half-nv)
+  (blue half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glSecondaryColor3hvNV" secondary-color-3hv-nv
+              :library opengl)
+    :void
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexWeighthNV" vertex-weighth-nv
+              :library opengl)
+    :void
+  (weight half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexWeighthvNV" vertex-weighthv-nv
+              :library opengl)
+    :void
+  (weight (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib1hNV" vertex-attrib-1h-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib1hvNV" vertex-attrib-1hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib2hNV" vertex-attrib-2h-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x half-nv)
+  (y half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib2hvNV" vertex-attrib-2hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib3hNV" vertex-attrib-3h-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x half-nv)
+  (y half-nv)
+  (z half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib3hvNV" vertex-attrib-3hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib4hNV" vertex-attrib-4h-nv
+              :library opengl)
+    :void
+  (index uint)
+  (x half-nv)
+  (y half-nv)
+  (z half-nv)
+  (w half-nv))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttrib4hvNV" vertex-attrib-4hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttribs1hvNV" vertex-attribs-1hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (n sizei)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttribs2hvNV" vertex-attribs-2hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (n sizei)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttribs3hvNV" vertex-attribs-3hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (n sizei)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_half_float
+(defglextfun ("glVertexAttribs4hvNV" vertex-attribs-4hv-nv
+              :library opengl)
+    :void
+  (index uint)
+  (n sizei)
+  (v (:pointer half-nv)))
+
+;;; GL version: 1.2, NV_pixel_data_range
+(defglextfun ("glPixelDataRangeNV" pixel-data-range-nv
+              :library opengl)
+    :void
+  (target enum)
+  (length sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, NV_pixel_data_range
+(defglextfun ("glFlushPixelDataRangeNV" flush-pixel-data-range-nv
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.2, NV_primitive_restart
+(defglextfun ("glPrimitiveRestartNV" primitive-restart-nv
+              :library opengl)
+    :void)
+
+;;; GL version: 1.2, NV_primitive_restart
+(defglextfun ("glPrimitiveRestartIndexNV" primitive-restart-index-nv
+              :library opengl)
+    :void
+  (index uint))
+
+;;; GL version: 1.2, ATI_map_object_buffer
+(defglextfun ("glMapObjectBufferATI" map-object-buffer-ati
+              :library opengl)
+    :pointer
+  (buffer uint))
+
+;;; GL version: 1.2, ATI_map_object_buffer
+(defglextfun ("glUnmapObjectBufferATI" unmap-object-buffer-ati
+              :library opengl)
+    :void
+  (buffer uint))
+
+;;; GL version: 1.2, ATI_separate_stencil
+(defglextfun ("glStencilOpSeparateATI" stencil-op-separate-ati
+              :library opengl)
+    :void
+  (face enum)
+  (sfail enum)
+  (dpfail enum)
+  (dppass enum))
+
+;;; GL version: 1.2, ATI_separate_stencil
+(defglextfun ("glStencilFuncSeparateATI" stencil-func-separate-ati
+              :library opengl)
+    :void
+  (frontfunc enum)
+  (backfunc enum)
+  (ref int)
+  (mask uint))
+
+;;; GL version: 1.2, ATI_vertex_attrib_array_object
+(defglextfun ("glVertexAttribArrayObjectATI" vertex-attrib-array-object-ati
+              :library opengl)
+    :void
+  (index uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (stride sizei)
+  (buffer uint)
+  (offset uint))
+
+;;; GL version: 1.2, ATI_vertex_attrib_array_object
+(defglextfun ("glGetVertexAttribArrayObjectfvATI" get-vertex-attrib-array-objectfv-ati
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ATI_vertex_attrib_array_object
+(defglextfun ("glGetVertexAttribArrayObjectivATI" get-vertex-attrib-array-objectiv-ati
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, EXT_depth_bounds_test
+(defglextfun ("glDepthBoundsEXT" depth-bounds-ext
+              :library opengl)
+    :void
+  (zmin clampd)
+  (zmax clampd))
+
+;;; GL version: 1.2, EXT_blend_equation_separate
+(defglextfun ("glBlendEquationSeparateEXT" blend-equation-separate-ext
+              :library opengl)
+    :void
+  (modeRGB enum)
+  (modeAlpha enum))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glIsRenderbufferEXT" is-renderbuffer-ext
+              :library opengl)
+    boolean
+  (renderbuffer uint))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glBindRenderbufferEXT" bind-renderbuffer-ext
+              :library opengl)
+    :void
+  (target enum)
+  (renderbuffer uint))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glDeleteRenderbuffersEXT" delete-renderbuffers-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (renderbuffers (:pointer uint)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glGenRenderbuffersEXT" gen-renderbuffers-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (renderbuffers (:pointer uint)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glRenderbufferStorageEXT" renderbuffer-storage-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glGetRenderbufferParameterivEXT" get-renderbuffer-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glIsFramebufferEXT" is-framebuffer-ext
+              :library opengl)
+    boolean
+  (framebuffer uint))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glBindFramebufferEXT" bind-framebuffer-ext
+              :library opengl)
+    :void
+  (target enum)
+  (framebuffer uint))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glDeleteFramebuffersEXT" delete-framebuffers-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (framebuffers (:pointer uint)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glGenFramebuffersEXT" gen-framebuffers-ext
+              :library opengl)
+    :void
+  (n sizei)
+  (framebuffers (:pointer uint)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glCheckFramebufferStatusEXT" check-framebuffer-status-ext
+              :library opengl)
+    enum
+  (target enum))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glFramebufferTexture1DEXT" framebuffer-texture-1d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glFramebufferTexture2DEXT" framebuffer-texture-2d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glFramebufferTexture3DEXT" framebuffer-texture-3d-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int)
+  (zoffset int))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glFramebufferRenderbufferEXT" framebuffer-renderbuffer-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (renderbuffertarget enum)
+  (renderbuffer uint))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glGetFramebufferAttachmentParameterivEXT" get-framebuffer-attachment-parameteriv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, EXT_framebuffer_object
+(defglextfun ("glGenerateMipmapEXT" generate-mipmap-ext
+              :library opengl)
+    :void
+  (target enum))
+
+;;; GL version: 1.0, GREMEDY_string_marker
+(defglextfun ("glStringMarkerGREMEDY" string-marker-gremedy
+              :library opengl)
+    :void
+  (len sizei)
+  (string (:pointer void)))
+
+;;; GL version: 1.5, EXT_stencil_clear_tag
+(defglextfun ("glStencilClearTagEXT" stencil-clear-tag-ext
+              :library opengl)
+    :void
+  (stencilTagBits sizei)
+  (stencilClearTag uint))
+
+;;; GL version: 1.5, EXT_framebuffer_blit
+(defglextfun ("glBlitFramebufferEXT" blit-framebuffer-ext
+              :library opengl)
+    :void
+  (srcX0 int)
+  (srcY0 int)
+  (srcX1 int)
+  (srcY1 int)
+  (dstX0 int)
+  (dstY0 int)
+  (dstX1 int)
+  (dstY1 int)
+  (mask bitfield)
+  (filter enum))
+
+;;; GL version: 1.5, EXT_framebuffer_multisample
+(defglextfun ("glRenderbufferStorageMultisampleEXT" renderbuffer-storage-multisample-ext
+              :library opengl)
+    :void
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.5, EXT_timer_query
+(defglextfun ("glGetQueryObjecti64vEXT" get-query-object-i64v-ext
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int64)))
+
+;;; GL version: 1.5, EXT_timer_query
+(defglextfun ("glGetQueryObjectui64vEXT" get-query-object-ui64v-ext
+              :library opengl)
+    :void
+  (id uint)
+  (pname enum)
+  (params (:pointer uint64)))
+
+;;; GL version: 1.2, EXT_gpu_program_parameters
+(defglextfun ("glProgramEnvParameters4fvEXT" program-env-parameters-4fv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, EXT_gpu_program_parameters
+(defglextfun ("glProgramLocalParameters4fvEXT" program-local-parameters-4fv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer float)))
+
+;;; GL version: 1.5, APPLE_flush_buffer_range
+(defglextfun ("glBufferParameteriAPPLE" buffer-parameteri-apple
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.5, APPLE_flush_buffer_range
+(defglextfun ("glFlushMappedBufferRangeAPPLE" flush-mapped-buffer-range-apple
+              :library opengl)
+    :void
+  (target enum)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParameterI4iNV" program-local-parameter-i4i-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParameterI4ivNV" program-local-parameter-i4iv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParametersI4ivNV" program-local-parameters-i4iv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParameterI4uiNV" program-local-parameter-i4ui-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint)
+  (w uint))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParameterI4uivNV" program-local-parameter-i4uiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramLocalParametersI4uivNV" program-local-parameters-i4uiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer uint)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParameterI4iNV" program-env-parameter-i4i-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParameterI4ivNV" program-env-parameter-i4iv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParametersI4ivNV" program-env-parameters-i4iv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParameterI4uiNV" program-env-parameter-i4ui-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint)
+  (w uint))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParameterI4uivNV" program-env-parameter-i4uiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glProgramEnvParametersI4uivNV" program-env-parameters-i4uiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer uint)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glGetProgramLocalParameterIivNV" get-program-local-parameter-iiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glGetProgramLocalParameterIuivNV" get-program-local-parameter-iuiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glGetProgramEnvParameterIivNV" get-program-env-parameter-iiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.3, NV_gpu_program4
+(defglextfun ("glGetProgramEnvParameterIuivNV" get-program-env-parameter-iuiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, NV_geometry_program4
+(defglextfun ("glProgramVertexLimitNV" program-vertex-limit-nv
+              :library opengl)
+    :void
+  (target enum)
+  (limit int))
+
+;;; GL version: 2.0, NV_geometry_program4
+(defglextfun ("glFramebufferTextureEXT" framebuffer-texture-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 2.0, NV_geometry_program4
+(defglextfun ("glFramebufferTextureLayerEXT" framebuffer-texture-layer-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (layer int))
+
+;;; GL version: 2.0, NV_geometry_program4
+(defglextfun ("glFramebufferTextureFaceEXT" framebuffer-texture-face-ext
+              :library opengl)
+    :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (face enum))
+
+;;; GL version: 2.0, EXT_geometry_shader4
+(defglextfun ("glProgramParameteriEXT" program-parameteri-ext
+              :library opengl)
+    :void
+  (program uint)
+  (pname enum)
+  (value int))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI1iEXT" vertex-attrib-i1i-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x int))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI2iEXT" vertex-attrib-i2i-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI3iEXT" vertex-attrib-i3i-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4iEXT" vertex-attrib-i4i-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI1uiEXT" vertex-attrib-i1ui-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x uint))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI2uiEXT" vertex-attrib-i2ui-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x uint)
+  (y uint))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI3uiEXT" vertex-attrib-i3ui-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4uiEXT" vertex-attrib-i4ui-ext
+              :library opengl)
+    :void
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint)
+  (w uint))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI1ivEXT" vertex-attrib-i1iv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI2ivEXT" vertex-attrib-i2iv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI3ivEXT" vertex-attrib-i3iv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4ivEXT" vertex-attrib-i4iv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI1uivEXT" vertex-attrib-i1uiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI2uivEXT" vertex-attrib-i2uiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI3uivEXT" vertex-attrib-i3uiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4uivEXT" vertex-attrib-i4uiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4bvEXT" vertex-attrib-i4bv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4svEXT" vertex-attrib-i4sv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4ubvEXT" vertex-attrib-i4ubv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribI4usvEXT" vertex-attrib-i4usv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glVertexAttribIPointerEXT" vertex-attrib-ipointer-ext
+              :library opengl)
+    :void
+  (index uint)
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glGetVertexAttribIivEXT" get-vertex-attrib-iiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, NV_vertex_program4
+(defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iuiv-ext
+              :library opengl)
+    :void
+  (index uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glGetUniformuivEXT" get-uniformuiv-ext
+              :library opengl)
+    :void
+  (program uint)
+  (location int)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glBindFragDataLocationEXT" bind-frag-data-location-ext
+              :library opengl)
+    :void
+  (program uint)
+  (color uint)
+  (name (:pointer char)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glGetFragDataLocationEXT" get-frag-data-location-ext
+              :library opengl)
+    int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform1uiEXT" uniform-1ui-ext
+              :library opengl)
+    :void
+  (location int)
+  (v0 uint))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform2uiEXT" uniform-2ui-ext
+              :library opengl)
+    :void
+  (location int)
+  (v0 uint)
+  (v1 uint))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform3uiEXT" uniform-3ui-ext
+              :library opengl)
+    :void
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform4uiEXT" uniform-4ui-ext
+              :library opengl)
+    :void
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint)
+  (v3 uint))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform1uivEXT" uniform-1uiv-ext
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform2uivEXT" uniform-2uiv-ext
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform3uivEXT" uniform-3uiv-ext
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 2.0, EXT_gpu_shader4
+(defglextfun ("glUniform4uivEXT" uniform-4uiv-ext
+              :library opengl)
+    :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 2.0, EXT_draw_instanced
+(defglextfun ("glDrawArraysInstancedEXT" draw-arrays-instanced-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (start int)
+  (count sizei)
+  (primcount sizei))
+
+;;; GL version: 2.0, EXT_draw_instanced
+(defglextfun ("glDrawElementsInstancedEXT" draw-elements-instanced-ext
+              :library opengl)
+    :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (primcount sizei))
+
+;;; GL version: 2.0, EXT_texture_buffer_object
+(defglextfun ("glTexBufferEXT" tex-buffer-ext
+              :library opengl)
+    :void
+  (target enum)
+  (internalformat enum)
+  (buffer uint))
+
+;;; GL version: 2.0, NV_depth_buffer_float
+(defglextfun ("glDepthRangedNV" depth-ranged-nv
+              :library opengl)
+    :void
+  (zNear double)
+  (zFar double))
+
+;;; GL version: 2.0, NV_depth_buffer_float
+(defglextfun ("glClearDepthdNV" clear-depthd-nv
+              :library opengl)
+    :void
+  (depth double))
+
+;;; GL version: 2.0, NV_depth_buffer_float
+(defglextfun ("glDepthBoundsdNV" depth-boundsd-nv
+              :library opengl)
+    :void
+  (zmin double)
+  (zmax double))
+
+;;; GL version: 1.5, NV_framebuffer_multisample_coverage
+(defglextfun ("glRenderbufferStorageMultisampleCoverageNV" renderbuffer-storage-multisample-coverage-nv
+              :library opengl)
+    :void
+  (target enum)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.2, NV_parameter_buffer_object
+(defglextfun ("glProgramBufferParametersfvNV" program-buffer-parametersfv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (buffer uint)
+  (index uint)
+  (count sizei)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_parameter_buffer_object
+(defglextfun ("glProgramBufferParametersIivNV" program-buffer-parameters-iiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (buffer uint)
+  (index uint)
+  (count sizei)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_parameter_buffer_object
+(defglextfun ("glProgramBufferParametersIuivNV" program-buffer-parameters-iuiv-nv
+              :library opengl)
+    :void
+  (target enum)
+  (buffer uint)
+  (index uint)
+  (count sizei)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glColorMaskIndexedEXT" color-mask-indexed-ext
+              :library opengl)
+    :void
+  (index uint)
+  (r boolean)
+  (g boolean)
+  (b boolean)
+  (a boolean))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glGetBooleanIndexedvEXT" get-boolean-indexedv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (data (:pointer boolean)))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glGetIntegerIndexedvEXT" get-integer-indexedv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (data (:pointer int)))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glEnableIndexedEXT" enable-indexed-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glDisableIndexedEXT" disable-indexed-ext
+              :library opengl)
+    :void
+  (target enum)
+  (index uint))
+
+;;; GL version: 2.0, EXT_draw_buffers2
+(defglextfun ("glIsEnabledIndexedEXT" is-enabled-indexed-ext
+              :library opengl)
+    boolean
+  (target enum)
+  (index uint))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glBeginTransformFeedbackNV" begin-transform-feedback-nv
+              :library opengl)
+    :void
+  (primitiveMode enum))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glEndTransformFeedbackNV" end-transform-feedback-nv
+              :library opengl)
+    :void)
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glTransformFeedbackAttribsNV" transform-feedback-attribs-nv
+              :library opengl)
+    :void
+  (count uint)
+  (attribs (:pointer int))
+  (bufferMode enum))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glBindBufferRangeNV" bind-buffer-range-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glBindBufferOffsetNV" bind-buffer-offset-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (buffer uint)
+  (offset intptr))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glBindBufferBaseNV" bind-buffer-base-nv
+              :library opengl)
+    :void
+  (target enum)
+  (index uint)
+  (buffer uint))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glTransformFeedbackVaryingsNV" transform-feedback-varyings-nv
+              :library opengl)
+    :void
+  (program uint)
+  (count sizei)
+  (locations (:pointer int))
+  (bufferMode enum))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glActiveVaryingNV" active-varying-nv
+              :library opengl)
+    :void
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glGetVaryingLocationNV" get-varying-location-nv
+              :library opengl)
+    int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glGetActiveVaryingNV" get-active-varying-nv
+              :library opengl)
+    :void
+  (program uint)
+  (index uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (size (:pointer sizei))
+  (type (:pointer enum))
+  (name (:pointer char)))
+
+;;; GL version: 1.5, NV_transform_feedback
+(defglextfun ("glGetTransformFeedbackVaryingNV" get-transform-feedback-varying-nv
+              :library opengl)
+    :void
+  (program uint)
+  (index uint)
+  (location (:pointer int)))
+
+;;; GL version: 2.0, EXT_bindable_uniform
+(defglextfun ("glUniformBufferEXT" uniform-buffer-ext
+              :library opengl)
+    :void
+  (program uint)
+  (location int)
+  (buffer uint))
+
+;;; GL version: 2.0, EXT_bindable_uniform
+(defglextfun ("glGetUniformBufferSizeEXT" get-uniform-buffer-size-ext
+              :library opengl)
+    int
+  (program uint)
+  (location int))
+
+;;; GL version: 2.0, EXT_bindable_uniform
+(defglextfun ("glGetUniformOffsetEXT" get-uniform-offset-ext
+              :library opengl)
+    intptr
+  (program uint)
+  (location int))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glTexParameterIivEXT" tex-parameter-iiv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glTexParameterIuivEXT" tex-parameter-iuiv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glGetTexParameterIivEXT" get-tex-parameter-iiv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glGetTexParameterIuivEXT" get-tex-parameter-iuiv-ext
+              :library opengl)
+    :void
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glClearColorIiEXT" clear-color-ii-ext
+              :library opengl)
+    :void
+  (red int)
+  (green int)
+  (blue int)
+  (alpha int))
+
+;;; GL version: 2.0, EXT_texture_integer
+(defglextfun ("glClearColorIuiEXT" clear-color-iui-ext
+              :library opengl)
+    :void
+  (red uint)
+  (green uint)
+  (blue uint)
+  (alpha uint))

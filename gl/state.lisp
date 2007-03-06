@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,14 +27,13 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+(in-package #:cl-opengl)
 
 ;;;
 ;;; Chapter 6 - State and State Requests
 ;;;
 ;;; 6.1 Querying GL State
 ;;;
-
 
 ;;; 6.1.1 Simple queries
 
@@ -349,15 +348,11 @@
   (or (cdr (assoc value *query-enum-sizes*))
       (error "Unknown query enum: ~A" value)))
 
-;;; Conversion function when querying OpenGL boolean states.
-(defun nonzerop (x)
-  (not (zerop x)))
-
 ;;; Define a query function NAME that calls the OpenGL function FN,
 ;;; passing an array of foreign type TYPE.  The elements of the
 ;;; foreign array are converted back to Lisp values by first
-;;; dereferencing the buffer, then calling CONVERT on the value.
-(defmacro define-query-function (name fn type &optional (convert 'identity))
+;;; dereferencing the buffer.
+(defmacro define-query-function (name fn type)
   `(defun ,name (value &optional (count (query-enum-size value)))
      (declare (fixnum count))
      (with-foreign-object (buf ',type count)
@@ -365,15 +360,15 @@
        (if (> count 1)
            (let ((result (make-array count)))
              (dotimes (i count)
-               (setf (aref result i) (,convert (mem-aref buf ',type i))))
+               (setf (aref result i) (mem-aref buf ',type i)))
              result)
-           (,convert (mem-ref buf ',type))))))
+           (mem-ref buf ',type)))))
 
 ;;; Define query functions for the basic types.
-(define-query-function get-boolean %glGetBooleanv boolean nonzerop)
-(define-query-function get-integer %glGetIntegerv int)
-(define-query-function get-float %glGetFloatv float)
-(define-query-function get-double %glGetDoublev double)
+(define-query-function get-boolean %gl:get-boolean-v %gl:boolean)
+(define-query-function get-integer %gl:get-integer-v %gl:int)
+(define-query-function get-float %gl:get-float-v %gl:float)
+(define-query-function get-double %gl:get-double-v %gl:double)
 
 ;;; Wrapper around GET-INTEGER when the result should be interpreted
 ;;; as an enumerated constant.
@@ -391,17 +386,17 @@
 (defun enable (&rest caps)
   (declare (dynamic-extent caps))
   (dolist (cap caps)
-    (%glEnable cap)))
+    (%gl:enable cap)))
 
 ;; external
 (defun disable (&rest caps)
   (declare (dynamic-extent caps))
   (dolist (cap caps)
-    (%glDisable cap)))
+    (%gl:disable cap)))
 
 ;; external
 (defun enabledp (cap)
-  (not (zerop (%glIsEnabled cap))))
+  (%gl:is-enabled cap))
 
 ;;; 6.1.11 Pointer and String Queries
 
@@ -409,7 +404,7 @@
 
 ;; external
 (defun get-string (name)
-  (foreign-string-to-lisp (%glGetString name)))
+  (foreign-string-to-lisp (%gl:get-string name)))
 
 ;; external
 (defun major-version ()
@@ -439,19 +434,19 @@
 ;; external
 (defun push-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%glPushAttrib (make-bitfield 'server-attributes attributes)))
+  (%gl:push-attrib (make-bitfield 'server-attributes attributes)))
 
 (define-compiler-macro push-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%glPushAttrib ,(make-bitfield 'server-attributes attributes))
+      `(%gl:push-attrib ,(make-bitfield 'server-attributes attributes))
       form))
 
 ;; external
 (defun push-client-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%glPushClientAttrib (make-bitfield 'client-attributes attributes)))
+  (%gl:push-client-attrib (make-bitfield 'client-attributes attributes)))
 
 (define-compiler-macro push-client-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%glPushClientAttrib ,(make-bitfield 'client-attributes attributes))
+      `(%gl:push-client-attrib ,(make-bitfield 'client-attributes attributes))
       form))

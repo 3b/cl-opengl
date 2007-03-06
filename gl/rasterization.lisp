@@ -1,19 +1,19 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
-;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org> 
-;;;   All rights reserved. 
+;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
 ;;; modification, are permitted provided that the following conditions are met:
 ;;;
 ;;;  o Redistributions of source code must retain the above copyright notice,
-;;;    this list of conditions and the following disclaimer. 
+;;;    this list of conditions and the following disclaimer.
 ;;;  o Redistributions in binary form must reproduce the above copyright
 ;;;    notice, this list of conditions and the following disclaimer in the
-;;;    documentation and/or other materials provided with the distribution. 
+;;;    documentation and/or other materials provided with the distribution.
 ;;;  o Neither the name of the author nor the names of the contributors may be
 ;;;    used to endorse or promote products derived from this software without
-;;;    specific prior written permission. 
+;;;    specific prior written permission.
 ;;;
 ;;; THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 ;;; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package :cl-opengl)
+(in-package #:cl-opengl)
 
 ;;;
 ;;; Chapter 3 - Rasterization
@@ -39,19 +39,19 @@
 
 (declaim (inline point-size))
 (defun point-size (size)
-  (%glPointSize (float size)))
+  (%gl:point-size (float size)))
 
 (defun point-parameter (pname value)
   (ecase pname
     ((:point-size-min :point-size-max :point-fade-threshold-size)
-     (%glPointParameterf pname (float value)))
+     (%gl:point-parameter-f pname (float value)))
     (:point-sprite-coord-origin
-     (%glPointParameteri pname (foreign-enum-value 'enum value)))
+     (%gl:point-parameter-i pname (foreign-enum-value '%gl:enum value)))
     (:point-distance-attenuation
-     (with-foreign-object (p 'float 3)
+     (with-foreign-object (p '%gl:float 3)
        (dotimes (i 3)
-         (setf (mem-aref p 'float i) (float (elt value i))))
-       (%glPointParameterfv pname p)))))
+         (setf (mem-aref p '%gl:float i) (float (elt value i))))
+       (%gl:point-parameter-fv pname p)))))
 
 
 ;;;
@@ -60,11 +60,11 @@
 
 (declaim (inline line-width))
 (defun line-width (width)
-  (%glLineWidth (float width)))
+  (%gl:line-width (float width)))
 
 (declaim (inline line-stipple))
 (defun line-stipple (factor pattern)
-  (%glLineStipple factor pattern))
+  (%gl:line-stipple factor pattern))
 
 ;;;
 ;;; 3.5 Polygons
@@ -73,23 +73,23 @@
 ;;; 3.5.1 Basic Polygon Rasterization
 
 (defun cull-face (face)
-  (%glCullFace face))
+  (%gl:cull-face face))
 
 ;;; 3.5.2 Stippling
 
 (defun polygon-stipple (pattern)
-  (with-opengl-sequence (p 'gl:ubyte pattern)
-    (%glPolygonStipple p)))
+  (with-opengl-sequence (p '%gl:ubyte pattern)
+    (%gl:polygon-stipple p)))
 
 ;;; 3.5.4 Options Controlling Polygon Rasterization
 
 (declaim (inline polygon-mode))
 (defun polygon-mode (face mode)
-  (%glPolygonMode face mode))
+  (%gl:polygon-mode face mode))
 
 (declaim (inline polygon-offset))
 (defun polygon-offset (factor units)
-  (%glPolygonOffset (float factor) (float units)))
+  (%gl:polygon-offset (float factor) (float units)))
 
 ;;;
 ;;; 3.6 Pixel Rectangles
@@ -98,101 +98,114 @@
 (defun pixel-store (pname value)
   (ecase pname
     ((:unpack-swap-bytes :unpack-lsb-first)
-     (%glPixelStorei pname (if value 1 0)))
+     (%gl:pixel-store-i pname (if value 1 0)))
     ((:unpack-row-length :unpack-skip-rows :unpack-skip-pixels
       :unpack-alignment :unpack-image-height :unpack-skip-images)
-     (%glPixelStorei pname value))))
+     (%gl:pixel-store-i pname value))))
 
 (defun pixel-transfer (pname value)
   (case pname
     ((:map-color :map-stencil)
-     (%glPixelTransferi pname (if value 1 0)))
+     (%gl:pixel-transfer-i pname (if value 1 0)))
     ((:index-shift :index-offset)
-     (%glPixelTransferi pname value))
+     (%gl:pixel-transfer-i pname value))
     (t
-     (%glPixelTransferf pname value))))
+     (%gl:pixel-transfer-f pname value))))
 
 (defun pixel-map (map values)
   (let ((n (length values)))
-    (with-foreign-object (p 'float n)
+    (with-foreign-object (p '%gl:float n)
       (dotimes (i n)
-        (setf (mem-aref p 'float i) (float (elt values i))))
-      (%glPixelMapfv map n p))))
+        (setf (mem-aref p '%gl:float i) (float (elt values i))))
+      (%gl:pixel-map-fv map n p))))
 
 ;;;
 ;;; 3.8 Texturing
 ;;;
 
-
 ;;; 3.8.1 Texture image specification
-
 
 (defun internal-format->int (format)
   (if (keywordp format)
-      (foreign-enum-value 'enum format)
+      (foreign-enum-value '%gl:enum format)
       (if (and (numberp format) (< 0 format 5))
           format
-          (error "Internal format must be either a keyword or an integer in the range [1,4]."))))
+          (error "Internal format must be either a keyword or an integer ~
+                  in the range [1,4]."))))
 
-(defun tex-image-3d (target level internal-format width height depth border format type data)
+(defun tex-image-3d (target level internal-format width height depth border
+                     format type data)
   (let ((internal-size (internal-format->int internal-format)))
     (if (pointerp data)
-        (%glTexImage3D target level internal-size width height depth border format type data )
+        (%gl:tex-image-3d
+         target level internal-size width height depth border format type data)
         (with-pixel-array (array type data)
-          (%glTexImage3D target level internal-size width height depth border format type array)))))
+          (%gl:tex-image-3d target level internal-size width
+                            height depth border format type array)))))
 
-(defun tex-image-2d (target level internal-format width height border format type data)
+(defun tex-image-2d (target level internal-format width height border format
+                     type data)
   (let ((internal-size (internal-format->int internal-format)))
     (if (pointerp data)
-        (%glTexImage2D target level internal-size width height border format type data)
+        (%gl:tex-image-2d target level internal-size width height border format
+                          type data)
         (with-pixel-array (array type data)
-          (%glTexImage2D target level internal-size width height border format type array)))))
+          (%gl:tex-image-2d target level internal-size width height border
+                            format type array)))))
 
 (defun tex-image-1d (target level internal-format width border format type data)
   (let ((internal-size (internal-format->int internal-format)))
     (if (pointerp data)
-        (%glTexImage1D target level internal-size width border format type data)
+        (%gl:tex-image-1d target level internal-size width border format
+                          type data)
         (with-pixel-array (array type data)
-          (%glTexImage1D target level internal-size width border format type array)))))
-
+          (%gl:tex-image-1d target level internal-size width border format
+                            type array)))))
 
 ;;; 3.8.2 Alternate Texture Image Specification Commands
 
 (defun copy-tex-image-2d (target level internal-format x y width height border)
-  (%glCopyTexImage2D target level (internal-format->int internal-format) x y width height border))
+  (%gl:copy-tex-image-2d target level (internal-format->int internal-format)
+                         x y width height border))
 
 (defun copy-tex-image-1d (target level internal-format x y width border)
-  (%glCopyTexImage1D target level (internal-format->int internal-format) x y width border))
-
+  (%gl:copy-tex-image-1d target level (internal-format->int internal-format)
+                         x y width border))
 
 (defun tex-sub-image-1d (target level xoffset width format type data)
   (if (pointerp data)
-      (%glTexSubImage1D target level xoffset width format type data)
+      (%gl:tex-sub-image-1d target level xoffset width format type data)
       (with-pixel-array (array type data)
-        (%glTexSubImage1D target level xoffset width format type array))))
+        (%gl:tex-sub-image-1d target level xoffset width format type array))))
 
-(defun tex-sub-image-2d (target level xoffset yoffset width height format type data)
+(defun tex-sub-image-2d (target level xoffset yoffset width height format type
+                         data)
   (if (pointerp data)
-      (%glTexSubImage2D target level xoffset yoffset width height format type data)
+      (%gl:tex-sub-image-2d target level xoffset yoffset width height format
+                            type data)
       (with-pixel-array (array type data)
-        (%glTexSubImage2D target level xoffset yoffset width height format type array))))
+        (%gl:tex-sub-image-2d target level xoffset yoffset width height format
+                              type array))))
 
-(defun tex-sub-image-3d (target level xoffset yoffset zoffset width height depth format type data)
+(defun tex-sub-image-3d (target level xoffset yoffset zoffset width height
+                         depth format type data)
   (if (pointerp data)
-      (%glTexSubImage3D target level xoffset yoffset zoffset width height depth format type data)
+      (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width height
+                            depth format type data)
       (with-pixel-array (array type data)
-        (%glTexSubImage3D target level xoffset yoffset zoffset width height depth format type array))))
-
+        (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width
+                              height depth format type array))))
 
 (defun copy-tex-sub-image-1d (target level xoffset x y width)
-  (%glCopyTexSubImage1D target level xoffset x y width))
+  (%gl:copy-tex-sub-image-1d target level xoffset x y width))
 
 (defun copy-tex-sub-image-2d (target level xoffset yoffset x y width height)
-  (%glCopyTexSubImage2D target level xoffset yoffset x y width height))
+  (%gl:copy-tex-sub-image-2d target level xoffset yoffset x y width height))
 
-(defun copy-tex-sub-image-3d (target level xoffset yoffset zoffset x y width height)
-  (%glCopyTexSubImage3D target level xoffset yoffset zoffset x y width height))
-
+(defun copy-tex-sub-image-3d (target level xoffset yoffset zoffset x y width
+                              height)
+  (%gl:copy-tex-sub-image-3d
+   target level xoffset yoffset zoffset x y width height))
 
 ;;; 3.8.3 Compressed Texture Images
 
@@ -204,58 +217,61 @@
 (defun tex-parameter (target pname param)
   (ecase pname
     ((:texture-wrap-s :texture-wrap-t :texture-wrap-r)
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:texture-min-filter
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:texture-mag-filter
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:texture-border-color
-     (with-foreign-object (array 'float 4)
+     (with-foreign-object (array '%gl:float 4)
        (dotimes (i 4)
-         (setf (mem-aref array 'float i) (float (aref param i))))
-       (%glTexParameterfv target pname array)))
+         (setf (mem-aref array '%gl:float i) (float (aref param i))))
+       (%gl:tex-parameter-fv target pname array)))
     ((:texture-priority :texture-min-lod :texture-max-lod)
-     (%glTexParameterf target pname (float param)))
+     (%gl:tex-parameter-f target pname (float param)))
     ((:texture-base-level :texture-lod-bias)
-     (%glTexParameteri target pname (truncate param)))
+     (%gl:tex-parameter-i target pname (truncate param)))
     (:depth-texture-mode
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:texture-compare-mode
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:texture-compare-func
-     (%glTexParameteri target pname (foreign-enum-value 'enum param)))
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:generate-mipmap
-     (%glTexParameteri target pname (if param 1 0)))))
+     (%gl:tex-parameter-i target pname (if param 1 0)))))
 
 
 ;;; 3.8.12 Texture Objects
 
 (declaim (inline bind-texture))
 (defun bind-texture (target handle)
-  (%glBindTexture target handle))
+  (%gl:bind-texture target handle))
 
 (defun delete-textures (textures)
-  (with-opengl-sequence (array 'uint textures)
-    (%glDeleteTextures (length textures) array)))
+  (with-opengl-sequence (array '%gl:uint textures)
+    (%gl:delete-textures (length textures) array)))
 
 (defun gen-textures (count)
-  (with-foreign-object (texture-array 'uint count)
-    (%glGenTextures count texture-array)
+  (with-foreign-object (texture-array '%gl:uint count)
+    (%gl:gen-textures count texture-array)
     (loop for i below count
-          collecting (mem-aref texture-array 'uint i))))
+          collecting (mem-aref texture-array '%gl:uint i))))
 
 
 ;;; The following two functions look awkward to use, so we'll provide the two
 ;;; lispier functions TEXTURE-RESIDENT-P and PRIORITIZE-TEXTURE, which can be
 ;;; used in mapping functions or like (every #'texture-resident-p texture-list).
 
+;;; TODO: check whether the new gl:boolean semantics didn't break
+;;; these functions.
+
 (defun are-textures-resident (textures)
   (let ((count (length textures)))
-    (with-opengl-sequence (texture-array 'uint textures)
-      (with-foreign-object (residence-array 'boolean count)
-        (if (zerop (%glAreTexturesResident count texture-array residence-array))
+    (with-opengl-sequence (texture-array '%gl:uint textures)
+      (with-foreign-object (residence-array '%gl:boolean count)
+        (if (%gl:are-textures-resident count texture-array residence-array)
             (loop for i below count
-                  collecting (mem-aref residence-array 'boolean i))
+                  collecting (mem-aref residence-array '%gl:boolean i))
             t)))))
 
 (defun prioritize-textures (textures priorities)
@@ -263,27 +279,26 @@
         (priority-count (length priorities)))
     (when (/= texture-count priority-count)
       (error "There needs to be an equal number of textures and priorities."))
-    (with-opengl-sequence (texture-array 'uint textures)
-      (with-opengl-sequence (priority-array 'clampf priorities)
-        (%glPrioritizeTextures texture-count texture-array priority-array)))))
+    (with-opengl-sequence (texture-array '%gl:uint textures)
+      (with-opengl-sequence (priority-array '%gl:clampf priorities)
+        (%gl:prioritize-textures texture-count texture-array priority-array)))))
 
 
 (defun texture-resident-p (texture)
-  (with-foreign-objects ((texture-pointer 'uint)
-                         (residence-pointer 'boolean))
-    (setf (mem-ref texture-pointer 'uint) texture)
-    (not (zerop (%glAreTexturesResident 1 texture-pointer residence-pointer)))))
+  (with-foreign-objects ((texture-pointer '%gl:uint)
+                         (residence-pointer '%gl:boolean))
+    (setf (mem-ref texture-pointer '%gl:uint) texture)
+    (%gl:are-textures-resident 1 texture-pointer residence-pointer)))
 
 (defun prioritize-texture (texture priority)
-  (with-foreign-objects ((texture-pointer 'uint)
-                         (priority-pointer 'clampf))
-    (setf (mem-ref texture-pointer 'uint) texture
-          (mem-ref priority-pointer 'clampf) (float priority))
-    (%glPrioritizeTextures 1 texture-pointer priority-pointer)))
+  (with-foreign-objects ((texture-pointer '%gl:uint)
+                         (priority-pointer '%gl:clampf))
+    (setf (mem-ref texture-pointer '%gl:uint) texture
+          (mem-ref priority-pointer '%gl:clampf) (float priority))
+    (%gl:prioritize-textures 1 texture-pointer priority-pointer)))
 
 
 ;;; 3.8.13 Texture Environments and Texture Functions
-
 
 ;;; Ye gods, have mercy!
 
@@ -291,30 +306,29 @@
   (let (pname-value)
     (ecase target
       (:texture-filter-control
-       (setf pname-value (foreign-enum-value 'enum pname))
+       (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
-         (:texture-lod-bias (%glTexEnvf target pname-value (float value)))))
+         (:texture-lod-bias (%gl:tex-env-f target pname-value (float value)))))
 
       (:texture-env
-       (setf pname-value (foreign-enum-value 'enum pname))
+       (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
          (:texture-env-mode
-          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))
+          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))
          (:texture-env-color
-          (with-foreign-object (p 'float 4)
+          (with-foreign-object (p '%gl:float 4)
             (dotimes (i 4)
-              (setf (mem-aref p 'float i) (float (elt value i))))
-            (%glTexEnvfv target pname-value p)))
+              (setf (mem-aref p '%gl:float i) (float (elt value i))))
+            (%gl:tex-env-fv target pname-value p)))
          (:combine-rgb
-          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))
+          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))
          (:combine-alpha
-          (%glTexEnvi target pname-value (foreign-enum-value 'enum value)))))
+          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))))
 
      (:point-sprite
-      (setf pname-value (foreign-enum-value 'enum pname))
+      (setf pname-value (foreign-enum-value '%gl:enum pname))
       (ecase pname
-        (:coord-replace (%glTexEnvi target pname-value (if value 1 0))))))))
-
+        (:coord-replace (%gl:tex-env-i target pname-value (if value 1 0))))))))
 
 ;;;
 ;;; 3.10 Fog
@@ -323,8 +337,8 @@
 (defun fog (pname param)
   (ecase pname
     (:fog-mode
-     (%glFogi pname (foreign-enum-value 'enum param)))
+     (%gl:fog-i pname (foreign-enum-value '%gl:enum param)))
     (:fog-coord-src
-     (%glFogi pname (foreign-enum-value 'enum param)))
+     (%gl:fog-i pname (foreign-enum-value '%gl:enum param)))
     ((:fog-density :fog-start :fog-end)
-     (%glFogf pname (float param)))))
+     (%gl:fog-f pname (float param)))))

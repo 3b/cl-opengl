@@ -1,6 +1,7 @@
 ;;; -*- Mode: Lisp; indent-tabs-mode: nil -*-
 ;;;
 ;;; Copyright (c) 2004, Oliver Markovic <entrox@entrox.org>
+;;; Copyright (c) 2007, Luis Oliveira <loliveira@common-lisp.net>
 ;;;   All rights reserved.
 ;;;
 ;;; Redistribution and use in source and binary forms, with or without
@@ -27,11 +28,19 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl-bindings)
 
-(defctype enum :unsigned-int)
-(defctype boolean :unsigned-char)
+;;;; GL types.
+
+;;; Note: the symbols BOOLEAN, BYTE, FLOAT, CHAR and STRING have been
+;;; shadowed from the CL package.
+
+(defctype boolean (:boolean :unsigned-char))
 (defctype bitfield :unsigned-int)
+
+(defctype char :char)
+(defctype char-arb :char)
+(defctype handle-arb :unsigned-int)
 (defctype byte :char)
 (defctype short :short)
 (defctype int :int)
@@ -39,18 +48,23 @@
 (defctype ubyte :unsigned-char)
 (defctype ushort :unsigned-short)
 (defctype uint :unsigned-int)
-(defctype float :float)
-(defctype clampf :float)
-(defctype double :double)
-(defctype clampd :double)
+(defctype half :unsigned-short)
+(defctype half-arb :unsigned-short)
+(defctype half-nv :unsigned-short)
+(defctype int64 :int64)
+(defctype uint64 :uint64)
 
-;;; XXX these will be broken on 64-bit systems that do not have 64-bit longs,
-;;; such as Win64.
-(defctype intptr :long)
-(defctype sizeiptr :long)
+(defctype void :void)
+(defctype string :string)
 
-(defctype char :char)
-(defctype handle :pointer)
+;;; XXX these will be broken on 64-bit systems that do not have 64-bit
+;;; longs, such as Win64.  Need to define this type in CFFI and it may
+;;; require some sort of grovelling or guessing.
+(defctype ptrdiff-t :unsigned-long)
+(defctype intptr ptrdiff-t)
+(defctype intptr-arb ptrdiff-t)
+(defctype sizeiptr ptrdiff-t)
+(defctype sizeiptr-arb ptrdiff-t)
 
 (define-foreign-type ensure-float ()
   ()
@@ -77,3 +91,8 @@
   (if (constantp value)
       (float (eval value) 1.0d0)
       `(float ,value 1.0d0)))
+
+(defctype float ensure-float)
+(defctype clampf ensure-float)
+(defctype double ensure-double)
+(defctype clampd ensure-double)
