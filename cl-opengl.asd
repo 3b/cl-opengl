@@ -27,8 +27,8 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(defsystem :cl-opengl
-  :depends-on (:cffi)
+(defsystem cl-opengl
+  :depends-on (cffi)
   :components
   ((:module "gl"
     :components
@@ -37,10 +37,10 @@
      (:file "types" :depends-on ("bindings-package"))
      (:file "library" :depends-on ("bindings-package"))
      (:file "constants" :depends-on ("bindings"))
-     (:file "funcs" :depends-on ("bindings" "constants" "library"))
+     (:file "funcs" :depends-on ("bindings" "constants" "library" "types"))
      ;; Lispifications.
      (:file "package" :depends-on ("bindings-package"))
-     (:file "util" :depends-on ("constants" "types"))
+     (:file "util" :depends-on ("constants" "types" "package"))
      (:file "opengl" :depends-on ("funcs" "util"))
      (:file "rasterization" :depends-on ("funcs" "util"))
      (:file "framebuffer" :depends-on ("funcs" "util"))

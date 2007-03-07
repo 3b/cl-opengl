@@ -133,7 +133,7 @@
    ;; 3.5.2 Stippling
    #:polygon-stipple
    ;; 3.5.4 Options Controlling Polygon Rasterization
-   #:polygon-mode 
+   #:polygon-mode
    #:polygon-offset
    ;; 3.8.1 Texture Image Specification
    #:tex-image-1d

@@ -57,7 +57,7 @@
    #:rendering-context-options
    #:joystick-buttons
    #:special-keys
-   #:visibility-state 
+   #:visibility-state
    #:options                            ; freeglut ext
    #:window-close-behaviour             ; freeglut ext
    #:window-status
@@ -125,7 +125,7 @@
    #:special-func
    #:reshape-func
    #:visibility-func
-   #:display-func 
+   #:display-func
    #:mouse-func
    #:motion-func
    #:passive-motion-func
@@ -230,7 +230,7 @@
    #:stop-video-resizing
    #:video-resize
    #:video-pan
-   
+
    ;; misc
    #:set-color
    #:get-color

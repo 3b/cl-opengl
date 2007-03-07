@@ -30,67 +30,100 @@
 (in-package #:cl-opengl-bindings)
 
 ;;; Helper macro to define a GL API function and declare it inline.
-;;;
-;;; FIXME: LISP-FUNCTION-NAME should probably be exported from CFFI
-;;; for helper macros like this one.
 (defmacro defglfun (name result-type &body body)
   (let ((lisp-name (second name)))
     `(progn
        (declaim (inline ,lisp-name))
        (defcfun ,name ,result-type ,@body))))
 
-;;; Helpers for wrapping dynamically loaded extension function pointers
-;;;
+;;;; Extensions
+
 ;;; TODO: need to handle multiple contexts.
 ;;;
 ;;; TODO: probably should have the option of using directly exported
-;;; functions on platforms that have them, but that would need to deal
-;;; with the possibility of a core being loaded on a system with different
-;;; functions exported than the one on which the core was saved.
+;;;       functions on platforms that have them, but that would need
+;;;       to deal with the possibility of a core being loaded on a
+;;;       system with different functions exported than the one on
+;;;       which the core was saved.
 
-(defparameter *gl-extension-resetter-list* nil)
-(defun %reset-gl-extension-pointers ()
-  (format t " resetting extension pointers ...") (finish-output)
-  ;; fixme?: race here, but intended to be called while saving an
-  ;; image, so if someone is still calling GL functions we lose
-  ;; anyway...
-  (mapc #'funcall *gl-extension-resetter-list*)
-  (setf *gl-extension-resetter-list* nil))
+;;; Set this to a function which knows how to get a GL extension
+;;; pointer from the OS: glutGetProcAddress(), SDL_GL_GetProcAddress(),
+;;; wglGetProcAddress(), etc.
+(defparameter *gl-get-proc-address* nil)
+
+(defun gl-get-proc-address (name)
+  (funcall *gl-get-proc-address* name))
 
 (eval-when (:load-toplevel :execute)
-  #+clisp (pushnew #'%reset-gl-extension-pointers custom:*fini-hooks*)
-  #+sbcl (pushnew #'%reset-gl-extension-pointers sb-ext:*save-hooks*)
-  #+cmu (pushnew #'%reset-gl-extension-pointers
-                 ext:*before-save-initializations*)
+  #+clisp (pushnew 'reset-gl-pointers custom:*fini-hooks*)
+  #+sbcl (pushnew 'reset-gl-pointers sb-ext:*save-hooks*)
+  #+cmu (pushnew 'reset-gl-pointers ext:*before-save-initializations*)
   #-(or clisp sbcl cmu)
   (warn "Don't know how to setup a hook before saving cores on this Lisp."))
 
-(defparameter *gl-get-proc-address* nil
- "set this to a function which knows how to get a GL extension
- pointer from the OS (glutGetProcAddress, SDL_GL_GetProcAddress,
- wglGetProcAddress, etc.)")
+;;;; Bart's version of DEFGLEXTFUN.
 
-(defun %gl-get-proc-address (name)
-  "override this with something useful..."
-  (if (and *gl-get-proc-address* (functionp *gl-get-proc-address*))
-      (funcall *gl-get-proc-address* name)
-      (error "no glGetProcAddress specified!")))
+#-(and)
+(defparameter *gl-extension-resetter-list* nil)
 
+;;; FIXME? There's a possible race condition here, but this function
+;;; is intended to be called while saving an image, so if someone is
+;;; still calling GL functions we lose anyway...
+#-(and)
+(defun reset-gl-pointers ()
+  (format t "~&;; resetting extension pointers...~%")
+  (mapc #'funcall *gl-extension-resetter-list*)
+  (setf *gl-extension-resetter-list* nil))
+
+#-(and)
 (defmacro defglextfun ((cname lname &rest fargs) return-type &body args)
-  (let ((pointer (gensym "GLEXT-FUN-POINTER")))
-    `(let ((,pointer (cffi:null-pointer)))
+  (with-unique-names (pointer)
+    `(let ((,pointer (null-pointer)))
        (defun ,lname ,(mapcar #'car args)
-         (when (cffi:null-pointer-p ,pointer)
+         (when (null-pointer-p ,pointer)
            (setf ,pointer (%gl-get-proc-address ,cname))
-           (assert (not (cffi:null-pointer-p ,pointer))
-                   () "couldn't load symbol ~a ~%" ,cname)
-           (format t "loaded function pointer for ~a : ~a ~%"
-                   ,cname ,pointer)
-           (push (lambda ()
-                   (setf ,pointer (cffi:null-pointer)))
+           (assert (not (null-pointer-p ,pointer)) ()
+                   "Couldn't load symbol ~A~%" ,cname)
+           (format t "Loaded function pointer for ~A: ~A~%" ,cname ,pointer)
+           (push (lambda () (setf ,pointer (null-pointer)))
                  *gl-extension-resetter-list*))
          (foreign-funcall-pointer
           ,pointer
           ,fargs
           ,@(loop for arg in args collect (second arg) collect (first arg))
           ,return-type)))))
+
+;;;; Thomas's version of DEFGLEXTFUN.
+
+(defun reset-gl-pointers ()
+  (do-external-symbols (sym (find-package '#:%gl))
+    (let ((dummy (get sym 'proc-address-dummy)))
+      (when dummy
+        (setf (fdefinition sym) dummy)))))
+
+(defun generate-gl-function (foreign-name lisp-name function-args result-type
+                             body &rest args)
+  (let ((address (gl-get-proc-address foreign-name))
+        (arg-list (mapcar #'first body)))
+    (when (pointer-eq address (null-pointer))
+      (error "Couldn't find function ~A" foreign-name))
+    (compile lisp-name
+             `(lambda ,arg-list
+                (foreign-funcall-pointer
+                 ,address
+                 ,function-args
+                 ,@(loop for i in body
+                         collect (second i)
+                         collect (first i))
+                 ,result-type)))
+    (apply lisp-name args)))
+
+(defmacro defglextfun ((foreign-name lisp-name &rest function-args)
+                       result-type &rest body)
+  (let ((args-list (mapcar #'first body)))
+    `(progn
+       (defun ,lisp-name ,args-list
+         (generate-gl-function ,foreign-name  ',lisp-name  ',function-args
+                               ',result-type ',body ,@args-list))
+       (setf (get ',lisp-name 'proc-address-dummy) #',lisp-name)
+       ',lisp-name)))

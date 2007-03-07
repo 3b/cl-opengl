@@ -59,7 +59,10 @@
     (%glutInit *argcp* *argv*)
     ;; By default, we choose the saner option to return from the event
     ;; loop on window close instead of exit()ing.
-    (set-action-on-window-close :action-continue-execution)))
+    (set-action-on-window-close :action-continue-execution)
+    ;; this probably doesn't play well with other toolkits
+    (setq %gl:*gl-get-proc-address* 'get-proc-address))
+  (values))
 
 ;; We call init at load-time in order to ensure a usable glut as
 ;; often as possible. Also, we call init when the main event loop

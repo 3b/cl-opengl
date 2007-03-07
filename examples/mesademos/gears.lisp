@@ -22,7 +22,7 @@
     (gl:shade-model :flat)
     (gl:normal 0 0 1)
     ;; Draw front face.
-    (gl:with-primitives :quad-strip 
+    (gl:with-primitives :quad-strip
       (dotimes (i (1+ n-teeth))
         (let ((angle (/ (* i 2.0 +pif+) n-teeth)))
           (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width 0.5))
@@ -54,7 +54,7 @@
           (gl:vertex (* r1 (cos (+ angle (* 3 da))))
                        (* r1 (sin (+ angle (* 3 da))))
                        (* width -0.5))
-          (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width -0.5))))) 
+          (gl:vertex (* r0 (cos angle)) (* r0 (sin angle)) (* width -0.5)))))
     ;; Draw back sides of teeth.
     (gl:with-primitives :quads
       (dotimes (i n-teeth)
@@ -171,7 +171,7 @@
       (gl:with-pushed-matrix ; gear1
         (gl:translate -3 -2 0)
         (gl:rotate angle 0 0 1)
-        (gl:call-list gear1)) 
+        (gl:call-list gear1))
       (gl:with-pushed-matrix ; gear2
         (gl:translate 3.1 -2 0)
         (gl:rotate (- (* -2 angle) 9) 0 0 1)
@@ -188,7 +188,7 @@
   (glut:post-redisplay))
 
 (defmethod glut:keyboard ((window gears-window) key x y)
-  (declare (ignore x y)) 
+  (declare (ignore x y))
   (case key
     (#\z (incf (slot-value window 'view-rotz) 5.0)
          (glut:post-redisplay))
