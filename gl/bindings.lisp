@@ -30,11 +30,10 @@
 (in-package #:cl-opengl-bindings)
 
 ;;; Helper macro to define a GL API function and declare it inline.
-(defmacro defglfun (name result-type &body body)
-  (let ((lisp-name (second name)))
-    `(progn
-       (declaim (inline ,lisp-name))
-       (defcfun ,name ,result-type ,@body))))
+(defmacro defglfun ((cname lname) result-type &body body)
+  `(progn
+     (declaim (inline ,lname))
+     (defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
 ;;;; Extensions
 
@@ -76,7 +75,7 @@
   (setf *gl-extension-resetter-list* nil))
 
 #-(and)
-(defmacro defglextfun ((cname lname &rest fargs) return-type &body args)
+(defmacro defglextfun ((cname lname) return-type &body args)
   (with-unique-names (pointer)
     `(let ((,pointer (null-pointer)))
        (defun ,lname ,(mapcar #'car args)
@@ -89,7 +88,7 @@
                  *gl-extension-resetter-list*))
          (foreign-funcall-pointer
           ,pointer
-          ,fargs
+          (:library opengl)
           ,@(loop for arg in args collect (second arg) collect (first arg))
           ,return-type)))))
 
@@ -101,8 +100,7 @@
       (when dummy
         (setf (fdefinition sym) dummy)))))
 
-(defun generate-gl-function (foreign-name lisp-name function-args result-type
-                             body &rest args)
+(defun generate-gl-function (foreign-name lisp-name result-type body &rest args)
   (let ((address (gl-get-proc-address foreign-name))
         (arg-list (mapcar #'first body)))
     (when (pointer-eq address (null-pointer))
@@ -111,19 +109,19 @@
              `(lambda ,arg-list
                 (foreign-funcall-pointer
                  ,address
-                 ,function-args
+                 (:library opengl)
                  ,@(loop for i in body
                          collect (second i)
                          collect (first i))
                  ,result-type)))
     (apply lisp-name args)))
 
-(defmacro defglextfun ((foreign-name lisp-name &rest function-args)
-                       result-type &rest body)
+(defmacro defglextfun ((foreign-name lisp-name) result-type &rest body)
   (let ((args-list (mapcar #'first body)))
     `(progn
+       (declaim (notinline ,lisp-name))
        (defun ,lisp-name ,args-list
-         (generate-gl-function ,foreign-name  ',lisp-name  ',function-args
-                               ',result-type ',body ,@args-list))
+         (generate-gl-function ,foreign-name  ',lisp-name ',result-type
+                               ',body ,@args-list))
        (setf (get ',lisp-name 'proc-address-dummy) #',lisp-name)
        ',lisp-name)))

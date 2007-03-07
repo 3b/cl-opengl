@@ -158,3 +158,25 @@ producing a symbol in the current package."
                      `(,symbol (gensym ,stem))))
                  symbols)
      ,@body))
+
+;;; Yes, this is somewhat silly since package.lisp interns and exports
+;;; the symbols then we unintern, import from %GL and re-export.  It,
+;;; however, (a) avoids importing the %GL package which shadows some
+;;; CL symbols, (b) allows us to keep a full list of exported symbols
+;;; in package.lisp, (c) serves as documentation regarding which
+;;; functions are being exposed directly and (d) avoids that dreaded
+;;; SBCL PACKAGE-AT-VARIANCE warning.
+(defmacro import-export (&rest symbols)
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     ;; Unintern first to avoid conflicts.
+     (dolist (sym ',symbols)
+       (let ((s (find-symbol (symbol-name sym))))
+         (when s (unintern s))))
+     ;; Import and re-export.
+     (import ',symbols)
+     (export ',symbols)))
+
+(defmacro definline (name args &body body)
+  `(progn
+     (declaim (inline ,name))
+     (defun ,name ,args ,@body)))

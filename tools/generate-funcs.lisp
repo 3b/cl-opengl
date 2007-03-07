@@ -58,7 +58,7 @@
 ;;; ends in 'd' that isn't intended to mean 'double'
 (defparameter *special-case-list*
   '(("Rects" . "rect-s")
-    ("Rectsv" . "rect-sv")
+    ;; ("Rectsv" . "rect-sv")
     ("Indexs" . "index-s")
     ("GlobalAlphaFactorsSUN" . "global-alpha-factor-s-sun")
     ("TexSubImage4DSGIS" . "tex-sub-image-4d-sgis")
@@ -89,12 +89,12 @@
     ((string-equal name "nv") name) ; vendor name, not vector
     ((cl-ppcre:scan "^[0-9]N?u?[hbifds]v?$" name) name) ;count+type
     ((member name *whole-words* :test #'string-equal) name)
-    ;;fix [1-3]D(EXT|ARB) (TexImage1DEXT etc) (but don't break -3dfx)
+    ;; fix [1-3]D(EXT|ARB) (TexImage1DEXT etc) (but don't break -3dfx)
     ((cl-ppcre:scan "[1-3]D(EXT|ARB)" name)
-     ;;fixme: stop running the regex twice here...
-     (cl-ppcre:regex-replace "([1-3]D)(EXT|ARB)" name "\\1-\\2")
-     )
-    ;;fix Op1ATI etc from ATI_fragment_shader and Op1EXT from ext_vertex_shader
+     ;; fixme: stop running the regex twice here...
+     (cl-ppcre:regex-replace "([1-3]D)(EXT|ARB)" name "\\1-\\2"))
+    ;; fix Op1ATI etc from ATI_fragment_shader and Op1EXT from
+    ;; ext_vertex_shader
     ((cl-ppcre:scan "[1-3](ATI|EXT)" name)
      (cl-ppcre:regex-replace "([1-3])(EXT|ATI)" name "\\1-\\2"))
     (t ; anything else, try to split
@@ -113,16 +113,14 @@
         (format nil "~A-~A" r1 r2))
       :simple-calls t))))
 
+;;; TODO: fix special cases.
 (defun fix-type-suffixes (name)
-  (progn ;fix-special-cases
-    (cl-ppcre:regex-replace-all
-     ;; Semi-randomly added a $ to the end of this regex, it was
-     ;; generating wrong names when they had an odd number of dashes.
-     "(^|-)([^-]+)(-|$)$" name
-     (lambda (match r1 r2 r3)
-       (declare (ignore match))
-       (format nil "~A~A~A" (or r1 "") (fix-type-suffix r2) (or r3 "")))
-     :simple-calls t)))
+  (cl-ppcre:regex-replace-all
+   "([^-]+)(-|$)" name
+   (lambda (match r1 r2)
+     (declare (ignore match))
+     (format nil "~A~A" (fix-type-suffix r1) (or r2 "")))
+   :simple-calls t))
 
 (defun mixedcaps->lcdash (str)
   (string-downcase
@@ -314,20 +312,16 @@
   ;; spec files don't have consistent extension flags, so use
   ;; the same heuristic as the perl parsers do:
   ;; version >= 1.2, or category starting with capital letter
-  (let ((definer (if (or (extension fun)
-                         (or (>= (major fun) 2)
-                             (>= (minor fun) 2))
-                         (upper-case-p (char (category fun) 0)))
-                     *ext-definer*
-                     *core-definer*)))
-    (format stream "(~A (\"~A\" ~A~%"
-            definer
-            (mangle-for-c (name fun))
-            (mangle-for-lisp (name fun)))
-    (dotimes (i (+ 3 (length definer)))
-      (write-char #\Space stream))
-    (format stream ":library opengl)~%    ~A"
-            (remap-return (return-type fun))))
+  (format stream "(~A (\"~A\" ~A) ~A"
+          (if (or (extension fun)
+                  (or (>= (major fun) 2)
+                      (>= (minor fun) 2))
+                  (upper-case-p (char (category fun) 0)))
+              *ext-definer*
+              *core-definer*)
+          (mangle-for-c (name fun))
+          (mangle-for-lisp (name fun))
+          (remap-return (return-type fun)))
   (loop for i in (parameters fun)
         do (dump-param stream i))
   (format stream ")~%"))
@@ -471,7 +465,6 @@
         while line)
   ;;  (setf *function-list* (sort *function-list* #'string< :key #'category)))
   (setf *function-list* (nreverse *function-list*)))
-
 
 (defparameter *glext-version* nil)
 (defparameter *glext-last-updated* "<unknown>")

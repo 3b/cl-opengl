@@ -41,8 +41,7 @@
              (format s "OpenGL signalled ~A."
                      (opengl-error.error-code c)))))
 
-(defun get-error ()
-  (%gl:get-error))
+(import-export %gl:get-error)
 
 (defun check-error ()
   (let ((error-code (get-error)))
@@ -55,13 +54,7 @@
 
 ;;; 2.6.1 Begin and End
 
-(declaim (inline begin))
-(defun begin (mode)
-  (%gl:begin mode))
-
-(declaim (inline end))
-(defun end ()
-  (%gl:end))
+(import-export %gl:begin %gl:end)
 
 (defmacro with-primitives (mode &body body)
   `(prog2
@@ -78,57 +71,45 @@
 
 ;;; 2.6.2 Polygon Edges
 
-(declaim (inline edge-flag))
-(defun edge-flag (flag)
-  (%gl:edge-flag (if flag 1 0)))
+(import-export %gl:edge-flag)
 
 ;;;
 ;;; 2.7 Vertex Specification
 ;;;
 
-(declaim (inline vertex))
-(defun vertex (x y &optional (z 0.0) (w 1.0))
-  (%gl:vertex-4f (float x) (float y) (float z) (float w)))
+(definline vertex (x y &optional (z 0.0) (w 1.0))
+  (%gl:vertex-4f x y z w))
 
-(declaim (inline tex-coord))
-(defun tex-coord (s &optional (r 0.0) (t* 0.0) (q 1.0))
-  (%gl:tex-coord-4f (float s) (float r) (float t*) (float q)))
+(definline tex-coord (s &optional (r 0.0) (t* 0.0) (q 1.0))
+  (%gl:tex-coord-4f s r t* q))
 
-(declaim (inline multi-tex-coord))
-(defun multi-tex-coord (texture s &optional (t* 0.0) (r 0.0) (q 1.0))
-  (%gl:multi-tex-coord-4f texture (float s) (float t*) (float r) (float q)))
+(definline multi-tex-coord (texture s &optional (t* 0.0) (r 0.0) (q 1.0))
+  (%gl:multi-tex-coord-4f texture s t* r q))
 
-(declaim (inline normal))
-(defun normal (x y z)
-  (%gl:normal-3f (float x) (float y) (float z)))
+(definline normal (x y z)
+  (%gl:normal-3f x y z))
 
-(declaim (inline fog-coord))
-(defun fog-coord (coord)
-  (%gl:fog-coord-f (float coord)))
+(definline fog-coord (coord)
+  (%gl:fog-coord-f coord))
 
-(declaim (inline color))
-(defun color (r g b &optional (a 1.0))
-  (%gl:color-4f (float r) (float g) (float b) (float a)))
+(definline color (r g b &optional (a 1.0))
+  (%gl:color-4f r g b a))
 
-(declaim (inline secondary-color))
-(defun secondary-color (r g b)
-  (%gl:secondary-color-3f (float r) (float g) (float b)))
+(definline secondary-color (r g b)
+  (%gl:secondary-color-3f r g b))
 
-(declaim (inline index))
-(defun index (index)
-  (%gl:index-i (truncate index)))
+;;; TODO: make gl:int truncate instead.
+(definline index (index)
+  (%gl:index-i index))
 
-(declaim (inline vertex-attrib))
-(defun vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
-  (%gl:vertex-attrib-4f index (float x) (float y) (float z) (float w)))
+(definline vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
+  (%gl:vertex-attrib-4f index x y z w))
 
 ;;;
 ;;; 2.9 Buffer Objects
 ;;;
 
-(declaim (inline bind-buffer))
-(defun bind-buffer (target buffer)
-  (%gl:bind-buffer target buffer))
+(import-export %gl:bind-buffer)
 
 (defun delete-buffers (buffers)
   (with-opengl-sequence (array '%gl:uint buffers)
@@ -140,26 +121,17 @@
     (loop for i below count
           collecting (mem-aref buffer-array '%gl:uint i))))
 
-(defun buffer-data (target size data usage)
-  (%gl:buffer-data target size data usage))
-
-(defun buffer-sub-data (target offset size data)
-  (%gl:buffer-sub-data target offset size data))
-
-(defun map-buffer (target access)
-  (%gl:map-buffer target access))
-
-(defun unmap-buffer (target)
-  (%gl:unmap-buffer target))
-
+(import-export %gl:buffer-data
+               %gl:buffer-sub-data
+               %gl:map-buffer
+               %gl:unmap-buffer)
 
 ;;;
 ;;; 2.10 Rectangles
 ;;;
 
-(declaim (inline rect))
-(defun rect (x1 y1 x2 y2)
-  (%gl:rect-f (float x1) (float y1) (float x2) (float y2)))
+(definline rect (x1 y1 x2 y2)
+  (%gl:rect-f x1 y1 x2 y2))
 
 ;;;
 ;;; 2.11 Coordinate Transformations
@@ -167,18 +139,12 @@
 
 ;;; 2.11.1 Controlling the Viewport
 
-(declaim (inline depth-range))
-(defun depth-range (near far)
-  (%gl:depth-range (float near 1.0d0) (float far 1.0d0)))
-
-(declaim (inline viewport))
-(defun viewport (x y width height)
-  (%gl:viewport (truncate x) (truncate y) (truncate width) (truncate height)))
+(import-export %gl:depth-range
+               %gl:viewport)
 
 ;;; 2.11.2 Matrices
 
-(defun matrix-mode (mode)
-  (%gl:matrix-mode mode))
+(import-export %gl:matrix-mode)
 
 (defmacro with-foreign-matrix ((sym matrix) &body body)
   `(with-foreign-object (,sym :float 16)
@@ -202,45 +168,21 @@
   (with-foreign-matrix (foreign-matrix matrix)
     (%gl:mult-transpose-matrix-f foreign-matrix)))
 
-(declaim (inline rotate))
-(defun rotate (theta x y z)
-  (%gl:rotate-f (float theta) (float x) (float y) (float z)))
+(definline rotate (theta x y z)
+  (%gl:rotate-f theta x y z))
 
-(declaim (inline translate))
-(defun translate (x y z)
-  (%gl:translate-f (float x) (float y) (float z)))
+(definline translate (x y z)
+  (%gl:translate-f x y z))
 
-(declaim (inline scale))
-(defun scale (x y z)
-  (%gl:scale-f (float x) (float y) (float z)))
+(definline scale (x y z)
+  (%gl:scale-f x y z))
 
-(declaim (inline frustum))
-(defun frustum (left right bottom top near far)
-  (%gl:frustum (float left 1.0d0) (float right 1.0d0)
-               (float bottom 1.0d0) (float top 1.0d0)
-               (float near 1.0d0) (float far 1.0d0)))
-
-(declaim (inline ortho))
-(defun ortho (left right bottom top near far)
-  (%gl:ortho (float left 1.0d0) (float right 1.0d0)
-             (float bottom 1.0d0) (float top 1.0d0)
-             (float near 1.0d0) (float far 1.0d0)))
-
-(declaim (inline active-texture))
-(defun active-texture (texture)
-  (%gl:active-texture texture))
-
-(declaim (inline load-identity))
-(defun load-identity ()
-  (%gl:load-identity))
-
-(declaim (inline push-matrix))
-(defun push-matrix ()
-  (%gl:push-matrix))
-
-(declaim (inline pop-matrix))
-(defun pop-matrix ()
-  (%gl:pop-matrix))
+(import-export %gl:frustum
+               %gl:ortho
+               %gl:active-texture
+               %gl:load-identity
+               %gl:push-matrix
+               %gl:pop-matrix)
 
 (defmacro with-pushed-matrix (&body body)
   `(prog2 (push-matrix)
@@ -261,13 +203,11 @@
 ;;; 2.13 Current Raster Position
 ;;;
 
-(declaim (inline raster-pos))
-(defun raster-pos (x y &optional (z 0.0) (w 1.0))
-  (%gl:raster-pos-4f (float x) (float y) (float z) (float w)))
+(definline raster-pos (x y &optional (z 0.0) (w 1.0))
+  (%gl:raster-pos-4f x y z w))
 
-(declaim (inline window-pos))
-(defun window-pos (x y &optional (z 0.0))
-  (%gl:window-pos-3f (float x) (float y) (float z)))
+(definline window-pos (x y &optional (z 0.0))
+  (%gl:window-pos-3f x y z))
 
 ;;;
 ;;; 2.14 Colors and Coloring
@@ -275,9 +215,7 @@
 
 ;;; 2.14.1 Lighting
 
-(declaim (inline front-face))
-(defun front-face (dir)
-  (%gl:front-face dir))
+(import-export %gl:front-face)
 
 ;;; 2.14.2 Lighting Parameter Specification
 
@@ -327,15 +265,11 @@
 
 ;;; 2.14.3 ColorMaterial
 
-(declaim (inline color-material))
-(defun color-material (face mode)
-  (%gl:color-material face mode))
+(import-export %gl:color-material)
 
 ;;; 2.14.7 Flatshading
 
-(declaim (inline shade-model))
-(defun shade-model (mode)
-  (%gl:shade-model mode))
+(import-export %gl:shade-model)
 
 ;;;
 ;;; 2.15 Vertex Shaders
@@ -343,9 +277,7 @@
 
 ;;; 2.15.1 Shader Objects
 
-(declaim (inline create-shader))
-(defun create-shader (type)
-  (%gl:create-shader type))
+(import-export %gl:create-shader)
 
 (defun shader-source (shader string-list)
   (let ((num-lines (length string-list)))
@@ -362,33 +294,17 @@
           (foreign-string-free (mem-aref string-array :pointer i)))))
   string-list)
 
-(declaim (inline compile-shader))
-(defun compile-shader (shader)
-  (%gl:compile-shader shader))
-
-(declaim (inline delete-shader))
-(defun delete-shader (shader)
-  (%gl:delete-shader shader))
+(import-export %gl:compile-shader
+               %gl:delete-shader)
 
 ;;; 2.15.2 Program Objects
 
-(defun create-program ()
-  (%gl:create-program))
-
-(defun attach-shader (program shader)
-  (%gl:attach-shader program shader))
-
-(defun detach-shader (program shader)
-  (%gl:detach-shader program shader))
-
-(defun link-program (program)
-  (%gl:link-program program))
-
-(defun use-program (program)
-  (%gl:use-program program))
-
-(defun delete-program (program)
-  (%gl:delete-program program))
+(import-export %gl:create-program
+               %gl:attach-shader
+               %gl:detach-shader
+               %gl:link-program
+               %gl:use-program
+               %gl:delete-program)
 
 ;;; 2.15.3 Shader Variables
 
@@ -407,6 +323,7 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
               (foreign-enum-keyword '%gl:enum (mem-ref type :long))
               (foreign-string-to-lisp name)))))
 
+;;; TODO: make these use :STRING
 (defun get-attrib-location (program name)
   (with-foreign-string (s name)
     (%gl:get-attrib-location program s)))
@@ -484,6 +401,4 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 
 ;;; 2.15.4 Shader Execution
 
-(declaim (inline validate-program))
-(defun validate-program (program)
-  (%gl:validate-program program))
+(import-export %gl:validate-program)
