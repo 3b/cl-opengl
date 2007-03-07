@@ -395,16 +395,14 @@
     (%gl:disable cap)))
 
 ;; external
-(defun enabledp (cap)
+(definline enabledp (cap)
   (%gl:is-enabled cap))
 
 ;;; 6.1.11 Pointer and String Queries
 
 ;;; FIXME: missing glGetPointer
 
-;; external
-(defun get-string (name)
-  (foreign-string-to-lisp (%gl:get-string name)))
+(import-export %gl:get-string)
 
 ;; external
 (defun major-version ()
@@ -422,7 +420,7 @@
 
 ;; external
 (defun extension-present-p (name)
-  (not (null (search name (get-string :extensions)))))
+  (search name (%gl:get-string :extensions)))
 
 ;;; 6.1.15 Saving and Restoring State
 

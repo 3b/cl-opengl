@@ -36,11 +36,8 @@
 ;;; EXT_framebuffer_object
 ;;;
 
-(defun is-renderbuffer-ext (renderbuffer)
-  (%gl:is-renderbuffer-ext renderbuffer))
-
-(defun bind-renderbuffer-ext (target renderbuffer)
-  (%gl:bind-renderbuffer-ext target renderbuffer))
+(import-export %gl:is-renderbuffer-ext
+               %gl:bind-renderbuffer-ext)
 
 (defun delete-renderbuffers-ext (renderbuffers)
   (with-opengl-sequence (array '%gl:uint renderbuffers)
@@ -52,18 +49,14 @@
     (loop for i below count
           collecting (mem-aref renderbuffer-array '%gl:uint i))))
 
-(defun renderbuffer-storage-ext (target internal-format width height)
-  (%gl:renderbuffer-storage-ext target internal-format width height))
+(import-export %gl:renderbuffer-storage-ext)
 
 #+nil
 (defun get-renderbuffer-parameter-ext (target pname)
   )
 
-(defun is-framebuffer-ext (framebuffer)
-  (%gl:is-framebuffer-ext framebuffer))
-
-(defun bind-framebuffer-ext (target framebuffer)
-  (%gl:bind-framebuffer-ext target framebuffer))
+(import-export %gl:is-framebuffer-ext
+               %gl:bind-framebuffer-ext)
 
 (defun delete-framebuffers-ext (framebuffers)
   (with-opengl-sequence (array '%gl:uint framebuffers)
@@ -75,29 +68,15 @@
     (loop for i below count
           collecting (mem-aref framebuffer-array '%gl:uint i))))
 
-(defun check-framebuffer-status-ext (target)
-  (%gl:check-framebuffer-status-ext target))
-
-(defun framebuffer-texture-1d-ext (target attachment tex-target texture level)
-  (%gl:framebuffer-texture-1d-ext target attachment tex-target texture level))
-
-(defun framebuffer-texture-2d-ext (target attachment tex-target texture level)
-  (%gl:framebuffer-texture-2d-ext target attachment tex-target texture level))
-
-(defun framebuffer-texture-3d-ext (target attachment tex-target texture level
-                                   zoffset)
-  (%gl:framebuffer-texture-3d-ext
-   target attachment tex-target texture level zoffset))
-
-(defun framebuffer-renderbuffer-ext (target attachment renderbuffer-target
-                                     renderbuffer)
-  (%gl:framebuffer-renderbuffer-ext
-   target attachment renderbuffer-target renderbuffer))
+(import-export %gl:check-framebuffer-status-ext
+               %gl:framebuffer-texture-1d-ext
+               %gl:framebuffer-texture-2d-ext
+               %gl:framebuffer-texture-3d-ext
+               %gl:framebuffer-renderbuffer-ext)
 
 #+nil
 (defun get-framebuffer-attachment-parameter-ext (target attachment pname)
   (ecase pname
     (:framebuffer )))
 
-(defun generate-mipmap-ext (target)
-  (%gl:generate-mipmap-ext target))
+(import-export %gl:generate-mipmap-ext)

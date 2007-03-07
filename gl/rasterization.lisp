@@ -37,9 +37,7 @@
 ;;; 3.3 Points
 ;;;
 
-(declaim (inline point-size))
-(defun point-size (size)
-  (%gl:point-size (float size)))
+(import-export %gl:point-size)
 
 (defun point-parameter (pname value)
   (ecase pname
@@ -58,13 +56,8 @@
 ;;; 3.4 Line Segments
 ;;;
 
-(declaim (inline line-width))
-(defun line-width (width)
-  (%gl:line-width (float width)))
-
-(declaim (inline line-stipple))
-(defun line-stipple (factor pattern)
-  (%gl:line-stipple factor pattern))
+(import-export %gl:line-width
+               %gl:line-stipple)
 
 ;;;
 ;;; 3.5 Polygons
@@ -72,8 +65,7 @@
 
 ;;; 3.5.1 Basic Polygon Rasterization
 
-(defun cull-face (face)
-  (%gl:cull-face face))
+(import-export %gl:cull-face)
 
 ;;; 3.5.2 Stippling
 
@@ -83,13 +75,7 @@
 
 ;;; 3.5.4 Options Controlling Polygon Rasterization
 
-(declaim (inline polygon-mode))
-(defun polygon-mode (face mode)
-  (%gl:polygon-mode face mode))
-
-(declaim (inline polygon-offset))
-(defun polygon-offset (factor units)
-  (%gl:polygon-offset (float factor) (float units)))
+(import-export %gl:polygon-mode %gl:polygon-offset)
 
 ;;;
 ;;; 3.6 Pixel Rectangles
@@ -196,21 +182,13 @@
         (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width
                               height depth format type array))))
 
-(defun copy-tex-sub-image-1d (target level xoffset x y width)
-  (%gl:copy-tex-sub-image-1d target level xoffset x y width))
-
-(defun copy-tex-sub-image-2d (target level xoffset yoffset x y width height)
-  (%gl:copy-tex-sub-image-2d target level xoffset yoffset x y width height))
-
-(defun copy-tex-sub-image-3d (target level xoffset yoffset zoffset x y width
-                              height)
-  (%gl:copy-tex-sub-image-3d
-   target level xoffset yoffset zoffset x y width height))
+(import-export %gl:copy-tex-sub-image-1d
+               %gl:copy-tex-sub-image-2d
+               %gl:copy-tex-sub-image-3d)
 
 ;;; 3.8.3 Compressed Texture Images
 
-;; TODO
-
+;;; TODO
 
 ;;; 3.8.4 Texture parameters
 
@@ -240,12 +218,9 @@
     (:generate-mipmap
      (%gl:tex-parameter-i target pname (if param 1 0)))))
 
-
 ;;; 3.8.12 Texture Objects
 
-(declaim (inline bind-texture))
-(defun bind-texture (target handle)
-  (%gl:bind-texture target handle))
+(import-export %gl:bind-texture)
 
 (defun delete-textures (textures)
   (with-opengl-sequence (array '%gl:uint textures)
@@ -308,22 +283,25 @@
       (:texture-filter-control
        (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
-         (:texture-lod-bias (%gl:tex-env-f target pname-value (float value)))))
+         (:texture-lod-bias (%gl:tex-env-f target pname-value value))))
 
       (:texture-env
        (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
          (:texture-env-mode
-          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))
+          (%gl:tex-env-i target pname-value
+                         (foreign-enum-value '%gl:enum value)))
          (:texture-env-color
           (with-foreign-object (p '%gl:float 4)
             (dotimes (i 4)
               (setf (mem-aref p '%gl:float i) (float (elt value i))))
             (%gl:tex-env-fv target pname-value p)))
          (:combine-rgb
-          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))
+          (%gl:tex-env-i target pname-value
+                         (foreign-enum-value '%gl:enum value)))
          (:combine-alpha
-          (%gl:tex-env-i target pname-value (foreign-enum-value '%gl:enum value)))))
+          (%gl:tex-env-i target pname-value
+                         (foreign-enum-value '%gl:enum value)))))
 
      (:point-sprite
       (setf pname-value (foreign-enum-value '%gl:enum pname))

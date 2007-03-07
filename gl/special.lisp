@@ -60,63 +60,32 @@
                 (float v1) (float v2) vstride vorder
                 array))))
 
-(declaim (inline eval-coord-1))
-(defun eval-coord-1 (x)
-  (%gl:eval-coord-1f (float x)))
+(definline eval-coord-1 (x)
+  (%gl:eval-coord-1f x))
 
-(declaim (inline eval-coord-2))
-(defun eval-coord-2 (x y)
-  (%gl:eval-coord-2f (float x) (float y)))
+(definline eval-coord-2 (x y)
+  (%gl:eval-coord-2f x y))
 
-(declaim (inline map-grid-1))
-(defun map-grid-1 (n u1 u2)
-  (%gl:map-grid-1f n (float u1) (float u2)))
+(definline map-grid-1 (n u1 u2)
+  (%gl:map-grid-1f n u1 u2))
 
-(declaim (inline map-grid-2))
-(defun map-grid-2 (nu u1 u2 nv v1 v2)
-  (%gl:map-grid-2f nu (float u1) (float u2)
-                nv (float v1) (float v2)))
+(definline map-grid-2 (nu u1 u2 nv v1 v2)
+  (%gl:map-grid-2f nu u1 u2 nv v1 v2))
 
-(declaim (inline eval-mesh-1))
-(defun eval-mesh-1 (mode p1 p2)
-  (%gl:eval-mesh-1 mode p1 p2))
-
-(declaim (inline eval-mesh-2))
-(defun eval-mesh-2 (mode p1 p2 q1 q2)
-  (%gl:eval-mesh-2 mode p1 p2 q1 q2))
-
-(declaim (inline eval-point-1))
-(defun eval-point-1 (p)
-  (%gl:eval-point-1 p))
-
-(declaim (inline eval-point-2))
-(defun eval-point-2 (p q)
-  (%gl:eval-point-2 p q))
-
+(import-export %gl:eval-mesh-1
+               %gl:eval-mesh-2
+               %gl:eval-point-1
+               %gl:eval-point-2)
 
 ;;;
 ;;; 5.2 Selection
 ;;;
 
-(declaim (inline init-names))
-(defun init-names ()
-  (%gl:init-names))
-
-(declaim (inline pop-name))
-(defun pop-name ()
-  (%gl:pop-name))
-
-(declaim (inline push-name))
-(defun push-name (name)
-  (%gl:push-name name))
-
-(declaim (inline load-name))
-(defun load-name (name)
-  (%gl:load-name name))
-
-(declaim (inline render-mode))
-(defun render-mode (mode)
-  (%gl:render-mode mode))
+(import-export %gl:init-names
+               %gl:pop-name
+               %gl:push-name
+               %gl:load-name
+               %gl:render-mode)
 
 (defun select-buffer (array)
   (declare (ignore array))
@@ -130,25 +99,15 @@
   (declare (ignore array))
   (error "not implemented"))
 
-(declaim (inline pass-through))
-(defun pass-through (token)
-  (%gl:pass-through (float token)))
+(import-export %gl:pass-through)
 
 ;;;
 ;;; 5.4 Display Lists
 ;;;
 
-(declaim (inline new-list))
-(defun new-list (n mode)
-  (%gl:new-list n mode))
-
-(declaim (inline end-list))
-(defun end-list ()
-  (%gl:end-list))
-
-(declaim (inline call-list))
-(defun call-list (n)
-  (%gl:call-list n))
+(import-export %gl:new-list
+               %gl:end-list
+               %gl:call-list)
 
 ;;; Maybe we could optimize some more here if LISTS is vector
 ;;; with a suitable element-type.
@@ -158,21 +117,12 @@
                   #.(foreign-enum-value '%gl:enum :unsigned-int)
                   array)))
 
-(declaim (inline list-base))
-(defun list-base (base)
-  (%gl:list-base base))
-
-(declaim (inline gen-lists))
-(defun gen-lists (range)
-  (%gl:gen-lists range))
-
-(declaim (inline is-list))
-(defun is-list (list)
-  (%gl:is-list list))
-
-(declaim (inline delete-lists))
-(defun delete-lists (first range)
-  (%gl:delete-lists first range))
+(import-export %gl:list-base
+               %gl:gen-lists
+               ;; to be consistent we probably should rename this
+               ;; LISTP but it'd conflict with CL:LISTP
+               %gl:is-list
+               %gl:delete-lists)
 
 ;;; Maybe UNWIND-PROTECT instead of PROG2?
 (defmacro with-new-list ((id mode) &body body)
@@ -184,18 +134,11 @@
 ;;; 5.5 Flush and Finish
 ;;;
 
-(declaim (inline flush))
-(defun flush ()
-  (%gl:flush))
-
-(declaim (inline finish))
-(defun finish ()
-  (%gl:finish))
+(import-export %gl:flush
+               %gl:finish)
 
 ;;;
 ;;; 5.6 Hints
 ;;;
 
-(declaim (inline hint))
-(defun hint (target hint)
-  (%gl:hint target hint))
+(import-export %gl:hint)
