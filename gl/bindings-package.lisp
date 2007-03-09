@@ -592,16 +592,15 @@
   #:program-local-parameter-i4iv-nv 
   #:program-local-parameters-i4iv-nv 
   #:program-local-parameter-i4ui-nv 
-  #:program-local-parameter-i4ui-v-nv 
-  #:program-local-parameters-i4ui-v-nv 
-  #:program-env-parameter-i4i-nv #:program-env-parameter-i4iv-nv 
-  #:program-env-parameters-i4iv-nv #:program-env-parameter-i4ui-nv 
-  #:program-env-parameter-i4ui-v-nv 
-  #:program-env-parameters-i4ui-v-nv 
+  #:program-local-parameter-i4uiv-nv 
+  #:program-local-parameters-i4uiv-nv #:program-env-parameter-i4i-nv 
+  #:program-env-parameter-i4iv-nv #:program-env-parameters-i4iv-nv 
+  #:program-env-parameter-i4ui-nv #:program-env-parameter-i4uiv-nv 
+  #:program-env-parameters-i4uiv-nv 
   #:get-program-local-parameter-iiv-nv 
-  #:get-program-local-parameter-iui-v-nv 
+  #:get-program-local-parameter-iuiv-nv 
   #:get-program-env-parameter-iiv-nv 
-  #:get-program-env-parameter-iui-v-nv #:program-vertex-limit-nv 
+  #:get-program-env-parameter-iuiv-nv #:program-vertex-limit-nv 
   #:framebuffer-texture-ext #:framebuffer-texture-layer-ext 
   #:framebuffer-texture-face-ext #:program-parameter-i-ext 
   #:vertex-attrib-i1i-ext #:vertex-attrib-i2i-ext 
@@ -610,25 +609,25 @@
   #:vertex-attrib-i3ui-ext #:vertex-attrib-i4ui-ext 
   #:vertex-attrib-i1iv-ext #:vertex-attrib-i2iv-ext 
   #:vertex-attrib-i3iv-ext #:vertex-attrib-i4iv-ext 
-  #:vertex-attrib-i1ui-v-ext #:vertex-attrib-i2ui-v-ext 
-  #:vertex-attrib-i3ui-v-ext #:vertex-attrib-i4ui-v-ext 
+  #:vertex-attrib-i1uiv-ext #:vertex-attrib-i2uiv-ext 
+  #:vertex-attrib-i3uiv-ext #:vertex-attrib-i4uiv-ext 
   #:vertex-attrib-i4bv-ext #:vertex-attrib-i4sv-ext 
-  #:vertex-attrib-i4ub-v-ext #:vertex-attrib-i4us-v-ext 
+  #:vertex-attrib-i4ubv-ext #:vertex-attrib-i4usv-ext 
   #:vertex-attrib-ipointer-ext #:get-vertex-attrib-iiv-ext 
-  #:get-vertex-attrib-iui-v-ext #:get-uniform-uiv-ext 
+  #:get-vertex-attrib-iuiv-ext #:get-uniform-uiv-ext 
   #:bind-frag-data-location-ext #:get-frag-data-location-ext 
   #:uniform-1ui-ext #:uniform-2ui-ext #:uniform-3ui-ext 
   #:uniform-4ui-ext #:uniform-1uiv-ext #:uniform-2uiv-ext 
-  #:uniform-3uiv-ext #:uniform-4uiv-ext #:draw-arrays-instance-d-ext 
-  #:draw-elements-instance-d-ext #:tex-buffer-ext #:depth-range-d-nv 
+  #:uniform-3uiv-ext #:uniform-4uiv-ext #:draw-arrays-instanced-ext 
+  #:draw-elements-instanced-ext #:tex-buffer-ext #:depth-range-d-nv 
   #:clear-depth-d-nv #:depth-bounds-d-nv 
   #:renderbuffer-storage-multisample-coverage-nv 
   #:program-buffer-parameters-fv-nv 
   #:program-buffer-parameters-iiv-nv 
-  #:program-buffer-parameters-iui-v-nv #:color-mask-indexe-d-ext 
-  #:get-boolean-indexe-dv-ext #:get-integer-indexe-dv-ext 
-  #:enable-indexe-d-ext #:disable-indexe-d-ext 
-  #:is-enabled-indexe-d-ext #:begin-transform-feedback-nv 
+  #:program-buffer-parameters-iuiv-nv #:color-mask-indexed-ext 
+  #:get-boolean-indexed-v-ext #:get-integer-indexed-v-ext 
+  #:enable-indexed-ext #:disable-indexed-ext 
+  #:is-enabled-indexed-ext #:begin-transform-feedback-nv 
   #:end-transform-feedback-nv #:transform-feedback-attribs-nv 
   #:bind-buffer-range-nv #:bind-buffer-offset-nv 
   #:bind-buffer-base-nv #:transform-feedback-varyings-nv 
@@ -636,7 +635,7 @@
   #:get-active-varying-nv #:get-transform-feedback-varying-nv 
   #:uniform-buffer-ext #:get-uniform-buffer-size-ext 
   #:get-uniform-offset-ext #:tex-parameter-iiv-ext 
-  #:tex-parameter-iui-v-ext #:get-tex-parameter-iiv-ext 
-  #:get-tex-parameter-iui-v-ext #:clear-color-ii-ext 
+  #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext 
+  #:get-tex-parameter-iuiv-ext #:clear-color-ii-ext 
   #:clear-color-iui-ext ))
 

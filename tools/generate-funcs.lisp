@@ -73,12 +73,15 @@
     ("UniformMatrix3x4fv" . "uniform-matrix-3x4-fv")
     ("UniformMatrix4x3fv" . "uniform-matrix-4x3-fv")
     ("GetQueryObjecti64vEXT" . "get-query-object-i64v-ext")
-    ("GetQueryObjectui64vEXT" . "get-query-object-ui64v-ext")))
+    ("GetQueryObjectui64vEXT" . "get-query-object-ui64v-ext")
+    ("GetBooleanIndexedvEXT" . "get-boolean-indexed-v-ext")
+    ("GetIntegerIndexedvEXT" . "get-integer-indexed-v-ext")))
 
 (defparameter *whole-words*
   '("push" "depth" "mesh" "finish" "flush" "attach" "detach" "through" "width"
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
-    "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"))
+    "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
+    "instanced" "indexed"))
 
 ;;; words ending in 's'...
 ;;; is arrays textures names pixels lists attribs parameters programs
@@ -97,6 +100,12 @@
     ;; ext_vertex_shader
     ((cl-ppcre:scan "[1-3](ATI|EXT)" name)
      (cl-ppcre:regex-replace "([1-3])(EXT|ATI)" name "\\1-\\2"))
+    ;; nv-gpu-program4 extension has a bunch of functions with I before the
+    ;; type signature, not sure if it should be separate or not,
+    ;; leaving it as i4ui etc. for now, but still gets special cased
+    ;; since it confuses the main regex...
+    ((cl-ppcre:scan "^I[1-4]?[bisuv]+$" name) name)
+
     (t ; anything else, try to split
      (cl-ppcre:regex-replace-all
       ;;#
@@ -262,21 +271,25 @@
     ("double"         . ":double")
     ("void"           . ":void")))
 
-(defun remap-base-and-pointer-types (type)
+
+(defun remap-base-types (type)
   (cond
-    ((find #\* type :test #'char=)
-     ;; quick hack to extract types from "foo*", probably breaks
-     ;; on foo**...just replace last '*' with ' '
-     #- (and) ; this is broken so let's just use :pointer
-     (format nil "(:pointer ~a)"
-             (substitute #\Space #\* type
-                         :from-end t :count 1 :test #'char=))
-     ":pointer")
     ((assoc type *base-types* :test #'string=)
      (cdr (assoc type *base-types* :test #'string=)))
     ((string= type "GL" :end1 2)
      (regex-replace "NV" (regex-replace "ARB" (subseq type 2) "-arb") "-nv"))
     (t type)))
+
+(defun remap-base-and-pointer-types (type)
+  (cond
+    ((find #\* type :test #'char=)
+     ;; quick hack to extract types from "foo*", probably breaks
+     ;;  on foo**...just replace last '*' with ''
+     (let* ((base (regex-replace "[*]$" type ""))
+            (remapped (remap-base-types base)))
+       (format nil "(:pointer ~a)" remapped)))
+    (t (remap-base-types type))))
+
 
 (defun fix-arg (arg)
   (cond ((string= arg "t") "tee")

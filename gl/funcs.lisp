@@ -1682,7 +1682,7 @@
 ;;; GL version: 1.1, 1_1
 (defglfun ("glGetPointerv" get-pointer-v) :void
   (pname enum)
-  (params (:pointer :pointer)))
+  (params (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, 1_1
 (defglfun ("glIndexPointer" index-pointer) :void
@@ -2443,7 +2443,7 @@
   (mode enum)
   (count (:pointer sizei))
   (type enum)
-  (indices (:pointer :pointer))
+  (indices (:pointer (:pointer void)))
   (primcount sizei))
 
 ;;; GL version: 1.4, VERSION_1_4
@@ -2711,7 +2711,7 @@
   (data (:pointer void)))
 
 ;;; GL version: 1.5, VERSION_1_5
-(defglextfun ("glMapBuffer" map-buffer) :pointer
+(defglextfun ("glMapBuffer" map-buffer) (:pointer void)
   (target enum)
   (access enum))
 
@@ -2729,7 +2729,7 @@
 (defglextfun ("glGetBufferPointerv" get-buffer-pointer-v) :void
   (target enum)
   (pname enum)
-  (params (:pointer :pointer)))
+  (params (:pointer (:pointer void))))
 
 ;;; GL version: 2.0, VERSION_2_0
 (defglextfun ("glBlendEquationSeparate" blend-equation-separate) :void
@@ -2907,7 +2907,7 @@
 (defglextfun ("glGetVertexAttribPointerv" get-vertex-attrib-pointer-v) :void
   (index uint)
   (pname enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 2.0, VERSION_2_0
 (defglextfun ("glIsProgram" is-program) boolean
@@ -2925,7 +2925,7 @@
 (defglextfun ("glShaderSource" shader-source) :void
   (shader uint)
   (count sizei)
-  (string (:pointer :pointer))
+  (string (:pointer (:pointer char)))
   (length (:pointer int)))
 
 ;;; GL version: 2.0, VERSION_2_0
@@ -4118,7 +4118,7 @@
 (defglextfun ("glGetVertexAttribPointervARB" get-vertex-attrib-pointer-v-arb) :void
   (index uint)
   (pname enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.3, ARB_vertex_program
 (defglextfun ("glIsProgramARB" is-program-arb) boolean
@@ -4165,7 +4165,7 @@
   (data (:pointer void)))
 
 ;;; GL version: 1.2, ARB_vertex_buffer_object
-(defglextfun ("glMapBufferARB" map-buffer-arb) :pointer
+(defglextfun ("glMapBufferARB" map-buffer-arb) (:pointer void)
   (target enum)
   (access enum))
 
@@ -4183,7 +4183,7 @@
 (defglextfun ("glGetBufferPointervARB" get-buffer-pointer-v-arb) :void
   (target enum)
   (pname enum)
-  (params (:pointer :pointer)))
+  (params (:pointer (:pointer void))))
 
 ;;; GL version: 1.5, ARB_occlusion_query
 (defglextfun ("glGenQueriesARB" gen-queries-arb) :void
@@ -4247,7 +4247,7 @@
 (defglextfun ("glShaderSourceARB" shader-source-arb) :void
   (shaderObj handle-arb)
   (count sizei)
-  (string (:pointer :pointer))
+  (string (:pointer (:pointer char-arb)))
   (length (:pointer int)))
 
 ;;; GL version: 1.2, ARB_shader_objects
@@ -4974,7 +4974,7 @@
 ;;; GL version: 1.0, EXT_vertex_array
 (defglextfun ("glGetPointervEXT" get-pointer-v-ext) :void
   (pname enum)
-  (params (:pointer :pointer)))
+  (params (:pointer (:pointer void))))
 
 ;;; GL version: 1.0, EXT_vertex_array
 (defglextfun ("glIndexPointerEXT" index-pointer-ext) :void
@@ -5441,24 +5441,24 @@
 (defglextfun ("glVertexPointervINTEL" vertex-pointer-v-intel) :void
   (size int)
   (type enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, INTEL_parallel_arrays
 (defglextfun ("glNormalPointervINTEL" normal-pointer-v-intel) :void
   (type enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, INTEL_parallel_arrays
 (defglextfun ("glColorPointervINTEL" color-pointer-v-intel) :void
   (size int)
   (type enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, INTEL_parallel_arrays
 (defglextfun ("glTexCoordPointervINTEL" tex-coord-pointer-v-intel) :void
   (size int)
   (type enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, EXT_pixel_transform
 (defglextfun ("glPixelTransformParameteriEXT" pixel-transform-parameter-i-ext) :void
@@ -5587,7 +5587,7 @@
   (mode enum)
   (count (:pointer sizei))
   (type enum)
-  (indices (:pointer :pointer))
+  (indices (:pointer (:pointer void)))
   (primcount sizei))
 
 ;;; GL version: 1.1, EXT_fog_coord
@@ -5787,7 +5787,7 @@
 (defglextfun ("glReplacementCodePointerSUN" replacement-code-pointer-sun) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.1, SUN_vertex
 (defglextfun ("glColor4ubVertex2fSUN" color-4ub-vertex-2f-sun) :void
@@ -6397,7 +6397,7 @@
   (mode (:pointer enum))
   (count (:pointer sizei))
   (type enum)
-  (indices (:pointer :pointer))
+  (indices (:pointer (:pointer void)))
   (primcount sizei)
   (modestride int))
 
@@ -6406,7 +6406,7 @@
   (size int)
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
@@ -6414,34 +6414,34 @@
   (size int)
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
 (defglextfun ("glEdgeFlagPointerListIBM" edge-flag-pointer-list-ibm) :void
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer boolean)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
 (defglextfun ("glFogCoordPointerListIBM" fog-coord-pointer-list-ibm) :void
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
 (defglextfun ("glIndexPointerListIBM" index-pointer-list-ibm) :void
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
 (defglextfun ("glNormalPointerListIBM" normal-pointer-list-ibm) :void
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
@@ -6449,7 +6449,7 @@
   (size int)
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.1, IBM_vertex_array_lists
@@ -6457,7 +6457,7 @@
   (size int)
   (type enum)
   (stride int)
-  (pointer (:pointer :pointer))
+  (pointer (:pointer (:pointer void)))
   (ptrstride int))
 
 ;;; GL version: 1.2, 3DFX_tbuffer
@@ -6677,7 +6677,7 @@
 (defglextfun ("glGetVertexAttribPointervNV" get-vertex-attrib-pointer-v-nv) :void
   (index uint)
   (pname enum)
-  (pointer (:pointer :pointer)))
+  (pointer (:pointer (:pointer void))))
 
 ;;; GL version: 1.2, NV_vertex_program
 (defglextfun ("glIsProgramNV" is-program-nv) boolean
@@ -7393,7 +7393,7 @@
 (defglextfun ("glGetVariantPointervEXT" get-variant-pointer-v-ext) :void
   (id uint)
   (value enum)
-  (data (:pointer :pointer)))
+  (data (:pointer (:pointer void))))
 
 ;;; GL version: 1.2, EXT_vertex_shader
 (defglextfun ("glGetInvariantBooleanvEXT" get-invariant-boolean-v-ext) :void
@@ -8176,7 +8176,7 @@
   (index uint))
 
 ;;; GL version: 1.2, ATI_map_object_buffer
-(defglextfun ("glMapObjectBufferATI" map-object-buffer-ati) :pointer
+(defglextfun ("glMapObjectBufferATI" map-object-buffer-ati) (:pointer void)
   (buffer uint))
 
 ;;; GL version: 1.2, ATI_map_object_buffer
@@ -8428,13 +8428,13 @@
   (w uint))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glProgramLocalParameterI4uivNV" program-local-parameter-i4ui-v-nv) :void
+(defglextfun ("glProgramLocalParameterI4uivNV" program-local-parameter-i4uiv-nv) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glProgramLocalParametersI4uivNV" program-local-parameters-i4ui-v-nv) :void
+(defglextfun ("glProgramLocalParametersI4uivNV" program-local-parameters-i4uiv-nv) :void
   (target enum)
   (index uint)
   (count sizei)
@@ -8472,13 +8472,13 @@
   (w uint))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glProgramEnvParameterI4uivNV" program-env-parameter-i4ui-v-nv) :void
+(defglextfun ("glProgramEnvParameterI4uivNV" program-env-parameter-i4uiv-nv) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glProgramEnvParametersI4uivNV" program-env-parameters-i4ui-v-nv) :void
+(defglextfun ("glProgramEnvParametersI4uivNV" program-env-parameters-i4uiv-nv) :void
   (target enum)
   (index uint)
   (count sizei)
@@ -8491,7 +8491,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glGetProgramLocalParameterIuivNV" get-program-local-parameter-iui-v-nv) :void
+(defglextfun ("glGetProgramLocalParameterIuivNV" get-program-local-parameter-iuiv-nv) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
@@ -8503,7 +8503,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 1.3, NV_gpu_program4
-(defglextfun ("glGetProgramEnvParameterIuivNV" get-program-env-parameter-iui-v-nv) :void
+(defglextfun ("glGetProgramEnvParameterIuivNV" get-program-env-parameter-iuiv-nv) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
@@ -8615,22 +8615,22 @@
   (v (:pointer int)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI1uivEXT" vertex-attrib-i1ui-v-ext) :void
+(defglextfun ("glVertexAttribI1uivEXT" vertex-attrib-i1uiv-ext) :void
   (index uint)
   (v (:pointer uint)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI2uivEXT" vertex-attrib-i2ui-v-ext) :void
+(defglextfun ("glVertexAttribI2uivEXT" vertex-attrib-i2uiv-ext) :void
   (index uint)
   (v (:pointer uint)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI3uivEXT" vertex-attrib-i3ui-v-ext) :void
+(defglextfun ("glVertexAttribI3uivEXT" vertex-attrib-i3uiv-ext) :void
   (index uint)
   (v (:pointer uint)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI4uivEXT" vertex-attrib-i4ui-v-ext) :void
+(defglextfun ("glVertexAttribI4uivEXT" vertex-attrib-i4uiv-ext) :void
   (index uint)
   (v (:pointer uint)))
 
@@ -8645,12 +8645,12 @@
   (v (:pointer short)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI4ubvEXT" vertex-attrib-i4ub-v-ext) :void
+(defglextfun ("glVertexAttribI4ubvEXT" vertex-attrib-i4ubv-ext) :void
   (index uint)
   (v (:pointer ubyte)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glVertexAttribI4usvEXT" vertex-attrib-i4us-v-ext) :void
+(defglextfun ("glVertexAttribI4usvEXT" vertex-attrib-i4usv-ext) :void
   (index uint)
   (v (:pointer ushort)))
 
@@ -8669,7 +8669,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 1.0, NV_vertex_program4
-(defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iui-v-ext) :void
+(defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iuiv-ext) :void
   (index uint)
   (pname enum)
   (params (:pointer uint)))
@@ -8742,14 +8742,14 @@
   (value (:pointer uint)))
 
 ;;; GL version: 2.0, EXT_draw_instanced
-(defglextfun ("glDrawArraysInstancedEXT" draw-arrays-instance-d-ext) :void
+(defglextfun ("glDrawArraysInstancedEXT" draw-arrays-instanced-ext) :void
   (mode enum)
   (start int)
   (count sizei)
   (primcount sizei))
 
 ;;; GL version: 2.0, EXT_draw_instanced
-(defglextfun ("glDrawElementsInstancedEXT" draw-elements-instance-d-ext) :void
+(defglextfun ("glDrawElementsInstancedEXT" draw-elements-instanced-ext) :void
   (mode enum)
   (count sizei)
   (type enum)
@@ -8802,7 +8802,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 1.2, NV_parameter_buffer_object
-(defglextfun ("glProgramBufferParametersIuivNV" program-buffer-parameters-iui-v-nv) :void
+(defglextfun ("glProgramBufferParametersIuivNV" program-buffer-parameters-iuiv-nv) :void
   (target enum)
   (buffer uint)
   (index uint)
@@ -8810,7 +8810,7 @@
   (params (:pointer uint)))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glColorMaskIndexedEXT" color-mask-indexe-d-ext) :void
+(defglextfun ("glColorMaskIndexedEXT" color-mask-indexed-ext) :void
   (index uint)
   (r boolean)
   (g boolean)
@@ -8818,29 +8818,29 @@
   (a boolean))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glGetBooleanIndexedvEXT" get-boolean-indexe-dv-ext) :void
+(defglextfun ("glGetBooleanIndexedvEXT" get-boolean-indexed-v-ext) :void
   (target enum)
   (index uint)
   (data (:pointer boolean)))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glGetIntegerIndexedvEXT" get-integer-indexe-dv-ext) :void
+(defglextfun ("glGetIntegerIndexedvEXT" get-integer-indexed-v-ext) :void
   (target enum)
   (index uint)
   (data (:pointer int)))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glEnableIndexedEXT" enable-indexe-d-ext) :void
+(defglextfun ("glEnableIndexedEXT" enable-indexed-ext) :void
   (target enum)
   (index uint))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glDisableIndexedEXT" disable-indexe-d-ext) :void
+(defglextfun ("glDisableIndexedEXT" disable-indexed-ext) :void
   (target enum)
   (index uint))
 
 ;;; GL version: 2.0, EXT_draw_buffers2
-(defglextfun ("glIsEnabledIndexedEXT" is-enabled-indexe-d-ext) boolean
+(defglextfun ("glIsEnabledIndexedEXT" is-enabled-indexed-ext) boolean
   (target enum)
   (index uint))
 
@@ -8934,7 +8934,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 2.0, EXT_texture_integer
-(defglextfun ("glTexParameterIuivEXT" tex-parameter-iui-v-ext) :void
+(defglextfun ("glTexParameterIuivEXT" tex-parameter-iuiv-ext) :void
   (target enum)
   (pname enum)
   (params (:pointer uint)))
@@ -8946,7 +8946,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 2.0, EXT_texture_integer
-(defglextfun ("glGetTexParameterIuivEXT" get-tex-parameter-iui-v-ext) :void
+(defglextfun ("glGetTexParameterIuivEXT" get-tex-parameter-iuiv-ext) :void
   (target enum)
   (pname enum)
   (params (:pointer uint)))
