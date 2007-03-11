@@ -30,10 +30,6 @@
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-(defpackage #:cl-glut-examples-system
-  (:use #:cl #:asdf))
-(in-package #:cl-glut-examples-system)
-
 (defsystem cl-glut-examples
   :description "Examples using cl-opengl, cl-glu and cl-glut."
   :depends-on (cffi cl-opengl cl-glu cl-glut)
