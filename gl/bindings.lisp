@@ -103,7 +103,7 @@
 (defun generate-gl-function (foreign-name lisp-name result-type body &rest args)
   (let ((address (gl-get-proc-address foreign-name))
         (arg-list (mapcar #'first body)))
-    (when (pointer-eq address (null-pointer))
+    (when (or (not (pointerp address)) (null-pointer-p address))
       (error "Couldn't find function ~A" foreign-name))
     (compile lisp-name
              `(lambda ,arg-list
