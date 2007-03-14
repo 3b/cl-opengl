@@ -98,12 +98,31 @@
 (definline secondary-color (r g b)
   (%gl:secondary-color-3f r g b))
 
-;;; TODO: make gl:int truncate instead.
 (definline index (index)
   (%gl:index-i index))
 
 (definline vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
   (%gl:vertex-attrib-4f index x y z w))
+
+;;;
+;;; 2.8 Vertex Arrays
+;;;
+
+(import-export %gl:array-element
+               %gl:enable-client-state
+               %gl:disable-client-state
+               %gl:client-active-texture
+               %gl:enable-vertex-attrib-array
+               %gl:disable-vertex-attrib-array
+               %gl:draw-arrays)
+
+(definline draw-elements (mode array &key (count (gl-array-size array))
+                               (offset 0))
+  ;; fix count to whole array size?
+  ;; bounds checking?
+  (%gl:draw-elements mode count
+                     (cffi-type-to-gl (gl-array-type array))
+                     (gl-array-pointer-offset array offset)))
 
 ;;;
 ;;; 2.9 Buffer Objects
@@ -121,10 +140,232 @@
     (loop for i below count
           collecting (mem-aref buffer-array '%gl:uint i))))
 
-(import-export %gl:buffer-data
-               %gl:buffer-sub-data
-               %gl:map-buffer
+(import-export %gl:map-buffer
                %gl:unmap-buffer)
+
+(define-get-function get-buffer-parameter (target pname)
+  (%gl:get-buffer-parameter-iv :int int)
+  (%gl:get-buffer-pointer-v :pointer))
+
+;;; Offset is offset in array, buffer-offset in VBO.
+(definline buffer-sub-data (target array &key (offset 0) (buffer-offset 0)
+                                   (size (gl-array-byte-size array)))
+  (%gl:buffer-sub-data target buffer-offset size
+                       (gl-array-pointer-offset array offset)))
+
+;;; NOTE: arguments are flipped compared to gl function to allow
+;;; optional offset.
+(definline buffer-data (target usage array &key (offset 0)
+                               (size (gl-array-byte-size array)))
+  (%gl:buffer-data target size (gl-array-pointer-offset array offset) usage))
+
+;;; Returns a CFFI:DEFCSTRUCT fragment for CLAUSE.
+(defun emit-gl-array-struct-clause (clause)
+  (destructuring-bind (array-type &key type components &allow-other-keys)
+      clause
+    (declare (ignore array-type))
+    (loop for c in components
+          collect `(,c ,type))))
+
+;;; Returns a binding form for CLAUSE.  This function extracts needed
+;;; parameters from CLAUSE and uses OFFSET and STRIDE as memory layout
+;;; informations. PSYM is used as symbol for the pointer in the form.
+(defun emit-gl-array-bind-clause (clause offset stride psym)
+  (destructuring-bind (array-type &rest rest &key type components
+                                  &allow-other-keys)
+      clause
+    (let ((func-name (symbolicate-package "%GL" array-type "-POINTER"))
+          (gl-type (cffi-type-to-gl type))
+          (address-expr `(inc-pointer ,psym ,offset))
+          (size (length components)))
+      (ecase array-type
+        ((vertex color secondary-color)
+         `(,func-name ,size ,gl-type ,stride ,address-expr))
+        ((normal index fog-coord)
+         `(,func-name ,gl-type ,stride ,address-expr))
+        (tex-coord
+         (destructuring-bind (&key (stage :texture0) &allow-other-keys)
+             rest
+           `(progn
+              (client-active-texture ,stage)
+              (tex-coord-pointer ,size ,gl-type ,stride ,address-expr))))
+        (edge-flag                      ; type is fixed
+         `(edge-flag-pointer ,stride ,address-expr))
+        (vertex-attrib
+         (destructuring-bind (&key (index 0) (normalized nil) &allow-other-keys)
+             rest
+           `(vertex-attrib-pointer ,index ,size ,type ,normalized ,stride
+                                   ,address-expr)))))))
+
+(defmacro define-gl-array-format (name &body clauses)
+  "Defines a vertex array format spcification. Each clause has
+the format (array-type parameter*) where array-type can
+currently be one of VERTEX, COLOR, SECONDARY-COLOR, NORMAL,
+INDEX, FOG-COORD, TEX-COORD, EDGE-FLAG OR VERTEX-ATTRIB.
+
+Parameters are keyword arguments for the corresponding array
+type. The following parameters are supported:
+
+    :TYPE -- array element type (all array types)
+    :COMPONENTS -- list of component (slot) names for this array (all types)
+    :STAGE -- active texture for the array (TEX-COORD type)
+    :INDEX -- vertex attribute index (VERTEX-ATTRIB type)
+    :NORMALIZED -- whether values should be normalized (VERTEX-ATTRIB)
+"
+  `(progn
+     (defcstruct ,name
+       ,@(mapcan #'emit-gl-array-struct-clause clauses))
+     (setf (get ',name 'vertex-array-binder)
+           (compile
+            nil
+            `(lambda (p)
+               ,,@(loop with stride = `(foreign-type-size ',name)
+                        for c in clauses
+                        for offset = `(foreign-slot-offset
+                                       ',name ',(caadr (member :components c)))
+                        collect `(emit-gl-array-bind-clause
+                                  ',c ,offset ,stride 'p)))))
+     ',name))
+
+;;; Returns the vertex array binder for SYMBOL-OR-FUNCTION.  This
+;;; function is idempotent.
+(defun find-vertex-array-binder (symbol-or-function &optional (errorp t))
+  (ctypecase symbol-or-function
+    (function symbol-or-function)
+    (symbol (or (get symbol-or-function 'vertex-array-binder)
+                (when errorp
+                  (error "Vertex array format ~A not defined."
+                         symbol-or-function))))))
+
+;;; Sets the vertex array binder of SYMBOL to VALUE.  VALUE must be a
+;;; function of one argument, the array pointer.
+(defun (setf find-vertex-array-binder) (value symbol)
+  (check-type value function)
+  (setf (get symbol 'vertex-array-binder) value))
+
+
+
+(defstruct (gl-array (:copier nil))
+  "Pointer to C array with size and type information attached."
+  (pointer (null-pointer))
+  (size 0 :type unsigned-byte)
+  (type nil :type symbol))
+
+(defstruct (gl-vertex-array (:copier nil) (:include gl-array))
+  "Like GL-ARRAY, but with an aditional vertex array binder."
+  (binder #'identity :type function))
+
+(defun alloc-gl-array (type count)
+  (if (get type 'vertex-array-binder)
+      (make-gl-vertex-array
+       :pointer (foreign-alloc type :count count)
+       :size count :type type :binder (get type 'vertex-array-binder))
+      (make-gl-array :pointer (foreign-alloc type :count count)
+                     :size count :type type)))
+
+(declaim (inline make-gl-array-from-pointer))
+(defun make-gl-array-from-pointer (ptr type count)
+  "Same as ALLOC-GL-ARRAY but uses a supplied pointer instead of
+allocating new memory."
+  (let ((binder (find-vertex-array-binder type nil)))
+    (if binder
+        (make-gl-vertex-array :pointer ptr :size count
+                              :type type :binder binder)
+        (make-gl-array :pointer ptr :size count :type type))))
+
+(defun free-gl-array (array)
+  "Frees an array allocated by ALLOC-GL-ARRAY."
+  (foreign-free (gl-array-pointer array)))
+
+(defun make-null-gl-array (type)
+  "Returns a GL-ARRAY with a size of 0, a null pointer and of type TYPE."
+  (make-gl-array-from-pointer (null-pointer) 0 type))
+
+
+;;; Returns a pointer to the OFFSET-th element in ARRAY.  I think this
+;;; is different from mem-aref for simple types.
+(declaim (inline gl-array-pointer-offset))
+(defun gl-array-pointer-offset (array offset)
+  (inc-pointer (gl-array-pointer array)
+               (* (foreign-type-size (gl-array-type array)) offset)))
+
+;;; Returns the number of bytes in the array.
+(declaim (inline gl-array-byte-size))
+(defun gl-array-byte-size (array)
+  (* (gl-array-size array) (foreign-type-size (gl-array-type array))))
+
+(defun bind-gl-vertex-array (array &optional (offset 0))
+  "Binds ARRAY starting at the OFFSET-th element."
+  (funcall (gl-vertex-array-binder array)
+           (gl-array-pointer-offset array offset)))
+
+(defmacro with-gl-array ((var type &key count) &body forms)
+  "Allocates a fresh GL-ARRAY of type TYPE and COUNT elements.
+The array will be bound to VAR and is freed when execution moves
+outside WITH-GL-ARRAY."
+  (with-unique-names (ptr)
+    `(with-foreign-object (,ptr ,type ,count)
+       (let ((,var (make-gl-array-from-pointer ,ptr ,type ,count)))
+         (declare (dynamic-extent ,var))
+         ,@forms))))
+
+;;; TODO: find a better name. I keep reading this as
+;;; glare-f. [2007-03-14 LO]
+(declaim (inline glaref))
+(defun glaref (array index &optional (component nil c-p))
+  "Returns the INDEX-th component of ARRAY. If COMPONENT is
+supplied and ARRAY is of a compound type the component named
+COMPONENT is returned."
+  (if c-p
+      (foreign-slot-value (mem-aref (gl-array-pointer array)
+                                    (gl-array-type array)
+                                    index)
+                          (gl-array-type array)
+                          component)
+      (mem-aref (gl-array-pointer array) (gl-array-type array) index)))
+
+(declaim (inline (setf glaref)))
+(defun (setf glaref) (value array index &optional (component nil c-p))
+  "Sets the place (GLAREF ARRAY INDEX [COMPONENT]) to VALUE."
+  (if c-p
+      (setf (foreign-slot-value (mem-aref (gl-array-pointer array)
+                                          (gl-array-type array)
+                                          index)
+                                (gl-array-type array)
+                                component)
+            value)
+      (setf (mem-aref (gl-array-pointer array) (gl-array-type array) index)
+            value)))
+
+(declaim (inline map-buffer-to-gl-array))
+(defun map-buffer-to-gl-array (target access type)
+  "This is like MAP-BUFFER but returns a GL-ARRAY instead of a plain pointer.
+Note that you must not call FREE-GL-ARRAY but UNMAP-BUFFER on the
+return value."
+  (make-gl-array-from-pointer
+   (map-buffer target access)
+   type
+   (floor (get-buffer-parameter target :buffer-size :int)
+          (foreign-type-size type))))
+
+(defmacro with-mapped-buffer ((p target access) &body body)
+  "Maps the buffer currently bound to TARGET with ACCESS storing
+the returned pointer in P. The buffer is unmapped when execution
+leaves WITH-MAPPED-BUFFER.  Note that this will break when
+another buffer is bound within FORMS."
+  (once-only (target)
+    `(let ((,p (map-buffer ,target ,access)))
+       (unwind-protect
+            (progn ,@body)
+         (unmap-buffer ,target)))))
+
+(defmacro with-gl-mapped-buffer ((a target access type) &body body)
+  "This is like WITH-MAPPED-BUFFER, but maps to a GL-ARRAY instead."
+  (with-unique-names (p)
+    `(with-mapped-buffer (,p ,target ,access)
+       (let ((,a (make-gl-array-from-pointer ,p ,type)))
+         (declare (dynamic-extent ,a))
+         ,@body))))
 
 ;;;
 ;;; 2.10 Rectangles

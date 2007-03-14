@@ -54,6 +54,21 @@
    #:secondary-color
    #:index
    #:vertex-attrib
+   ;; 2.8 Vertex Arrays
+   #:draw-elements
+   #:alloc-gl-array
+   #:free-gl-array
+   #:define-gl-array-format
+   #:gl-array
+   #:gl-vertex-array
+   #:bind-gl-vertex-array
+   #:with-gl-array
+   #:glaref
+   #:map-buffer-to-gl-array
+   #:with-gl-mapped-buffer
+   #:with-mapped-buffer
+   #:make-null-gl-array
+   #:gl-array-byte-size
    ;; 2.9 Buffer Objects
    #:bind-buffer
    #:delete-buffers

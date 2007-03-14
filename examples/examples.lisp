@@ -15,7 +15,8 @@
     ("SGI Samples")
     ("Other Examples"
      glut-teapot
-     render-to-texture)))
+     render-to-texture
+     misc-opengl-array)))
 
 ;;; export symbols
 (dolist (section +examples+)
@@ -28,7 +29,7 @@
             (car section) (cdr section))))
 
 (defun run-examples ()
-  "Run all the cl-glut examples."
+  "Run all the CL-GLUT examples."
   (let ((glut:*run-main-loop-after-display* nil))
     (dolist (section +examples+)
       (mapc #'funcall (cdr section)))

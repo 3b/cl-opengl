@@ -83,6 +83,18 @@
     (:unsigned-int-10-10-10-2 '%gl:uint)
     (:unsigned-int-2-10-10-10-rev '%gl:uint)))
 
+;;; Converts a CFFI type to the appropriate GL enum.
+(defun cffi-type-to-gl (type)
+  (ecase type
+    (:signed-char :byte)
+    (:unsigned-char :unsigned-byte)
+    ((:short :signed-short) :short)
+    (:unsigned-short :unsigned-short)
+    ((:int :signed-int) :int)
+    (:unsigned-int :unsigned-int)
+    (:float :float)
+    (:double :double)))
+
 (defmacro with-opengl-array ((var type lisp-array) &body body)
   (check-type var symbol)
   (let ((count (gensym "COUNT"))
@@ -127,18 +139,21 @@
 ;;; The following utils were taken from SBCL's
 ;;; src/code/*-extensions.lisp
 
-(defun symbolicate (&rest things)
+(defun symbolicate-package (package &rest things)
   "Concatenate together the names of some strings and symbols,
 producing a symbol in the current package."
   (let* ((length (reduce #'+ things
                          :key (lambda (x) (length (string x)))))
          (name (make-array length :element-type 'character)))
     (let ((index 0))
-      (dolist (thing things (values (intern name)))
+      (dolist (thing things (values (intern name package)))
         (let* ((x (string thing))
                (len (length x)))
           (replace name x :start1 index)
           (incf index len))))))
+
+(defun symbolicate (&rest things)
+  (apply #'symbolicate-package *package* things))
 
 ;;; Automate an idiom often found in macros:
 ;;;   (LET ((FOO (GENSYM "FOO"))
@@ -180,3 +195,39 @@ producing a symbol in the current package."
   `(progn
      (declaim (inline ,name))
      (defun ,name ,args ,@body)))
+
+;;; A generic generator for all kinds of OpenGL get functions
+;;; (define-get-function NAME (ARG1 ARG2 ... ARGn)
+;;;   (TYPE1 FUNC1)
+;;;   (TYPE2 FUNC2)
+;;;   ...)
+;;;
+;;; defines a function (NAME ARG1 ... ARGn TYPE [COUNT]) which calls
+;;; the right FUNCi where TYPEi equals TYPE like (FUNCi ARG1 ... ARGn
+;;; P) where P is a pointer to COUNT values of TYPE.  when COUNT is
+;;; odmitted or 1 a simple value is returned, a list of values
+;;; otherwise.
+;;;
+;;; NOTE: should we drop this function or extend define-query-function
+;;;       to allow more than one argument? Do we want one function per
+;;;       return type or the return type as argument (with sane
+;;;       default? per hashtable lookup? also for count?)
+(defmacro define-get-function (name (&rest head-args) &body clauses)
+  (with-unique-names (return-type return-count p)
+    `(defun ,name (,@head-args ,return-type &optional (,return-count 1))
+       (with-foreign-object (,p ,return-type ,return-count)
+         (ecase ,return-type
+           ,@(loop for (func . types) in clauses
+                   collect `((,@types) (,func ,@head-args ,p))))
+         (if (= ,return-count 1)
+             (mem-aref ,p ,return-type 0)
+             (loop for i from 0 to (1- ,return-count)
+                   collect (mem-aref ,p ,return-type i)))))))
+
+;;; (define-array-pointer NAME BUILTIN-NAME ARG*) defines a very thin
+;;; wrapper over BUILTIN-NAME to allow passing a GL-ARRAY,[OFFSET]
+;;; last arguments to glFooPointer insteand of a pointer.
+(defmacro define-array-pointer (name builtin-name &rest head-args)
+  (with-unique-names (array offset)
+    `(definline ,name (,@head-args ,array ,offset)
+       (,builtin-name ,@head-args (gl-array-pointer-offset ,array ,offset)))))
