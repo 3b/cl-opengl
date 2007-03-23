@@ -388,9 +388,9 @@ another buffer is bound within FORMS."
 (import-export %gl:matrix-mode)
 
 (defmacro with-foreign-matrix ((sym matrix) &body body)
-  `(with-foreign-object (,sym :float 16)
+  `(with-foreign-object (,sym '%gl:float 16)
      (dotimes (i 16)
-       (setf (mem-aref ,sym :float i) (row-major-aref ,matrix i)))
+       (setf (mem-aref ,sym '%gl:float i) (row-major-aref ,matrix i)))
      ,@body))
 
 (defun load-matrix (matrix)
