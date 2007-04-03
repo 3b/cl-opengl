@@ -353,12 +353,26 @@ Lexically binds CURRENT-WINDOW to the respective object."
     (with-window win
       (set-window-title string))))
 
+;;; Execute BODY with floating-point traps disabled.  This seems to be
+;;; necessary on (at least) Linux/x86-64 where SIGFPEs are signalled
+;;; when creating making a GLX context active.
+#+(and sbcl x86-64)
+(defmacro without-fp-traps (&body body)
+  `(sb-int:with-float-traps-masked (:invalid :divide-by-zero)
+     ,@body))
+
+;;; Do nothing on Lisps that don't need traps disabled.
+#-(and sbcl x86-64)
+(defmacro without-fp-traps (&body body)
+  `(progn ,@body))
+
 (defmethod display-window :around ((win window))
-  (apply #'init-display-mode (slot-value win 'mode))
-  (setf (slot-value win 'id) (create-window (title win)))
-  (call-next-method)
-  (when *run-main-loop-after-display*
-    (glut:main-loop)))
+  (without-fp-traps
+    (apply #'init-display-mode (slot-value win 'mode))
+    (setf (slot-value win 'id) (create-window (title win)))
+    (call-next-method)
+    (when *run-main-loop-after-display*
+      (glut:main-loop))))
 
 ;;;; Sub-windows
 
