@@ -207,7 +207,7 @@
    #:wire-tetrahedron
    #:solid-tetrahedron
    #:wire-icosahedron
-   #:solid-icosahedorn
+   #:solid-icosahedron
    #:wire-teapot
    #:solid-teapot
    #:wire-rhombic-dodecahedron          ; freeglut ext
