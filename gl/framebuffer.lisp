@@ -143,9 +143,21 @@ with them until the first time they are used by BEGIN-QUERY."
 
 ;;; 4.3.2 Reading Pixels
 
-(defun read-pixels (x y width height)
-  (declare (ignore x y width height))
-  (error "not implemented"))
+(defun read-pixels (x y width height format type)
+  (let* ((mult (ecase format
+                 ((:red :green :blue :alpha :luminance) 1)
+                 ((:depth-component :color-index :stencil-index) 1)
+                 (:luminance-alpha 2)
+                 ((:rgb :bgr) 3)
+                 ((:rgba :bgra) 4)))
+         (size (* width height mult))
+         (result-data (make-sequence 'vector size))
+         (real-type (symbolic-type->real-type type)))
+    (with-foreign-object (array real-type size)
+      (%gl:read-pixels x y width height format type array)
+      (dotimes (i size result-data)
+        (setf (svref result-data i)
+              (mem-aref array real-type i))))))
 
 (import-export %gl:read-buffer)
 

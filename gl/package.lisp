@@ -150,6 +150,8 @@
    ;; 3.5.4 Options Controlling Polygon Rasterization
    #:polygon-mode
    #:polygon-offset
+   ;; 3.6.4 Pixel Rasterization
+   #:draw-pixels
    ;; 3.8.1 Texture Image Specification
    #:tex-image-1d
    #:tex-image-2d
@@ -163,6 +165,13 @@
    #:copy-tex-sub-image-1d
    #:copy-tex-sub-image-2d
    #:copy-tex-sub-image-3d
+   ;; 3.8.3 Compressed Texture Images
+   #:compressed-tex-image-1d
+   #:compressed-tex-image-2d
+   #:compressed-tex-image-3d
+   #:compressed-tex-sub-image-1d
+   #:compressed-tex-sub-image-2d
+   #:compressed-tex-sub-image-3d
    ;; 3.8.4 Texture Parameters
    #:tex-parameter
    ;; 3.8.12 Texture Objects

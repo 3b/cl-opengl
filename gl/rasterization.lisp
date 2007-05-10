@@ -81,6 +81,8 @@
 ;;; 3.6 Pixel Rectangles
 ;;;
 
+;;; 3.6.1 Pixel Storage Modes
+
 (defun pixel-store (pname value)
   (ecase pname
     ((:unpack-swap-bytes :unpack-lsb-first)
@@ -88,6 +90,8 @@
     ((:unpack-row-length :unpack-skip-rows :unpack-skip-pixels
       :unpack-alignment :unpack-image-height :unpack-skip-images)
      (%gl:pixel-store-i pname value))))
+
+;;; 3.6.3 Pixel Transfer Modes
 
 (defun pixel-transfer (pname value)
   (case pname
@@ -104,6 +108,12 @@
       (dotimes (i n)
         (setf (mem-aref p '%gl:float i) (float (elt values i))))
       (%gl:pixel-map-fv map n p))))
+
+;;; 3.6.4 Rasterization of Pixel Rectangles
+
+(defun draw-pixels (width height format type data)
+  (with-pixel-array (array type data)
+    (%gl:draw-pixels width height format type array)))
 
 ;;;
 ;;; 3.8 Texturing
@@ -188,7 +198,59 @@
 
 ;;; 3.8.3 Compressed Texture Images
 
-;;; TODO
+(defun compressed-tex-image-1d (target level internal-format width border
+                                data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-1d target level internal-format
+                                   width border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-1d target level internal-format
+                                     width border image-size array))))
+
+(defun compressed-tex-image-2d (target level internal-format width height border
+                                data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-2d target level internal-format
+                                   width height border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-2d target level internal-format
+                                     width height border image-size array))))
+
+(defun compressed-tex-image-3d (target level internal-format width height depth
+                                border data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-3d target level internal-format width
+                                   height depth border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-3d target level internal-format width
+                                     height depth border image-size array))))
+
+(defun compressed-tex-sub-image-1d (target level xoffset width format
+                                    data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-1d target level xoffset width
+                                       format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-1d target level xoffset width
+                                         format image-size array))))
+
+(defun compressed-tex-sub-image-2d (target level xoffset yoffset width height
+                                    format data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-2d target level xoffset yoffset width height
+                                       format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-2d target level xoffset yoffset width height
+                                         format image-size array))))
+
+(defun compressed-tex-sub-image-3d (target level xoffset yoffset zoffset width height
+                                    depth format data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-3d target level xoffset yoffset zoffset width
+                                       height depth format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-3d target level xoffset yoffset zoffset width
+                                         height depth format image-size array))))
 
 ;;; 3.8.4 Texture parameters
 
