@@ -422,6 +422,63 @@
 (defun extension-present-p (name)
   (search name (%gl:get-string :extensions)))
 
+;;; 6.1.14 Shader and Program Queries
+
+(import-export %gl:is-shader)
+
+(define-get-function get-shader-aux (shader pname)
+  (%gl:get-shader-iv :int int))
+
+(defun get-shader (shader pname)
+  (case pname
+    ((:delete-status :compile-status)
+     ;; Return a boolean for these.
+     (plusp (get-shader-aux shader pname :int)))
+    (otherwise
+     (get-shader-aux shader pname :int))))
+
+(import-export %gl:is-program)
+
+(define-get-function get-program-aux (program pname)
+  (%gl:get-program-iv :int int))
+
+(defun get-program (program pname)
+  (case pname
+    ((:delete-status :link-status :validate-status)
+     ;; Return a boolean for these.
+     (plusp (get-program-aux program pname :int)))
+    (otherwise
+     (get-program-aux program pname :int))))
+
+(defun get-attached-shaders (program)
+  "Returns a list of the shaders attached to PROGRAM"
+  (let ((max-shaders (get-program program :attached-shaders)))
+    (with-foreign-object (shaders '%gl:uint max-shaders)
+      (%gl:get-attached-shaders program max-shaders (null-pointer) shaders)
+      (loop for i below max-shaders 
+         collecting (mem-aref shaders '%gl:uint i)))))
+
+(defun get-shader-info-log (shader)
+  "Returns as a string the entire info log for SHADER"
+  (let ((info-log-length (get-shader shader :info-log-length)))
+    (with-foreign-object (info-log '%gl:char info-log-length)
+      (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
+      (foreign-string-to-lisp info-log))))
+
+(defun get-program-info-log (program)
+  "Returns as a string the entire info log for PROGRAM"
+  (let ((info-log-length (get-program program :info-log-length)))
+    (with-foreign-object (info-log '%gl:char info-log-length)
+      (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
+      (foreign-string-to-lisp info-log))))
+
+(defun get-shader-source (shader)
+  "Returns as a string the entire source of SHADER"
+  (let ((source-length (get-shader shader :shader-source-length)))
+    (with-foreign-object (source '%gl:char source-length)
+      (%gl:get-shader-source shader source-length (null-pointer) source)
+      (foreign-string-to-lisp source))))
+
 ;;; 6.1.15 Saving and Restoring State
 
 (defun make-bitfield (enum-name attributes)

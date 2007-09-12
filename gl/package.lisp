@@ -293,6 +293,15 @@
    #:major-version
    #:minor-version
    #:extension-present-p
+   ;; 6.1.14 Shader and Program Queries
+   #:is-shader
+   #:get-shader
+   #:is-program
+   #:get-program
+   #:get-attached-shaders
+   #:get-shader-info-log
+   #:get-program-info-log
+   #:get-shader-source
    ;; 6.1.15 Saving and Restoring State
    #:push-attrib
    #:push-client-attrib

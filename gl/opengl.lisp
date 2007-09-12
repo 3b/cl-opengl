@@ -553,16 +553,17 @@ another buffer is bound within FORMS."
   "Returns information about the active attribute variable at index INDEX in
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
-  ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written '%gl:sizei)
-                         (size '%gl:int)
-                         (type :long)
-                         (name '%gl:char 1024))
-    (%gl:get-active-attrib program index 1024 characters-written size type name)
-    (when (< 0 (mem-ref characters-written '%gl:sizei))
-      (values (mem-ref size '%gl:int)
-              (foreign-enum-keyword '%gl:enum (mem-ref type :long))
-              (foreign-string-to-lisp name)))))
+  (let ((attrib-max-length (get-program program :active-attribute-max-length)))
+    (with-foreign-objects ((characters-written '%gl:sizei)
+                           (size '%gl:int)
+                           (type :long)
+                           (name '%gl:char attrib-max-length))
+      (%gl:get-active-attrib program index attrib-max-length 
+                             characters-written size type name)
+      (when (< 0 (mem-ref characters-written '%gl:sizei))
+        (values (mem-ref size '%gl:int)
+                (foreign-enum-keyword '%gl:enum (mem-ref type :long))
+                (foreign-string-to-lisp name))))))
 
 ;;; TODO: make these use :STRING
 (defun get-attrib-location (program name)
@@ -581,16 +582,17 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
   "Returns information about the active uniform attribute at index INDEX in
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
-  ;; FIXME: query size of character buffer
-  (with-foreign-objects ((characters-written '%gl:sizei)
-                         (size '%gl:int)
-                         (type :long)
-                         (name '%gl:char 1024))
-    (%gl:get-active-uniform program index 1024 characters-written size type name)
-    (when (< 0 (mem-ref characters-written '%gl:sizei))
-      (values (mem-ref size '%gl:int)
-              (foreign-enum-keyword '%gl:enum (mem-ref type :long))
-              (foreign-string-to-lisp name)))))
+  (let ((uniform-max-length (get-program program :active-uniform-max-length)))
+    (with-foreign-objects ((characters-written '%gl:sizei)
+                           (size '%gl:int)
+                           (type :long)
+                           (name '%gl:char uniform-max-length))
+      (%gl:get-active-uniform program index uniform-max-length 
+                              characters-written size type name)
+      (when (< 0 (mem-ref characters-written '%gl:sizei))
+        (values (mem-ref size '%gl:int)
+                (foreign-enum-keyword '%gl:enum (mem-ref type :long))
+                (foreign-string-to-lisp name))))))
 
 (defun uniformi (location x &optional y z w)
   (cond
