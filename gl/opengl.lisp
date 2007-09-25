@@ -431,6 +431,20 @@ another buffer is bound within FORMS."
      (pop-matrix)))
 
 ;;;
+;;; 2.11.4 Generating Texture Coordinates
+;;;
+
+(defun tex-gen (coord pname param)
+  (ecase pname
+    (:texture-gen-mode
+     (%gl:tex-gen-i coord pname (foreign-enum-value '%gl:enum param)))
+    ((:object-plane :eye-plane)
+     (with-foreign-object (plane '%gl:float 4)
+       (dotimes (i 4)
+         (setf (mem-aref plane '%gl:float i) (float (elt param i))))
+       (%gl:tex-gen-fv coord pname plane)))))
+
+;;;
 ;;; 2.12 Clipping
 ;;;
 

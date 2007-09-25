@@ -79,10 +79,10 @@
    #:unmap-buffer
    ;; 2.10 Rectangles
    #:rect
-   ;; 2.11.2 Controlling the Viewport
+   ;; 2.11.1 Controlling the Viewport
    #:depth-range
    #:viewport
-   ;; 2.11.3 Matrices
+   ;; 2.11.2 Matrices
    #:matrix-mode
    #:load-matrix
    #:mult-matrix
@@ -98,6 +98,8 @@
    #:push-matrix
    #:pop-matrix
    #:with-pushed-matrix
+   ;; 2.11.4 Generating Texture Coordinates
+   #:tex-gen
    ;; 2.12 Clipping
    #:clip-plane
    ;; 2.13 Current Raster Position
