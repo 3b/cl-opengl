@@ -103,8 +103,19 @@
       `(let* ((,array ,lisp-array)
               (,count (length ,array)))
          (with-foreign-object (,var ,type ,count)
-           (loop for i below ,count
-                 do (setf (mem-aref ,var ,type i) (aref ,array i)))
+           ;; we need type to be a constant within the loop so cffi can
+           ;; optimize it, so check type outside the loop, and make a
+           ;; copy of the loop for any types we care about
+           (case ,type
+             ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short %gl:ushort
+                                   %gl:int %gl:uint %gl:float)
+                  collect 
+                    `(,ctype
+                      (loop for i below ,count
+                         do (setf (mem-aref ,var ',ctype i) (aref ,array i)))))
+             (t 
+              (loop for i below ,count
+                 do (setf (mem-aref ,var ,type i) (aref ,array i)))))
            ,@body)))))
 
 (defmacro with-opengl-arrays (bindings &body body)
