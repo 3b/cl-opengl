@@ -161,7 +161,7 @@
 
 (defmethod glut:keyboard ((window mol-window) key x y)
   (declare (ignore x y)) 
-  (case (code-char key)
+  (case key
     (#\x (incf view-rotx spin-speed))
     (#\X (decf view-rotx spin-speed))
     (#\y (incf view-roty spin-speed))
