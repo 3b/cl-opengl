@@ -43,25 +43,33 @@
 (defparameter *argcp* (null-pointer))
 (defparameter *argv* (null-pointer))
 
+(defmacro without-fp-traps (&body body)
+  #+(and sbcl (or x86 x86-64))
+  `(sb-int:with-float-traps-masked (:invalid :divide-by-zero)
+     ,@body)
+  #-(and sbcl (or x86 x86-64))
+  `(progn ,@body))
+
 (defun init (&optional (program-name (lisp-implementation-type)))
-  (unless (getp :init-state)
-    ;; freeglut will exit() if we try to call initGlut() when
-    ;; things are already initialized.
-    (when (not (null-pointer-p *argcp*))
-      (foreign-free *argcp*))
-    (when (not (null-pointer-p *argv*))
-      (foreign-free (mem-aref *argv* :pointer 0))
-      (foreign-free *argv*))
-    (setq *argcp* (foreign-alloc :int :initial-element 1))
-    (setq *argv* (foreign-alloc
-                  :pointer
-                  :initial-element (foreign-string-alloc program-name)))
-    (%glutInit *argcp* *argv*)
-    ;; By default, we choose the saner option to return from the event
-    ;; loop on window close instead of exit()ing.
-    (set-action-on-window-close :action-continue-execution)
-    ;; this probably doesn't play well with other toolkits
-    (setq %gl:*gl-get-proc-address* 'get-proc-address))
+  (without-fp-traps
+    (unless (getp :init-state)
+      ;; freeglut will exit() if we try to call initGlut() when
+      ;; things are already initialized.
+      (when (not (null-pointer-p *argcp*))
+        (foreign-free *argcp*))
+      (when (not (null-pointer-p *argv*))
+        (foreign-free (mem-aref *argv* :pointer 0))
+        (foreign-free *argv*))
+      (setq *argcp* (foreign-alloc :int :initial-element 1))
+      (setq *argv* (foreign-alloc
+                    :pointer
+                    :initial-element (foreign-string-alloc program-name)))
+      (%glutInit *argcp* *argv*)
+      ;; By default, we choose the saner option to return from the event
+      ;; loop on window close instead of exit()ing.
+      (set-action-on-window-close :action-continue-execution)
+      ;; this probably doesn't play well with other toolkits
+      (setq %gl:*gl-get-proc-address* 'get-proc-address)))
   (values))
 
 ;; We call init at load-time in order to ensure a usable glut as

@@ -35,7 +35,8 @@
 (defcfun ("glutMainLoop" %glutMainLoop) :void)
 
 (defun main-loop ()
-  (%glutMainLoop)
+  (without-fp-traps
+    (%glutMainLoop))
   (init))
 
 (defcfun ("glutMainLoopEvent" main-loop-event) :void)
