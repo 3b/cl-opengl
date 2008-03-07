@@ -180,9 +180,16 @@
 (defcenum mouse-button
   :left-button
   :middle-button
-  :right-button)
+  :right-button
+  :wheel-up
+  :wheel-down
+  :button4
+  :button5
+  :button6
+  :button7)
 
 (defcenum mouse-button-state
+  (:wheel-down -1)
   :down
   :up)
 
