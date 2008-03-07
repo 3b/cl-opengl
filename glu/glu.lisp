@@ -92,7 +92,24 @@
 
 ;;;; 3.2 Automatic Mipmapping
 
-;;; TODO: gluBuild{1,2,3}DMipmaps; gluBuildP1,2,3}DMipmapLevels
+;;; TODO: gluBuild{1,3}DMipmaps; gluBuild{1,2,3}DMipmapLevels
+
+(defcfun ("gluBuild2DMipmaps" %GluBuild2DMipmaps) :void
+  (target %gl:enum)
+  (internalformat %gl:int)
+  (width %gl:sizei)
+  (height %gl:sizei)
+  (format %gl:enum)
+  (type %gl:enum)
+  (data :pointer))
+
+(defun build-2d-mipmaps (target internal-format width height format type data)
+  (let ((internal-size (gl::internal-format->int internal-format)))
+    (if (pointerp data)
+        (%gluBuild2dMipmaps target internal-size width height format type data)
+        (gl::with-pixel-array (array type data)
+          (%gluBuild2dMipmaps target internal-size
+                              width height format type array)))))
 
 ;;;; 4. Matrix Manipulation
 

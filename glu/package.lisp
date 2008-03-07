@@ -37,6 +37,7 @@
   (:use #:cl #:cffi)
   (:export
    ;;# Functions
+   #:build-2d-mipmaps
    #:get-string
    #:check-extension
    #:scale-image
