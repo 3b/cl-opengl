@@ -220,15 +220,22 @@ Lexically binds CURRENT-WINDOW to the respective object."
 (defclass base-window ()
   ((name :reader name :initarg :name :initform (gensym "GLUT-WINDOW"))
    (id   :reader id)
-   (pos-x  :accessor pos-x  :initarg :pos-x  :initform -1)
-   (pos-y  :accessor pos-y  :initarg :pos-y  :initform -1)
-   (height :accessor height :initarg :height :initform 300)
-   (width  :accessor width  :initarg :width  :initform 300)
-   (title  :accessor title  :initarg :title  :initform +default-title+)
-   (tick-interval :accessor tick-interval :initarg :tick-interval :initform nil)
+   (pos-x  :accessor pos-x  :initarg :pos-x)
+   (pos-y  :accessor pos-y  :initarg :pos-y)
+   (height :accessor height :initarg :height)
+   (width  :accessor width  :initarg :width)
+   (title  :accessor title  :initarg :title)
+   (tick-interval :accessor tick-interval :initarg :tick-interval)
    ;; When this slot unbound, DISPLAY-WINDOW calls
    ;; FIND-APPLICABLE-EVENTS to populate it.
-   (events :accessor events :initarg :events)))
+   (events :accessor events :initarg :events))
+  (:default-initargs :pos-x -1 :pos-y -1 :height 300 :width 300 :title +default-title+
+                     :tick-interval nil))
+
+(defmethod initialize-instance :after ((win base-window) &key name  &allow-other-keys)
+  (declare (ignore win name))
+  (glut:init))
+
 
 (defgeneric display-window (window)
   (:documentation

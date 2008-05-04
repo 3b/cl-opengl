@@ -72,12 +72,29 @@
       (setq %gl:*gl-get-proc-address* 'get-proc-address)))
   (values))
 
+(defun ensure-init ()
+  (when (not (null-pointer-p *argcp*))
+          (foreign-free *argcp*)
+          (setf *argcp* (null-pointer)))
+  (when (not (null-pointer-p *argv*))
+          (foreign-free (mem-aref *argv* :pointer 0))
+          (foreign-free *argv*)
+          (setf *argv* (null-pointer))))
+
+(eval-when (:load-toplevel :execute)
+  #+clisp (pushnew 'ensure-init custom:*fini-hooks*) ;untested
+  #+sbcl  (pushnew 'ensure-init sb-ext:*save-hooks*)
+  #+cmu (pushnew 'ensure-init ext:*before-save-initializations*) ;untested
+  #-(or clisp sbcl cmu)
+  (warn "Don't know how to setup a hook before saving cores on this Lisp."))
+
+
 ;; We call init at load-time in order to ensure a usable glut as
 ;; often as possible. Also, we call init when the main event loop
 ;; returns in main.lisp. We do this to avoid having freeglut call
 ;; exit() when performing some operation that needs previous
 ;; initialization.
-(init)
+; (init)
 
 ;;; The display-mode bitfield is defined in state.lisp
 (defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
