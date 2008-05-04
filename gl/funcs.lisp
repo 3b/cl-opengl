@@ -8362,13 +8362,13 @@
 (defglextfun ("glGetQueryObjecti64vEXT" get-query-object-i64v-ext) :void
   (id uint)
   (pname enum)
-  (params (:pointer int64EXT)))
+  (params (:pointer int64-ext)))
 
 ;;; GL version: 1.5, EXT_timer_query
 (defglextfun ("glGetQueryObjectui64vEXT" get-query-object-ui64v-ext) :void
   (id uint)
   (pname enum)
-  (params (:pointer uint64EXT)))
+  (params (:pointer uint64-ext)))
 
 ;;; GL version: 1.2, EXT_gpu_program_parameters
 (defglextfun ("glProgramEnvParameters4fvEXT" program-env-parameters-4fv-ext) :void

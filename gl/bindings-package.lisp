@@ -15,7 +15,8 @@
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb 
   #:handle-arb #:half #:half-arb #:half-nv #:int64 #:uint64 #:clampd 
   #:double #:clampf #:float #:sizei #:uint #:ushort #:ubyte #:int 
-  #:short #:byte #:void #:bitfield #:boolean #:string 
+  #:short #:byte #:void #:bitfield #:boolean #:string #:int64-ext 
+  #:uint64-ext 
 
   ;; Functions.
   #:new-list #:end-list #:call-list #:call-lists #:delete-lists 

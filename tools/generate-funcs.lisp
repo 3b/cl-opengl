@@ -183,7 +183,7 @@
   '("char" "char-arb" "intptr" "sizeiptr" "intptr-arb" "sizeiptr-arb"
     "handle-arb" "half" "half-arb" "half-nv" "int64" "uint64" "clampd" "double"
     "clampf" "float" "sizei" "uint" "ushort" "ubyte" "int" "short" "byte"
-    "void" "bitfield" "boolean" #| "enum" |# "string"))
+    "void" "bitfield" "boolean" #| "enum" |# "string" "int64-ext" "uint64-ext"))
 
 (defparameter *type-map* (make-hash-table :test 'equal))
 
@@ -203,9 +203,9 @@
         while line do (add-type-map line))
   ;; add some missing types by hand...
   (setf (gethash "Int64EXT" *type-map*)
-        (gethash "Int64EXT" *type-map* "GLint64"))
+        (gethash "Int64EXT" *type-map* "GLint64EXT"))
   (setf (gethash "UInt64EXT" *type-map*)
-        (gethash "UInt64EXT" *type-map* "GLuint64"))
+        (gethash "UInt64EXT" *type-map* "GLuint64EXT"))
   ;; more types. The gl.tm file is outdated and apparently belongs to
   ;; the ogl-sample project at: http://oss.sgi.com/projects/ogl-sample/
   (loop for (from to)
@@ -277,7 +277,8 @@
     ((assoc type *base-types* :test #'string=)
      (cdr (assoc type *base-types* :test #'string=)))
     ((string= type "GL" :end1 2)
-     (regex-replace "NV" (regex-replace "ARB" (subseq type 2) "-arb") "-nv"))
+     (regex-replace "EXT" (regex-replace "NV" (regex-replace "ARB" (subseq type 2) "-arb") "-nv")
+                    "-ext"))
     (t type)))
 
 (defun remap-base-and-pointer-types (type)
