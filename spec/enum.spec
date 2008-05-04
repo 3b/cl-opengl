@@ -5551,8 +5551,8 @@ SGIX_subsample enum:
 # EXT_framebuffer_blit enum:
 #	READ_FRAMEBUFFER_EXT				= 0x8CA8
 #	DRAW_FRAMEBUFFER_EXT				= 0x8CA9
-#	READ_FRAMEBUFFER_BINDING_EXT			= GL_FRAMEBUFFER_BINDING_EXT
-#	DRAW_FRAMEBUFFER_BINDING_EXT			= 0x8CAA
+#	DRAW_FRAMEBUFFER_BINDING_EXT			= GL_FRAMEBUFFER_BINDING_EXT
+#	READ_FRAMEBUFFER_BINDING_EXT			= 0x8CAA
 # EXT_framebuffer_multisample enum:
 # NV_framebuffer_multisample_coverage enum: (additional; see below)
 #	RENDERBUFFER_SAMPLES_EXT			= 0x8CAB
@@ -5820,12 +5820,26 @@ SGIX_subsample enum:
 # Imagination Tech.: 0x8EA0-0x8EAF
 
 ###############################################################################
+
+# Khronos OpenGL ES WG: 0x8EB0-0x8EBF
+# Assigned for Affie Munshi on 2007/07/20
+
+###############################################################################
+
+# Vincent: 0x8EC0-0x8ECF
+
+###############################################################################
+
+# NVIDIA: 0x8ED0-0x8F4F
+# Assigned for Pat Brown (Khronos bug 3191)
+
+###############################################################################
 ### Please remember that new enumerant allocations must be obtained by request
 ### to the Khronos API registrar (see comments at the top of this file)
 ### File requests in the Khronos Bugzilla, OpenGL project, Registry component.
 ###############################################################################
 
-# Any_vendor_future_use: 0x8EB0-0xFFFF
+# Any_vendor_future_use: 0x8F50-0xFFFF
 #
 #   This range must be the last range in the file.  To generate a new
 #   range, allocate multiples of 16 from the beginning of the
@@ -5860,7 +5874,7 @@ SGIX_subsample enum:
 ###############################################################################
 
 # NEC:	  104000-104999
-# Compaq: 105000-105999
+# Compaq: 105000-105999 (Compaq was acquired by HP)
 # KPC:	  106000-106999 (Kubota is out of business)
 # PGI:	  107000-107999 (Portable was acquired by Template Graphics)
 # E&S:	  108000-108999

@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 39 ( 2007/02/12 )
+;;; glext version 40 ( 2008/03/24 )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 39)
-(defparameter *glext-last-updated* "2007/02/12")
+(defparameter *glext-version* 40)
+(defparameter *glext-last-updated* "2008/03/24")
 
 ;;; GL version: 1.0, display-list
 (defglfun ("glNewList" new-list) :void
@@ -8362,13 +8362,13 @@
 (defglextfun ("glGetQueryObjecti64vEXT" get-query-object-i64v-ext) :void
   (id uint)
   (pname enum)
-  (params (:pointer int64)))
+  (params (:pointer int64EXT)))
 
 ;;; GL version: 1.5, EXT_timer_query
 (defglextfun ("glGetQueryObjectui64vEXT" get-query-object-ui64v-ext) :void
   (id uint)
   (pname enum)
-  (params (:pointer uint64)))
+  (params (:pointer uint64EXT)))
 
 ;;; GL version: 1.2, EXT_gpu_program_parameters
 (defglextfun ("glProgramEnvParameters4fvEXT" program-env-parameters-4fv-ext) :void
@@ -8964,3 +8964,6 @@
   (green uint)
   (blue uint)
   (alpha uint))
+
+;;; GL version: 1.0, GREMEDY_frame_terminator
+(defglextfun ("glFrameTerminatorGREMEDY" frame-terminator-gremedy) :void)

@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 39 ( 2007/02/12 )
+;;; glext version 40 ( 2008/03/24 )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -637,5 +637,5 @@
   #:get-uniform-offset-ext #:tex-parameter-iiv-ext 
   #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext 
   #:get-tex-parameter-iuiv-ext #:clear-color-ii-ext 
-  #:clear-color-iui-ext ))
+  #:clear-color-iui-ext #:frame-terminator-gremedy ))
 

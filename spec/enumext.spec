@@ -17,9 +17,9 @@
 
 passthru:
 passthru: /* Header file version number, required by OpenGL ABI for Linux */
-passthru: /* glext.h last updated 2007/02/12 */
+passthru: /* glext.h last updated 2008/03/24 */
 passthru: /* Current version at http://www.opengl.org/registry/ */
-passthru: #define GL_GLEXT_VERSION 39
+passthru: #define GL_GLEXT_VERSION 40
 
 ###############################################################################
 #
@@ -4065,8 +4065,8 @@ EXT_texture_sRGB enum:
 EXT_framebuffer_blit enum:
 	READ_FRAMEBUFFER_EXT				= 0x8CA8
 	DRAW_FRAMEBUFFER_EXT				= 0x8CA9
-	READ_FRAMEBUFFER_BINDING_EXT			= GL_FRAMEBUFFER_BINDING_EXT
-	DRAW_FRAMEBUFFER_BINDING_EXT			= 0x8CAA
+	DRAW_FRAMEBUFFER_BINDING_EXT			= GL_FRAMEBUFFER_BINDING_EXT
+	READ_FRAMEBUFFER_BINDING_EXT			= 0x8CAA
 
 ###############################################################################
 
@@ -4415,3 +4415,10 @@ EXT_texture_integer enum:
 ###############################################################################
 
 # Extension #344 - GLX_EXT_texture_from_pixmap
+
+###############################################################################
+
+# No new tokens
+# Extension #345
+GREMEDY_frame_terminator enum:
+
