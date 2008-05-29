@@ -45,7 +45,7 @@
 
 (defun check-error ()
   (let ((error-code (get-error)))
-    (unless (eql error-code :no-error)
+    (unless (eql error-code :zero)
       (error 'opengl-error :error-code error-code))))
 
 ;;;
