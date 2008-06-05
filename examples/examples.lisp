@@ -8,7 +8,7 @@
 
 (defparameter +examples+
   '(("Redbook Examples"
-     rb-double rb-hello rb-varray rb-lines rb-polys rb-cube rb-model
+     rb-double rb-hello #|rb-varray|# rb-lines rb-polys rb-cube rb-model
      rb-clip rb-planet rb-robot rb-list rb-stroke rb-smooth rb-movelight)
     ("Mesa Demos"
      gears)
