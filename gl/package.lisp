@@ -152,6 +152,11 @@
    ;; 3.5.4 Options Controlling Polygon Rasterization
    #:polygon-mode
    #:polygon-offset
+   ;; 3.6.1 Pixel Storage Modes
+   #:pixel-store
+   ;; 3.6.3 Pixel Transfer Modes
+   #:pixel-transfer
+   #:pixel-map
    ;; 3.6.4 Pixel Rasterization
    #:draw-pixels
    ;; 3.8.1 Texture Image Specification
