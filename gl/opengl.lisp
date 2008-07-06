@@ -426,9 +426,10 @@ another buffer is bound within FORMS."
                %gl:pop-matrix)
 
 (defmacro with-pushed-matrix (&body body)
-  `(prog2 (push-matrix)
-       (progn ,@body)
-     (pop-matrix)))
+  `(progn
+     (push-matrix)
+     (multiple-value-prog1 (progn ,@body)
+       (pop-matrix))))
 
 ;;;
 ;;; 2.11.4 Generating Texture Coordinates
