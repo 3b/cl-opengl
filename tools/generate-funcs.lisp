@@ -271,26 +271,30 @@
     ("double"         . ":double")
     ("void"           . ":void")))
 
+(defun multi-replace (string regexes replacements)
+  (if (null regexes)
+      string
+      (multi-replace (regex-replace (first regexes) string (first replacements))
+                     (rest regexes)
+                     (rest replacements))))
 
 (defun remap-base-types (type)
   (cond
     ((assoc type *base-types* :test #'string=)
      (cdr (assoc type *base-types* :test #'string=)))
     ((string= type "GL" :end1 2)
-     (regex-replace "EXT" (regex-replace "NV" (regex-replace "ARB" (subseq type 2) "-arb") "-nv")
-                    "-ext"))
+     (multi-replace (subseq type 2) '("EXT" "NV" "ARB") '("-ext" "-nv" "-arb")))
     (t type)))
 
 (defun remap-base-and-pointer-types (type)
   (cond
     ((find #\* type :test #'char=)
      ;; quick hack to extract types from "foo*", probably breaks
-     ;;  on foo**...just replace last '*' with ''
+     ;; on foo**...just replace last '*' with ''
      (let* ((base (regex-replace "[*]$" type ""))
             (remapped (remap-base-types base)))
        (format nil "(:pointer ~a)" remapped)))
     (t (remap-base-types type))))
-
 
 (defun fix-arg (arg)
   (cond ((string= arg "t") "tee")

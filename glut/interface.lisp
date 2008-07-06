@@ -229,13 +229,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
    ;; When this slot unbound, DISPLAY-WINDOW calls
    ;; FIND-APPLICABLE-EVENTS to populate it.
    (events :accessor events :initarg :events))
-  (:default-initargs :pos-x -1 :pos-y -1 :height 300 :width 300 :title +default-title+
-                     :tick-interval nil))
+  (:default-initargs :pos-x -1 :pos-y -1 :height 300 :width 300
+                     :title +default-title+ :tick-interval nil))
 
-(defmethod initialize-instance :after ((win base-window) &key name  &allow-other-keys)
+(defmethod initialize-instance :before
+    ((win base-window) &key name &allow-other-keys)
   (declare (ignore win name))
   (glut:init))
-
 
 (defgeneric display-window (window)
   (:documentation
