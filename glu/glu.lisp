@@ -123,9 +123,9 @@
 
 (defcfun ("gluPerspective" perspective) :void
   (fov-y  %gl:double)
-  (right  %gl:double)
-  (bottom %gl:double)
-  (top    %gl:double))
+  (aspect %gl:double)
+  (zNear  %gl:double)
+  (zFar   %gl:double))
 
 (defcfun ("gluLookAt" look-at) :void
   (eye-x %gl:double)

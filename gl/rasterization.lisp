@@ -42,15 +42,14 @@
 (defun point-parameter (pname value)
   (ecase pname
     ((:point-size-min :point-size-max :point-fade-threshold-size)
-     (%gl:point-parameter-f pname (float value)))
+     (%gl:point-parameter-f pname value))
     (:point-sprite-coord-origin
      (%gl:point-parameter-i pname (foreign-enum-value '%gl:enum value)))
     (:point-distance-attenuation
      (with-foreign-object (p '%gl:float 3)
        (dotimes (i 3)
-         (setf (mem-aref p '%gl:float i) (float (elt value i))))
+         (setf (mem-aref p '%gl:float i) (elt value i)))
        (%gl:point-parameter-fv pname p)))))
-
 
 ;;;
 ;;; 3.4 Line Segments
@@ -106,7 +105,7 @@
   (let ((n (length values)))
     (with-foreign-object (p '%gl:float n)
       (dotimes (i n)
-        (setf (mem-aref p '%gl:float i) (float (elt values i))))
+        (setf (mem-aref p '%gl:float i) (elt values i)))
       (%gl:pixel-map-fv map n p))))
 
 ;;; 3.6.4 Rasterization of Pixel Rectangles
@@ -265,10 +264,10 @@
     (:texture-border-color
      (with-foreign-object (array '%gl:float 4)
        (dotimes (i 4)
-         (setf (mem-aref array '%gl:float i) (float (aref param i))))
+         (setf (mem-aref array '%gl:float i) (elt param i)))
        (%gl:tex-parameter-fv target pname array)))
     ((:texture-priority :texture-min-lod :texture-max-lod)
-     (%gl:tex-parameter-f target pname (float param)))
+     (%gl:tex-parameter-f target pname param))
     ((:texture-base-level :texture-lod-bias)
      (%gl:tex-parameter-i target pname (truncate param)))
     (:depth-texture-mode
@@ -331,7 +330,7 @@
   (with-foreign-objects ((texture-pointer '%gl:uint)
                          (priority-pointer '%gl:clampf))
     (setf (mem-ref texture-pointer '%gl:uint) texture
-          (mem-ref priority-pointer '%gl:clampf) (float priority))
+          (mem-ref priority-pointer '%gl:clampf) priority)
     (%gl:prioritize-textures 1 texture-pointer priority-pointer)))
 
 
@@ -356,7 +355,7 @@
          (:texture-env-color
           (with-foreign-object (p '%gl:float 4)
             (dotimes (i 4)
-              (setf (mem-aref p '%gl:float i) (float (elt value i))))
+              (setf (mem-aref p '%gl:float i) (elt value i)))
             (%gl:tex-env-fv target pname-value p)))
          (:combine-rgb
           (%gl:tex-env-i target pname-value
@@ -376,9 +375,14 @@
 
 (defun fog (pname param)
   (ecase pname
+    (:fog-color
+     (with-foreign-object (c '%gl:float 4)
+       (dotimes (i 4)
+         (setf (mem-aref c '%gl:float i) (elt param i)))
+       (%gl:fog-fv pname c)))
     (:fog-mode
      (%gl:fog-i pname (foreign-enum-value '%gl:enum param)))
     (:fog-coord-src
      (%gl:fog-i pname (foreign-enum-value '%gl:enum param)))
     ((:fog-density :fog-start :fog-end)
-     (%gl:fog-f pname (float param)))))
+     (%gl:fog-f pname param))))
