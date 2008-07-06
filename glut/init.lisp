@@ -36,13 +36,6 @@
   (argcp :pointer)  ; int*
   (argv  :pointer)) ; char**
 
-;;; Being paranoid about whether the memory allocated for argc and argv
-;;; should be kept around as opposed to free right after calling
-;;; %glutInit(). Is this really necessary? --luis
-
-(defparameter *argcp* (null-pointer))
-(defparameter *argv* (null-pointer))
-
 (defmacro without-fp-traps (&body body)
   #+(and sbcl (or x86 x86-64))
   `(sb-int:with-float-traps-masked (:invalid :divide-by-zero)
@@ -52,19 +45,14 @@
 
 (defun init (&optional (program-name (lisp-implementation-type)))
   (without-fp-traps
+    ;; freeglut will exit() if we try to call initGlut() when
+    ;; things are already initialized.
     (unless (getp :init-state)
-      ;; freeglut will exit() if we try to call initGlut() when
-      ;; things are already initialized.
-      (when (not (null-pointer-p *argcp*))
-        (foreign-free *argcp*))
-      (when (not (null-pointer-p *argv*))
-        (foreign-free (mem-aref *argv* :pointer 0))
-        (foreign-free *argv*))
-      (setq *argcp* (foreign-alloc :int :initial-element 1))
-      (setq *argv* (foreign-alloc
-                    :pointer
-                    :initial-element (foreign-string-alloc program-name)))
-      (%glutInit *argcp* *argv*)
+      (with-foreign-objects ((argcp :int) (argv :pointer))
+        (setf (mem-ref argcp :int) 1)
+        (with-foreign-string (str program-name)
+          (setf (mem-ref argv :pointer) str)
+          (%glutInit argcp argv)))
       ;; By default, we choose the saner option to return from the event
       ;; loop on window close instead of exit()ing.
       (set-action-on-window-close :action-continue-execution)
@@ -72,29 +60,12 @@
       (setq %gl:*gl-get-proc-address* 'get-proc-address)))
   (values))
 
-(defun ensure-init ()
-  (when (not (null-pointer-p *argcp*))
-          (foreign-free *argcp*)
-          (setf *argcp* (null-pointer)))
-  (when (not (null-pointer-p *argv*))
-          (foreign-free (mem-aref *argv* :pointer 0))
-          (foreign-free *argv*)
-          (setf *argv* (null-pointer))))
-
-(eval-when (:load-toplevel :execute)
-  #+clisp (pushnew 'ensure-init custom:*fini-hooks*) ;untested
-  #+sbcl  (pushnew 'ensure-init sb-ext:*save-hooks*)
-  #+cmu (pushnew 'ensure-init ext:*before-save-initializations*) ;untested
-  #-(or clisp sbcl cmu)
-  (warn "Don't know how to setup a hook before saving cores on this Lisp."))
-
-
-;; We call init at load-time in order to ensure a usable glut as
-;; often as possible. Also, we call init when the main event loop
-;; returns in main.lisp. We do this to avoid having freeglut call
-;; exit() when performing some operation that needs previous
-;; initialization.
-; (init)
+;; We call init at load-time in order to ensure a usable glut as often
+;; as possible. Also, we call init when the main event loop returns in
+;; main.lisp and some other places. We do this to avoid having
+;; freeglut call exit() when performing some operation that needs
+;; previous initialization.
+(init)
 
 ;;; The display-mode bitfield is defined in state.lisp
 (defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
