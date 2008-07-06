@@ -307,8 +307,10 @@
    ;; 6.1.15 Saving and Restoring State
    #:push-attrib
    #:push-client-attrib
+   #:with-pushed-attrib
    #:pop-attrib
    #:pop-client-attrib
+   #:with-pushed-client-attrib
    ;; Extensions
    #:is-renderbuffer-ext
    #:bind-renderbuffer-ext

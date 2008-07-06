@@ -455,8 +455,8 @@
   (let ((max-shaders (get-program program :attached-shaders)))
     (with-foreign-object (shaders '%gl:uint max-shaders)
       (%gl:get-attached-shaders program max-shaders (null-pointer) shaders)
-      (loop for i below max-shaders 
-         collecting (mem-aref shaders '%gl:uint i)))))
+      (loop for i below max-shaders
+            collecting (mem-aref shaders '%gl:uint i)))))
 
 (defun get-shader-info-log (shader)
   "Returns as a string the entire info log for SHADER"
@@ -489,19 +489,35 @@
 ;; external
 (defun push-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%gl:push-attrib (make-bitfield 'server-attributes attributes)))
+  (%gl:push-attrib (make-bitfield '%gl:enum attributes)))
 
 (define-compiler-macro push-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%gl:push-attrib ,(make-bitfield 'server-attributes attributes))
+      `(%gl:push-attrib ,(make-bitfield '%gl:enum attributes))
       form))
+
+(import-export %gl:pop-attrib)
+
+(defmacro with-pushed-attrib ((&rest attributes) &body body)
+  `(progn
+     (push-attrib ,@attributes)
+     (multiple-value-prog1 (progn ,@body)
+       (pop-attrib))))
 
 ;; external
 (defun push-client-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%gl:push-client-attrib (make-bitfield 'client-attributes attributes)))
+  (%gl:push-client-attrib (make-bitfield '%gl:enum attributes)))
 
 (define-compiler-macro push-client-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%gl:push-client-attrib ,(make-bitfield 'client-attributes attributes))
+      `(%gl:push-client-attrib ,(make-bitfield '%gl:enum attributes))
       form))
+
+(import-export %gl:pop-client-attrib)
+
+(defmacro with-pushed-client-attrib ((&rest attributes) &body body)
+  `(progn
+     (push-client-attrib ,@attributes)
+     (multiple-value-prog1 (progn ,@body)
+       (pop-client-attrib))))
