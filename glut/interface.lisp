@@ -55,7 +55,7 @@
           ;; classes
           base-window window sub-window
           ;; accessors
-          title name id events parent pos-x pos-y width height mode
+          title name id events parent pos-x pos-y width height mode game-mode
           ;; other functions and macros
           display-window find-window with-window destroy-current-window
           schedule-timer enable-tick disable-tick
@@ -327,7 +327,10 @@ Lexically binds CURRENT-WINDOW to the respective object."
                 (delete window *windows-with-idle-event*))))))
 
 (defun destroy-current-window ()
-  (destroy-window (get-window)))
+  (when-current-window-exists
+    (if (game-mode current-window)
+        (leave-game-mode)
+        (destroy-window (id current-window)))))
 
 (defmethod close :around ((w base-window))
   (when (member :close (events w) :key #'event-name)
@@ -356,17 +359,34 @@ Lexically binds CURRENT-WINDOW to the respective object."
 (defclass window (base-window)
   ((sub-windows :accessor sub-windows :initform nil)
    ;; Can sub-windows have a different display mode?
-   (mode :initarg :mode :initform nil)))
+   (mode :initarg :mode :initform nil)
+   (game-mode :initarg :game-mode :accessor game-mode :initform nil)))
 
 (defmethod (setf title) :before (string (win window))
   (when (slot-boundp win 'id)
     (with-window win
       (set-window-title string))))
 
+(defun setup-game-mode (win)
+  (let ((width (get :screen-width))
+	(height (get :screen-height)))
+    (setf (pos-x win) 0
+	  (pos-y win) 0
+	  (width win) width
+	  (height win) height)
+    (game-mode-string (format nil "~Dx~D" width height))))
+
 (defmethod display-window :around ((win window))
+  (when (game-mode win)
+    (setup-game-mode win))
+  (init-window-position (pos-x win) (pos-y win))
+  (init-window-size (width win) (height win))
   (without-fp-traps
     (apply #'init-display-mode (slot-value win 'mode))
-    (setf (slot-value win 'id) (create-window (title win)))
+    (setf (slot-value win 'id)
+          (if (game-mode win)
+              (enter-game-mode)
+              (create-window (title win))))
     (call-next-method)
     (when *run-main-loop-after-display*
       (glut:main-loop))))
