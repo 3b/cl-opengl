@@ -36,7 +36,7 @@
 ;;; is loaded already by cl-opengl, on which cl-glu depends.
 (define-foreign-library glu
   (:windows "glu32.dll") ; XXX?
-  ((:and unix (:not :darwin)) (:or "libGLU.so.1" "libGLU.so"))
+  ((:and :unix (:not :darwin)) (:or "libGLU.so.1" "libGLU.so"))
   ((:not :darwin) (:default "libGLU")))
 
 (use-foreign-library glu)
