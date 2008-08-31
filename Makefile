@@ -10,6 +10,7 @@ specs:
 	cd spec && wget -N http://www.opengl.org/registry/api/enum.spec
 	cd spec && wget -N http://www.opengl.org/registry/api/enumext.spec
 	cd spec && wget -N http://www.opengl.org/registry/api/gl.spec
+	cd spec && wget -N http://www.opengl.org/registry/api/gl.tm
 
 clean:
 	find . -name ".fasls" | xargs rm -rf

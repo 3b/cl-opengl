@@ -190,7 +190,7 @@
 (defun add-type-map (line)
   (unless (scan "^\\s*#.*" line)
     (multiple-value-bind (match regs)
-        (scan-to-strings "^([^,]+),\\*,\\*,\\s*([^, ]+),*,*\\s*" line)
+        (scan-to-strings "^([^,]+),\\*,\\*,\\s*((?:[^, ]+ ?)+),\\*,\\*\\s*" line)
       (if match
           (if (string= (aref regs 1) "*")
               (setf (gethash (aref regs 0) *type-map*) (aref regs 0))
@@ -198,33 +198,11 @@
           (format t "failed to parse type-map line: ~a ~%" line)))))
 
 (defun load-type-map (stream)
+  ;; current gl.tm is available in main opengl.org registry, so use
+  ;; that directly now...
   (setf *type-map* (make-hash-table :test 'equal))
   (loop for line = (read-line stream nil nil)
-        while line do (add-type-map line))
-  ;; add some missing types by hand...
-  (setf (gethash "Int64EXT" *type-map*)
-        (gethash "Int64EXT" *type-map* "GLint64EXT"))
-  (setf (gethash "UInt64EXT" *type-map*)
-        (gethash "UInt64EXT" *type-map* "GLuint64EXT"))
-  ;; more types. The gl.tm file is outdated and apparently belongs to
-  ;; the ogl-sample project at: http://oss.sgi.com/projects/ogl-sample/
-  (loop for (from to)
-        in '(("BufferSize" "GLsizeiptr")
-             ("BufferOffset" "GLintptr")
-             ("BufferTargetARB" "GLenum")
-             ("BufferUsageARB" "GLenum")
-             ("BufferAccessARB" "GLenum")
-             ("BufferPNameARB" "GLenum")
-             ("BufferPointerNameARB" "GLenum")
-             ("BufferSizeARB" "GLsizeiptrARB")
-             ("BufferOffsetARB" "GLintptrARB")
-             ("ProgramTarget" "GLenum")
-             ("FramebufferTarget" "GLenum")
-             ("FramebufferAttachment" "GLenum")
-             ("RenderbufferTarget" "GLenum")
-             ("VertexAttribEnum" "GLenum")
-             ("ProgramParameterPName" "GLenum"))
-        do (setf (gethash from *type-map*) to)))
+        while line do (add-type-map line)))
 
 (defparameter *current-fun* nil)
 (defparameter *function-list* nil)
@@ -278,22 +256,32 @@
                      (rest regexes)
                      (rest replacements))))
 
+;;; passing lists of strings to multi-replace misses some cl-ppcre
+;;; optimizations, so make sure we build scanners in advance
+(defparameter *remap-base-types-regexes*
+  (list (mapcar 'create-scanner '("EXT" "NV" "ARB"))
+        '("-ext" "-nv" "-arb")))
 (defun remap-base-types (type)
   (cond
     ((assoc type *base-types* :test #'string=)
      (cdr (assoc type *base-types* :test #'string=)))
     ((string= type "GL" :end1 2)
-     (multi-replace (subseq type 2) '("EXT" "NV" "ARB") '("-ext" "-nv" "-arb")))
+     (multi-replace (subseq type 2)
+                    (first *remap-base-types-regexes*)
+                    (second *remap-base-types-regexes*)))
     (t type)))
 
 (defun remap-base-and-pointer-types (type)
   (cond
     ((find #\* type :test #'char=)
-     ;; quick hack to extract types from "foo*", probably breaks
-     ;; on foo**...just replace last '*' with ''
-     (let* ((base (regex-replace "[*]$" type ""))
-            (remapped (remap-base-types base)))
-       (format nil "(:pointer ~a)" remapped)))
+     ;; quick hack to extract types from "foo*", grab last token
+     ;; before first * (need to watch out for extra "const" and spaces
+     ;; before * in current gl.tm)
+     (multiple-value-bind (match base)
+         (scan-to-strings " ?([^ *]+) ?\\*" type)
+       (if match
+           (format nil "(:pointer ~a)" (remap-base-types (aref base 0)))
+           (format t " unable to parse pointer type ~a ~%" type))))
     (t (remap-base-types type))))
 
 (defun fix-arg (arg)
@@ -510,7 +498,7 @@
          (gl-dir (merge-pathnames relative-gl this-dir))
          (relative-spec (make-pathname :directory '(:relative :up "spec")))
          (spec-dir (merge-pathnames relative-spec this-dir))
-         (gl-tm (merge-pathnames "gl.tm" this-dir))
+         (gl-tm (merge-pathnames "gl.tm" spec-dir))
          (copyright-file (merge-pathnames "OSSCOPYRIGHT" this-dir))
          (gl-spec (merge-pathnames "gl.spec" spec-dir))
          ;(enum-spec (merge-pathnames "enum.spec" spec-dir))
@@ -524,7 +512,7 @@
       (load-type-map s))
     (format t "~&;; parsing gl.spec file ~A~%" (namestring gl-spec))
     (with-open-file (s gl-spec) (parse-gl.spec s))
-    (format t "~&;; getting enumext version from ~A~%" (namestring gl-tm))
+    (format t "~&;; getting enumext version from ~A~%" (namestring enumext-spec))
     (with-open-file (s enumext-spec) (get-glext-version s))
 
     (when *define-package*
