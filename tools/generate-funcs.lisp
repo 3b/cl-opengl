@@ -416,6 +416,8 @@
    (ignore-tag "glfflags")
    (ignore-tag "beginend")
    (ignore-tag "glxvectorequiv")
+   (ignore-tag "glextmask")
+   (ignore-tag "subcategory")
 
    (make-matcher "^(\\w+)\\(.*\\)$"
      (new-fun (reg 0)))
@@ -448,6 +450,8 @@
    (ignore-ftag "glfflags")
    (ignore-ftag "glxvectorequiv")
    (ignore-ftag "beginend")
+   (ignore-ftag "glextmask")
+   (ignore-ftag "subcategory")
 
    (make-matcher ".*"
      (format t " unmatched line? ~s ~%" line))))
