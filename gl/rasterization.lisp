@@ -85,6 +85,181 @@
 ;;; 3.8 Texturing
 ;;;
 
+;;; 3.8.1 Texture image specification
+
+(defun internal-format->int (format)
+  (if (keywordp format)
+      (foreign-enum-value '%gl:enum format)
+      (if (and (numberp format) (< 0 format 5))
+          format
+          (error "Internal format must be either a keyword or an integer ~
+                  in the range [1,4]."))))
+
+(defun tex-image-3d (target level internal-format width height depth border
+                     format type data)
+  (let ((internal-size (internal-format->int internal-format)))
+    (if (pointerp data)
+        (%gl:tex-image-3d
+         target level internal-size width height depth border format type data)
+        (with-pixel-array (array type data)
+          (%gl:tex-image-3d target level internal-size width
+                            height depth border format type array)))))
+
+(defun tex-image-2d (target level internal-format width height border format
+                     type data)
+  (let ((internal-size (internal-format->int internal-format)))
+    (if (pointerp data)
+        (%gl:tex-image-2d target level internal-size width height border format
+                          type data)
+        (with-pixel-array (array type data)
+          (%gl:tex-image-2d target level internal-size width height border
+                            format type array)))))
+
+(defun tex-image-1d (target level internal-format width border format type data)
+  (let ((internal-size (internal-format->int internal-format)))
+    (if (pointerp data)
+        (%gl:tex-image-1d target level internal-size width border format
+                          type data)
+        (with-pixel-array (array type data)
+          (%gl:tex-image-1d target level internal-size width border format
+                            type array)))))
+
+;;; 3.8.2 Alternate Texture Image Specification Commands
+
+(defun copy-tex-image-2d (target level internal-format x y width height border)
+  (%gl:copy-tex-image-2d target level (internal-format->int internal-format)
+                         x y width height border))
+
+(defun copy-tex-image-1d (target level internal-format x y width border)
+  (%gl:copy-tex-image-1d target level (internal-format->int internal-format)
+                         x y width border))
+
+(defun tex-sub-image-1d (target level xoffset width format type data)
+  (if (pointerp data)
+      (%gl:tex-sub-image-1d target level xoffset width format type data)
+      (with-pixel-array (array type data)
+        (%gl:tex-sub-image-1d target level xoffset width format type array))))
+
+(defun tex-sub-image-2d (target level xoffset yoffset width height format type
+                         data)
+  (if (pointerp data)
+      (%gl:tex-sub-image-2d target level xoffset yoffset width height format
+                            type data)
+      (with-pixel-array (array type data)
+        (%gl:tex-sub-image-2d target level xoffset yoffset width height format
+                              type array))))
+
+(defun tex-sub-image-3d (target level xoffset yoffset zoffset width height
+                         depth format type data)
+  (if (pointerp data)
+      (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width height
+                            depth format type data)
+      (with-pixel-array (array type data)
+        (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width
+                              height depth format type array))))
+
+(import-export %gl:copy-tex-sub-image-1d
+               %gl:copy-tex-sub-image-2d
+               %gl:copy-tex-sub-image-3d)
+
+;;; 3.8.3 Compressed Texture Images
+
+(defun compressed-tex-image-1d (target level internal-format width border
+                                data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-1d target level internal-format
+                                   width border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-1d target level internal-format
+                                     width border image-size array))))
+
+(defun compressed-tex-image-2d (target level internal-format width height border
+                                data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-2d target level internal-format
+                                   width height border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-2d target level internal-format
+                                     width height border image-size array))))
+
+(defun compressed-tex-image-3d (target level internal-format width height depth
+                                border data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-image-3d target level internal-format width
+                                   height depth border image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-image-3d target level internal-format width
+                                     height depth border image-size array))))
+
+(defun compressed-tex-sub-image-1d (target level xoffset width format
+                                    data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-1d target level xoffset width
+                                       format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-1d target level xoffset width
+                                         format image-size array))))
+
+(defun compressed-tex-sub-image-2d (target level xoffset yoffset width height
+                                    format data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-2d target level xoffset yoffset width height
+                                       format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-2d target level xoffset yoffset width height
+                                         format image-size array))))
+
+(defun compressed-tex-sub-image-3d (target level xoffset yoffset zoffset width height
+                                    depth format data &optional (image-size (length data)))
+  (if (pointerp data)
+      (%gl:compressed-tex-sub-image-3d target level xoffset yoffset zoffset width
+                                       height depth format image-size data)
+      (with-pixel-array (array :unsigned-byte data)
+        (%gl:compressed-tex-sub-image-3d target level xoffset yoffset zoffset width
+                                         height depth format image-size array))))
+
+;;; 3.8.4 Texture parameters
+
+(defun tex-parameter (target pname param)
+  (ecase pname
+    ((:texture-wrap-s :texture-wrap-t :texture-wrap-r)
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:texture-min-filter
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:texture-mag-filter
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:texture-border-color
+     (with-foreign-object (array '%gl:float 4)
+       (dotimes (i 4)
+         (setf (mem-aref array '%gl:float i) (elt param i)))
+       (%gl:tex-parameter-fv target pname array)))
+    ((:texture-priority :texture-min-lod :texture-max-lod)
+     (%gl:tex-parameter-f target pname param))
+    ((:texture-base-level :texture-lod-bias)
+     (%gl:tex-parameter-i target pname (truncate param)))
+    (:depth-texture-mode
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:texture-compare-mode
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:texture-compare-func
+     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
+    (:generate-mipmap
+     (%gl:tex-parameter-i target pname (if param 1 0)))))
+
+;;; 3.8.12 Texture Objects
+
+(import-export %gl:bind-texture)
+
+(defun delete-textures (textures)
+  (with-opengl-sequence (array '%gl:uint textures)
+    (%gl:delete-textures (length textures) array)))
+
+(defun gen-textures (count)
+  (with-foreign-object (texture-array '%gl:uint count)
+    (%gl:gen-textures count texture-array)
+    (loop for i below count
+          collecting (mem-aref texture-array '%gl:uint i))))
+
 
 ;;; The following two functions look awkward to use, so we'll provide the two
 ;;; lispier functions TEXTURE-RESIDENT-P and PRIORITIZE-TEXTURE, which can be
