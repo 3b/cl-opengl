@@ -31,88 +31,65 @@
   (:use #:cl #:cffi)
   (:nicknames #:opengl #:gl)
   (:export
+
+
+   ;; opengl3.lisp
+
    ;; 2.5 GL Errors
    #:get-error
    #:opengl-error
    #:opengl-error.error-code
    #:check-error
-   ;; 2.6 Begin/End Paradigm
-   ;; 2.6.1 Begin and End
-   #:begin
-   #:end
-   #:with-primitive
-   #:with-primitives
-   ;; 2.6.2 Polygon Edges
-   #:edge-flag
    ;; 2.7 Vertex Specification
-   #:vertex
-   #:tex-coord
-   #:multi-tex-coord
-   #:normal
-   #:fog-coord
-   #:color
-   #:secondary-color
-   #:index
    #:vertex-attrib
    ;; 2.8 Vertex Arrays
+   #:array-element
+   #:enable-vertex-attrib-array
+   #:disable-vertex-attrib-array
+   #:draw-arrays
    #:draw-elements
-   #:alloc-gl-array
-   #:free-gl-array
-   #:define-gl-array-format
-   #:gl-array
-   #:gl-vertex-array
-   #:bind-gl-vertex-array
-   #:with-gl-array
-   #:glaref
-   #:map-buffer-to-gl-array
-   #:with-gl-mapped-buffer
-   #:with-mapped-buffer
-   #:make-null-gl-array
-   #:gl-array-byte-size
+   #:vertex-attrib-pointer
+   #:vertex-attrib-ipointer
    ;; 2.9 Buffer Objects
    #:bind-buffer
    #:delete-buffers
    #:gen-buffers
-   #:buffer-data
-   #:buffer-sub-data
    #:map-buffer
    #:unmap-buffer
-   ;; 2.10 Rectangles
-   #:rect
+   #:get-buffer-parameter
+   #:buffer-sub-data
+   #:buffer-data
+
+   #:define-gl-array-format
+   #:gl-array
+   #:gl-vertex-array
+   #:alloc-gl-array
+   #:free-gl-array
+   #:make-null-gl-array
+   #:gl-array-byte-size
+   #:bind-gl-vertex-array
+   #:with-gl-array
+   #:glaref
+   #:map-buffer-to-gl-array
+   #:with-mapped-buffer
+   #:with-gl-mapped-buffer
+
+   ;; 3.0:2.10 Vertex Array Objects (ARB_vertex_array_object)
+   #:delete-vertex-arrays
+   #:gen-vertex-arrays
+   #:gen-vertex-array
+   #:bind-vertex-array
+
    ;; 2.11.1 Controlling the Viewport
    #:depth-range
    #:viewport
    ;; 2.11.2 Matrices
-   #:matrix-mode
-   #:load-matrix
-   #:mult-matrix
-   #:load-transpose-matrix
-   #:mult-transpose-matrix
-   #:rotate
-   #:translate
-   #:scale
-   #:frustum
-   #:ortho
+   #:with-foreign-matrix
    #:active-texture
-   #:load-identity
-   #:push-matrix
-   #:pop-matrix
-   #:with-pushed-matrix
-   ;; 2.11.4 Generating Texture Coordinates
-   #:tex-gen
    ;; 2.12 Clipping
    #:clip-plane
-   ;; 2.13 Current Raster Position
-   #:raster-pos
-   #:window-pos
    ;; 2.14.1 Lighting
    #:front-face
-   ;; 2.14.2 Lighting Parameter Specification
-   #:material
-   #:light
-   #:light-model
-   ;; 2.14.3 ColorMaterial
-   #:color-material
    ;; 2.14.7 Flatshading
    #:shade-model
    ;; 2.15.1 Shader Objects
@@ -138,27 +115,76 @@
    #:uniform-matrix
    ;; 2.15.4 Shader Execution
    #:validate-program
+
+
+   ;; opengl.lisp
+
+   ;; 2.6 Begin/End Paradigm
+   ;; 2.6.1 Begin and End
+   #:begin
+   #:end
+   #:with-primitive
+   #:with-primitives
+   ;; 2.6.2 Polygon Edges
+   #:edge-flag
+   ;; 2.7 Vertex Specification
+   #:vertex
+   #:tex-coord
+   #:multi-tex-coord
+   #:normal
+   #:fog-coord
+   #:color
+   #:secondary-color
+   #:index
+   ;; 2.8 Vertex Arrays
+   #:enable-client-state
+   #:disable-client-state
+   #:client-active-texture
+   ;; 2.10 Rectangles
+   #:rect
+   ;; 2.11.2 Matrices
+   #:matrix-mode
+   #:load-matrix
+   #:mult-matrix
+   #:load-transpose-matrix
+   #:mult-transpose-matrix
+   #:rotate
+   #:translate
+   #:scale
+   #:frustum
+   #:ortho
+   #:load-identity
+   #:push-matrix
+   #:pop-matrix
+   #:with-pushed-matrix
+   ;; 2.11.4 Generating Texture Coordinates
+   #:tex-gen
+   ;; 2.13 Current Raster Position
+   #:raster-pos
+   #:window-pos
+   ;; 2.14.2 Lighting Parameter Specification
+   #:material
+   #:light
+   #:light-model
+   ;; 2.14.3 ColorMaterial
+   #:color-material
+
+
+   ;; rasterization3.lisp
+
    ;; 3.3 Points
    #:point-size
    #:point-parameter
    ;; 3.4 Line Segments
    #:line-width
-   #:line-stipple
    ;; 3.5 Polygons
    ;; 3.5.1 Basic Polygon Rasterization
    #:cull-face
-   ;; 3.5.2 Stippling
-   #:polygon-stipple
    ;; 3.5.4 Options Controlling Polygon Rasterization
    #:polygon-mode
    #:polygon-offset
    ;; 3.6.1 Pixel Storage Modes
    #:pixel-store
-   ;; 3.6.3 Pixel Transfer Modes
-   #:pixel-transfer
-   #:pixel-map
-   ;; 3.6.4 Pixel Rasterization
-   #:draw-pixels
    ;; 3.8.1 Texture Image Specification
    #:tex-image-1d
    #:tex-image-2d
@@ -185,30 +211,36 @@
    #:bind-texture
    #:delete-textures
    #:gen-textures
+   ;; 3.8.13 Texture Environments and Texture Functions
+   #:tex-env
+
+   ;; rasterization.lisp
+
+   ;; 3.4 Line Segments
+   #:line-stipple
+   ;; 3.5 Polygons
+   ;; 3.5.2 Stippling
+   #:polygon-stipple
+   ;; 3.6.3 Pixel Transfer Modes
+   #:pixel-transfer
+   #:pixel-map
+   ;; 3.6.4 Pixel Rasterization
+   #:draw-pixels
+   ;; 3.8.12 Texture Objects
    #:are-textures-resident
    #:prioritize-textures
    #:texture-resident-p
    #:prioritize-texture
-   ;; 3.8.13 Texture Environments and Texture Functions
-   #:tex-env
    ;; 3.10 Fog
    #:fog
-   ;; 5.4 Display Lists
-   #:new-list
-   #:end-list
-   #:with-new-list
-   #:call-list
-   #:call-lists
-   #:list-base
-   #:gen-lists
-   #:display-list-p
-   #:delete-lists
+
+
+   ;; framebuffer3.lisp
+
    ;; 4.1.2 Scissor Test
    #:scissor
    ;; 4.1.3 Multisample Fragment Operations
    #:sample-coverage
-   ;; 4.1.4 Alpha Test
-   #:alpha-func
    ;; 4.1.5 Stencil Test
    #:stencil-func
    #:stencil-func-separate
@@ -233,7 +265,6 @@
    #:draw-buffer
    #:draw-buffers
    ;; 4.2.2 Fine Control of Buffer Updates
-   #:index-mask
    #:color-mask
    #:depth-mask
    #:stencil-mask
@@ -241,17 +272,38 @@
    ;; 4.2.3 Clearing the Buffers
    #:clear
    #:clear-color
-   #:clear-index
    #:clear-depth
    #:clear-stencil
-   #:clear-accum
-   ;; 4.2.4 The Accumulation Buffer
-   #:accum
    ;; 4.3.2 Reading Pixels
    #:read-pixels
    #:read-buffer
    ;; 4.3.3 Copying Pixels
    #:copy-pixels
+
+   ;; framebuffer.lisp
+
+   ;; 4.1.4 Alpha Test
+   #:alpha-func
+   ;; 4.2.2 Fine Control of Buffer Updates
+   #:index-mask
+   ;; 4.2.3 Clearing the Buffers
+   #:clear-index
+   #:clear-accum
+   ;; 4.2.4 The Accumulation Buffer
+   #:accum
+
+
+
+   ;; special3.lisp
+
+   ;; 5.5 Flush and Finish
+   #:flush
+   #:finish
+   ;; 5.6 Hints
+   #:hint
+
+   ;; special.lisp
+
    ;; 5.1 Evaluation
    #:map1
    #:map2
@@ -277,15 +329,18 @@
    #:new-list
    #:end-list
    #:call-list
+   #:call-lists
    #:list-base
    #:gen-lists
    #:is-list
    #:delete-lists
-   ;; 5.5 Flush and Finish
-   #:flush
-   #:finish
-   ;; 5.6 Hints
-   #:hint
+   #:with-new-list
+
+   ;; #:display-list-p ;; not defined anywhere?
+
+
+   ;; state3.lisp
+
    ;; 6.1.1 Simple Queries
    #:get-boolean
    #:get-integer
@@ -309,14 +364,36 @@
    #:get-shader-info-log
    #:get-program-info-log
    #:get-shader-source
+
+   ;;state.lisp
+
    ;; 6.1.15 Saving and Restoring State
    #:push-attrib
-   #:push-client-attrib
-   #:with-pushed-attrib
    #:pop-attrib
+   #:with-pushed-attrib
+   #:push-client-attrib
    #:pop-client-attrib
    #:with-pushed-client-attrib
-   ;; Extensions
+
+
+   ;; extensions3.lisp
+   #:is-renderbuffer
+   #:bind-renderbuffer
+   #:delete-renderbuffers
+   #:gen-renderbuffers
+   #:renderbuffer-storage
+   #:is-framebuffer
+   #:bind-framebuffer
+   #:delete-framebuffers
+   #:gen-framebuffers
+   #:check-framebuffer-status
+   #:framebuffer-texture-1d
+   #:framebuffer-texture-2d
+   #:framebuffer-texture-3d
+   #:framebuffer-renderbuffer
+   #:generate-mipmap
+
+   ;; extensions.lisp
    #:is-renderbuffer-ext
    #:bind-renderbuffer-ext
    #:delete-renderbuffers-ext

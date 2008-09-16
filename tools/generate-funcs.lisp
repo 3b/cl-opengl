@@ -63,15 +63,6 @@
     ("GlobalAlphaFactorsSUN" . "global-alpha-factor-s-sun")
     ("TexSubImage4DSGIS" . "tex-sub-image-4d-sgis")
     ("TexImage4DSGIS" . "tex-image-4d-sgis")
-    ;;("ShaderOp1EXT" . "shader-op-1-ext")
-    ;;("ShaderOp2EXT" . "shader-op-2-ext")
-    ;;("ShaderOp3EXT" . "shader-op-3-ext")
-    ("UniformMatrix2x3fv" . "uniform-matrix-2x3-fv")
-    ("UniformMatrix3x2fv" . "uniform-matrix-3x2-fv")
-    ("UniformMatrix2x4fv" . "uniform-matrix-2x4-fv")
-    ("UniformMatrix4x2fv" . "uniform-matrix-4x2-fv")
-    ("UniformMatrix3x4fv" . "uniform-matrix-3x4-fv")
-    ("UniformMatrix4x3fv" . "uniform-matrix-4x3-fv")
     ("GetQueryObjecti64vEXT" . "get-query-object-i64v-ext")
     ("GetQueryObjectui64vEXT" . "get-query-object-ui64v-ext")
     ("GetBooleanIndexedvEXT" . "get-boolean-indexed-v-ext")
@@ -82,6 +73,19 @@
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
     "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
     "instanced" "indexed"))
+
+(defmacro add-dashes-by-regex (regex str)
+  ;; macro so we don't miss ppcre compiler macros on the regex
+  (let ((r1 (gensym "R1"))
+        (r2 (gensym "R2"))
+        (match (gensym)))
+    `(cl-ppcre:regex-replace-all
+      ,regex
+      ,str
+      (lambda (,match ,r1 ,r2)
+        (declare (ignore ,match))
+        (format nil "~A-~A" ,r1 ,r2))
+      :simple-calls t)))
 
 ;;; words ending in 's'...
 ;;; is arrays textures names pixels lists attribs parameters programs
@@ -106,8 +110,11 @@
     ;; since it confuses the main regex...
     ((cl-ppcre:scan "^I[1-4]?[bisuv]+$" name) name)
 
+    ;; GL3 adds some i_v suffixed functions, turn that into -i-v for now
+    ((cl-ppcre:scan "i_v$" name)
+     (cl-ppcre:regex-replace "i_v" name "-i-v"))
     (t ; anything else, try to split
-     (cl-ppcre:regex-replace-all
+     (add-dashes-by-regex
       ;;#
       ;;N (normalized VertexAttrib)
       ;;b s i f d ub us ui
@@ -115,12 +122,8 @@
       ;; (can't catch the u?i64v? types here, so special case them for now...)
       ;; 's' catches too many plurals, so skipping for now...
       ;; (just rect,index anyway, can special case them...)
-      "([a-z][a-tv-z])((?:h|b|i|f|d|ub|us|ui|hv|bv|iv|fv|dv|sv|ubv|usv|uiv|v)|[0-9]+)$"
-      name
-      (lambda (match r1 r2)
-        (declare (ignore match))
-        (format nil "~A-~A" r1 r2))
-      :simple-calls t))))
+      "([a-z][a-tv-z]|[2-4]x[2-4])((?:h|b|i|f|d|ub|us|ui|hv|bv|iv|fv|fi|dv|sv|ubv|usv|uiv|v)|[0-9]+)$"
+      name))))
 
 ;;; TODO: fix special cases.
 (defun fix-type-suffixes (name)
@@ -135,12 +138,13 @@
   (string-downcase
    (if (assoc str *special-case-list* :test #'string=)
        (cdr (assoc str *special-case-list* :test #'string=))
-       (fix-type-suffixes (cl-ppcre:regex-replace-all
-                           "([a-z])([0-9A-Z])" str
-                           (lambda (match r1 r2)
-                             (declare (ignore match))
-                             (format nil "~A-~A" r1 r2))
-                           :simple-calls t)))))
+       ;; we split on caps and numbers after a lower case letter, but
+       ;; need to watch out for the 2x2 style matrix size type
+       ;; suffixes, so split in 2 steps
+       (fix-type-suffixes
+        (add-dashes-by-regex
+         "([a-z])([A-Z])"
+         (add-dashes-by-regex "((?:[^2-4][a-z])|[2-4][a-wyz])([0-9])" str))))))
 
 (defun fix-gl-function-name (name)
   (mixedcaps->lcdash name))
@@ -186,15 +190,22 @@
     "void" "bitfield" "boolean" #| "enum" |# "string" "int64-ext" "uint64-ext"))
 
 (defparameter *type-map* (make-hash-table :test 'equal))
+(defparameter *bitfield-types* nil)
+(defparameter *gl3-functions* nil)
 
 (defun add-type-map (line)
   (unless (scan "^\\s*#.*" line)
     (multiple-value-bind (match regs)
         (scan-to-strings "^([^,]+),\\*,\\*,\\s*((?:[^, ]+ ?)+),\\*,\\*\\s*" line)
       (if match
-          (if (string= (aref regs 1) "*")
-              (setf (gethash (aref regs 0) *type-map*) (aref regs 0))
-              (setf (gethash (aref regs 0) *type-map*) (aref regs 1)))
+          (let ((from (aref regs 0))
+                (to (aref regs 1)))
+            (if (or (string= to "*")
+                    (find from *bitfield-types*
+                          :key (lambda (a) (getf a :enum-type))
+                          :test 'string=))
+                (setf (gethash from *type-map*) from)
+                (setf (gethash from *type-map*) to)))
           (format t "failed to parse type-map line: ~a ~%" line)))))
 
 (defun load-type-map (stream)
@@ -202,7 +213,9 @@
   ;; that directly now...
   (setf *type-map* (make-hash-table :test 'equal))
   (loop for line = (read-line stream nil nil)
-        while line do (add-type-map line)))
+        while line do (add-type-map line))
+  ;; gl.tm maps string to const GLubyte*, so override that
+   (setf (gethash "String" *type-map*) "string"))
 
 (defparameter *current-fun* nil)
 (defparameter *function-list* nil)
@@ -309,6 +322,18 @@
               (format nil "(:pointer ~a)" (remap-type (ctype parm)))
               (remap-type (ctype parm)))))
 
+(defun dump-return-enum-list (stream fun)
+  (when (member (gethash (return-type fun) *type-map* "")
+                '("GLenum" "GLbitfield") :test 'string=)
+    (format stream "(~s ~s :return 0)~%" (return-type fun) (name fun))))
+
+(defun dump-param-enum-list (stream fun)
+  (loop for i in (parameters fun)
+       for j from 0
+     when (member (gethash (ctype i) *type-map* "")
+                  '("GLenum" "GLbitfield") :test 'string=)
+     do (format stream "(~s ~s ~s ~s)~%" (ctype i) (name fun) (name i) j)))
+
 (defun dump-fun-wrapper (stream fun)
   ;; these might be better in docstrings or something, but defcfun
   ;; doesn't seem to have those, so at least dump some comments with
@@ -371,6 +396,7 @@
      (multiple-value-bind (match regs)
          (scan-to-strings ,regex line)
        (flet ((reg (n) (aref regs n)))
+         (declare (ignorable (function reg)))
          (if match
              (progn ,@body t)
              nil)))))
@@ -479,6 +505,72 @@
 (defparameter *glext-version* nil)
 (defparameter *glext-last-updated* "<unknown>")
 
+
+(defun dump-func-files (binding-package-file funcs-file copyright-file exception-list &key exceptions-only)
+  (when *define-package*
+    (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
+    (with-open-file (out binding-package-file :direction :output
+                         :if-exists :supersede)
+      (format out ";;; generated file, do not edit~%")
+      (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
+              *glext-last-updated*)
+      (format out "(defpackage #:~a~%" *in-package-name*)
+      (when *package-nicknames*
+        (format out "  (:nicknames ~a)~%" *package-nicknames*))
+      (format out "  (:use #:common-lisp #:cffi)~%")
+      (format out "  (:shadow #:char #:float #:byte #:boolean #:string)~%")
+      (format out "  (:export~%")
+      (format out "   #:enum~%")
+      (format out "   #:*glext-version*~%")
+      (format out "   #:*glext-last-updated*~%")
+      (format out "   #:*gl-get-proc-address*~%")
+      ;; types
+      (format out "~%  ;; Types.~%  ")
+      (loop for type in *gl-types*
+         do (format out "~<~%  ~1,70:;#:~A ~>" type))
+      ;; functions
+      (format out "~%~%  ;; Functions.~%  ")
+      (loop for i in *function-list*
+         ;; we put the whole list in the package file for normal case,
+         ;; since we can only load 1 at a time
+         when (or (not exception-list)
+                  (if exceptions-only
+                      (member (name i) exception-list :test 'string=)
+                      t))
+         do (format out "~<~%  ~1,70:;#:~A ~>"
+                    (string-downcase (mangle-for-lisp (name i)))))
+      (format out "))~%~%")))
+
+  (format t "~&;; Writing ~A.~%" (namestring funcs-file))
+
+  (with-open-file (out funcs-file :direction :output :if-exists :supersede)
+    (format out ";;; generated file, do not edit~%~%")
+    (format out ";;; generated from files with following copyright:~%;;;~%")
+    (with-open-file (copyright copyright-file)
+      (loop for line = (read-line copyright nil nil)
+         while line
+         do (format out ";;; ~a~%" line)))
+    (format out ";;;~%~%")
+    (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
+            *glext-last-updated*)
+
+    (when *in-package-name*
+      (format out "(in-package #:~a)~%~%" *in-package-name*))
+
+    (format out "(defparameter *glext-version* ~s)~%" *glext-version*)
+    (format out "(defparameter *glext-last-updated* ~s)~%"
+            *glext-last-updated*)
+
+    (when *dump-functions*
+      (loop for i in *function-list*
+         ;; split functions definitions into 2 files since they can be
+         ;; loaded at the same time
+         when (or (not exception-list)
+                  (if exceptions-only
+                      (member (name i) exception-list :test 'string=)
+                      (not (member (name i) exception-list :test 'string=))))
+         do (dump-fun-wrapper out i)))))
+
 ;;; quick hack to grab version/modified data from enumext.spec
 ;;;
 ;;; really should do it while parsing the file, looks easier to do
@@ -503,13 +595,29 @@
          (relative-spec (make-pathname :directory '(:relative :up "spec")))
          (spec-dir (merge-pathnames relative-spec this-dir))
          (gl-tm (merge-pathnames "gl.tm" spec-dir))
+         (bitfields.lisp (merge-pathnames "bitfields.lisp" this-dir))
+         (gl3funcs.lisp (merge-pathnames "gl3funcs.lisp" this-dir))
          (copyright-file (merge-pathnames "OSSCOPYRIGHT" this-dir))
          (gl-spec (merge-pathnames "gl.spec" spec-dir))
          ;(enum-spec (merge-pathnames "enum.spec" spec-dir))
          (enumext-spec (merge-pathnames "enumext.spec" spec-dir))
          (binding-package-file (merge-pathnames "bindings-package.lisp"
                                                 gl-dir))
-         (funcs-file (merge-pathnames "funcs.lisp" gl-dir)))
+         (funcs-file (merge-pathnames "funcs.lisp" gl-dir))
+         (binding3-package-file (merge-pathnames "bindings-package3.lisp"
+                                                gl-dir))
+         (funcs3-file (merge-pathnames "funcs3.lisp" gl-dir)))
+
+
+    (format t "~&;; loading list of bitfield enum types from ~A~%"
+            (namestring bitfields.lisp))
+    (with-open-file (s bitfields.lisp)
+          (setf *bitfield-types* (read s)))
+
+    (format t "~&;; loading gl3 function names from ~A~%"
+            (namestring gl3funcs.lisp))
+    (with-open-file (s gl3funcs.lisp)
+          (setf *gl3-functions* (read s)))
 
     (format t "~&;; loading .tm file ~A~%" (namestring gl-tm))
     (with-open-file (s gl-tm)
@@ -519,56 +627,37 @@
     (format t "~&;; getting enumext version from ~A~%" (namestring enumext-spec))
     (with-open-file (s enumext-spec) (get-glext-version s))
 
-    (when *define-package*
-      (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
-      (with-open-file (out binding-package-file :direction :output
-                           :if-exists :supersede)
-        (format out ";;; generated file, do not edit~%")
-        (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
-                *glext-last-updated*)
-        (format out "(defpackage #:~a~%" *in-package-name*)
-        (when *package-nicknames*
-          (format out "  (:nicknames ~a)~%" *package-nicknames*))
-        (format out "  (:use #:common-lisp #:cffi)~%")
-        (format out "  (:shadow #:char #:float #:byte #:boolean #:string)~%")
-        (format out "  (:export~%")
-        (format out "   #:enum~%")
-        (format out "   #:*glext-version*~%")
-        (format out "   #:*glext-last-updated*~%")
-        (format out "   #:*gl-get-proc-address*~%")
-        ;; types
-        (format out "~%  ;; Types.~%  ")
-        (loop for type in *gl-types*
-              do (format out "~<~%  ~1,70:;#:~A ~>" type))
-        ;; functions
-        (format out "~%~%  ;; Functions.~%  ")
-        (loop for i in *function-list*
-              do (format out "~<~%  ~1,70:;#:~A ~>"
-                         (string-downcase (mangle-for-lisp (name i)))))
-        (format out "))~%~%")))
+    ;; dump full bindings
+    (dump-func-files binding-package-file funcs-file copyright-file *gl3-functions*)
+    ;; dump gl3 forward compatible bindings
+    (dump-func-files binding3-package-file funcs3-file copyright-file *gl3-functions* :exceptions-only t)
 
-    (format t "~&;; Writing ~A.~%" (namestring funcs-file))
-
-    (with-open-file (out funcs-file :direction :output :if-exists :supersede)
-      (format out ";;; generated file, do not edit~%~%")
-      (format out ";;; generated from files with following copyright:~%;;;~%")
-      (with-open-file (copyright copyright-file)
-        (loop for line = (read-line copyright nil nil)
-              while line
-              do (format out ";;; ~a~%" line)))
-      (format out ";;;~%~%")
-      (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
+    ;; dump some info about which enums types are used in the spec,
+    ;; not needed for normal usage
+    #+(or)
+    (with-open-file (out (merge-pathnames "enum-usage.lisp" spec-dir)
+                         :direction :output :if-exists :supersede)
+      (format out ";;; *glext-version* ~s~%" *glext-version*)
+      (format out ";;; defparameter *glext-last-updated* ~s~%"
               *glext-last-updated*)
-
-      (when *in-package-name*
-        (format out "(in-package #:~a)~%~%" *in-package-name*))
-
-      (format out "(defparameter *glext-version* ~s)~%" *glext-version*)
-      (format out "(defparameter *glext-last-updated* ~s)~%"
+      (format out "(")
+      (loop for i in *function-list*
+           do (dump-return-enum-list out i)
+           do (dump-param-enum-list out i))
+      (format out ")"))
+    #+ (or)
+    (with-open-file (out (merge-pathnames "gl3-enum-usage.lisp" this-dir)
+                         :direction :output :if-exists :supersede)
+      (format out ";;; *glext-version* ~s~%" *glext-version*)
+      (format out ";;; defparameter *glext-last-updated* ~s~%"
               *glext-last-updated*)
+      (format out "(")
+      (loop for i in *function-list*
+         when (member (name i) *gl3-functions* :test 'string=)
+         do
+           (dump-return-enum-list out i)
+           (dump-param-enum-list out i))
+      (format out ")"))
 
-      (when *dump-functions*
-        (loop for i in *function-list*
-              do (dump-fun-wrapper out i))))
     (force-output)
     #+sbcl (sb-ext:quit :unix-status 0)))

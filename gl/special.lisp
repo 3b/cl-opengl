@@ -129,16 +129,3 @@
   `(prog2 (new-list ,id ',mode)
        (progn ,@body)
      (end-list)))
-
-;;;
-;;; 5.5 Flush and Finish
-;;;
-
-(import-export %gl:flush
-               %gl:finish)
-
-;;;
-;;; 5.6 Hints
-;;;
-
-(import-export %gl:hint)

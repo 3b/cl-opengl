@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 40 ( 2008/03/24 )
+;;; glext version 42 ( 2008/08/16 )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -180,28 +180,49 @@
   #:vertex-attrib-pointer #:uniform-matrix-2x3-fv 
   #:uniform-matrix-3x2-fv #:uniform-matrix-2x4-fv 
   #:uniform-matrix-4x2-fv #:uniform-matrix-3x4-fv 
-  #:uniform-matrix-4x3-fv #:active-texture-arb 
-  #:client-active-texture-arb #:multi-tex-coord-1d-arb 
-  #:multi-tex-coord-1dv-arb #:multi-tex-coord-1f-arb 
-  #:multi-tex-coord-1fv-arb #:multi-tex-coord-1i-arb 
-  #:multi-tex-coord-1iv-arb #:multi-tex-coord-1s-arb 
-  #:multi-tex-coord-1sv-arb #:multi-tex-coord-2d-arb 
-  #:multi-tex-coord-2dv-arb #:multi-tex-coord-2f-arb 
-  #:multi-tex-coord-2fv-arb #:multi-tex-coord-2i-arb 
-  #:multi-tex-coord-2iv-arb #:multi-tex-coord-2s-arb 
-  #:multi-tex-coord-2sv-arb #:multi-tex-coord-3d-arb 
-  #:multi-tex-coord-3dv-arb #:multi-tex-coord-3f-arb 
-  #:multi-tex-coord-3fv-arb #:multi-tex-coord-3i-arb 
-  #:multi-tex-coord-3iv-arb #:multi-tex-coord-3s-arb 
-  #:multi-tex-coord-3sv-arb #:multi-tex-coord-4d-arb 
-  #:multi-tex-coord-4dv-arb #:multi-tex-coord-4f-arb 
-  #:multi-tex-coord-4fv-arb #:multi-tex-coord-4i-arb 
-  #:multi-tex-coord-4iv-arb #:multi-tex-coord-4s-arb 
-  #:multi-tex-coord-4sv-arb #:load-transpose-matrix-f-arb 
-  #:load-transpose-matrix-d-arb #:mult-transpose-matrix-f-arb 
-  #:mult-transpose-matrix-d-arb #:sample-coverage-arb 
-  #:compressed-tex-image-3d-arb #:compressed-tex-image-2d-arb 
-  #:compressed-tex-image-1d-arb #:compressed-tex-sub-image-3d-arb 
+  #:uniform-matrix-4x3-fv #:color-mask-i #:get-boolean-i-v 
+  #:get-integer-i-v #:enable-i #:disable-i #:is-enabled-i 
+  #:begin-transform-feedback #:end-transform-feedback 
+  #:bind-buffer-range #:bind-buffer-base 
+  #:transform-feedback-varyings #:get-transform-feedback-varying 
+  #:clamp-color #:begin-conditional-render #:end-conditional-render 
+  #:vertex-attrib-i1i #:vertex-attrib-i2i #:vertex-attrib-i3i 
+  #:vertex-attrib-i4i #:vertex-attrib-i1ui #:vertex-attrib-i2ui 
+  #:vertex-attrib-i3ui #:vertex-attrib-i4ui #:vertex-attrib-i1iv 
+  #:vertex-attrib-i2iv #:vertex-attrib-i3iv #:vertex-attrib-i4iv 
+  #:vertex-attrib-i1uiv #:vertex-attrib-i2uiv #:vertex-attrib-i3uiv 
+  #:vertex-attrib-i4uiv #:vertex-attrib-i4bv #:vertex-attrib-i4sv 
+  #:vertex-attrib-i4ubv #:vertex-attrib-i4usv 
+  #:vertex-attrib-ipointer #:get-vertex-attrib-iiv 
+  #:get-vertex-attrib-iuiv #:get-uniform-uiv 
+  #:bind-frag-data-location #:get-frag-data-location #:uniform-1ui 
+  #:uniform-2ui #:uniform-3ui #:uniform-4ui #:uniform-1uiv 
+  #:uniform-2uiv #:uniform-3uiv #:uniform-4uiv #:tex-parameter-iiv 
+  #:tex-parameter-iuiv #:get-tex-parameter-iiv 
+  #:get-tex-parameter-iuiv #:clear-buffer-iv #:clear-buffer-uiv 
+  #:clear-buffer-fv #:clear-buffer-fi #:get-string-i 
+  #:active-texture-arb #:client-active-texture-arb 
+  #:multi-tex-coord-1d-arb #:multi-tex-coord-1dv-arb 
+  #:multi-tex-coord-1f-arb #:multi-tex-coord-1fv-arb 
+  #:multi-tex-coord-1i-arb #:multi-tex-coord-1iv-arb 
+  #:multi-tex-coord-1s-arb #:multi-tex-coord-1sv-arb 
+  #:multi-tex-coord-2d-arb #:multi-tex-coord-2dv-arb 
+  #:multi-tex-coord-2f-arb #:multi-tex-coord-2fv-arb 
+  #:multi-tex-coord-2i-arb #:multi-tex-coord-2iv-arb 
+  #:multi-tex-coord-2s-arb #:multi-tex-coord-2sv-arb 
+  #:multi-tex-coord-3d-arb #:multi-tex-coord-3dv-arb 
+  #:multi-tex-coord-3f-arb #:multi-tex-coord-3fv-arb 
+  #:multi-tex-coord-3i-arb #:multi-tex-coord-3iv-arb 
+  #:multi-tex-coord-3s-arb #:multi-tex-coord-3sv-arb 
+  #:multi-tex-coord-4d-arb #:multi-tex-coord-4dv-arb 
+  #:multi-tex-coord-4f-arb #:multi-tex-coord-4fv-arb 
+  #:multi-tex-coord-4i-arb #:multi-tex-coord-4iv-arb 
+  #:multi-tex-coord-4s-arb #:multi-tex-coord-4sv-arb 
+  #:load-transpose-matrix-f-arb #:load-transpose-matrix-d-arb 
+  #:mult-transpose-matrix-f-arb #:mult-transpose-matrix-d-arb 
+  #:sample-coverage-arb #:compressed-tex-image-3d-arb 
+  #:compressed-tex-image-2d-arb #:compressed-tex-image-1d-arb 
+  #:compressed-tex-sub-image-3d-arb 
   #:compressed-tex-sub-image-2d-arb 
   #:compressed-tex-sub-image-1d-arb #:get-compressed-tex-image-arb 
   #:point-parameter-f-arb #:point-parameter-fv-arb #:weight-bv-arb 
@@ -272,22 +293,37 @@
   #:get-uniform-fv-arb #:get-uniform-iv-arb #:get-shader-source-arb 
   #:bind-attrib-location-arb #:get-active-attrib-arb 
   #:get-attrib-location-arb #:draw-buffers-arb #:clamp-color-arb 
-  #:blend-color-ext #:polygon-offset-ext #:tex-image-3d-ext 
-  #:tex-sub-image-3d-ext #:get-tex-filter-func-sgis 
-  #:tex-filter-func-sgis #:tex-sub-image-1d-ext 
-  #:tex-sub-image-2d-ext #:copy-tex-image-1d-ext 
-  #:copy-tex-image-2d-ext #:copy-tex-sub-image-1d-ext 
-  #:copy-tex-sub-image-2d-ext #:copy-tex-sub-image-3d-ext 
-  #:get-histogram-ext #:get-histogram-parameter-fv-ext 
-  #:get-histogram-parameter-iv-ext #:get-minmax-ext 
-  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext 
-  #:histogram-ext #:minmax-ext #:reset-histogram-ext 
-  #:reset-minmax-ext #:convolution-filter-1d-ext 
-  #:convolution-filter-2d-ext #:convolution-parameter-f-ext 
-  #:convolution-parameter-fv-ext #:convolution-parameter-i-ext 
-  #:convolution-parameter-iv-ext #:copy-convolution-filter-1d-ext 
-  #:copy-convolution-filter-2d-ext #:get-convolution-filter-ext 
-  #:get-convolution-parameter-fv-ext 
+  #:draw-arrays-instanced-arb #:draw-elements-instanced-arb 
+  #:is-renderbuffer #:bind-renderbuffer #:delete-renderbuffers 
+  #:gen-renderbuffers #:renderbuffer-storage 
+  #:get-renderbuffer-parameter-iv #:is-framebuffer 
+  #:bind-framebuffer #:delete-framebuffers #:gen-framebuffers 
+  #:check-framebuffer-status #:framebuffer-texture-1d 
+  #:framebuffer-texture-2d #:framebuffer-texture-3d 
+  #:framebuffer-renderbuffer 
+  #:get-framebuffer-attachment-parameter-iv #:generate-mipmap 
+  #:blit-framebuffer #:renderbuffer-storage-multisample 
+  #:framebuffer-texture-layer #:program-parameter-i-arb 
+  #:framebuffer-texture-arb #:framebuffer-texture-layer-arb 
+  #:framebuffer-texture-face-arb #:vertex-attrib-divisor 
+  #:map-buffer-range #:flush-mapped-buffer-range #:tex-buffer-arb 
+  #:bind-vertex-array #:delete-vertex-arrays #:gen-vertex-arrays 
+  #:is-vertex-array #:blend-color-ext #:polygon-offset-ext 
+  #:tex-image-3d-ext #:tex-sub-image-3d-ext 
+  #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
+  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
+  #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
+  #:copy-tex-sub-image-1d-ext #:copy-tex-sub-image-2d-ext 
+  #:copy-tex-sub-image-3d-ext #:get-histogram-ext 
+  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext 
+  #:get-minmax-ext #:get-minmax-parameter-fv-ext 
+  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext 
+  #:reset-histogram-ext #:reset-minmax-ext 
+  #:convolution-filter-1d-ext #:convolution-filter-2d-ext 
+  #:convolution-parameter-f-ext #:convolution-parameter-fv-ext 
+  #:convolution-parameter-i-ext #:convolution-parameter-iv-ext 
+  #:copy-convolution-filter-1d-ext #:copy-convolution-filter-2d-ext 
+  #:get-convolution-filter-ext #:get-convolution-parameter-fv-ext 
   #:get-convolution-parameter-iv-ext #:get-separable-filter-ext 
   #:separable-filter-2d-ext #:color-table-sgi 
   #:color-table-parameter-fv-sgi #:color-table-parameter-iv-sgi 
@@ -638,5 +674,125 @@
   #:get-uniform-offset-ext #:tex-parameter-iiv-ext 
   #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext 
   #:get-tex-parameter-iuiv-ext #:clear-color-ii-ext 
-  #:clear-color-iui-ext #:frame-terminator-gremedy ))
+  #:clear-color-iui-ext #:frame-terminator-gremedy 
+  #:begin-conditional-render-nv #:end-conditional-render-nv 
+  #:begin-transform-feedback-ext #:end-transform-feedback-ext 
+  #:bind-buffer-range-ext #:bind-buffer-offset-ext 
+  #:bind-buffer-base-ext #:transform-feedback-varyings-ext 
+  #:get-transform-feedback-varying-ext #:client-attrib-default-ext 
+  #:push-client-attrib-default-ext #:matrix-load-f-ext 
+  #:matrix-load-d-ext #:matrix-mult-f-ext #:matrix-mult-d-ext 
+  #:matrix-load-identity-ext #:matrix-rotate-f-ext 
+  #:matrix-rotate-d-ext #:matrix-scale-f-ext #:matrix-scale-d-ext 
+  #:matrix-translate-f-ext #:matrix-translate-d-ext 
+  #:matrix-frustum-ext #:matrix-ortho-ext #:matrix-pop-ext 
+  #:matrix-push-ext #:matrix-load-transpose-f-ext 
+  #:matrix-load-transpose-d-ext #:matrix-mult-transpose-f-ext 
+  #:matrix-mult-transpose-d-ext #:texture-parameter-f-ext 
+  #:texture-parameter-fv-ext #:texture-parameter-i-ext 
+  #:texture-parameter-iv-ext #:texture-image-1d-ext 
+  #:texture-image-2d-ext #:texture-sub-image-1d-ext 
+  #:texture-sub-image-2d-ext #:copy-texture-image-1d-ext 
+  #:copy-texture-image-2d-ext #:copy-texture-sub-image-1d-ext 
+  #:copy-texture-sub-image-2d-ext #:get-texture-image-ext 
+  #:get-texture-parameter-fv-ext #:get-texture-parameter-iv-ext 
+  #:get-texture-level-parameter-fv-ext 
+  #:get-texture-level-parameter-iv-ext #:texture-image-3d-ext 
+  #:texture-sub-image-3d-ext #:copy-texture-sub-image-3d-ext 
+  #:multi-tex-parameter-f-ext #:multi-tex-parameter-fv-ext 
+  #:multi-tex-parameter-i-ext #:multi-tex-parameter-iv-ext 
+  #:multi-tex-image-1d-ext #:multi-tex-image-2d-ext 
+  #:multi-tex-sub-image-1d-ext #:multi-tex-sub-image-2d-ext 
+  #:copy-multi-tex-image-1d-ext #:copy-multi-tex-image-2d-ext 
+  #:copy-multi-tex-sub-image-1d-ext 
+  #:copy-multi-tex-sub-image-2d-ext #:get-multi-tex-image-ext 
+  #:get-multi-tex-parameter-fv-ext #:get-multi-tex-parameter-iv-ext 
+  #:get-multi-tex-level-parameter-fv-ext 
+  #:get-multi-tex-level-parameter-iv-ext #:multi-tex-image-3d-ext 
+  #:multi-tex-sub-image-3d-ext #:copy-multi-tex-sub-image-3d-ext 
+  #:bind-multi-texture-ext #:enable-client-state-indexed-ext 
+  #:disable-client-state-indexed-ext #:multi-tex-coord-pointer-ext 
+  #:multi-tex-env-f-ext #:multi-tex-env-fv-ext #:multi-tex-env-i-ext 
+  #:multi-tex-env-iv-ext #:multi-tex-gen-d-ext 
+  #:multi-tex-gen-dv-ext #:multi-tex-gen-f-ext 
+  #:multi-tex-gen-fv-ext #:multi-tex-gen-i-ext 
+  #:multi-tex-gen-iv-ext #:get-multi-tex-env-fv-ext 
+  #:get-multi-tex-env-iv-ext #:get-multi-tex-gen-dv-ext 
+  #:get-multi-tex-gen-fv-ext #:get-multi-tex-gen-iv-ext 
+  #:get-float-indexe-dv-ext #:get-double-indexe-dv-ext 
+  #:get-pointer-indexe-dv-ext #:compressed-texture-image-3d-ext 
+  #:compressed-texture-image-2d-ext 
+  #:compressed-texture-image-1d-ext 
+  #:compressed-texture-sub-image-3d-ext 
+  #:compressed-texture-sub-image-2d-ext 
+  #:compressed-texture-sub-image-1d-ext 
+  #:get-compressed-texture-image-ext 
+  #:compressed-multi-tex-image-3d-ext 
+  #:compressed-multi-tex-image-2d-ext 
+  #:compressed-multi-tex-image-1d-ext 
+  #:compressed-multi-tex-sub-image-3d-ext 
+  #:compressed-multi-tex-sub-image-2d-ext 
+  #:compressed-multi-tex-sub-image-1d-ext 
+  #:get-compressed-multi-tex-image-ext #:named-program-string-ext 
+  #:named-program-local-parameter-4d-ext 
+  #:named-program-local-parameter-4dv-ext 
+  #:named-program-local-parameter-4f-ext 
+  #:named-program-local-parameter-4fv-ext 
+  #:get-named-program-local-parameter-dv-ext 
+  #:get-named-program-local-parameter-fv-ext 
+  #:get-named-program-iv-ext #:get-named-program-string-ext 
+  #:named-program-local-parameters-4fv-ext 
+  #:named-program-local-parameter-i4i-ext 
+  #:named-program-local-parameter-i4iv-ext 
+  #:named-program-local-parameters-i4iv-ext 
+  #:named-program-local-parameter-i4ui-ext 
+  #:named-program-local-parameter-i4uiv-ext 
+  #:named-program-local-parameters-i4uiv-ext 
+  #:get-named-program-local-parameter-iiv-ext 
+  #:get-named-program-local-parameter-iuiv-ext 
+  #:texture-parameter-iiv-ext #:texture-parameter-iuiv-ext 
+  #:get-texture-parameter-iiv-ext #:get-texture-parameter-iuiv-ext 
+  #:multi-tex-parameter-iiv-ext #:multi-tex-parameter-iuiv-ext 
+  #:get-multi-tex-parameter-iiv-ext 
+  #:get-multi-tex-parameter-iuiv-ext #:program-uniform-1f-ext 
+  #:program-uniform-2f-ext #:program-uniform-3f-ext 
+  #:program-uniform-4f-ext #:program-uniform-1i-ext 
+  #:program-uniform-2i-ext #:program-uniform-3i-ext 
+  #:program-uniform-4i-ext #:program-uniform-1fv-ext 
+  #:program-uniform-2fv-ext #:program-uniform-3fv-ext 
+  #:program-uniform-4fv-ext #:program-uniform-1iv-ext 
+  #:program-uniform-2iv-ext #:program-uniform-3iv-ext 
+  #:program-uniform-4iv-ext #:program-uniform-matrix-2fv-ext 
+  #:program-uniform-matrix-3fv-ext #:program-uniform-matrix-4fv-ext 
+  #:program-uniform-matrix-2x3-fv-ext 
+  #:program-uniform-matrix-3x2-fv-ext 
+  #:program-uniform-matrix-2x4-fv-ext 
+  #:program-uniform-matrix-4x2-fv-ext 
+  #:program-uniform-matrix-3x4-fv-ext 
+  #:program-uniform-matrix-4x3-fv-ext #:program-uniform-1ui-ext 
+  #:program-uniform-2ui-ext #:program-uniform-3ui-ext 
+  #:program-uniform-4ui-ext #:program-uniform-1uiv-ext 
+  #:program-uniform-2uiv-ext #:program-uniform-3uiv-ext 
+  #:program-uniform-4uiv-ext #:named-buffer-data-ext 
+  #:named-buffer-sub-data-ext #:map-named-buffer-ext 
+  #:unmap-named-buffer-ext #:get-named-buffer-parameter-iv-ext 
+  #:get-named-buffer-pointer-v-ext #:get-named-buffer-sub-data-ext 
+  #:texture-buffer-ext #:multi-tex-buffer-ext 
+  #:named-renderbuffer-storage-ext 
+  #:get-named-renderbuffer-parameter-iv-ext 
+  #:check-named-framebuffer-status-ext 
+  #:named-framebuffer-texture-1d-ext 
+  #:named-framebuffer-texture-2d-ext 
+  #:named-framebuffer-texture-3d-ext 
+  #:named-framebuffer-renderbuffer-ext 
+  #:get-named-framebuffer-attachment-parameter-iv-ext 
+  #:generate-texture-mipmap-ext #:generate-multi-tex-mipmap-ext 
+  #:framebuffer-draw-buffer-ext #:framebuffer-draw-buffers-ext 
+  #:framebuffer-read-buffer-ext #:get-framebuffer-parameter-iv-ext 
+  #:named-renderbuffer-storage-multisample-ext 
+  #:named-renderbuffer-storage-multisample-coverage-ext 
+  #:named-framebuffer-texture-ext 
+  #:named-framebuffer-texture-layer-ext 
+  #:named-framebuffer-texture-face-ext #:texture-renderbuffer-ext 
+  #:multi-tex-renderbuffer-ext ))
 
