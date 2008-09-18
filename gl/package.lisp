@@ -352,8 +352,11 @@
    #:enabledp
    ;; 6.1.11 Pointer and String Queries
    #:get-string
+   #:gl3-major-version
+   #:gl3-minor-version
    #:major-version
    #:minor-version
+   #:gl3-extension-present-p
    #:extension-present-p
    ;; 6.1.14 Shader and Program Queries
    #:is-shader
