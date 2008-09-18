@@ -35,6 +35,69 @@
 (defpackage #:cl-glut
   (:nicknames #:glut)
   (:use #:cl #:cffi)
+  ;; interface.lisp stuff
+  (:shadow #:special #:close)
+  (:export
+   ;; events / GFs
+   #:idle
+   #:keyboard
+   #:special
+   #:reshape
+   #:visibility
+   #:display
+   #:mouse
+   #:motion
+   #:passive-motion
+   #:entry
+   #:menu-state
+   #:spaceball-motion
+   #:spaceball-rotate
+   #:spaceball-button
+   #:button-box
+   #:dials
+   #:tablet-motion
+   #:tablet-button
+   #:menu-status
+   #:overlay-display
+   #:window-status
+   #:keyboard-up
+   #:special-up
+   #:joystick
+   #:mouse-wheel
+   #:close
+   #:wm-close
+   #:menu-destroy
+   #:enable-event
+   #:disable-event
+   #:display-window
+   #:tick
+   ;; classes
+   #:base-window
+   #:window
+   #:sub-window
+   ;; accessors
+   #:title
+   #:name
+   #:id
+   #:events
+   #:parent
+   #:pos-x
+   #:pos-y
+   #:width
+   #:height
+   #:mode
+   #:game-mode
+   ;; other functions and macros
+   #:display-window
+   #:find-window
+   #:with-window
+   #:destroy-current-window
+   #:schedule-timer
+   #:enable-tick
+   #:disable-tick
+   ;; specials
+   #:*run-main-loop-after-display*)
+  ;; everything else
   (:shadow #:get)
   (:export
    ;; Enums and Bitfields
