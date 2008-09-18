@@ -248,7 +248,9 @@
     (:texture-compare-func
      (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
     (:generate-mipmap
-     (%gl:tex-parameter-i target pname (if param 1 0)))))
+     (%gl:tex-parameter-i target pname (if param 1 0)))
+    (:texture-max-anisotropy-ext
+     (%gl:tex-parameter-f target pname param))))
 
 ;;; 3.8.12 Texture Objects
 
