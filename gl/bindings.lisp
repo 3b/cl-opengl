@@ -29,10 +29,41 @@
 
 (in-package #:cl-opengl-bindings)
 
+(let ((in-begin nil))
+  (defun set-in-begin (a) (setf in-begin a))
+  (defun check-error (fun)
+    (unless in-begin
+      (let ((err (get-error)))
+        (unless (eq err :zero)
+          (restart-case
+              (error "GL error ~s in ~a" err fun)
+            (continue () :report "Continue")))))))
+
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body body)
   `(progn
      (declaim (inline ,lname))
+     #-cl-opengl-no-check-error
+       (defun ,lname ,(mapcar #'first body)
+         (multiple-value-prog1
+             (foreign-funcall-pointer
+              (foreign-symbol-pointer ,cname)
+              (:library opengl)
+              ,@(loop for i in body
+                   collect (second i)
+                   collect (first i))
+              ,result-type)
+           ,@(cond
+              ((string= cname "glGetError") ())
+              ((string= cname "glBegin")
+               `((set-in-begin t)))
+              ((string= cname "glEnd")
+               `((set-in-begin nil)
+                 (check-error ',lname)))
+              (t
+               `((check-error ',lname)))))
+         )
+     #+cl-opengl-no-check-error
      (defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
 ;;;; Extensions
@@ -107,13 +138,16 @@
       (error "Couldn't find function ~A" foreign-name))
     (compile lisp-name
              `(lambda ,arg-list
-                (foreign-funcall-pointer
-                 ,address
-                 (:library opengl)
-                 ,@(loop for i in body
-                         collect (second i)
-                         collect (first i))
-                 ,result-type)))
+                (multiple-value-prog1
+                    (foreign-funcall-pointer
+                     ,address
+                     (:library opengl)
+                     ,@(loop for i in body
+                          collect (second i)
+                          collect (first i))
+                     ,result-type)
+                  #-cl-opengl-no-check-error
+                  (check-error ',lisp-name))))
     (apply lisp-name args)))
 
 (defmacro defglextfun ((foreign-name lisp-name) result-type &rest body)
