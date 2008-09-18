@@ -317,7 +317,9 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (setf (aref *id->window* (id w)) nil)
   (setq *windows-with-idle-event* (delete w *windows-with-idle-event*))
   (when (null *windows-with-idle-event*)
-    (unregister-callback (find-event-or-lose :idle))))
+    (unregister-callback (find-event-or-lose :idle)))
+  ;; avoid triggering the unwind protect in display-window if we close properly
+  (setf (slot-value w 'id) nil))
 
 (defmethod close ((w base-window))
   (values))
@@ -366,9 +368,17 @@ Lexically binds CURRENT-WINDOW to the respective object."
           (if (game-mode win)
               (enter-game-mode)
               (create-window (title win))))
-    (call-next-method)
-    (when *run-main-loop-after-display*
-      (glut:main-loop))))
+    (unwind-protect
+         (progn
+           (call-next-method)
+           (when *run-main-loop-after-display*
+             (glut:main-loop)))
+      ;; if we didn't close the window properly, make sure it gets
+      ;; destroyed, possibly should turn off callbacks before
+      ;; running main-loop here?
+      (when (slot-value win 'id)
+        (destroy-window (slot-value win 'id))
+        (glut:main-loop)))))
 
 ;;;; Sub-windows
 
