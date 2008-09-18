@@ -221,6 +221,7 @@
     (:normal-array-type . 1)
     (:normalize . 1)
     (:num-compressed-texture-format . 1)
+    (:num-extensions . 1)
     (:pack-alignment . 1)
     (:pack-image-height . 1)
     (:pack-lsb-first . 1)
@@ -407,28 +408,66 @@
 
 (import-export %gl:get-string)
 
-;; todo: gl3 specific versions of major/minor-version, extension-present-p, etc
+;; external
+(defun gl3-major-version ()
+  (get-integer :GL_MAJOR_VERSION))
+
+;; external
+(defun gl3-minor-version ()
+  (get-integer :GL_MINOR_VERSION))
+
 
 ;; external
 (defun major-version ()
-  (multiple-value-bind (num characters-read)
-      (parse-integer (get-string :version) :end 1)
-    (declare (ignore characters-read))
-    num))
+  ;; major version is integer value up to first #\.
+  (let* ((version (get-string :version))
+         (dot (position #\. version)))
+    (values (parse-integer version :end dot :junk-allowed t))))
+
 
 ;; external
 (defun minor-version ()
-  (multiple-value-bind (num characters-read)
-      (parse-integer (get-string :version) :start 2 :end 3)
-    (declare (ignore characters-read))
-    num))
+  ;; minor version is integer from first #\. to a #\. or #\space
+  (let* ((version (get-string :version))
+         (dot (position #\. version)))
+    (if dot
+        (values (parse-integer version :start dot))
+        0)))
+
+;; external
+(defun gl3-extension-present-p (name)
+  "Check for presence of extension NAME useing only non-deprecated gl3
+functionality. Currently not implemented for speed, so don't use in
+inner loops."
+  (loop for i below (get-integer :num-extensions)
+     when (string= name (%gl:get-string-i :extensions i))
+     return t
+     finally (return nil)))
+
 
 ;; external
 (defun extension-present-p (name)
-  ;; FIXME: need to be more careful than this, since you don't want to
-  ;; match part of a longer extension name, ex GL_ARB_shadow
-  ;; vs. GL_ARB_shadow_ambient
-  (search name (%gl:get-string :extensions)))
+  "Check for presence of extension NAME in gl extension list, not
+currently implemented for speed, so avoid in inner loops"
+  ;; gl3 deprecates the :extensions argument to get-string, so we
+  ;; use the new gl3 methods in a gl3+ context
+  (if (>= (major-version) 3)
+      (gl3-extension-present-p name)
+      ;; we can't just search here, since we don't want to match substrings
+      ;; it would possibly be cleaner to split up the extension list and
+      ;; cache it if there is a good way to tell when to invalidate the
+      ;; cache
+      (unless (find #\space name)
+        (let* ((extension-string (get-string :extensions))
+               (start (search name extension-string))
+               (end (when start (+ start (length name)))))
+          (and start
+               (or (zerop start)
+                   (char= #\space (char extension-string (1- start))))
+               (or (= end (length extension-string))
+                   (and (< end (length extension-string))
+                        (char= #\space (char extension-string end)))))))))
+
 
 ;;; 6.1.14 Shader and Program Queries
 
