@@ -10,6 +10,8 @@
    #:*glext-version*
    #:*glext-last-updated*
    #:*gl-get-proc-address*
+   #:opengl-error
+   #:check-error
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb 

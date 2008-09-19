@@ -35,18 +35,9 @@
 ;;; 2.5 GL Errors
 ;;;
 
-(define-condition opengl-error (simple-error)
-  ((error-code :initarg :error-code :reader opengl-error.error-code))
-  (:report (lambda (c s)
-             (format s "OpenGL signalled ~A."
-                     (opengl-error.error-code c)))))
-
-(import-export %gl:get-error)
-
-(defun check-error ()
-  (let ((error-code (get-error)))
-    (unless (eql error-code :zero)
-      (error 'opengl-error :error-code error-code))))
+(import-export %gl:get-error
+               %gl:opengl-error
+               %gl:check-error)
 
 ;;;
 ;;; 2.6 Begin/End Paradigm

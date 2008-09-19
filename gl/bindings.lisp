@@ -33,14 +33,25 @@
 ;;; automatic error checking, push something on *features*
 #-cl-opengl-no-check-error(push :cl-opengl-checks-errors *features*)
 
+(define-condition opengl-error (simple-error)
+  ((error-code :initarg :error-code :reader opengl-error.error-code)
+   (error-context :initform nil :initarg :error-context :reader opengl-error.error-context))
+  (:report (lambda (c s)
+             (if (opengl-error.error-context c)
+                 (format s "OpenGL signalled ~A from ~A."
+                         (opengl-error.error-code c)
+                         (opengl-error.error-context c))
+                  (format s "OpenGL signalled ~A."
+                          (opengl-error.error-code c))))))
+
 (let ((in-begin nil))
   (defun set-in-begin (a) (setf in-begin a))
-  (defun check-error (fun)
+  (defun check-error (&optional context)
     (unless in-begin
-      (let ((err (get-error)))
-        (unless (eq err :zero)
+      (let ((error-code (get-error)))
+        (unless (eq error-code :zero)
           (restart-case
-              (error "GL error ~s in ~a" err fun)
+              (error 'opengl-error :error-code error-code :error-context context)
             (continue () :report "Continue")))))))
 
 ;;; Helper macro to define a GL API function and declare it inline.

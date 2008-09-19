@@ -571,6 +571,8 @@
         (format out "   #:*glext-version*~%")
         (format out "   #:*glext-last-updated*~%")
         (format out "   #:*gl-get-proc-address*~%")
+        (format out "   #:opengl-error~%")
+        (format out "   #:check-error~%")
         ;; types
         (format out "~%  ;; Types.~%  ")
         (loop for type in *gl-types*
