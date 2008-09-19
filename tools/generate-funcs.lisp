@@ -539,6 +539,8 @@
       (format out "   #:*glext-version*~%")
       (format out "   #:*glext-last-updated*~%")
       (format out "   #:*gl-get-proc-address*~%")
+      (format out "   #:opengl-error~%")
+      (format out "   #:check-error~%")
       ;; enums/bitfields
       (format out "   #:enum~%")
       (loop for i in *bitfield-types*

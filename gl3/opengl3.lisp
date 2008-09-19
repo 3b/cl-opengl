@@ -35,19 +35,9 @@
 ;;; 2.5 GL Errors
 ;;;
 
-(define-condition opengl-error (simple-error)
-  ((error-code :initarg :error-code :reader opengl-error.error-code))
-  (:report (lambda (c s)
-             (format s "OpenGL signalled ~A."
-                     (opengl-error.error-code c)))))
-
-(import-export %gl3:get-error)
-
-(defun check-error ()
-  (let ((error-code (get-error)))
-    (unless (eql error-code :zero)
-      (error 'opengl-error :error-code error-code))))
-
+(import-export %gl3:get-error
+               %gl3:opengl-error
+               %gl3:check-error)
 
 ;;;
 ;;; 2.7 Vertex Specification

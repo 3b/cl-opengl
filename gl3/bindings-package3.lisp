@@ -9,6 +9,8 @@
    #:*glext-version*
    #:*glext-last-updated*
    #:*gl-get-proc-address*
+   #:opengl-error
+   #:check-error
    #:enum
    #:AttribMask
    #:ClearBufferMask
