@@ -3,13 +3,30 @@
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
-  (:use #:common-lisp #:cffi)
-  (:shadow #:char #:float #:byte #:boolean #:string)
+  (:use #:common-lisp #:cffi #:cl-opengl3-bindings)
+  (:shadowing-import-from
+   #:cl-opengl3-bindings
+   #:char #:float #:byte #:boolean #:string)
+  (:import-from
+   #:cl-opengl3-bindings
+   #:set-in-begin
+   #:check-error
+   #:defglfun
+   #:*gl-get-proc-address*
+   #:gl-get-proc-address
+   #:reset-gl-pointers
+   #:generate-gl-function
+   #:defglextfun
+  )
   (:export
-   #:enum
    #:*glext-version*
    #:*glext-last-updated*
    #:*gl-get-proc-address*
+   #:enum
+   #:AttribMask
+   #:ClearBufferMask
+   #:ClientAttribMask
+   #:BufferAccessMask
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb 

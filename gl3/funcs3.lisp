@@ -32,7 +32,7 @@
 
 ;;; glext version 42 ( 2008/08/16 )
 
-(in-package #:cl-opengl-bindings)
+(in-package #:cl-opengl3-bindings)
 
 (defparameter *glext-version* 42)
 (defparameter *glext-last-updated* "2008/08/16")

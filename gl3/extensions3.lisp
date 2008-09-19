@@ -30,53 +30,53 @@
 ;;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;;
 ;;; EXT_framebuffer_object
 ;;;
 
-(import-export %gl:is-renderbuffer
-               %gl:bind-renderbuffer)
+(import-export %gl3:is-renderbuffer
+               %gl3:bind-renderbuffer)
 
 (defun delete-renderbuffers (renderbuffers)
-  (with-opengl-sequence (array '%gl:uint renderbuffers)
-    (%gl:delete-renderbuffers (length renderbuffers) array)))
+  (with-opengl-sequence (array '%gl3:uint renderbuffers)
+    (%gl3:delete-renderbuffers (length renderbuffers) array)))
 
 (defun gen-renderbuffers (count)
-  (with-foreign-object (renderbuffer-array '%gl:uint count)
-    (%gl:gen-renderbuffers count renderbuffer-array)
+  (with-foreign-object (renderbuffer-array '%gl3:uint count)
+    (%gl3:gen-renderbuffers count renderbuffer-array)
     (loop for i below count
-          collecting (mem-aref renderbuffer-array '%gl:uint i))))
+          collecting (mem-aref renderbuffer-array '%gl3:uint i))))
 
-(import-export %gl:renderbuffer-storage)
+(import-export %gl3:renderbuffer-storage)
 
 #+nil
 (defun get-renderbuffer-parameter (target pname)
   )
 
-(import-export %gl:is-framebuffer
-               %gl:bind-framebuffer)
+(import-export %gl3:is-framebuffer
+               %gl3:bind-framebuffer)
 
 (defun delete-framebuffers (framebuffers)
-  (with-opengl-sequence (array '%gl:uint framebuffers)
-    (%gl:delete-framebuffers (length framebuffers) array)))
+  (with-opengl-sequence (array '%gl3:uint framebuffers)
+    (%gl3:delete-framebuffers (length framebuffers) array)))
 
 (defun gen-framebuffers (count)
-  (with-foreign-object (framebuffer-array '%gl:uint count)
-    (%gl:gen-framebuffers count framebuffer-array)
+  (with-foreign-object (framebuffer-array '%gl3:uint count)
+    (%gl3:gen-framebuffers count framebuffer-array)
     (loop for i below count
-          collecting (mem-aref framebuffer-array '%gl:uint i))))
+          collecting (mem-aref framebuffer-array '%gl3:uint i))))
 
-(import-export %gl:check-framebuffer-status
-               %gl:framebuffer-texture-1d
-               %gl:framebuffer-texture-2d
-               %gl:framebuffer-texture-3d
-               %gl:framebuffer-renderbuffer)
+(import-export %gl3:check-framebuffer-status
+               %gl3:framebuffer-texture-1d
+               %gl3:framebuffer-texture-2d
+               %gl3:framebuffer-texture-3d
+               %gl3:framebuffer-renderbuffer)
 
 #+nil
 (defun get-framebuffer-attachment-parameter (target attachment pname)
   (ecase pname
     (:framebuffer )))
 
-(import-export %gl:generate-mipmap)
+(import-export %gl3:generate-mipmap)

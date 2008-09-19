@@ -1,15 +1,19 @@
 ;;; generated file, do not edit
 ;;; glext version 42 ( 2008/08/16 )
 
-(defpackage #:cl-opengl-bindings
-  (:nicknames #:%gl)
+(defpackage #:cl-opengl3-bindings
+  (:nicknames #:%gl3)
   (:use #:common-lisp #:cffi)
   (:shadow #:char #:float #:byte #:boolean #:string)
   (:export
-   #:enum
    #:*glext-version*
    #:*glext-last-updated*
    #:*gl-get-proc-address*
+   #:enum
+   #:AttribMask
+   #:ClearBufferMask
+   #:ClientAttribMask
+   #:BufferAccessMask
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb 

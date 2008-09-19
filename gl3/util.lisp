@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;; the following three where taken from CFFI
 
@@ -62,26 +62,26 @@
 
 (defun symbolic-type->real-type (type)
   (ecase type
-    (:byte '%gl:byte)
-    (:unsigned-byte '%gl:ubyte)
-    (:bitmap '%gl:ubyte)
-    (:short '%gl:short)
-    (:unsigned-short '%gl:ushort)
-    (:int '%gl:int)
-    (:unsigned-int '%gl:uint)
-    (:float '%gl:float)
-    (:unsigned-byte-3-3-2 '%gl:ubyte)
-    (:unsigned-byte-2-3-3-rev '%gl:ubyte)
-    (:unsigned-short-5-6-5 '%gl:ushort)
-    (:unsigned-short-5-6-5-rev '%gl:ushort)
-    (:unsigned-short-4-4-4-4 '%gl:ushort)
-    (:unsigned-short-4-4-4-4-rev '%gl:ushort)
-    (:unsigned-short-5-5-5-1 '%gl:ushort)
-    (:unsigned-short-1-5-5-5-rev '%gl:ushort)
-    (:unsigned-int-8-8-8-8 '%gl:uint)
-    (:unsigned-int-8-8-8-8-rev '%gl:uint)
-    (:unsigned-int-10-10-10-2 '%gl:uint)
-    (:unsigned-int-2-10-10-10-rev '%gl:uint)))
+    (:byte '%gl3:byte)
+    (:unsigned-byte '%gl3:ubyte)
+    (:bitmap '%gl3:ubyte)
+    (:short '%gl3:short)
+    (:unsigned-short '%gl3:ushort)
+    (:int '%gl3:int)
+    (:unsigned-int '%gl3:uint)
+    (:float '%gl3:float)
+    (:unsigned-byte-3-3-2 '%gl3:ubyte)
+    (:unsigned-byte-2-3-3-rev '%gl3:ubyte)
+    (:unsigned-short-5-6-5 '%gl3:ushort)
+    (:unsigned-short-5-6-5-rev '%gl3:ushort)
+    (:unsigned-short-4-4-4-4 '%gl3:ushort)
+    (:unsigned-short-4-4-4-4-rev '%gl3:ushort)
+    (:unsigned-short-5-5-5-1 '%gl3:ushort)
+    (:unsigned-short-1-5-5-5-rev '%gl3:ushort)
+    (:unsigned-int-8-8-8-8 '%gl3:uint)
+    (:unsigned-int-8-8-8-8-rev '%gl3:uint)
+    (:unsigned-int-10-10-10-2 '%gl3:uint)
+    (:unsigned-int-2-10-10-10-rev '%gl3:uint)))
 
 ;;; Converts a CFFI type to the appropriate GL enum.
 (defun cffi-type-to-gl (type)
@@ -107,8 +107,8 @@
            ;; optimize it, so check type outside the loop, and make a
            ;; copy of the loop for any types we care about
            (case ,type
-             ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short %gl:ushort
-                                   %gl:int %gl:uint %gl:float)
+             ,@(loop for ctype in '(%gl3:byte %gl3:ubyte %gl3:short %gl3:ushort
+                                   %gl3:int %gl3:uint %gl3:float)
                   collect 
                     `(,ctype
                       (loop for i below ,count

@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;;
 ;;; Chapter 6 - State and State Requests
@@ -369,10 +369,10 @@
            (mem-ref buf ',type)))))
 
 ;;; Define query functions for the basic types.
-(define-query-function get-boolean %gl:get-boolean-v %gl:boolean)
-(define-query-function get-integer %gl:get-integer-v %gl:int)
-(define-query-function get-float %gl:get-float-v %gl:float)
-(define-query-function get-double %gl:get-double-v %gl:double)
+(define-query-function get-boolean %gl3:get-boolean-v %gl3:boolean)
+(define-query-function get-integer %gl3:get-integer-v %gl3:int)
+(define-query-function get-float %gl3:get-float-v %gl3:float)
+(define-query-function get-double %gl3:get-double-v %gl3:double)
 
 ;;; Wrapper around GET-INTEGER when the result should be interpreted
 ;;; as an enumerated constant.
@@ -390,21 +390,21 @@
 (defun enable (&rest caps)
   (declare (dynamic-extent caps))
   (dolist (cap caps)
-    (%gl:enable cap)))
+    (%gl3:enable cap)))
 
 ;; external
 (defun disable (&rest caps)
   (declare (dynamic-extent caps))
   (dolist (cap caps)
-    (%gl:disable cap)))
+    (%gl3:disable cap)))
 
 ;; external
 (definline enabledp (cap)
-  (%gl:is-enabled cap))
+  (%gl3:is-enabled cap))
 
 ;;; 6.1.11 Pointer and String Queries
 
-(import-export %gl:get-string)
+(import-export %gl3:get-string)
 
 ;; external
 (defun gl3-major-version ()
@@ -436,7 +436,7 @@
 functionality. Currently not implemented for speed, so don't use in
 inner loops."
   (loop for i below (get-integer :num-extensions)
-     when (string= name (%gl:get-string-i :extensions i))
+     when (string= name (%gl3:get-string-i :extensions i))
      return t
      finally (return nil)))
 
@@ -465,10 +465,10 @@ currently implemented for speed, so avoid in inner loops"
 
 ;;; 6.1.14 Shader and Program Queries
 
-(import-export %gl:is-shader)
+(import-export %gl3:is-shader)
 
 (define-get-function get-shader-aux (shader pname)
-  (%gl:get-shader-iv :int int))
+  (%gl3:get-shader-iv :int int))
 
 (defun get-shader (shader pname)
   (case pname
@@ -478,10 +478,10 @@ currently implemented for speed, so avoid in inner loops"
     (otherwise
      (get-shader-aux shader pname :int))))
 
-(import-export %gl:is-program)
+(import-export %gl3:is-program)
 
 (define-get-function get-program-aux (program pname)
-  (%gl:get-program-iv :int int))
+  (%gl3:get-program-iv :int int))
 
 (defun get-program (program pname)
   (case pname
@@ -494,28 +494,28 @@ currently implemented for speed, so avoid in inner loops"
 (defun get-attached-shaders (program)
   "Returns a list of the shaders attached to PROGRAM"
   (let ((max-shaders (get-program program :attached-shaders)))
-    (with-foreign-object (shaders '%gl:uint max-shaders)
-      (%gl:get-attached-shaders program max-shaders (null-pointer) shaders)
+    (with-foreign-object (shaders '%gl3:uint max-shaders)
+      (%gl3:get-attached-shaders program max-shaders (null-pointer) shaders)
       (loop for i below max-shaders
-            collecting (mem-aref shaders '%gl:uint i)))))
+            collecting (mem-aref shaders '%gl3:uint i)))))
 
 (defun get-shader-info-log (shader)
   "Returns as a string the entire info log for SHADER"
   (let ((info-log-length (get-shader shader :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
+    (with-foreign-object (info-log '%gl3:char info-log-length)
+      (%gl3:get-shader-info-log shader info-log-length (null-pointer) info-log)
       (foreign-string-to-lisp info-log))))
 
 (defun get-program-info-log (program)
   "Returns as a string the entire info log for PROGRAM"
   (let ((info-log-length (get-program program :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
+    (with-foreign-object (info-log '%gl3:char info-log-length)
+      (%gl3:get-program-info-log program info-log-length (null-pointer) info-log)
       (foreign-string-to-lisp info-log))))
 
 (defun get-shader-source (shader)
   "Returns as a string the entire source of SHADER"
   (let ((source-length (get-shader shader :shader-source-length)))
-    (with-foreign-object (source '%gl:char source-length)
-      (%gl:get-shader-source shader source-length (null-pointer) source)
+    (with-foreign-object (source '%gl3:char source-length)
+      (%gl3:get-shader-source shader source-length (null-pointer) source)
       (foreign-string-to-lisp source))))

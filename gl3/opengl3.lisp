@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;;
 ;;; Chapter 2 - OpenGL Operation
@@ -41,7 +41,7 @@
              (format s "OpenGL signalled ~A."
                      (opengl-error.error-code c)))))
 
-(import-export %gl:get-error)
+(import-export %gl3:get-error)
 
 (defun check-error ()
   (let ((error-code (get-error)))
@@ -54,63 +54,63 @@
 ;;;
 
 (definline vertex-attrib (index x &optional (y 0.0) (z 0.0) (w 1.0))
-  (%gl:vertex-attrib-4f index x y z w))
+  (%gl3:vertex-attrib-4f index x y z w))
 
 ;;;
 ;;; 2.8 Vertex Arrays
 ;;;
 
-(import-export %gl:array-element ;;; might be deprecated?
-               %gl:enable-vertex-attrib-array
-               %gl:disable-vertex-attrib-array
-               %gl:draw-arrays)
+(import-export %gl3:array-element ;;; might be deprecated?
+               %gl3:enable-vertex-attrib-array
+               %gl3:disable-vertex-attrib-array
+               %gl3:draw-arrays)
 
 (definline draw-elements (mode array &key (count (gl-array-size array))
                                (offset 0))
   ;; fix count to whole array size?
   ;; bounds checking?
-  (%gl:draw-elements mode count
+  (%gl3:draw-elements mode count
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)))
 
-(import-export %gl:vertex-attrib-pointer
-               %gl:vertex-attrib-ipointer)
+(import-export %gl3:vertex-attrib-pointer
+               %gl3:vertex-attrib-ipointer)
 
 ;;;
 ;;; 2.9 Buffer Objects
 ;;;
 
-(import-export %gl:bind-buffer)
+(import-export %gl3:bind-buffer)
 
 (defun delete-buffers (buffers)
-  (with-opengl-sequence (array '%gl:uint buffers)
-    (%gl:delete-buffers (length buffers) array)))
+  (with-opengl-sequence (array '%gl3:uint buffers)
+    (%gl3:delete-buffers (length buffers) array)))
 
 (defun gen-buffers (count)
-  (with-foreign-object (buffer-array '%gl:uint count)
-    (%gl:gen-buffers count buffer-array)
+  (with-foreign-object (buffer-array '%gl3:uint count)
+    (%gl3:gen-buffers count buffer-array)
     (loop for i below count
-          collecting (mem-aref buffer-array '%gl:uint i))))
+          collecting (mem-aref buffer-array '%gl3:uint i))))
 
-(import-export %gl:map-buffer
-               %gl:unmap-buffer)
+(import-export %gl3:map-buffer
+               %gl3:unmap-buffer)
 
 (define-get-function get-buffer-parameter (target pname)
-  (%gl:get-buffer-parameter-iv :int int)
-  (%gl:get-buffer-pointer-v :pointer))
+  (%gl3:get-buffer-parameter-iv :int int)
+  (%gl3:get-buffer-pointer-v :pointer))
 
 
 ;;; Offset is offset in array, buffer-offset in VBO.
 (definline buffer-sub-data (target array &key (offset 0) (buffer-offset 0)
                                    (size (gl-array-byte-size array)))
-  (%gl:buffer-sub-data target buffer-offset size
+  (%gl3:buffer-sub-data target buffer-offset size
                        (gl-array-pointer-offset array offset)))
 
 ;;; NOTE: arguments are flipped compared to gl function to allow
 ;;; optional offset.
 (definline buffer-data (target usage array &key (offset 0)
                                (size (gl-array-byte-size array)))
-  (%gl:buffer-data target size (gl-array-pointer-offset array offset) usage))
+  (%gl3:buffer-data target size (gl-array-pointer-offset array offset) usage))
 
 ;;; Returns a CFFI:DEFCSTRUCT fragment for CLAUSE.
 (defun emit-gl-array-struct-clause (clause)
@@ -324,23 +324,23 @@ another buffer is bound within FORMS."
 ;;; 2.10 Vertex Array Objects (3.0/ARB_vertex_array_object)
 ;;;
 (defun delete-vertex-arrays (arrays)
-  (with-opengl-sequence (array '%gl:uint arrays)
-    (%gl:delete-vertex-arrays (length arrays) array)))
+  (with-opengl-sequence (array '%gl3:uint arrays)
+    (%gl3:delete-vertex-arrays (length arrays) array)))
 
 (defun gen-vertex-arrays (count)
-  (with-foreign-object (array '%gl:uint count)
-    (%gl:gen-vertex-arrays count array)
+  (with-foreign-object (array '%gl3:uint count)
+    (%gl3:gen-vertex-arrays count array)
     (loop for i below count
-       collecting (mem-aref array '%gl:uint i))))
+       collecting (mem-aref array '%gl3:uint i))))
 
 
 ;; shortcut for the common case where we only want 1
 (defun gen-vertex-array ()
-  (with-foreign-object (array '%gl:uint 1)
-    (%gl::gen-vertex-arrays 1 array)
-    (mem-aref array '%gl:uint 0)))
+  (with-foreign-object (array '%gl3:uint 1)
+    (%gl3::gen-vertex-arrays 1 array)
+    (mem-aref array '%gl3:uint 0)))
 
-(import-export %gl:bind-vertex-array)
+(import-export %gl3:bind-vertex-array)
 
 
 ;;;
@@ -349,18 +349,18 @@ another buffer is bound within FORMS."
 
 ;;; 2.11.1 Controlling the Viewport
 
-(import-export %gl:depth-range
-               %gl:viewport)
+(import-export %gl3:depth-range
+               %gl3:viewport)
 
 ;;; 2.11.2 Matrices
 
 (defmacro with-foreign-matrix ((sym matrix) &body body)
-  `(with-foreign-object (,sym '%gl:float 16)
+  `(with-foreign-object (,sym '%gl3:float 16)
      (dotimes (i 16)
-       (setf (mem-aref ,sym '%gl:float i) (row-major-aref ,matrix i)))
+       (setf (mem-aref ,sym '%gl3:float i) (row-major-aref ,matrix i)))
      ,@body))
 
-(import-export %gl:active-texture)
+(import-export %gl3:active-texture)
 
 ;;;
 ;;; 2.12 Clipping
@@ -369,8 +369,8 @@ another buffer is bound within FORMS."
 (defun clip-plane (plane eqn)
   (when (< (length eqn) 4)
     (error "EQN must have 4 coefficents."))
-  (with-opengl-sequence (p '%gl:double eqn)
-    (%gl:clip-plane plane p)))
+  (with-opengl-sequence (p '%gl3:double eqn)
+    (%gl3:clip-plane plane p)))
 
 ;;;
 ;;; 2.14 Colors and Coloring
@@ -378,12 +378,12 @@ another buffer is bound within FORMS."
 
 ;;; 2.14.1 Lighting
 
-(import-export %gl:front-face)
+(import-export %gl3:front-face)
 
 
 ;;; 2.14.7 Flatshading
 
-(import-export %gl:shade-model)
+(import-export %gl3:shade-model)
 
 ;;;
 ;;; 2.15 Vertex Shaders
@@ -391,7 +391,7 @@ another buffer is bound within FORMS."
 
 ;;; 2.15.1 Shader Objects
 
-(import-export %gl:create-shader)
+(import-export %gl3:create-shader)
 
 (defun shader-source (shader string-list)
   (let ((num-lines (length string-list)))
@@ -402,23 +402,23 @@ another buffer is bound within FORMS."
             do (setf (mem-aref string-array :pointer (1- i))
                      (foreign-string-alloc line)))
         ;; set the source
-        (%gl:shader-source shader num-lines string-array (null-pointer))
+        (%gl3:shader-source shader num-lines string-array (null-pointer))
         ;; free all allocated strings
         (dotimes (i num-lines)
           (foreign-string-free (mem-aref string-array :pointer i)))))
   string-list)
 
-(import-export %gl:compile-shader
-               %gl:delete-shader)
+(import-export %gl3:compile-shader
+               %gl3:delete-shader)
 
 ;;; 2.15.2 Program Objects
 
-(import-export %gl:create-program
-               %gl:attach-shader
-               %gl:detach-shader
-               %gl:link-program
-               %gl:use-program
-               %gl:delete-program)
+(import-export %gl3:create-program
+               %gl3:attach-shader
+               %gl3:detach-shader
+               %gl3:link-program
+               %gl3:use-program
+               %gl3:delete-program)
 
 ;;; 2.15.3 Shader Variables
 
@@ -427,94 +427,94 @@ another buffer is bound within FORMS."
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
   (let ((attrib-max-length (get-program program :active-attribute-max-length)))
-    (with-foreign-objects ((characters-written '%gl:sizei)
-                           (size '%gl:int)
+    (with-foreign-objects ((characters-written '%gl3:sizei)
+                           (size '%gl3:int)
                            (type :long)
-                           (name '%gl:char attrib-max-length))
-      (%gl:get-active-attrib program index attrib-max-length 
+                           (name '%gl3:char attrib-max-length))
+      (%gl3:get-active-attrib program index attrib-max-length 
                              characters-written size type name)
-      (when (< 0 (mem-ref characters-written '%gl:sizei))
-        (values (mem-ref size '%gl:int)
-                (foreign-enum-keyword '%gl:enum (mem-ref type :long))
+      (when (< 0 (mem-ref characters-written '%gl3:sizei))
+        (values (mem-ref size '%gl3:int)
+                (foreign-enum-keyword '%gl3:enum (mem-ref type :long))
                 (foreign-string-to-lisp name))))))
 
 ;;; TODO: make these use :STRING
 (defun get-attrib-location (program name)
   (with-foreign-string (s name)
-    (%gl:get-attrib-location program s)))
+    (%gl3:get-attrib-location program s)))
 
 (defun bind-attrib-location (program index name)
   (with-foreign-string (s name)
-    (%gl:bind-attrib-location program index s)))
+    (%gl3:bind-attrib-location program index s)))
 
 (defun get-uniform-location (program name)
   (with-foreign-string (s name)
-    (%gl:get-uniform-location program s)))
+    (%gl3:get-uniform-location program s)))
 
 (defun get-active-uniform (program index)
   "Returns information about the active uniform attribute at index INDEX in
 program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 3: Name of attribute"
   (let ((uniform-max-length (get-program program :active-uniform-max-length)))
-    (with-foreign-objects ((characters-written '%gl:sizei)
-                           (size '%gl:int)
+    (with-foreign-objects ((characters-written '%gl3:sizei)
+                           (size '%gl3:int)
                            (type :long)
-                           (name '%gl:char uniform-max-length))
-      (%gl:get-active-uniform program index uniform-max-length 
+                           (name '%gl3:char uniform-max-length))
+      (%gl3:get-active-uniform program index uniform-max-length 
                               characters-written size type name)
-      (when (< 0 (mem-ref characters-written '%gl:sizei))
-        (values (mem-ref size '%gl:int)
-                (foreign-enum-keyword '%gl:enum (mem-ref type :long))
+      (when (< 0 (mem-ref characters-written '%gl3:sizei))
+        (values (mem-ref size '%gl3:int)
+                (foreign-enum-keyword '%gl3:enum (mem-ref type :long))
                 (foreign-string-to-lisp name))))))
 
 (defun uniformi (location x &optional y z w)
   (cond
-    (w (%gl:uniform-4i location x y z w))
-    (z (%gl:uniform-3i location x y z))
-    (y (%gl:uniform-2i location x y))
-    (x (%gl:uniform-1i location x))))
+    (w (%gl3:uniform-4i location x y z w))
+    (z (%gl3:uniform-3i location x y z))
+    (y (%gl3:uniform-2i location x y))
+    (x (%gl3:uniform-1i location x))))
 
 (define-compiler-macro uniformi (&whole form location x &optional y z w)
   (declare (ignore form))
   (cond
-    (w `(%gl:uniform-4i ,location ,x ,y ,z ,w))
-    (z `(%gl:uniform-3i ,location ,x ,y ,z))
-    (y `(%gl:uniform-2i ,location ,x ,y))
-    (x `(%gl:uniform-1i ,location ,x))))
+    (w `(%gl3:uniform-4i ,location ,x ,y ,z ,w))
+    (z `(%gl3:uniform-3i ,location ,x ,y ,z))
+    (y `(%gl3:uniform-2i ,location ,x ,y))
+    (x `(%gl3:uniform-1i ,location ,x))))
 
 (defun uniformf (location x &optional y z w)
   (cond
-    (w (%gl:uniform-4f location (float x) (float y) (float z) (float w)))
-    (z (%gl:uniform-3f location (float x) (float y) (float z)))
-    (y (%gl:uniform-2f location (float x) (float y)))
-    (x (%gl:uniform-1f location (float x)))))
+    (w (%gl3:uniform-4f location (float x) (float y) (float z) (float w)))
+    (z (%gl3:uniform-3f location (float x) (float y) (float z)))
+    (y (%gl3:uniform-2f location (float x) (float y)))
+    (x (%gl3:uniform-1f location (float x)))))
 
 (define-compiler-macro uniformf (&whole form location x &optional y z w)
   (declare (ignore form))
   (cond
-    (w `(%gl:uniform-4f ,location ,(float x) ,(float y) ,(float z) ,(float w)))
-    (z `(%gl:uniform-3f ,location ,(float x) ,(float y) ,(float z)))
-    (y `(%gl:uniform-2f ,location ,(float x) ,(float y)))
-    (x `(%gl:uniform-1f ,location ,(float x)))))
+    (w `(%gl3:uniform-4f ,location ,(float x) ,(float y) ,(float z) ,(float w)))
+    (z `(%gl3:uniform-3f ,location ,(float x) ,(float y) ,(float z)))
+    (y `(%gl3:uniform-2f ,location ,(float x) ,(float y)))
+    (x `(%gl3:uniform-1f ,location ,(float x)))))
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))
   (check-type dim (integer 2 4))
   (let ((matrix-count (length matrices))
         (matrix-size (* dim dim)))
-    (with-foreign-object (array '%gl:float (* matrix-count matrix-size))
+    (with-foreign-object (array '%gl3:float (* matrix-count matrix-size))
       (dotimes (i matrix-count)
         (let ((matrix (aref matrices i)))
           (dotimes (j matrix-size)
-            (setf (mem-aref array '%gl:float (* i j))
+            (setf (mem-aref array '%gl3:float (* i j))
                   (row-major-aref matrix j)))))
       (case dim
-        (2 (%gl:uniform-matrix-2fv
+        (2 (%gl3:uniform-matrix-2fv
             location matrix-count (if transpose 1 0) array))
-        (3 (%gl:uniform-matrix-3fv
+        (3 (%gl3:uniform-matrix-3fv
             location matrix-count (if transpose 1 0) array))
-        (4 (%gl:uniform-matrix-4fv
+        (4 (%gl3:uniform-matrix-4fv
             location matrix-count (if transpose 1 0) array))))))
 
 ;;; 2.15.4 Shader Execution
 
-(import-export %gl:validate-program)
+(import-export %gl3:validate-program)

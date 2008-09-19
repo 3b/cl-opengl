@@ -27,9 +27,35 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
+(eval-when (:compile-toplevel :load-toplevel)
+  (when (find-package '#:cl-opengl3)
+    (rename-package (find-package '#:cl-opengl3) '#:cl-opengl3
+                    (set-difference (package-nicknames '#:cl-opengl3)
+                                    '(#:opengl #:gl)
+                                    :test 'string=))))
+
 (defpackage #:cl-opengl
-  (:use #:cl #:cffi)
+  (:use #:cl #:cffi #:cl-opengl3)
   (:nicknames #:opengl #:gl)
+  (:import-from
+   #:cl-opengl3
+   #:starts-with
+   #:side-effect-free?
+   #:once-only
+   #:symbolic-type->real-type
+   #:cffi-type-to-gl
+   #:with-opengl-array
+   #:with-opengl-arrays
+   #:with-pixel-array
+   #:with-opengl-sequence
+   #:symbolicate-package
+   #:symbolicate
+   #:with-unique-names
+   #:import-export
+   #:definline
+   #:define-get-function
+   #:define-array-pointer
+   )
   (:export
 
 

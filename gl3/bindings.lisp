@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl-bindings)
+(in-package #:cl-opengl3-bindings)
 
 (let ((in-begin nil))
   (defun set-in-begin (a) (setf in-begin a))

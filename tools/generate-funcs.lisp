@@ -49,6 +49,8 @@
 (defparameter *define-package* t)
 (defparameter *in-package-name* "cl-opengl-bindings")
 (defparameter *package-nicknames* "#:%gl")
+(defparameter *in-package-name3* "cl-opengl3-bindings")
+(defparameter *package-nicknames3* "#:%gl3")
 (defparameter *dump-functions* t)
 (defparameter *core-definer* "defglfun")
 (defparameter *ext-definer* "defglextfun")
@@ -506,7 +508,9 @@
 (defparameter *glext-last-updated* "<unknown>")
 
 
-(defun dump-func-files (binding-package-file funcs-file copyright-file exception-list &key exceptions-only)
+(defun dump-func-files (binding-package-file funcs-file copyright-file
+                        package-name nicknames
+                        exception-list &key exceptions-only extra-use)
   (when *define-package*
     (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
     (with-open-file (out binding-package-file :direction :output
@@ -514,16 +518,33 @@
       (format out ";;; generated file, do not edit~%")
       (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
               *glext-last-updated*)
-      (format out "(defpackage #:~a~%" *in-package-name*)
-      (when *package-nicknames*
-        (format out "  (:nicknames ~a)~%" *package-nicknames*))
-      (format out "  (:use #:common-lisp #:cffi)~%")
-      (format out "  (:shadow #:char #:float #:byte #:boolean #:string)~%")
+      (format out "(defpackage #:~a~%" package-name)
+      (when nicknames
+        (format out "  (:nicknames ~a)~%" nicknames))
+      (format out "  (:use #:common-lisp #:cffi~@[ #:~a~])~%" extra-use)
+      (if extra-use
+          (progn
+            (format out "  (:shadowing-import-from~%")
+            (format out "   #:~a~%" extra-use)
+            (format out "   #:char #:float #:byte #:boolean #:string)~%")
+            (format out "  (:import-from~%")
+            (format out "   #:~a~%" extra-use)
+            (format out "   #:set-in-begin~%   #:check-error~%")
+            (format out "   #:defglfun~%   #:*gl-get-proc-address*~%")
+            (format out "   #:gl-get-proc-address~%")
+            (format out "   #:reset-gl-pointers~%   #:generate-gl-function~%")
+            (format out "   #:defglextfun~%  )~%"))
+          (format out "  (:shadow #:char #:float #:byte #:boolean #:string)~%"))
       (format out "  (:export~%")
-      (format out "   #:enum~%")
       (format out "   #:*glext-version*~%")
       (format out "   #:*glext-last-updated*~%")
       (format out "   #:*gl-get-proc-address*~%")
+      ;; enums/bitfields
+      (format out "   #:enum~%")
+      (loop for i in *bitfield-types*
+         do (destructuring-bind (&key enum-type &allow-other-keys)
+                i
+              (format out "   #:~a~%" enum-type)))
       ;; types
       (format out "~%  ;; Types.~%  ")
       (loop for type in *gl-types*
@@ -554,8 +575,8 @@
     (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
             *glext-last-updated*)
 
-    (when *in-package-name*
-      (format out "(in-package #:~a)~%~%" *in-package-name*))
+    (when package-name
+      (format out "(in-package #:~a)~%~%" package-name))
 
     (format out "(defparameter *glext-version* ~s)~%" *glext-version*)
     (format out "(defparameter *glext-last-updated* ~s)~%"
@@ -592,6 +613,8 @@
          (this-dir (make-pathname :directory (pathname-directory this-file)))
          (relative-gl (make-pathname :directory '(:relative :up "gl")))
          (gl-dir (merge-pathnames relative-gl this-dir))
+         (relative-gl3 (make-pathname :directory '(:relative :up "gl3")))
+         (gl3-dir (merge-pathnames relative-gl3 this-dir))
          (relative-spec (make-pathname :directory '(:relative :up "spec")))
          (spec-dir (merge-pathnames relative-spec this-dir))
          (gl-tm (merge-pathnames "gl.tm" spec-dir))
@@ -605,8 +628,8 @@
                                                 gl-dir))
          (funcs-file (merge-pathnames "funcs.lisp" gl-dir))
          (binding3-package-file (merge-pathnames "bindings-package3.lisp"
-                                                gl-dir))
-         (funcs3-file (merge-pathnames "funcs3.lisp" gl-dir)))
+                                                gl3-dir))
+         (funcs3-file (merge-pathnames "funcs3.lisp" gl3-dir)))
 
 
     (format t "~&;; loading list of bitfield enum types from ~A~%"
@@ -627,10 +650,14 @@
     (format t "~&;; getting enumext version from ~A~%" (namestring enumext-spec))
     (with-open-file (s enumext-spec) (get-glext-version s))
 
-    ;; dump full bindings
-    (dump-func-files binding-package-file funcs-file copyright-file *gl3-functions*)
     ;; dump gl3 forward compatible bindings
-    (dump-func-files binding3-package-file funcs3-file copyright-file *gl3-functions* :exceptions-only t)
+    (dump-func-files binding3-package-file funcs3-file copyright-file
+                     *in-package-name3* *package-nicknames3*
+                     *gl3-functions* :exceptions-only t)
+    ;; dump full bindings
+    (dump-func-files binding-package-file funcs-file copyright-file
+                     *in-package-name* *package-nicknames*
+                     *gl3-functions* :extra-use *in-package-name3*)
 
     ;; dump some info about which enums types are used in the spec,
     ;; not needed for normal usage

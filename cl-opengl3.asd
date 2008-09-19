@@ -30,7 +30,7 @@
 (defsystem cl-opengl3
   :depends-on (cffi)
   :components
-  ((:module "gl"
+  ((:module "gl3"
     :components
     ((:file "bindings-package3")
      (:file "constants" :depends-on ("bindings-package3"))

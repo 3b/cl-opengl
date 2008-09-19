@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;;
 ;;; Chapter 5 - Special Functions
@@ -37,11 +37,11 @@
 ;;; 5.5 Flush and Finish
 ;;;
 
-(import-export %gl:flush
-               %gl:finish)
+(import-export %gl3:flush
+               %gl3:finish)
 
 ;;;
 ;;; 5.6 Hints
 ;;;
 
-(import-export %gl:hint)
+(import-export %gl3:hint)

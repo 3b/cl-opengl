@@ -27,7 +27,7 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(in-package #:cl-opengl)
+(in-package #:cl-opengl3)
 
 ;;;
 ;;; Chapter 4 - Per-fragment Operations and the Framebuffer
@@ -39,58 +39,58 @@
 
 ;;; 4.1.2 Scissor Test
 
-(import-export %gl:scissor)
+(import-export %gl3:scissor)
 
 ;;; 4.1.3 Multisample Fragment Operations
 
-(import-export %gl:sample-coverage)
+(import-export %gl3:sample-coverage)
 
 ;;; 4.1.5 Stencil Test
 
-(import-export %gl:stencil-func
-               %gl:stencil-func-separate
-               %gl:stencil-op
-               %gl:stencil-op-separate)
+(import-export %gl3:stencil-func
+               %gl3:stencil-func-separate
+               %gl3:stencil-op
+               %gl3:stencil-op-separate)
 
 ;;; 4.1.6 Depth Buffer Test
 
-(import-export %gl:depth-func)
+(import-export %gl3:depth-func)
 
 ;;; 4.1.7 Occlusion Queries
 
-(import-export %gl:begin-query
-               %gl:end-query)
+(import-export %gl3:begin-query
+               %gl3:end-query)
 
 (defun gen-queries (n)
   "Returns N previously unused query object names in a
 list. These names are marked as used, but no object is associated
 with them until the first time they are used by BEGIN-QUERY."
-  (with-foreign-object (ids '%gl:uint n)
-    (%gl:gen-queries n ids)
+  (with-foreign-object (ids '%gl3:uint n)
+    (%gl3:gen-queries n ids)
     (loop for i below n
-          collecting (mem-aref ids '%gl:uint i))))
+          collecting (mem-aref ids '%gl3:uint i))))
 
 (defun delete-queries (ids)
   "Deletes the names of the query objects contained in the sequence IDS."
   (let ((count (length ids)))
-    (with-foreign-object (id-array '%gl:uint count)
+    (with-foreign-object (id-array '%gl3:uint count)
       (loop for id in ids
 	    counting id into i
-	    do (setf (mem-aref id-array '%gl:uint (1- i)) id))
-      (%gl:delete-queries count id-array))))
+	    do (setf (mem-aref id-array '%gl3:uint (1- i)) id))
+      (%gl3:delete-queries count id-array))))
 
 
 ;;; 4.1.8 Blending
 
-(import-export %gl:blend-equation
-               %gl:blend-equation-separate
-               %gl:blend-func
-               %gl:blend-func-separate
-               %gl:blend-color)
+(import-export %gl3:blend-equation
+               %gl3:blend-equation-separate
+               %gl3:blend-func
+               %gl3:blend-func-separate
+               %gl3:blend-color)
 
 ;;; 4.1.10 Logical Operation
 
-(import-export %gl:logic-op)
+(import-export %gl3:logic-op)
 
 ;;;
 ;;; 4.2 Whole Framebuffer Operation
@@ -98,33 +98,33 @@ with them until the first time they are used by BEGIN-QUERY."
 
 ;;; 4.2.1 Selecting a Buffer for Writing
 
-(import-export %gl:draw-buffer)
+(import-export %gl3:draw-buffer)
 
 (defun draw-buffers (buffers)
-  (with-opengl-sequence (seq '%gl:enum buffers)
-    (%gl:draw-buffers (length buffers) seq)))
+  (with-opengl-sequence (seq '%gl3:enum buffers)
+    (%gl3:draw-buffers (length buffers) seq)))
 
 
 ;;; 4.2.2 Fine Control of Buffer Updates
 
-(import-export %gl:color-mask
-               %gl:depth-mask
-               %gl:stencil-mask
-               %gl:stencil-mask-separate)
+(import-export %gl3:color-mask
+               %gl3:depth-mask
+               %gl3:stencil-mask
+               %gl3:stencil-mask-separate)
 
 ;;; 4.2.3 Clearing the Buffers
 
 (definline clear (&rest bufs)
-  (%gl:clear bufs))
+  (%gl3:clear bufs))
 
 (define-compiler-macro clear (&whole form &rest bufs)
   (if (every #'keywordp bufs)
-      `(%gl:clear ,(foreign-bitfield-value '%gl::clearbuffermask bufs))
+      `(%gl3:clear ,(foreign-bitfield-value '%gl3::clearbuffermask bufs))
       form))
 
-(import-export %gl:clear-color
-               %gl:clear-depth
-               %gl:clear-stencil)
+(import-export %gl3:clear-color
+               %gl3:clear-depth
+               %gl3:clear-stencil)
 
 ;;;
 ;;; 4.3 Drawing, Reading and Copying Pixels
@@ -144,13 +144,13 @@ with them until the first time they are used by BEGIN-QUERY."
          (result-data (make-sequence 'vector size))
          (real-type (symbolic-type->real-type type)))
     (with-foreign-object (array real-type size)
-      (%gl:read-pixels x y width height format type array)
+      (%gl3:read-pixels x y width height format type array)
       (dotimes (i size result-data)
         (setf (svref result-data i)
               (mem-aref array real-type i))))))
 
-(import-export %gl:read-buffer)
+(import-export %gl3:read-buffer)
 
 ;;; 4.3.3 Copying Pixels
 
-(import-export %gl:copy-pixels)
+(import-export %gl3:copy-pixels)

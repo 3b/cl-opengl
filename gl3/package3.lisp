@@ -27,9 +27,18 @@
 ;;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
-(defpackage #:cl-opengl
+;;; cl-opengl and cl-opengl3 both use the nicknames opengl and gl, so
+;;; remove them if the other package is already loaded
+(eval-when (:compile-toplevel :load-toplevel)
+  (when (find-package '#:cl-opengl)
+    (rename-package (find-package '#:cl-opengl) '#:cl-opengl
+                    (set-difference (package-nicknames '#:cl-opengl)
+                                    '(#:opengl #:gl)
+                                    :test 'string=))))
+
+(defpackage #:cl-opengl3
   (:use #:cl #:cffi)
-  (:nicknames #:opengl #:gl)
+  (:nicknames #:opengl #:gl #:gl3)
   (:export
 
    ;; opengl3.lisp
@@ -73,6 +82,17 @@
    #:with-mapped-buffer
    #:with-gl-mapped-buffer
 
+   ;; symbols used by gl-array stuff
+   #:vertex
+   #:color
+   #:secondary-color
+   #:normal
+   #:index
+   #:fog-coord
+   #:tex-coord
+   ;;#:edge-flag ; conflicts with the enum in full gl bindings
+   #:vertex-attrib
+
    ;; 3.0:2.10 Vertex Array Objects (ARB_vertex_array_object)
    #:delete-vertex-arrays
    #:gen-vertex-arrays
@@ -92,6 +112,9 @@
    #:window-pos
    ;; 2.14.1 Lighting
    #:front-face
+   ;; 2.14.7 Flatshading
+   #:shade-model
+
    ;; 2.15.1 Shader Objects
    #:create-shader
    #:shader-source
