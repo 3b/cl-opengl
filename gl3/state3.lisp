@@ -206,7 +206,7 @@
     (:depth-clear-value :float 1)
     (:stencil-clear-value :integer 1)
     (:accum-clear-value :float 4)
-;;    (:draw-framebuffer-binding :integer 1)
+    (:draw-framebuffer-binding :integer 1)
     (:read-framebuffer-binding :integer 1)
     (:draw-buffer   :enum 1)
     (:draw-buffer0  :enum 1)
@@ -225,7 +225,6 @@
     (:draw-buffer13 :enum 1)
     (:draw-buffer14 :enum 1)
     (:draw-buffer15 :enum 1)
-    (:draw-buffer16 :enum 1)
     (:read-buffer   :enum 1)
     (:renderbuffer-binding :integer 1)
     (:unpack-swap-bytes :boolean 1)
@@ -371,7 +370,7 @@
     (:max-texture-units :integer 1)
     (:max-vertex-attribs :integer 1)
     (:max-vertex-uniform-components :integer 1)
- ;?   (:max-varying-components :integer 1)
+    (:max-varying-components :integer 1)
     (:max-combined-texture-image-units :integer 1)
     (:max-vertex-texture-image-units :integer 1)
     (:max-texture-image-units :integer 1)
@@ -480,6 +479,7 @@
   `(defun ,name (value &optional (count (query-enum-size value)))
      (declare (fixnum count))
      (with-foreign-object (buf ',type count)
+       
        (,fn value buf)
        (if (> count 1)
            (let ((result (make-array count)))
@@ -495,13 +495,17 @@
 (define-query-function get-double %gl3:get-double-v %gl3:double)
 (define-query-function get-pointer %gl3:get-pointer-v :pointer)
 
+(defun try-to-parse-enum (value)
+  (or (foreign-enum-keyword '%gl3:enum value :errorp nil)
+      value))
+
 ;;; Wrapper around GET-INTEGER when the result should be interpreted
 ;;; as an enumerated constant.
 (defun get-enum (value &optional (count (query-enum-size value)))
   (let ((result (get-integer value count)))
     (if (vectorp result)
-        (map 'vector (lambda (x) (foreign-enum-keyword '%gl3:enum x)) result)
-        (foreign-enum-keyword '%gl3:enum result))))
+        (map 'vector #'try-to-parse-enum result)
+        (try-to-parse-enum result))))
 
 ;;; generic get that handles type and number of values for known enums
 ;;; fixme: better name?
