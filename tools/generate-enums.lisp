@@ -81,15 +81,23 @@
     (unless (< colon space)
       (values (subseq line 0 space) (subseq line (1+ space) colon)))))
 
+;;; predicate to test if a line might be an enum
+;;; current files don't use #\tab consistently, so check for spaces as well
+(defun enum-line-p (line)
+  (or (char= (char line 0) #\Tab)
+      (<= 3 (position-if-not #'whitespacep line))))
+
 ;;; Parse an inner enum declaration into a name and value.  The input
 ;;; line should begin with a tab, followed by a name, whitespace, an
 ;;; equals sign, and the numeric value of the constant.
+;;; *should* /= *does* so check for "    " in addition to #\tab
 (defun parse-enum (line)
-  (when (char= (char line 0) #\Tab)
-    (when-bind* ((space (position-if #'whitespacep line :start 1))
+  (when (enum-line-p line)
+    (when-bind* ((start (position-if-not #'whitespacep line))
+                 (space (position-if #'whitespacep line :start start))
                  (eq (position #\= line :start space))
                  (val (position-if-not #'whitespacep line :start (1+ eq))))
-      (values (subseq line 1 space) (subseq line val)))))
+      (values (subseq line start space) (subseq line val)))))
 
 ;;; Convert the name of an enum into a CL keyword symbol.
 (defun convert-enum-name (name)
@@ -108,7 +116,8 @@
   ((mode :initform :toplevel :accessor parser-mode)
    (block-type :initform nil :accessor parser-block-type)
    (bitfields :initform nil :accessor parser-bitfields)
-   (enums :initform (make-hash-table) :accessor parser-enums)))
+   (enums :initform (make-hash-table) :accessor parser-enums)
+   (indirect-enums :initform (make-hash-table) :accessor parser-indirect-enums)))
 
 (defun maybe-generate-shorthand-name (symbol)
   (let* ((name (symbol-name symbol))
@@ -122,11 +131,13 @@
 (defun parse-line (parser line)
   (let ((line (smash-trailing-whitespace (smash-comments line)))
         (block-type (parser-block-type parser))
-        (enums (parser-enums parser)))
+        (enums (parser-enums parser))
+        (indirect-enums (parser-indirect-enums parser)))
     (when (plusp (length line))
       ;; If we're in :ENUM mode and the first character is not a tab,
       ;; kick the parser back into toplevel mode.
-      (when (and (eql (parser-mode parser) :enum) (char/= (char line 0) #\Tab))
+      (when (and (eql (parser-mode parser) :enum)
+                 (not (enum-line-p line)))
         (setf (parser-mode parser) :toplevel))
       (ecase (parser-mode parser)
         (:toplevel
@@ -139,9 +150,29 @@
            (multiple-value-bind (name value) (parse-enum line)
              (when name
                (let ((sym (convert-enum-name name))
-                     (value (convert-value value)))
-                 (when value
-                   (setf (gethash sym enums) value)))))))))))
+                     (int-value (convert-value value)))
+                 (if int-value
+                     (setf (gethash sym enums) int-value)
+                     (setf (gethash sym indirect-enums) value)))))))))))
+
+;;; look up actual value of enums defined to have same value as another enum
+(defun resolve-enum-values (parser)
+  (let ((indirect-enums (parser-indirect-enums parser))
+        (enums (parser-enums parser)))
+    (loop repeat 5 ;; failsafe, don't loop forever if we have cycles
+       while (not (zerop (hash-table-count indirect-enums)))
+         do (loop for k being the hash-keys of indirect-enums using (hash-value v)
+               for ref = (convert-enum-name (subseq v 3)) ;; strip GL_ prefix
+               if (gethash ref enums)
+               do
+                 (setf (gethash k enums) (gethash ref enums))
+                 (remhash k indirect-enums)
+               else if (gethash ref indirect-enums)
+               do (setf (gethash k indirect-enums) 
+                        (gethash ref indirect-enums))))
+    (unless (zerop (hash-table-count indirect-enums))
+      (format t "!!! WARNING: failed to resolve values for some enums:~%")
+      (maphash (lambda (k v) (format t "!!! ~s -> ~s~%" k v)) indirect-enums))))
 
 ;;; Parse a file and build a data structure containing its enums.
 (defun parse-file (pathname &optional (parser (make-instance 'parser)))
@@ -149,6 +180,7 @@
     (loop for line = (read-line s nil s)
           until (eql line s)
           do (parse-line parser line)))
+  (resolve-enum-values parser)
   parser)
 
 ;;; Return a list of the keys of a hash table.
