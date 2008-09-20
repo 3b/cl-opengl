@@ -292,6 +292,7 @@
    #:get-float
    #:get-double
    #:get-enum
+   #:get*
    #:enable
    #:disable
    #:enabledp
