@@ -239,6 +239,12 @@
    #:gen-textures
    ;; 3.8.13 Texture Environments and Texture Functions
    #:tex-env
+   ;; 3.12.2 Shader Execution
+   #:get-frag-data-location
+   #:get-frag-data-location-ext
+   #:bind-frag-data-location
+   #:bind-frag-data-location-ext
+
 
    ;; rasterization.lisp
 
@@ -381,8 +387,12 @@
    #:get-string
    #:gl3-major-version
    #:gl3-minor-version
+   #:gl-version
    #:major-version
    #:minor-version
+   #:glsl-version
+   #:glsl-major-version
+   #:glsl-minor-version
    #:gl3-extension-present-p
    #:extension-present-p
    ;; 6.1.14 Shader and Program Queries

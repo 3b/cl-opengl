@@ -301,3 +301,24 @@
       (setf pname-value (foreign-enum-value '%gl3:enum pname))
       (ecase pname
         (:coord-replace (%gl3:tex-env-i target pname-value (if value 1 0))))))))
+
+
+;;; 3.12.2 Shader Execution
+
+;;; TODO: make these use :STRING
+(defun get-frag-data-location (program name)
+  (with-foreign-string (s name)
+    (%gl3:get-frag-data-location program s)))
+
+(defun bind-frag-data-location (program color name)
+  (with-foreign-string (s name)
+    (%gl3:bind-frag-data-location program color s)))
+
+
+(defun get-frag-data-location-ext (program name)
+  (with-foreign-string (s name)
+    (%gl3:get-frag-data-location-ext program s)))
+
+(defun bind-frag-data-location-ext (program color name)
+  (with-foreign-string (s name)
+    (%gl3:bind-frag-data-location-ext program color s)))
