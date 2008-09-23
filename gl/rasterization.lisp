@@ -391,3 +391,24 @@
      (%gl:fog-i pname (foreign-enum-value '%gl:enum param)))
     ((:fog-density :fog-start :fog-end)
      (%gl:fog-f pname param))))
+
+
+;;; 3.12.2 Shader Execution
+
+;;; TODO: make these use :STRING
+(defun get-frag-data-location (program name)
+  (with-foreign-string (s name)
+    (%gl:get-frag-data-location program s)))
+
+(defun bind-frag-data-location (program color name)
+  (with-foreign-string (s name)
+    (%gl:bind-frag-data-location program color s)))
+
+
+(defun get-frag-data-location-ext (program name)
+  (with-foreign-string (s name)
+    (%gl:get-frag-data-location-ext program s)))
+
+(defun bind-frag-data-location-ext (program color name)
+  (with-foreign-string (s name)
+    (%gl:bind-frag-data-location-ext program color s)))

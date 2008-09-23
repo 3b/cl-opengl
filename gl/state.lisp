@@ -584,23 +584,54 @@
 (defun gl3-minor-version ()
   (get-integer :GL_MINOR_VERSION))
 
+(defun parse-gl-version-string-values (string)
+  ;; major version is integer value up to first #\.
+  ;; minor version is integer from first #\. to a #\. or #\space
+  (let ((dot (position #\. string)))
+    (values
+     (values (parse-integer string :end dot :junk-allowed t)) ; major
+     (if dot ; minor
+         (values (parse-integer string :start dot :junk-allowed t))
+         0))))
+
+(defun parse-gl-version-string-float (string)
+  (let* ((dot nil)
+         (end (position-if-not (lambda (c) (or (digit-char-p c)
+                                               (and (char= c #\.)
+                                                    (not dot)
+                                                    (setf dot t))))
+                               string)))
+    (read-from-string string nil 0.0 :end end)))
+
+;; external
+(defun gl-version ()
+  (parse-gl-version-string-float (get-string :version)))
+
+
 
 ;; external
 (defun major-version ()
-  ;; major version is integer value up to first #\.
-  (let* ((version (get-string :version))
-         (dot (position #\. version)))
-    (values (parse-integer version :end dot :junk-allowed t))))
+  (values (parse-gl-version-string-values (get-string :version))))
 
 
 ;; external
 (defun minor-version ()
-  ;; minor version is integer from first #\. to a #\. or #\space
-  (let* ((version (get-string :version))
-         (dot (position #\. version)))
-    (if dot
-        (values (parse-integer version :start dot))
-        0)))
+  (nth-value 1 (parse-gl-version-string-values (get-string :version))))
+
+;; external
+(defun glsl-version ()
+  (parse-gl-version-string-float (get-string :shading-language-version)))
+
+;; external
+(defun glsl-major-version ()
+  (values (parse-gl-version-string-values (get-string :shading-language-version))))
+
+;; external
+(defun glsl-minor-version ()
+  (nth-value 1 (parse-gl-version-string-values (get-string :shading-language-version))))
+
+
+
 
 ;; external
 (defun gl3-extension-present-p (name)
@@ -737,3 +768,30 @@ currently implemented for speed, so avoid in inner loops"
      (push-client-attrib ,attributes)
      (multiple-value-prog1 (progn ,@body)
        (pop-client-attrib))))
+
+;;; not sure these are actually useful, so not exported for now...
+
+(defmacro features-present-p (&body options)
+  "Returns true if any of the forms in body are true after substitution for
+:major :minor as major and minor version, and \"ARB_foo\" for presence of
+named GL extension
+ ex: (features-present-p (> :major 3) (and (> :major 2) \"ARB_texture_rg\"))"
+  (labels ((build-tests (list)
+             (mapcar (lambda (x)
+                       (cond
+                         ((stringp x) `(extension-present-p ,x))
+                         ((eq x :major-version) `(major-version))
+                         ((eq x :minor-version) `(minor-version))
+                         ((listp x) (build-tests x))
+                         (t x)))
+                     list)))
+    `(or ,@(build-tests options))))
+
+;;; throw an error if gl version isn't high enough, or required
+;;; extensions are missing
+;;; fixme: need better error msg, either as argument, or from parsing options?
+(defmacro ensure-features (&body options)
+  `(unless (features-present-p ,@options)
+     (error "GL implementation doesn't meet minimum requirements, need~% ~s" '(or ,@options))))
+
+;;(features-present-p (> :major-version 3) (and (> :major-version 2) "ARB_texture_rg"))

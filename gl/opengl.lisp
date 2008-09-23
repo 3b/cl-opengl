@@ -554,6 +554,7 @@ another buffer is bound within FORMS."
 (import-export %gl:create-shader)
 
 (defun shader-source (shader string-list)
+  (when (stringp string-list) (setf string-list (list string-list)))
   (let ((num-lines (length string-list)))
     (with-foreign-object (string-array :pointer num-lines)
       ;; copy the list of Lisp strings into an array of C strings
