@@ -368,4 +368,25 @@
 ;;; GL_GREMEDY_frame_terminator
 "FrameTerminatorGREMEDY"
 ;;; TODO: GL_EXT_direct_state_access
+
+;;;;
+;;;; non-deprecated parts of some extensions moved to core in 3.0,
+;;;; to allow use with older versions
+
+;;; GL_EXT_gpu_shader4
+"GetUniformuivEXT"
+"BindFragDataLocationEXT"
+"GetFragDataLocationEXT"
+"Uniform1uiEXT"
+"Uniform2uiEXT"
+"Uniform3uiEXT"
+"Uniform4uiEXT"
+"Uniform1uivEXT"
+"Uniform2uivEXT"
+"Uniform3uivEXT"
+"Uniform4uivEXT"
+;;; GL_EXT_draw_instanced -- using ARB version for now?
+;; "glDrawArraysInstancedEXT"
+;; "glDrawElementsInstancedEXT"
+
 )

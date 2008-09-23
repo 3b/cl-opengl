@@ -128,6 +128,10 @@
   #:delete-vertex-arrays #:gen-vertex-arrays #:is-vertex-array 
   #:depth-bounds-ext #:string-marker-gremedy 
   #:get-query-object-i64v-ext #:get-query-object-ui64v-ext 
+  #:get-uniform-uiv-ext #:bind-frag-data-location-ext 
+  #:get-frag-data-location-ext #:uniform-1ui-ext #:uniform-2ui-ext 
+  #:uniform-3ui-ext #:uniform-4ui-ext #:uniform-1uiv-ext 
+  #:uniform-2uiv-ext #:uniform-3uiv-ext #:uniform-4uiv-ext 
   #:renderbuffer-storage-multisample-coverage-nv 
   #:program-buffer-parameters-fv-nv 
   #:program-buffer-parameters-iiv-nv 
