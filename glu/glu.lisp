@@ -60,7 +60,7 @@
 (defcfun ("gluGetString" get-string) :string
   (name-keyword string-name))
 
-#-cffi-features:windows
+#-windows
 (defcfun ("gluCheckExtension" check-extension) %gl:boolean
   (extension-name :string)
   (extension-string :string))

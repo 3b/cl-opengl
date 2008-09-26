@@ -33,7 +33,7 @@
 (in-package #:cl-glut)
 
 ;;; Erm, should we want CLISP cross-platform fasl portability I think
-;;; those conditionals should be changed to calls to cffi-feature-p.
+;;; those conditionals should be changed to calls to FEATURE-P.
 
 ;;; Ugh, freeglut's font macros seem to expand into a pointer to
 ;;; to a couple of global variables that point somewhere else.
@@ -41,58 +41,40 @@
 ;;; thing. "So here it goes:"
 
 (defparameter +stroke-roman+
-  #+cffi-features:windows
-  (make-pointer 0)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutStrokeRoman"))
+  #+windows (make-pointer 0)
+  #-windows (foreign-symbol-pointer "glutStrokeRoman"))
 
 (defparameter +stroke-mono-roman+
-  #+cffi-features:windows
-  (make-pointer 1)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutStrokeMonoRoman"))
+  #+windows (make-pointer 1)
+  #-windows (foreign-symbol-pointer "glutStrokeMonoRoman"))
 
 (defparameter +bitmap-9-by-15+
-  #+cffi-features:windows
-  (make-pointer 2)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmap9By15"))
+  #+windows (make-pointer 2)
+  #-windows (foreign-symbol-pointer "glutBitmap9By15"))
 
 (defparameter +bitmap-8-by-13+
-  #+cffi-features:windows
-  (make-pointer 3)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmap8By13"))
+  #+windows (make-pointer 3)
+  #-windows (foreign-symbol-pointer "glutBitmap8By13"))
 
 (defparameter +bitmap-times-roman-10+
-  #+cffi-features:windows
-  (make-pointer 4)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapTimesRoman10"))
+  #+windows (make-pointer 4)
+  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman10"))
 
 (defparameter +bitmap-times-roman-24+
-  #+cffi-features:windows
-  (make-pointer 5)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapTimesRoman24"))
+  #+windows (make-pointer 5)
+  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman24"))
 
 (defparameter +bitmap-helvetica-10+
-  #+cffi-features:windows
-  (make-pointer 6)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica10"))
+  #+windows (make-pointer 6)
+  #-windows (foreign-symbol-pointer "glutBitmapHelvetica10"))
 
 (defparameter +bitmap-helvetica-12+
-  #+cffi-features:windows
-  (make-pointer 7)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica12"))
+  #+windows (make-pointer 7)
+  #-windows (foreign-symbol-pointer "glutBitmapHelvetica12"))
 
 (defparameter +bitmap-helvetica-18+
-  #+cffi-features:windows
-  (make-pointer 8)
-  #-cffi-features:windows
-  (foreign-symbol-pointer "glutBitmapHelvetica18"))
+  #+windows (make-pointer 8)
+  #-windows (foreign-symbol-pointer "glutBitmapHelvetica18"))
 
 ;;; Functions
 
