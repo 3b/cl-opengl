@@ -323,12 +323,27 @@
 
 ;;;; 6.3 Rendering Styles
 
-;;(defcfun ("gluQuadricNormals" quadric-normals) :void
-;;  (quadric-object quadric-obj)
-;;  ...)
+(defcfun ("gluQuadricTexture" quadric-texture) :void
+  (quadric-object quadric-obj)
+  (texture-coords %gl:boolean))
 
-;; gluQuadricTexture
-;; gluQuadricOrientation
+(defcenum glu-orientation 
+  (:outside #x186B4)
+  (:inside #x186B5))
+
+(defcfun ("gluQuadricOrientation" quadric-orientation) :void
+  (quadric-object quadric-obj)
+  (orientation glu-orientation))
+
+(defcenum glu-normals
+  (:smooth #x186A0)
+  (:flat #x186A1)
+  (:none #x186A2))
+
+(defcfun ("gluQuadricNormals" quadric-normals) :void
+  (quadric-object quadric-obj)
+  (normals glu-normals))
+
 ;; gluQuadricDrawStyle
 
 ;;;; 6.4 Quadrics Primitives

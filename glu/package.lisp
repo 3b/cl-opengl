@@ -37,6 +37,12 @@
   (:use #:cl #:cffi)
   (:export
    ;;# Functions
+   #:quadric-texture
+   #:quadric-orientation
+   #:quadric-normals
+   #:new-quadric
+   #:quadric-normals
+   #:sphere
    #:build-2d-mipmaps
    #:get-string
    #:check-extension

@@ -1556,6 +1556,7 @@
   (:negative-z-ext #x87DB)
   (:never #x200)
   (:nicest #x1102)
+  (:no-error #x0)
   (:none #x0)
   (:noop #x1505)
   (:nor #x1508)
