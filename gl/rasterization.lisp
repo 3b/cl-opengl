@@ -84,10 +84,13 @@
 
 (defun pixel-store (pname value)
   (ecase pname
-    ((:unpack-swap-bytes :unpack-lsb-first)
+    ((:unpack-swap-bytes :unpack-lsb-first
+      :pack-swap-bytes :pack-lsb-first)
      (%gl:pixel-store-i pname (if value 1 0)))
     ((:unpack-row-length :unpack-skip-rows :unpack-skip-pixels
-      :unpack-alignment :unpack-image-height :unpack-skip-images)
+      :unpack-alignment :unpack-image-height :unpack-skip-images
+      :pack-row-length :pack-skip-rows :pack-skip-pixels
+      :pack-alignment :pack-image-height :pack-skip-images)
      (%gl:pixel-store-i pname value))))
 
 ;;; 3.6.3 Pixel Transfer Modes
