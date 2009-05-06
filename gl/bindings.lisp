@@ -29,6 +29,10 @@
 
 (in-package #:cl-opengl-bindings)
 
+;;; in case we want to be able to tell whether we are using a cl-opengl with
+;;; automatic error checking, push something on *features*
+#-cl-opengl-no-check-error(push :cl-opengl-checks-errors *features*)
+
 (let ((in-begin nil))
   (defun set-in-begin (a) (setf in-begin a))
   (defun check-error (fun)
