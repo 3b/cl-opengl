@@ -41,6 +41,8 @@
 
 ;;; Setting Options
 
+(defparameter *window-close-action* nil)
+
 ;; freeglut ext
 (defcenum (options %gl:enum)
   (:init-window-x #x01F4)
@@ -54,9 +56,15 @@
   (:window-cursor #x007A))
 
 ;;; freeglut ext
+#-darwin
 (defcfun ("glutSetOption" set-option) :void
   (option options)
   (value :int))
+
+#+darwin
+(defun set-option (val1 val2)
+  (declare (ignore val1 val2))
+  (warn "GLUT:SET-OPTION not supported in GLUT.framework"))
 
 ;;; Also provide some utility functions around glutSetOption().
 
@@ -101,8 +109,10 @@
               (foreign-bitfield-value 'display-mode options)))
 
 (defun set-action-on-window-close (action)
+  #-darwin
   (set-option :action-on-window-close
-              (foreign-enum-value 'window-close-behaviour action)))
+              (foreign-enum-value 'window-close-behaviour action))
+  (setf *window-close-action* action))
 
 (defun set-rendering-context (option)
   (set-option :rendering-context
@@ -156,7 +166,7 @@
   :window-border-width                  ; freeglut ext
   :window-header-height                 ; freeglut ext
   :version                              ; freeglut ext
-  :rendering-context                    ; freeglut ext
+  #-darwin :rendering-context           ; freeglut ext
   :direct-rendering)
 
 (defcfun ("glutGet" get) :int

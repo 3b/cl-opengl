@@ -43,21 +43,71 @@
   #-(and sbcl (or x86 x86-64))
   `(progn ,@body))
 
+(defparameter *glut-initialized-p* nil)
+
+#+(and darwin (or openmcl-native-threads sb-thread))
+(defparameter *glut-thread* nil)
+
+(defun make-thread (name function)
+  #+openmcl-native-threads (ccl:process-run-function name function)
+  #+sb-thread (sb-thread:make-thread function :name name)
+  #-(or openmcl-native-threads sb-thread)
+  (error "CL-GLUT::MAKE-THREAD not implemented for this Lisp."))
+
+(defun %init (program-name)
+  (with-foreign-objects ((argcp :int) (argv :pointer))
+    (setf (mem-ref argcp :int) 1)
+    (with-foreign-string (str program-name)
+      (setf (mem-ref argv :pointer) str)
+      (%glutInit argcp argv)
+      (setf *glut-initialized-p* t)))
+  ;; By default, we choose the saner option to return from the event
+  ;; loop on window close instead of exit()ing.
+  (set-action-on-window-close :action-continue-execution)
+  ;; this probably doesn't play well with other toolkits
+  (setq %gl:*gl-get-proc-address* 'get-proc-address)
+  (values))
+
+;;; From CCL's opengl-ffi:
+;;;
+;;; "On OSX, we need to use an undocumented API or two to ensure that
+;;; the thread we're creating is seen as the 'main' event handling
+;;; thread (that's what the code that sets the current thread's
+;;; CFRunLoop to the main CFRunLoop does.)"
+
+#+(and darwin (or sb-thread openmcl-native-threads))
+(progn
+  (defcfun ("CFRunLoopGetCurrent" cf-run-loop-get-current) :pointer)
+  (defcfun ("_CFRunLoopSetCurrent" cf-run-loop-set-current)
+      :pointer (arg :pointer))
+  (defcfun ("CFRunLoopGetMain" cf-run-loop-get-main) :pointer))
+
 (defun init (&optional (program-name (lisp-implementation-type)))
   (without-fp-traps
-    ;; freeglut will exit() if we try to call initGlut() when
-    ;; things are already initialized.
-    (unless (getp :init-state)
-      (with-foreign-objects ((argcp :int) (argv :pointer))
-        (setf (mem-ref argcp :int) 1)
-        (with-foreign-string (str program-name)
-          (setf (mem-ref argv :pointer) str)
-          (%glutInit argcp argv)))
-      ;; By default, we choose the saner option to return from the event
-      ;; loop on window close instead of exit()ing.
-      (set-action-on-window-close :action-continue-execution)
-      ;; this probably doesn't play well with other toolkits
-      (setq %gl:*gl-get-proc-address* 'get-proc-address)))
+   ;; freeglut will exit() if we try to call initGlut() when
+   ;; things are already initialized.
+   (unless *glut-initialized-p*
+     #+(and darwin (or sb-thread openmcl-native-threads))
+     (setf *glut-thread*
+           (make-thread
+            "CL-GLUT thread"
+            (lambda ()
+              ;; In OSX, a "run loop" is a data structure that
+              ;; describes how event-handling code should block for
+              ;; events, timers, and other event sources.  Ensure that
+              ;; this thread has a "current run loop".  (Under some
+              ;; circumstances, there may not yet be a "main" run
+              ;; loop; setting the "current" ensures that a main loop
+              ;; exists.)
+              (cf-run-loop-get-current)
+              ;; Make the current thread's run loop be the "main" one;
+              ;; only the main run loop can interact with the window
+              ;; server.
+              (cf-run-loop-set-current (cf-run-loop-get-main))
+              (%init program-name)
+              (loop (sleep 1)))))
+     #-(and darwin (or sb-thread openmcl-native-threads))
+     (%init program-name)))
   (values))
 
 ;; We call init at load-time in order to ensure a usable glut as often

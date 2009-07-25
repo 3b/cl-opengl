@@ -92,33 +92,42 @@
 
 ;;; The following are freeglut extensions:
 
+#-darwin
 (defcfun ("glutWireRhombicDodecahedron" wire-rhombic-dodecahedron) :void)
+
+#-darwin
 (defcfun ("glutSolidRhombicDodecahedron" solid-rhombic-dodecahedron) :void)
 
+#-darwin
 (defcfun ("glutWireSierpinskiSponge" %glutWireSierpinskiSponge) :void
   (num-levels :int)
   (offset-seq :pointer) ; GLdouble offset[3]
   (scale %gl:double))
 
+#-darwin
 (defun wire-sierpinski-sponge (num-levels offset-seq scale)
   (gl::with-opengl-sequence (offset '%gl:double offset-seq)
     (%glutWireSierpinskiSponge num-levels offset scale)))
 
+#-darwin
 (defcfun ("glutSolidSierpinskiSponge" %glutSolidSierpinskiSponge) :void
   (num-levels :int)
   (offset-seq :pointer) ; GLdouble offset[3]
   (scale %gl:double))
 
+#-darwin
 (defun solid-sierpinski-sponge (num-levels offset-seq scale)
   (gl::with-opengl-sequence (offset '%gl:double offset-seq)
     (%glutSolidSierpinskiSponge num-levels offset scale)))
 
+#-darwin
 (defcfun ("glutWireCylinder" wire-cylinder) :void
   (radius %gl:double)
   (height %gl:double)
   (slices %gl:int)
   (stacks %gl:int))
 
+#-darwin
 (defcfun ("glutSolidCylinder" solid-cylinder) :void
   (radius %gl:double)
   (height %gl:double)

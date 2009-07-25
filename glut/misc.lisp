@@ -73,7 +73,7 @@
 (defcfun ("glutGameModeString" game-mode-string) :void
   (string :string))
 
-(defcfun ("glutEnterGameMode" enter-game-mode) :int)
+(defcfun ("glutEnterGameMode" enter-game-mode) #-darwin :int #+darwin :void)
 (defcfun ("glutLeaveGameMode" leave-game-mode) :void)
 
 (defcenum (game-mode-param %gl:enum)

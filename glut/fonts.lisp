@@ -107,19 +107,23 @@
   (string :string))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutBitmapHeight" bitmap-height) :int
   (font :pointer))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutStrokeHeight" stroke-height) %gl:float
   (font :pointer))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutBitmapString" bitmap-string) :void
   (font :pointer)
   (string :string))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutStrokeString" stroke-string) :void
   (font :pointer)
   (string :string))

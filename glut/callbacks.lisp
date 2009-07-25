@@ -137,12 +137,14 @@
   (poll-interval :int))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutMouseWheelFunc" mouse-wheel-func) :void
   ;; void (*func)(int button, int pressed, int x, int y)
   (callback-pointer :pointer))
 
-;; freeglut ext
-(defcfun ("glutCloseFunc" close-func) :void
+;; freeglut/GLUT.framework ext
+(defcfun (#-darwin "glutCloseFunc"
+          #+darwin "glutWMCloseFunc" close-func) :void
   ;; void (*func)(void)
   (callback-pointer :pointer))
 
@@ -152,6 +154,7 @@
   (callback-pointer :pointer))
 
 ;; freeglut ext
+#-darwin
 (defcfun ("glutMenuDestroyFunc" menu-destroy-func) :void
   ;; void (*func)(void)
   (callback-pointer :pointer))

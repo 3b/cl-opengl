@@ -189,7 +189,6 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (mouse-wheel      (window (button mouse-button) (pressed mouse-button-state)
                             (x :int) (y :int)))
   (close            (window))
-  ;; (wm-close         (window)) ; synonym for CLOSE
   (menu-destroy     (window)))
 
 ;;; These two functions should not be called directly and are called
@@ -220,6 +219,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
 (defclass base-window ()
   ((name :reader name :initarg :name :initform (gensym "GLUT-WINDOW"))
    (id   :reader id)
+   (destroyed :accessor destroyed :initform nil)
    (pos-x  :accessor pos-x  :initarg :pos-x)
    (pos-y  :accessor pos-y  :initarg :pos-y)
    (height :accessor height :initarg :height)
@@ -305,40 +305,74 @@ Lexically binds CURRENT-WINDOW to the respective object."
 
 (defmethod enable-event ((window base-window) event-name)
   (let ((event (find-event-or-lose event-name)))
-    (with-window window
-      (register-callback event))
-    (pushnew event (events window))
-    (when (eq event-name :idle)
-      (push window *windows-with-idle-event*))))
+    (when (not (find event (events window)))
+      (with-window window
+        (register-callback event))
+      (push event (events window))
+      (when (eq event-name :idle)
+        (push window *windows-with-idle-event*)))))
+
 
 (defmethod disable-event ((window base-window) event-name)
   (if (eq event-name :display)
       (warn "GLUT would be upset if we set the DISPLAY callback to NULL. ~
              So we won't do that.")
       (let ((event (find-event-or-lose event-name)))
-        ;; We don't actually disable the CLOSE event since we need it
-        ;; for bookkeeping. See the CLOSE methods below.
-        (unless (or (eq event-name :idle) (eq event-name :close))
-          (with-window window
-            (unregister-callback event)))
-        (setf (events window) (delete event (events window)))
-        (when (eq event-name :idle)
-          (setq *windows-with-idle-event*
-                (delete window *windows-with-idle-event*))))))
+        (when (find event (events window))
+          ;; We don't actually disable the CLOSE event since we need it
+          ;; for bookkeeping. See the CLOSE methods below.
+          (unless (or (eq event-name :idle)
+                      (eq event-name :close))
+            (with-window window
+              (unregister-callback event)))
+          (setf (events window) (delete event (events window)))
+          (when (eq event-name :idle)
+            (setq *windows-with-idle-event*
+                  (delete window *windows-with-idle-event*))
+            ;; We need to disable the idle callback here too in
+            ;; addition to close.
+            (when (null *windows-with-idle-event*)
+              (unregister-callback event)))))))
 
 (defun destroy-current-window ()
   (when-current-window-exists
-    (if (game-mode current-window)
-        (leave-game-mode)
-        (destroy-window (id current-window)))))
+    (cond
+      ((game-mode current-window)
+       (leave-game-mode))
+      (t
+       (destroy-window (id current-window))
+       #+darwin
+       (progn
+         (setf (destroyed current-window) t)
+         (close current-window))))))
 
 (defmethod close :around ((w base-window))
   (when (member :close (events w) :key #'event-name)
     (call-next-method))
   (setf (aref *id->window* (id w)) nil)
   (setq *windows-with-idle-event* (delete w *windows-with-idle-event*))
+  #+darwin
+  (when (not (destroyed w))
+    (setf (destroyed w) t)
+    (destroy-window (id w)))
   (when (null *windows-with-idle-event*)
-    (unregister-callback (find-event-or-lose :idle))))
+    (unregister-callback (find-event-or-lose :idle)))
+  #+darwin
+  (progn
+    (when (= 0 (length (remove-if #'null *id->window*)))
+      ;; We want to leave the glut event loop if all glut windows are
+      ;; closed, even when :action-continue-execution is set.
+      (leave-main-loop))
+    (ecase *window-close-action*
+      ;; :action-exit is probably unnecessary, as it should never be used.
+      (:action-exit
+       #+sbcl (sb-ext:quit)
+       #+ccl (ccl:quit)
+       #-(or sbcl ccl) (warn "Don't know how to quit."))
+      (:action-glutmainloop-returns
+       (leave-main-loop))
+      (:action-continue-execution
+       nil))))
 
 (defmethod close ((w base-window))
   (values))
@@ -409,24 +443,3 @@ Lexically binds CURRENT-WINDOW to the respective object."
 (defmethod display-window :around ((win sub-window))
   (setf (slot-value win 'id) (create-sub-window (id (parent win)) 0 0 0 0))
   (call-next-method))
-
-;;;; For posterity
-
-;;; "This is quite ugly: OS X is very picky about which thread gets to handle
-;;; events and only allows the main thread to do so. We need to run any event
-;;; loops in the initial thread on multithreaded Lisps, or in this case,
-;;; OpenMCL."
-
-;; #-openmcl
-;; (defun run-event-loop ()
-;;   (glut:main-loop))
-
-;; #+openmcl
-;; (defun run-event-loop ()
-;;   (flet ((start ()
-;;            (ccl:%set-toplevel nil)
-;;            (glut:main-loop)))
-;;     (ccl:process-interrupt ccl::*initial-process*
-;;                            (lambda ()
-;;                              (ccl:%set-toplevel #'start)
-;;                              (ccl:toplevel)))))

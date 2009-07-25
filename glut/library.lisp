@@ -32,9 +32,16 @@
 
 (in-package :cl-glut)
 
+;;; TODO: check what other (threaded) Lisps might need to load this
+;;; framework which is necessary to setup the necessary magic for
+;;; GLUT's main loop. CCL already loads this framework by default.
+(define-foreign-library core-foundation
+  ((:and :darwin :sb-thread) (:framework "CoreFoundation")))
+
 (define-foreign-library glut
-  (:darwin (:or "libglut.dylib" "libglut.3.dylib"))
+  (:darwin (:framework "GLUT"))
   (:windows "freeglut.dll")
   (:unix (:or "libglut.so" "libglut.so.3")))
 
 (use-foreign-library glut)
+(use-foreign-library core-foundation)
