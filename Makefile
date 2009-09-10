@@ -1,10 +1,14 @@
 # -*- Mode: Makefile; tab-width: 3; indent-tabs-mode: t -*-
 
+# allow overriding location of sbcl, for example
+# CL="~/lisp/clbuild/clbuild --implementation sbcl lisp" make funcs
+CL ?= sbcl  --noinform --disable-debugger
+
 enums:
-	@sbcl --noinform --disable-debugger --no-userinit --load "tools/generate-enums.lisp" --eval "(main)"
+	@$(CL) --no-userinit --load "tools/generate-enums.lisp" --eval "(main)"
 
 funcs:
-	@sbcl --noinform --disable-debugger --load "tools/generate-funcs.lisp" --eval "(spec-parser:main)"
+	@$(CL) --load "tools/generate-funcs.lisp" --eval "(spec-parser:main)"
 
 specs:
 	cd spec && wget -N http://www.opengl.org/registry/api/enum.spec
