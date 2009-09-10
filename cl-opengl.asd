@@ -33,10 +33,10 @@
   ((:module "gl"
     :components
     ((:file "bindings-package")
-     (:file "bindings" :depends-on ("bindings-package"))
+     (:file "constants" :depends-on ("bindings-package"))
+     (:file "bindings" :depends-on ("bindings-package" "constants"))
      (:file "types" :depends-on ("bindings-package"))
      (:file "library" :depends-on ("bindings-package"))
-     (:file "constants" :depends-on ("bindings"))
      (:file "funcs" :depends-on ("bindings" "constants" "library" "types"))
      ;; Lispifications.
      (:file "package" :depends-on ("bindings-package"))
