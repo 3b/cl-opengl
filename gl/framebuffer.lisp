@@ -120,11 +120,11 @@ with them until the first time they are used by BEGIN-QUERY."
 ;;; 4.2.3 Clearing the Buffers
 
 (definline clear (&rest bufs)
-  (%gl:clear (make-bitfield '%gl:enum bufs)))
+  (%gl:clear bufs))
 
 (define-compiler-macro clear (&whole form &rest bufs)
   (if (every #'keywordp bufs)
-      `(%gl:clear ,(make-bitfield '%gl:enum bufs))
+      `(%gl:clear ,(foreign-bitfield-value '%gl::ClearBufferMask bufs))
       form))
 
 (import-export %gl:clear-color

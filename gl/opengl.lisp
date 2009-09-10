@@ -124,6 +124,9 @@
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)))
 
+(import-export %gl:vertex-attrib-pointer
+               %gl:vertex-attrib-ipointer)
+
 ;;;
 ;;; 2.9 Buffer Objects
 ;;;
@@ -375,6 +378,28 @@ another buffer is bound within FORMS."
   (%gl:rect-f x1 y1 x2 y2))
 
 ;;;
+;;; 2.10 Vertex Array Objects (3.0/ARB_vertex_array_object)
+;;;
+(defun delete-vertex-arrays (arrays)
+  (with-opengl-sequence (array '%gl:uint arrays)
+    (%gl:delete-vertex-arrays (length arrays) array)))
+
+(defun gen-vertex-arrays (count)
+  (with-foreign-object (array '%gl:uint count)
+    (%gl:gen-vertex-arrays count array)
+    (loop for i below count
+       collecting (mem-aref array '%gl:uint i))))
+
+;; shortcut for the common case where we only want 1
+(defun gen-vertex-array ()
+  (with-foreign-object (array '%gl:uint 1)
+    (%gl::gen-vertex-arrays 1 array)
+    (mem-aref array '%gl:uint 0)))
+
+(import-export %gl:bind-vertex-array)
+
+
+;;;
 ;;; 2.11 Coordinate Transformations
 ;;;
 
@@ -430,6 +455,8 @@ another buffer is bound within FORMS."
      (push-matrix)
      (multiple-value-prog1 (progn ,@body)
        (pop-matrix))))
+
+(import-export %gl:active-texture)
 
 ;;;
 ;;; 2.11.4 Generating Texture Coordinates

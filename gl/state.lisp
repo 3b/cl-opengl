@@ -57,6 +57,8 @@
     (:alpha-test-func . 1)
     (:alpha-test-ref . 1)
     (:attrib-stack-depth . 1)
+    (:array-buffer-binding . 1)
+    (:element-array-buffer-binding . 1)
     (:auto-normal . 1)
     (:aux-buffers . 1)
     (:blend . 1)
@@ -339,6 +341,7 @@
     (:vertex-array-size . 1)
     (:vertex-array-stride . 1)
     (:vertex-array-type . 1)
+    (:vertex-array-buffer-binding . 1)
     (:viewport . 4)
     (:zoom-x . 1)
     (:zoom-y . 1)))
@@ -404,6 +407,8 @@
 
 (import-export %gl:get-string)
 
+;; todo: gl3 specific versions of major/minor-version, extension-present-p, etc
+
 ;; external
 (defun major-version ()
   (multiple-value-bind (num characters-read)
@@ -420,6 +425,9 @@
 
 ;; external
 (defun extension-present-p (name)
+  ;; FIXME: need to be more careful than this, since you don't want to
+  ;; match part of a longer extension name, ex GL_ARB_shadow
+  ;; vs. GL_ARB_shadow_ambient
   (search name (%gl:get-string :extensions)))
 
 ;;; 6.1.14 Shader and Program Queries
@@ -481,19 +489,20 @@
 
 ;;; 6.1.15 Saving and Restoring State
 
-(defun make-bitfield (enum-name attributes)
-  (apply #'logior 0 (mapcar (lambda (x)
-                              (foreign-enum-value enum-name x))
-                            attributes)))
+;;not used anymore?
+;;(defun make-bitfield (enum-name attributes)
+;;  (apply #'logior 0 (mapcar (lambda (x)
+;;                              (foreign-enum-value enum-name x))
+;;                            attributes)))
 
 ;; external
 (defun push-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%gl:push-attrib (make-bitfield '%gl:enum attributes)))
+  (%gl:push-attrib attributes))
 
 (define-compiler-macro push-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%gl:push-attrib ,(make-bitfield '%gl:enum attributes))
+      `(%gl:push-attrib ,(foreign-bitfield-value '%gl:AttribMask attributes))
       form))
 
 (import-export %gl:pop-attrib)
@@ -507,17 +516,17 @@
 ;; external
 (defun push-client-attrib (&rest attributes)
   (declare (dynamic-extent attributes))
-  (%gl:push-client-attrib (make-bitfield '%gl:enum attributes)))
+  (%gl:push-client-attrib attributes))
 
 (define-compiler-macro push-client-attrib (&whole form &rest attributes)
   (if (every #'keywordp attributes)
-      `(%gl:push-client-attrib ,(make-bitfield '%gl:enum attributes))
+      `(%gl:push-client-attrib ,(foreign-bitfield-value '%gl:ClientAttribMask attributes))
       form))
 
 (import-export %gl:pop-client-attrib)
 
 (defmacro with-pushed-client-attrib ((&rest attributes) &body body)
   `(progn
-     (push-client-attrib ,@attributes)
+     (push-client-attrib ,attributes)
      (multiple-value-prog1 (progn ,@body)
        (pop-client-attrib))))
