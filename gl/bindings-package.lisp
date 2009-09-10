@@ -6,12 +6,16 @@
   (:use #:common-lisp #:cffi)
   (:shadow #:char #:float #:byte #:boolean #:string)
   (:export
-   #:enum
    #:*glext-version*
    #:*glext-last-updated*
    #:*gl-get-proc-address*
    #:opengl-error
    #:check-error
+   #:enum
+   #:AttribMask
+   #:ClearBufferMask
+   #:ClientAttribMask
+   #:BufferAccessMask
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb 

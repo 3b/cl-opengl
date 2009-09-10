@@ -567,12 +567,18 @@
         (format out "  (:use #:common-lisp #:cffi)~%")
         (format out "  (:shadow #:char #:float #:byte #:boolean #:string)~%")
         (format out "  (:export~%")
-        (format out "   #:enum~%")
         (format out "   #:*glext-version*~%")
         (format out "   #:*glext-last-updated*~%")
         (format out "   #:*gl-get-proc-address*~%")
         (format out "   #:opengl-error~%")
         (format out "   #:check-error~%")
+        ;; enums/bitfields
+        (format out "   #:enum~%")
+        (loop for i in *bitfield-types*
+           do (destructuring-bind (&key enum-type &allow-other-keys)
+                  i
+                (format out "   #:~a~%" enum-type)))
+
         ;; types
         (format out "~%  ;; Types.~%  ")
         (loop for type in *gl-types*
