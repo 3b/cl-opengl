@@ -84,30 +84,31 @@
 
 (defun init (&optional (program-name (lisp-implementation-type)))
   (without-fp-traps
-   ;; freeglut will exit() if we try to call initGlut() when
-   ;; things are already initialized.
-   (unless *glut-initialized-p*
-     #+(and darwin (or sb-thread openmcl-native-threads))
-     (setf *glut-thread*
-           (make-thread
-            "CL-GLUT thread"
-            (lambda ()
-              ;; In OSX, a "run loop" is a data structure that
-              ;; describes how event-handling code should block for
-              ;; events, timers, and other event sources.  Ensure that
-              ;; this thread has a "current run loop".  (Under some
-              ;; circumstances, there may not yet be a "main" run
-              ;; loop; setting the "current" ensures that a main loop
-              ;; exists.)
-              (cf-run-loop-get-current)
-              ;; Make the current thread's run loop be the "main" one;
-              ;; only the main run loop can interact with the window
-              ;; server.
-              (cf-run-loop-set-current (cf-run-loop-get-main))
-              (%init program-name)
-              (loop (sleep 1)))))
-     #-(and darwin (or sb-thread openmcl-native-threads))
-     (%init program-name)))
+    ;; freeglut will exit() if we try to call initGlut() when
+    ;; things are already initialized.
+    #-(and darwin (or sb-thread openmcl-native-threads))
+    (unless (getp :init-state)
+      (%init program-name))
+    #+(and darwin (or sb-thread openmcl-native-threads))
+    (unless *glut-initialized-p*
+      (setf *glut-thread*
+            (make-thread
+             "CL-GLUT thread"
+             (lambda ()
+               ;; In OSX, a "run loop" is a data structure that
+               ;; describes how event-handling code should block for
+               ;; events, timers, and other event sources.  Ensure that
+               ;; this thread has a "current run loop".  (Under some
+               ;; circumstances, there may not yet be a "main" run
+               ;; loop; setting the "current" ensures that a main loop
+               ;; exists.)
+               (cf-run-loop-get-current)
+               ;; Make the current thread's run loop be the "main" one;
+               ;; only the main run loop can interact with the window
+               ;; server.
+               (cf-run-loop-set-current (cf-run-loop-get-main))
+               (%init program-name)
+               (loop (sleep 1)))))))
   (values))
 
 ;; We call init at load-time in order to ensure a usable glut as often
