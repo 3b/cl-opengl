@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 40 ( 2008/03/24 )
+;;; glext version 42 ( 2008/08/16 )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 40)
-(defparameter *glext-last-updated* "2008/03/24")
+(defparameter *glext-version* 42)
+(defparameter *glext-last-updated* "2008/08/16")
 
 ;;; GL version: 1.0, display-list
 (defglfun ("glNewList" new-list) :void
@@ -1073,7 +1073,7 @@
 
 ;;; GL version: 1.0, framebuf
 (defglfun ("glClear" clear) :void
-  (mask bitfield))
+  (mask ClearBufferMask))
 
 ;;; GL version: 1.0, framebuf
 (defglfun ("glClearAccum" clear-accum) :void
@@ -1144,7 +1144,7 @@
 
 ;;; GL version: 1.0, misc
 (defglfun ("glPushAttrib" push-attrib) :void
-  (mask bitfield))
+  (mask AttribMask))
 
 ;;; GL version: 1.0, modeling
 (defglfun ("glMap1d" map-1d) :void
@@ -1828,7 +1828,7 @@
 
 ;;; GL version: 1.1, 1_1
 (defglfun ("glPushClientAttrib" push-client-attrib) :void
-  (mask bitfield))
+  (mask ClientAttribMask))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glBlendColor" blend-color) :void
@@ -3309,6 +3309,337 @@
   (transpose boolean)
   (value (:pointer float)))
 
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glColorMaski" color-mask-i) :void
+  (index uint)
+  (r boolean)
+  (g boolean)
+  (b boolean)
+  (a boolean))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetBooleani_v" get-boolean-i-v) :void
+  (target enum)
+  (index uint)
+  (data (:pointer boolean)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
+  (target enum)
+  (index uint)
+  (data (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glEnablei" enable-i) :void
+  (target enum)
+  (index uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glDisablei" disable-i) :void
+  (target enum)
+  (index uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glIsEnabledi" is-enabled-i) boolean
+  (target enum)
+  (index uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glBeginTransformFeedback" begin-transform-feedback) :void
+  (primitiveMode enum))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glEndTransformFeedback" end-transform-feedback) :void)
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glBindBufferRange" bind-buffer-range) :void
+  (target enum)
+  (index uint)
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glBindBufferBase" bind-buffer-base) :void
+  (target enum)
+  (index uint)
+  (buffer uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glTransformFeedbackVaryings" transform-feedback-varyings) :void
+  (program uint)
+  (count sizei)
+  (locations (:pointer int))
+  (bufferMode enum))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetTransformFeedbackVarying" get-transform-feedback-varying) :void
+  (program uint)
+  (index uint)
+  (location (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glClampColor" clamp-color) :void
+  (target enum)
+  (clamp enum))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glBeginConditionalRender" begin-conditional-render) :void
+  (id uint)
+  (mode enum))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glEndConditionalRender" end-conditional-render) :void)
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI1i" vertex-attrib-i1i) :void
+  (index uint)
+  (x int))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI2i" vertex-attrib-i2i) :void
+  (index uint)
+  (x int)
+  (y int))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI3i" vertex-attrib-i3i) :void
+  (index uint)
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4i" vertex-attrib-i4i) :void
+  (index uint)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI1ui" vertex-attrib-i1ui) :void
+  (index uint)
+  (x uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI2ui" vertex-attrib-i2ui) :void
+  (index uint)
+  (x uint)
+  (y uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI3ui" vertex-attrib-i3ui) :void
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4ui" vertex-attrib-i4ui) :void
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint)
+  (w uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI1iv" vertex-attrib-i1iv) :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI2iv" vertex-attrib-i2iv) :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI3iv" vertex-attrib-i3iv) :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4iv" vertex-attrib-i4iv) :void
+  (index uint)
+  (v (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI1uiv" vertex-attrib-i1uiv) :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI2uiv" vertex-attrib-i2uiv) :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI3uiv" vertex-attrib-i3uiv) :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4uiv" vertex-attrib-i4uiv) :void
+  (index uint)
+  (v (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4bv" vertex-attrib-i4bv) :void
+  (index uint)
+  (v (:pointer byte)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4sv" vertex-attrib-i4sv) :void
+  (index uint)
+  (v (:pointer short)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4ubv" vertex-attrib-i4ubv) :void
+  (index uint)
+  (v (:pointer ubyte)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribI4usv" vertex-attrib-i4usv) :void
+  (index uint)
+  (v (:pointer ushort)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribIPointer" vertex-attrib-ipointer) :void
+  (index uint)
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetVertexAttribIuiv" get-vertex-attrib-iuiv) :void
+  (index uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetUniformuiv" get-uniform-uiv) :void
+  (program uint)
+  (location int)
+  (params (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glBindFragDataLocation" bind-frag-data-location) :void
+  (program uint)
+  (color uint)
+  (name (:pointer char)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetFragDataLocation" get-frag-data-location) int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform1ui" uniform-1ui) :void
+  (location int)
+  (v0 uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform2ui" uniform-2ui) :void
+  (location int)
+  (v0 uint)
+  (v1 uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform3ui" uniform-3ui) :void
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform4ui" uniform-4ui) :void
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint)
+  (v3 uint))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform1uiv" uniform-1uiv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform2uiv" uniform-2uiv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform3uiv" uniform-3uiv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glUniform4uiv" uniform-4uiv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glTexParameterIiv" tex-parameter-iiv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glTexParameterIuiv" tex-parameter-iuiv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetTexParameterIiv" get-tex-parameter-iiv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetTexParameterIuiv" get-tex-parameter-iuiv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glClearBufferiv" clear-buffer-iv) :void
+  (buffer enum)
+  (value (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glClearBufferuiv" clear-buffer-uiv) :void
+  (buffer enum)
+  (value (:pointer uint)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glClearBufferfv" clear-buffer-fv) :void
+  (buffer enum)
+  (value (:pointer float)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glClearBufferfi" clear-buffer-fi) :void
+  (buffer enum)
+  (depth float)
+  (stencil int))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetStringi" get-string-i) string
+  (name enum)
+  (index uint))
+
 ;;; GL version: 1.2, ARB_multitexture
 (defglextfun ("glActiveTextureARB" active-texture-arb) :void
   (texture enum))
@@ -4485,6 +4816,219 @@
 (defglextfun ("glClampColorARB" clamp-color-arb) :void
   (target enum)
   (clamp enum))
+
+;;; GL version: 2.0, ARB_draw_instanced
+(defglextfun ("glDrawArraysInstancedARB" draw-arrays-instanced-arb) :void
+  (mode enum)
+  (first int)
+  (count sizei)
+  (primcount sizei))
+
+;;; GL version: 2.0, ARB_draw_instanced
+(defglextfun ("glDrawElementsInstancedARB" draw-elements-instanced-arb) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (primcount sizei))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glIsRenderbuffer" is-renderbuffer) boolean
+  (renderbuffer uint))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glBindRenderbuffer" bind-renderbuffer) :void
+  (target enum)
+  (renderbuffer uint))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glDeleteRenderbuffers" delete-renderbuffers) :void
+  (n sizei)
+  (renderbuffers (:pointer uint)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glGenRenderbuffers" gen-renderbuffers) :void
+  (n sizei)
+  (renderbuffers (:pointer uint)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glRenderbufferStorage" renderbuffer-storage) :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glGetRenderbufferParameteriv" get-renderbuffer-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glIsFramebuffer" is-framebuffer) boolean
+  (framebuffer uint))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glBindFramebuffer" bind-framebuffer) :void
+  (target enum)
+  (framebuffer uint))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glDeleteFramebuffers" delete-framebuffers) :void
+  (n sizei)
+  (framebuffers (:pointer uint)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glGenFramebuffers" gen-framebuffers) :void
+  (n sizei)
+  (framebuffers (:pointer uint)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glCheckFramebufferStatus" check-framebuffer-status) enum
+  (target enum))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glFramebufferTexture2D" framebuffer-texture-2d) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glFramebufferTexture3D" framebuffer-texture-3d) :void
+  (target enum)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int)
+  (zoffset int))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glFramebufferRenderbuffer" framebuffer-renderbuffer) :void
+  (target enum)
+  (attachment enum)
+  (renderbuffertarget enum)
+  (renderbuffer uint))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glGetFramebufferAttachmentParameteriv" get-framebuffer-attachment-parameter-iv) :void
+  (target enum)
+  (attachment enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glGenerateMipmap" generate-mipmap) :void
+  (target enum))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glBlitFramebuffer" blit-framebuffer) :void
+  (srcX0 int)
+  (srcY0 int)
+  (srcX1 int)
+  (srcY1 int)
+  (dstX0 int)
+  (dstY0 int)
+  (dstX1 int)
+  (dstY1 int)
+  (mask ClearBufferMask)
+  (filter enum))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glRenderbufferStorageMultisample" renderbuffer-storage-multisample) :void
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 3.0, ARB_framebuffer_object
+(defglextfun ("glFramebufferTextureLayer" framebuffer-texture-layer) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (layer int))
+
+;;; GL version: 3.0, ARB_geometry_shader4
+(defglextfun ("glProgramParameteriARB" program-parameter-i-arb) :void
+  (program uint)
+  (pname enum)
+  (value int))
+
+;;; GL version: 3.0, ARB_geometry_shader4
+(defglextfun ("glFramebufferTextureARB" framebuffer-texture-arb) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 3.0, ARB_geometry_shader4
+(defglextfun ("glFramebufferTextureLayerARB" framebuffer-texture-layer-arb) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (layer int))
+
+;;; GL version: 3.0, ARB_geometry_shader4
+(defglextfun ("glFramebufferTextureFaceARB" framebuffer-texture-face-arb) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (face enum))
+
+;;; GL version: 2.0, ARB_instanced_arrays
+(defglextfun ("glVertexAttribDivisor" vertex-attrib-divisor) :void
+  (index uint)
+  (divisor uint))
+
+;;; GL version: 3.0, ARB_map_buffer_range
+(defglextfun ("glMapBufferRange" map-buffer-range) :void
+  (target enum)
+  (offset intptr)
+  (length sizeiptr)
+  (access BufferAccessMask))
+
+;;; GL version: 3.0, ARB_map_buffer_range
+(defglextfun ("glFlushMappedBufferRange" flush-mapped-buffer-range) :void
+  (target enum)
+  (offset intptr)
+  (length sizeiptr))
+
+;;; GL version: 3.0, ARB_texture_buffer_object
+(defglextfun ("glTexBufferARB" tex-buffer-arb) :void
+  (target enum)
+  (internalformat enum)
+  (buffer uint))
+
+;;; GL version: 3.0, ARB_vertex_array_object
+(defglextfun ("glBindVertexArray" bind-vertex-array) :void
+  (array uint))
+
+;;; GL version: 3.0, ARB_vertex_array_object
+(defglextfun ("glDeleteVertexArrays" delete-vertex-arrays) :void
+  (n sizei)
+  (arrays (:pointer uint)))
+
+;;; GL version: 3.0, ARB_vertex_array_object
+(defglextfun ("glGenVertexArrays" gen-vertex-arrays) :void
+  (n sizei)
+  (arrays (:pointer uint)))
+
+;;; GL version: 3.0, ARB_vertex_array_object
+(defglextfun ("glIsVertexArray" is-vertex-array) boolean
+  (array uint))
 
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
@@ -8347,7 +8891,7 @@
   (dstY0 int)
   (dstX1 int)
   (dstY1 int)
-  (mask bitfield)
+  (mask ClearBufferMask)
   (filter enum))
 
 ;;; GL version: 1.5, EXT_framebuffer_multisample
@@ -8967,3 +9511,1534 @@
 
 ;;; GL version: 1.0, GREMEDY_frame_terminator
 (defglextfun ("glFrameTerminatorGREMEDY" frame-terminator-gremedy) :void)
+
+;;; GL version: 1.0, NV_conditional_render
+(defglextfun ("glBeginConditionalRenderNV" begin-conditional-render-nv) :void
+  (id uint)
+  (mode enum))
+
+;;; GL version: 1.0, NV_conditional_render
+(defglextfun ("glEndConditionalRenderNV" end-conditional-render-nv) :void)
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glBeginTransformFeedbackEXT" begin-transform-feedback-ext) :void
+  (primitiveMode enum))
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glEndTransformFeedbackEXT" end-transform-feedback-ext) :void)
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glBindBufferRangeEXT" bind-buffer-range-ext) :void
+  (target enum)
+  (index uint)
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glBindBufferOffsetEXT" bind-buffer-offset-ext) :void
+  (target enum)
+  (index uint)
+  (buffer uint)
+  (offset intptr))
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glBindBufferBaseEXT" bind-buffer-base-ext) :void
+  (target enum)
+  (index uint)
+  (buffer uint))
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glTransformFeedbackVaryingsEXT" transform-feedback-varyings-ext) :void
+  (program uint)
+  (count sizei)
+  (locations (:pointer int))
+  (bufferMode enum))
+
+;;; GL version: 2.0, EXT_transform_feedback
+(defglextfun ("glGetTransformFeedbackVaryingEXT" get-transform-feedback-varying-ext) :void
+  (program uint)
+  (index uint)
+  (location (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glClientAttribDefaultEXT" client-attrib-default-ext) :void
+  (mask ClientAttribMask))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glPushClientAttribDefaultEXT" push-client-attrib-default-ext) :void
+  (mask ClientAttribMask))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixLoadfEXT" matrix-load-f-ext) :void
+  (mode enum)
+  (m (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixLoaddEXT" matrix-load-d-ext) :void
+  (mode enum)
+  (m (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixMultfEXT" matrix-mult-f-ext) :void
+  (mode enum)
+  (m (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixMultdEXT" matrix-mult-d-ext) :void
+  (mode enum)
+  (m (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixLoadIdentityEXT" matrix-load-identity-ext) :void
+  (mode enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixRotatefEXT" matrix-rotate-f-ext) :void
+  (mode enum)
+  (angle float)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixRotatedEXT" matrix-rotate-d-ext) :void
+  (mode enum)
+  (angle double)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixScalefEXT" matrix-scale-f-ext) :void
+  (mode enum)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixScaledEXT" matrix-scale-d-ext) :void
+  (mode enum)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixTranslatefEXT" matrix-translate-f-ext) :void
+  (mode enum)
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixTranslatedEXT" matrix-translate-d-ext) :void
+  (mode enum)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixFrustumEXT" matrix-frustum-ext) :void
+  (mode enum)
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (zNear double)
+  (zFar double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixOrthoEXT" matrix-ortho-ext) :void
+  (mode enum)
+  (left double)
+  (right double)
+  (bottom double)
+  (top double)
+  (zNear double)
+  (zFar double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixPopEXT" matrix-pop-ext) :void
+  (mode enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixPushEXT" matrix-push-ext) :void
+  (mode enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixLoadTransposefEXT" matrix-load-transpose-f-ext) :void
+  (mode enum)
+  (m (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixLoadTransposedEXT" matrix-load-transpose-d-ext) :void
+  (mode enum)
+  (m (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixMultTransposefEXT" matrix-mult-transpose-f-ext) :void
+  (mode enum)
+  (m (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMatrixMultTransposedEXT" matrix-mult-transpose-d-ext) :void
+  (mode enum)
+  (m (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameterfEXT" texture-parameter-f-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameterfvEXT" texture-parameter-fv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameteriEXT" texture-parameter-i-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameterivEXT" texture-parameter-iv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureImage1DEXT" texture-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureImage2DEXT" texture-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureSubImage1DEXT" texture-sub-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureSubImage2DEXT" texture-sub-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyTextureImage1DEXT" copy-texture-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyTextureImage2DEXT" copy-texture-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyTextureSubImage1DEXT" copy-texture-sub-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyTextureSubImage2DEXT" copy-texture-sub-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureImageEXT" get-texture-image-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureParameterfvEXT" get-texture-parameter-fv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureParameterivEXT" get-texture-parameter-iv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureLevelParameterfvEXT" get-texture-level-parameter-fv-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureLevelParameterivEXT" get-texture-level-parameter-iv-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureImage3DEXT" texture-image-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureSubImage3DEXT" texture-sub-image-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyTextureSubImage3DEXT" copy-texture-sub-image-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameterfEXT" multi-tex-parameter-f-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameterfvEXT" multi-tex-parameter-fv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameteriEXT" multi-tex-parameter-i-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameterivEXT" multi-tex-parameter-iv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexImage1DEXT" multi-tex-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexImage2DEXT" multi-tex-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexSubImage1DEXT" multi-tex-sub-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexSubImage2DEXT" multi-tex-sub-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyMultiTexImage1DEXT" copy-multi-tex-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyMultiTexImage2DEXT" copy-multi-tex-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (border int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyMultiTexSubImage1DEXT" copy-multi-tex-sub-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyMultiTexSubImage2DEXT" copy-multi-tex-sub-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexImageEXT" get-multi-tex-image-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexParameterfvEXT" get-multi-tex-parameter-fv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexParameterivEXT" get-multi-tex-parameter-iv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexLevelParameterfvEXT" get-multi-tex-level-parameter-fv-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexLevelParameterivEXT" get-multi-tex-level-parameter-iv-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexImage3DEXT" multi-tex-image-3d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexSubImage3DEXT" multi-tex-sub-image-3d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCopyMultiTexSubImage3DEXT" copy-multi-tex-sub-image-3d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glBindMultiTextureEXT" bind-multi-texture-ext) :void
+  (texunit enum)
+  (target enum)
+  (texture uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glEnableClientStateIndexedEXT" enable-client-state-indexed-ext) :void
+  (array enum)
+  (index uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glDisableClientStateIndexedEXT" disable-client-state-indexed-ext) :void
+  (array enum)
+  (index uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexCoordPointerEXT" multi-tex-coord-pointer-ext) :void
+  (texunit enum)
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexEnvfEXT" multi-tex-env-f-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexEnvfvEXT" multi-tex-env-fv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexEnviEXT" multi-tex-env-i-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexEnvivEXT" multi-tex-env-iv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGendEXT" multi-tex-gen-d-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (param double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGendvEXT" multi-tex-gen-dv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGenfEXT" multi-tex-gen-f-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGenfvEXT" multi-tex-gen-fv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGeniEXT" multi-tex-gen-i-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexGenivEXT" multi-tex-gen-iv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexEnvfvEXT" get-multi-tex-env-fv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexEnvivEXT" get-multi-tex-env-iv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexGendvEXT" get-multi-tex-gen-dv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexGenfvEXT" get-multi-tex-gen-fv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexGenivEXT" get-multi-tex-gen-iv-ext) :void
+  (texunit enum)
+  (coord enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetFloatIndexedvEXT" get-float-indexed-v-ext) :void
+  (target enum)
+  (index uint)
+  (data (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetDoubleIndexedvEXT" get-double-indexed-v-ext) :void
+  (target enum)
+  (index uint)
+  (data (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetPointerIndexedvEXT" get-pointer-indexed-v-ext) :void
+  (target enum)
+  (index uint)
+  (data (:pointer (:pointer void))))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureImage3DEXT" compressed-texture-image-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureImage2DEXT" compressed-texture-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureImage1DEXT" compressed-texture-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureSubImage3DEXT" compressed-texture-sub-image-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureSubImage2DEXT" compressed-texture-sub-image-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedTextureSubImage1DEXT" compressed-texture-sub-image-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetCompressedTextureImageEXT" get-compressed-texture-image-ext) :void
+  (texture uint)
+  (target enum)
+  (lod int)
+  (img (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexImage3DEXT" compressed-multi-tex-image-3d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexImage2DEXT" compressed-multi-tex-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexImage1DEXT" compressed-multi-tex-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (internalformat enum)
+  (width sizei)
+  (border int)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexSubImage3DEXT" compressed-multi-tex-sub-image-3d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexSubImage2DEXT" compressed-multi-tex-sub-image-2d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCompressedMultiTexSubImage1DEXT" compressed-multi-tex-sub-image-1d-ext) :void
+  (texunit enum)
+  (target enum)
+  (level int)
+  (xoffset int)
+  (width sizei)
+  (format enum)
+  (imageSize sizei)
+  (bits (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetCompressedMultiTexImageEXT" get-compressed-multi-tex-image-ext) :void
+  (texunit enum)
+  (target enum)
+  (lod int)
+  (img (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramStringEXT" named-program-string-ext) :void
+  (program uint)
+  (target enum)
+  (format enum)
+  (len sizei)
+  (string (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameter4dEXT" named-program-local-parameter-4d-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameter4dvEXT" named-program-local-parameter-4dv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameter4fEXT" named-program-local-parameter-4f-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameter4fvEXT" named-program-local-parameter-4fv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramLocalParameterdvEXT" get-named-program-local-parameter-dv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramLocalParameterfvEXT" get-named-program-local-parameter-fv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramivEXT" get-named-program-iv-ext) :void
+  (program uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramStringEXT" get-named-program-string-ext) :void
+  (program uint)
+  (target enum)
+  (pname enum)
+  (string (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameters4fvEXT" named-program-local-parameters-4fv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameterI4iEXT" named-program-local-parameter-i4i-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameterI4ivEXT" named-program-local-parameter-i4iv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParametersI4ivEXT" named-program-local-parameters-i4iv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameterI4uiEXT" named-program-local-parameter-i4ui-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (x uint)
+  (y uint)
+  (z uint)
+  (w uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParameterI4uivEXT" named-program-local-parameter-i4uiv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedProgramLocalParametersI4uivEXT" named-program-local-parameters-i4uiv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (count sizei)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramLocalParameterIivEXT" get-named-program-local-parameter-iiv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedProgramLocalParameterIuivEXT" get-named-program-local-parameter-iuiv-ext) :void
+  (program uint)
+  (target enum)
+  (index uint)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameterIivEXT" texture-parameter-iiv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureParameterIuivEXT" texture-parameter-iuiv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureParameterIivEXT" get-texture-parameter-iiv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetTextureParameterIuivEXT" get-texture-parameter-iuiv-ext) :void
+  (texture uint)
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameterIivEXT" multi-tex-parameter-iiv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexParameterIuivEXT" multi-tex-parameter-iuiv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexParameterIivEXT" get-multi-tex-parameter-iiv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetMultiTexParameterIuivEXT" get-multi-tex-parameter-iuiv-ext) :void
+  (texunit enum)
+  (target enum)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1fEXT" program-uniform-1f-ext) :void
+  (program uint)
+  (location int)
+  (v0 float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2fEXT" program-uniform-2f-ext) :void
+  (program uint)
+  (location int)
+  (v0 float)
+  (v1 float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3fEXT" program-uniform-3f-ext) :void
+  (program uint)
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4fEXT" program-uniform-4f-ext) :void
+  (program uint)
+  (location int)
+  (v0 float)
+  (v1 float)
+  (v2 float)
+  (v3 float))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1iEXT" program-uniform-1i-ext) :void
+  (program uint)
+  (location int)
+  (v0 int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2iEXT" program-uniform-2i-ext) :void
+  (program uint)
+  (location int)
+  (v0 int)
+  (v1 int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3iEXT" program-uniform-3i-ext) :void
+  (program uint)
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4iEXT" program-uniform-4i-ext) :void
+  (program uint)
+  (location int)
+  (v0 int)
+  (v1 int)
+  (v2 int)
+  (v3 int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1fvEXT" program-uniform-1fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2fvEXT" program-uniform-2fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3fvEXT" program-uniform-3fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4fvEXT" program-uniform-4fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1ivEXT" program-uniform-1iv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2ivEXT" program-uniform-2iv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3ivEXT" program-uniform-3iv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4ivEXT" program-uniform-4iv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix2fvEXT" program-uniform-matrix-2fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix3fvEXT" program-uniform-matrix-3fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix4fvEXT" program-uniform-matrix-4fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix2x3fvEXT" program-uniform-matrix-2x3-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix3x2fvEXT" program-uniform-matrix-3x2-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix2x4fvEXT" program-uniform-matrix-2x4-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix4x2fvEXT" program-uniform-matrix-4x2-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix3x4fvEXT" program-uniform-matrix-3x4-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniformMatrix4x3fvEXT" program-uniform-matrix-4x3-fv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer float)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1uiEXT" program-uniform-1ui-ext) :void
+  (program uint)
+  (location int)
+  (v0 uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2uiEXT" program-uniform-2ui-ext) :void
+  (program uint)
+  (location int)
+  (v0 uint)
+  (v1 uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3uiEXT" program-uniform-3ui-ext) :void
+  (program uint)
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4uiEXT" program-uniform-4ui-ext) :void
+  (program uint)
+  (location int)
+  (v0 uint)
+  (v1 uint)
+  (v2 uint)
+  (v3 uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform1uivEXT" program-uniform-1uiv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform2uivEXT" program-uniform-2uiv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform3uivEXT" program-uniform-3uiv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glProgramUniform4uivEXT" program-uniform-4uiv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer uint)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedBufferDataEXT" named-buffer-data-ext) :void
+  (buffer uint)
+  (size sizeiptr)
+  (data (:pointer void))
+  (usage enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedBufferSubDataEXT" named-buffer-sub-data-ext) :void
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr)
+  (data (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMapNamedBufferEXT" map-named-buffer-ext) (:pointer void)
+  (buffer uint)
+  (access enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glUnmapNamedBufferEXT" unmap-named-buffer-ext) boolean
+  (buffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedBufferParameterivEXT" get-named-buffer-parameter-iv-ext) :void
+  (buffer uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedBufferPointervEXT" get-named-buffer-pointer-v-ext) :void
+  (buffer uint)
+  (pname enum)
+  (params (:pointer (:pointer void))))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedBufferSubDataEXT" get-named-buffer-sub-data-ext) :void
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr)
+  (data (:pointer void)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureBufferEXT" texture-buffer-ext) :void
+  (texture uint)
+  (target enum)
+  (internalformat enum)
+  (buffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexBufferEXT" multi-tex-buffer-ext) :void
+  (texunit enum)
+  (target enum)
+  (internalformat enum)
+  (buffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedRenderbufferStorageEXT" named-renderbuffer-storage-ext) :void
+  (renderbuffer uint)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedRenderbufferParameterivEXT" get-named-renderbuffer-parameter-iv-ext) :void
+  (renderbuffer uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glCheckNamedFramebufferStatusEXT" check-named-framebuffer-status-ext) enum
+  (framebuffer uint)
+  (target enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTexture1DEXT" named-framebuffer-texture-1d-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTexture2DEXT" named-framebuffer-texture-2d-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTexture3DEXT" named-framebuffer-texture-3d-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (textarget enum)
+  (texture uint)
+  (level int)
+  (zoffset int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferRenderbufferEXT" named-framebuffer-renderbuffer-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (renderbuffertarget enum)
+  (renderbuffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetNamedFramebufferAttachmentParameterivEXT" get-named-framebuffer-attachment-parameter-iv-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGenerateTextureMipmapEXT" generate-texture-mipmap-ext) :void
+  (texture uint)
+  (target enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGenerateMultiTexMipmapEXT" generate-multi-tex-mipmap-ext) :void
+  (texunit enum)
+  (target enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glFramebufferDrawBufferEXT" framebuffer-draw-buffer-ext) :void
+  (framebuffer uint)
+  (mode enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glFramebufferDrawBuffersEXT" framebuffer-draw-buffers-ext) :void
+  (framebuffer uint)
+  (n sizei)
+  (bufs (:pointer enum)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glFramebufferReadBufferEXT" framebuffer-read-buffer-ext) :void
+  (framebuffer uint)
+  (mode enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glGetFramebufferParameterivEXT" get-framebuffer-parameter-iv-ext) :void
+  (framebuffer uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedRenderbufferStorageMultisampleEXT" named-renderbuffer-storage-multisample-ext) :void
+  (renderbuffer uint)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedRenderbufferStorageMultisampleCoverageEXT" named-renderbuffer-storage-multisample-coverage-ext) :void
+  (renderbuffer uint)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTextureEXT" named-framebuffer-texture-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTextureLayerEXT" named-framebuffer-texture-layer-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (layer int))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedFramebufferTextureFaceEXT" named-framebuffer-texture-face-ext) :void
+  (framebuffer uint)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (face enum))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glTextureRenderbufferEXT" texture-renderbuffer-ext) :void
+  (texture uint)
+  (target enum)
+  (renderbuffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMultiTexRenderbufferEXT" multi-tex-renderbuffer-ext) :void
+  (texunit enum)
+  (target enum)
+  (renderbuffer uint))
