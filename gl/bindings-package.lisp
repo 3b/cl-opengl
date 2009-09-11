@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 54 ( 2009-08-03 )
+;;; glext version 55 ( 2009-09-11 )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -838,5 +838,27 @@
   #:is-vertex-attrib-enabled-apple #:map-vertex-attrib-1d-apple 
   #:map-vertex-attrib-1f-apple #:map-vertex-attrib-2d-apple 
   #:map-vertex-attrib-2f-apple #:object-purgeable-apple 
-  #:object-unpurgeable-apple #:get-object-parameter-iv-apple ))
+  #:object-unpurgeable-apple #:get-object-parameter-iv-apple 
+  #:begin-video-capture-nv #:bind-video-capture-stream-buffer-nv 
+  #:bind-video-capture-stream-texture-nv #:end-video-capture-nv 
+  #:get-video-capture-iv-nv #:get-video-capture-stream-iv-nv 
+  #:get-video-capture-stream-fv-nv #:get-video-capture-stream-dv-nv 
+  #:video-capture-nv #:video-capture-stream-parameter-iv-nv 
+  #:video-capture-stream-parameter-fv-nv 
+  #:video-capture-stream-parameter-dv-nv #:copy-image-sub-data-nv 
+  #:use-shader-program-ext #:active-program-ext 
+  #:create-shader-program-ext #:make-buffer-resident-nv 
+  #:make-buffer-non-resident-nv #:is-buffer-resident-nv 
+  #:named-make-buffer-resident-nv 
+  #:named-make-buffer-non-resident-nv #:is-named-buffer-resident-nv 
+  #:get-buffer-parameter-ui64v-nv 
+  #:get-named-buffer-parameter-ui64v-nv #:get-integer-ui64v-nv 
+  #:uniform-ui64-nv #:uniform-ui64v-nv #:get-uniform-ui64v-nv 
+  #:program-uniform-ui64-nv #:program-uniform-ui64v-nv 
+  #:buffer-address-range-nv #:vertex-format-nv #:normal-format-nv 
+  #:color-format-nv #:index-format-nv #:tex-coord-format-nv 
+  #:edge-flag-format-nv #:secondary-color-format-nv 
+  #:fog-coord-format-nv #:vertex-attrib-format-nv 
+  #:vertex-attrib-i-format-nv #:get-integer-ui64i-v-nv 
+  #:texture-barrier-nv ))
 

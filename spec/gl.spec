@@ -20,7 +20,7 @@ vectorequiv:	*
 # Category this function falls in. While there are many categories for
 # early GL 1.0 functions, later functions just have a core version
 # (e.g. VERSION_major_minor) or extension name for the category.
-category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform VERSION_1_0 VERSION_1_0_DEPRECATED VERSION_1_1 VERSION_1_1_DEPRECATED VERSION_1_2 VERSION_1_2_DEPRECATED VERSION_1_3 VERSION_1_3_DEPRECATED VERSION_1_4 VERSION_1_4_DEPRECATED VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 VERSION_3_0_DEPRECATED VERSION_3_1 VERSION_3_2 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access EXT_vertex_array_bgra EXT_texture_swizzle NV_explicit_multisample NV_transform_feedback2 ATI_meminfo AMD_performance_monitor AMD_vertex_shader_tesselator EXT_provoking_vertex ARB_uniform_buffer_object ARB_copy_buffer EXT_texture_snorm AMD_draw_buffers_blend APPLE_texture_range APPLE_float_pixels APPLE_vertex_program_evaluators APPLE_aux_depth_stencil APPLE_object_purgeable APPLE_row_bytes ARB_draw_elements_base_vertex ARB_provoking_vertex ARB_sync ARB_texture_multisample ARB_draw_buffers_blend ARB_sample_shading
+category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform VERSION_1_0 VERSION_1_0_DEPRECATED VERSION_1_1 VERSION_1_1_DEPRECATED VERSION_1_2 VERSION_1_2_DEPRECATED VERSION_1_3 VERSION_1_3_DEPRECATED VERSION_1_4 VERSION_1_4_DEPRECATED VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 VERSION_3_0_DEPRECATED VERSION_3_1 VERSION_3_2 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access EXT_vertex_array_bgra EXT_texture_swizzle NV_explicit_multisample NV_transform_feedback2 ATI_meminfo AMD_performance_monitor AMD_vertex_shader_tesselator EXT_provoking_vertex ARB_uniform_buffer_object ARB_copy_buffer EXT_texture_snorm AMD_draw_buffers_blend APPLE_texture_range APPLE_float_pixels APPLE_vertex_program_evaluators APPLE_aux_depth_stencil APPLE_object_purgeable APPLE_row_bytes ARB_draw_elements_base_vertex ARB_provoking_vertex ARB_sync ARB_texture_multisample ARB_draw_buffers_blend ARB_sample_shading NV_video_capture NV_copy_image EXT_separate_shader_objects NV_parameter_buffer_object2 NV_shader_buffer_load NV_vertex_buffer_unified_memory NV_texture_barrier
 
 # Categories for extensions with no functions - need not be included now
 # ARB_texture_env_add ARB_texture_cube_map ARB_texture_border_clamp
@@ -11538,6 +11538,13 @@ newcategory: ARB_texture_gather
 
 # (none)
 newcategory: ARB_texture_query_lod
+
+###############################################################################
+#
+# ARB Extension #74 - WGL_ARB_create_context_profile
+# ARB Extension #75 - GLX_ARB_create_context_profile
+#
+###############################################################################
 
 
 ###############################################################################
@@ -26244,3 +26251,594 @@ GetObjectParameterivAPPLE(objectType, name, pname, params)
 
 # (none)
 newcategory: APPLE_row_bytes
+
+###############################################################################
+#
+# Extension #373
+# APPLE_rgb_422 commands
+#
+###############################################################################
+
+# (none)
+newcategory: APPLE_rgb_422
+
+###############################################################################
+#
+# Extension #374
+# NV_video_capture commands
+#
+###############################################################################
+
+BeginVideoCaptureNV(video_capture_slot)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BindVideoCaptureStreamBufferNV(video_capture_slot, stream, frame_region, offset)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		frame_region	GLenum in value
+	param		offset		BufferOffsetARB in value
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BindVideoCaptureStreamTextureNV(video_capture_slot, stream, frame_region, target, texture)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		frame_region	GLenum in value
+	param		target		GLenum in value
+	param		texture		UInt32 in value
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+EndVideoCaptureNV(video_capture_slot)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetVideoCaptureivNV(video_capture_slot, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	NV_video_capture
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideoCaptureStreamivNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	NV_video_capture
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideoCaptureStreamfvNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	NV_video_capture
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideoCaptureStreamdvNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Float64 out array [COMPSIZE(pname)]
+	category	NV_video_capture
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+VideoCaptureNV(video_capture_slot, sequence_num, capture_time)
+	return		GLenum
+	param		video_capture_slot	UInt32 in value
+	param		sequence_num	UInt32 out reference
+	param		capture_time	UInt64EXT out reference
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VideoCaptureStreamParameterivNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 in array [COMPSIZE(pname)]
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VideoCaptureStreamParameterfvNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Float32 in array [COMPSIZE(pname)]
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VideoCaptureStreamParameterdvNV(video_capture_slot, stream, pname, params)
+	return		void
+	param		video_capture_slot	UInt32 in value
+	param		stream		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Float64 in array [COMPSIZE(pname)]
+	category	NV_video_capture
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #375 - GLX_EXT_swap_control
+#
+###############################################################################
+
+###############################################################################
+#
+# Extension #376 - also GLX_NV_copy_image, WGL_NV_copy_image
+# NV_copy_image commands
+#
+###############################################################################
+
+CopyImageSubDataNV(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth)
+	return		void
+	param		srcName		UInt32 in value
+	param		srcTarget	GLenum in value
+	param		srcLevel	Int32 in value
+	param		srcX		Int32 in value
+	param		srcY		Int32 in value
+	param		srcZ		Int32 in value
+	param		dstName		UInt32 in value
+	param		dstTarget	GLenum in value
+	param		dstLevel	Int32 in value
+	param		dstX		Int32 in value
+	param		dstY		Int32 in value
+	param		dstZ		Int32 in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		depth		SizeI in value
+	category	NV_copy_image
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #377
+# EXT_separate_shader_objects commands
+#
+###############################################################################
+
+UseShaderProgramEXT(type, program)
+	return		void
+	param		type		GLenum in value
+	param		program		UInt32 in value
+	category	EXT_separate_shader_objects
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+ActiveProgramEXT(program)
+	return		void
+	param		program		UInt32 in value
+	category	EXT_separate_shader_objects
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+CreateShaderProgramEXT(type, string)
+	return		UInt32
+	param		type		GLenum in value
+	param		string		Char in array []
+	category	EXT_separate_shader_objects
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #378
+# NV_parameter_buffer_object2 commands
+#
+###############################################################################
+
+newcategory: NV_parameter_buffer_object2
+
+###############################################################################
+#
+# Extension #379
+# NV_shader_buffer_load commands
+#
+###############################################################################
+
+MakeBufferResidentNV(target, access)
+	return		void
+	param		target		GLenum in value
+	param		access		GLenum in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MakeBufferNonResidentNV(target)
+	return		void
+	param		target		GLenum in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+IsBufferResidentNV(target)
+	return		Boolean
+	param		target		GLenum in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+NamedMakeBufferResidentNV(buffer, access)
+	return		void
+	param		buffer		UInt32 in value
+	param		access		GLenum in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+NamedMakeBufferNonResidentNV(buffer)
+	return		void
+	param		buffer		UInt32 in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+IsNamedBufferResidentNV(buffer)
+	return		Boolean
+	param		buffer		UInt32 in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetBufferParameterui64vNV(target, pname, params)
+	return		void
+	param		target		GLenum in value
+	param		pname		GLenum in value
+	param		params		UInt64EXT out array [COMPSIZE(pname)]
+	category	NV_shader_buffer_load
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetNamedBufferParameterui64vNV(buffer, pname, params)
+	return		void
+	param		buffer		UInt32 in value
+	param		pname		GLenum in value
+	param		params		UInt64EXT out array [COMPSIZE(pname)]
+	category	NV_shader_buffer_load
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetIntegerui64vNV(value, result)
+	return		void
+	param		value		GLenum in value
+	param		result		UInt64EXT out array [COMPSIZE(value)]
+	category	NV_shader_buffer_load
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+Uniformui64NV(location, value)
+	return		void
+	param		location	Int32 in value
+	param		value		UInt64EXT in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+Uniformui64vNV(location, count, value)
+	return		void
+	param		location	Int32 in value
+	param		count		SizeI in value
+	param		value		UInt64EXT in array [count]
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetUniformui64vNV(program, location, params)
+	return		void
+	param		program		UInt32 in value
+	param		location	Int32 in value
+	param		params		UInt64EXT out array [COMPSIZE(program/location)]
+	category	NV_shader_buffer_load
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+ProgramUniformui64NV(program, location, value)
+	return		void
+	param		program		UInt32 in value
+	param		location	Int32 in value
+	param		value		UInt64EXT in value
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+ProgramUniformui64vNV(program, location, count, value)
+	return		void
+	param		program		UInt32 in value
+	param		location	Int32 in value
+	param		count		SizeI in value
+	param		value		UInt64EXT in array [count]
+	category	NV_shader_buffer_load
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #380
+# NV_vertex_buffer_unified_memory commands
+#
+###############################################################################
+
+BufferAddressRangeNV(pname, index, address, length)
+	return		void
+	param		pname		GLenum in value
+	param		index		UInt32 in value
+	param		address		UInt64EXT in value
+	param		length		BufferSize in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VertexFormatNV(size, type, stride)
+	return		void
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+NormalFormatNV(type, stride)
+	return		void
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+ColorFormatNV(size, type, stride)
+	return		void
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+IndexFormatNV(type, stride)
+	return		void
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+TexCoordFormatNV(size, type, stride)
+	return		void
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+EdgeFlagFormatNV(stride)
+	return		void
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+SecondaryColorFormatNV(size, type, stride)
+	return		void
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+FogCoordFormatNV(type, stride)
+	return		void
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VertexAttribFormatNV(index, size, type, normalized, stride)
+	return		void
+	param		index		UInt32 in value
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		normalized	Boolean in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+VertexAttribIFormatNV(index, size, type, stride)
+	return		void
+	param		index		UInt32 in value
+	param		size		Int32 in value
+	param		type		GLenum in value
+	param		stride		SizeI in value
+	category	NV_vertex_buffer_unified_memory
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetIntegerui64i_vNV(value, index, result)
+	return		void
+	param		value		GLenum in value
+	param		index		UInt32 in value
+	param		result		UInt64EXT out array [COMPSIZE(value)]
+	category	NV_vertex_buffer_unified_memory
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #381
+# NV_texture_barrier commands
+#
+###############################################################################
+
+TextureBarrierNV()
+	return		void
+	category	NV_texture_barrier
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+

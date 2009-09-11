@@ -6090,3 +6090,106 @@ APPLE_row_bytes enum:
 
 ###############################################################################
 
+# Extension #373
+APPLE_rgb_422 enum:
+	RGB_422_APPLE					= 0x8A1F
+	use APPLE_ycbcr_422		    UNSIGNED_SHORT_8_8_APPLE
+	use APPLE_ycbcr_422		    UNSIGNED_SHORT_8_8_REV_APPLE
+
+###############################################################################
+
+# Extension #374
+
+NV_video_capture enum:
+	VIDEO_BUFFER_NV					= 0x9020
+	VIDEO_BUFFER_BINDING_NV				= 0x9021
+	FIELD_UPPER_NV					= 0x9022
+	FIELD_LOWER_NV					= 0x9023
+	NUM_VIDEO_CAPTURE_STREAMS_NV			= 0x9024
+	NEXT_VIDEO_CAPTURE_BUFFER_STATUS_NV		= 0x9025
+	VIDEO_CAPTURE_TO_422_SUPPORTED_NV		= 0x9026
+	LAST_VIDEO_CAPTURE_STATUS_NV			= 0x9027
+	VIDEO_BUFFER_PITCH_NV				= 0x9028
+	VIDEO_COLOR_CONVERSION_MATRIX_NV		= 0x9029
+	VIDEO_COLOR_CONVERSION_MAX_NV			= 0x902A
+	VIDEO_COLOR_CONVERSION_MIN_NV			= 0x902B
+	VIDEO_COLOR_CONVERSION_OFFSET_NV		= 0x902C
+	VIDEO_BUFFER_INTERNAL_FORMAT_NV			= 0x902D
+	PARTIAL_SUCCESS_NV				= 0x902E
+	SUCCESS_NV					= 0x902F
+	FAILURE_NV					= 0x9030
+	YCBYCR8_422_NV					= 0x9031
+	YCBAYCR8A_4224_NV				= 0x9032
+	Z6Y10Z6CB10Z6Y10Z6CR10_422_NV			= 0x9033
+	Z6Y10Z6CB10Z6A10Z6Y10Z6CR10Z6A10_4224_NV	= 0x9034
+	Z4Y12Z4CB12Z4Y12Z4CR12_422_NV			= 0x9035
+	Z4Y12Z4CB12Z4A12Z4Y12Z4CR12Z4A12_4224_NV	= 0x9036
+	Z4Y12Z4CB12Z4CR12_444_NV			= 0x9037
+	VIDEO_CAPTURE_FRAME_WIDTH_NV			= 0x9038
+	VIDEO_CAPTURE_FRAME_HEIGHT_NV			= 0x9039
+	VIDEO_CAPTURE_FIELD_UPPER_HEIGHT_NV		= 0x903A
+	VIDEO_CAPTURE_FIELD_LOWER_HEIGHT_NV		= 0x903B
+	VIDEO_CAPTURE_SURFACE_ORIGIN_NV			= 0x903C
+
+###############################################################################
+
+# Extension #375 - GLX_EXT_swap_control
+
+###############################################################################
+
+# No new tokens
+# Extension #376 - also GLX_NV_copy_image, WGL_NV_copy_image
+NV_copy_image enum:
+
+###############################################################################
+
+# Extension #377
+EXT_separate_shader_objects enum:
+	ACTIVE_PROGRAM_EXT				= 0x8B8D
+
+###############################################################################
+
+# No new tokens
+# Extension #378
+NV_parameter_buffer_object2 enum:
+
+###############################################################################
+
+# Extension #379
+NV_shader_buffer_load enum:
+	BUFFER_GPU_ADDRESS_NV				= 0x8F1D
+	GPU_ADDRESS_NV					= 0x8F34
+	MAX_SHADER_BUFFER_ADDRESS_NV			= 0x8F35
+
+###############################################################################
+
+# Extension #380
+NV_vertex_buffer_unified_memory enum:
+	VERTEX_ATTRIB_ARRAY_UNIFIED_NV			= 0x8F1E
+	ELEMENT_ARRAY_UNIFIED_NV			= 0x8F1F
+	VERTEX_ATTRIB_ARRAY_ADDRESS_NV			= 0x8F20
+	VERTEX_ARRAY_ADDRESS_NV				= 0x8F21
+	NORMAL_ARRAY_ADDRESS_NV				= 0x8F22
+	COLOR_ARRAY_ADDRESS_NV				= 0x8F23
+	INDEX_ARRAY_ADDRESS_NV				= 0x8F24
+	TEXTURE_COORD_ARRAY_ADDRESS_NV			= 0x8F25
+	EDGE_FLAG_ARRAY_ADDRESS_NV			= 0x8F26
+	SECONDARY_COLOR_ARRAY_ADDRESS_NV		= 0x8F27
+	FOG_COORD_ARRAY_ADDRESS_NV			= 0x8F28
+	ELEMENT_ARRAY_ADDRESS_NV			= 0x8F29
+	VERTEX_ATTRIB_ARRAY_LENGTH_NV			= 0x8F2A
+	VERTEX_ARRAY_LENGTH_NV				= 0x8F2B
+	NORMAL_ARRAY_LENGTH_NV				= 0x8F2C
+	COLOR_ARRAY_LENGTH_NV				= 0x8F2D
+	INDEX_ARRAY_LENGTH_NV				= 0x8F2E
+	TEXTURE_COORD_ARRAY_LENGTH_NV			= 0x8F2F
+	EDGE_FLAG_ARRAY_LENGTH_NV			= 0x8F30
+	SECONDARY_COLOR_ARRAY_LENGTH_NV			= 0x8F31
+	FOG_COORD_ARRAY_LENGTH_NV			= 0x8F32
+	ELEMENT_ARRAY_LENGTH_NV				= 0x8F33
+
+###############################################################################
+
+# No new tokens
+# Extension #381
+NV_texture_barrier enum:

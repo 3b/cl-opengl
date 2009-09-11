@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 54 ( 2009-08-03 )
+;;; glext version 55 ( 2009-09-11 )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 54)
-(defparameter *glext-last-updated* "2009-08-03")
+(defparameter *glext-version* 55)
+(defparameter *glext-last-updated* "2009-09-11")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -11607,3 +11607,259 @@
   (name uint)
   (pname enum)
   (params (:pointer int)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glBeginVideoCaptureNV" begin-video-capture-nv) :void
+  (video_capture_slot uint))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glBindVideoCaptureStreamBufferNV" bind-video-capture-stream-buffer-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (frame_region enum)
+  (offset intptr-arb))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glBindVideoCaptureStreamTextureNV" bind-video-capture-stream-texture-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (frame_region enum)
+  (target enum)
+  (texture uint))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glEndVideoCaptureNV" end-video-capture-nv) :void
+  (video_capture_slot uint))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glGetVideoCaptureivNV" get-video-capture-iv-nv) :void
+  (video_capture_slot uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glGetVideoCaptureStreamivNV" get-video-capture-stream-iv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glGetVideoCaptureStreamfvNV" get-video-capture-stream-fv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glGetVideoCaptureStreamdvNV" get-video-capture-stream-dv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glVideoCaptureNV" video-capture-nv) enum
+  (video_capture_slot uint)
+  (sequence_num uint)
+  (capture_time uint64-ext))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glVideoCaptureStreamParameterivNV" video-capture-stream-parameter-iv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glVideoCaptureStreamParameterfvNV" video-capture-stream-parameter-fv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, NV_video_capture
+(defglextfun ("glVideoCaptureStreamParameterdvNV" video-capture-stream-parameter-dv-nv) :void
+  (video_capture_slot uint)
+  (stream uint)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.2, NV_copy_image
+(defglextfun ("glCopyImageSubDataNV" copy-image-sub-data-nv) :void
+  (srcName uint)
+  (srcTarget enum)
+  (srcLevel int)
+  (srcX int)
+  (srcY int)
+  (srcZ int)
+  (dstName uint)
+  (dstTarget enum)
+  (dstLevel int)
+  (dstX int)
+  (dstY int)
+  (dstZ int)
+  (width sizei)
+  (height sizei)
+  (depth sizei))
+
+;;; GL version: 1.2, EXT_separate_shader_objects
+(defglextfun ("glUseShaderProgramEXT" use-shader-program-ext) :void
+  (type enum)
+  (program uint))
+
+;;; GL version: 1.2, EXT_separate_shader_objects
+(defglextfun ("glActiveProgramEXT" active-program-ext) :void
+  (program uint))
+
+;;; GL version: 1.2, EXT_separate_shader_objects
+(defglextfun ("glCreateShaderProgramEXT" create-shader-program-ext) uint
+  (type enum)
+  (string (:pointer char)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glMakeBufferResidentNV" make-buffer-resident-nv) :void
+  (target enum)
+  (access enum))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glMakeBufferNonResidentNV" make-buffer-non-resident-nv) :void
+  (target enum))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glIsBufferResidentNV" is-buffer-resident-nv) boolean
+  (target enum))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glNamedMakeBufferResidentNV" named-make-buffer-resident-nv) :void
+  (buffer uint)
+  (access enum))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glNamedMakeBufferNonResidentNV" named-make-buffer-non-resident-nv) :void
+  (buffer uint))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glIsNamedBufferResidentNV" is-named-buffer-resident-nv) boolean
+  (buffer uint))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glGetBufferParameterui64vNV" get-buffer-parameter-ui64v-nv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glGetNamedBufferParameterui64vNV" get-named-buffer-parameter-ui64v-nv) :void
+  (buffer uint)
+  (pname enum)
+  (params (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glGetIntegerui64vNV" get-integer-ui64v-nv) :void
+  (value enum)
+  (result (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glUniformui64NV" uniform-ui64-nv) :void
+  (location int)
+  (value uint64-ext))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glUniformui64vNV" uniform-ui64v-nv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glGetUniformui64vNV" get-uniform-ui64v-nv) :void
+  (program uint)
+  (location int)
+  (params (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glProgramUniformui64NV" program-uniform-ui64-nv) :void
+  (program uint)
+  (location int)
+  (value uint64-ext))
+
+;;; GL version: 1.2, NV_shader_buffer_load
+(defglextfun ("glProgramUniformui64vNV" program-uniform-ui64v-nv) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glBufferAddressRangeNV" buffer-address-range-nv) :void
+  (pname enum)
+  (index uint)
+  (address uint64-ext)
+  (length sizeiptr))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glVertexFormatNV" vertex-format-nv) :void
+  (size int)
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glNormalFormatNV" normal-format-nv) :void
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glColorFormatNV" color-format-nv) :void
+  (size int)
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glIndexFormatNV" index-format-nv) :void
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glTexCoordFormatNV" tex-coord-format-nv) :void
+  (size int)
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glEdgeFlagFormatNV" edge-flag-format-nv) :void
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glSecondaryColorFormatNV" secondary-color-format-nv) :void
+  (size int)
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glFogCoordFormatNV" fog-coord-format-nv) :void
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glVertexAttribFormatNV" vertex-attrib-format-nv) :void
+  (index uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glVertexAttribIFormatNV" vertex-attrib-i-format-nv) :void
+  (index uint)
+  (size int)
+  (type enum)
+  (stride sizei))
+
+;;; GL version: 1.2, NV_vertex_buffer_unified_memory
+(defglextfun ("glGetIntegerui64i_vNV" get-integer-ui64i-v-nv) :void
+  (value enum)
+  (index uint)
+  (result (:pointer uint64-ext)))
+
+;;; GL version: 1.2, NV_texture_barrier
+(defglextfun ("glTextureBarrierNV" texture-barrier-nv) :void)

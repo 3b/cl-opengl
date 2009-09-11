@@ -77,9 +77,18 @@
     ("GetInteger64v" . "get-integer-64-v")
     ("TexImage2DMultisample" . "tex-image-2d-multisample")
     ("TexImage3DMultisample" . "tex-image-3d-multisample")
-
-
-))
+    ;; extensions in .spec version 55
+    ;; fixme: handle u?i64v? properly...
+    ("GetBufferParameterui64vNV" . "get-buffer-parameter-ui64v-nv")
+    ("GetNamedBufferParameterui64vNV" . "get-named-buffer-parameter-ui64v-nv")
+    ("GetIntegerui64vNV" . "get-integer-ui64v-nv")
+    ("Uniformui64NV" . "uniform-ui64-nv")
+    ("Uniformui64vNV" . "uniform-ui64v-nv")
+    ("GetUniformui64vNV" . "get-uniform-ui64v-nv")
+    ("ProgramUniformui64NV" . "program-uniform-ui64-nv")
+    ("ProgramUniformui64vNV" . "program-uniform-ui64v-nv")
+    ("VertexAttribIFormatNV" . "vertex-attrib-i-format-nv")
+    ("GetIntegerui64i_vNV" . "get-integer-ui64i-v-nv")))
 
 (defparameter *whole-words*
   '("push" "depth" "mesh" "finish" "flush" "attach" "detach" "through" "width"
@@ -550,10 +559,10 @@
   ;; version/date if they don't put it back in .specs
   (unless *glext-version*
     (error "glext version not found in .spec files")
-    (setf *glext-version* 54))
+    (setf *glext-version* 55))
   (when (string= *glext-last-updated* "<unknown>")
     (error "glext update date not found in .spec files")
-    (setf *glext-last-updated* "2009-08-03")))
+    (setf *glext-last-updated* "2009-09-11")))
 
 (defun main ()
   (let* ((this-file (load-time-value *load-pathname*))
