@@ -508,6 +508,9 @@
         (map 'vector #'try-to-parse-enum result)
         (try-to-parse-enum result))))
 
+
+(import-export %gl:get-string)
+
 ;;; generic get that handles type and number of values for known enums
 ;;; fixme: better name?
 (defun get* (name)
@@ -574,7 +577,7 @@
 
 ;;; FIXME: missing glGetPointer
 
-(import-export %gl:get-string)
+;(import-export %gl:get-string)
 
 ;; external
 (defun gl3-major-version ()
@@ -591,7 +594,7 @@
     (values
      (values (parse-integer string :end dot :junk-allowed t)) ; major
      (if dot ; minor
-         (values (parse-integer string :start dot :junk-allowed t))
+         (values (parse-integer string :start (1+ dot) :junk-allowed t))
          0))))
 
 (defun parse-gl-version-string-float (string)
@@ -601,7 +604,7 @@
                                                     (not dot)
                                                     (setf dot t))))
                                string)))
-    (read-from-string string nil 0.0 :end end)))
+    (values (read-from-string string nil 0.0 :end end))))
 
 ;; external
 (defun gl-version ()
