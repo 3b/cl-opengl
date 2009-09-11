@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 42 ( 2008/08/16 )
+;;; glext version 54 ( 2009-08-03 )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -25,18 +25,30 @@
   #:uint64-ext 
 
   ;; Functions.
-  #:new-list #:end-list #:call-list #:call-lists #:delete-lists 
-  #:gen-lists #:list-base #:begin #:bitmap #:color-3b #:color-3bv 
-  #:color-3d #:color-3dv #:color-3f #:color-3fv #:color-3i 
-  #:color-3iv #:color-3s #:color-3sv #:color-3ub #:color-3ubv 
-  #:color-3ui #:color-3uiv #:color-3us #:color-3usv #:color-4b 
-  #:color-4bv #:color-4d #:color-4dv #:color-4f #:color-4fv 
-  #:color-4i #:color-4iv #:color-4s #:color-4sv #:color-4ub 
-  #:color-4ubv #:color-4ui #:color-4uiv #:color-4us #:color-4usv 
-  #:edge-flag #:edge-flag-v #:end #:index-d #:index-dv #:index-f 
-  #:index-fv #:index-i #:index-iv #:index-s #:index-sv #:normal-3b 
-  #:normal-3bv #:normal-3d #:normal-3dv #:normal-3f #:normal-3fv 
-  #:normal-3i #:normal-3iv #:normal-3s #:normal-3sv #:raster-pos-2d 
+  #:cull-face #:front-face #:hint #:line-width #:point-size 
+  #:polygon-mode #:scissor #:tex-parameter-f #:tex-parameter-fv 
+  #:tex-parameter-i #:tex-parameter-iv #:tex-image-1d #:tex-image-2d 
+  #:draw-buffer #:clear #:clear-color #:clear-stencil #:clear-depth 
+  #:stencil-mask #:color-mask #:depth-mask #:disable #:enable 
+  #:finish #:flush #:blend-func #:logic-op #:stencil-func 
+  #:stencil-op #:depth-func #:pixel-store-f #:pixel-store-i 
+  #:read-buffer #:read-pixels #:get-boolean-v #:get-double-v 
+  #:get-error #:get-float-v #:get-integer-v #:get-string 
+  #:get-tex-image #:get-tex-parameter-fv #:get-tex-parameter-iv 
+  #:get-tex-level-parameter-fv #:get-tex-level-parameter-iv 
+  #:is-enabled #:depth-range #:viewport #:new-list #:end-list 
+  #:call-list #:call-lists #:delete-lists #:gen-lists #:list-base 
+  #:begin #:bitmap #:color-3b #:color-3bv #:color-3d #:color-3dv 
+  #:color-3f #:color-3fv #:color-3i #:color-3iv #:color-3s 
+  #:color-3sv #:color-3ub #:color-3ubv #:color-3ui #:color-3uiv 
+  #:color-3us #:color-3usv #:color-4b #:color-4bv #:color-4d 
+  #:color-4dv #:color-4f #:color-4fv #:color-4i #:color-4iv 
+  #:color-4s #:color-4sv #:color-4ub #:color-4ubv #:color-4ui 
+  #:color-4uiv #:color-4us #:color-4usv #:edge-flag #:edge-flag-v 
+  #:end #:index-d #:index-dv #:index-f #:index-fv #:index-i 
+  #:index-iv #:index-s #:index-sv #:normal-3b #:normal-3bv 
+  #:normal-3d #:normal-3dv #:normal-3f #:normal-3fv #:normal-3i 
+  #:normal-3iv #:normal-3s #:normal-3sv #:raster-pos-2d 
   #:raster-pos-2dv #:raster-pos-2f #:raster-pos-2fv #:raster-pos-2i 
   #:raster-pos-2iv #:raster-pos-2s #:raster-pos-2sv #:raster-pos-3d 
   #:raster-pos-3dv #:raster-pos-3f #:raster-pos-3fv #:raster-pos-3i 
@@ -57,54 +69,43 @@
   #:vertex-3f #:vertex-3fv #:vertex-3i #:vertex-3iv #:vertex-3s 
   #:vertex-3sv #:vertex-4d #:vertex-4dv #:vertex-4f #:vertex-4fv 
   #:vertex-4i #:vertex-4iv #:vertex-4s #:vertex-4sv #:clip-plane 
-  #:color-material #:cull-face #:fog-f #:fog-fv #:fog-i #:fog-iv 
-  #:front-face #:hint #:light-f #:light-fv #:light-i #:light-iv 
-  #:light-model-f #:light-model-fv #:light-model-i #:light-model-iv 
-  #:line-stipple #:line-width #:material-f #:material-fv 
-  #:material-i #:material-iv #:point-size #:polygon-mode 
-  #:polygon-stipple #:scissor #:shade-model #:tex-parameter-f 
-  #:tex-parameter-fv #:tex-parameter-i #:tex-parameter-iv 
-  #:tex-image-1d #:tex-image-2d #:tex-env-f #:tex-env-fv #:tex-env-i 
-  #:tex-env-iv #:tex-gen-d #:tex-gen-dv #:tex-gen-f #:tex-gen-fv 
-  #:tex-gen-i #:tex-gen-iv #:feedback-buffer #:select-buffer 
-  #:render-mode #:init-names #:load-name #:pass-through #:pop-name 
-  #:push-name #:draw-buffer #:clear #:clear-accum #:clear-index 
-  #:clear-color #:clear-stencil #:clear-depth #:stencil-mask 
-  #:color-mask #:depth-mask #:index-mask #:accum #:disable #:enable 
-  #:finish #:flush #:pop-attrib #:push-attrib #:map-1d #:map-1f 
-  #:map-2d #:map-2f #:map-grid-1d #:map-grid-1f #:map-grid-2d 
-  #:map-grid-2f #:eval-coord-1d #:eval-coord-1dv #:eval-coord-1f 
-  #:eval-coord-1fv #:eval-coord-2d #:eval-coord-2dv #:eval-coord-2f 
-  #:eval-coord-2fv #:eval-mesh-1 #:eval-point-1 #:eval-mesh-2 
-  #:eval-point-2 #:alpha-func #:blend-func #:logic-op #:stencil-func 
-  #:stencil-op #:depth-func #:pixel-zoom #:pixel-transfer-f 
-  #:pixel-transfer-i #:pixel-store-f #:pixel-store-i #:pixel-map-fv 
-  #:pixel-map-uiv #:pixel-map-usv #:read-buffer #:copy-pixels 
-  #:read-pixels #:draw-pixels #:get-boolean-v #:get-clip-plane 
-  #:get-double-v #:get-error #:get-float-v #:get-integer-v 
-  #:get-light-fv #:get-light-iv #:get-map-dv #:get-map-fv 
-  #:get-map-iv #:get-material-fv #:get-material-iv 
+  #:color-material #:fog-f #:fog-fv #:fog-i #:fog-iv #:light-f 
+  #:light-fv #:light-i #:light-iv #:light-model-f #:light-model-fv 
+  #:light-model-i #:light-model-iv #:line-stipple #:material-f 
+  #:material-fv #:material-i #:material-iv #:polygon-stipple 
+  #:shade-model #:tex-env-f #:tex-env-fv #:tex-env-i #:tex-env-iv 
+  #:tex-gen-d #:tex-gen-dv #:tex-gen-f #:tex-gen-fv #:tex-gen-i 
+  #:tex-gen-iv #:feedback-buffer #:select-buffer #:render-mode 
+  #:init-names #:load-name #:pass-through #:pop-name #:push-name 
+  #:clear-accum #:clear-index #:index-mask #:accum #:pop-attrib 
+  #:push-attrib #:map-1d #:map-1f #:map-2d #:map-2f #:map-grid-1d 
+  #:map-grid-1f #:map-grid-2d #:map-grid-2f #:eval-coord-1d 
+  #:eval-coord-1dv #:eval-coord-1f #:eval-coord-1fv #:eval-coord-2d 
+  #:eval-coord-2dv #:eval-coord-2f #:eval-coord-2fv #:eval-mesh-1 
+  #:eval-point-1 #:eval-mesh-2 #:eval-point-2 #:alpha-func 
+  #:pixel-zoom #:pixel-transfer-f #:pixel-transfer-i #:pixel-map-fv 
+  #:pixel-map-uiv #:pixel-map-usv #:copy-pixels #:draw-pixels 
+  #:get-clip-plane #:get-light-fv #:get-light-iv #:get-map-dv 
+  #:get-map-fv #:get-map-iv #:get-material-fv #:get-material-iv 
   #:get-pixel-map-fv #:get-pixel-map-uiv #:get-pixel-map-usv 
-  #:get-polygon-stipple #:get-string #:get-tex-env-fv 
-  #:get-tex-env-iv #:get-tex-gen-dv #:get-tex-gen-fv 
-  #:get-tex-gen-iv #:get-tex-image #:get-tex-parameter-fv 
-  #:get-tex-parameter-iv #:get-tex-level-parameter-fv 
-  #:get-tex-level-parameter-iv #:is-enabled #:is-list #:depth-range 
+  #:get-polygon-stipple #:get-tex-env-fv #:get-tex-env-iv 
+  #:get-tex-gen-dv #:get-tex-gen-fv #:get-tex-gen-iv #:is-list 
   #:frustum #:load-identity #:load-matrix-f #:load-matrix-d 
   #:matrix-mode #:mult-matrix-f #:mult-matrix-d #:ortho #:pop-matrix 
   #:push-matrix #:rotate-d #:rotate-f #:scale-d #:scale-f 
-  #:translate-d #:translate-f #:viewport #:array-element 
-  #:color-pointer #:disable-client-state #:draw-arrays 
-  #:draw-elements #:edge-flag-pointer #:enable-client-state 
-  #:get-pointer-v #:index-pointer #:interleaved-arrays 
-  #:normal-pointer #:tex-coord-pointer #:vertex-pointer 
-  #:polygon-offset #:copy-tex-image-1d #:copy-tex-image-2d 
-  #:copy-tex-sub-image-1d #:copy-tex-sub-image-2d #:tex-sub-image-1d 
-  #:tex-sub-image-2d #:are-textures-resident #:bind-texture 
-  #:delete-textures #:gen-textures #:is-texture 
-  #:prioritize-textures #:index-ub #:index-ubv #:pop-client-attrib 
-  #:push-client-attrib #:blend-color #:blend-equation 
-  #:draw-range-elements #:color-table #:color-table-parameter-fv 
+  #:translate-d #:translate-f #:draw-arrays #:draw-elements 
+  #:get-pointer-v #:polygon-offset #:copy-tex-image-1d 
+  #:copy-tex-image-2d #:copy-tex-sub-image-1d 
+  #:copy-tex-sub-image-2d #:tex-sub-image-1d #:tex-sub-image-2d 
+  #:bind-texture #:delete-textures #:gen-textures #:is-texture 
+  #:array-element #:color-pointer #:disable-client-state 
+  #:edge-flag-pointer #:enable-client-state #:index-pointer 
+  #:interleaved-arrays #:normal-pointer #:tex-coord-pointer 
+  #:vertex-pointer #:are-textures-resident #:prioritize-textures 
+  #:index-ub #:index-ubv #:pop-client-attrib #:push-client-attrib 
+  #:blend-color #:blend-equation #:draw-range-elements 
+  #:tex-image-3d #:tex-sub-image-3d #:copy-tex-sub-image-3d 
+  #:color-table #:color-table-parameter-fv 
   #:color-table-parameter-iv #:copy-color-table #:get-color-table 
   #:get-color-table-parameter-fv #:get-color-table-parameter-iv 
   #:color-sub-table #:copy-color-sub-table #:convolution-filter-1d 
@@ -117,33 +118,32 @@
   #:get-histogram-parameter-fv #:get-histogram-parameter-iv 
   #:get-minmax #:get-minmax-parameter-fv #:get-minmax-parameter-iv 
   #:histogram #:minmax #:reset-histogram #:reset-minmax 
-  #:tex-image-3d #:tex-sub-image-3d #:copy-tex-sub-image-3d 
-  #:active-texture #:client-active-texture #:multi-tex-coord-1d 
-  #:multi-tex-coord-1dv #:multi-tex-coord-1f #:multi-tex-coord-1fv 
-  #:multi-tex-coord-1i #:multi-tex-coord-1iv #:multi-tex-coord-1s 
-  #:multi-tex-coord-1sv #:multi-tex-coord-2d #:multi-tex-coord-2dv 
-  #:multi-tex-coord-2f #:multi-tex-coord-2fv #:multi-tex-coord-2i 
-  #:multi-tex-coord-2iv #:multi-tex-coord-2s #:multi-tex-coord-2sv 
-  #:multi-tex-coord-3d #:multi-tex-coord-3dv #:multi-tex-coord-3f 
-  #:multi-tex-coord-3fv #:multi-tex-coord-3i #:multi-tex-coord-3iv 
-  #:multi-tex-coord-3s #:multi-tex-coord-3sv #:multi-tex-coord-4d 
-  #:multi-tex-coord-4dv #:multi-tex-coord-4f #:multi-tex-coord-4fv 
-  #:multi-tex-coord-4i #:multi-tex-coord-4iv #:multi-tex-coord-4s 
-  #:multi-tex-coord-4sv #:load-transpose-matrix-f 
-  #:load-transpose-matrix-d #:mult-transpose-matrix-f 
-  #:mult-transpose-matrix-d #:sample-coverage 
-  #:compressed-tex-image-3d #:compressed-tex-image-2d 
-  #:compressed-tex-image-1d #:compressed-tex-sub-image-3d 
-  #:compressed-tex-sub-image-2d #:compressed-tex-sub-image-1d 
-  #:get-compressed-tex-image #:blend-func-separate #:fog-coord-f 
-  #:fog-coord-fv #:fog-coord-d #:fog-coord-dv #:fog-coord-pointer 
-  #:multi-draw-arrays #:multi-draw-elements #:point-parameter-f 
-  #:point-parameter-fv #:point-parameter-i #:point-parameter-iv 
-  #:secondary-color-3b #:secondary-color-3bv #:secondary-color-3d 
-  #:secondary-color-3dv #:secondary-color-3f #:secondary-color-3fv 
-  #:secondary-color-3i #:secondary-color-3iv #:secondary-color-3s 
-  #:secondary-color-3sv #:secondary-color-3ub #:secondary-color-3ubv 
-  #:secondary-color-3ui #:secondary-color-3uiv #:secondary-color-3us 
+  #:active-texture #:sample-coverage #:compressed-tex-image-3d 
+  #:compressed-tex-image-2d #:compressed-tex-image-1d 
+  #:compressed-tex-sub-image-3d #:compressed-tex-sub-image-2d 
+  #:compressed-tex-sub-image-1d #:get-compressed-tex-image 
+  #:client-active-texture #:multi-tex-coord-1d #:multi-tex-coord-1dv 
+  #:multi-tex-coord-1f #:multi-tex-coord-1fv #:multi-tex-coord-1i 
+  #:multi-tex-coord-1iv #:multi-tex-coord-1s #:multi-tex-coord-1sv 
+  #:multi-tex-coord-2d #:multi-tex-coord-2dv #:multi-tex-coord-2f 
+  #:multi-tex-coord-2fv #:multi-tex-coord-2i #:multi-tex-coord-2iv 
+  #:multi-tex-coord-2s #:multi-tex-coord-2sv #:multi-tex-coord-3d 
+  #:multi-tex-coord-3dv #:multi-tex-coord-3f #:multi-tex-coord-3fv 
+  #:multi-tex-coord-3i #:multi-tex-coord-3iv #:multi-tex-coord-3s 
+  #:multi-tex-coord-3sv #:multi-tex-coord-4d #:multi-tex-coord-4dv 
+  #:multi-tex-coord-4f #:multi-tex-coord-4fv #:multi-tex-coord-4i 
+  #:multi-tex-coord-4iv #:multi-tex-coord-4s #:multi-tex-coord-4sv 
+  #:load-transpose-matrix-f #:load-transpose-matrix-d 
+  #:mult-transpose-matrix-f #:mult-transpose-matrix-d 
+  #:blend-func-separate #:multi-draw-arrays #:multi-draw-elements 
+  #:point-parameter-f #:point-parameter-fv #:point-parameter-i 
+  #:point-parameter-iv #:fog-coord-f #:fog-coord-fv #:fog-coord-d 
+  #:fog-coord-dv #:fog-coord-pointer #:secondary-color-3b 
+  #:secondary-color-3bv #:secondary-color-3d #:secondary-color-3dv 
+  #:secondary-color-3f #:secondary-color-3fv #:secondary-color-3i 
+  #:secondary-color-3iv #:secondary-color-3s #:secondary-color-3sv 
+  #:secondary-color-3ub #:secondary-color-3ubv #:secondary-color-3ui 
+  #:secondary-color-3uiv #:secondary-color-3us 
   #:secondary-color-3usv #:secondary-color-pointer #:window-pos-2d 
   #:window-pos-2dv #:window-pos-2f #:window-pos-2fv #:window-pos-2i 
   #:window-pos-2iv #:window-pos-2s #:window-pos-2sv #:window-pos-3d 
@@ -192,21 +192,24 @@
   #:bind-buffer-range #:bind-buffer-base 
   #:transform-feedback-varyings #:get-transform-feedback-varying 
   #:clamp-color #:begin-conditional-render #:end-conditional-render 
-  #:vertex-attrib-i1i #:vertex-attrib-i2i #:vertex-attrib-i3i 
-  #:vertex-attrib-i4i #:vertex-attrib-i1ui #:vertex-attrib-i2ui 
-  #:vertex-attrib-i3ui #:vertex-attrib-i4ui #:vertex-attrib-i1iv 
-  #:vertex-attrib-i2iv #:vertex-attrib-i3iv #:vertex-attrib-i4iv 
-  #:vertex-attrib-i1uiv #:vertex-attrib-i2uiv #:vertex-attrib-i3uiv 
-  #:vertex-attrib-i4uiv #:vertex-attrib-i4bv #:vertex-attrib-i4sv 
-  #:vertex-attrib-i4ubv #:vertex-attrib-i4usv 
   #:vertex-attrib-ipointer #:get-vertex-attrib-iiv 
-  #:get-vertex-attrib-iuiv #:get-uniform-uiv 
-  #:bind-frag-data-location #:get-frag-data-location #:uniform-1ui 
-  #:uniform-2ui #:uniform-3ui #:uniform-4ui #:uniform-1uiv 
-  #:uniform-2uiv #:uniform-3uiv #:uniform-4uiv #:tex-parameter-iiv 
-  #:tex-parameter-iuiv #:get-tex-parameter-iiv 
-  #:get-tex-parameter-iuiv #:clear-buffer-iv #:clear-buffer-uiv 
-  #:clear-buffer-fv #:clear-buffer-fi #:get-string-i 
+  #:get-vertex-attrib-iuiv #:vertex-attrib-i1i #:vertex-attrib-i2i 
+  #:vertex-attrib-i3i #:vertex-attrib-i4i #:vertex-attrib-i1ui 
+  #:vertex-attrib-i2ui #:vertex-attrib-i3ui #:vertex-attrib-i4ui 
+  #:vertex-attrib-i1iv #:vertex-attrib-i2iv #:vertex-attrib-i3iv 
+  #:vertex-attrib-i4iv #:vertex-attrib-i1uiv #:vertex-attrib-i2uiv 
+  #:vertex-attrib-i3uiv #:vertex-attrib-i4uiv #:vertex-attrib-i4bv 
+  #:vertex-attrib-i4sv #:vertex-attrib-i4ubv #:vertex-attrib-i4usv 
+  #:get-uniform-uiv #:bind-frag-data-location 
+  #:get-frag-data-location #:uniform-1ui #:uniform-2ui #:uniform-3ui 
+  #:uniform-4ui #:uniform-1uiv #:uniform-2uiv #:uniform-3uiv 
+  #:uniform-4uiv #:tex-parameter-iiv #:tex-parameter-iuiv 
+  #:get-tex-parameter-iiv #:get-tex-parameter-iuiv #:clear-buffer-iv 
+  #:clear-buffer-uiv #:clear-buffer-fv #:clear-buffer-fi 
+  #:get-string-i #:draw-arrays-instanced #:draw-elements-instanced 
+  #:tex-buffer #:primitive-restart-index #:get-integer-64-i-v 
+  #:get-buffer-parameter-i64v #:program-parameter-i 
+  #:framebuffer-texture #:framebuffer-texture-face 
   #:active-texture-arb #:client-active-texture-arb 
   #:multi-tex-coord-1d-arb #:multi-tex-coord-1dv-arb 
   #:multi-tex-coord-1f-arb #:multi-tex-coord-1fv-arb 
@@ -311,11 +314,22 @@
   #:blit-framebuffer #:renderbuffer-storage-multisample 
   #:framebuffer-texture-layer #:program-parameter-i-arb 
   #:framebuffer-texture-arb #:framebuffer-texture-layer-arb 
-  #:framebuffer-texture-face-arb #:vertex-attrib-divisor 
+  #:framebuffer-texture-face-arb #:vertex-attrib-divisor-arb 
   #:map-buffer-range #:flush-mapped-buffer-range #:tex-buffer-arb 
   #:bind-vertex-array #:delete-vertex-arrays #:gen-vertex-arrays 
-  #:is-vertex-array #:blend-color-ext #:polygon-offset-ext 
-  #:tex-image-3d-ext #:tex-sub-image-3d-ext 
+  #:is-vertex-array #:get-uniform-indices #:get-active-uniforms-iv 
+  #:get-active-uniform-name #:get-uniform-block-index 
+  #:get-active-uniform-block-iv #:get-active-uniform-block-name 
+  #:uniform-block-binding #:copy-buffer-sub-data 
+  #:draw-elements-base-vertex #:draw-range-elements-base-vertex 
+  #:draw-elements-instanced-base-vertex 
+  #:multi-draw-elements-base-vertex #:provoking-vertex #:fence-sync 
+  #:is-sync #:delete-sync #:client-wait-sync #:wait-sync 
+  #:get-integer-64-v #:get-sync-iv #:tex-image-2d-multisample 
+  #:tex-image-3d-multisample #:get-multisample-fv #:sample-mask-i 
+  #:blend-equation-i #:blend-equation-separate-i #:blend-func-i 
+  #:blend-func-separate-i #:min-sample-shading #:blend-color-ext 
+  #:polygon-offset-ext #:tex-image-3d-ext #:tex-sub-image-3d-ext 
   #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
   #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
   #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
@@ -682,9 +696,12 @@
   #:get-tex-parameter-iuiv-ext #:clear-color-ii-ext 
   #:clear-color-iui-ext #:frame-terminator-gremedy 
   #:begin-conditional-render-nv #:end-conditional-render-nv 
-  #:begin-transform-feedback-ext #:end-transform-feedback-ext 
-  #:bind-buffer-range-ext #:bind-buffer-offset-ext 
-  #:bind-buffer-base-ext #:transform-feedback-varyings-ext 
+  #:present-frame-keyed-nv #:present-frame-dual-fill-nv 
+  #:get-video-iv-nv #:get-video-uiv-nv #:get-video-i64v-nv 
+  #:get-video-ui64v-nv #:begin-transform-feedback-ext 
+  #:end-transform-feedback-ext #:bind-buffer-range-ext 
+  #:bind-buffer-offset-ext #:bind-buffer-base-ext 
+  #:transform-feedback-varyings-ext 
   #:get-transform-feedback-varying-ext #:client-attrib-default-ext 
   #:push-client-attrib-default-ext #:matrix-load-f-ext 
   #:matrix-load-d-ext #:matrix-mult-f-ext #:matrix-mult-d-ext 
@@ -800,5 +817,26 @@
   #:named-framebuffer-texture-ext 
   #:named-framebuffer-texture-layer-ext 
   #:named-framebuffer-texture-face-ext #:texture-renderbuffer-ext 
-  #:multi-tex-renderbuffer-ext ))
+  #:multi-tex-renderbuffer-ext #:get-multisample-fv-nv 
+  #:sample-mask-indexed-nv #:tex-renderbuffer-nv 
+  #:bind-transform-feedback-nv #:delete-transform-feedbacks-nv 
+  #:gen-transform-feedbacks-nv #:is-transform-feedback-nv 
+  #:pause-transform-feedback-nv #:resume-transform-feedback-nv 
+  #:draw-transform-feedback-nv #:get-perf-monitor-groups-amd 
+  #:get-perf-monitor-counters-amd 
+  #:get-perf-monitor-group-string-amd 
+  #:get-perf-monitor-counter-string-amd 
+  #:get-perf-monitor-counter-info-amd #:gen-perf-monitors-amd 
+  #:delete-perf-monitors-amd #:select-perf-monitor-counters-amd 
+  #:begin-perf-monitor-amd #:end-perf-monitor-amd 
+  #:get-perf-monitor-counter-data-amd #:tessellation-factor-amd 
+  #:tessellation-mode-amd #:provoking-vertex-ext 
+  #:blend-func-indexed-amd #:blend-func-separate-indexed-amd 
+  #:blend-equation-indexed-amd #:blend-equation-separate-indexed-amd 
+  #:texture-range-apple #:get-tex-parameter-pointer-v-apple 
+  #:enable-vertex-attrib-apple #:disable-vertex-attrib-apple 
+  #:is-vertex-attrib-enabled-apple #:map-vertex-attrib-1d-apple 
+  #:map-vertex-attrib-1f-apple #:map-vertex-attrib-2d-apple 
+  #:map-vertex-attrib-2f-apple #:object-purgeable-apple 
+  #:object-unpurgeable-apple #:get-object-parameter-iv-apple ))
 

@@ -66,6 +66,7 @@ CullFaceMode,*,*,		    GLenum,*,*
 CullParameterEXT,*,*,		    GLenum,*,*
 DepthFunction,*,*,		    GLenum,*,*
 DrawBufferMode,*,*,		    GLenum,*,*
+DrawBufferName,*,*,		    GLint,*,*
 DrawElementsType,*,*,		    GLenum,*,*
 ElementPointerTypeATI,*,*,	    GLenum,*,*
 EnableCap,*,*,			    GLenum,*,*
@@ -311,3 +312,6 @@ VertexBufferObjectParameter,*,*,    GLenum,*,*
 VertexBufferObjectUsage,*,*,	    GLenum,*,*
 # ARB_map_buffer_range
 BufferAccessMask,*,*,		    GLbitfield,*,*
+# NV_explicit_multisample
+GetMultisamplePNameNV,*,*,	    GLenum,*,*
+SampleMaskNV,*,*,		    GLbitfield,*,*

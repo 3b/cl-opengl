@@ -1,58 +1,81 @@
 # gl.spec file
 # DON'T REMOVE PREVIOUS LINE!!! libspec depends on it!
 #
-# License Applicability. Except to the extent portions of this file are
-# made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.1 (the "License"), the contents of this
-# file are subject only to the provisions of the License. You may not use
-# this file except in compliance with the License. You may obtain a copy
-# of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
-# Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+# Copyright (c) 1991-2005 Silicon Graphics, Inc. All Rights Reserved.
+# Copyright (c) 2006-2009 The Khronos Group Inc.
 #
-# http://oss.sgi.com/projects/FreeB
-#
-# Note that, as provided in the License, the Software is distributed on an
-# "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
-# DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
-# CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
-# PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-#
-# Original Code. The Original Code is: OpenGL Sample Implementation,
-# Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
-# Inc. The Original Code is Copyright (c) 1991-2005 Silicon Graphics, Inc.
-# Copyright in any portions created by third parties is as indicated
-# elsewhere herein. All Rights Reserved.
-#
-# Additional Notice Provisions: This software was created using the
-# OpenGL(R) version 1.2.1 Sample Implementation published by SGI, but has
-# not been independently verified as being compliant with the OpenGL(R)
-# version 1.2.1 Specification.
+# This document is licensed under the SGI Free Software B License Version
+# 2.0. For details, see http://oss.sgi.com/projects/FreeB/ .
 
-# @@ NOTE - need to distinguish extensions via some (new?) flag for glext.pl
-# @@ NOTE - 'alias' commands are not yet used in SI generator scripts, but should be
-# @@ NOTE - SI should support GLX protocol for at least these extensions:
-#    AreTexturesResidentEXT BindTextureEXT DeleteTexturesEXT GenTexturesEXT IsTextureEXT
 
 required-props:
+# Description of a parameter
 param:		retval retained
+# Display list flags
 dlflags:	notlistable handcode
+# GLX implementation flags
 glxflags:	client-intercept client-handcode server-handcode EXT SGI ignore ARB
+# Vector ('v') equivalent form of a command taking 1-4 explicit xyzw/rgba arguments
 vectorequiv:	*
-category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform 1_1 VERSION_1_2 VERSION_1_3 VERSION_1_4 VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access
+# Category this function falls in. While there are many categories for
+# early GL 1.0 functions, later functions just have a core version
+# (e.g. VERSION_major_minor) or extension name for the category.
+category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform VERSION_1_0 VERSION_1_0_DEPRECATED VERSION_1_1 VERSION_1_1_DEPRECATED VERSION_1_2 VERSION_1_2_DEPRECATED VERSION_1_3 VERSION_1_3_DEPRECATED VERSION_1_4 VERSION_1_4_DEPRECATED VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 VERSION_3_0_DEPRECATED VERSION_3_1 VERSION_3_2 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access EXT_vertex_array_bgra EXT_texture_swizzle NV_explicit_multisample NV_transform_feedback2 ATI_meminfo AMD_performance_monitor AMD_vertex_shader_tesselator EXT_provoking_vertex ARB_uniform_buffer_object ARB_copy_buffer EXT_texture_snorm AMD_draw_buffers_blend APPLE_texture_range APPLE_float_pixels APPLE_vertex_program_evaluators APPLE_aux_depth_stencil APPLE_object_purgeable APPLE_row_bytes ARB_draw_elements_base_vertex ARB_provoking_vertex ARB_sync ARB_texture_multisample ARB_draw_buffers_blend ARB_sample_shading
 
-# categories for extensions with no functions - need not be included now
-#   ARB_texture_env_add ARB_texture_cube_map ARB_texture_border_clamp ARB_shading_language_100 ARB_texture_non_power_of_two ARB_point_sprite ARB_half_float_pixel ARB_texture_float ARB_pixel_buffer_object EXT_abgr EXT_texture SGI_color_matrix SGI_texture_color_table EXT_cmyka EXT_packed_pixels SGIS_texture_lod EXT_rescale_normal EXT_misc_attribute SGIS_generate_mipmap SGIX_clipmap SGIX_shadow SGIS_texture_edge_clamp SGIS_texture_border_clamp EXT_blend_subtract EXT_blend_logic_op SGIX_async_histogram SGIX_async_pixel SGIX_interlace SGIX_pixel_tiles SGIX_texture_select SGIX_texture_multi_buffer SGIX_texture_scale_bias SGIX_depth_texture SGIX_fog_offset HP_convolution_border_modes SGIX_texture_add_env PGI_vertex_hints EXT_clip_volume_hint SGIX_ir_instrument1 SGIX_calligraphic_fragment SGIX_texture_lod_bias SGIX_shadow_ambient EXT_index_texture EXT_index_array_formats SGIX_ycrcb IBM_rasterpos_clip HP_texture_lighting WIN_phong_shading WIN_specular_fog SGIX_blend_alpha_minmax EXT_bgra HP_occlusion_test EXT_pixel_transform_color_table EXT_shared_texture_palette EXT_separate_specular_color EXT_texture_env REND_screen_coordinates EXT_texture_env_combine APPLE_specular_vector APPLE_transform_hint SGIX_fog_scale INGR_color_clamp INGR_interlace_read EXT_stencil_wrap EXT_422_pixels NV_texgen_reflection SUN_convolution_border_modes SUN_slice_accum EXT_texture_env_add EXT_texture_lod_bias EXT_texture_filter_anisotropic NV_light_max_exponent NV_fog_distance NV_texgen_emboss NV_blend_square NV_texture_env_combine4 NV_packed_depth_stencil NV_texture_compression_vtc NV_texture_rectangle NV_texture_shader NV_texture_shader2 NV_vertex_array_range2 IBM_cull_vertex SGIX_subsample SGIX_ycrcba SGIX_ycrcb_subsample SGIX_depth_pass_instrument 3DFX_texture_compression_FXT1 3DFX_multisample SGIX_vertex_preclip SGIX_convolution_accuracy SGIX_resample SGIX_scalebias_hint SGIX_texture_coordinate_clamp EXT_shadow_funcs MESA_pack_invert MESA_ycbcr_texture EXT_packed_float EXT_texture_array EXT_texture_compression_latc EXT_texture_compression_rgtc EXT_texture_shared_exponent NV_fragment_program4 EXT_framebuffer_sRGB NV_geometry_shader4 EXT_vertex_array_bgra
+# Categories for extensions with no functions - need not be included now
+# ARB_texture_env_add ARB_texture_cube_map ARB_texture_border_clamp
+# ARB_shading_language_100 ARB_texture_non_power_of_two ARB_point_sprite
+# ARB_half_float_pixel ARB_texture_float ARB_pixel_buffer_object EXT_abgr
+# EXT_texture SGI_color_matrix SGI_texture_color_table EXT_cmyka
+# EXT_packed_pixels SGIS_texture_lod EXT_rescale_normal EXT_misc_attribute
+# SGIS_generate_mipmap SGIX_clipmap SGIX_shadow SGIS_texture_edge_clamp
+# SGIS_texture_border_clamp EXT_blend_subtract EXT_blend_logic_op
+# SGIX_async_histogram SGIX_async_pixel SGIX_interlace SGIX_pixel_tiles
+# SGIX_texture_select SGIX_texture_multi_buffer SGIX_texture_scale_bias
+# SGIX_depth_texture SGIX_fog_offset HP_convolution_border_modes
+# SGIX_texture_add_env PGI_vertex_hints EXT_clip_volume_hint
+# SGIX_ir_instrument1 SGIX_calligraphic_fragment SGIX_texture_lod_bias
+# SGIX_shadow_ambient EXT_index_texture EXT_index_array_formats SGIX_ycrcb
+# IBM_rasterpos_clip HP_texture_lighting WIN_phong_shading
+# WIN_specular_fog SGIX_blend_alpha_minmax EXT_bgra HP_occlusion_test
+# EXT_pixel_transform_color_table EXT_shared_texture_palette
+# EXT_separate_specular_color EXT_texture_env REND_screen_coordinates
+# EXT_texture_env_combine APPLE_specular_vector APPLE_transform_hint
+# SGIX_fog_scale INGR_color_clamp INGR_interlace_read EXT_stencil_wrap
+# EXT_422_pixels NV_texgen_reflection SUN_convolution_border_modes
+# SUN_slice_accum EXT_texture_env_add EXT_texture_lod_bias
+# EXT_texture_filter_anisotropic NV_light_max_exponent NV_fog_distance
+# NV_texgen_emboss NV_blend_square NV_texture_env_combine4
+# NV_packed_depth_stencil NV_texture_compression_vtc NV_texture_rectangle
+# NV_texture_shader NV_texture_shader2 NV_vertex_array_range2
+# IBM_cull_vertex SGIX_subsample SGIX_ycrcba SGIX_ycrcb_subsample
+# SGIX_depth_pass_instrument 3DFX_texture_compression_FXT1
+# 3DFX_multisample SGIX_vertex_preclip SGIX_convolution_accuracy
+# SGIX_resample SGIX_scalebias_hint SGIX_texture_coordinate_clamp
+# EXT_shadow_funcs MESA_pack_invert MESA_ycbcr_texture EXT_packed_float
+# EXT_texture_array EXT_texture_compression_latc
+# EXT_texture_compression_rgtc EXT_texture_shared_exponent
+# NV_fragment_program4 EXT_framebuffer_sRGB NV_geometry_shader4
+# EXT_vertex_array_bgra ARB_depth_clamp ARB_fragment_coord_conventions
+# ARB_seamless_cube_map ARB_vertex_array_bgra ARB_texture_cube_map_array
+# ARB_texture_gather ARB_texture_query_lod
 
-version:	1.0 1.1 1.2 1.3 1.4 1.5 2.0 2.1 3.0
+# Core version in which a function was introduced, or against
+# which an extension can be implemented
+version:	1.0 1.1 1.2 1.3 1.4 1.5 2.0 2.1 3.0 3.1 3.2
+# Core version in which a function was removed
+deprecated:	3.1
+# GLX Single, Rendering, or Vendor Private opcode
 glxsingle:	*
 glxropcode:	*
 glxvendorpriv:	*
-glsflags:	capture-handcode client client-state get gl-enum ignore matrix pixel-null pixel-pack pixel-unpack
-glsopcode:	*
-glsalias:	*
+# WGL implementation flags (incomplete)
 wglflags:	client-handcode server-handcode small-data batchable
+# Drivers in which this is implemented (very incomplete)
 extension:	future not_implemented soft WINSOFT NV10 NV20 NV50
+# Function this aliases (indistinguishable to the GL)
 alias:		*
+# Mesa dispatch table offset (incomplete)
 offset:		*
 # These properties are picked up from NVIDIA .spec files, we don't use them
 glfflags:	*
@@ -63,25 +86,13 @@ glextmask:	*
 
 ###############################################################################
 #
-# GLX opcodes
-#	glxsingle:		101-159     (1.0-1.2 core)
-#				160	    (ARB_texture_compression)
-#	glxropcode:		1-196	    (1.2 core; ropcode 140 unused?!)
-#				197-213     (ARB_multitexture)
-#				214-219     (ARB_texture_compression)
-#				220-228     (ARB_vertex_blend)
-#				229	    (ARB_multisample)
-#				230	    (ARB_window_pos)
-#				2048-2082   (SGI extensions)
-#				4096-4123   (1.2 core and multivendor EXT)
-#				4124-4142   (EXT extensions)
+# glxsingle, glxropcode, and other GLX allocations to vendors
+# are used here, but the master registry for GLX is in
+# /ogl/trunk/doc/registry/extensions.reserved
+#
 # XFree86 dispatch offsets:	0-645
 #				578-641     NV_vertex_program
 # GLS opcodes:			0x0030-0x0269
-#
-# New opcodes and offsets must be allocated by SGI in the master registry file;
-#    a copy of this is in doc/registry/extensions/extensions.reserved, but only
-#    the copy maintained by SGI is the official and current version.
 #
 ###############################################################################
 
@@ -92,7 +103,6 @@ glextmask:	*
 # - append new ARB and non-ARB extensions to the appropriate portion of
 #   the spec file, in extension number order.
 # - use tabs, not spaces
-# - set glsflags to "ignore" until GLS is updated to support the new command
 # - set glxflags to "ignore" until GLX is updated to support the new command
 # - add new data types to typemaps/spec2wire.map
 # - add extension name in alphabetical order to category list
@@ -109,7 +119,7 @@ passthru: #include <stddef.h>
 
 passthru: #ifndef GL_VERSION_2_0
 passthru: /* GL type for program/shader text */
-passthru: typedef char GLchar;			/* native character */
+passthru: typedef char GLchar;
 passthru: #endif
 passthru:
 passthru: #ifndef GL_VERSION_1_5
@@ -125,12 +135,12 @@ passthru: typedef ptrdiff_t GLsizeiptrARB;
 passthru: #endif
 passthru:
 passthru: #ifndef GL_ARB_shader_objects
-passthru: /* GL types for handling shader object handles and program/shader text */
-passthru: typedef char GLcharARB;		/* native character */
-passthru: typedef unsigned int GLhandleARB;	/* shader object handle */
+passthru: /* GL types for program/shader text and shader object handles */
+passthru: typedef char GLcharARB;
+passthru: typedef unsigned int GLhandleARB;
 passthru: #endif
 passthru:
-passthru: /* GL types for "half" precision (s10e5) float data in host memory */
+passthru: /* GL type for "half" precision (s10e5) float data in host memory */
 passthru: #ifndef GL_ARB_half_float_pixel
 passthru: typedef unsigned short GLhalfARB;
 passthru: #endif
@@ -172,7 +182,8 @@ passthru: typedef __int32 int32_t;
 passthru: typedef __int64 int64_t;
 passthru: typedef unsigned __int64 uint64_t;
 passthru: #else
-passthru: #include <inttypes.h>     /* Fallback option */
+passthru: /* Fallback if nothing above works */
+passthru: #include <inttypes.h>
 passthru: #endif
 passthru: #endif
 passthru:
@@ -181,1456 +192,20 @@ passthru: typedef int64_t GLint64EXT;
 passthru: typedef uint64_t GLuint64EXT;
 passthru: #endif
 passthru:
+passthru: #ifndef ARB_sync
+passthru: typedef int64_t GLint64;
+passthru: typedef uint64_t GLuint64;
+passthru: typedef struct __GLsync *GLsync;
+passthru: #endif
+passthru:
 
 ###############################################################################
-#
-# display-list commands
-#
-###############################################################################
-
-NewList(list, mode)
-	return		void
-	param		list		List in value
-	param		mode		ListMode in value
-	dlflags		notlistable
-	category	display-list
-	version		1.0
-	glxsingle	101
-	glsopcode	0x0030
-	wglflags	batchable
-	offset		0
-
-EndList()
-	return		void
-	dlflags		notlistable
-	category	display-list
-	version		1.0
-	glxsingle	102
-	glsopcode	0x0031
-	wglflags	batchable
-	offset		1
-
-CallList(list)
-	return		void
-	param		list		List in value
-	category	display-list
-	version		1.0
-	glxropcode	1
-	glsopcode	0x0032
-	offset		2
-
-CallLists(n, type, lists)
-	return		void
-	param		n		SizeI in value
-	param		type		ListNameType in value
-	param		lists		Void in array [COMPSIZE(n/type)]
-	category	display-list
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxropcode	2
-	glsopcode	0x0033
-	offset		3
-
-DeleteLists(list, range)
-	return		void
-	param		list		List in value
-	param		range		SizeI in value
-	dlflags		notlistable
-	category	display-list
-	version		1.0
-	glxsingle	103
-	glsopcode	0x0034
-	wglflags	batchable
-	offset		4
-
-GenLists(range)
-	return		List
-	param		range		SizeI in value
-	dlflags		notlistable
-	category	display-list
-	version		1.0
-	glxsingle	104
-	glsopcode	0x0035
-	offset		5
-
-ListBase(base)
-	return		void
-	param		base		List in value
-	category	display-list
-	version		1.0
-	glxropcode	3
-	glsopcode	0x0036
-	offset		6
-
 ###############################################################################
 #
-# drawing commands
+# OpenGL 1.0 commands
 #
 ###############################################################################
-
-Begin(mode)
-	return		void
-	param		mode		BeginMode in value
-	category	drawing
-	version		1.0
-	glxropcode	4
-	glsopcode	0x0037
-	offset		7
-
-Bitmap(width, height, xorig, yorig, xmove, ymove, bitmap)
-	return		void
-	param		width		SizeI in value
-	param		height		SizeI in value
-	param		xorig		CoordF in value
-	param		yorig		CoordF in value
-	param		xmove		CoordF in value
-	param		ymove		CoordF in value
-	param		bitmap		UInt8 in array [COMPSIZE(width/height)]
-	category	drawing
-	dlflags		handcode
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxropcode	5
-	glsflags	pixel-unpack
-	glsopcode	0x0038
-	wglflags	client-handcode server-handcode
-	offset		8
-
-Color3b(red, green, blue)
-	return		void
-	param		red		ColorB in value
-	param		green		ColorB in value
-	param		blue		ColorB in value
-	category	drawing
-	vectorequiv	Color3bv
-	version		1.0
-	offset		9
-
-Color3bv(v)
-	return		void
-	param		v		ColorB in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	6
-	glsopcode	0x0039
-	offset		10
-
-Color3d(red, green, blue)
-	return		void
-	param		red		ColorD in value
-	param		green		ColorD in value
-	param		blue		ColorD in value
-	category	drawing
-	vectorequiv	Color3dv
-	version		1.0
-	offset		11
-
-Color3dv(v)
-	return		void
-	param		v		ColorD in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	7
-	glsopcode	0x003A
-	offset		12
-
-Color3f(red, green, blue)
-	return		void
-	param		red		ColorF in value
-	param		green		ColorF in value
-	param		blue		ColorF in value
-	category	drawing
-	vectorequiv	Color3fv
-	version		1.0
-	offset		13
-
-Color3fv(v)
-	return		void
-	param		v		ColorF in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	8
-	glsopcode	0x003B
-	offset		14
-
-Color3i(red, green, blue)
-	return		void
-	param		red		ColorI in value
-	param		green		ColorI in value
-	param		blue		ColorI in value
-	category	drawing
-	vectorequiv	Color3iv
-	version		1.0
-	offset		15
-
-Color3iv(v)
-	return		void
-	param		v		ColorI in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	9
-	glsopcode	0x003C
-	offset		16
-
-Color3s(red, green, blue)
-	return		void
-	param		red		ColorS in value
-	param		green		ColorS in value
-	param		blue		ColorS in value
-	category	drawing
-	vectorequiv	Color3sv
-	version		1.0
-	offset		17
-
-Color3sv(v)
-	return		void
-	param		v		ColorS in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	10
-	glsopcode	0x003D
-	offset		18
-
-Color3ub(red, green, blue)
-	return		void
-	param		red		ColorUB in value
-	param		green		ColorUB in value
-	param		blue		ColorUB in value
-	category	drawing
-	vectorequiv	Color3ubv
-	version		1.0
-	offset		19
-
-Color3ubv(v)
-	return		void
-	param		v		ColorUB in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	11
-	glsopcode	0x003E
-	offset		20
-
-Color3ui(red, green, blue)
-	return		void
-	param		red		ColorUI in value
-	param		green		ColorUI in value
-	param		blue		ColorUI in value
-	category	drawing
-	vectorequiv	Color3uiv
-	version		1.0
-	offset		21
-
-Color3uiv(v)
-	return		void
-	param		v		ColorUI in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	12
-	glsopcode	0x003F
-	offset		22
-
-Color3us(red, green, blue)
-	return		void
-	param		red		ColorUS in value
-	param		green		ColorUS in value
-	param		blue		ColorUS in value
-	category	drawing
-	vectorequiv	Color3usv
-	version		1.0
-	offset		23
-
-Color3usv(v)
-	return		void
-	param		v		ColorUS in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	13
-	glsopcode	0x0040
-	offset		24
-
-Color4b(red, green, blue, alpha)
-	return		void
-	param		red		ColorB in value
-	param		green		ColorB in value
-	param		blue		ColorB in value
-	param		alpha		ColorB in value
-	category	drawing
-	vectorequiv	Color4bv
-	version		1.0
-	offset		25
-
-Color4bv(v)
-	return		void
-	param		v		ColorB in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	14
-	glsopcode	0x0041
-	offset		26
-
-Color4d(red, green, blue, alpha)
-	return		void
-	param		red		ColorD in value
-	param		green		ColorD in value
-	param		blue		ColorD in value
-	param		alpha		ColorD in value
-	category	drawing
-	vectorequiv	Color4dv
-	version		1.0
-	offset		27
-
-Color4dv(v)
-	return		void
-	param		v		ColorD in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	15
-	glsopcode	0x0042
-	offset		28
-
-Color4f(red, green, blue, alpha)
-	return		void
-	param		red		ColorF in value
-	param		green		ColorF in value
-	param		blue		ColorF in value
-	param		alpha		ColorF in value
-	category	drawing
-	vectorequiv	Color4fv
-	version		1.0
-	offset		29
-
-Color4fv(v)
-	return		void
-	param		v		ColorF in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	16
-	glsopcode	0x0043
-	offset		30
-
-Color4i(red, green, blue, alpha)
-	return		void
-	param		red		ColorI in value
-	param		green		ColorI in value
-	param		blue		ColorI in value
-	param		alpha		ColorI in value
-	category	drawing
-	vectorequiv	Color4iv
-	version		1.0
-	offset		31
-
-Color4iv(v)
-	return		void
-	param		v		ColorI in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	17
-	glsopcode	0x0044
-	offset		32
-
-Color4s(red, green, blue, alpha)
-	return		void
-	param		red		ColorS in value
-	param		green		ColorS in value
-	param		blue		ColorS in value
-	param		alpha		ColorS in value
-	category	drawing
-	vectorequiv	Color4sv
-	version		1.0
-	offset		33
-
-Color4sv(v)
-	return		void
-	param		v		ColorS in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	18
-	glsopcode	0x0045
-	offset		34
-
-Color4ub(red, green, blue, alpha)
-	return		void
-	param		red		ColorUB in value
-	param		green		ColorUB in value
-	param		blue		ColorUB in value
-	param		alpha		ColorUB in value
-	category	drawing
-	vectorequiv	Color4ubv
-	version		1.0
-	offset		35
-
-Color4ubv(v)
-	return		void
-	param		v		ColorUB in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	19
-	glsopcode	0x0046
-	offset		36
-
-Color4ui(red, green, blue, alpha)
-	return		void
-	param		red		ColorUI in value
-	param		green		ColorUI in value
-	param		blue		ColorUI in value
-	param		alpha		ColorUI in value
-	category	drawing
-	vectorequiv	Color4uiv
-	version		1.0
-	offset		37
-
-Color4uiv(v)
-	return		void
-	param		v		ColorUI in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	20
-	glsopcode	0x0047
-	offset		38
-
-Color4us(red, green, blue, alpha)
-	return		void
-	param		red		ColorUS in value
-	param		green		ColorUS in value
-	param		blue		ColorUS in value
-	param		alpha		ColorUS in value
-	category	drawing
-	vectorequiv	Color4usv
-	version		1.0
-	offset		39
-
-Color4usv(v)
-	return		void
-	param		v		ColorUS in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	21
-	glsopcode	0x0048
-	offset		40
-
-EdgeFlag(flag)
-	return		void
-	param		flag		Boolean in value
-	category	drawing
-	vectorequiv	EdgeFlagv
-	version		1.0
-	offset		41
-
-EdgeFlagv(flag)
-	return		void
-	param		flag		Boolean in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	22
-	glsopcode	0x0049
-	offset		42
-
-End()
-	return		void
-	category	drawing
-	version		1.0
-	glxropcode	23
-	glsopcode	0x004A
-	offset		43
-
-Indexd(c)
-	return		void
-	param		c		ColorIndexValueD in value
-	category	drawing
-	vectorequiv	Indexdv
-	version		1.0
-	offset		44
-
-Indexdv(c)
-	return		void
-	param		c		ColorIndexValueD in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	24
-	glsopcode	0x004B
-	offset		45
-
-Indexf(c)
-	return		void
-	param		c		ColorIndexValueF in value
-	category	drawing
-	vectorequiv	Indexfv
-	version		1.0
-	offset		46
-
-Indexfv(c)
-	return		void
-	param		c		ColorIndexValueF in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	25
-	glsopcode	0x004C
-	offset		47
-
-Indexi(c)
-	return		void
-	param		c		ColorIndexValueI in value
-	category	drawing
-	vectorequiv	Indexiv
-	version		1.0
-	offset		48
-
-Indexiv(c)
-	return		void
-	param		c		ColorIndexValueI in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	26
-	glsopcode	0x004D
-	offset		49
-
-Indexs(c)
-	return		void
-	param		c		ColorIndexValueS in value
-	category	drawing
-	vectorequiv	Indexsv
-	version		1.0
-	offset		50
-
-Indexsv(c)
-	return		void
-	param		c		ColorIndexValueS in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	27
-	glsopcode	0x004E
-	offset		51
-
-Normal3b(nx, ny, nz)
-	return		void
-	param		nx		Int8 in value
-	param		ny		Int8 in value
-	param		nz		Int8 in value
-	category	drawing
-	vectorequiv	Normal3bv
-	version		1.0
-	offset		52
-
-Normal3bv(v)
-	return		void
-	param		v		Int8 in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	28
-	glsopcode	0x004F
-	offset		53
-
-Normal3d(nx, ny, nz)
-	return		void
-	param		nx		CoordD in value
-	param		ny		CoordD in value
-	param		nz		CoordD in value
-	category	drawing
-	vectorequiv	Normal3dv
-	version		1.0
-	offset		54
-
-Normal3dv(v)
-	return		void
-	param		v		CoordD in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	29
-	glsopcode	0x0050
-	offset		55
-
-Normal3f(nx, ny, nz)
-	return		void
-	param		nx		CoordF in value
-	param		ny		CoordF in value
-	param		nz		CoordF in value
-	category	drawing
-	vectorequiv	Normal3fv
-	version		1.0
-	offset		56
-
-Normal3fv(v)
-	return		void
-	param		v		CoordF in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	30
-	glsopcode	0x0051
-	offset		57
-
-Normal3i(nx, ny, nz)
-	return		void
-	param		nx		Int32 in value
-	param		ny		Int32 in value
-	param		nz		Int32 in value
-	category	drawing
-	vectorequiv	Normal3iv
-	version		1.0
-	offset		58
-
-Normal3iv(v)
-	return		void
-	param		v		Int32 in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	31
-	glsopcode	0x0052
-	offset		59
-
-Normal3s(nx, ny, nz)
-	return		void
-	param		nx		Int16 in value
-	param		ny		Int16 in value
-	param		nz		Int16 in value
-	category	drawing
-	vectorequiv	Normal3sv
-	version		1.0
-	offset		60
-
-Normal3sv(v)
-	return		void
-	param		v		Int16 in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	32
-	glsopcode	0x0053
-	offset		61
-
-RasterPos2d(x, y)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	category	drawing
-	vectorequiv	RasterPos2dv
-	version		1.0
-	offset		62
-
-RasterPos2dv(v)
-	return		void
-	param		v		CoordD in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	33
-	glsopcode	0x0054
-	offset		63
-
-RasterPos2f(x, y)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	category	drawing
-	vectorequiv	RasterPos2fv
-	version		1.0
-	offset		64
-
-RasterPos2fv(v)
-	return		void
-	param		v		CoordF in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	34
-	glsopcode	0x0055
-	offset		65
-
-RasterPos2i(x, y)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	category	drawing
-	vectorequiv	RasterPos2iv
-	version		1.0
-	offset		66
-
-RasterPos2iv(v)
-	return		void
-	param		v		CoordI in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	35
-	glsopcode	0x0056
-	offset		67
-
-RasterPos2s(x, y)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	category	drawing
-	vectorequiv	RasterPos2sv
-	version		1.0
-	offset		68
-
-RasterPos2sv(v)
-	return		void
-	param		v		CoordS in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	36
-	glsopcode	0x0057
-	offset		69
-
-RasterPos3d(x, y, z)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	param		z		CoordD in value
-	vectorequiv	RasterPos3dv
-	category	drawing
-	version		1.0
-	offset		70
-
-RasterPos3dv(v)
-	return		void
-	param		v		CoordD in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	37
-	glsopcode	0x0058
-	offset		71
-
-RasterPos3f(x, y, z)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	param		z		CoordF in value
-	category	drawing
-	vectorequiv	RasterPos3fv
-	version		1.0
-	offset		72
-
-RasterPos3fv(v)
-	return		void
-	param		v		CoordF in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	38
-	glsopcode	0x0059
-	offset		73
-
-RasterPos3i(x, y, z)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	param		z		CoordI in value
-	category	drawing
-	vectorequiv	RasterPos3iv
-	version		1.0
-	offset		74
-
-RasterPos3iv(v)
-	return		void
-	param		v		CoordI in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	39
-	glsopcode	0x005A
-	offset		75
-
-RasterPos3s(x, y, z)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	param		z		CoordS in value
-	category	drawing
-	vectorequiv	RasterPos3sv
-	version		1.0
-	offset		76
-
-RasterPos3sv(v)
-	return		void
-	param		v		CoordS in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	40
-	glsopcode	0x005B
-	offset		77
-
-RasterPos4d(x, y, z, w)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	param		z		CoordD in value
-	param		w		CoordD in value
-	vectorequiv	RasterPos4dv
-	category	drawing
-	version		1.0
-	offset		78
-
-RasterPos4dv(v)
-	return		void
-	param		v		CoordD in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	41
-	glsopcode	0x005C
-	offset		79
-
-RasterPos4f(x, y, z, w)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	param		z		CoordF in value
-	param		w		CoordF in value
-	category	drawing
-	vectorequiv	RasterPos4fv
-	version		1.0
-	offset		80
-
-RasterPos4fv(v)
-	return		void
-	param		v		CoordF in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	42
-	glsopcode	0x005D
-	offset		81
-
-RasterPos4i(x, y, z, w)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	param		z		CoordI in value
-	param		w		CoordI in value
-	category	drawing
-	vectorequiv	RasterPos4iv
-	version		1.0
-	offset		82
-
-RasterPos4iv(v)
-	return		void
-	param		v		CoordI in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	43
-	glsopcode	0x005E
-	offset		83
-
-RasterPos4s(x, y, z, w)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	param		z		CoordS in value
-	param		w		CoordS in value
-	category	drawing
-	vectorequiv	RasterPos4sv
-	version		1.0
-	offset		84
-
-RasterPos4sv(v)
-	return		void
-	param		v		CoordS in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	44
-	glsopcode	0x005F
-	offset		85
-
-Rectd(x1, y1, x2, y2)
-	return		void
-	param		x1		CoordD in value
-	param		y1		CoordD in value
-	param		x2		CoordD in value
-	param		y2		CoordD in value
-	category	drawing
-	vectorequiv	Rectdv
-	version		1.0
-	offset		86
-
-Rectdv(v1, v2)
-	return		void
-	param		v1		CoordD in array [2]
-	param		v2		CoordD in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	45
-	glsopcode	0x0060
-	offset		87
-
-Rectf(x1, y1, x2, y2)
-	return		void
-	param		x1		CoordF in value
-	param		y1		CoordF in value
-	param		x2		CoordF in value
-	param		y2		CoordF in value
-	category	drawing
-	vectorequiv	Rectfv
-	version		1.0
-	offset		88
-
-Rectfv(v1, v2)
-	return		void
-	param		v1		CoordF in array [2]
-	param		v2		CoordF in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	46
-	glsopcode	0x0061
-	offset		89
-
-Recti(x1, y1, x2, y2)
-	return		void
-	param		x1		CoordI in value
-	param		y1		CoordI in value
-	param		x2		CoordI in value
-	param		y2		CoordI in value
-	category	drawing
-	vectorequiv	Rectiv
-	version		1.0
-	offset		90
-
-Rectiv(v1, v2)
-	return		void
-	param		v1		CoordI in array [2]
-	param		v2		CoordI in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	47
-	glsopcode	0x0062
-	offset		91
-
-Rects(x1, y1, x2, y2)
-	return		void
-	param		x1		CoordS in value
-	param		y1		CoordS in value
-	param		x2		CoordS in value
-	param		y2		CoordS in value
-	category	drawing
-	vectorequiv	Rectsv
-	version		1.0
-	offset		92
-
-Rectsv(v1, v2)
-	return		void
-	param		v1		CoordS in array [2]
-	param		v2		CoordS in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	48
-	glsopcode	0x0063
-	offset		93
-
-TexCoord1d(s)
-	return		void
-	param		s		CoordD in value
-	category	drawing
-	vectorequiv	TexCoord1dv
-	version		1.0
-	offset		94
-
-TexCoord1dv(v)
-	return		void
-	param		v		CoordD in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	49
-	glsopcode	0x0064
-	offset		95
-
-TexCoord1f(s)
-	return		void
-	param		s		CoordF in value
-	category	drawing
-	vectorequiv	TexCoord1fv
-	version		1.0
-	offset		96
-
-TexCoord1fv(v)
-	return		void
-	param		v		CoordF in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	50
-	glsopcode	0x0065
-	offset		97
-
-TexCoord1i(s)
-	return		void
-	param		s		CoordI in value
-	category	drawing
-	vectorequiv	TexCoord1iv
-	version		1.0
-	offset		98
-
-TexCoord1iv(v)
-	return		void
-	param		v		CoordI in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	51
-	glsopcode	0x0066
-	offset		99
-
-TexCoord1s(s)
-	return		void
-	param		s		CoordS in value
-	category	drawing
-	vectorequiv	TexCoord1sv
-	version		1.0
-	offset		100
-
-TexCoord1sv(v)
-	return		void
-	param		v		CoordS in array [1]
-	category	drawing
-	version		1.0
-	glxropcode	52
-	glsopcode	0x0067
-	offset		101
-
-TexCoord2d(s, t)
-	return		void
-	param		s		CoordD in value
-	param		t		CoordD in value
-	category	drawing
-	vectorequiv	TexCoord2dv
-	version		1.0
-	offset		102
-
-TexCoord2dv(v)
-	return		void
-	param		v		CoordD in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	53
-	glsopcode	0x0068
-	offset		103
-
-TexCoord2f(s, t)
-	return		void
-	param		s		CoordF in value
-	param		t		CoordF in value
-	category	drawing
-	vectorequiv	TexCoord2fv
-	version		1.0
-	offset		104
-
-TexCoord2fv(v)
-	return		void
-	param		v		CoordF in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	54
-	glsopcode	0x0069
-	offset		105
-
-TexCoord2i(s, t)
-	return		void
-	param		s		CoordI in value
-	param		t		CoordI in value
-	category	drawing
-	vectorequiv	TexCoord2iv
-	version		1.0
-	offset		106
-
-TexCoord2iv(v)
-	return		void
-	param		v		CoordI in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	55
-	glsopcode	0x006A
-	offset		107
-
-TexCoord2s(s, t)
-	return		void
-	param		s		CoordS in value
-	param		t		CoordS in value
-	category	drawing
-	vectorequiv	TexCoord2sv
-	version		1.0
-	offset		108
-
-TexCoord2sv(v)
-	return		void
-	param		v		CoordS in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	56
-	glsopcode	0x006B
-	offset		109
-
-TexCoord3d(s, t, r)
-	return		void
-	param		s		CoordD in value
-	param		t		CoordD in value
-	param		r		CoordD in value
-	category	drawing
-	vectorequiv	TexCoord3dv
-	version		1.0
-	offset		110
-
-TexCoord3dv(v)
-	return		void
-	param		v		CoordD in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	57
-	glsopcode	0x006C
-	offset		111
-
-TexCoord3f(s, t, r)
-	return		void
-	param		s		CoordF in value
-	param		t		CoordF in value
-	param		r		CoordF in value
-	category	drawing
-	vectorequiv	TexCoord3fv
-	version		1.0
-	offset		112
-
-TexCoord3fv(v)
-	return		void
-	param		v		CoordF in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	58
-	glsopcode	0x006D
-	offset		113
-
-TexCoord3i(s, t, r)
-	return		void
-	param		s		CoordI in value
-	param		t		CoordI in value
-	param		r		CoordI in value
-	category	drawing
-	vectorequiv	TexCoord3iv
-	version		1.0
-	offset		114
-
-TexCoord3iv(v)
-	return		void
-	param		v		CoordI in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	59
-	glsopcode	0x006E
-	offset		115
-
-TexCoord3s(s, t, r)
-	return		void
-	param		s		CoordS in value
-	param		t		CoordS in value
-	param		r		CoordS in value
-	category	drawing
-	vectorequiv	TexCoord3sv
-	version		1.0
-	offset		116
-
-TexCoord3sv(v)
-	return		void
-	param		v		CoordS in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	60
-	glsopcode	0x006F
-	offset		117
-
-TexCoord4d(s, t, r, q)
-	return		void
-	param		s		CoordD in value
-	param		t		CoordD in value
-	param		r		CoordD in value
-	param		q		CoordD in value
-	category	drawing
-	vectorequiv	TexCoord4dv
-	version		1.0
-	offset		118
-
-TexCoord4dv(v)
-	return		void
-	param		v		CoordD in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	61
-	glsopcode	0x0070
-	offset		119
-
-TexCoord4f(s, t, r, q)
-	return		void
-	param		s		CoordF in value
-	param		t		CoordF in value
-	param		r		CoordF in value
-	param		q		CoordF in value
-	category	drawing
-	vectorequiv	TexCoord4fv
-	version		1.0
-	offset		120
-
-TexCoord4fv(v)
-	return		void
-	param		v		CoordF in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	62
-	glsopcode	0x0071
-	offset		121
-
-TexCoord4i(s, t, r, q)
-	return		void
-	param		s		CoordI in value
-	param		t		CoordI in value
-	param		r		CoordI in value
-	param		q		CoordI in value
-	category	drawing
-	vectorequiv	TexCoord4iv
-	version		1.0
-	offset		122
-
-TexCoord4iv(v)
-	return		void
-	param		v		CoordI in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	63
-	glsopcode	0x0072
-	offset		123
-
-TexCoord4s(s, t, r, q)
-	return		void
-	param		s		CoordS in value
-	param		t		CoordS in value
-	param		r		CoordS in value
-	param		q		CoordS in value
-	category	drawing
-	vectorequiv	TexCoord4sv
-	version		1.0
-	offset		124
-
-TexCoord4sv(v)
-	return		void
-	param		v		CoordS in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	64
-	glsopcode	0x0073
-	offset		125
-
-Vertex2d(x, y)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	category	drawing
-	vectorequiv	Vertex2dv
-	version		1.0
-	offset		126
-
-Vertex2dv(v)
-	return		void
-	param		v		CoordD in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	65
-	glsopcode	0x0074
-	offset		127
-
-Vertex2f(x, y)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	category	drawing
-	vectorequiv	Vertex2fv
-	version		1.0
-	offset		128
-
-Vertex2fv(v)
-	return		void
-	param		v		CoordF in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	66
-	glsopcode	0x0075
-	offset		129
-
-Vertex2i(x, y)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	category	drawing
-	vectorequiv	Vertex2iv
-	version		1.0
-	offset		130
-
-Vertex2iv(v)
-	return		void
-	param		v		CoordI in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	67
-	glsopcode	0x0076
-	offset		131
-
-Vertex2s(x, y)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	category	drawing
-	vectorequiv	Vertex2sv
-	version		1.0
-	offset		132
-
-Vertex2sv(v)
-	return		void
-	param		v		CoordS in array [2]
-	category	drawing
-	version		1.0
-	glxropcode	68
-	glsopcode	0x0077
-	offset		133
-
-Vertex3d(x, y, z)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	param		z		CoordD in value
-	category	drawing
-	vectorequiv	Vertex3dv
-	version		1.0
-	offset		134
-
-Vertex3dv(v)
-	return		void
-	param		v		CoordD in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	69
-	glsopcode	0x0078
-	offset		135
-
-Vertex3f(x, y, z)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	param		z		CoordF in value
-	category	drawing
-	vectorequiv	Vertex3fv
-	version		1.0
-	offset		136
-
-Vertex3fv(v)
-	return		void
-	param		v		CoordF in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	70
-	glsopcode	0x0079
-	offset		137
-
-Vertex3i(x, y, z)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	param		z		CoordI in value
-	category	drawing
-	vectorequiv	Vertex3iv
-	version		1.0
-	offset		138
-
-Vertex3iv(v)
-	return		void
-	param		v		CoordI in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	71
-	glsopcode	0x007A
-	offset		139
-
-Vertex3s(x, y, z)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	param		z		CoordS in value
-	category	drawing
-	vectorequiv	Vertex3sv
-	version		1.0
-	offset		140
-
-Vertex3sv(v)
-	return		void
-	param		v		CoordS in array [3]
-	category	drawing
-	version		1.0
-	glxropcode	72
-	glsopcode	0x007B
-	offset		141
-
-Vertex4d(x, y, z, w)
-	return		void
-	param		x		CoordD in value
-	param		y		CoordD in value
-	param		z		CoordD in value
-	param		w		CoordD in value
-	category	drawing
-	vectorequiv	Vertex4dv
-	version		1.0
-	offset		142
-
-Vertex4dv(v)
-	return		void
-	param		v		CoordD in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	73
-	glsopcode	0x007C
-	offset		143
-
-Vertex4f(x, y, z, w)
-	return		void
-	param		x		CoordF in value
-	param		y		CoordF in value
-	param		z		CoordF in value
-	param		w		CoordF in value
-	category	drawing
-	vectorequiv	Vertex4fv
-	version		1.0
-	offset		144
-
-Vertex4fv(v)
-	return		void
-	param		v		CoordF in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	74
-	glsopcode	0x007D
-	offset		145
-
-Vertex4i(x, y, z, w)
-	return		void
-	param		x		CoordI in value
-	param		y		CoordI in value
-	param		z		CoordI in value
-	param		w		CoordI in value
-	category	drawing
-	vectorequiv	Vertex4iv
-	version		1.0
-	offset		146
-
-Vertex4iv(v)
-	return		void
-	param		v		CoordI in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	75
-	glsopcode	0x007E
-	offset		147
-
-Vertex4s(x, y, z, w)
-	return		void
-	param		x		CoordS in value
-	param		y		CoordS in value
-	param		z		CoordS in value
-	param		w		CoordS in value
-	category	drawing
-	vectorequiv	Vertex4sv
-	version		1.0
-	offset		148
-
-Vertex4sv(v)
-	return		void
-	param		v		CoordS in array [4]
-	category	drawing
-	version		1.0
-	glxropcode	76
-	glsopcode	0x007F
-	offset		149
+###############################################################################
 
 ###############################################################################
 #
@@ -1638,296 +213,55 @@ Vertex4sv(v)
 #
 ###############################################################################
 
-ClipPlane(plane, equation)
-	return		void
-	param		plane		ClipPlaneName in value
-	param		equation	Float64 in array [4]
-	category	drawing-control
-	version		1.0
-	glxropcode	77
-	glsopcode	0x0080
-	offset		150
-
-ColorMaterial(face, mode)
-	return		void
-	param		face		MaterialFace in value
-	param		mode		ColorMaterialParameter in value
-	category	drawing-control
-	version		1.0
-	glxropcode	78
-	glsopcode	0x0081
-	offset		151
-
 CullFace(mode)
 	return		void
 	param		mode		CullFaceMode in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	79
-	glsopcode	0x0082
 	offset		152
-
-Fogf(pname, param)
-	return		void
-	param		pname		FogParameter in value
-	param		param		CheckedFloat32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	80
-	glsflags	gl-enum
-	glsopcode	0x0083
-	wglflags	small-data
-	offset		153
-
-Fogfv(pname, params)
-	return		void
-	param		pname		FogParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	81
-	glsflags	gl-enum
-	glsopcode	0x0084
-	wglflags	small-data
-	offset		154
-
-Fogi(pname, param)
-	return		void
-	param		pname		FogParameter in value
-	param		param		CheckedInt32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	82
-	glsflags	gl-enum
-	glsopcode	0x0085
-	wglflags	small-data
-	offset		155
-
-Fogiv(pname, params)
-	return		void
-	param		pname		FogParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	83
-	glsflags	gl-enum
-	glsopcode	0x0086
-	wglflags	small-data
-	offset		156
 
 FrontFace(mode)
 	return		void
 	param		mode		FrontFaceDirection in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	84
-	glsopcode	0x0087
 	offset		157
 
 Hint(target, mode)
 	return		void
 	param		target		HintTarget in value
 	param		mode		HintMode in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	85
-	glsopcode	0x0088
 	offset		158
-
-Lightf(light, pname, param)
-	return		void
-	param		light		LightName in value
-	param		pname		LightParameter in value
-	param		param		CheckedFloat32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	86
-	glsopcode	0x0089
-	wglflags	small-data
-	offset		159
-
-Lightfv(light, pname, params)
-	return		void
-	param		light		LightName in value
-	param		pname		LightParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	87
-	glsopcode	0x008A
-	wglflags	small-data
-	offset		160
-
-Lighti(light, pname, param)
-	return		void
-	param		light		LightName in value
-	param		pname		LightParameter in value
-	param		param		CheckedInt32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	88
-	glsopcode	0x008B
-	wglflags	small-data
-	offset		161
-
-Lightiv(light, pname, params)
-	return		void
-	param		light		LightName in value
-	param		pname		LightParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	89
-	glsopcode	0x008C
-	wglflags	small-data
-	offset		162
-
-LightModelf(pname, param)
-	return		void
-	param		pname		LightModelParameter in value
-	param		param		Float32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	90
-	glsflags	gl-enum
-	glsopcode	0x008D
-	wglflags	small-data
-	offset		163
-
-LightModelfv(pname, params)
-	return		void
-	param		pname		LightModelParameter in value
-	param		params		Float32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	91
-	glsflags	gl-enum
-	glsopcode	0x008E
-	wglflags	small-data
-	offset		164
-
-LightModeli(pname, param)
-	return		void
-	param		pname		LightModelParameter in value
-	param		param		Int32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	92
-	glsflags	gl-enum
-	glsopcode	0x008F
-	wglflags	small-data
-	offset		165
-
-LightModeliv(pname, params)
-	return		void
-	param		pname		LightModelParameter in value
-	param		params		Int32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	93
-	glsflags	gl-enum
-	glsopcode	0x0090
-	wglflags	small-data
-	offset		166
-
-LineStipple(factor, pattern)
-	return		void
-	param		factor		CheckedInt32 in value
-	param		pattern		LineStipple in value
-	category	drawing-control
-	version		1.0
-	glxropcode	94
-	glsopcode	0x0091
-	offset		167
 
 LineWidth(width)
 	return		void
 	param		width		CheckedFloat32 in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	95
-	glsopcode	0x0092
 	offset		168
-
-Materialf(face, pname, param)
-	return		void
-	param		face		MaterialFace in value
-	param		pname		MaterialParameter in value
-	param		param		CheckedFloat32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	96
-	glsopcode	0x0093
-	wglflags	small-data
-	offset		169
-
-Materialfv(face, pname, params)
-	return		void
-	param		face		MaterialFace in value
-	param		pname		MaterialParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	97
-	glsopcode	0x0094
-	wglflags	small-data
-	offset		170
-
-Materiali(face, pname, param)
-	return		void
-	param		face		MaterialFace in value
-	param		pname		MaterialParameter in value
-	param		param		CheckedInt32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	98
-	glsopcode	0x0095
-	wglflags	small-data
-	offset		171
-
-Materialiv(face, pname, params)
-	return		void
-	param		face		MaterialFace in value
-	param		pname		MaterialParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	99
-	glsopcode	0x0096
-	wglflags	small-data
-	offset		172
 
 PointSize(size)
 	return		void
 	param		size		CheckedFloat32 in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	100
-	glsopcode	0x0097
 	offset		173
 
 PolygonMode(face, mode)
 	return		void
 	param		face		MaterialFace in value
 	param		mode		PolygonMode in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	101
-	glsopcode	0x0098
 	offset		174
-
-PolygonStipple(mask)
-	return		void
-	param		mask		UInt8 in array [COMPSIZE()]
-	category	drawing-control
-	dlflags		handcode
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxropcode	102
-	glsflags	pixel-unpack
-	glsopcode	0x0099
-	wglflags	client-handcode server-handcode
-	offset		175
 
 Scissor(x, y, width, height)
 	return		void
@@ -1935,31 +269,19 @@ Scissor(x, y, width, height)
 	param		y		WinCoord in value
 	param		width		SizeI in value
 	param		height		SizeI in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	103
-	glsopcode	0x009A
 	offset		176
-
-ShadeModel(mode)
-	return		void
-	param		mode		ShadingModel in value
-	category	drawing-control
-	version		1.0
-	glxropcode	104
-	glsopcode	0x009B
-	offset		177
 
 TexParameterf(target, pname, param)
 	return		void
 	param		target		TextureTarget in value
 	param		pname		TextureParameterName in value
 	param		param		CheckedFloat32 in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	105
-	glsflags	gl-enum
-	glsopcode	0x009C
 	wglflags	small-data
 	offset		178
 
@@ -1968,11 +290,9 @@ TexParameterfv(target, pname, params)
 	param		target		TextureTarget in value
 	param		pname		TextureParameterName in value
 	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	106
-	glsflags	gl-enum
-	glsopcode	0x009D
 	wglflags	small-data
 	offset		179
 
@@ -1981,11 +301,9 @@ TexParameteri(target, pname, param)
 	param		target		TextureTarget in value
 	param		pname		TextureParameterName in value
 	param		param		CheckedInt32 in value
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	107
-	glsflags	gl-enum
-	glsopcode	0x009E
 	wglflags	small-data
 	offset		180
 
@@ -1994,11 +312,9 @@ TexParameteriv(target, pname, params)
 	param		target		TextureTarget in value
 	param		pname		TextureParameterName in value
 	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	version		1.0
 	glxropcode	108
-	glsflags	gl-enum
-	glsopcode	0x009F
 	wglflags	small-data
 	offset		181
 
@@ -2012,13 +328,11 @@ TexImage1D(target, level, internalformat, width, border, format, type, pixels)
 	param		format		PixelFormat in value
 	param		type		PixelType in value
 	param		pixels		Void in array [COMPSIZE(format/type/width)]
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
 	glxropcode	109
-	glsflags	pixel-null pixel-unpack
-	glsopcode	0x00A0
 	wglflags	client-handcode server-handcode
 	offset		182
 
@@ -2033,235 +347,13 @@ TexImage2D(target, level, internalformat, width, height, border, format, type, p
 	param		format		PixelFormat in value
 	param		type		PixelType in value
 	param		pixels		Void in array [COMPSIZE(format/type/width/height)]
-	category	drawing-control
+	category	VERSION_1_0		   # old: drawing-control
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
 	glxropcode	110
-	glsflags	pixel-null pixel-unpack
-	glsopcode	0x00A1
 	wglflags	client-handcode server-handcode
 	offset		183
-
-TexEnvf(target, pname, param)
-	return		void
-	param		target		TextureEnvTarget in value
-	param		pname		TextureEnvParameter in value
-	param		param		CheckedFloat32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	111
-	glsflags	gl-enum
-	glsopcode	0x00A2
-	wglflags	small-data
-	offset		184
-
-TexEnvfv(target, pname, params)
-	return		void
-	param		target		TextureEnvTarget in value
-	param		pname		TextureEnvParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	112
-	glsflags	gl-enum
-	glsopcode	0x00A3
-	wglflags	small-data
-	offset		185
-
-TexEnvi(target, pname, param)
-	return		void
-	param		target		TextureEnvTarget in value
-	param		pname		TextureEnvParameter in value
-	param		param		CheckedInt32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	113
-	glsflags	gl-enum
-	glsopcode	0x00A4
-	wglflags	small-data
-	offset		186
-
-TexEnviv(target, pname, params)
-	return		void
-	param		target		TextureEnvTarget in value
-	param		pname		TextureEnvParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	114
-	glsflags	gl-enum
-	glsopcode	0x00A5
-	wglflags	small-data
-	offset		187
-
-TexGend(coord, pname, param)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		param		Float64 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	115
-	glsflags	gl-enum
-	glsopcode	0x00A6
-	wglflags	small-data
-	offset		188
-
-TexGendv(coord, pname, params)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		params		Float64 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	116
-	glsflags	gl-enum
-	glsopcode	0x00A7
-	wglflags	small-data
-	offset		189
-
-TexGenf(coord, pname, param)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		param		CheckedFloat32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	117
-	glsflags	gl-enum
-	glsopcode	0x00A8
-	wglflags	small-data
-	offset		190
-
-TexGenfv(coord, pname, params)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	118
-	glsflags	gl-enum
-	glsopcode	0x00A9
-	wglflags	small-data
-	offset		191
-
-TexGeni(coord, pname, param)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		param		CheckedInt32 in value
-	category	drawing-control
-	version		1.0
-	glxropcode	119
-	glsflags	gl-enum
-	glsopcode	0x00AA
-	wglflags	small-data
-	offset		192
-
-TexGeniv(coord, pname, params)
-	return		void
-	param		coord		TextureCoordName in value
-	param		pname		TextureGenParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	drawing-control
-	version		1.0
-	glxropcode	120
-	glsflags	gl-enum
-	glsopcode	0x00AB
-	wglflags	small-data
-	offset		193
-
-###############################################################################
-#
-# feedback commands
-#
-###############################################################################
-
-FeedbackBuffer(size, type, buffer)
-	return		void
-	param		size		SizeI in value
-	param		type		FeedbackType in value
-	param		buffer		FeedbackElement out array [size] retained
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	category	feedback
-	version		1.0
-	glxsingle	105
-	glsflags	client
-	glsopcode	0x00AC
-	wglflags	client-handcode server-handcode batchable
-	offset		194
-
-SelectBuffer(size, buffer)
-	return		void
-	param		size		SizeI in value
-	param		buffer		SelectName out array [size] retained
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	category	feedback
-	version		1.0
-	glxsingle	106
-	glsflags	client
-	glsopcode	0x00AD
-	wglflags	client-handcode server-handcode batchable
-	offset		195
-
-RenderMode(mode)
-	return		Int32
-	param		mode		RenderingMode in value
-	category	feedback
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxsingle	107
-	glsopcode	0x00AE
-	wglflags	client-handcode server-handcode
-	offset		196
-
-InitNames()
-	return		void
-	category	feedback
-	version		1.0
-	glxropcode	121
-	glsopcode	0x00AF
-	offset		197
-
-LoadName(name)
-	return		void
-	param		name		SelectName in value
-	category	feedback
-	version		1.0
-	glxropcode	122
-	glsopcode	0x00B0
-	offset		198
-
-PassThrough(token)
-	return		void
-	param		token		FeedbackElement in value
-	category	feedback
-	version		1.0
-	glxropcode	123
-	glsopcode	0x00B1
-	offset		199
-
-PopName()
-	return		void
-	category	feedback
-	version		1.0
-	glxropcode	124
-	glsopcode	0x00B2
-	offset		200
-
-PushName(name)
-	return		void
-	param		name		SelectName in value
-	category	feedback
-	version		1.0
-	glxropcode	125
-	glsopcode	0x00B3
-	offset		201
 
 ###############################################################################
 #
@@ -2272,41 +364,18 @@ PushName(name)
 DrawBuffer(mode)
 	return		void
 	param		mode		DrawBufferMode in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	126
-	glsopcode	0x00B4
 	offset		202
 
 Clear(mask)
 	return		void
 	param		mask		ClearBufferMask in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	127
-	glsopcode	0x00B5
 	offset		203
-
-ClearAccum(red, green, blue, alpha)
-	return		void
-	param		red		Float32 in value
-	param		green		Float32 in value
-	param		blue		Float32 in value
-	param		alpha		Float32 in value
-	category	framebuf
-	version		1.0
-	glxropcode	128
-	glsopcode	0x00B6
-	offset		204
-
-ClearIndex(c)
-	return		void
-	param		c		MaskedColorIndexValueF in value
-	category	framebuf
-	version		1.0
-	glxropcode	129
-	glsopcode	0x00B7
-	offset		205
 
 ClearColor(red, green, blue, alpha)
 	return		void
@@ -2314,37 +383,33 @@ ClearColor(red, green, blue, alpha)
 	param		green		ClampedColorF in value
 	param		blue		ClampedColorF in value
 	param		alpha		ClampedColorF in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	130
-	glsopcode	0x00B8
 	offset		206
 
 ClearStencil(s)
 	return		void
 	param		s		StencilValue in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	131
-	glsopcode	0x00B9
 	offset		207
 
 ClearDepth(depth)
 	return		void
 	param		depth		ClampedFloat64 in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	132
-	glsopcode	0x00BA
 	offset		208
 
 StencilMask(mask)
 	return		void
 	param		mask		MaskedStencilValue in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	133
-	glsopcode	0x00BB
 	offset		209
 
 ColorMask(red, green, blue, alpha)
@@ -2353,29 +418,18 @@ ColorMask(red, green, blue, alpha)
 	param		green		Boolean in value
 	param		blue		Boolean in value
 	param		alpha		Boolean in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	134
-	glsopcode	0x00BC
 	offset		210
 
 DepthMask(flag)
 	return		void
 	param		flag		Boolean in value
-	category	framebuf
+	category	VERSION_1_0		   # old: framebuf
 	version		1.0
 	glxropcode	135
-	glsopcode	0x00BD
 	offset		211
-
-IndexMask(mask)
-	return		void
-	param		mask		MaskedColorIndexValueI in value
-	category	framebuf
-	version		1.0
-	glxropcode	136
-	glsopcode	0x00BE
-	offset		212
 
 ###############################################################################
 #
@@ -2383,82 +437,2341 @@ IndexMask(mask)
 #
 ###############################################################################
 
-Accum(op, value)
-	return		void
-	param		op		AccumOp in value
-	param		value		CoordF in value
-	category	misc
-	version		1.0
-	glxropcode	137
-	glsopcode	0x00BF
-	offset		213
-
 Disable(cap)
 	return		void
 	param		cap		EnableCap in value
-	category	misc
+	category	VERSION_1_0		   # old: misc
 	version		1.0
 	dlflags		handcode
 	glxflags	client-handcode client-intercept
 	glxropcode	138
-	glsflags	client
-	glsopcode	0x00C0
 	offset		214
 
 Enable(cap)
 	return		void
 	param		cap		EnableCap in value
-	category	misc
+	category	VERSION_1_0		   # old: misc
 	version		1.0
 	dlflags		handcode
 	glxflags	client-handcode client-intercept
 	glxropcode	139
-	glsflags	client
-	glsopcode	0x00C1
 	offset		215
 
 Finish()
 	return		void
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode
-	category	misc
+	category	VERSION_1_0		   # old: misc
 	version		1.0
 	glxsingle	108
-	glsopcode	0x00C2
 	offset		216
 
 Flush()
 	return		void
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
-	category	misc
+	category	VERSION_1_0		   # old: misc
 	version		1.0
 	glxsingle	142
-	glsopcode	0x00C3
 	offset		217
+
+###############################################################################
+#
+# pixel-op commands
+#
+###############################################################################
+
+BlendFunc(sfactor, dfactor)
+	return		void
+	param		sfactor		BlendingFactorSrc in value
+	param		dfactor		BlendingFactorDest in value
+	category	VERSION_1_0		   # old: pixel-op
+	version		1.0
+	glxropcode	160
+	offset		241
+
+LogicOp(opcode)
+	return		void
+	param		opcode		LogicOp in value
+	category	VERSION_1_0		   # old: pixel-op
+	version		1.0
+	glxropcode	161
+	offset		242
+
+StencilFunc(func, ref, mask)
+	return		void
+	param		func		StencilFunction in value
+	param		ref		ClampedStencilValue in value
+	param		mask		MaskedStencilValue in value
+	category	VERSION_1_0		   # old: pixel-op
+	version		1.0
+	glxropcode	162
+	offset		243
+
+StencilOp(fail, zfail, zpass)
+	return		void
+	param		fail		StencilOp in value
+	param		zfail		StencilOp in value
+	param		zpass		StencilOp in value
+	category	VERSION_1_0		   # old: pixel-op
+	version		1.0
+	glxropcode	163
+	offset		244
+
+DepthFunc(func)
+	return		void
+	param		func		DepthFunction in value
+	category	VERSION_1_0		   # old: pixel-op
+	version		1.0
+	glxropcode	164
+	offset		245
+
+###############################################################################
+#
+# pixel-rw commands
+#
+###############################################################################
+
+PixelStoref(pname, param)
+	return		void
+	param		pname		PixelStoreParameter in value
+	param		param		CheckedFloat32 in value
+	dlflags		notlistable
+	glxflags	client-handcode
+	category	VERSION_1_0		   # old: pixel-rw
+	version		1.0
+	glxsingle	109
+	wglflags	batchable
+	offset		249
+
+PixelStorei(pname, param)
+	return		void
+	param		pname		PixelStoreParameter in value
+	param		param		CheckedInt32 in value
+	dlflags		notlistable
+	glxflags	client-handcode
+	category	VERSION_1_0		   # old: pixel-rw
+	version		1.0
+	glxsingle	110
+	wglflags	batchable
+	offset		250
+
+ReadBuffer(mode)
+	return		void
+	param		mode		ReadBufferMode in value
+	category	VERSION_1_0		   # old: pixel-rw
+	version		1.0
+	glxropcode	171
+	offset		254
+
+ReadPixels(x, y, width, height, format, type, pixels)
+	return		void
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		pixels		Void out array [COMPSIZE(format/type/width/height)]
+	category	VERSION_1_0		   # old: pixel-rw
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.0
+	glxsingle	111
+	wglflags	client-handcode server-handcode
+	offset		256
+
+###############################################################################
+#
+# state-req commands
+#
+###############################################################################
+
+GetBooleanv(pname, params)
+	return		void
+	param		pname		GetPName in value
+	param		params		Boolean out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode
+	version		1.0
+	glxsingle	112
+	wglflags	small-data
+	offset		258
+
+GetDoublev(pname, params)
+	return		void
+	param		pname		GetPName in value
+	param		params		Float64 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode
+	version		1.0
+	glxsingle	114
+	wglflags	small-data
+	offset		260
+
+GetError()
+	return		ErrorCode
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode
+	version		1.0
+	glxsingle	115
+	offset		261
+
+GetFloatv(pname, params)
+	return		void
+	param		pname		GetPName in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode
+	version		1.0
+	glxsingle	116
+	wglflags	small-data
+	offset		262
+
+GetIntegerv(pname, params)
+	return		void
+	param		pname		GetPName in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode
+	version		1.0
+	glxsingle	117
+	wglflags	small-data
+	offset		263
+
+GetString(name)
+	return		String
+	param		name		StringName in value
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.0
+	glxsingle	129
+	wglflags	client-handcode server-handcode
+	offset		275
+
+GetTexImage(target, level, format, type, pixels)
+	return		void
+	param		target		TextureTarget in value
+	param		level		CheckedInt32 in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		pixels		Void out array [COMPSIZE(target/level/format/type)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.0
+	glxsingle	135
+	wglflags	client-handcode server-handcode
+	offset		281
+
+GetTexParameterfv(target, pname, params)
+	return		void
+	param		target		TextureTarget in value
+	param		pname		GetTextureParameter in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	version		1.0
+	glxsingle	136
+	wglflags	small-data
+	offset		282
+
+GetTexParameteriv(target, pname, params)
+	return		void
+	param		target		TextureTarget in value
+	param		pname		GetTextureParameter in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	version		1.0
+	glxsingle	137
+	wglflags	small-data
+	offset		283
+
+GetTexLevelParameterfv(target, level, pname, params)
+	return		void
+	param		target		TextureTarget in value
+	param		level		CheckedInt32 in value
+	param		pname		GetTextureParameter in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	version		1.0
+	glxsingle	138
+	wglflags	small-data
+	offset		284
+
+GetTexLevelParameteriv(target, level, pname, params)
+	return		void
+	param		target		TextureTarget in value
+	param		level		CheckedInt32 in value
+	param		pname		GetTextureParameter in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	version		1.0
+	glxsingle	139
+	wglflags	small-data
+	offset		285
+
+IsEnabled(cap)
+	return		Boolean
+	param		cap		EnableCap in value
+	category	VERSION_1_0		   # old: state-req
+	dlflags		notlistable
+	version		1.0
+	glxflags	client-handcode client-intercept
+	glxsingle	140
+	offset		286
+
+###############################################################################
+#
+# xform commands
+#
+###############################################################################
+
+DepthRange(near, far)
+	return		void
+	param		near		ClampedFloat64 in value
+	param		far		ClampedFloat64 in value
+	category	VERSION_1_0		   # old: xform
+	version		1.0
+	glxropcode	174
+	offset		288
+
+Viewport(x, y, width, height)
+	return		void
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	category	VERSION_1_0		   # old: xform
+	version		1.0
+	glxropcode	191
+	offset		305
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 1.0 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+# display-list commands
+
+NewList(list, mode)
+	return		void
+	param		list		List in value
+	param		mode		ListMode in value
+	dlflags		notlistable
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxsingle	101
+	wglflags	batchable
+	offset		0
+
+EndList()
+	return		void
+	dlflags		notlistable
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxsingle	102
+	wglflags	batchable
+	offset		1
+
+CallList(list)
+	return		void
+	param		list		List in value
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxropcode	1
+	offset		2
+
+CallLists(n, type, lists)
+	return		void
+	param		n		SizeI in value
+	param		type		ListNameType in value
+	param		lists		Void in array [COMPSIZE(n/type)]
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	glxflags	client-handcode server-handcode
+	version		1.0
+	deprecated	3.1
+	glxropcode	2
+	offset		3
+
+DeleteLists(list, range)
+	return		void
+	param		list		List in value
+	param		range		SizeI in value
+	dlflags		notlistable
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxsingle	103
+	wglflags	batchable
+	offset		4
+
+GenLists(range)
+	return		List
+	param		range		SizeI in value
+	dlflags		notlistable
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxsingle	104
+	offset		5
+
+ListBase(base)
+	return		void
+	param		base		List in value
+	category	VERSION_1_0_DEPRECATED	   # old: display-list
+	version		1.0
+	deprecated	3.1
+	glxropcode	3
+	offset		6
+
+# drawing commands
+
+Begin(mode)
+	return		void
+	param		mode		BeginMode in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	4
+	offset		7
+
+Bitmap(width, height, xorig, yorig, xmove, ymove, bitmap)
+	return		void
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		xorig		CoordF in value
+	param		yorig		CoordF in value
+	param		xmove		CoordF in value
+	param		ymove		CoordF in value
+	param		bitmap		UInt8 in array [COMPSIZE(width/height)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	dlflags		handcode
+	glxflags	client-handcode server-handcode
+	version		1.0
+	deprecated	3.1
+	glxropcode	5
+	wglflags	client-handcode server-handcode
+	offset		8
+
+Color3b(red, green, blue)
+	return		void
+	param		red		ColorB in value
+	param		green		ColorB in value
+	param		blue		ColorB in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3bv
+	version		1.0
+	deprecated	3.1
+	offset		9
+
+Color3bv(v)
+	return		void
+	param		v		ColorB in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	6
+	offset		10
+
+Color3d(red, green, blue)
+	return		void
+	param		red		ColorD in value
+	param		green		ColorD in value
+	param		blue		ColorD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3dv
+	version		1.0
+	deprecated	3.1
+	offset		11
+
+Color3dv(v)
+	return		void
+	param		v		ColorD in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	7
+	offset		12
+
+Color3f(red, green, blue)
+	return		void
+	param		red		ColorF in value
+	param		green		ColorF in value
+	param		blue		ColorF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3fv
+	version		1.0
+	deprecated	3.1
+	offset		13
+
+Color3fv(v)
+	return		void
+	param		v		ColorF in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	8
+	offset		14
+
+Color3i(red, green, blue)
+	return		void
+	param		red		ColorI in value
+	param		green		ColorI in value
+	param		blue		ColorI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3iv
+	version		1.0
+	deprecated	3.1
+	offset		15
+
+Color3iv(v)
+	return		void
+	param		v		ColorI in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	9
+	offset		16
+
+Color3s(red, green, blue)
+	return		void
+	param		red		ColorS in value
+	param		green		ColorS in value
+	param		blue		ColorS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3sv
+	version		1.0
+	deprecated	3.1
+	offset		17
+
+Color3sv(v)
+	return		void
+	param		v		ColorS in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	10
+	offset		18
+
+Color3ub(red, green, blue)
+	return		void
+	param		red		ColorUB in value
+	param		green		ColorUB in value
+	param		blue		ColorUB in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3ubv
+	version		1.0
+	deprecated	3.1
+	offset		19
+
+Color3ubv(v)
+	return		void
+	param		v		ColorUB in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	11
+	offset		20
+
+Color3ui(red, green, blue)
+	return		void
+	param		red		ColorUI in value
+	param		green		ColorUI in value
+	param		blue		ColorUI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3uiv
+	version		1.0
+	deprecated	3.1
+	offset		21
+
+Color3uiv(v)
+	return		void
+	param		v		ColorUI in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	12
+	offset		22
+
+Color3us(red, green, blue)
+	return		void
+	param		red		ColorUS in value
+	param		green		ColorUS in value
+	param		blue		ColorUS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color3usv
+	version		1.0
+	deprecated	3.1
+	offset		23
+
+Color3usv(v)
+	return		void
+	param		v		ColorUS in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	13
+	offset		24
+
+Color4b(red, green, blue, alpha)
+	return		void
+	param		red		ColorB in value
+	param		green		ColorB in value
+	param		blue		ColorB in value
+	param		alpha		ColorB in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4bv
+	version		1.0
+	deprecated	3.1
+	offset		25
+
+Color4bv(v)
+	return		void
+	param		v		ColorB in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	14
+	offset		26
+
+Color4d(red, green, blue, alpha)
+	return		void
+	param		red		ColorD in value
+	param		green		ColorD in value
+	param		blue		ColorD in value
+	param		alpha		ColorD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4dv
+	version		1.0
+	deprecated	3.1
+	offset		27
+
+Color4dv(v)
+	return		void
+	param		v		ColorD in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	15
+	offset		28
+
+Color4f(red, green, blue, alpha)
+	return		void
+	param		red		ColorF in value
+	param		green		ColorF in value
+	param		blue		ColorF in value
+	param		alpha		ColorF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4fv
+	version		1.0
+	deprecated	3.1
+	offset		29
+
+Color4fv(v)
+	return		void
+	param		v		ColorF in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	16
+	offset		30
+
+Color4i(red, green, blue, alpha)
+	return		void
+	param		red		ColorI in value
+	param		green		ColorI in value
+	param		blue		ColorI in value
+	param		alpha		ColorI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4iv
+	version		1.0
+	deprecated	3.1
+	offset		31
+
+Color4iv(v)
+	return		void
+	param		v		ColorI in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	17
+	offset		32
+
+Color4s(red, green, blue, alpha)
+	return		void
+	param		red		ColorS in value
+	param		green		ColorS in value
+	param		blue		ColorS in value
+	param		alpha		ColorS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4sv
+	version		1.0
+	deprecated	3.1
+	offset		33
+
+Color4sv(v)
+	return		void
+	param		v		ColorS in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	18
+	offset		34
+
+Color4ub(red, green, blue, alpha)
+	return		void
+	param		red		ColorUB in value
+	param		green		ColorUB in value
+	param		blue		ColorUB in value
+	param		alpha		ColorUB in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4ubv
+	version		1.0
+	deprecated	3.1
+	offset		35
+
+Color4ubv(v)
+	return		void
+	param		v		ColorUB in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	19
+	offset		36
+
+Color4ui(red, green, blue, alpha)
+	return		void
+	param		red		ColorUI in value
+	param		green		ColorUI in value
+	param		blue		ColorUI in value
+	param		alpha		ColorUI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4uiv
+	version		1.0
+	deprecated	3.1
+	offset		37
+
+Color4uiv(v)
+	return		void
+	param		v		ColorUI in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	20
+	offset		38
+
+Color4us(red, green, blue, alpha)
+	return		void
+	param		red		ColorUS in value
+	param		green		ColorUS in value
+	param		blue		ColorUS in value
+	param		alpha		ColorUS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Color4usv
+	version		1.0
+	deprecated	3.1
+	offset		39
+
+Color4usv(v)
+	return		void
+	param		v		ColorUS in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	21
+	offset		40
+
+EdgeFlag(flag)
+	return		void
+	param		flag		Boolean in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	EdgeFlagv
+	version		1.0
+	deprecated	3.1
+	offset		41
+
+EdgeFlagv(flag)
+	return		void
+	param		flag		Boolean in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	22
+	offset		42
+
+End()
+	return		void
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	23
+	offset		43
+
+Indexd(c)
+	return		void
+	param		c		ColorIndexValueD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Indexdv
+	version		1.0
+	deprecated	3.1
+	offset		44
+
+Indexdv(c)
+	return		void
+	param		c		ColorIndexValueD in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	24
+	offset		45
+
+Indexf(c)
+	return		void
+	param		c		ColorIndexValueF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Indexfv
+	version		1.0
+	deprecated	3.1
+	offset		46
+
+Indexfv(c)
+	return		void
+	param		c		ColorIndexValueF in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	25
+	offset		47
+
+Indexi(c)
+	return		void
+	param		c		ColorIndexValueI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Indexiv
+	version		1.0
+	deprecated	3.1
+	offset		48
+
+Indexiv(c)
+	return		void
+	param		c		ColorIndexValueI in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	26
+	offset		49
+
+Indexs(c)
+	return		void
+	param		c		ColorIndexValueS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Indexsv
+	version		1.0
+	deprecated	3.1
+	offset		50
+
+Indexsv(c)
+	return		void
+	param		c		ColorIndexValueS in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	27
+	offset		51
+
+Normal3b(nx, ny, nz)
+	return		void
+	param		nx		Int8 in value
+	param		ny		Int8 in value
+	param		nz		Int8 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Normal3bv
+	version		1.0
+	deprecated	3.1
+	offset		52
+
+Normal3bv(v)
+	return		void
+	param		v		Int8 in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	28
+	offset		53
+
+Normal3d(nx, ny, nz)
+	return		void
+	param		nx		CoordD in value
+	param		ny		CoordD in value
+	param		nz		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Normal3dv
+	version		1.0
+	deprecated	3.1
+	offset		54
+
+Normal3dv(v)
+	return		void
+	param		v		CoordD in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	29
+	offset		55
+
+Normal3f(nx, ny, nz)
+	return		void
+	param		nx		CoordF in value
+	param		ny		CoordF in value
+	param		nz		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Normal3fv
+	version		1.0
+	deprecated	3.1
+	offset		56
+
+Normal3fv(v)
+	return		void
+	param		v		CoordF in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	30
+	offset		57
+
+Normal3i(nx, ny, nz)
+	return		void
+	param		nx		Int32 in value
+	param		ny		Int32 in value
+	param		nz		Int32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Normal3iv
+	version		1.0
+	deprecated	3.1
+	offset		58
+
+Normal3iv(v)
+	return		void
+	param		v		Int32 in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	31
+	offset		59
+
+Normal3s(nx, ny, nz)
+	return		void
+	param		nx		Int16 in value
+	param		ny		Int16 in value
+	param		nz		Int16 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Normal3sv
+	version		1.0
+	deprecated	3.1
+	offset		60
+
+Normal3sv(v)
+	return		void
+	param		v		Int16 in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	32
+	offset		61
+
+RasterPos2d(x, y)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos2dv
+	version		1.0
+	deprecated	3.1
+	offset		62
+
+RasterPos2dv(v)
+	return		void
+	param		v		CoordD in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	33
+	offset		63
+
+RasterPos2f(x, y)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos2fv
+	version		1.0
+	deprecated	3.1
+	offset		64
+
+RasterPos2fv(v)
+	return		void
+	param		v		CoordF in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	34
+	offset		65
+
+RasterPos2i(x, y)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos2iv
+	version		1.0
+	deprecated	3.1
+	offset		66
+
+RasterPos2iv(v)
+	return		void
+	param		v		CoordI in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	35
+	offset		67
+
+RasterPos2s(x, y)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos2sv
+	version		1.0
+	deprecated	3.1
+	offset		68
+
+RasterPos2sv(v)
+	return		void
+	param		v		CoordS in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	36
+	offset		69
+
+RasterPos3d(x, y, z)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	param		z		CoordD in value
+	vectorequiv	RasterPos3dv
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	offset		70
+
+RasterPos3dv(v)
+	return		void
+	param		v		CoordD in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	37
+	offset		71
+
+RasterPos3f(x, y, z)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	param		z		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos3fv
+	version		1.0
+	deprecated	3.1
+	offset		72
+
+RasterPos3fv(v)
+	return		void
+	param		v		CoordF in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	38
+	offset		73
+
+RasterPos3i(x, y, z)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	param		z		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos3iv
+	version		1.0
+	deprecated	3.1
+	offset		74
+
+RasterPos3iv(v)
+	return		void
+	param		v		CoordI in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	39
+	offset		75
+
+RasterPos3s(x, y, z)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	param		z		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos3sv
+	version		1.0
+	deprecated	3.1
+	offset		76
+
+RasterPos3sv(v)
+	return		void
+	param		v		CoordS in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	40
+	offset		77
+
+RasterPos4d(x, y, z, w)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	param		z		CoordD in value
+	param		w		CoordD in value
+	vectorequiv	RasterPos4dv
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	offset		78
+
+RasterPos4dv(v)
+	return		void
+	param		v		CoordD in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	41
+	offset		79
+
+RasterPos4f(x, y, z, w)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	param		z		CoordF in value
+	param		w		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos4fv
+	version		1.0
+	deprecated	3.1
+	offset		80
+
+RasterPos4fv(v)
+	return		void
+	param		v		CoordF in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	42
+	offset		81
+
+RasterPos4i(x, y, z, w)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	param		z		CoordI in value
+	param		w		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos4iv
+	version		1.0
+	deprecated	3.1
+	offset		82
+
+RasterPos4iv(v)
+	return		void
+	param		v		CoordI in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	43
+	offset		83
+
+RasterPos4s(x, y, z, w)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	param		z		CoordS in value
+	param		w		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	RasterPos4sv
+	version		1.0
+	deprecated	3.1
+	offset		84
+
+RasterPos4sv(v)
+	return		void
+	param		v		CoordS in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	44
+	offset		85
+
+Rectd(x1, y1, x2, y2)
+	return		void
+	param		x1		CoordD in value
+	param		y1		CoordD in value
+	param		x2		CoordD in value
+	param		y2		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Rectdv
+	version		1.0
+	deprecated	3.1
+	offset		86
+
+Rectdv(v1, v2)
+	return		void
+	param		v1		CoordD in array [2]
+	param		v2		CoordD in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	45
+	offset		87
+
+Rectf(x1, y1, x2, y2)
+	return		void
+	param		x1		CoordF in value
+	param		y1		CoordF in value
+	param		x2		CoordF in value
+	param		y2		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Rectfv
+	version		1.0
+	deprecated	3.1
+	offset		88
+
+Rectfv(v1, v2)
+	return		void
+	param		v1		CoordF in array [2]
+	param		v2		CoordF in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	46
+	offset		89
+
+Recti(x1, y1, x2, y2)
+	return		void
+	param		x1		CoordI in value
+	param		y1		CoordI in value
+	param		x2		CoordI in value
+	param		y2		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Rectiv
+	version		1.0
+	deprecated	3.1
+	offset		90
+
+Rectiv(v1, v2)
+	return		void
+	param		v1		CoordI in array [2]
+	param		v2		CoordI in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	47
+	offset		91
+
+Rects(x1, y1, x2, y2)
+	return		void
+	param		x1		CoordS in value
+	param		y1		CoordS in value
+	param		x2		CoordS in value
+	param		y2		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Rectsv
+	version		1.0
+	deprecated	3.1
+	offset		92
+
+Rectsv(v1, v2)
+	return		void
+	param		v1		CoordS in array [2]
+	param		v2		CoordS in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	48
+	offset		93
+
+TexCoord1d(s)
+	return		void
+	param		s		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord1dv
+	version		1.0
+	deprecated	3.1
+	offset		94
+
+TexCoord1dv(v)
+	return		void
+	param		v		CoordD in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	49
+	offset		95
+
+TexCoord1f(s)
+	return		void
+	param		s		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord1fv
+	version		1.0
+	deprecated	3.1
+	offset		96
+
+TexCoord1fv(v)
+	return		void
+	param		v		CoordF in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	50
+	offset		97
+
+TexCoord1i(s)
+	return		void
+	param		s		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord1iv
+	version		1.0
+	deprecated	3.1
+	offset		98
+
+TexCoord1iv(v)
+	return		void
+	param		v		CoordI in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	51
+	offset		99
+
+TexCoord1s(s)
+	return		void
+	param		s		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord1sv
+	version		1.0
+	deprecated	3.1
+	offset		100
+
+TexCoord1sv(v)
+	return		void
+	param		v		CoordS in array [1]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	52
+	offset		101
+
+TexCoord2d(s, t)
+	return		void
+	param		s		CoordD in value
+	param		t		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord2dv
+	version		1.0
+	deprecated	3.1
+	offset		102
+
+TexCoord2dv(v)
+	return		void
+	param		v		CoordD in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	53
+	offset		103
+
+TexCoord2f(s, t)
+	return		void
+	param		s		CoordF in value
+	param		t		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord2fv
+	version		1.0
+	deprecated	3.1
+	offset		104
+
+TexCoord2fv(v)
+	return		void
+	param		v		CoordF in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	54
+	offset		105
+
+TexCoord2i(s, t)
+	return		void
+	param		s		CoordI in value
+	param		t		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord2iv
+	version		1.0
+	deprecated	3.1
+	offset		106
+
+TexCoord2iv(v)
+	return		void
+	param		v		CoordI in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	55
+	offset		107
+
+TexCoord2s(s, t)
+	return		void
+	param		s		CoordS in value
+	param		t		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord2sv
+	version		1.0
+	deprecated	3.1
+	offset		108
+
+TexCoord2sv(v)
+	return		void
+	param		v		CoordS in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	56
+	offset		109
+
+TexCoord3d(s, t, r)
+	return		void
+	param		s		CoordD in value
+	param		t		CoordD in value
+	param		r		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord3dv
+	version		1.0
+	deprecated	3.1
+	offset		110
+
+TexCoord3dv(v)
+	return		void
+	param		v		CoordD in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	57
+	offset		111
+
+TexCoord3f(s, t, r)
+	return		void
+	param		s		CoordF in value
+	param		t		CoordF in value
+	param		r		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord3fv
+	version		1.0
+	deprecated	3.1
+	offset		112
+
+TexCoord3fv(v)
+	return		void
+	param		v		CoordF in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	58
+	offset		113
+
+TexCoord3i(s, t, r)
+	return		void
+	param		s		CoordI in value
+	param		t		CoordI in value
+	param		r		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord3iv
+	version		1.0
+	deprecated	3.1
+	offset		114
+
+TexCoord3iv(v)
+	return		void
+	param		v		CoordI in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	59
+	offset		115
+
+TexCoord3s(s, t, r)
+	return		void
+	param		s		CoordS in value
+	param		t		CoordS in value
+	param		r		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord3sv
+	version		1.0
+	deprecated	3.1
+	offset		116
+
+TexCoord3sv(v)
+	return		void
+	param		v		CoordS in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	60
+	offset		117
+
+TexCoord4d(s, t, r, q)
+	return		void
+	param		s		CoordD in value
+	param		t		CoordD in value
+	param		r		CoordD in value
+	param		q		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord4dv
+	version		1.0
+	deprecated	3.1
+	offset		118
+
+TexCoord4dv(v)
+	return		void
+	param		v		CoordD in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	61
+	offset		119
+
+TexCoord4f(s, t, r, q)
+	return		void
+	param		s		CoordF in value
+	param		t		CoordF in value
+	param		r		CoordF in value
+	param		q		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord4fv
+	version		1.0
+	deprecated	3.1
+	offset		120
+
+TexCoord4fv(v)
+	return		void
+	param		v		CoordF in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	62
+	offset		121
+
+TexCoord4i(s, t, r, q)
+	return		void
+	param		s		CoordI in value
+	param		t		CoordI in value
+	param		r		CoordI in value
+	param		q		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord4iv
+	version		1.0
+	deprecated	3.1
+	offset		122
+
+TexCoord4iv(v)
+	return		void
+	param		v		CoordI in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	63
+	offset		123
+
+TexCoord4s(s, t, r, q)
+	return		void
+	param		s		CoordS in value
+	param		t		CoordS in value
+	param		r		CoordS in value
+	param		q		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	TexCoord4sv
+	version		1.0
+	deprecated	3.1
+	offset		124
+
+TexCoord4sv(v)
+	return		void
+	param		v		CoordS in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	64
+	offset		125
+
+Vertex2d(x, y)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex2dv
+	version		1.0
+	deprecated	3.1
+	offset		126
+
+Vertex2dv(v)
+	return		void
+	param		v		CoordD in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	65
+	offset		127
+
+Vertex2f(x, y)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex2fv
+	version		1.0
+	deprecated	3.1
+	offset		128
+
+Vertex2fv(v)
+	return		void
+	param		v		CoordF in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	66
+	offset		129
+
+Vertex2i(x, y)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex2iv
+	version		1.0
+	deprecated	3.1
+	offset		130
+
+Vertex2iv(v)
+	return		void
+	param		v		CoordI in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	67
+	offset		131
+
+Vertex2s(x, y)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex2sv
+	version		1.0
+	deprecated	3.1
+	offset		132
+
+Vertex2sv(v)
+	return		void
+	param		v		CoordS in array [2]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	68
+	offset		133
+
+Vertex3d(x, y, z)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	param		z		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex3dv
+	version		1.0
+	deprecated	3.1
+	offset		134
+
+Vertex3dv(v)
+	return		void
+	param		v		CoordD in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	69
+	offset		135
+
+Vertex3f(x, y, z)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	param		z		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex3fv
+	version		1.0
+	deprecated	3.1
+	offset		136
+
+Vertex3fv(v)
+	return		void
+	param		v		CoordF in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	70
+	offset		137
+
+Vertex3i(x, y, z)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	param		z		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex3iv
+	version		1.0
+	deprecated	3.1
+	offset		138
+
+Vertex3iv(v)
+	return		void
+	param		v		CoordI in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	71
+	offset		139
+
+Vertex3s(x, y, z)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	param		z		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex3sv
+	version		1.0
+	deprecated	3.1
+	offset		140
+
+Vertex3sv(v)
+	return		void
+	param		v		CoordS in array [3]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	72
+	offset		141
+
+Vertex4d(x, y, z, w)
+	return		void
+	param		x		CoordD in value
+	param		y		CoordD in value
+	param		z		CoordD in value
+	param		w		CoordD in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex4dv
+	version		1.0
+	deprecated	3.1
+	offset		142
+
+Vertex4dv(v)
+	return		void
+	param		v		CoordD in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	73
+	offset		143
+
+Vertex4f(x, y, z, w)
+	return		void
+	param		x		CoordF in value
+	param		y		CoordF in value
+	param		z		CoordF in value
+	param		w		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex4fv
+	version		1.0
+	deprecated	3.1
+	offset		144
+
+Vertex4fv(v)
+	return		void
+	param		v		CoordF in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	74
+	offset		145
+
+Vertex4i(x, y, z, w)
+	return		void
+	param		x		CoordI in value
+	param		y		CoordI in value
+	param		z		CoordI in value
+	param		w		CoordI in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex4iv
+	version		1.0
+	deprecated	3.1
+	offset		146
+
+Vertex4iv(v)
+	return		void
+	param		v		CoordI in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	75
+	offset		147
+
+Vertex4s(x, y, z, w)
+	return		void
+	param		x		CoordS in value
+	param		y		CoordS in value
+	param		z		CoordS in value
+	param		w		CoordS in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	vectorequiv	Vertex4sv
+	version		1.0
+	deprecated	3.1
+	offset		148
+
+Vertex4sv(v)
+	return		void
+	param		v		CoordS in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing
+	version		1.0
+	deprecated	3.1
+	glxropcode	76
+	offset		149
+
+ClipPlane(plane, equation)
+	return		void
+	param		plane		ClipPlaneName in value
+	param		equation	Float64 in array [4]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	77
+	offset		150
+
+ColorMaterial(face, mode)
+	return		void
+	param		face		MaterialFace in value
+	param		mode		ColorMaterialParameter in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	78
+	offset		151
+
+Fogf(pname, param)
+	return		void
+	param		pname		FogParameter in value
+	param		param		CheckedFloat32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	80
+	wglflags	small-data
+	offset		153
+
+Fogfv(pname, params)
+	return		void
+	param		pname		FogParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	81
+	wglflags	small-data
+	offset		154
+
+Fogi(pname, param)
+	return		void
+	param		pname		FogParameter in value
+	param		param		CheckedInt32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	82
+	wglflags	small-data
+	offset		155
+
+Fogiv(pname, params)
+	return		void
+	param		pname		FogParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	83
+	wglflags	small-data
+	offset		156
+
+Lightf(light, pname, param)
+	return		void
+	param		light		LightName in value
+	param		pname		LightParameter in value
+	param		param		CheckedFloat32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	86
+	wglflags	small-data
+	offset		159
+
+Lightfv(light, pname, params)
+	return		void
+	param		light		LightName in value
+	param		pname		LightParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	87
+	wglflags	small-data
+	offset		160
+
+Lighti(light, pname, param)
+	return		void
+	param		light		LightName in value
+	param		pname		LightParameter in value
+	param		param		CheckedInt32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	88
+	wglflags	small-data
+	offset		161
+
+Lightiv(light, pname, params)
+	return		void
+	param		light		LightName in value
+	param		pname		LightParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	89
+	wglflags	small-data
+	offset		162
+
+LightModelf(pname, param)
+	return		void
+	param		pname		LightModelParameter in value
+	param		param		Float32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	90
+	wglflags	small-data
+	offset		163
+
+LightModelfv(pname, params)
+	return		void
+	param		pname		LightModelParameter in value
+	param		params		Float32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	91
+	wglflags	small-data
+	offset		164
+
+LightModeli(pname, param)
+	return		void
+	param		pname		LightModelParameter in value
+	param		param		Int32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	92
+	wglflags	small-data
+	offset		165
+
+LightModeliv(pname, params)
+	return		void
+	param		pname		LightModelParameter in value
+	param		params		Int32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	93
+	wglflags	small-data
+	offset		166
+
+LineStipple(factor, pattern)
+	return		void
+	param		factor		CheckedInt32 in value
+	param		pattern		LineStipple in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	94
+	offset		167
+
+Materialf(face, pname, param)
+	return		void
+	param		face		MaterialFace in value
+	param		pname		MaterialParameter in value
+	param		param		CheckedFloat32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	96
+	wglflags	small-data
+	offset		169
+
+Materialfv(face, pname, params)
+	return		void
+	param		face		MaterialFace in value
+	param		pname		MaterialParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	97
+	wglflags	small-data
+	offset		170
+
+Materiali(face, pname, param)
+	return		void
+	param		face		MaterialFace in value
+	param		pname		MaterialParameter in value
+	param		param		CheckedInt32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	98
+	wglflags	small-data
+	offset		171
+
+Materialiv(face, pname, params)
+	return		void
+	param		face		MaterialFace in value
+	param		pname		MaterialParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	99
+	wglflags	small-data
+	offset		172
+
+PolygonStipple(mask)
+	return		void
+	param		mask		UInt8 in array [COMPSIZE()]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	dlflags		handcode
+	glxflags	client-handcode server-handcode
+	version		1.0
+	deprecated	3.1
+	glxropcode	102
+	wglflags	client-handcode server-handcode
+	offset		175
+
+ShadeModel(mode)
+	return		void
+	param		mode		ShadingModel in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	104
+	offset		177
+
+TexEnvf(target, pname, param)
+	return		void
+	param		target		TextureEnvTarget in value
+	param		pname		TextureEnvParameter in value
+	param		param		CheckedFloat32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	111
+	wglflags	small-data
+	offset		184
+
+TexEnvfv(target, pname, params)
+	return		void
+	param		target		TextureEnvTarget in value
+	param		pname		TextureEnvParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	112
+	wglflags	small-data
+	offset		185
+
+TexEnvi(target, pname, param)
+	return		void
+	param		target		TextureEnvTarget in value
+	param		pname		TextureEnvParameter in value
+	param		param		CheckedInt32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	113
+	wglflags	small-data
+	offset		186
+
+TexEnviv(target, pname, params)
+	return		void
+	param		target		TextureEnvTarget in value
+	param		pname		TextureEnvParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	114
+	wglflags	small-data
+	offset		187
+
+TexGend(coord, pname, param)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		param		Float64 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	115
+	wglflags	small-data
+	offset		188
+
+TexGendv(coord, pname, params)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		params		Float64 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	116
+	wglflags	small-data
+	offset		189
+
+TexGenf(coord, pname, param)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		param		CheckedFloat32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	117
+	wglflags	small-data
+	offset		190
+
+TexGenfv(coord, pname, params)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	118
+	wglflags	small-data
+	offset		191
+
+TexGeni(coord, pname, param)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		param		CheckedInt32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	119
+	wglflags	small-data
+	offset		192
+
+TexGeniv(coord, pname, params)
+	return		void
+	param		coord		TextureCoordName in value
+	param		pname		TextureGenParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_0_DEPRECATED	   # old: drawing-control
+	version		1.0
+	deprecated	3.1
+	glxropcode	120
+	wglflags	small-data
+	offset		193
+
+# feedback commands
+
+FeedbackBuffer(size, type, buffer)
+	return		void
+	param		size		SizeI in value
+	param		type		FeedbackType in value
+	param		buffer		FeedbackElement out array [size] retained
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxsingle	105
+	wglflags	client-handcode server-handcode batchable
+	offset		194
+
+SelectBuffer(size, buffer)
+	return		void
+	param		size		SizeI in value
+	param		buffer		SelectName out array [size] retained
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxsingle	106
+	wglflags	client-handcode server-handcode batchable
+	offset		195
+
+RenderMode(mode)
+	return		Int32
+	param		mode		RenderingMode in value
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.0
+	deprecated	3.1
+	glxsingle	107
+	wglflags	client-handcode server-handcode
+	offset		196
+
+InitNames()
+	return		void
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxropcode	121
+	offset		197
+
+LoadName(name)
+	return		void
+	param		name		SelectName in value
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxropcode	122
+	offset		198
+
+PassThrough(token)
+	return		void
+	param		token		FeedbackElement in value
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxropcode	123
+	offset		199
+
+PopName()
+	return		void
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxropcode	124
+	offset		200
+
+PushName(name)
+	return		void
+	param		name		SelectName in value
+	category	VERSION_1_0_DEPRECATED	   # old: feedback
+	version		1.0
+	deprecated	3.1
+	glxropcode	125
+	offset		201
+
+ClearAccum(red, green, blue, alpha)
+	return		void
+	param		red		Float32 in value
+	param		green		Float32 in value
+	param		blue		Float32 in value
+	param		alpha		Float32 in value
+	category	VERSION_1_0_DEPRECATED	   # old: framebuf
+	version		1.0
+	deprecated	3.1
+	glxropcode	128
+	offset		204
+
+ClearIndex(c)
+	return		void
+	param		c		MaskedColorIndexValueF in value
+	category	VERSION_1_0_DEPRECATED	   # old: framebuf
+	version		1.0
+	deprecated	3.1
+	glxropcode	129
+	offset		205
+
+IndexMask(mask)
+	return		void
+	param		mask		MaskedColorIndexValueI in value
+	category	VERSION_1_0_DEPRECATED	   # old: framebuf
+	version		1.0
+	deprecated	3.1
+	glxropcode	136
+	offset		212
+
+Accum(op, value)
+	return		void
+	param		op		AccumOp in value
+	param		value		CoordF in value
+	category	VERSION_1_0_DEPRECATED	   # old: misc
+	version		1.0
+	deprecated	3.1
+	glxropcode	137
+	offset		213
 
 PopAttrib()
 	return		void
-	category	misc
+	category	VERSION_1_0_DEPRECATED	   # old: misc
 	version		1.0
+	deprecated	3.1
 	glxropcode	141
-	glsopcode	0x00C4
 	offset		218
 
 PushAttrib(mask)
 	return		void
 	param		mask		AttribMask in value
-	category	misc
+	category	VERSION_1_0_DEPRECATED	   # old: misc
 	version		1.0
+	deprecated	3.1
 	glxropcode	142
-	glsopcode	0x00C5
 	offset		219
 
-###############################################################################
-#
 # modeling commands
-#
-###############################################################################
 
 Map1d(target, u1, u2, stride, order, points)
 	return		void
@@ -2468,13 +2781,12 @@ Map1d(target, u1, u2, stride, order, points)
 	param		stride		Int32 in value
 	param		order		CheckedInt32 in value
 	param		points		CoordD in array [COMPSIZE(target/stride/order)]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	143
-	glsflags	capture-handcode
-	glsopcode	0x00C6
 	wglflags	client-handcode server-handcode
 	offset		220
 
@@ -2486,13 +2798,12 @@ Map1f(target, u1, u2, stride, order, points)
 	param		stride		Int32 in value
 	param		order		CheckedInt32 in value
 	param		points		CoordF in array [COMPSIZE(target/stride/order)]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	144
-	glsflags	capture-handcode
-	glsopcode	0x00C7
 	wglflags	client-handcode server-handcode
 	offset		221
 
@@ -2508,13 +2819,12 @@ Map2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
 	param		vstride		Int32 in value
 	param		vorder		CheckedInt32 in value
 	param		points		CoordD in array [COMPSIZE(target/ustride/uorder/vstride/vorder)]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	145
-	glsflags	capture-handcode
-	glsopcode	0x00C8
 	wglflags	client-handcode server-handcode
 	offset		222
 
@@ -2530,13 +2840,12 @@ Map2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
 	param		vstride		Int32 in value
 	param		vorder		CheckedInt32 in value
 	param		points		CoordF in array [COMPSIZE(target/ustride/uorder/vstride/vorder)]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	146
-	glsflags	capture-handcode
-	glsopcode	0x00C9
 	wglflags	client-handcode server-handcode
 	offset		223
 
@@ -2545,10 +2854,10 @@ MapGrid1d(un, u1, u2)
 	param		un		Int32 in value
 	param		u1		CoordD in value
 	param		u2		CoordD in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	147
-	glsopcode	0x00CA
 	offset		224
 
 MapGrid1f(un, u1, u2)
@@ -2556,10 +2865,10 @@ MapGrid1f(un, u1, u2)
 	param		un		Int32 in value
 	param		u1		CoordF in value
 	param		u2		CoordF in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	148
-	glsopcode	0x00CB
 	offset		225
 
 MapGrid2d(un, u1, u2, vn, v1, v2)
@@ -2570,10 +2879,10 @@ MapGrid2d(un, u1, u2, vn, v1, v2)
 	param		vn		Int32 in value
 	param		v1		CoordD in value
 	param		v2		CoordD in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	149
-	glsopcode	0x00CC
 	offset		226
 
 MapGrid2f(un, u1, u2, vn, v1, v2)
@@ -2584,80 +2893,84 @@ MapGrid2f(un, u1, u2, vn, v1, v2)
 	param		vn		Int32 in value
 	param		v1		CoordF in value
 	param		v2		CoordF in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	150
-	glsopcode	0x00CD
 	offset		227
 
 EvalCoord1d(u)
 	return		void
 	param		u		CoordD in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	vectorequiv	EvalCoord1dv
 	version		1.0
+	deprecated	3.1
 	offset		228
 
 EvalCoord1dv(u)
 	return		void
 	param		u		CoordD in array [1]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	151
-	glsopcode	0x00CE
 	offset		229
 
 EvalCoord1f(u)
 	return		void
 	param		u		CoordF in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	vectorequiv	EvalCoord1fv
 	version		1.0
+	deprecated	3.1
 	offset		230
 
 EvalCoord1fv(u)
 	return		void
 	param		u		CoordF in array [1]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	152
-	glsopcode	0x00CF
 	offset		231
 
 EvalCoord2d(u, v)
 	return		void
 	param		u		CoordD in value
 	param		v		CoordD in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	vectorequiv	EvalCoord2dv
 	version		1.0
+	deprecated	3.1
 	offset		232
 
 EvalCoord2dv(u)
 	return		void
 	param		u		CoordD in array [2]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	153
-	glsopcode	0x00D0
 	offset		233
 
 EvalCoord2f(u, v)
 	return		void
 	param		u		CoordF in value
 	param		v		CoordF in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	vectorequiv	EvalCoord2fv
 	version		1.0
+	deprecated	3.1
 	offset		234
 
 EvalCoord2fv(u)
 	return		void
 	param		u		CoordF in array [2]
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	154
-	glsopcode	0x00D1
 	offset		235
 
 EvalMesh1(mode, i1, i2)
@@ -2665,19 +2978,19 @@ EvalMesh1(mode, i1, i2)
 	param		mode		MeshMode1 in value
 	param		i1		CheckedInt32 in value
 	param		i2		CheckedInt32 in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	155
-	glsopcode	0x00D2
 	offset		236
 
 EvalPoint1(i)
 	return		void
 	param		i		Int32 in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	156
-	glsopcode	0x00D3
 	offset		237
 
 EvalMesh2(mode, i1, i2, j1, j2)
@@ -2687,164 +3000,72 @@ EvalMesh2(mode, i1, i2, j1, j2)
 	param		i2		CheckedInt32 in value
 	param		j1		CheckedInt32 in value
 	param		j2		CheckedInt32 in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	157
-	glsopcode	0x00D4
 	offset		238
 
 EvalPoint2(i, j)
 	return		void
 	param		i		CheckedInt32 in value
 	param		j		CheckedInt32 in value
-	category	modeling
+	category	VERSION_1_0_DEPRECATED	   # old: modeling
 	version		1.0
+	deprecated	3.1
 	glxropcode	158
-	glsopcode	0x00D5
 	offset		239
-
-###############################################################################
-#
-# pixel-op commands
-#
-###############################################################################
 
 AlphaFunc(func, ref)
 	return		void
 	param		func		AlphaFunction in value
 	param		ref		ClampedFloat32 in value
-	category	pixel-op
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-op
 	version		1.0
+	deprecated	3.1
 	glxropcode	159
-	glsopcode	0x00D6
 	offset		240
-
-BlendFunc(sfactor, dfactor)
-	return		void
-	param		sfactor		BlendingFactorSrc in value
-	param		dfactor		BlendingFactorDest in value
-	category	pixel-op
-	version		1.0
-	glxropcode	160
-	glsopcode	0x00D7
-	offset		241
-
-LogicOp(opcode)
-	return		void
-	param		opcode		LogicOp in value
-	category	pixel-op
-	version		1.0
-	glxropcode	161
-	glsopcode	0x00D8
-	offset		242
-
-StencilFunc(func, ref, mask)
-	return		void
-	param		func		StencilFunction in value
-	param		ref		ClampedStencilValue in value
-	param		mask		MaskedStencilValue in value
-	category	pixel-op
-	version		1.0
-	glxropcode	162
-	glsopcode	0x00D9
-	offset		243
-
-StencilOp(fail, zfail, zpass)
-	return		void
-	param		fail		StencilOp in value
-	param		zfail		StencilOp in value
-	param		zpass		StencilOp in value
-	category	pixel-op
-	version		1.0
-	glxropcode	163
-	glsopcode	0x00DA
-	offset		244
-
-DepthFunc(func)
-	return		void
-	param		func		DepthFunction in value
-	category	pixel-op
-	version		1.0
-	glxropcode	164
-	glsopcode	0x00DB
-	offset		245
-
-###############################################################################
-#
-# pixel-rw commands
-#
-###############################################################################
 
 PixelZoom(xfactor, yfactor)
 	return		void
 	param		xfactor		Float32 in value
 	param		yfactor		Float32 in value
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	version		1.0
+	deprecated	3.1
 	glxropcode	165
-	glsopcode	0x00DC
 	offset		246
 
 PixelTransferf(pname, param)
 	return		void
 	param		pname		PixelTransferParameter in value
 	param		param		CheckedFloat32 in value
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	version		1.0
+	deprecated	3.1
 	glxropcode	166
-	glsflags	gl-enum
-	glsopcode	0x00DD
 	offset		247
 
 PixelTransferi(pname, param)
 	return		void
 	param		pname		PixelTransferParameter in value
 	param		param		CheckedInt32 in value
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	version		1.0
+	deprecated	3.1
 	glxropcode	167
-	glsflags	gl-enum
-	glsopcode	0x00DE
 	offset		248
-
-PixelStoref(pname, param)
-	return		void
-	param		pname		PixelStoreParameter in value
-	param		param		CheckedFloat32 in value
-	dlflags		notlistable
-	glxflags	client-handcode
-	category	pixel-rw
-	version		1.0
-	glxsingle	109
-	glsflags	client gl-enum
-	glsopcode	0x00DF
-	wglflags	batchable
-	offset		249
-
-PixelStorei(pname, param)
-	return		void
-	param		pname		PixelStoreParameter in value
-	param		param		CheckedInt32 in value
-	dlflags		notlistable
-	glxflags	client-handcode
-	category	pixel-rw
-	version		1.0
-	glxsingle	110
-	glsflags	client gl-enum
-	glsopcode	0x00E0
-	wglflags	batchable
-	offset		250
 
 PixelMapfv(map, mapsize, values)
 	return		void
 	param		map		PixelMap in value
 	param		mapsize		CheckedInt32 in value
 	param		values		Float32 in array [mapsize]
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	glxflags	client-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	168
-	glsopcode	0x00E1
 	offset		251
 
 PixelMapuiv(map, mapsize, values)
@@ -2852,11 +3073,11 @@ PixelMapuiv(map, mapsize, values)
 	param		map		PixelMap in value
 	param		mapsize		CheckedInt32 in value
 	param		values		UInt32 in array [mapsize]
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	glxflags	client-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	169
-	glsopcode	0x00E2
 	offset		252
 
 PixelMapusv(map, mapsize, values)
@@ -2864,21 +3085,12 @@ PixelMapusv(map, mapsize, values)
 	param		map		PixelMap in value
 	param		mapsize		CheckedInt32 in value
 	param		values		UInt16 in array [mapsize]
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	glxflags	client-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	170
-	glsopcode	0x00E3
 	offset		253
-
-ReadBuffer(mode)
-	return		void
-	param		mode		ReadBufferMode in value
-	category	pixel-rw
-	version		1.0
-	glxropcode	171
-	glsopcode	0x00E4
-	offset		254
 
 CopyPixels(x, y, width, height, type)
 	return		void
@@ -2887,30 +3099,11 @@ CopyPixels(x, y, width, height, type)
 	param		width		SizeI in value
 	param		height		SizeI in value
 	param		type		PixelCopyType in value
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	version		1.0
+	deprecated	3.1
 	glxropcode	172
-	glsopcode	0x00E5
 	offset		255
-
-ReadPixels(x, y, width, height, format, type, pixels)
-	return		void
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	param		height		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		pixels		Void out array [COMPSIZE(format/type/width/height)]
-	category	pixel-rw
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxsingle	111
-	glsflags	get pixel-pack
-	glsopcode	0x00E6
-	wglflags	client-handcode server-handcode
-	offset		256
 
 DrawPixels(width, height, format, type, pixels)
 	return		void
@@ -2919,113 +3112,37 @@ DrawPixels(width, height, format, type, pixels)
 	param		format		PixelFormat in value
 	param		type		PixelType in value
 	param		pixels		Void in array [COMPSIZE(format/type/width/height)]
-	category	pixel-rw
+	category	VERSION_1_0_DEPRECATED	   # old: pixel-rw
 	dlflags		handcode
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxropcode	173
-	glsflags	pixel-unpack
-	glsopcode	0x00E7
 	wglflags	client-handcode server-handcode
 	offset		257
-
-###############################################################################
-#
-# state-req commands
-#
-###############################################################################
-
-GetBooleanv(pname, params)
-	return		void
-	param		pname		GetPName in value
-	param		params		Boolean out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode
-	version		1.0
-	glxsingle	112
-	glsflags	client get
-	glsopcode	0x00E8
-	wglflags	small-data
-	offset		258
 
 GetClipPlane(plane, equation)
 	return		void
 	param		plane		ClipPlaneName in value
 	param		equation	Float64 out array [4]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	113
 	glxflags	client-handcode server-handcode
-	glsflags	get
-	glsopcode	0x00E9
 	offset		259
-
-GetDoublev(pname, params)
-	return		void
-	param		pname		GetPName in value
-	param		params		Float64 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode
-	version		1.0
-	glxsingle	114
-	glsflags	client get
-	glsopcode	0x00EA
-	wglflags	small-data
-	offset		260
-
-GetError()
-	return		ErrorCode
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode
-	version		1.0
-	glxsingle	115
-	glsflags	get
-	glsopcode	0x00EB
-	offset		261
-
-GetFloatv(pname, params)
-	return		void
-	param		pname		GetPName in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode
-	version		1.0
-	glxsingle	116
-	glsflags	client get
-	glsopcode	0x00EC
-	wglflags	small-data
-	offset		262
-
-GetIntegerv(pname, params)
-	return		void
-	param		pname		GetPName in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode
-	version		1.0
-	glxsingle	117
-	glsflags	client get
-	glsopcode	0x00ED
-	wglflags	small-data
-	offset		263
 
 GetLightfv(light, pname, params)
 	return		void
 	param		light		LightName in value
 	param		pname		LightParameter in value
 	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	118
-	glsflags	get
-	glsopcode	0x00EE
 	wglflags	small-data
 	offset		264
 
@@ -3034,12 +3151,11 @@ GetLightiv(light, pname, params)
 	param		light		LightName in value
 	param		pname		LightParameter in value
 	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	119
-	glsflags	get
-	glsopcode	0x00EF
 	wglflags	small-data
 	offset		265
 
@@ -3048,12 +3164,11 @@ GetMapdv(target, query, v)
 	param		target		MapTarget in value
 	param		query		GetMapQuery in value
 	param		v		Float64 out array [COMPSIZE(target/query)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	120
-	glsflags	get
-	glsopcode	0x00F0
 	offset		266
 
 GetMapfv(target, query, v)
@@ -3061,12 +3176,11 @@ GetMapfv(target, query, v)
 	param		target		MapTarget in value
 	param		query		GetMapQuery in value
 	param		v		Float32 out array [COMPSIZE(target/query)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	121
-	glsflags	get
-	glsopcode	0x00F1
 	offset		267
 
 GetMapiv(target, query, v)
@@ -3074,12 +3188,11 @@ GetMapiv(target, query, v)
 	param		target		MapTarget in value
 	param		query		GetMapQuery in value
 	param		v		Int32 out array [COMPSIZE(target/query)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	122
-	glsflags	get
-	glsopcode	0x00F2
 	offset		268
 
 GetMaterialfv(face, pname, params)
@@ -3087,12 +3200,11 @@ GetMaterialfv(face, pname, params)
 	param		face		MaterialFace in value
 	param		pname		MaterialParameter in value
 	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	123
-	glsflags	get
-	glsopcode	0x00F3
 	wglflags	small-data
 	offset		269
 
@@ -3101,12 +3213,11 @@ GetMaterialiv(face, pname, params)
 	param		face		MaterialFace in value
 	param		pname		MaterialParameter in value
 	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	124
-	glsflags	get
-	glsopcode	0x00F4
 	wglflags	small-data
 	offset		270
 
@@ -3114,75 +3225,57 @@ GetPixelMapfv(map, values)
 	return		void
 	param		map		PixelMap in value
 	param		values		Float32 out array [COMPSIZE(map)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	125
-	glsflags	get
-	glsopcode	0x00F5
 	offset		271
 
 GetPixelMapuiv(map, values)
 	return		void
 	param		map		PixelMap in value
 	param		values		UInt32 out array [COMPSIZE(map)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	126
-	glsflags	get
-	glsopcode	0x00F6
 	offset		272
 
 GetPixelMapusv(map, values)
 	return		void
 	param		map		PixelMap in value
 	param		values		UInt16 out array [COMPSIZE(map)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	127
-	glsflags	get
-	glsopcode	0x00F7
 	offset		273
 
 GetPolygonStipple(mask)
 	return		void
 	param		mask		UInt8 out array [COMPSIZE()]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode
 	version		1.0
+	deprecated	3.1
 	glxsingle	128
-	glsflags	get pixel-pack
-	glsopcode	0x00F8
 	wglflags	client-handcode server-handcode
 	offset		274
-
-GetString(name)
-	return		String
-	param		name		StringName in value
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxsingle	129
-	glsflags	get
-	glsopcode	0x00F9
-	wglflags	client-handcode server-handcode
-	offset		275
 
 GetTexEnvfv(target, pname, params)
 	return		void
 	param		target		TextureEnvTarget in value
 	param		pname		TextureEnvParameter in value
 	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	130
-	glsflags	get
-	glsopcode	0x00FA
 	wglflags	small-data
 	offset		276
 
@@ -3191,12 +3284,11 @@ GetTexEnviv(target, pname, params)
 	param		target		TextureEnvTarget in value
 	param		pname		TextureEnvParameter in value
 	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	131
-	glsflags	get
-	glsopcode	0x00FB
 	wglflags	small-data
 	offset		277
 
@@ -3205,12 +3297,11 @@ GetTexGendv(coord, pname, params)
 	param		coord		TextureCoordName in value
 	param		pname		TextureGenParameter in value
 	param		params		Float64 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	132
-	glsflags	get
-	glsopcode	0x00FC
 	wglflags	small-data
 	offset		278
 
@@ -3219,12 +3310,11 @@ GetTexGenfv(coord, pname, params)
 	param		coord		TextureCoordName in value
 	param		pname		TextureGenParameter in value
 	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	133
-	glsflags	get
-	glsopcode	0x00FD
 	wglflags	small-data
 	offset		279
 
@@ -3233,128 +3323,23 @@ GetTexGeniv(coord, pname, params)
 	param		coord		TextureCoordName in value
 	param		pname		TextureGenParameter in value
 	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	134
-	glsflags	get
-	glsopcode	0x00FE
 	wglflags	small-data
 	offset		280
-
-GetTexImage(target, level, format, type, pixels)
-	return		void
-	param		target		TextureTarget in value
-	param		level		CheckedInt32 in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		pixels		Void out array [COMPSIZE(target/level/format/type)]
-	category	state-req
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.0
-	glxsingle	135
-	glsflags	get pixel-pack
-	glsopcode	0x00FF
-	wglflags	client-handcode server-handcode
-	offset		281
-
-GetTexParameterfv(target, pname, params)
-	return		void
-	param		target		TextureTarget in value
-	param		pname		GetTextureParameter in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	version		1.0
-	glxsingle	136
-	glsflags	get
-	glsopcode	0x0100
-	wglflags	small-data
-	offset		282
-
-GetTexParameteriv(target, pname, params)
-	return		void
-	param		target		TextureTarget in value
-	param		pname		GetTextureParameter in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	version		1.0
-	glxsingle	137
-	glsflags	get
-	glsopcode	0x0101
-	wglflags	small-data
-	offset		283
-
-GetTexLevelParameterfv(target, level, pname, params)
-	return		void
-	param		target		TextureTarget in value
-	param		level		CheckedInt32 in value
-	param		pname		GetTextureParameter in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	version		1.0
-	glxsingle	138
-	glsflags	get
-	glsopcode	0x0102
-	wglflags	small-data
-	offset		284
-
-GetTexLevelParameteriv(target, level, pname, params)
-	return		void
-	param		target		TextureTarget in value
-	param		level		CheckedInt32 in value
-	param		pname		GetTextureParameter in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	state-req
-	dlflags		notlistable
-	version		1.0
-	glxsingle	139
-	glsflags	get
-	glsopcode	0x0103
-	wglflags	small-data
-	offset		285
-
-IsEnabled(cap)
-	return		Boolean
-	param		cap		EnableCap in value
-	category	state-req
-	dlflags		notlistable
-	version		1.0
-	glxflags	client-handcode client-intercept
-	glxsingle	140
-	glsflags	client get
-	glsopcode	0x0104
-	offset		286
 
 IsList(list)
 	return		Boolean
 	param		list		List in value
-	category	state-req
+	category	VERSION_1_0_DEPRECATED	   # old: state-req
 	dlflags		notlistable
 	version		1.0
+	deprecated	3.1
 	glxsingle	141
-	glsflags	get
-	glsopcode	0x0105
 	offset		287
-
-###############################################################################
-#
-# xform commands
-#
-###############################################################################
-
-DepthRange(near, far)
-	return		void
-	param		near		ClampedFloat64 in value
-	param		far		ClampedFloat64 in value
-	category	xform
-	version		1.0
-	glxropcode	174
-	glsopcode	0x0106
-	offset		288
 
 Frustum(left, right, bottom, top, zNear, zFar)
 	return		void
@@ -3364,67 +3349,63 @@ Frustum(left, right, bottom, top, zNear, zFar)
 	param		top		Float64 in value
 	param		zNear		Float64 in value
 	param		zFar		Float64 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	175
-	glsopcode	0x0107
 	offset		289
 
 LoadIdentity()
 	return		void
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	176
-	glsopcode	0x0108
 	offset		290
 
 LoadMatrixf(m)
 	return		void
 	param		m		Float32 in array [16]
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	177
-	glsflags	matrix
-	glsopcode	0x0109
 	offset		291
 
 LoadMatrixd(m)
 	return		void
 	param		m		Float64 in array [16]
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	178
-	glsflags	matrix
-	glsopcode	0x010A
 	offset		292
 
 MatrixMode(mode)
 	return		void
 	param		mode		MatrixMode in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	179
-	glsopcode	0x010B
 	offset		293
 
 MultMatrixf(m)
 	return		void
 	param		m		Float32 in array [16]
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	180
-	glsflags	matrix
-	glsopcode	0x010C
 	offset		294
 
 MultMatrixd(m)
 	return		void
 	param		m		Float64 in array [16]
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	181
-	glsflags	matrix
-	glsopcode	0x010D
 	offset		295
 
 Ortho(left, right, bottom, top, zNear, zFar)
@@ -3435,26 +3416,26 @@ Ortho(left, right, bottom, top, zNear, zFar)
 	param		top		Float64 in value
 	param		zNear		Float64 in value
 	param		zFar		Float64 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	182
-	glsopcode	0x010E
 	offset		296
 
 PopMatrix()
 	return		void
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	183
-	glsopcode	0x010F
 	offset		297
 
 PushMatrix()
 	return		void
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	184
-	glsopcode	0x0110
 	offset		298
 
 Rotated(angle, x, y, z)
@@ -3463,10 +3444,10 @@ Rotated(angle, x, y, z)
 	param		x		Float64 in value
 	param		y		Float64 in value
 	param		z		Float64 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	185
-	glsopcode	0x0111
 	offset		299
 
 Rotatef(angle, x, y, z)
@@ -3475,10 +3456,10 @@ Rotatef(angle, x, y, z)
 	param		x		Float32 in value
 	param		y		Float32 in value
 	param		z		Float32 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	186
-	glsopcode	0x0112
 	offset		300
 
 Scaled(x, y, z)
@@ -3486,10 +3467,10 @@ Scaled(x, y, z)
 	param		x		Float64 in value
 	param		y		Float64 in value
 	param		z		Float64 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	187
-	glsopcode	0x0113
 	offset		301
 
 Scalef(x, y, z)
@@ -3497,10 +3478,10 @@ Scalef(x, y, z)
 	param		x		Float32 in value
 	param		y		Float32 in value
 	param		z		Float32 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	188
-	glsopcode	0x0114
 	offset		302
 
 Translated(x, y, z)
@@ -3508,10 +3489,10 @@ Translated(x, y, z)
 	param		x		Float64 in value
 	param		y		Float64 in value
 	param		z		Float64 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	189
-	glsopcode	0x0115
 	offset		303
 
 Translatef(x, y, z)
@@ -3519,76 +3500,30 @@ Translatef(x, y, z)
 	param		x		Float32 in value
 	param		y		Float32 in value
 	param		z		Float32 in value
-	category	xform
+	category	VERSION_1_0_DEPRECATED	   # old: xform
 	version		1.0
+	deprecated	3.1
 	glxropcode	190
-	glsopcode	0x0116
 	offset		304
 
-Viewport(x, y, width, height)
-	return		void
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	param		height		SizeI in value
-	category	xform
-	version		1.0
-	glxropcode	191
-	glsopcode	0x0117
-	offset		305
-
+###############################################################################
 ###############################################################################
 #
 # OpenGL 1.1 commands
 #
 ###############################################################################
-
-ArrayElement(i)
-	return		void
-	param		i		Int32 in value
-	category	1_1
-	dlflags		handcode
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsopcode	0x013E
-	offset		306
-
-ColorPointer(size, type, stride, pointer)
-	return		void
-	param		size		Int32 in value
-	param		type		ColorPointerType in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0152
-	offset		308
-
-DisableClientState(array)
-	return		void
-	param		array		EnableCap in value
-	category	1_1
-	version		1.1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	glsflags	client
-	glsopcode	0x0153
-	offset		309
+###############################################################################
 
 DrawArrays(mode, first, count)
 	return		void
 	param		mode		BeginMode in value
 	param		first		Int32 in value
 	param		count		SizeI in value
-	category	1_1
+	category	VERSION_1_1
 	dlflags		handcode
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
 	glxropcode	193
-	glsopcode	0x0258
 	offset		310
 
 DrawElements(mode, count, type, indices)
@@ -3597,123 +3532,29 @@ DrawElements(mode, count, type, indices)
 	param		count		SizeI in value
 	param		type		DrawElementsType in value
 	param		indices		Void in array [COMPSIZE(count/type)]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		handcode
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
-	glsopcode	0x0154
 	offset		311
-
-EdgeFlagPointer(stride, pointer)
-	return		void
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0155
-	offset		312
-
-EnableClientState(array)
-	return		void
-	param		array		EnableCap in value
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0156
-	offset		313
 
 GetPointerv(pname, params)
 	return		void
 	param		pname		GetPointervPName in value
 	param		params		VoidPointer out array [1]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
-	glsflags	client get
-	glsopcode	0x0142
 	offset		329
-
-IndexPointer(type, stride, pointer)
-	return		void
-	param		type		IndexPointerType in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(type/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0157
-	offset		314
-
-InterleavedArrays(format, stride, pointer)
-	return		void
-	param		format		InterleavedArrayFormat in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(format/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0158
-	offset		317
-
-NormalPointer(type, stride, pointer)
-	return		void
-	param		type		NormalPointerType in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(type/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x0159
-	offset		318
-
-TexCoordPointer(size, type, stride, pointer)
-	return		void
-	param		size		Int32 in value
-	param		type		TexCoordPointerType in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x015A
-	offset		320
-
-VertexPointer(size, type, stride, pointer)
-	return		void
-	param		size		Int32 in value
-	param		type		VertexPointerType in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
-	category	1_1
-	dlflags		notlistable
-	glxflags	client-handcode client-intercept server-handcode
-	version		1.1
-	glsflags	client
-	glsopcode	0x015B
-	offset		321
 
 PolygonOffset(factor, units)
 	return		void
 	param		factor		Float32 in value
 	param		units		Float32 in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	192
-	glsopcode	0x015C
 	offset		319
 
 # Arguably TexelInternalFormat, not PixelInternalFormat
@@ -3726,11 +3567,10 @@ CopyTexImage1D(target, level, internalformat, x, y, width, border)
 	param		y		WinCoord in value
 	param		width		SizeI in value
 	param		border		CheckedInt32 in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	4119
 	glxflags	EXT
-	glsopcode	0x014D
 	offset		323
 
 # Arguably TexelInternalFormat, not PixelInternalFormat
@@ -3744,11 +3584,10 @@ CopyTexImage2D(target, level, internalformat, x, y, width, height, border)
 	param		width		SizeI in value
 	param		height		SizeI in value
 	param		border		CheckedInt32 in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	4120
 	glxflags	EXT
-	glsopcode	0x014E
 	offset		324
 
 CopyTexSubImage1D(target, level, xoffset, x, y, width)
@@ -3759,11 +3598,10 @@ CopyTexSubImage1D(target, level, xoffset, x, y, width)
 	param		x		WinCoord in value
 	param		y		WinCoord in value
 	param		width		SizeI in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	4121
 	glxflags	EXT
-	glsopcode	0x014F
 	offset		325
 
 CopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)
@@ -3776,11 +3614,10 @@ CopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height)
 	param		y		WinCoord in value
 	param		width		SizeI in value
 	param		height		SizeI in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	4122
 	glxflags	EXT
-	glsopcode	0x0150
 	offset		326
 
 TexSubImage1D(target, level, xoffset, width, format, type, pixels)
@@ -3792,13 +3629,11 @@ TexSubImage1D(target, level, xoffset, width, format, type, pixels)
 	param		format		PixelFormat in value
 	param		type		PixelType in value
 	param		pixels		Void in array [COMPSIZE(format/type/width)]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		handcode
 	glxflags	EXT client-handcode server-handcode
 	version		1.1
 	glxropcode	4099
-	glsflags	pixel-unpack
-	glsopcode	0x0123
 	offset		332
 
 TexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels)
@@ -3812,88 +3647,204 @@ TexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixe
 	param		format		PixelFormat in value
 	param		type		PixelType in value
 	param		pixels		Void in array [COMPSIZE(format/type/width/height)]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		handcode
 	glxflags	EXT client-handcode server-handcode
 	version		1.1
 	glxropcode	4100
-	glsflags	pixel-unpack
-	glsopcode	0x0124
 	offset		333
-
-AreTexturesResident(n, textures, residences)
-	return		Boolean
-	param		n		SizeI in value
-	param		textures	Texture in array [n]
-	param		residences	Boolean out array [n]
-	category	1_1
-	glxsingle	143
-	dlflags		notlistable
-	version		1.1
-	glsflags	get
-	glsopcode	0x0259
-	offset		322
 
 BindTexture(target, texture)
 	return		void
 	param		target		TextureTarget in value
 	param		texture		Texture in value
-	category	1_1
+	category	VERSION_1_1
 	version		1.1
 	glxropcode	4117
 	glxflags	EXT
-	glsopcode	0x0148
 	offset		307
 
 DeleteTextures(n, textures)
 	return		void
 	param		n		SizeI in value
 	param		textures	Texture in array [n]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		notlistable
 	version		1.1
 	glxsingle	144
-	glsopcode	0x025A
 	offset		327
 
 GenTextures(n, textures)
 	return		void
 	param		n		SizeI in value
 	param		textures	Texture out array [n]
-	category	1_1
+	category	VERSION_1_1
 	dlflags		notlistable
 	version		1.1
 	glxsingle	145
-	glsopcode	0x025B
 	offset		328
 
 IsTexture(texture)
 	return		Boolean
 	param		texture		Texture in value
-	category	1_1
+	category	VERSION_1_1
 	dlflags		notlistable
 	version		1.1
 	glxsingle	146
-	glsflags	get
-	glsopcode	0x025C
 	offset		330
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 1.1 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+ArrayElement(i)
+	return		void
+	param		i		Int32 in value
+	category	VERSION_1_1_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		306
+
+ColorPointer(size, type, stride, pointer)
+	return		void
+	param		size		Int32 in value
+	param		type		ColorPointerType in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		308
+
+DisableClientState(array)
+	return		void
+	param		array		EnableCap in value
+	category	VERSION_1_1_DEPRECATED
+	version		1.1
+	deprecated	3.1
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	offset		309
+
+EdgeFlagPointer(stride, pointer)
+	return		void
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		312
+
+EnableClientState(array)
+	return		void
+	param		array		EnableCap in value
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		313
+
+IndexPointer(type, stride, pointer)
+	return		void
+	param		type		IndexPointerType in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(type/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		314
+
+InterleavedArrays(format, stride, pointer)
+	return		void
+	param		format		InterleavedArrayFormat in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(format/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		317
+
+NormalPointer(type, stride, pointer)
+	return		void
+	param		type		NormalPointerType in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(type/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		318
+
+TexCoordPointer(size, type, stride, pointer)
+	return		void
+	param		size		Int32 in value
+	param		type		TexCoordPointerType in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		320
+
+VertexPointer(size, type, stride, pointer)
+	return		void
+	param		size		Int32 in value
+	param		type		VertexPointerType in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
+	category	VERSION_1_1_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode client-intercept server-handcode
+	version		1.1
+	deprecated	3.1
+	offset		321
+
+AreTexturesResident(n, textures, residences)
+	return		Boolean
+	param		n		SizeI in value
+	param		textures	Texture in array [n]
+	param		residences	Boolean out array [n]
+	category	VERSION_1_1_DEPRECATED
+	glxsingle	143
+	dlflags		notlistable
+	version		1.1
+	deprecated	3.1
+	offset		322
 
 PrioritizeTextures(n, textures, priorities)
 	return		void
 	param		n		SizeI in value
 	param		textures	Texture in array [n]
 	param		priorities	ClampedFloat32 in array [n]
-	category	1_1
+	category	VERSION_1_1_DEPRECATED
 	version		1.1
+	deprecated	3.1
 	glxropcode	4118
 	glxflags	EXT
-	glsopcode	0x014C
 	offset		331
 
 Indexub(c)
 	return		void
 	param		c		ColorIndexValueUB in value
-	category	1_1
+	category	VERSION_1_1_DEPRECATED
 	vectorequiv	Indexubv
 	version		1.1
 	offset		315
@@ -3901,31 +3852,28 @@ Indexub(c)
 Indexubv(c)
 	return		void
 	param		c		ColorIndexValueUB in array [1]
-	category	1_1
+	category	VERSION_1_1_DEPRECATED
 	version		1.1
 	glxropcode	194
-	glsopcode	0x015D
 	offset		316
 
 PopClientAttrib()
 	return		void
-	category	1_1
+	category	VERSION_1_1_DEPRECATED
 	version		1.1
+	deprecated	3.1
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
-	glsflags	client
-	glsopcode	0x015E
 	offset		334
 
 PushClientAttrib(mask)
 	return		void
 	param		mask		ClientAttribMask in value
-	category	1_1
+	category	VERSION_1_1_DEPRECATED
 	version		1.1
+	deprecated	3.1
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
-	glsflags	client
-	glsopcode	0x015F
 	offset		335
 
 ###############################################################################
@@ -3946,7 +3894,6 @@ BlendColor(red, green, blue, alpha)
 	glxflags	EXT
 	version		1.2
 	glxropcode	4096
-	glsopcode	0x0120
 	offset		336
 
 BlendEquation(mode)
@@ -3956,7 +3903,6 @@ BlendEquation(mode)
 	glxflags	EXT
 	version		1.2
 	glxropcode	4097
-	glsopcode	0x0121
 	offset		337
 
 DrawRangeElements(mode, start, end, count, type, indices)
@@ -3971,465 +3917,7 @@ DrawRangeElements(mode, start, end, count, type, indices)
 	dlflags		handcode
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.2
-	glsopcode	0x0190
 	offset		338
-
-# OpenGL 1.2 (SGI_color_table) commands
-
-ColorTable(target, internalformat, width, format, type, table)
-	return		void
-	param		target		ColorTableTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		width		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		table		Void in array [COMPSIZE(format/type/width)]
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	client-handcode server-handcode EXT
-	version		1.2
-	glxropcode	2053
-	glsflags	pixel-unpack
-	glsopcode	0x0167
-	offset		339
-
-ColorTableParameterfv(target, pname, params)
-	return		void
-	param		target		ColorTableTarget in value
-	param		pname		ColorTableParameterPName in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	2054
-	glsopcode	0x0168
-	offset		340
-
-ColorTableParameteriv(target, pname, params)
-	return		void
-	param		target		ColorTableTarget in value
-	param		pname		ColorTableParameterPName in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	2055
-	glsopcode	0x0169
-	offset		341
-
-CopyColorTable(target, internalformat, x, y, width)
-	return		void
-	param		target		ColorTableTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	2056
-	glsopcode	0x016A
-	offset		342
-
-GetColorTable(target, format, type, table)
-	return		void
-	param		target		ColorTableTarget in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		table		Void out array [COMPSIZE(target/format/type)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxsingle	147
-	glsflags	get pixel-pack
-	glsopcode	0x025D
-	offset		343
-
-GetColorTableParameterfv(target, pname, params)
-	return		void
-	param		target		ColorTableTarget in value
-	param		pname		GetColorTableParameterPName in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	148
-	glsflags	get
-	glsopcode	0x025E
-	offset		344
-
-GetColorTableParameteriv(target, pname, params)
-	return		void
-	param		target		ColorTableTarget in value
-	param		pname		GetColorTableParameterPName in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	149
-	glsflags	get
-	glsopcode	0x025F
-	offset		345
-
-# OpenGL 1.2 (EXT_color_subtable) commands
-
-ColorSubTable(target, start, count, format, type, data)
-	return		void
-	param		target		ColorTableTarget in value
-	param		start		SizeI in value
-	param		count		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		data		Void in array [COMPSIZE(format/type/count)]
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxropcode	195
-	glsflags	pixel-unpack
-	glsopcode	0x018E
-	offset		346
-
-CopyColorSubTable(target, start, x, y, width)
-	return		void
-	param		target		ColorTableTarget in value
-	param		start		SizeI in value
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	category	VERSION_1_2
-	version		1.2
-	glxropcode	196
-	glsopcode	0x018F
-	offset		347
-
-# OpenGL 1.2 (EXT_convolution) commands
-
-ConvolutionFilter1D(target, internalformat, width, format, type, image)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		width		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		image		Void in array [COMPSIZE(format/type/width)]
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	client-handcode server-handcode EXT
-	version		1.2
-	glxropcode	4101
-	glsflags	pixel-unpack
-	glsopcode	0x0125
-	offset		348
-
-ConvolutionFilter2D(target, internalformat, width, height, format, type, image)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		width		SizeI in value
-	param		height		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		image		Void in array [COMPSIZE(format/type/width/height)]
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	client-handcode server-handcode EXT
-	version		1.2
-	glxropcode	4102
-	glsflags	pixel-unpack
-	glsopcode	0x0126
-	offset		349
-
-ConvolutionParameterf(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		ConvolutionParameter in value
-	param		params		CheckedFloat32 in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4103
-	glsflags	gl-enum
-	glsopcode	0x0127
-	offset		350
-
-ConvolutionParameterfv(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		ConvolutionParameter in value
-	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4104
-	glsflags	gl-enum
-	glsopcode	0x0128
-	offset		351
-
-ConvolutionParameteri(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		ConvolutionParameter in value
-	param		params		CheckedInt32 in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4105
-	glsflags	gl-enum
-	glsopcode	0x0129
-	offset		352
-
-ConvolutionParameteriv(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		ConvolutionParameter in value
-	param		params		CheckedInt32 in array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4106
-	glsflags	gl-enum
-	glsopcode	0x012A
-	offset		353
-
-CopyConvolutionFilter1D(target, internalformat, x, y, width)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4107
-	glsopcode	0x012B
-	offset		354
-
-CopyConvolutionFilter2D(target, internalformat, x, y, width, height)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		x		WinCoord in value
-	param		y		WinCoord in value
-	param		width		SizeI in value
-	param		height		SizeI in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4108
-	glsopcode	0x012C
-	offset		355
-
-GetConvolutionFilter(target, format, type, image)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		image		Void out array [COMPSIZE(target/format/type)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxsingle	150
-	glsflags	get pixel-pack
-	glsopcode	0x0260
-	offset		356
-
-GetConvolutionParameterfv(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		GetConvolutionParameterPName in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	151
-	glsflags	get
-	glsopcode	0x0261
-	offset		357
-
-GetConvolutionParameteriv(target, pname, params)
-	return		void
-	param		target		ConvolutionTarget in value
-	param		pname		GetConvolutionParameterPName in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	152
-	glsflags	get
-	glsopcode	0x0262
-	offset		358
-
-GetSeparableFilter(target, format, type, row, column, span)
-	return		void
-	param		target		SeparableTarget in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		row		Void out array [COMPSIZE(target/format/type)]
-	param		column		Void out array [COMPSIZE(target/format/type)]
-	param		span		Void out array [COMPSIZE(target/format/type)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxsingle	153
-	glsflags	get pixel-pack
-	glsopcode	0x0263
-	offset		359
-
-SeparableFilter2D(target, internalformat, width, height, format, type, row, column)
-	return		void
-	param		target		SeparableTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		width		SizeI in value
-	param		height		SizeI in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		row		Void in array [COMPSIZE(target/format/type/width)]
-	param		column		Void in array [COMPSIZE(target/format/type/height)]
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	client-handcode server-handcode EXT
-	version		1.2
-	glxropcode	4109
-	glsflags	pixel-unpack
-	glsopcode	0x0131
-	offset		360
-
-# OpenGL 1.2 (EXT_histogram) commands
-
-GetHistogram(target, reset, format, type, values)
-	return		void
-	param		target		HistogramTarget in value
-	param		reset		Boolean in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		values		Void out array [COMPSIZE(target/format/type)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxsingle	154
-	glsflags	get pixel-pack
-	glsopcode	0x0264
-	offset		361
-
-GetHistogramParameterfv(target, pname, params)
-	return		void
-	param		target		HistogramTarget in value
-	param		pname		GetHistogramParameterPName in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	155
-	glsflags	get
-	glsopcode	0x0265
-	offset		362
-
-GetHistogramParameteriv(target, pname, params)
-	return		void
-	param		target		HistogramTarget in value
-	param		pname		GetHistogramParameterPName in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	156
-	glsflags	get
-	glsopcode	0x0266
-	offset		363
-
-GetMinmax(target, reset, format, type, values)
-	return		void
-	param		target		MinmaxTarget in value
-	param		reset		Boolean in value
-	param		format		PixelFormat in value
-	param		type		PixelType in value
-	param		values		Void out array [COMPSIZE(target/format/type)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	glxflags	client-handcode server-handcode
-	version		1.2
-	glxsingle	157
-	glsflags	get pixel-pack
-	glsopcode	0x0267
-	offset		364
-
-GetMinmaxParameterfv(target, pname, params)
-	return		void
-	param		target		MinmaxTarget in value
-	param		pname		GetMinmaxParameterPName in value
-	param		params		Float32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	158
-	glsflags	get
-	glsopcode	0x0268
-	offset		365
-
-GetMinmaxParameteriv(target, pname, params)
-	return		void
-	param		target		MinmaxTarget in value
-	param		pname		GetMinmaxParameterPName in value
-	param		params		Int32 out array [COMPSIZE(pname)]
-	category	VERSION_1_2
-	dlflags		notlistable
-	version		1.2
-	glxsingle	159
-	glsflags	get
-	glsopcode	0x0269
-	offset		366
-
-Histogram(target, width, internalformat, sink)
-	return		void
-	param		target		HistogramTarget in value
-	param		width		SizeI in value
-	param		internalformat	PixelInternalFormat in value
-	param		sink		Boolean in value
-	category	VERSION_1_2
-	dlflags		handcode
-	glxflags	EXT
-	version		1.2
-	glxropcode	4110
-	glsopcode	0x0138
-	offset		367
-
-Minmax(target, internalformat, sink)
-	return		void
-	param		target		MinmaxTarget in value
-	param		internalformat	PixelInternalFormat in value
-	param		sink		Boolean in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4111
-	glsopcode	0x0139
-	offset		368
-
-ResetHistogram(target)
-	return		void
-	param		target		HistogramTarget in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4112
-	glsopcode	0x013A
-	offset		369
-
-ResetMinmax(target)
-	return		void
-	param		target		MinmaxTarget in value
-	category	VERSION_1_2
-	glxflags	EXT
-	version		1.2
-	glxropcode	4113
-	glsopcode	0x013B
-	offset		370
 
 # OpenGL 1.2 (EXT_texture3D) commands
 
@@ -4450,9 +3938,8 @@ TexImage3D(target, level, internalformat, width, height, depth, border, format, 
 	dlflags		handcode
 	glxflags	client-handcode server-handcode EXT
 	version		1.2
+	deprecated	3.1
 	glxropcode	4114
-	glsflags	pixel-null pixel-unpack
-	glsopcode	0x013C
 	offset		371
 
 TexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
@@ -4473,8 +3960,6 @@ TexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, fo
 	glxflags	client-handcode server-handcode EXT
 	version		1.2
 	glxropcode	4115
-	glsflags	pixel-unpack
-	glsopcode	0x013D
 	offset		372
 
 # OpenGL 1.2 (EXT_copy_texture) commands (specific to texture3D)
@@ -4494,8 +3979,450 @@ CopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height)
 	glxflags	EXT
 	version		1.2
 	glxropcode	4123
-	glsopcode	0x0151
 	offset		373
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 1.2 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+# OpenGL 1.2 (SGI_color_table) commands
+
+ColorTable(target, internalformat, width, format, type, table)
+	return		void
+	param		target		ColorTableTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		width		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		table		Void in array [COMPSIZE(format/type/width)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode server-handcode EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	2053
+	offset		339
+
+ColorTableParameterfv(target, pname, params)
+	return		void
+	param		target		ColorTableTarget in value
+	param		pname		ColorTableParameterPName in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	2054
+	offset		340
+
+ColorTableParameteriv(target, pname, params)
+	return		void
+	param		target		ColorTableTarget in value
+	param		pname		ColorTableParameterPName in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	2055
+	offset		341
+
+CopyColorTable(target, internalformat, x, y, width)
+	return		void
+	param		target		ColorTableTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	2056
+	offset		342
+
+GetColorTable(target, format, type, table)
+	return		void
+	param		target		ColorTableTarget in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		table		Void out array [COMPSIZE(target/format/type)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxsingle	147
+	offset		343
+
+GetColorTableParameterfv(target, pname, params)
+	return		void
+	param		target		ColorTableTarget in value
+	param		pname		GetColorTableParameterPName in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	148
+	offset		344
+
+GetColorTableParameteriv(target, pname, params)
+	return		void
+	param		target		ColorTableTarget in value
+	param		pname		GetColorTableParameterPName in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	149
+	offset		345
+
+# OpenGL 1.2 (EXT_color_subtable) commands
+
+ColorSubTable(target, start, count, format, type, data)
+	return		void
+	param		target		ColorTableTarget in value
+	param		start		SizeI in value
+	param		count		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		data		Void in array [COMPSIZE(format/type/count)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxropcode	195
+	offset		346
+
+CopyColorSubTable(target, start, x, y, width)
+	return		void
+	param		target		ColorTableTarget in value
+	param		start		SizeI in value
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	category	VERSION_1_2_DEPRECATED
+	version		1.2
+	deprecated	3.1
+	glxropcode	196
+	offset		347
+
+# OpenGL 1.2 (EXT_convolution) commands
+
+ConvolutionFilter1D(target, internalformat, width, format, type, image)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		width		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		image		Void in array [COMPSIZE(format/type/width)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode server-handcode EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4101
+	offset		348
+
+ConvolutionFilter2D(target, internalformat, width, height, format, type, image)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		image		Void in array [COMPSIZE(format/type/width/height)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode server-handcode EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4102
+	offset		349
+
+ConvolutionParameterf(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		ConvolutionParameter in value
+	param		params		CheckedFloat32 in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4103
+	offset		350
+
+ConvolutionParameterfv(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		ConvolutionParameter in value
+	param		params		CheckedFloat32 in array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4104
+	offset		351
+
+ConvolutionParameteri(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		ConvolutionParameter in value
+	param		params		CheckedInt32 in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4105
+	offset		352
+
+ConvolutionParameteriv(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		ConvolutionParameter in value
+	param		params		CheckedInt32 in array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4106
+	offset		353
+
+CopyConvolutionFilter1D(target, internalformat, x, y, width)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4107
+	offset		354
+
+CopyConvolutionFilter2D(target, internalformat, x, y, width, height)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		x		WinCoord in value
+	param		y		WinCoord in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4108
+	offset		355
+
+GetConvolutionFilter(target, format, type, image)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		image		Void out array [COMPSIZE(target/format/type)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxsingle	150
+	offset		356
+
+GetConvolutionParameterfv(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		GetConvolutionParameterPName in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	151
+	offset		357
+
+GetConvolutionParameteriv(target, pname, params)
+	return		void
+	param		target		ConvolutionTarget in value
+	param		pname		GetConvolutionParameterPName in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	152
+	offset		358
+
+GetSeparableFilter(target, format, type, row, column, span)
+	return		void
+	param		target		SeparableTarget in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		row		Void out array [COMPSIZE(target/format/type)]
+	param		column		Void out array [COMPSIZE(target/format/type)]
+	param		span		Void out array [COMPSIZE(target/format/type)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxsingle	153
+	offset		359
+
+SeparableFilter2D(target, internalformat, width, height, format, type, row, column)
+	return		void
+	param		target		SeparableTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		row		Void in array [COMPSIZE(target/format/type/width)]
+	param		column		Void in array [COMPSIZE(target/format/type/height)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	client-handcode server-handcode EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4109
+	offset		360
+
+# OpenGL 1.2 (EXT_histogram) commands
+
+GetHistogram(target, reset, format, type, values)
+	return		void
+	param		target		HistogramTarget in value
+	param		reset		Boolean in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		values		Void out array [COMPSIZE(target/format/type)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxsingle	154
+	offset		361
+
+GetHistogramParameterfv(target, pname, params)
+	return		void
+	param		target		HistogramTarget in value
+	param		pname		GetHistogramParameterPName in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	155
+	offset		362
+
+GetHistogramParameteriv(target, pname, params)
+	return		void
+	param		target		HistogramTarget in value
+	param		pname		GetHistogramParameterPName in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	156
+	offset		363
+
+GetMinmax(target, reset, format, type, values)
+	return		void
+	param		target		MinmaxTarget in value
+	param		reset		Boolean in value
+	param		format		PixelFormat in value
+	param		type		PixelType in value
+	param		values		Void out array [COMPSIZE(target/format/type)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	glxflags	client-handcode server-handcode
+	version		1.2
+	deprecated	3.1
+	glxsingle	157
+	offset		364
+
+GetMinmaxParameterfv(target, pname, params)
+	return		void
+	param		target		MinmaxTarget in value
+	param		pname		GetMinmaxParameterPName in value
+	param		params		Float32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	158
+	offset		365
+
+GetMinmaxParameteriv(target, pname, params)
+	return		void
+	param		target		MinmaxTarget in value
+	param		pname		GetMinmaxParameterPName in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	VERSION_1_2_DEPRECATED
+	dlflags		notlistable
+	version		1.2
+	deprecated	3.1
+	glxsingle	159
+	offset		366
+
+Histogram(target, width, internalformat, sink)
+	return		void
+	param		target		HistogramTarget in value
+	param		width		SizeI in value
+	param		internalformat	PixelInternalFormat in value
+	param		sink		Boolean in value
+	category	VERSION_1_2_DEPRECATED
+	dlflags		handcode
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4110
+	offset		367
+
+Minmax(target, internalformat, sink)
+	return		void
+	param		target		MinmaxTarget in value
+	param		internalformat	PixelInternalFormat in value
+	param		sink		Boolean in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4111
+	offset		368
+
+ResetHistogram(target)
+	return		void
+	param		target		HistogramTarget in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4112
+	offset		369
+
+ResetMinmax(target)
+	return		void
+	param		target		MinmaxTarget in value
+	category	VERSION_1_2_DEPRECATED
+	glxflags	EXT
+	version		1.2
+	deprecated	3.1
+	glxropcode	4113
+	offset		370
 
 ###############################################################################
 ###############################################################################
@@ -4514,421 +4441,7 @@ ActiveTexture(texture)
 	glxflags	ARB
 	version		1.3
 	glxropcode	197
-	glsopcode	0x01B1
 	offset		374
-
-ClientActiveTexture(texture)
-	return		void
-	param		texture		TextureUnit in value
-	category	VERSION_1_3
-	dlflags		notlistable
-	glxflags	ARB client-handcode client-intercept server-handcode
-	version		1.3
-	glsflags	client
-	glsopcode	0x01B2
-	offset		375
-
-MultiTexCoord1d(target, s)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordD in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord1dv
-	offset		376
-
-MultiTexCoord1dv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordD in array [1]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	198
-	glsopcode	0x01B3
-	offset		377
-
-MultiTexCoord1f(target, s)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordF in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord1fv
-	offset		378
-
-MultiTexCoord1fv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordF in array [1]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	199
-	glsopcode	0x01B4
-	offset		379
-
-MultiTexCoord1i(target, s)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordI in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord1iv
-	offset		380
-
-MultiTexCoord1iv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordI in array [1]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	200
-	glsopcode	0x01B5
-	offset		381
-
-MultiTexCoord1s(target, s)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordS in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord1sv
-	offset		382
-
-MultiTexCoord1sv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordS in array [1]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	201
-	glsopcode	0x01B6
-	offset		383
-
-MultiTexCoord2d(target, s, t)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordD in value
-	param		t		CoordD in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord2dv
-	offset		384
-
-MultiTexCoord2dv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordD in array [2]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	202
-	glsopcode	0x01B7
-	offset		385
-
-MultiTexCoord2f(target, s, t)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordF in value
-	param		t		CoordF in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord2fv
-	offset		386
-
-MultiTexCoord2fv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordF in array [2]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	203
-	glsopcode	0x01B8
-	offset		387
-
-MultiTexCoord2i(target, s, t)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordI in value
-	param		t		CoordI in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord2iv
-	offset		388
-
-MultiTexCoord2iv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordI in array [2]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	204
-	glsopcode	0x01B9
-	offset		389
-
-MultiTexCoord2s(target, s, t)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordS in value
-	param		t		CoordS in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord2sv
-	offset		390
-
-MultiTexCoord2sv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordS in array [2]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	205
-	glsopcode	0x01BA
-	offset		391
-
-MultiTexCoord3d(target, s, t, r)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordD in value
-	param		t		CoordD in value
-	param		r		CoordD in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord3dv
-	offset		392
-
-MultiTexCoord3dv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordD in array [3]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	206
-	glsopcode	0x01BB
-	offset		393
-
-MultiTexCoord3f(target, s, t, r)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordF in value
-	param		t		CoordF in value
-	param		r		CoordF in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord3fv
-	offset		394
-
-MultiTexCoord3fv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordF in array [3]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	207
-	glsopcode	0x01BC
-	offset		395
-
-MultiTexCoord3i(target, s, t, r)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordI in value
-	param		t		CoordI in value
-	param		r		CoordI in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord3iv
-	offset		396
-
-MultiTexCoord3iv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordI in array [3]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	208
-	glsopcode	0x01BD
-	offset		397
-
-MultiTexCoord3s(target, s, t, r)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordS in value
-	param		t		CoordS in value
-	param		r		CoordS in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord3sv
-	offset		398
-
-MultiTexCoord3sv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordS in array [3]
-	category	VERSION_1_3
-	version		1.3
-	glxflags	ARB
-	glxropcode	209
-	glsopcode	0x01BE
-	offset		399
-
-MultiTexCoord4d(target, s, t, r, q)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordD in value
-	param		t		CoordD in value
-	param		r		CoordD in value
-	param		q		CoordD in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord4dv
-	offset		400
-
-MultiTexCoord4dv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordD in array [4]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	210
-	glsopcode	0x01BF
-	offset		401
-
-MultiTexCoord4f(target, s, t, r, q)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordF in value
-	param		t		CoordF in value
-	param		r		CoordF in value
-	param		q		CoordF in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord4fv
-	offset		402
-
-MultiTexCoord4fv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordF in array [4]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	211
-	glsopcode	0x01C0
-	offset		403
-
-MultiTexCoord4i(target, s, t, r, q)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordI in value
-	param		t		CoordI in value
-	param		r		CoordI in value
-	param		q		CoordI in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord4iv
-	offset		404
-
-MultiTexCoord4iv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordI in array [4]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	212
-	glsopcode	0x01C1
-	offset		405
-
-MultiTexCoord4s(target, s, t, r, q)
-	return		void
-	param		target		TextureUnit in value
-	param		s		CoordS in value
-	param		t		CoordS in value
-	param		r		CoordS in value
-	param		q		CoordS in value
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	vectorequiv	MultiTexCoord4sv
-	offset		406
-
-MultiTexCoord4sv(target, v)
-	return		void
-	param		target		TextureUnit in value
-	param		v		CoordS in array [4]
-	category	VERSION_1_3
-	glxflags	ARB
-	version		1.3
-	glxropcode	213
-	glsopcode	0x01C2
-	offset		407
-
-# OpenGL 1.3 (ARB_transpose_matrix) commands
-
-LoadTransposeMatrixf(m)
-	return		void
-	param		m		Float32 in array [16]
-	category	VERSION_1_3
-	glxflags	ARB client-handcode client-intercept server-handcode
-	version		1.3
-	glsflags	matrix
-	glsopcode	0x01C3
-	offset		408
-
-LoadTransposeMatrixd(m)
-	return		void
-	param		m		Float64 in array [16]
-	category	VERSION_1_3
-	glxflags	ARB client-handcode client-intercept server-handcode
-	version		1.3
-	glsflags	matrix
-	glsopcode	0x01C4
-	offset		409
-
-MultTransposeMatrixf(m)
-	return		void
-	param		m		Float32 in array [16]
-	category	VERSION_1_3
-	glxflags	ARB client-handcode client-intercept server-handcode
-	version		1.3
-	glsflags	matrix
-	glsopcode	0x01C5
-	offset		410
-
-MultTransposeMatrixd(m)
-	return		void
-	param		m		Float64 in array [16]
-	category	VERSION_1_3
-	glxflags	ARB client-handcode client-intercept server-handcode
-	version		1.3
-	glsflags	matrix
-	glsopcode	0x01C6
-	offset		411
 
 # OpenGL 1.3 (ARB_multisample) commands
 
@@ -4940,7 +4453,6 @@ SampleCoverage(value, invert)
 	glxflags	ARB
 	version		1.3
 	glxropcode	229
-	glsopcode	0x01C7
 	offset		412
 
 # OpenGL 1.3 (ARB_texture_compression) commands
@@ -4962,7 +4474,6 @@ CompressedTexImage3D(target, level, internalformat, width, height, depth, border
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	216
-	glsopcode	0x01C9
 	wglflags	client-handcode server-handcode
 	offset		554
 
@@ -4982,7 +4493,6 @@ CompressedTexImage2D(target, level, internalformat, width, height, border, image
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	215
-	glsopcode	0x01CA
 	wglflags	client-handcode server-handcode
 	offset		555
 
@@ -5001,7 +4511,6 @@ CompressedTexImage1D(target, level, internalformat, width, border, imageSize, da
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	214
-	glsopcode	0x01CB
 	wglflags	client-handcode server-handcode
 	offset		556
 
@@ -5023,7 +4532,6 @@ CompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height,
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	219
-	glsopcode	0x01CC
 	wglflags	client-handcode server-handcode
 	offset		557
 
@@ -5043,7 +4551,6 @@ CompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, 
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	218
-	glsopcode	0x01CD
 	wglflags	client-handcode server-handcode
 	offset		558
 
@@ -5061,7 +4568,6 @@ CompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data)
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxropcode	217
-	glsopcode	0x01CE
 	wglflags	client-handcode server-handcode
 	offset		559
 
@@ -5075,11 +4581,440 @@ GetCompressedTexImage(target, level, img)
 	glxflags	ARB client-handcode server-handcode
 	version		1.3
 	glxsingle	160
-	glsflags	get
-	glsopcode	0x01CF
 	wglflags	client-handcode server-handcode
 	offset		560
 
+###############################################################################
+###############################################################################
+#
+# OpenGL 1.3 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+ClientActiveTexture(texture)
+	return		void
+	param		texture		TextureUnit in value
+	category	VERSION_1_3_DEPRECATED
+	dlflags		notlistable
+	glxflags	ARB client-handcode client-intercept server-handcode
+	version		1.3
+	deprecated	3.1
+	offset		375
+
+MultiTexCoord1d(target, s)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordD in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord1dv
+	offset		376
+
+MultiTexCoord1dv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordD in array [1]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	198
+	offset		377
+
+MultiTexCoord1f(target, s)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordF in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord1fv
+	offset		378
+
+MultiTexCoord1fv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordF in array [1]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	199
+	offset		379
+
+MultiTexCoord1i(target, s)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordI in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord1iv
+	offset		380
+
+MultiTexCoord1iv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordI in array [1]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	200
+	offset		381
+
+MultiTexCoord1s(target, s)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordS in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord1sv
+	offset		382
+
+MultiTexCoord1sv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordS in array [1]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	201
+	offset		383
+
+MultiTexCoord2d(target, s, t)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordD in value
+	param		t		CoordD in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord2dv
+	offset		384
+
+MultiTexCoord2dv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordD in array [2]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	202
+	offset		385
+
+MultiTexCoord2f(target, s, t)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordF in value
+	param		t		CoordF in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord2fv
+	offset		386
+
+MultiTexCoord2fv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordF in array [2]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	203
+	offset		387
+
+MultiTexCoord2i(target, s, t)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordI in value
+	param		t		CoordI in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord2iv
+	offset		388
+
+MultiTexCoord2iv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordI in array [2]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	204
+	offset		389
+
+MultiTexCoord2s(target, s, t)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordS in value
+	param		t		CoordS in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord2sv
+	offset		390
+
+MultiTexCoord2sv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordS in array [2]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	205
+	offset		391
+
+MultiTexCoord3d(target, s, t, r)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordD in value
+	param		t		CoordD in value
+	param		r		CoordD in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord3dv
+	offset		392
+
+MultiTexCoord3dv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordD in array [3]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	206
+	offset		393
+
+MultiTexCoord3f(target, s, t, r)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordF in value
+	param		t		CoordF in value
+	param		r		CoordF in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord3fv
+	offset		394
+
+MultiTexCoord3fv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordF in array [3]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	207
+	offset		395
+
+MultiTexCoord3i(target, s, t, r)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordI in value
+	param		t		CoordI in value
+	param		r		CoordI in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord3iv
+	offset		396
+
+MultiTexCoord3iv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordI in array [3]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	208
+	offset		397
+
+MultiTexCoord3s(target, s, t, r)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordS in value
+	param		t		CoordS in value
+	param		r		CoordS in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord3sv
+	offset		398
+
+MultiTexCoord3sv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordS in array [3]
+	category	VERSION_1_3_DEPRECATED
+	version		1.3
+	deprecated	3.1
+	glxflags	ARB
+	glxropcode	209
+	offset		399
+
+MultiTexCoord4d(target, s, t, r, q)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordD in value
+	param		t		CoordD in value
+	param		r		CoordD in value
+	param		q		CoordD in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord4dv
+	offset		400
+
+MultiTexCoord4dv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordD in array [4]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	210
+	offset		401
+
+MultiTexCoord4f(target, s, t, r, q)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordF in value
+	param		t		CoordF in value
+	param		r		CoordF in value
+	param		q		CoordF in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord4fv
+	offset		402
+
+MultiTexCoord4fv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordF in array [4]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	211
+	offset		403
+
+MultiTexCoord4i(target, s, t, r, q)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordI in value
+	param		t		CoordI in value
+	param		r		CoordI in value
+	param		q		CoordI in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord4iv
+	offset		404
+
+MultiTexCoord4iv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordI in array [4]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	212
+	offset		405
+
+MultiTexCoord4s(target, s, t, r, q)
+	return		void
+	param		target		TextureUnit in value
+	param		s		CoordS in value
+	param		t		CoordS in value
+	param		r		CoordS in value
+	param		q		CoordS in value
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	vectorequiv	MultiTexCoord4sv
+	offset		406
+
+MultiTexCoord4sv(target, v)
+	return		void
+	param		target		TextureUnit in value
+	param		v		CoordS in array [4]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB
+	version		1.3
+	deprecated	3.1
+	glxropcode	213
+	offset		407
+
+# OpenGL 1.3 (ARB_transpose_matrix) commands
+
+LoadTransposeMatrixf(m)
+	return		void
+	param		m		Float32 in array [16]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB client-handcode client-intercept server-handcode
+	version		1.3
+	deprecated	3.1
+	offset		408
+
+LoadTransposeMatrixd(m)
+	return		void
+	param		m		Float64 in array [16]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB client-handcode client-intercept server-handcode
+	version		1.3
+	deprecated	3.1
+	offset		409
+
+MultTransposeMatrixf(m)
+	return		void
+	param		m		Float32 in array [16]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB client-handcode client-intercept server-handcode
+	version		1.3
+	deprecated	3.1
+	offset		410
+
+MultTransposeMatrixd(m)
+	return		void
+	param		m		Float64 in array [16]
+	category	VERSION_1_3_DEPRECATED
+	glxflags	ARB client-handcode client-intercept server-handcode
+	version		1.3
+	deprecated	3.1
+	offset		411
 
 ###############################################################################
 ###############################################################################
@@ -5101,57 +5036,7 @@ BlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha)
 	glxropcode	4134
 	version		1.4
 	extension
-	glsopcode	0x01DC
 	offset		537
-
-# OpenGL 1.4 (EXT_fog_coord) commands
-
-FogCoordf(coord)
-	return		void
-	param		coord		CoordF in value
-	category	VERSION_1_4
-	vectorequiv	FogCoordfv
-	version		1.4
-	offset		545
-
-FogCoordfv(coord)
-	return		void
-	param		coord		CoordF in array [1]
-	category	VERSION_1_4
-	version		1.4
-	glxropcode	4124
-	glsopcode	0x01D8
-	offset		546
-
-FogCoordd(coord)
-	return		void
-	param		coord		CoordD in value
-	category	VERSION_1_4
-	vectorequiv	FogCoorddv
-	version		1.4
-	offset		547
-
-FogCoorddv(coord)
-	return		void
-	param		coord		CoordD in array [1]
-	category	VERSION_1_4
-	version		1.4
-	glxropcode	4125
-	glsopcode	0x01DA
-	offset		548
-
-FogCoordPointer(type, stride, pointer)
-	return		void
-	param		type		FogPointerTypeEXT in value
-	param		stride		SizeI in value
-	param		pointer		Void in array [COMPSIZE(type/stride)] retained
-	category	VERSION_1_4
-	dlflags		notlistable
-	version		1.4
-	glxflags	client-handcode server-handcode
-	glsflags	client
-	glsopcode	0x01DB
-	offset		549
 
 # OpenGL 1.4 (EXT_multi_draw_arrays) commands
 
@@ -5165,7 +5050,6 @@ MultiDrawArrays(mode, first, count, primcount)
 	category	VERSION_1_4
 	version		1.4
 	glxropcode	?
-	glsflags	ignore
 	offset		644
 
 MultiDrawElements(mode, count, type, indices, primcount)
@@ -5178,7 +5062,6 @@ MultiDrawElements(mode, count, type, indices, primcount)
 	category	VERSION_1_4
 	version		1.4
 	glxropcode	?
-	glsflags	ignore
 	offset		645
 
 # OpenGL 1.4 (ARB_point_parameters, NV_point_sprite) commands
@@ -5191,7 +5074,6 @@ PointParameterf(pname, param)
 	version		1.4
 	glxropcode	2065
 	extension
-	glsopcode	0x0177
 	offset		458
 
 PointParameterfv(pname, params)
@@ -5202,7 +5084,6 @@ PointParameterfv(pname, params)
 	version		1.4
 	glxropcode	2066
 	extension
-	glsopcode	0x0178
 	offset		459
 
 PointParameteri(pname, param)
@@ -5213,7 +5094,6 @@ PointParameteri(pname, param)
 	version		1.4
 	extension	soft WINSOFT NV20
 	glxropcode	4221
-	glsflags	ignore
 	offset		642
 
 PointParameteriv(pname, params)
@@ -5224,8 +5104,65 @@ PointParameteriv(pname, params)
 	version		1.4
 	extension	soft WINSOFT NV20
 	glxropcode	4222re
-	glsflags	ignore
 	offset		643
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 1.4 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+# OpenGL 1.4 (EXT_fog_coord) commands
+
+FogCoordf(coord)
+	return		void
+	param		coord		CoordF in value
+	category	VERSION_1_4_DEPRECATED
+	vectorequiv	FogCoordfv
+	version		1.4
+	deprecated	3.1
+	offset		545
+
+FogCoordfv(coord)
+	return		void
+	param		coord		CoordF in array [1]
+	category	VERSION_1_4_DEPRECATED
+	version		1.4
+	deprecated	3.1
+	glxropcode	4124
+	offset		546
+
+FogCoordd(coord)
+	return		void
+	param		coord		CoordD in value
+	category	VERSION_1_4_DEPRECATED
+	vectorequiv	FogCoorddv
+	version		1.4
+	deprecated	3.1
+	offset		547
+
+FogCoorddv(coord)
+	return		void
+	param		coord		CoordD in array [1]
+	category	VERSION_1_4_DEPRECATED
+	version		1.4
+	deprecated	3.1
+	glxropcode	4125
+	offset		548
+
+FogCoordPointer(type, stride, pointer)
+	return		void
+	param		type		FogPointerTypeEXT in value
+	param		stride		SizeI in value
+	param		pointer		Void in array [COMPSIZE(type/stride)] retained
+	category	VERSION_1_4_DEPRECATED
+	dlflags		notlistable
+	version		1.4
+	deprecated	3.1
+	glxflags	client-handcode server-handcode
+	offset		549
 
 # OpenGL 1.4 (EXT_secondary_color) commands
 
@@ -5234,18 +5171,19 @@ SecondaryColor3b(red, green, blue)
 	param		red		ColorB in value
 	param		green		ColorB in value
 	param		blue		ColorB in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3bv
 	version		1.4
+	deprecated	3.1
 	offset		561
 
 SecondaryColor3bv(v)
 	return		void
 	param		v		ColorB in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4126
-	glsopcode	0x01FD
 	offset		562
 
 SecondaryColor3d(red, green, blue)
@@ -5253,18 +5191,19 @@ SecondaryColor3d(red, green, blue)
 	param		red		ColorD in value
 	param		green		ColorD in value
 	param		blue		ColorD in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3dv
 	version		1.4
+	deprecated	3.1
 	offset		563
 
 SecondaryColor3dv(v)
 	return		void
 	param		v		ColorD in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4130
-	glsopcode	0x01FE
 	offset		564
 
 SecondaryColor3f(red, green, blue)
@@ -5272,18 +5211,19 @@ SecondaryColor3f(red, green, blue)
 	param		red		ColorF in value
 	param		green		ColorF in value
 	param		blue		ColorF in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3fv
 	version		1.4
+	deprecated	3.1
 	offset		565
 
 SecondaryColor3fv(v)
 	return		void
 	param		v		ColorF in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4129
-	glsopcode	0x01FF
 	offset		566
 
 SecondaryColor3i(red, green, blue)
@@ -5291,18 +5231,19 @@ SecondaryColor3i(red, green, blue)
 	param		red		ColorI in value
 	param		green		ColorI in value
 	param		blue		ColorI in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3iv
 	version		1.4
+	deprecated	3.1
 	offset		567
 
 SecondaryColor3iv(v)
 	return		void
 	param		v		ColorI in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4128
-	glsopcode	0x0200
 	offset		568
 
 SecondaryColor3s(red, green, blue)
@@ -5310,18 +5251,19 @@ SecondaryColor3s(red, green, blue)
 	param		red		ColorS in value
 	param		green		ColorS in value
 	param		blue		ColorS in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3sv
 	version		1.4
+	deprecated	3.1
 	offset		569
 
 SecondaryColor3sv(v)
 	return		void
 	param		v		ColorS in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4127
-	glsopcode	0x0201
 	offset		570
 
 SecondaryColor3ub(red, green, blue)
@@ -5329,18 +5271,19 @@ SecondaryColor3ub(red, green, blue)
 	param		red		ColorUB in value
 	param		green		ColorUB in value
 	param		blue		ColorUB in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3ubv
 	version		1.4
+	deprecated	3.1
 	offset		571
 
 SecondaryColor3ubv(v)
 	return		void
 	param		v		ColorUB in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4131
-	glsopcode	0x0202
 	offset		572
 
 SecondaryColor3ui(red, green, blue)
@@ -5348,18 +5291,19 @@ SecondaryColor3ui(red, green, blue)
 	param		red		ColorUI in value
 	param		green		ColorUI in value
 	param		blue		ColorUI in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3uiv
 	version		1.4
+	deprecated	3.1
 	offset		573
 
 SecondaryColor3uiv(v)
 	return		void
 	param		v		ColorUI in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4133
-	glsopcode	0x0203
 	offset		574
 
 SecondaryColor3us(red, green, blue)
@@ -5367,18 +5311,19 @@ SecondaryColor3us(red, green, blue)
 	param		red		ColorUS in value
 	param		green		ColorUS in value
 	param		blue		ColorUS in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	SecondaryColor3usv
 	version		1.4
+	deprecated	3.1
 	offset		575
 
 SecondaryColor3usv(v)
 	return		void
 	param		v		ColorUS in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	4132
-	glsopcode	0x0204
 	offset		576
 
 SecondaryColorPointer(size, type, stride, pointer)
@@ -5387,13 +5332,12 @@ SecondaryColorPointer(size, type, stride, pointer)
 	param		type		ColorPointerType in value
 	param		stride		SizeI in value
 	param		pointer		Void in array [COMPSIZE(size/type/stride)] retained
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode
 	version		1.4
+	deprecated	3.1
 	extension
-	glsflags	client
-	glsopcode	0x0205
 	offset		577
 
 # OpenGL 1.4 (ARB_window_pos) commands
@@ -5403,76 +5347,80 @@ WindowPos2d(x, y)
 	return		void
 	param		x		CoordD in value
 	param		y		CoordD in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos2dv
 	version		1.4
+	deprecated	3.1
 	offset		513
 
 WindowPos2dv(v)
 	return		void
 	param		v		CoordD in array [2]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F0
 	offset		514
 
 WindowPos2f(x, y)
 	return		void
 	param		x		CoordF in value
 	param		y		CoordF in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos2fv
 	version		1.4
+	deprecated	3.1
 	offset		515
 
 WindowPos2fv(v)
 	return		void
 	param		v		CoordF in array [2]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F1
 	offset		516
 
 WindowPos2i(x, y)
 	return		void
 	param		x		CoordI in value
 	param		y		CoordI in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos2iv
 	version		1.4
+	deprecated	3.1
 	offset		517
 
 WindowPos2iv(v)
 	return		void
 	param		v		CoordI in array [2]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F2
 	offset		518
 
 WindowPos2s(x, y)
 	return		void
 	param		x		CoordS in value
 	param		y		CoordS in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos2sv
 	version		1.4
+	deprecated	3.1
 	offset		519
 
 WindowPos2sv(v)
 	return		void
 	param		v		CoordS in array [2]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F3
 	offset		520
 
 WindowPos3d(x, y, z)
@@ -5481,18 +5429,19 @@ WindowPos3d(x, y, z)
 	param		y		CoordD in value
 	param		z		CoordD in value
 	vectorequiv	WindowPos3dv
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	offset		521
 
 WindowPos3dv(v)
 	return		void
 	param		v		CoordD in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F4
 	offset		522
 
 WindowPos3f(x, y, z)
@@ -5500,19 +5449,20 @@ WindowPos3f(x, y, z)
 	param		x		CoordF in value
 	param		y		CoordF in value
 	param		z		CoordF in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos3fv
 	version		1.4
+	deprecated	3.1
 	offset		523
 
 WindowPos3fv(v)
 	return		void
 	param		v		CoordF in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F5
 	offset		524
 
 WindowPos3i(x, y, z)
@@ -5520,19 +5470,20 @@ WindowPos3i(x, y, z)
 	param		x		CoordI in value
 	param		y		CoordI in value
 	param		z		CoordI in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos3iv
 	version		1.4
+	deprecated	3.1
 	offset		525
 
 WindowPos3iv(v)
 	return		void
 	param		v		CoordI in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F6
 	offset		526
 
 WindowPos3s(x, y, z)
@@ -5540,21 +5491,21 @@ WindowPos3s(x, y, z)
 	param		x		CoordS in value
 	param		y		CoordS in value
 	param		z		CoordS in value
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	vectorequiv	WindowPos3sv
 	version		1.4
+	deprecated	3.1
 	offset		527
 
 WindowPos3sv(v)
 	return		void
 	param		v		CoordS in array [3]
-	category	VERSION_1_4
+	category	VERSION_1_4_DEPRECATED
 	version		1.4
+	deprecated	3.1
 	glxropcode	230
 	glxflags	client-handcode server-handcode
-	glsopcode	0x01F7
 	offset		528
-
 
 ###############################################################################
 ###############################################################################
@@ -5575,7 +5526,6 @@ GenQueries(n, ids)
 	extension
 	glxsingle	162
 	glxflags	ignore
-	glsopcode	?
 	offset		700
 
 DeleteQueries(n, ids)
@@ -5587,7 +5537,6 @@ DeleteQueries(n, ids)
 	extension
 	glxsingle	161
 	glxflags	ignore
-	glsopcode	?
 	offset		701
 
 IsQuery(id)
@@ -5598,7 +5547,6 @@ IsQuery(id)
 	extension
 	glxsingle	163
 	glxflags	ignore
-	glsopcode	?
 	offset		702
 
 BeginQuery(target, id)
@@ -5610,7 +5558,6 @@ BeginQuery(target, id)
 	extension
 	glxropcode	231
 	glxflags	ignore
-	glsopcode	?
 	offset		703
 
 EndQuery(target)
@@ -5621,7 +5568,6 @@ EndQuery(target)
 	extension
 	glxropcode	232
 	glxflags	ignore
-	glsopcode	?
 	offset		704
 
 GetQueryiv(target, pname, params)
@@ -5635,8 +5581,6 @@ GetQueryiv(target, pname, params)
 	extension
 	glxsingle	164
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		705
 
 GetQueryObjectiv(id, pname, params)
@@ -5650,8 +5594,6 @@ GetQueryObjectiv(id, pname, params)
 	extension
 	glxsingle	165
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		706
 
 GetQueryObjectuiv(id, pname, params)
@@ -5665,8 +5607,6 @@ GetQueryObjectuiv(id, pname, params)
 	extension
 	glxsingle	166
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		707
 
 # OpenGL 1.5 (ARB_vertex_buffer_object) commands
@@ -5680,7 +5620,6 @@ BindBuffer(target, buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		688
 
 DeleteBuffers(n, buffers)
@@ -5692,7 +5631,6 @@ DeleteBuffers(n, buffers)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		691
 
 GenBuffers(n, buffers)
@@ -5704,7 +5642,6 @@ GenBuffers(n, buffers)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		692
 
 IsBuffer(buffer)
@@ -5715,7 +5652,6 @@ IsBuffer(buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		696
 
 BufferData(target, size, data, usage)
@@ -5729,7 +5665,6 @@ BufferData(target, size, data, usage)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		689
 
 BufferSubData(target, offset, size, data)
@@ -5743,7 +5678,6 @@ BufferSubData(target, offset, size, data)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		690
 
 GetBufferSubData(target, offset, size, data)
@@ -5758,8 +5692,6 @@ GetBufferSubData(target, offset, size, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		695
 
 MapBuffer(target, access)
@@ -5771,7 +5703,6 @@ MapBuffer(target, access)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		697
 
 UnmapBuffer(target)
@@ -5782,7 +5713,6 @@ UnmapBuffer(target)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		698
 
 GetBufferParameteriv(target, pname, params)
@@ -5796,8 +5726,6 @@ GetBufferParameteriv(target, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		693
 
 GetBufferPointerv(target, pname, params)
@@ -5811,8 +5739,6 @@ GetBufferPointerv(target, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		694
 
 # OpenGL 1.5 (EXT_shadow_funcs) commands - none
@@ -5836,7 +5762,6 @@ BlendEquationSeparate(modeRGB, modeAlpha)
 	version		2.0
 	extension
 	glxropcode	4228
-	glsopcode	?
 
 # OpenGL 2.0 (ARB_draw_buffers) commands
 
@@ -5849,7 +5774,6 @@ DrawBuffers(n, bufs)
 	extension
 	glxropcode	233
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 # OpenGL 2.0 (ARB_stencil_two_side) commands
@@ -5865,7 +5789,6 @@ StencilOpSeparate(face, sfail, dpfail, dppass)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 StencilFuncSeparate(frontfunc, backfunc, ref, mask)
@@ -5879,7 +5802,6 @@ StencilFuncSeparate(frontfunc, backfunc, ref, mask)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 StencilMaskSeparate(face, mask)
@@ -5891,7 +5813,6 @@ StencilMaskSeparate(face, mask)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 # OpenGL 2.0 (ARB_shader_objects / ARB_vertex_shader / ARB_fragment_shader) commands
@@ -5905,7 +5826,6 @@ AttachShader(program, shader)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 BindAttribLocation(program, index, name)
@@ -5918,7 +5838,6 @@ BindAttribLocation(program, index, name)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 CompileShader(shader)
@@ -5929,7 +5848,6 @@ CompileShader(shader)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 CreateProgram()
@@ -5939,7 +5857,6 @@ CreateProgram()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 CreateShader(type)
@@ -5950,7 +5867,6 @@ CreateShader(type)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteProgram(program)
@@ -5961,7 +5877,6 @@ DeleteProgram(program)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteShader(shader)
@@ -5972,7 +5887,6 @@ DeleteShader(shader)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DetachShader(program, shader)
@@ -5984,7 +5898,6 @@ DetachShader(program, shader)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DisableVertexAttribArray(index)
@@ -5994,7 +5907,6 @@ DisableVertexAttribArray(index)
 	category	VERSION_2_0
 	version		2.0
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		666
 
@@ -6005,7 +5917,6 @@ EnableVertexAttribArray(index)
 	category	VERSION_2_0
 	version		2.0
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		665
 
@@ -6024,8 +5935,6 @@ GetActiveAttrib(program, index, bufSize, length, size, type, name)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetActiveUniform(program, index, bufSize, length, size, type, name)
@@ -6043,8 +5952,6 @@ GetActiveUniform(program, index, bufSize, length, size, type, name)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetAttachedShaders(program, maxCount, count, obj)
@@ -6059,8 +5966,6 @@ GetAttachedShaders(program, maxCount, count, obj)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetAttribLocation(program, name)
@@ -6073,8 +5978,6 @@ GetAttribLocation(program, name)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetProgramiv(program, pname, params)
@@ -6088,8 +5991,6 @@ GetProgramiv(program, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetProgramInfoLog(program, bufSize, length, infoLog)
@@ -6104,8 +6005,6 @@ GetProgramInfoLog(program, bufSize, length, infoLog)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetShaderiv(shader, pname, params)
@@ -6119,8 +6018,6 @@ GetShaderiv(shader, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetShaderInfoLog(shader, bufSize, length, infoLog)
@@ -6135,8 +6032,6 @@ GetShaderInfoLog(shader, bufSize, length, infoLog)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetShaderSource(shader, bufSize, length, source)
@@ -6151,8 +6046,6 @@ GetShaderSource(shader, bufSize, length, source)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetUniformLocation(program, name)
@@ -6165,8 +6058,6 @@ GetUniformLocation(program, name)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetUniformfv(program, location, params)
@@ -6180,8 +6071,6 @@ GetUniformfv(program, location, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetUniformiv(program, location, params)
@@ -6195,8 +6084,6 @@ GetUniformiv(program, location, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetVertexAttribdv(index, pname, params)
@@ -6209,8 +6096,6 @@ GetVertexAttribdv(index, pname, params)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1301
-	glsflags	client get
-	glsopcode	0x0232
 	offset		588
 
 GetVertexAttribfv(index, pname, params)
@@ -6223,8 +6108,6 @@ GetVertexAttribfv(index, pname, params)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1302
-	glsflags	client get
-	glsopcode	0x0233
 	offset		589
 
 GetVertexAttribiv(index, pname, params)
@@ -6237,8 +6120,6 @@ GetVertexAttribiv(index, pname, params)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1303
-	glsflags	client get
-	glsopcode	0x0234
 	offset		590
 
 GetVertexAttribPointerv(index, pname, pointer)
@@ -6251,8 +6132,6 @@ GetVertexAttribPointerv(index, pname, pointer)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	client get
-	glsopcode	0x0235
 	offset		591
 
 IsProgram(program)
@@ -6263,8 +6142,6 @@ IsProgram(program)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1304
-	glsflags	get
-	glsopcode	0x0236
 	offset		592
 
 IsShader(shader)
@@ -6275,8 +6152,6 @@ IsShader(shader)
 	version		2.0
 	extension	soft WINSOFT NV10
 	glxvendorpriv	?
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 LinkProgram(program)
@@ -6287,7 +6162,6 @@ LinkProgram(program)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ShaderSource(shader, count, string, length)
@@ -6301,7 +6175,6 @@ ShaderSource(shader, count, string, length)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UseProgram(program)
@@ -6312,7 +6185,6 @@ UseProgram(program)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform1f(location, v0)
@@ -6324,7 +6196,6 @@ Uniform1f(location, v0)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform2f(location, v0, v1)
@@ -6337,7 +6208,6 @@ Uniform2f(location, v0, v1)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform3f(location, v0, v1, v2)
@@ -6351,7 +6221,6 @@ Uniform3f(location, v0, v1, v2)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform4f(location, v0, v1, v2, v3)
@@ -6366,7 +6235,6 @@ Uniform4f(location, v0, v1, v2, v3)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform1i(location, v0)
@@ -6378,7 +6246,6 @@ Uniform1i(location, v0)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform2i(location, v0, v1)
@@ -6391,7 +6258,6 @@ Uniform2i(location, v0, v1)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform3i(location, v0, v1, v2)
@@ -6405,7 +6271,6 @@ Uniform3i(location, v0, v1, v2)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform4i(location, v0, v1, v2, v3)
@@ -6420,7 +6285,6 @@ Uniform4i(location, v0, v1, v2, v3)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform1fv(location, count, value)
@@ -6433,7 +6297,6 @@ Uniform1fv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform2fv(location, count, value)
@@ -6446,7 +6309,6 @@ Uniform2fv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform3fv(location, count, value)
@@ -6459,7 +6321,6 @@ Uniform3fv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform4fv(location, count, value)
@@ -6472,7 +6333,6 @@ Uniform4fv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform1iv(location, count, value)
@@ -6485,7 +6345,6 @@ Uniform1iv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform2iv(location, count, value)
@@ -6498,7 +6357,6 @@ Uniform2iv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform3iv(location, count, value)
@@ -6511,7 +6369,6 @@ Uniform3iv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Uniform4iv(location, count, value)
@@ -6524,7 +6381,6 @@ Uniform4iv(location, count, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix2fv(location, count, transpose, value)
@@ -6538,7 +6394,6 @@ UniformMatrix2fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix3fv(location, count, transpose, value)
@@ -6552,7 +6407,6 @@ UniformMatrix3fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix4fv(location, count, transpose, value)
@@ -6566,7 +6420,6 @@ UniformMatrix4fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ValidateProgram(program)
@@ -6577,7 +6430,6 @@ ValidateProgram(program)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib1d(index, x)
@@ -6586,9 +6438,9 @@ VertexAttrib1d(index, x)
 	param		x		Float64 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib1dv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		603
 
@@ -6598,9 +6450,9 @@ VertexAttrib1dv(index, v)
 	param		v		Float64 in array [1]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4197
-	glsopcode	0x0240
 	offset		604
 
 VertexAttrib1f(index, x)
@@ -6609,9 +6461,9 @@ VertexAttrib1f(index, x)
 	param		x		Float32 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib1fv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		605
 
@@ -6621,9 +6473,9 @@ VertexAttrib1fv(index, v)
 	param		v		Float32 in array [1]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4193
-	glsopcode	0x023F
 	offset		606
 
 VertexAttrib1s(index, x)
@@ -6632,9 +6484,9 @@ VertexAttrib1s(index, x)
 	param		x		Int16 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib1sv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		607
 
@@ -6644,9 +6496,9 @@ VertexAttrib1sv(index, v)
 	param		v		Int16 in array [1]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4189
-	glsopcode	0x023E
 	offset		608
 
 VertexAttrib2d(index, x, y)
@@ -6656,9 +6508,9 @@ VertexAttrib2d(index, x, y)
 	param		y		Float64 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib2dv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		609
 
@@ -6668,9 +6520,9 @@ VertexAttrib2dv(index, v)
 	param		v		Float64 in array [2]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4198
-	glsopcode	0x0243
 	offset		610
 
 VertexAttrib2f(index, x, y)
@@ -6680,9 +6532,9 @@ VertexAttrib2f(index, x, y)
 	param		y		Float32 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib2fv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		611
 
@@ -6692,9 +6544,9 @@ VertexAttrib2fv(index, v)
 	param		v		Float32 in array [2]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4194
-	glsopcode	0x0242
 	offset		612
 
 VertexAttrib2s(index, x, y)
@@ -6704,9 +6556,9 @@ VertexAttrib2s(index, x, y)
 	param		y		Int16 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib2sv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		613
 
@@ -6716,9 +6568,9 @@ VertexAttrib2sv(index, v)
 	param		v		Int16 in array [2]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4190
-	glsopcode	0x0241
 	offset		614
 
 VertexAttrib3d(index, x, y, z)
@@ -6729,9 +6581,9 @@ VertexAttrib3d(index, x, y, z)
 	param		z		Float64 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib3dv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		615
 
@@ -6741,9 +6593,9 @@ VertexAttrib3dv(index, v)
 	param		v		Float64 in array [3]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4199
-	glsopcode	0x0246
 	offset		616
 
 VertexAttrib3f(index, x, y, z)
@@ -6754,9 +6606,9 @@ VertexAttrib3f(index, x, y, z)
 	param		z		Float32 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib3fv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		617
 
@@ -6766,9 +6618,9 @@ VertexAttrib3fv(index, v)
 	param		v		Float32 in array [3]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4195
-	glsopcode	0x0245
 	offset		618
 
 VertexAttrib3s(index, x, y, z)
@@ -6779,9 +6631,9 @@ VertexAttrib3s(index, x, y, z)
 	param		z		Int16 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib3sv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		619
 
@@ -6791,9 +6643,9 @@ VertexAttrib3sv(index, v)
 	param		v		Int16 in array [3]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4191
-	glsopcode	0x0244
 	offset		620
 
 VertexAttrib4Nbv(index, v)
@@ -6802,8 +6654,8 @@ VertexAttrib4Nbv(index, v)
 	param		v		Int8 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		659
 
@@ -6813,8 +6665,8 @@ VertexAttrib4Niv(index, v)
 	param		v		Int32 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		661
 
@@ -6824,8 +6676,8 @@ VertexAttrib4Nsv(index, v)
 	param		v		Int16 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		660
 
@@ -6838,8 +6690,8 @@ VertexAttrib4Nub(index, x, y, z, w)
 	param		w		UInt8 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		627
 
@@ -6849,11 +6701,10 @@ VertexAttrib4Nubv(index, v)
 	param		v		UInt8 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	glxropcode	4201
-	glsopcode	0x024A
 	offset		628
 
 VertexAttrib4Nuiv(index, v)
@@ -6862,8 +6713,8 @@ VertexAttrib4Nuiv(index, v)
 	param		v		UInt32 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		663
 
@@ -6873,8 +6724,8 @@ VertexAttrib4Nusv(index, v)
 	param		v		UInt16 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		662
 
@@ -6884,8 +6735,8 @@ VertexAttrib4bv(index, v)
 	param		v		Int8 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		654
 
@@ -6898,9 +6749,9 @@ VertexAttrib4d(index, x, y, z, w)
 	param		w		Float64 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib4dv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		621
 
@@ -6910,9 +6761,9 @@ VertexAttrib4dv(index, v)
 	param		v		Float64 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4200
-	glsopcode	0x0249
 	offset		622
 
 VertexAttrib4f(index, x, y, z, w)
@@ -6924,9 +6775,9 @@ VertexAttrib4f(index, x, y, z, w)
 	param		w		Float32 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib4fv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		623
 
@@ -6936,9 +6787,9 @@ VertexAttrib4fv(index, v)
 	param		v		Float32 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
 	glxropcode	4196
-	glsopcode	0x0248
 	offset		624
 
 VertexAttrib4iv(index, v)
@@ -6947,8 +6798,8 @@ VertexAttrib4iv(index, v)
 	param		v		Int32 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		655
 
@@ -6961,9 +6812,9 @@ VertexAttrib4s(index, x, y, z, w)
 	param		w		Int16 in value
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	vectorequiv	VertexAttrib4sv
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		625
 
@@ -6973,11 +6824,10 @@ VertexAttrib4sv(index, v)
 	param		v		Int16 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	glxropcode	4192
-	glsopcode	0x0247
 	offset		626
 
 VertexAttrib4ubv(index, v)
@@ -6986,8 +6836,8 @@ VertexAttrib4ubv(index, v)
 	param		v		UInt8 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		656
 
@@ -6997,8 +6847,8 @@ VertexAttrib4uiv(index, v)
 	param		v		UInt32 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		658
 
@@ -7008,8 +6858,8 @@ VertexAttrib4usv(index, v)
 	param		v		UInt16 in array [4]
 	category	VERSION_2_0
 	version		2.0
+	deprecated	3.1
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		657
 
@@ -7025,7 +6875,6 @@ VertexAttribPointer(index, size, type, normalized, stride, pointer)
 	category	VERSION_2_0
 	version		2.0
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		664
 
@@ -7055,7 +6904,6 @@ UniformMatrix2x3fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix3x2fv(location, count, transpose, value)
@@ -7069,7 +6917,6 @@ UniformMatrix3x2fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix2x4fv(location, count, transpose, value)
@@ -7083,7 +6930,6 @@ UniformMatrix2x4fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix4x2fv(location, count, transpose, value)
@@ -7097,7 +6943,6 @@ UniformMatrix4x2fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix3x4fv(location, count, transpose, value)
@@ -7111,7 +6956,6 @@ UniformMatrix3x4fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UniformMatrix4x3fv(location, count, transpose, value)
@@ -7125,9 +6969,7 @@ UniformMatrix4x3fv(location, count, transpose, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
-
 
 ###############################################################################
 ###############################################################################
@@ -7151,7 +6993,6 @@ ColorMaski(index, r, g, b, a)
 	extension
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 GetBooleani_v(target, index, data)
 	return		void
@@ -7164,7 +7005,6 @@ GetBooleani_v(target, index, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 GetIntegeri_v(target, index, data)
 	return		void
@@ -7177,7 +7017,6 @@ GetIntegeri_v(target, index, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 Enablei(target, index)
 	return		void
@@ -7188,7 +7027,6 @@ Enablei(target, index)
 	extension
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 Disablei(target, index)
 	return		void
@@ -7199,7 +7037,6 @@ Disablei(target, index)
 	extension
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 IsEnabledi(target, index)
 	return		Boolean
@@ -7211,7 +7048,6 @@ IsEnabledi(target, index)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 # OpenGL 3.0 (EXT_transform_feedback) commands
 
@@ -7224,7 +7060,6 @@ BeginTransformFeedback(primitiveMode)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 EndTransformFeedback()
 	return		void
@@ -7234,7 +7069,6 @@ EndTransformFeedback()
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 BindBufferRange(target, index, buffer, offset, size)
 	return		void
@@ -7249,7 +7083,6 @@ BindBufferRange(target, index, buffer, offset, size)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 BindBufferBase(target, index, buffer)
 	return		void
@@ -7262,13 +7095,12 @@ BindBufferBase(target, index, buffer)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
-TransformFeedbackVaryings(program, count, locations, bufferMode)
+TransformFeedbackVaryings(program, count, varyings, bufferMode)
 	return		void
 	param		program		UInt32 in value
 	param		count		SizeI in value
-	param		locations	Int32 in array [COMPSIZE(count)]
+	param		varyings	CharPointer in array [count]
 	param		bufferMode	GLenum in value
 	category	VERSION_3_0
 	version		3.0
@@ -7276,19 +7108,21 @@ TransformFeedbackVaryings(program, count, locations, bufferMode)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
-GetTransformFeedbackVarying(program, index, location)
+GetTransformFeedbackVarying(program, index, bufSize, length, size, type, name)
 	return		void
 	param		program		UInt32 in value
 	param		index		UInt32 in value
-	param		location	Int32 out array [1]
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		size		SizeI out array [1]
+	param		type		GLenum out array [1]
+	param		name		Char out array [COMPSIZE(length)]
 	category	VERSION_3_0
 	dlflags		notlistable
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ClampColor(target, clamp)
@@ -7300,7 +7134,6 @@ ClampColor(target, clamp)
 	extension
 	glxropcode	234
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 BeginConditionalRender(id, mode)
@@ -7310,7 +7143,6 @@ BeginConditionalRender(id, mode)
 	category	VERSION_3_0
 	version		3.0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 EndConditionalRender()
@@ -7318,277 +7150,6 @@ EndConditionalRender()
 	category	VERSION_3_0
 	version		3.0
 	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-# OpenGL 3.0 (NV_vertex_program4) commands
-
-VertexAttribI1i(index, x)
-	return		void
-	param		index		UInt32 in value
-	param		x		Int32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI1iv
-	glxvectorequiv	VertexAttribI1iv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI2i(index, x, y)
-	return		void
-	param		index		UInt32 in value
-	param		x		Int32 in value
-	param		y		Int32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI2iv
-	glxvectorequiv	VertexAttribI2iv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI3i(index, x, y, z)
-	return		void
-	param		index		UInt32 in value
-	param		x		Int32 in value
-	param		y		Int32 in value
-	param		z		Int32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI3iv
-	glxvectorequiv	VertexAttribI3iv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4i(index, x, y, z, w)
-	return		void
-	param		index		UInt32 in value
-	param		x		Int32 in value
-	param		y		Int32 in value
-	param		z		Int32 in value
-	param		w		Int32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI4iv
-	glxvectorequiv	VertexAttribI4iv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI1ui(index, x)
-	return		void
-	param		index		UInt32 in value
-	param		x		UInt32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI1uiv
-	glxvectorequiv	VertexAttribI1uiv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI2ui(index, x, y)
-	return		void
-	param		index		UInt32 in value
-	param		x		UInt32 in value
-	param		y		UInt32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI2uiv
-	glxvectorequiv	VertexAttribI2uiv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI3ui(index, x, y, z)
-	return		void
-	param		index		UInt32 in value
-	param		x		UInt32 in value
-	param		y		UInt32 in value
-	param		z		UInt32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI3uiv
-	glxvectorequiv	VertexAttribI3uiv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4ui(index, x, y, z, w)
-	return		void
-	param		index		UInt32 in value
-	param		x		UInt32 in value
-	param		y		UInt32 in value
-	param		z		UInt32 in value
-	param		w		UInt32 in value
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	vectorequiv	VertexAttribI4uiv
-	glxvectorequiv	VertexAttribI4uiv
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI1iv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int32 in array [1]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI2iv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int32 in array [2]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI3iv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int32 in array [3]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4iv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int32 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI1uiv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt32 in array [1]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI2uiv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt32 in array [2]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI3uiv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt32 in array [3]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4uiv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt32 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4bv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int8 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4sv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		Int16 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4ubv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt8 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
-
-VertexAttribI4usv(index, v)
-	return		void
-	param		index		UInt32 in value
-	param		v		UInt16 in array [4]
-	category	VERSION_3_0
-	version		3.0
-	beginend	allow-inside
-	extension
-	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 VertexAttribIPointer(index, size, type, stride, pointer)
@@ -7603,7 +7164,6 @@ VertexAttribIPointer(index, size, type, stride, pointer)
 	dlflags		notlistable
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetVertexAttribIiv(index, pname, params)
@@ -7616,7 +7176,6 @@ GetVertexAttribIiv(index, pname, params)
 	dlflags		notlistable
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetVertexAttribIuiv(index, pname, params)
@@ -7629,7 +7188,276 @@ GetVertexAttribIuiv(index, pname, params)
 	dlflags		notlistable
 	extension
 	glfflags	ignore
-	glsflags	ignore
+	glxflags	ignore
+
+# OpenGL 3.0 (NV_vertex_program4) commands
+
+VertexAttribI1i(index, x)
+	return		void
+	param		index		UInt32 in value
+	param		x		Int32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI1iv
+	glxvectorequiv	VertexAttribI1iv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI2i(index, x, y)
+	return		void
+	param		index		UInt32 in value
+	param		x		Int32 in value
+	param		y		Int32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI2iv
+	glxvectorequiv	VertexAttribI2iv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI3i(index, x, y, z)
+	return		void
+	param		index		UInt32 in value
+	param		x		Int32 in value
+	param		y		Int32 in value
+	param		z		Int32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI3iv
+	glxvectorequiv	VertexAttribI3iv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4i(index, x, y, z, w)
+	return		void
+	param		index		UInt32 in value
+	param		x		Int32 in value
+	param		y		Int32 in value
+	param		z		Int32 in value
+	param		w		Int32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI4iv
+	glxvectorequiv	VertexAttribI4iv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI1ui(index, x)
+	return		void
+	param		index		UInt32 in value
+	param		x		UInt32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI1uiv
+	glxvectorequiv	VertexAttribI1uiv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI2ui(index, x, y)
+	return		void
+	param		index		UInt32 in value
+	param		x		UInt32 in value
+	param		y		UInt32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI2uiv
+	glxvectorequiv	VertexAttribI2uiv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI3ui(index, x, y, z)
+	return		void
+	param		index		UInt32 in value
+	param		x		UInt32 in value
+	param		y		UInt32 in value
+	param		z		UInt32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI3uiv
+	glxvectorequiv	VertexAttribI3uiv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4ui(index, x, y, z, w)
+	return		void
+	param		index		UInt32 in value
+	param		x		UInt32 in value
+	param		y		UInt32 in value
+	param		z		UInt32 in value
+	param		w		UInt32 in value
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	vectorequiv	VertexAttribI4uiv
+	glxvectorequiv	VertexAttribI4uiv
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI1iv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int32 in array [1]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI2iv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int32 in array [2]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI3iv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int32 in array [3]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4iv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int32 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI1uiv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt32 in array [1]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI2uiv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt32 in array [2]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI3uiv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt32 in array [3]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4uiv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt32 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4bv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int8 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4sv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		Int16 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4ubv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt8 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+VertexAttribI4usv(index, v)
+	return		void
+	param		index		UInt32 in value
+	param		v		UInt16 in array [4]
+	category	VERSION_3_0
+	version		3.0
+	deprecated	3.1
+	beginend	allow-inside
+	extension
+	glfflags	ignore
 	glxflags	ignore
 
 # OpenGL 3.0 (EXT_gpu_shader4) commands
@@ -7644,7 +7472,6 @@ GetUniformuiv(program, location, params)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 BindFragDataLocation(program, color, name)
@@ -7657,7 +7484,6 @@ BindFragDataLocation(program, color, name)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetFragDataLocation(program, name)
@@ -7669,7 +7495,6 @@ GetFragDataLocation(program, name)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform1ui(location, v0)
@@ -7680,7 +7505,6 @@ Uniform1ui(location, v0)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform2ui(location, v0, v1)
@@ -7692,7 +7516,6 @@ Uniform2ui(location, v0, v1)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform3ui(location, v0, v1, v2)
@@ -7705,7 +7528,6 @@ Uniform3ui(location, v0, v1, v2)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform4ui(location, v0, v1, v2, v3)
@@ -7719,7 +7541,6 @@ Uniform4ui(location, v0, v1, v2, v3)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform1uiv(location, count, value)
@@ -7731,7 +7552,6 @@ Uniform1uiv(location, count, value)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform2uiv(location, count, value)
@@ -7743,7 +7563,6 @@ Uniform2uiv(location, count, value)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform3uiv(location, count, value)
@@ -7755,7 +7574,6 @@ Uniform3uiv(location, count, value)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 Uniform4uiv(location, count, value)
@@ -7767,7 +7585,6 @@ Uniform4uiv(location, count, value)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 # OpenGL 3.0 (EXT_texture_integer) commands
@@ -7781,7 +7598,6 @@ TexParameterIiv(target, pname, params)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 TexParameterIuiv(target, pname, params)
@@ -7793,7 +7609,6 @@ TexParameterIuiv(target, pname, params)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetTexParameterIiv(target, pname, params)
@@ -7806,7 +7621,6 @@ GetTexParameterIiv(target, pname, params)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetTexParameterIuiv(target, pname, params)
@@ -7819,54 +7633,53 @@ GetTexParameterIuiv(target, pname, params)
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 # New commands in OpenGL 3.0
 
-ClearBufferiv(buffer, value)
+ClearBufferiv(buffer, drawbuffer, value)
 	return		void
 	param		buffer		GLenum in value
+	param		drawbuffer	DrawBufferName in value
 	param		value		Int32 in array [COMPSIZE(buffer)]
 	category	VERSION_3_0
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
-ClearBufferuiv(buffer, value)
+ClearBufferuiv(buffer, drawbuffer, value)
 	return		void
 	param		buffer		GLenum in value
+	param		drawbuffer	DrawBufferName in value
 	param		value		UInt32 in array [COMPSIZE(buffer)]
 	category	VERSION_3_0
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
-ClearBufferfv(buffer, value)
+ClearBufferfv(buffer, drawbuffer, value)
 	return		void
 	param		buffer		GLenum in value
+	param		drawbuffer	DrawBufferName in value
 	param		value		Float32 in array [COMPSIZE(buffer)]
 	category	VERSION_3_0
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
-ClearBufferfi(buffer, depth, stencil)
+ClearBufferfi(buffer, drawbuffer, depth, stencil)
 	return		void
 	param		buffer		GLenum in value
+	param		drawbuffer	DrawBufferName in value
 	param		depth		Float32 in value
 	param		stencil		Int32 in value
 	category	VERSION_3_0
 	version		3.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetStringi(name, index)
@@ -7879,13 +7692,203 @@ GetStringi(name, index)
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode
 	glfflags	ignore
-	glsflags	get
 	glxsingle	?
 
 passthru: /* OpenGL 3.0 also reuses entry points from these extensions: */
 passthru: /* ARB_framebuffer_object */
 passthru: /* ARB_map_buffer_range */
 passthru: /* ARB_vertex_array_object */
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 3.0 deprecated commands
+#
+###############################################################################
+###############################################################################
+
+# (none - VertexAttribI* were moved back into non-deprecated)
+
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 3.1 commands
+#
+###############################################################################
+###############################################################################
+
+# New commands in OpenGL 3.1 - none
+
+# OpenGL 3.1 (ARB_draw_instanced) commands
+
+DrawArraysInstanced(mode, first, count, primcount)
+	return		void
+	param		mode		BeginMode in value
+	param		first		Int32 in value
+	param		count		SizeI in value
+	param		primcount	SizeI in value
+	category	VERSION_3_1
+	version		3.1
+	extension
+	dlflags		notlistable
+	vectorequiv	ArrayElement
+	glfflags	ignore
+	glxflags	ignore
+
+DrawElementsInstanced(mode, count, type, indices, primcount)
+	return		void
+	param		mode		BeginMode in value
+	param		count		SizeI in value
+	param		type		DrawElementsType in value
+	param		indices		Void in array [COMPSIZE(count/type)]
+	param		primcount	SizeI in value
+	category	VERSION_3_1
+	version		3.1
+	extension
+	dlflags		notlistable
+	vectorequiv	ArrayElement
+	glfflags	ignore
+	glxflags	ignore
+
+# OpenGL 3.1 (ARB_texture_buffer_object) commands
+
+TexBuffer(target, internalformat, buffer)
+	return		void
+	param		target		TextureTarget in value
+	param		internalformat	GLenum in value
+	param		buffer		UInt32 in value
+	category	VERSION_3_1
+	version		3.1
+	extension
+	glfflags	ignore
+	glxflags	ignore
+
+# OpenGL 3.1 (ARB_texture_rectangle) commands - none
+
+# OpenGL 3.1 (SNORM texture) commands - none
+
+# OpenGL 3.1 (NV_primitive_restart) commands
+# This is *not* an alias of PrimitiveRestartIndexNV, since it sets
+# server instead of client state.
+
+PrimitiveRestartIndex(index)
+	return		void
+	param		index		UInt32 in value
+	category	VERSION_3_1
+	version		3.1
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+passthru: /* OpenGL 3.1 also reuses entry points from these extensions: */
+passthru: /* ARB_copy_buffer */
+passthru: /* ARB_uniform_buffer_object */
+
+
+###############################################################################
+###############################################################################
+#
+# OpenGL 3.2 commands
+#
+###############################################################################
+###############################################################################
+
+# New commands in OpenGL 3.2
+
+GetInteger64i_v(target, index, data)
+	return		void
+	param		target		GLenum in value
+	param		index		UInt32 in value
+	param		data		Int64 out array [COMPSIZE(target)]
+	category	VERSION_3_2
+	version		3.2
+	extension
+	dlflags		notlistable
+	glxflags	ignore
+	glfflags	ignore
+
+
+GetBufferParameteri64v(target, pname, params)
+	return		void
+	param		target		BufferTargetARB in value
+	param		pname		BufferPNameARB in value
+	param		params		Int64 out array [COMPSIZE(pname)]
+	category	VERSION_3_2
+	dlflags		notlistable
+	version		3.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+
+# OpenGL 3.2 (ARB_depth_clamp) commands - none
+# OpenGL 3.2 (ARB_fragment_coord_conventions) commands - none
+
+# OpenGL 3.2 (ARB_geometry_shader4) commands
+
+ProgramParameteri(program, pname, value)
+	return		void
+	param		program		UInt32 in value
+	param		pname		GLenum in value
+	param		value		Int32 in value
+	category	VERSION_3_2
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+FramebufferTexture(target, attachment, texture, level)
+	return		void
+	param		target		GLenum in value
+	param		attachment	GLenum in value
+	param		texture		UInt32 in value
+	param		level		Int32 in value
+	category	VERSION_3_2
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+# FramebufferTextureLayer redeclared in ARB_framebuffer_object
+# FramebufferTextureLayer(target, attachment, texture, level, layer)
+#	  return	  void
+#	  param		  target	  GLenum in value
+#	  param		  attachment	  GLenum in value
+#	  param		  texture	  UInt32 in value
+#	  param		  level		  Int32 in value
+#	  param		  layer		  Int32 in value
+#	  category	  VERSION_3_2
+#	  version	  1.2
+#	  extension
+#	  glxropcode	  ?
+#	  glxflags	  ignore
+#	  offset	  ?
+
+FramebufferTextureFace(target, attachment, texture, level, face)
+	return		void
+	param		target		GLenum in value
+	param		attachment	GLenum in value
+	param		texture		UInt32 in value
+	param		level		Int32 in value
+	param		face		GLenum in value
+	category	VERSION_3_2
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+# OpenGL 3.2  (ARB_seamless_cube_map) commands - none
+# OpenGL 3.2  (ARB_vertex_array_bgra) commands - none
+
+passthru: /* OpenGL 3.2 also reuses entry points from these extensions: */
+passthru: /* ARB_draw_elements_base_vertex */
+passthru: /* ARB_provoking_vertex */
+passthru: /* ARB_sync */
+passthru: /* ARB_texture_multisample */
 
 
 ###############################################################################
@@ -7911,7 +7914,6 @@ ActiveTextureARB(texture)
 	version		1.2
 	glxropcode	197
 	alias		ActiveTexture
-	glsalias	ActiveTexture
 
 ClientActiveTextureARB(texture)
 	return		void
@@ -7921,7 +7923,6 @@ ClientActiveTextureARB(texture)
 	glxflags	ARB client-handcode client-intercept server-handcode
 	version		1.2
 	alias		ClientActiveTexture
-	glsalias	ClientActiveTexture
 
 MultiTexCoord1dARB(target, s)
 	return		void
@@ -7941,7 +7942,6 @@ MultiTexCoord1dvARB(target, v)
 	version		1.2
 	glxropcode	198
 	alias		MultiTexCoord1dv
-	glsalias	MultiTexCoord1dv
 
 MultiTexCoord1fARB(target, s)
 	return		void
@@ -7961,7 +7961,6 @@ MultiTexCoord1fvARB(target, v)
 	version		1.2
 	glxropcode	199
 	alias		MultiTexCoord1fv
-	glsalias	MultiTexCoord1fv
 
 MultiTexCoord1iARB(target, s)
 	return		void
@@ -7981,7 +7980,6 @@ MultiTexCoord1ivARB(target, v)
 	version		1.2
 	glxropcode	200
 	alias		MultiTexCoord1iv
-	glsalias	MultiTexCoord1iv
 
 MultiTexCoord1sARB(target, s)
 	return		void
@@ -8001,7 +7999,6 @@ MultiTexCoord1svARB(target, v)
 	version		1.2
 	glxropcode	201
 	alias		MultiTexCoord1sv
-	glsalias	MultiTexCoord1sv
 
 MultiTexCoord2dARB(target, s, t)
 	return		void
@@ -8022,7 +8019,6 @@ MultiTexCoord2dvARB(target, v)
 	version		1.2
 	glxropcode	202
 	alias		MultiTexCoord2dv
-	glsalias	MultiTexCoord2dv
 
 MultiTexCoord2fARB(target, s, t)
 	return		void
@@ -8043,7 +8039,6 @@ MultiTexCoord2fvARB(target, v)
 	version		1.2
 	glxropcode	203
 	alias		MultiTexCoord2fv
-	glsalias	MultiTexCoord2fv
 
 MultiTexCoord2iARB(target, s, t)
 	return		void
@@ -8064,7 +8059,6 @@ MultiTexCoord2ivARB(target, v)
 	version		1.2
 	glxropcode	204
 	alias		MultiTexCoord2iv
-	glsalias	MultiTexCoord2iv
 
 MultiTexCoord2sARB(target, s, t)
 	return		void
@@ -8085,7 +8079,6 @@ MultiTexCoord2svARB(target, v)
 	version		1.2
 	glxropcode	205
 	alias		MultiTexCoord2sv
-	glsalias	MultiTexCoord2sv
 
 MultiTexCoord3dARB(target, s, t, r)
 	return		void
@@ -8107,7 +8100,6 @@ MultiTexCoord3dvARB(target, v)
 	version		1.2
 	glxropcode	206
 	alias		MultiTexCoord3dv
-	glsalias	MultiTexCoord3dv
 
 MultiTexCoord3fARB(target, s, t, r)
 	return		void
@@ -8129,7 +8121,6 @@ MultiTexCoord3fvARB(target, v)
 	version		1.2
 	glxropcode	207
 	alias		MultiTexCoord3fv
-	glsalias	MultiTexCoord3fv
 
 MultiTexCoord3iARB(target, s, t, r)
 	return		void
@@ -8151,7 +8142,6 @@ MultiTexCoord3ivARB(target, v)
 	version		1.2
 	glxropcode	208
 	alias		MultiTexCoord3iv
-	glsalias	MultiTexCoord3iv
 
 MultiTexCoord3sARB(target, s, t, r)
 	return		void
@@ -8173,7 +8163,6 @@ MultiTexCoord3svARB(target, v)
 	glxflags	ARB
 	glxropcode	209
 	alias		MultiTexCoord3sv
-	glsalias	MultiTexCoord3sv
 
 MultiTexCoord4dARB(target, s, t, r, q)
 	return		void
@@ -8196,7 +8185,6 @@ MultiTexCoord4dvARB(target, v)
 	version		1.2
 	glxropcode	210
 	alias		MultiTexCoord4dv
-	glsalias	MultiTexCoord4dv
 
 MultiTexCoord4fARB(target, s, t, r, q)
 	return		void
@@ -8219,7 +8207,6 @@ MultiTexCoord4fvARB(target, v)
 	version		1.2
 	glxropcode	211
 	alias		MultiTexCoord4fv
-	glsalias	MultiTexCoord4fv
 
 MultiTexCoord4iARB(target, s, t, r, q)
 	return		void
@@ -8242,7 +8229,6 @@ MultiTexCoord4ivARB(target, v)
 	version		1.2
 	glxropcode	212
 	alias		MultiTexCoord4iv
-	glsalias	MultiTexCoord4iv
 
 MultiTexCoord4sARB(target, s, t, r, q)
 	return		void
@@ -8265,7 +8251,6 @@ MultiTexCoord4svARB(target, v)
 	version		1.2
 	glxropcode	213
 	alias		MultiTexCoord4sv
-	glsalias	MultiTexCoord4sv
 
 ################################################################################
 #
@@ -8287,7 +8272,6 @@ LoadTransposeMatrixfARB(m)
 	glxflags	ARB client-handcode client-intercept server-handcode
 	version		1.2
 	alias		LoadTransposeMatrixf
-	glsalias	LoadTransposeMatrixf
 
 LoadTransposeMatrixdARB(m)
 	return		void
@@ -8296,7 +8280,6 @@ LoadTransposeMatrixdARB(m)
 	glxflags	ARB client-handcode client-intercept server-handcode
 	version		1.2
 	alias		LoadTransposeMatrixd
-	glsalias	LoadTransposeMatrixd
 
 MultTransposeMatrixfARB(m)
 	return		void
@@ -8305,7 +8288,6 @@ MultTransposeMatrixfARB(m)
 	glxflags	ARB client-handcode client-intercept server-handcode
 	version		1.2
 	alias		MultTransposeMatrixf
-	glsalias	MultTransposeMatrixf
 
 MultTransposeMatrixdARB(m)
 	return		void
@@ -8314,7 +8296,6 @@ MultTransposeMatrixdARB(m)
 	glxflags	ARB client-handcode client-intercept server-handcode
 	version		1.2
 	alias		MultTransposeMatrixd
-	glsalias	MultTransposeMatrixd
 
 ################################################################################
 #
@@ -8337,7 +8318,6 @@ SampleCoverageARB(value, invert)
 	glxflags	ARB
 	version		1.2
 	alias		SampleCoverage
-	glsalias	SampleCoverage
 
 ################################################################################
 #
@@ -8393,7 +8373,6 @@ CompressedTexImage3DARB(target, level, internalformat, width, height, depth, bor
 	version		1.2
 	glxropcode	216
 	alias		CompressedTexImage3D
-	glsalias	CompressedTexImage3D
 	wglflags	client-handcode server-handcode
 
 # Arguably TexelInternalFormat, not PixelInternalFormat
@@ -8413,7 +8392,6 @@ CompressedTexImage2DARB(target, level, internalformat, width, height, border, im
 	version		1.2
 	glxropcode	215
 	alias		CompressedTexImage2D
-	glsalias	CompressedTexImage2D
 	wglflags	client-handcode server-handcode
 
 # Arguably TexelInternalFormat, not PixelInternalFormat
@@ -8432,7 +8410,6 @@ CompressedTexImage1DARB(target, level, internalformat, width, border, imageSize,
 	version		1.2
 	glxropcode	214
 	alias		CompressedTexImage1D
-	glsalias	CompressedTexImage1D
 	wglflags	client-handcode server-handcode
 
 CompressedTexSubImage3DARB(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data)
@@ -8454,7 +8431,6 @@ CompressedTexSubImage3DARB(target, level, xoffset, yoffset, zoffset, width, heig
 	version		1.2
 	glxropcode	219
 	alias		CompressedTexSubImage3D
-	glsalias	CompressedTexSubImage3D
 	wglflags	client-handcode server-handcode
 
 CompressedTexSubImage2DARB(target, level, xoffset, yoffset, width, height, format, imageSize, data)
@@ -8474,7 +8450,6 @@ CompressedTexSubImage2DARB(target, level, xoffset, yoffset, width, height, forma
 	version		1.2
 	glxropcode	218
 	alias		CompressedTexSubImage2D
-	glsalias	CompressedTexSubImage2D
 	wglflags	client-handcode server-handcode
 
 CompressedTexSubImage1DARB(target, level, xoffset, width, format, imageSize, data)
@@ -8492,7 +8467,6 @@ CompressedTexSubImage1DARB(target, level, xoffset, width, format, imageSize, dat
 	version		1.2
 	glxropcode	217
 	alias		CompressedTexSubImage1D
-	glsalias	CompressedTexSubImage1D
 	wglflags	client-handcode server-handcode
 
 GetCompressedTexImageARB(target, level, img)
@@ -8506,7 +8480,6 @@ GetCompressedTexImageARB(target, level, img)
 	version		1.2
 	glxsingle	160
 	alias		GetCompressedTexImage
-	glsalias	GetCompressedTexImage
 	wglflags	client-handcode server-handcode
 
 ################################################################################
@@ -8536,7 +8509,6 @@ PointParameterfARB(pname, param)
 	glxropcode	2065
 	extension
 	alias		PointParameterf
-	glsalias	PointParameterf
 
 PointParameterfvARB(pname, params)
 	return		void
@@ -8548,7 +8520,6 @@ PointParameterfvARB(pname, params)
 	glxropcode	2066
 	extension
 	alias		PointParameterfv
-	glsalias	PointParameterfv
 
 ################################################################################
 #
@@ -8566,7 +8537,6 @@ WeightbvARB(size, weights)
 	extension
 	glxropcode	220
 	glxflags	ignore
-	glsopcode	0x0206
 	offset		?
 
 WeightsvARB(size, weights)
@@ -8578,7 +8548,6 @@ WeightsvARB(size, weights)
 	extension
 	glxropcode	222
 	glxflags	ignore
-	glsopcode	0x0207
 	offset		?
 
 WeightivARB(size, weights)
@@ -8590,7 +8559,6 @@ WeightivARB(size, weights)
 	extension
 	glxropcode	224
 	glxflags	ignore
-	glsopcode	0x0208
 	offset		?
 
 WeightfvARB(size, weights)
@@ -8602,7 +8570,6 @@ WeightfvARB(size, weights)
 	extension
 	glxropcode	227
 	glxflags	ignore
-	glsopcode	0x0209
 	offset		?
 
 WeightdvARB(size, weights)
@@ -8614,7 +8581,6 @@ WeightdvARB(size, weights)
 	extension
 	glxropcode	228
 	glxflags	ignore
-	glsopcode	0x020A
 	offset		?
 
 WeightubvARB(size, weights)
@@ -8626,7 +8592,6 @@ WeightubvARB(size, weights)
 	extension
 	glxropcode	221
 	glxflags	ignore
-	glsopcode	0x020B
 	offset		?
 
 WeightusvARB(size, weights)
@@ -8638,7 +8603,6 @@ WeightusvARB(size, weights)
 	extension
 	glxropcode	223
 	glxflags	ignore
-	glsopcode	0x020C
 	offset		?
 
 WeightuivARB(size, weights)
@@ -8650,7 +8614,6 @@ WeightuivARB(size, weights)
 	extension
 	glxropcode	225
 	glxflags	ignore
-	glsopcode	0x020D
 	offset		?
 
 WeightPointerARB(size, type, stride, pointer)
@@ -8664,8 +8627,6 @@ WeightPointerARB(size, type, stride, pointer)
 	extension
 	dlflags		notlistable
 	glxflags	ignore
-	glsflags	client
-	glsopcode	0x020E
 	offset		?
 
 VertexBlendARB(count)
@@ -8676,7 +8637,6 @@ VertexBlendARB(count)
 	extension
 	glxropcode	226
 	glxflags	ignore
-	glsopcode	0x020F
 	offset		?
 
 ################################################################################
@@ -8694,7 +8654,6 @@ CurrentPaletteMatrixARB(index)
 	extension
 	glxropcode	4329
 	glxflags	ignore
-	glsopcode	0x0210
 	offset		?
 
 MatrixIndexubvARB(size, indices)
@@ -8706,7 +8665,6 @@ MatrixIndexubvARB(size, indices)
 	extension
 	glxropcode	4326
 	glxflags	ignore
-	glsopcode	0x0211
 	offset		?
 
 MatrixIndexusvARB(size, indices)
@@ -8718,7 +8676,6 @@ MatrixIndexusvARB(size, indices)
 	extension
 	glxropcode	4327
 	glxflags	ignore
-	glsopcode	0x0212
 	offset		?
 
 MatrixIndexuivARB(size, indices)
@@ -8730,7 +8687,6 @@ MatrixIndexuivARB(size, indices)
 	extension
 	glxropcode	4328
 	glxflags	ignore
-	glsopcode	0x0213
 	offset		?
 
 MatrixIndexPointerARB(size, type, stride, pointer)
@@ -8744,8 +8700,6 @@ MatrixIndexPointerARB(size, type, stride, pointer)
 	extension
 	dlflags		notlistable
 	glxflags	ignore
-	glsflags	client
-	glsopcode	0x0214
 	offset		?
 
 ################################################################################
@@ -8840,7 +8794,6 @@ WindowPos2dARB(x, y)
 	vectorequiv	WindowPos2dvARB
 	version		1.0
 	alias		WindowPos2d
-	glsalias	WindowPos2d
 
 WindowPos2dvARB(v)
 	return		void
@@ -8850,7 +8803,6 @@ WindowPos2dvARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos2dv
-	glsalias	WindowPos2dv
 
 WindowPos2fARB(x, y)
 	return		void
@@ -8860,7 +8812,6 @@ WindowPos2fARB(x, y)
 	vectorequiv	WindowPos2fvARB
 	version		1.0
 	alias		WindowPos2f
-	glsalias	WindowPos2f
 
 WindowPos2fvARB(v)
 	return		void
@@ -8870,7 +8821,6 @@ WindowPos2fvARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos2fv
-	glsalias	WindowPos2fv
 
 WindowPos2iARB(x, y)
 	return		void
@@ -8880,7 +8830,6 @@ WindowPos2iARB(x, y)
 	vectorequiv	WindowPos2ivARB
 	version		1.0
 	alias		WindowPos2i
-	glsalias	WindowPos2i
 
 WindowPos2ivARB(v)
 	return		void
@@ -8890,7 +8839,6 @@ WindowPos2ivARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos2iv
-	glsalias	WindowPos2iv
 
 WindowPos2sARB(x, y)
 	return		void
@@ -8900,7 +8848,6 @@ WindowPos2sARB(x, y)
 	vectorequiv	WindowPos2svARB
 	version		1.0
 	alias		WindowPos2s
-	glsalias	WindowPos2s
 
 WindowPos2svARB(v)
 	return		void
@@ -8910,7 +8857,6 @@ WindowPos2svARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos2sv
-	glsalias	WindowPos2sv
 
 WindowPos3dARB(x, y, z)
 	return		void
@@ -8921,7 +8867,6 @@ WindowPos3dARB(x, y, z)
 	category	ARB_window_pos
 	version		1.0
 	alias		WindowPos3d
-	glsalias	WindowPos3d
 
 WindowPos3dvARB(v)
 	return		void
@@ -8931,7 +8876,6 @@ WindowPos3dvARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos3dv
-	glsalias	WindowPos3dv
 
 WindowPos3fARB(x, y, z)
 	return		void
@@ -8942,7 +8886,6 @@ WindowPos3fARB(x, y, z)
 	vectorequiv	WindowPos3fvARB
 	version		1.0
 	alias		WindowPos3f
-	glsalias	WindowPos3f
 
 WindowPos3fvARB(v)
 	return		void
@@ -8952,7 +8895,6 @@ WindowPos3fvARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos3fv
-	glsalias	WindowPos3fv
 
 WindowPos3iARB(x, y, z)
 	return		void
@@ -8963,7 +8905,6 @@ WindowPos3iARB(x, y, z)
 	vectorequiv	WindowPos3ivARB
 	version		1.0
 	alias		WindowPos3i
-	glsalias	WindowPos3i
 
 WindowPos3ivARB(v)
 	return		void
@@ -8973,7 +8914,6 @@ WindowPos3ivARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos3iv
-	glsalias	WindowPos3iv
 
 WindowPos3sARB(x, y, z)
 	return		void
@@ -8984,7 +8924,6 @@ WindowPos3sARB(x, y, z)
 	vectorequiv	WindowPos3svARB
 	version		1.0
 	alias		WindowPos3s
-	glsalias	WindowPos3s
 
 WindowPos3svARB(v)
 	return		void
@@ -8994,7 +8933,6 @@ WindowPos3svARB(v)
 	glxropcode	230
 	glxflags	client-handcode server-handcode
 	alias		WindowPos3sv
-	glsalias	WindowPos3sv
 
 ###############################################################################
 #
@@ -9012,7 +8950,6 @@ VertexAttrib1dARB(index, x)
 	vectorequiv	VertexAttrib1dvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1d
-	glsalias	VertexAttrib1d
 
 VertexAttrib1dvARB(index, v)
 	return		void
@@ -9022,9 +8959,7 @@ VertexAttrib1dvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4197
-	glsopcode	0x0240
 	alias		VertexAttrib1dv
-	glsalias	VertexAttrib1dv
 
 VertexAttrib1fARB(index, x)
 	return		void
@@ -9035,7 +8970,6 @@ VertexAttrib1fARB(index, x)
 	vectorequiv	VertexAttrib1fvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1f
-	glsalias	VertexAttrib1f
 
 VertexAttrib1fvARB(index, v)
 	return		void
@@ -9045,9 +8979,7 @@ VertexAttrib1fvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4193
-	glsopcode	0x023F
 	alias		VertexAttrib1fv
-	glsalias	VertexAttrib1fv
 
 VertexAttrib1sARB(index, x)
 	return		void
@@ -9058,7 +8990,6 @@ VertexAttrib1sARB(index, x)
 	vectorequiv	VertexAttrib1svARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1s
-	glsalias	VertexAttrib1s
 
 VertexAttrib1svARB(index, v)
 	return		void
@@ -9068,9 +8999,7 @@ VertexAttrib1svARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4189
-	glsopcode	0x023E
 	alias		VertexAttrib1sv
-	glsalias	VertexAttrib1sv
 
 VertexAttrib2dARB(index, x, y)
 	return		void
@@ -9082,7 +9011,6 @@ VertexAttrib2dARB(index, x, y)
 	vectorequiv	VertexAttrib2dvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2d
-	glsalias	VertexAttrib2d
 
 VertexAttrib2dvARB(index, v)
 	return		void
@@ -9092,9 +9020,7 @@ VertexAttrib2dvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4198
-	glsopcode	0x0243
 	alias		VertexAttrib2dv
-	glsalias	VertexAttrib2dv
 
 VertexAttrib2fARB(index, x, y)
 	return		void
@@ -9106,7 +9032,6 @@ VertexAttrib2fARB(index, x, y)
 	vectorequiv	VertexAttrib2fvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2f
-	glsalias	VertexAttrib2f
 
 VertexAttrib2fvARB(index, v)
 	return		void
@@ -9116,9 +9041,7 @@ VertexAttrib2fvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4194
-	glsopcode	0x0242
 	alias		VertexAttrib2fv
-	glsalias	VertexAttrib2fv
 
 VertexAttrib2sARB(index, x, y)
 	return		void
@@ -9130,7 +9053,6 @@ VertexAttrib2sARB(index, x, y)
 	vectorequiv	VertexAttrib2svARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2s
-	glsalias	VertexAttrib2s
 
 VertexAttrib2svARB(index, v)
 	return		void
@@ -9140,9 +9062,7 @@ VertexAttrib2svARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4190
-	glsopcode	0x0241
 	alias		VertexAttrib2sv
-	glsalias	VertexAttrib2sv
 
 VertexAttrib3dARB(index, x, y, z)
 	return		void
@@ -9155,7 +9075,6 @@ VertexAttrib3dARB(index, x, y, z)
 	vectorequiv	VertexAttrib3dvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3d
-	glsalias	VertexAttrib3d
 
 VertexAttrib3dvARB(index, v)
 	return		void
@@ -9165,9 +9084,7 @@ VertexAttrib3dvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4199
-	glsopcode	0x0246
 	alias		VertexAttrib3dv
-	glsalias	VertexAttrib3dv
 
 VertexAttrib3fARB(index, x, y, z)
 	return		void
@@ -9180,7 +9097,6 @@ VertexAttrib3fARB(index, x, y, z)
 	vectorequiv	VertexAttrib3fvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3f
-	glsalias	VertexAttrib3f
 
 VertexAttrib3fvARB(index, v)
 	return		void
@@ -9190,9 +9106,7 @@ VertexAttrib3fvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4195
-	glsopcode	0x0245
 	alias		VertexAttrib3fv
-	glsalias	VertexAttrib3fv
 
 VertexAttrib3sARB(index, x, y, z)
 	return		void
@@ -9205,7 +9119,6 @@ VertexAttrib3sARB(index, x, y, z)
 	vectorequiv	VertexAttrib3svARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3s
-	glsalias	VertexAttrib3s
 
 VertexAttrib3svARB(index, v)
 	return		void
@@ -9215,9 +9128,7 @@ VertexAttrib3svARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4191
-	glsopcode	0x0244
 	alias		VertexAttrib3sv
-	glsalias	VertexAttrib3sv
 
 VertexAttrib4NbvARB(index, v)
 	return		void
@@ -9227,7 +9138,6 @@ VertexAttrib4NbvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Nbv
-	glsalias	VertexAttrib4Nbv
 
 VertexAttrib4NivARB(index, v)
 	return		void
@@ -9237,7 +9147,6 @@ VertexAttrib4NivARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Niv
-	glsalias	VertexAttrib4Niv
 
 VertexAttrib4NsvARB(index, v)
 	return		void
@@ -9247,7 +9156,6 @@ VertexAttrib4NsvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Nsv
-	glsalias	VertexAttrib4Nsv
 
 VertexAttrib4NubARB(index, x, y, z, w)
 	return		void
@@ -9260,7 +9168,6 @@ VertexAttrib4NubARB(index, x, y, z, w)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Nub
-	glsalias	VertexAttrib4Nub
 
 VertexAttrib4NubvARB(index, v)
 	return		void
@@ -9270,9 +9177,7 @@ VertexAttrib4NubvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4201
-	glsopcode	0x024A
 	alias		VertexAttrib4Nubv
-	glsalias	VertexAttrib4Nubv
 
 VertexAttrib4NuivARB(index, v)
 	return		void
@@ -9282,7 +9187,6 @@ VertexAttrib4NuivARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Nuiv
-	glsalias	VertexAttrib4Nuiv
 
 VertexAttrib4NusvARB(index, v)
 	return		void
@@ -9292,7 +9196,6 @@ VertexAttrib4NusvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4Nusv
-	glsalias	VertexAttrib4Nusv
 
 VertexAttrib4bvARB(index, v)
 	return		void
@@ -9302,7 +9205,6 @@ VertexAttrib4bvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4bv
-	glsalias	VertexAttrib4bv
 
 VertexAttrib4dARB(index, x, y, z, w)
 	return		void
@@ -9316,7 +9218,6 @@ VertexAttrib4dARB(index, x, y, z, w)
 	vectorequiv	VertexAttrib4dvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4d
-	glsalias	VertexAttrib4d
 
 VertexAttrib4dvARB(index, v)
 	return		void
@@ -9326,9 +9227,7 @@ VertexAttrib4dvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4200
-	glsopcode	0x0249
 	alias		VertexAttrib4dv
-	glsalias	VertexAttrib4dv
 
 VertexAttrib4fARB(index, x, y, z, w)
 	return		void
@@ -9342,7 +9241,6 @@ VertexAttrib4fARB(index, x, y, z, w)
 	vectorequiv	VertexAttrib4fvARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4f
-	glsalias	VertexAttrib4f
 
 VertexAttrib4fvARB(index, v)
 	return		void
@@ -9352,9 +9250,7 @@ VertexAttrib4fvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4196
-	glsopcode	0x0248
 	alias		VertexAttrib4fv
-	glsalias	VertexAttrib4fv
 
 VertexAttrib4ivARB(index, v)
 	return		void
@@ -9364,7 +9260,6 @@ VertexAttrib4ivARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4iv
-	glsalias	VertexAttrib4iv
 
 VertexAttrib4sARB(index, x, y, z, w)
 	return		void
@@ -9378,7 +9273,6 @@ VertexAttrib4sARB(index, x, y, z, w)
 	vectorequiv	VertexAttrib4svARB
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4s
-	glsalias	VertexAttrib4s
 
 VertexAttrib4svARB(index, v)
 	return		void
@@ -9388,9 +9282,7 @@ VertexAttrib4svARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4192
-	glsopcode	0x0247
 	alias		VertexAttrib4sv
-	glsalias	VertexAttrib4sv
 
 VertexAttrib4ubvARB(index, v)
 	return		void
@@ -9400,7 +9292,6 @@ VertexAttrib4ubvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4ubv
-	glsalias	VertexAttrib4ubv
 
 VertexAttrib4uivARB(index, v)
 	return		void
@@ -9410,7 +9301,6 @@ VertexAttrib4uivARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4uiv
-	glsalias	VertexAttrib4uiv
 
 VertexAttrib4usvARB(index, v)
 	return		void
@@ -9420,7 +9310,6 @@ VertexAttrib4usvARB(index, v)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4usv
-	glsalias	VertexAttrib4usv
 
 VertexAttribPointerARB(index, size, type, normalized, stride, pointer)
 	return		void
@@ -9435,7 +9324,6 @@ VertexAttribPointerARB(index, size, type, normalized, stride, pointer)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		VertexAttribPointer
-	glsalias	VertexAttribPointer
 
 EnableVertexAttribArrayARB(index)
 	return		void
@@ -9445,7 +9333,6 @@ EnableVertexAttribArrayARB(index)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		EnableVertexAttribArray
-	glsalias	EnableVertexAttribArray
 
 DisableVertexAttribArrayARB(index)
 	return		void
@@ -9455,7 +9342,6 @@ DisableVertexAttribArrayARB(index)
 	version		1.3
 	extension	soft WINSOFT NV10
 	alias		DisableVertexAttribArray
-	glsalias	DisableVertexAttribArray
 
 ProgramStringARB(target, format, len, string)
 	return		void
@@ -9466,7 +9352,6 @@ ProgramStringARB(target, format, len, string)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		667
 
@@ -9478,7 +9363,6 @@ BindProgramARB(target, program)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxropcode	4180
-	glsopcode	0x0227
 	offset		579
 
 DeleteProgramsARB(n, programs)
@@ -9490,7 +9374,6 @@ DeleteProgramsARB(n, programs)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1294
-	glsopcode	0x0228
 	offset		580
 
 GenProgramsARB(n, programs)
@@ -9502,7 +9385,6 @@ GenProgramsARB(n, programs)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1295
-	glsopcode	0x022A
 	offset		582
 
 ProgramEnvParameter4dARB(target, index, x, y, z, w)
@@ -9517,7 +9399,6 @@ ProgramEnvParameter4dARB(target, index, x, y, z, w)
 	version		1.3
 	vectorequiv	ProgramEnvParameter4dvARB
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		668
 
@@ -9529,7 +9410,6 @@ ProgramEnvParameter4dvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		669
 
@@ -9545,7 +9425,6 @@ ProgramEnvParameter4fARB(target, index, x, y, z, w)
 	version		1.3
 	vectorequiv	ProgramEnvParameter4fvARB
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		670
 
@@ -9557,7 +9436,6 @@ ProgramEnvParameter4fvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		671
 
@@ -9573,7 +9451,6 @@ ProgramLocalParameter4dARB(target, index, x, y, z, w)
 	version		1.3
 	vectorequiv	ProgramLocalParameter4dvARB
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		672
 
@@ -9585,7 +9462,6 @@ ProgramLocalParameter4dvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		673
 
@@ -9601,7 +9477,6 @@ ProgramLocalParameter4fARB(target, index, x, y, z, w)
 	version		1.3
 	vectorequiv	ProgramLocalParameter4fvARB
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		674
 
@@ -9613,7 +9488,6 @@ ProgramLocalParameter4fvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		675
 
@@ -9626,7 +9500,6 @@ GetProgramEnvParameterdvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		676
 
@@ -9639,7 +9512,6 @@ GetProgramEnvParameterfvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		677
 
@@ -9652,7 +9524,6 @@ GetProgramLocalParameterdvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		678
 
@@ -9665,7 +9536,6 @@ GetProgramLocalParameterfvARB(target, index, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		679
 
@@ -9678,7 +9548,6 @@ GetProgramivARB(target, pname, params)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		680
 
@@ -9691,7 +9560,6 @@ GetProgramStringARB(target, pname, string)
 	category	ARB_vertex_program
 	version		1.3
 	extension	soft WINSOFT NV10
-	glsflags	ignore
 	glxflags	ignore
 	offset		681
 
@@ -9705,10 +9573,7 @@ GetVertexAttribdvARB(index, pname, params)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1301
-	glsflags	client get
-	glsopcode	0x0232
 	alias		GetVertexAttribdv
-	glsalias	GetVertexAttribdv
 
 GetVertexAttribfvARB(index, pname, params)
 	return		void
@@ -9720,10 +9585,7 @@ GetVertexAttribfvARB(index, pname, params)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1302
-	glsflags	client get
-	glsopcode	0x0233
 	alias		GetVertexAttribfv
-	glsalias	GetVertexAttribfv
 
 GetVertexAttribivARB(index, pname, params)
 	return		void
@@ -9735,10 +9597,7 @@ GetVertexAttribivARB(index, pname, params)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1303
-	glsflags	client get
-	glsopcode	0x0234
 	alias		GetVertexAttribiv
-	glsalias	GetVertexAttribiv
 
 GetVertexAttribPointervARB(index, pname, pointer)
 	return		void
@@ -9750,10 +9609,7 @@ GetVertexAttribPointervARB(index, pname, pointer)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	client get
-	glsopcode	0x0235
 	alias		GetVertexAttribPointerv
-	glsalias	GetVertexAttribPointerv
 
 IsProgramARB(program)
 	return		Boolean
@@ -9763,9 +9619,7 @@ IsProgramARB(program)
 	version		1.3
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1304
-	glsflags	get
 	alias		IsProgram
-	glsalias	IsProgram
 
 
 ###############################################################################
@@ -9795,7 +9649,6 @@ BindBufferARB(target, buffer)
 	version		1.2
 	extension
 	alias		BindBuffer
-	glsalias	BindBuffer
 
 DeleteBuffersARB(n, buffers)
 	return		void
@@ -9805,7 +9658,6 @@ DeleteBuffersARB(n, buffers)
 	version		1.2
 	extension
 	alias		DeleteBuffers
-	glsalias	DeleteBuffers
 
 GenBuffersARB(n, buffers)
 	return		void
@@ -9815,7 +9667,6 @@ GenBuffersARB(n, buffers)
 	version		1.2
 	extension
 	alias		GenBuffers
-	glsalias	GenBuffers
 
 IsBufferARB(buffer)
 	return		Boolean
@@ -9824,7 +9675,6 @@ IsBufferARB(buffer)
 	version		1.2
 	extension
 	alias		IsBuffer
-	glsalias	IsBuffer
 
 BufferDataARB(target, size, data, usage)
 	return		void
@@ -9836,7 +9686,6 @@ BufferDataARB(target, size, data, usage)
 	version		1.2
 	extension
 	alias		BufferData
-	glsalias	BufferData
 
 BufferSubDataARB(target, offset, size, data)
 	return		void
@@ -9848,7 +9697,6 @@ BufferSubDataARB(target, offset, size, data)
 	version		1.2
 	extension
 	alias		BufferSubData
-	glsalias	BufferSubData
 
 GetBufferSubDataARB(target, offset, size, data)
 	return		void
@@ -9861,7 +9709,6 @@ GetBufferSubDataARB(target, offset, size, data)
 	version		1.2
 	extension
 	alias		GetBufferSubData
-	glsalias	GetBufferSubData
 
 MapBufferARB(target, access)
 	return		VoidPointer
@@ -9871,7 +9718,6 @@ MapBufferARB(target, access)
 	version		1.2
 	extension
 	alias		MapBuffer
-	glsalias	MapBuffer
 
 UnmapBufferARB(target)
 	return		Boolean
@@ -9880,7 +9726,6 @@ UnmapBufferARB(target)
 	version		1.2
 	extension
 	alias		UnmapBuffer
-	glsalias	UnmapBuffer
 
 GetBufferParameterivARB(target, pname, params)
 	return		void
@@ -9892,7 +9737,6 @@ GetBufferParameterivARB(target, pname, params)
 	version		1.2
 	extension
 	alias		GetBufferParameteriv
-	glsalias	GetBufferParameteriv
 
 GetBufferPointervARB(target, pname, params)
 	return		void
@@ -9904,7 +9748,6 @@ GetBufferPointervARB(target, pname, params)
 	version		1.2
 	extension
 	alias		GetBufferPointerv
-	glsalias	GetBufferPointerv
 
 ###############################################################################
 #
@@ -9921,7 +9764,6 @@ GenQueriesARB(n, ids)
 	version		1.5
 	extension
 	alias		GenQueries
-	glsalias	GenQueries
 
 DeleteQueriesARB(n, ids)
 	return		void
@@ -9931,7 +9773,6 @@ DeleteQueriesARB(n, ids)
 	version		1.5
 	extension
 	alias		DeleteQueries
-	glsalias	DeleteQueries
 
 IsQueryARB(id)
 	return		Boolean
@@ -9940,7 +9781,6 @@ IsQueryARB(id)
 	version		1.5
 	extension
 	alias		IsQuery
-	glsalias	IsQuery
 
 BeginQueryARB(target, id)
 	return		void
@@ -9950,7 +9790,6 @@ BeginQueryARB(target, id)
 	version		1.5
 	extension
 	alias		BeginQuery
-	glsalias	BeginQuery
 
 EndQueryARB(target)
 	return		void
@@ -9959,7 +9798,6 @@ EndQueryARB(target)
 	version		1.5
 	extension
 	alias		EndQuery
-	glsalias	EndQuery
 
 GetQueryivARB(target, pname, params)
 	return		void
@@ -9971,7 +9809,6 @@ GetQueryivARB(target, pname, params)
 	version		1.5
 	extension
 	alias		GetQueryiv
-	glsalias	GetQueryiv
 
 GetQueryObjectivARB(id, pname, params)
 	return		void
@@ -9983,7 +9820,6 @@ GetQueryObjectivARB(id, pname, params)
 	version		1.5
 	extension
 	alias		GetQueryObjectiv
-	glsalias	GetQueryObjectiv
 
 GetQueryObjectuivARB(id, pname, params)
 	return		void
@@ -9995,7 +9831,6 @@ GetQueryObjectuivARB(id, pname, params)
 	version		1.5
 	extension
 	alias		GetQueryObjectuiv
-	glsalias	GetQueryObjectuiv
 
 ###############################################################################
 #
@@ -10012,7 +9847,6 @@ DeleteObjectARB(obj)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GetHandleARB(pname)
@@ -10024,8 +9858,6 @@ GetHandleARB(pname)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 DetachObjectARB(containerObj, attachedObj)
@@ -10038,7 +9870,6 @@ DetachObjectARB(containerObj, attachedObj)
 	glxropcode	?
 	glxflags	ignore
 	alias		DetachShader
-	glsalias	DetachShader
 
 CreateShaderObjectARB(shaderType)
 	return		handleARB
@@ -10049,7 +9880,6 @@ CreateShaderObjectARB(shaderType)
 	glxropcode	?
 	glxflags	ignore
 	alias		CreateShader
-	glsalias	CreateShader
 
 ShaderSourceARB(shaderObj, count, string, length)
 	return		void
@@ -10063,7 +9893,6 @@ ShaderSourceARB(shaderObj, count, string, length)
 	glxropcode	?
 	glxflags	ignore
 	alias		ShaderSource
-	glsalias	ShaderSource
 
 CompileShaderARB(shaderObj)
 	return		void
@@ -10074,7 +9903,6 @@ CompileShaderARB(shaderObj)
 	glxropcode	?
 	glxflags	ignore
 	alias		CompileShader
-	glsalias	CompileShader
 
 CreateProgramObjectARB()
 	return		handleARB
@@ -10084,7 +9912,6 @@ CreateProgramObjectARB()
 	glxropcode	?
 	glxflags	ignore
 	alias		CreateProgram
-	glsalias	CreateProgram
 
 AttachObjectARB(containerObj, obj)
 	return		void
@@ -10096,7 +9923,6 @@ AttachObjectARB(containerObj, obj)
 	glxropcode	?
 	glxflags	ignore
 	alias		AttachShader
-	glsalias	AttachShader
 
 LinkProgramARB(programObj)
 	return		void
@@ -10107,7 +9933,6 @@ LinkProgramARB(programObj)
 	glxropcode	?
 	glxflags	ignore
 	alias		LinkProgram
-	glsalias	LinkProgram
 
 UseProgramObjectARB(programObj)
 	return		void
@@ -10118,7 +9943,6 @@ UseProgramObjectARB(programObj)
 	glxropcode	?
 	glxflags	ignore
 	alias		UseProgram
-	glsalias	UseProgram
 
 ValidateProgramARB(programObj)
 	return		void
@@ -10129,7 +9953,6 @@ ValidateProgramARB(programObj)
 	glxropcode	?
 	glxflags	ignore
 	alias		ValidateProgram
-	glsalias	ValidateProgram
 
 Uniform1fARB(location, v0)
 	return		void
@@ -10141,7 +9964,6 @@ Uniform1fARB(location, v0)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform1f
-	glsalias	Uniform1f
 
 Uniform2fARB(location, v0, v1)
 	return		void
@@ -10154,7 +9976,6 @@ Uniform2fARB(location, v0, v1)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform2f
-	glsalias	Uniform2f
 
 Uniform3fARB(location, v0, v1, v2)
 	return		void
@@ -10168,7 +9989,6 @@ Uniform3fARB(location, v0, v1, v2)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform3f
-	glsalias	Uniform3f
 
 Uniform4fARB(location, v0, v1, v2, v3)
 	return		void
@@ -10183,7 +10003,6 @@ Uniform4fARB(location, v0, v1, v2, v3)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform4f
-	glsalias	Uniform4f
 
 Uniform1iARB(location, v0)
 	return		void
@@ -10195,7 +10014,6 @@ Uniform1iARB(location, v0)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform1i
-	glsalias	Uniform1i
 
 Uniform2iARB(location, v0, v1)
 	return		void
@@ -10208,7 +10026,6 @@ Uniform2iARB(location, v0, v1)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform2i
-	glsalias	Uniform2i
 
 Uniform3iARB(location, v0, v1, v2)
 	return		void
@@ -10222,7 +10039,6 @@ Uniform3iARB(location, v0, v1, v2)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform3i
-	glsalias	Uniform3i
 
 Uniform4iARB(location, v0, v1, v2, v3)
 	return		void
@@ -10237,7 +10053,6 @@ Uniform4iARB(location, v0, v1, v2, v3)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform4i
-	glsalias	Uniform4i
 
 Uniform1fvARB(location, count, value)
 	return		void
@@ -10250,7 +10065,6 @@ Uniform1fvARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform1fv
-	glsalias	Uniform1fv
 
 Uniform2fvARB(location, count, value)
 	return		void
@@ -10263,7 +10077,6 @@ Uniform2fvARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform2fv
-	glsalias	Uniform2fv
 
 Uniform3fvARB(location, count, value)
 	return		void
@@ -10276,7 +10089,6 @@ Uniform3fvARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform3fv
-	glsalias	Uniform3fv
 
 Uniform4fvARB(location, count, value)
 	return		void
@@ -10289,7 +10101,6 @@ Uniform4fvARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform4fv
-	glsalias	Uniform4fv
 
 Uniform1ivARB(location, count, value)
 	return		void
@@ -10302,7 +10113,6 @@ Uniform1ivARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform1iv
-	glsalias	Uniform1iv
 
 Uniform2ivARB(location, count, value)
 	return		void
@@ -10315,7 +10125,6 @@ Uniform2ivARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform2iv
-	glsalias	Uniform2iv
 
 Uniform3ivARB(location, count, value)
 	return		void
@@ -10328,7 +10137,6 @@ Uniform3ivARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform3iv
-	glsalias	Uniform3iv
 
 Uniform4ivARB(location, count, value)
 	return		void
@@ -10341,7 +10149,6 @@ Uniform4ivARB(location, count, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		Uniform4iv
-	glsalias	Uniform4iv
 
 UniformMatrix2fvARB(location, count, transpose, value)
 	return		void
@@ -10355,7 +10162,6 @@ UniformMatrix2fvARB(location, count, transpose, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		UniformMatrix2fv
-	glsalias	UniformMatrix2fv
 
 UniformMatrix3fvARB(location, count, transpose, value)
 	return		void
@@ -10369,7 +10175,6 @@ UniformMatrix3fvARB(location, count, transpose, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		UniformMatrix3fv
-	glsalias	UniformMatrix3fv
 
 UniformMatrix4fvARB(location, count, transpose, value)
 	return		void
@@ -10383,7 +10188,6 @@ UniformMatrix4fvARB(location, count, transpose, value)
 	glxropcode	?
 	glxflags	ignore
 	alias		UniformMatrix4fv
-	glsalias	UniformMatrix4fv
 
 GetObjectParameterfvARB(obj, pname, params)
 	return		void
@@ -10396,8 +10200,6 @@ GetObjectParameterfvARB(obj, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetObjectParameterivARB(obj, pname, params)
@@ -10411,8 +10213,6 @@ GetObjectParameterivARB(obj, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetInfoLogARB(obj, maxLength, length, infoLog)
@@ -10427,8 +10227,6 @@ GetInfoLogARB(obj, maxLength, length, infoLog)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetAttachedObjectsARB(containerObj, maxCount, count, obj)
@@ -10444,7 +10242,6 @@ GetAttachedObjectsARB(containerObj, maxCount, count, obj)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetAttachedShaders
-	glsalias	GetAttachedShaders
 
 GetUniformLocationARB(programObj, name)
 	return		Int32
@@ -10457,7 +10254,6 @@ GetUniformLocationARB(programObj, name)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetUniformLocation
-	glsalias	GetUniformLocation
 
 GetActiveUniformARB(programObj, index, maxLength, length, size, type, name)
 	return		void
@@ -10475,7 +10271,6 @@ GetActiveUniformARB(programObj, index, maxLength, length, size, type, name)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetActiveUniform
-	glsalias	GetActiveUniform
 
 GetUniformfvARB(programObj, location, params)
 	return		void
@@ -10489,7 +10284,6 @@ GetUniformfvARB(programObj, location, params)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetUniformfv
-	glsalias	GetUniformfv
 
 GetUniformivARB(programObj, location, params)
 	return		void
@@ -10503,7 +10297,6 @@ GetUniformivARB(programObj, location, params)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetUniformiv
-	glsalias	GetUniformiv
 
 GetShaderSourceARB(obj, maxLength, length, source)
 	return		void
@@ -10518,7 +10311,6 @@ GetShaderSourceARB(obj, maxLength, length, source)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetShaderSource
-	glsalias	GetShaderSource
 
 
 ###############################################################################
@@ -10539,7 +10331,6 @@ BindAttribLocationARB(programObj, index, name)
 	glxropcode	?
 	glxflags	ignore
 	alias		BindAttribLocation
-	glsalias	BindAttribLocation
 
 GetActiveAttribARB(programObj, index, maxLength, length, size, type, name)
 	return		void
@@ -10557,7 +10348,6 @@ GetActiveAttribARB(programObj, index, maxLength, length, size, type, name)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetActiveAttrib
-	glsalias	GetActiveAttrib
 
 GetAttribLocationARB(programObj, name)
 	return		Int32
@@ -10570,7 +10360,6 @@ GetAttribLocationARB(programObj, name)
 	glxsingle	?
 	glxflags	ignore
 	alias		GetAttribLocation
-	glsalias	GetAttribLocation
 
 ###############################################################################
 #
@@ -10637,7 +10426,6 @@ DrawBuffersARB(n, bufs)
 	version		1.5
 	extension
 	alias		DrawBuffers
-	glsalias	DrawBuffers
 
 ###############################################################################
 #
@@ -10666,7 +10454,6 @@ ClampColorARB(target, clamp)
 	glxropcode	234
 	glxflags	ignore
 	alias		ClampColor
-	glsalias	ClampColor
 
 ###############################################################################
 #
@@ -10727,8 +10514,8 @@ DrawArraysInstancedARB(mode, first, count, primcount)
 	dlflags		notlistable
 	vectorequiv	ArrayElement
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
+	alias		DrawArraysInstanced
 
 DrawElementsInstancedARB(mode, count, type, indices, primcount)
 	return		void
@@ -10743,8 +10530,8 @@ DrawElementsInstancedARB(mode, count, type, indices, primcount)
 	dlflags		notlistable
 	vectorequiv	ArrayElement
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
+	alias		DrawElementsInstanced
 
 ###############################################################################
 #
@@ -10762,7 +10549,6 @@ IsRenderbuffer(renderbuffer)
 	extension
 	glxvendorpriv	1422
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 BindRenderbuffer(target, renderbuffer)
@@ -10774,7 +10560,6 @@ BindRenderbuffer(target, renderbuffer)
 	extension
 	glxropcode	4316
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteRenderbuffers(n, renderbuffers)
@@ -10786,7 +10571,6 @@ DeleteRenderbuffers(n, renderbuffers)
 	extension
 	glxropcode	4317
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GenRenderbuffers(n, renderbuffers)
@@ -10798,7 +10582,6 @@ GenRenderbuffers(n, renderbuffers)
 	extension
 	glxvendorpriv	1423
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 RenderbufferStorage(target, internalformat, width, height)
@@ -10812,7 +10595,6 @@ RenderbufferStorage(target, internalformat, width, height)
 	extension
 	glxropcode	4318
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GetRenderbufferParameteriv(target, pname, params)
@@ -10826,8 +10608,6 @@ GetRenderbufferParameteriv(target, pname, params)
 	extension
 	glxvendorpriv	1424
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 IsFramebuffer(framebuffer)
@@ -10838,7 +10618,6 @@ IsFramebuffer(framebuffer)
 	extension
 	glxvendorpriv	1425
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 BindFramebuffer(target, framebuffer)
@@ -10850,7 +10629,6 @@ BindFramebuffer(target, framebuffer)
 	extension
 	glxropcode	4319
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteFramebuffers(n, framebuffers)
@@ -10862,7 +10640,6 @@ DeleteFramebuffers(n, framebuffers)
 	extension
 	glxropcode	4320
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GenFramebuffers(n, framebuffers)
@@ -10874,7 +10651,6 @@ GenFramebuffers(n, framebuffers)
 	extension
 	glxvendorpriv	1426
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 CheckFramebufferStatus(target)
@@ -10885,7 +10661,6 @@ CheckFramebufferStatus(target)
 	extension
 	glxvendorpriv	1427
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FramebufferTexture1D(target, attachment, textarget, texture, level)
@@ -10900,7 +10675,6 @@ FramebufferTexture1D(target, attachment, textarget, texture, level)
 	extension
 	glxropcode	4321
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FramebufferTexture2D(target, attachment, textarget, texture, level)
@@ -10915,7 +10689,6 @@ FramebufferTexture2D(target, attachment, textarget, texture, level)
 	extension
 	glxropcode	4322
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FramebufferTexture3D(target, attachment, textarget, texture, level, zoffset)
@@ -10931,7 +10704,6 @@ FramebufferTexture3D(target, attachment, textarget, texture, level, zoffset)
 	extension
 	glxropcode	4323
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)
@@ -10945,7 +10717,6 @@ FramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer)
 	extension
 	glxropcode	4324
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GetFramebufferAttachmentParameteriv(target, attachment, pname, params)
@@ -10960,8 +10731,6 @@ GetFramebufferAttachmentParameteriv(target, attachment, pname, params)
 	extension
 	glxvendorpriv	1428
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GenerateMipmap(target)
@@ -10972,7 +10741,6 @@ GenerateMipmap(target)
 	extension
 	glxropcode	4325
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 # Promoted from EXT_framebuffer_blit
@@ -10991,7 +10759,6 @@ BlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, fi
 	category	ARB_framebuffer_object
 	version		3.0
 	glxropcode	4330
-	glsopcode	?
 	offset		?
 
 # Promoted from EXT_framebuffer_multisample
@@ -11005,7 +10772,6 @@ RenderbufferStorageMultisample(target, samples, internalformat, width, height)
 	category	ARB_framebuffer_object
 	version		3.0
 	glxropcode	4331
-	glsopcode	?
 	offset		?
 
 # Promoted from ARB_geometry_shader4
@@ -11021,7 +10787,6 @@ FramebufferTextureLayer(target, attachment, texture, level, layer)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 
@@ -11051,7 +10816,6 @@ ProgramParameteriARB(program, pname, value)
 	version		3.0
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 FramebufferTextureARB(target, attachment, texture, level)
@@ -11065,7 +10829,6 @@ FramebufferTextureARB(target, attachment, texture, level)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 FramebufferTextureLayerARB(target, attachment, texture, level, layer)
@@ -11082,7 +10845,6 @@ FramebufferTextureLayerARB(target, attachment, texture, level, layer)
 	glfflags	ignore
 	glxflags	ignore
 	alias		FramebufferTextureLayer
-	glsalias	FramebufferTextureLayer
 
 FramebufferTextureFaceARB(target, attachment, texture, level, face)
 	return		void
@@ -11096,7 +10858,6 @@ FramebufferTextureFaceARB(target, attachment, texture, level, face)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -11116,7 +10877,7 @@ newcategory: ARB_half_float_vertex
 #
 ###############################################################################
 
-VertexAttribDivisor(index, divisor)
+VertexAttribDivisorARB(index, divisor)
 	return		void
 	param		index		UInt32 in value
 	param		divisor		UInt32 in value
@@ -11124,7 +10885,6 @@ VertexAttribDivisor(index, divisor)
 	version		2.0
 	extension
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -11135,7 +10895,7 @@ VertexAttribDivisor(index, divisor)
 ###############################################################################
 
 MapBufferRange(target, offset, length, access)
-	return		void
+	return		VoidPointer
 	param		target		BufferTargetARB in value
 	param		offset		BufferOffset in value
 	param		length		BufferSize in value
@@ -11145,7 +10905,6 @@ MapBufferRange(target, offset, length, access)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 # Promoted from APPLE_flush_buffer_range
@@ -11159,7 +10918,6 @@ FlushMappedBufferRange(target, offset, length)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -11178,8 +10936,7 @@ TexBufferARB(target, internalformat, buffer)
 	version		3.0
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
-	glxflags	ignore
+	alias		TexBuffer
 
 ###############################################################################
 #
@@ -11217,7 +10974,6 @@ BindVertexArray(array)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteVertexArrays(n, arrays)
@@ -11229,7 +10985,6 @@ DeleteVertexArrays(n, arrays)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GenVertexArrays(n, arrays)
@@ -11241,7 +10996,6 @@ GenVertexArrays(n, arrays)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 IsVertexArray(array)
@@ -11252,8 +11006,538 @@ IsVertexArray(array)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
+
+###############################################################################
+#
+# ARB Extension #55 - WGL_ARB_create_context
+# ARB Extension #56 - GLX_ARB_create_context
+#
+###############################################################################
+
+###############################################################################
+#
+# ARB Extension #57
+# ARB_uniform_buffer_object commands
+#
+###############################################################################
+
+GetUniformIndices(program, uniformCount, uniformNames, uniformIndices)
+	return		void
+	param		program		UInt32 in value
+	param		uniformCount	SizeI in value
+	param		uniformNames	CharPointer in array [COMPSIZE(uniformCount)]
+	param		uniformIndices	UInt32 out array [COMPSIZE(uniformCount)]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetActiveUniformsiv(program, uniformCount, uniformIndices, pname, params)
+	return		void
+	param		program		UInt32 in value
+	param		uniformCount	SizeI in value
+	param		uniformIndices	UInt32 in array [COMPSIZE(uniformCount)]
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetActiveUniformName(program, uniformIndex, bufSize, length, uniformName)
+	return		void
+	param		program		UInt32 in value
+	param		uniformIndex	UInt32 in value
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		uniformName	Char out array [bufSize]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetUniformBlockIndex(program, uniformBlockName)
+	return		UInt32
+	param		program		UInt32 in value
+	param		uniformBlockName	Char in array [COMPSIZE()]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetActiveUniformBlockiv(program, uniformBlockIndex, pname, params)
+	return		void
+	param		program		UInt32 in value
+	param		uniformBlockIndex	UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetActiveUniformBlockName(program, uniformBlockIndex, bufSize, length, uniformBlockName)
+	return		void
+	param		program		UInt32 in value
+	param		uniformBlockIndex	UInt32 in value
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		uniformBlockName	Char out array [bufSize]
+	category	ARB_uniform_buffer_object
+	dlflags		notlistable
+	version		2.0
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+UniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding)
+	return		void
+	param		program		UInt32 in value
+	param		uniformBlockIndex	UInt32 in value
+	param		uniformBlockBinding	UInt32 in value
+	category	ARB_uniform_buffer_object
+	version		2.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+
+###############################################################################
+#
+# ARB Extension #58
+# ARB_compatibility commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_compatibility
+
+###############################################################################
+#
+# ARB Extension #59
+# ARB_copy_buffer commands
+#
+###############################################################################
+
+CopyBufferSubData(readTarget, writeTarget, readOffset, writeOffset, size)
+	return		void
+	param		readTarget	GLenum in value
+	param		writeTarget	GLenum in value
+	param		readOffset	BufferOffset in value
+	param		writeOffset	BufferOffset in value
+	param		size		BufferSize in value
+	category	ARB_copy_buffer
+	version		3.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #60
+# ARB_shader_texture_lod commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_shader_texture_lod
+
+###############################################################################
+#
+# ARB Extension #61
+# ARB_depth_clamp commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_depth_clamp
+
+###############################################################################
+#
+# ARB Extension #62
+# ARB_draw_elements_base_vertex commands
+#
+###############################################################################
+
+DrawElementsBaseVertex(mode, count, type, indices, basevertex)
+	return		void
+	param		mode		GLenum in value
+	param		count		SizeI in value
+	param		type		DrawElementsType in value
+	param		indices		Void in array [COMPSIZE(count/type)]
+	param		basevertex	Int32 in value
+	category	ARB_draw_elements_base_vertex
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+DrawRangeElementsBaseVertex(mode, start, end, count, type, indices, basevertex)
+	return		void
+	param		mode		GLenum in value
+	param		start		UInt32 in value
+	param		end		UInt32 in value
+	param		count		SizeI in value
+	param		type		DrawElementsType in value
+	param		indices		Void in array [COMPSIZE(count/type)]
+	param		basevertex	Int32 in value
+	category	ARB_draw_elements_base_vertex
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+DrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex)
+	return		void
+	param		mode		GLenum in value
+	param		count		SizeI in value
+	param		type		DrawElementsType in value
+	param		indices		Void in array [COMPSIZE(count/type)]
+	param		primcount	SizeI in value
+	param		basevertex	Int32 in value
+	category	ARB_draw_elements_base_vertex
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex)
+	return		void
+	param		mode		GLenum in value
+	param		count		SizeI in array [COMPSIZE(primcount)]
+	param		type		DrawElementsType in value
+	param		indices		VoidPointer in array [COMPSIZE(primcount)]
+	param		primcount	SizeI in value
+	param		basevertex	Int32 in array [COMPSIZE(primcount)]
+	category	ARB_draw_elements_base_vertex
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #63
+# ARB_fragment_coord_conventions commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_fragment_coord_conventions
+
+###############################################################################
+#
+# ARB Extension #64
+# ARB_provoking_vertex commands
+#
+###############################################################################
+
+ProvokingVertex(mode)
+	return		void
+	param		mode		GLenum in value
+	category	ARB_provoking_vertex
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #65
+# ARB_seamless_cube_map commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_seamless_cube_map
+
+###############################################################################
+#
+# ARB Extension #66
+# ARB_sync commands
+#
+###############################################################################
+
+FenceSync(condition, flags)
+	return		sync
+	param		condition	GLenum in value
+	param		flags		GLbitfield in value
+	category	ARB_sync
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+IsSync(sync)
+	return		Boolean
+	param		sync		sync in value
+	category	ARB_sync
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+DeleteSync(sync)
+	return		void
+	param		sync		sync in value
+	category	ARB_sync
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+ClientWaitSync(sync, flags, timeout)
+	return		GLenum
+	param		sync		sync in value
+	param		flags		GLbitfield in value
+	param		timeout		UInt64 in value
+	category	ARB_sync
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+WaitSync(sync, flags, timeout)
+	return		void
+	param		sync		sync in value
+	param		flags		GLbitfield in value
+	param		timeout		UInt64 in value
+	category	ARB_sync
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetInteger64v(pname, params)
+	return		void
+	param		pname		GLenum in value
+	param		params		Int64 out array [COMPSIZE(pname)]
+	category	ARB_sync
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetSynciv(sync, pname, bufSize, length, values)
+	return		void
+	param		sync		sync in value
+	param		pname		GLenum in value
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		values		Int32 out array [length]
+	category	ARB_sync
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #67
+# ARB_texture_multisample commands
+#
+###############################################################################
+
+TexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations)
+	return		void
+	param		target		GLenum in value
+	param		samples		SizeI in value
+	param		internalformat	Int32 in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		fixedsamplelocations	Boolean in value
+	category	ARB_texture_multisample
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+TexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations)
+	return		void
+	param		target		GLenum in value
+	param		samples		SizeI in value
+	param		internalformat	Int32 in value
+	param		width		SizeI in value
+	param		height		SizeI in value
+	param		depth		SizeI in value
+	param		fixedsamplelocations	Boolean in value
+	category	ARB_texture_multisample
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetMultisamplefv(pname, index, val)
+	return		void
+	param		pname		GLenum in value
+	param		index		UInt32 in value
+	param		val		Float32 out array [COMPSIZE(pname)]
+	category	ARB_texture_multisample
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+SampleMaski(index, mask)
+	return		void
+	param		index		UInt32 in value
+	param		mask		GLbitfield in value
+	category	ARB_texture_multisample
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #68
+# ARB_vertex_array_bgra commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_vertex_array_bgra
+
+###############################################################################
+#
+# ARB Extension #69
+# ARB_draw_buffers_blend commands
+#
+###############################################################################
+
+BlendEquationi(buf, mode)
+	return		void
+	param		buf		UInt32 in value
+	param		mode		GLenum in value
+	category	ARB_draw_buffers_blend
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendEquationSeparatei(buf, modeRGB, modeAlpha)
+	return		void
+	param		buf		UInt32 in value
+	param		modeRGB		GLenum in value
+	param		modeAlpha	GLenum in value
+	category	ARB_draw_buffers_blend
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendFunci(buf, src, dst)
+	return		void
+	param		buf		UInt32 in value
+	param		src		GLenum in value
+	param		dst		GLenum in value
+	category	ARB_draw_buffers_blend
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha)
+	return		void
+	param		buf		UInt32 in value
+	param		srcRGB		GLenum in value
+	param		dstRGB		GLenum in value
+	param		srcAlpha	GLenum in value
+	param		dstAlpha	GLenum in value
+	category	ARB_draw_buffers_blend
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #70
+# ARB_sample_shading commands
+#
+###############################################################################
+
+MinSampleShading(value)
+	return		void
+	param		value		ClampedColorF in value
+	category	ARB_sample_shading
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# ARB Extension #71
+# ARB_texture_cube_map_array commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_texture_cube_map_array
+
+###############################################################################
+#
+# ARB Extension #72
+# ARB_texture_gather commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_texture_gather
+
+###############################################################################
+#
+# ARB Extension #73
+# ARB_texture_query_lod commands
+#
+###############################################################################
+
+# (none)
+newcategory: ARB_texture_query_lod
 
 
 ###############################################################################
@@ -11293,7 +11577,6 @@ BlendColorEXT(red, green, blue, alpha)
 	glxflags	EXT
 	extension	soft
 	alias		BlendColor
-	glsalias	BlendColor
 
 ###############################################################################
 #
@@ -11311,7 +11594,6 @@ PolygonOffsetEXT(factor, bias)
 	glxropcode	4098
 	glxflags	EXT
 	extension	soft
-	glsopcode	0x0122
 	offset		414
 
 ###############################################################################
@@ -11357,7 +11639,6 @@ TexImage3DEXT(target, level, internalformat, width, height, depth, border, forma
 	glxropcode	4114
 	extension
 	alias		TexImage3D
-	glsalias	TexImage3D
 
 TexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 	return		void
@@ -11379,7 +11660,6 @@ TexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth,
 	glxropcode	4115
 	extension
 	alias		TexSubImage3D
-	glsalias	TexSubImage3D
 
 ###############################################################################
 #
@@ -11399,8 +11679,6 @@ GetTexFilterFuncSGIS(target, filter, weights)
 	glxflags	SGI
 	glxvendorpriv	4101
 	extension
-	glsflags	get
-	glsopcode	0x0175
 	offset		415
 
 TexFilterFuncSGIS(target, filter, n, weights)
@@ -11414,7 +11692,6 @@ TexFilterFuncSGIS(target, filter, n, weights)
 	version		1.0
 	glxropcode	2064
 	extension
-	glsopcode	0x0176
 	offset		416
 
 ###############################################################################
@@ -11446,7 +11723,6 @@ TexSubImage1DEXT(target, level, xoffset, width, format, type, pixels)
 	glxropcode	4099
 	extension
 	alias		TexSubImage1D
-	glsalias	TexSubImage1D
 
 TexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, pixels)
 	return		void
@@ -11466,7 +11742,6 @@ TexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, p
 	glxropcode	4100
 	extension
 	alias		TexSubImage2D
-	glsalias	TexSubImage2D
 
 ###############################################################################
 #
@@ -11491,7 +11766,6 @@ CopyTexImage1DEXT(target, level, internalformat, x, y, width, border)
 	glxropcode	4119
 	extension
 	alias		CopyTexImage1D
-	glsalias	CopyTexImage1D
 
 # Arguably TexelInternalFormat, not PixelInternalFormat
 CopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border)
@@ -11510,7 +11784,6 @@ CopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border)
 	glxropcode	4120
 	extension
 	alias		CopyTexImage2D
-	glsalias	CopyTexImage2D
 
 CopyTexSubImage1DEXT(target, level, xoffset, x, y, width)
 	return		void
@@ -11526,7 +11799,6 @@ CopyTexSubImage1DEXT(target, level, xoffset, x, y, width)
 	glxropcode	4121
 	extension
 	alias		CopyTexSubImage1D
-	glsalias	CopyTexSubImage1D
 
 CopyTexSubImage2DEXT(target, level, xoffset, yoffset, x, y, width, height)
 	return		void
@@ -11544,7 +11816,6 @@ CopyTexSubImage2DEXT(target, level, xoffset, yoffset, x, y, width, height)
 	glxropcode	4122
 	extension
 	alias		CopyTexSubImage2D
-	glsalias	CopyTexSubImage2D
 
 CopyTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, x, y, width, height)
 	return		void
@@ -11563,7 +11834,6 @@ CopyTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, x, y, width, heig
 	glxropcode	4123
 	extension
 	alias		CopyTexSubImage3D
-	glsalias	CopyTexSubImage3D
 
 ###############################################################################
 #
@@ -11585,8 +11855,6 @@ GetHistogramEXT(target, reset, format, type, values)
 	version		1.0
 	glxvendorpriv	5
 	extension
-	glsflags	get pixel-pack
-	glsopcode	0x0132
 	offset		417
 
 GetHistogramParameterfvEXT(target, pname, params)
@@ -11600,8 +11868,6 @@ GetHistogramParameterfvEXT(target, pname, params)
 	glxvendorpriv	6
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x0133
 	offset		418
 
 GetHistogramParameterivEXT(target, pname, params)
@@ -11615,8 +11881,6 @@ GetHistogramParameterivEXT(target, pname, params)
 	glxvendorpriv	7
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x0134
 	offset		419
 
 GetMinmaxEXT(target, reset, format, type, values)
@@ -11632,8 +11896,6 @@ GetMinmaxEXT(target, reset, format, type, values)
 	version		1.0
 	glxvendorpriv	8
 	extension
-	glsflags	get pixel-pack
-	glsopcode	0x0135
 	offset		420
 
 GetMinmaxParameterfvEXT(target, pname, params)
@@ -11647,8 +11909,6 @@ GetMinmaxParameterfvEXT(target, pname, params)
 	glxvendorpriv	9
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x0136
 	offset		421
 
 GetMinmaxParameterivEXT(target, pname, params)
@@ -11662,8 +11922,6 @@ GetMinmaxParameterivEXT(target, pname, params)
 	glxvendorpriv	10
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x0137
 	offset		422
 
 HistogramEXT(target, width, internalformat, sink)
@@ -11678,7 +11936,6 @@ HistogramEXT(target, width, internalformat, sink)
 	glxflags	EXT
 	extension
 	alias		Histogram
-	glsalias	Histogram
 
 MinmaxEXT(target, internalformat, sink)
 	return		void
@@ -11691,7 +11948,6 @@ MinmaxEXT(target, internalformat, sink)
 	glxflags	EXT
 	extension
 	alias		Minmax
-	glsalias	Minmax
 
 ResetHistogramEXT(target)
 	return		void
@@ -11702,7 +11958,6 @@ ResetHistogramEXT(target)
 	glxflags	EXT
 	extension
 	alias		ResetHistogram
-	glsalias	ResetHistogram
 
 ResetMinmaxEXT(target)
 	return		void
@@ -11713,7 +11968,6 @@ ResetMinmaxEXT(target)
 	glxflags	EXT
 	extension
 	alias		ResetMinmax
-	glsalias	ResetMinmax
 
 ###############################################################################
 #
@@ -11737,7 +11991,6 @@ ConvolutionFilter1DEXT(target, internalformat, width, format, type, image)
 	glxropcode	4101
 	extension
 	alias		ConvolutionFilter1D
-	glsalias	ConvolutionFilter1D
 
 ConvolutionFilter2DEXT(target, internalformat, width, height, format, type, image)
 	return		void
@@ -11755,7 +12008,6 @@ ConvolutionFilter2DEXT(target, internalformat, width, height, format, type, imag
 	glxropcode	4102
 	extension
 	alias		ConvolutionFilter2D
-	glsalias	ConvolutionFilter2D
 
 ConvolutionParameterfEXT(target, pname, params)
 	return		void
@@ -11768,7 +12020,6 @@ ConvolutionParameterfEXT(target, pname, params)
 	glxflags	EXT
 	extension
 	alias		ConvolutionParameterf
-	glsalias	ConvolutionParameterf
 
 ConvolutionParameterfvEXT(target, pname, params)
 	return		void
@@ -11781,7 +12032,6 @@ ConvolutionParameterfvEXT(target, pname, params)
 	glxflags	EXT
 	extension
 	alias		ConvolutionParameterfv
-	glsalias	ConvolutionParameterfv
 
 ConvolutionParameteriEXT(target, pname, params)
 	return		void
@@ -11794,7 +12044,6 @@ ConvolutionParameteriEXT(target, pname, params)
 	glxflags	EXT
 	extension
 	alias		ConvolutionParameteri
-	glsalias	ConvolutionParameteri
 
 ConvolutionParameterivEXT(target, pname, params)
 	return		void
@@ -11807,7 +12056,6 @@ ConvolutionParameterivEXT(target, pname, params)
 	glxflags	EXT
 	extension
 	alias		ConvolutionParameteriv
-	glsalias	ConvolutionParameteriv
 
 CopyConvolutionFilter1DEXT(target, internalformat, x, y, width)
 	return		void
@@ -11822,7 +12070,6 @@ CopyConvolutionFilter1DEXT(target, internalformat, x, y, width)
 	glxflags	EXT
 	extension
 	alias		CopyConvolutionFilter1D
-	glsalias	CopyConvolutionFilter1D
 
 CopyConvolutionFilter2DEXT(target, internalformat, x, y, width, height)
 	return		void
@@ -11838,7 +12085,6 @@ CopyConvolutionFilter2DEXT(target, internalformat, x, y, width, height)
 	glxflags	EXT
 	extension
 	alias		CopyConvolutionFilter2D
-	glsalias	CopyConvolutionFilter2D
 
 GetConvolutionFilterEXT(target, format, type, image)
 	return		void
@@ -11852,8 +12098,6 @@ GetConvolutionFilterEXT(target, format, type, image)
 	version		1.0
 	glxvendorpriv	1
 	extension
-	glsflags	get pixel-pack
-	glsopcode	0x012D
 	offset		423
 
 GetConvolutionParameterfvEXT(target, pname, params)
@@ -11867,8 +12111,6 @@ GetConvolutionParameterfvEXT(target, pname, params)
 	glxvendorpriv	2
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x012E
 	offset		424
 
 GetConvolutionParameterivEXT(target, pname, params)
@@ -11882,8 +12124,6 @@ GetConvolutionParameterivEXT(target, pname, params)
 	glxvendorpriv	3
 	glxflags	EXT
 	extension
-	glsflags	get
-	glsopcode	0x012F
 	offset		425
 
 GetSeparableFilterEXT(target, format, type, row, column, span)
@@ -11900,8 +12140,6 @@ GetSeparableFilterEXT(target, format, type, row, column, span)
 	version		1.0
 	glxvendorpriv	4
 	extension
-	glsflags	get pixel-pack
-	glsopcode	0x0130
 	offset		426
 
 SeparableFilter2DEXT(target, internalformat, width, height, format, type, row, column)
@@ -11921,7 +12159,6 @@ SeparableFilter2DEXT(target, internalformat, width, height, format, type, row, c
 	glxropcode	4109
 	extension
 	alias		SeparableFilter2D
-	glsalias	SeparableFilter2D
 
 ###############################################################################
 #
@@ -11955,7 +12192,6 @@ ColorTableSGI(target, internalformat, width, format, type, table)
 	glxropcode	2053
 	extension
 	alias		ColorTable
-	glsalias	ColorTable
 
 ColorTableParameterfvSGI(target, pname, params)
 	return		void
@@ -11968,7 +12204,6 @@ ColorTableParameterfvSGI(target, pname, params)
 	glxflags	SGI
 	extension
 	alias		ColorTableParameterfv
-	glsalias	ColorTableParameterfv
 
 ColorTableParameterivSGI(target, pname, params)
 	return		void
@@ -11981,7 +12216,6 @@ ColorTableParameterivSGI(target, pname, params)
 	glxflags	SGI
 	extension
 	alias		ColorTableParameteriv
-	glsalias	ColorTableParameteriv
 
 CopyColorTableSGI(target, internalformat, x, y, width)
 	return		void
@@ -11996,7 +12230,6 @@ CopyColorTableSGI(target, internalformat, x, y, width)
 	glxflags	SGI
 	extension
 	alias		CopyColorTable
-	glsalias	CopyColorTable
 
 GetColorTableSGI(target, format, type, table)
 	return		void
@@ -12010,8 +12243,6 @@ GetColorTableSGI(target, format, type, table)
 	version		1.0
 	glxvendorpriv	4098
 	extension
-	glsflags	get pixel-pack
-	glsopcode	0x016B
 	offset		427
 
 GetColorTableParameterfvSGI(target, pname, params)
@@ -12025,8 +12256,6 @@ GetColorTableParameterfvSGI(target, pname, params)
 	glxflags	SGI
 	glxvendorpriv	4099
 	extension
-	glsflags	get
-	glsopcode	0x016C
 	offset		428
 
 GetColorTableParameterivSGI(target, pname, params)
@@ -12040,8 +12269,6 @@ GetColorTableParameterivSGI(target, pname, params)
 	glxflags	SGI
 	glxvendorpriv	4100
 	extension
-	glsflags	get
-	glsopcode	0x016D
 	offset		429
 
 ###############################################################################
@@ -12059,7 +12286,6 @@ PixelTexGenSGIX(mode)
 	glxflags	SGI
 	glxropcode	2059
 	extension
-	glsopcode	0x0170
 	offset		430
 
 ###############################################################################
@@ -12079,8 +12305,6 @@ PixelTexGenParameteriSGIS(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x0192
 	offset		431
 
 PixelTexGenParameterivSGIS(pname, params)
@@ -12092,8 +12316,6 @@ PixelTexGenParameterivSGIS(pname, params)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x0193
 	offset		432
 
 PixelTexGenParameterfSGIS(pname, param)
@@ -12105,8 +12327,6 @@ PixelTexGenParameterfSGIS(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x0194
 	offset		433
 
 PixelTexGenParameterfvSGIS(pname, params)
@@ -12118,8 +12338,6 @@ PixelTexGenParameterfvSGIS(pname, params)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x0195
 	offset		434
 
 GetPixelTexGenParameterivSGIS(pname, params)
@@ -12132,8 +12350,6 @@ GetPixelTexGenParameterivSGIS(pname, params)
 	extension
 	glxvendorpriv	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0196
 	offset		435
 
 GetPixelTexGenParameterfvSGIS(pname, params)
@@ -12146,8 +12362,6 @@ GetPixelTexGenParameterfvSGIS(pname, params)
 	extension
 	glxvendorpriv	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0197
 	offset		436
 
 ###############################################################################
@@ -12176,8 +12390,6 @@ TexImage4DSGIS(target, level, internalformat, width, height, depth, size4d, bord
 	version		1.0
 	glxropcode	2057
 	extension
-	glsflags	pixel-null pixel-unpack
-	glsopcode	0x016E
 	offset		437
 
 TexSubImage4DSGIS(target, level, xoffset, yoffset, zoffset, woffset, width, height, depth, size4d, format, type, pixels)
@@ -12201,8 +12413,6 @@ TexSubImage4DSGIS(target, level, xoffset, yoffset, zoffset, woffset, width, heig
 	version		1.0
 	glxropcode	2058
 	extension
-	glsflags	pixel-unpack
-	glsopcode	0x016F
 	offset		438
 
 ###############################################################################
@@ -12249,8 +12459,6 @@ AreTexturesResidentEXT(n, textures, residences)
 	dlflags		notlistable
 	version		1.0
 	extension
-	glsflags	get
-	glsopcode	0x0147
 	offset		439
 
 BindTextureEXT(target, texture)
@@ -12263,7 +12471,6 @@ BindTextureEXT(target, texture)
 	glxropcode	4117
 	extension
 	alias		BindTexture
-	glsalias	BindTexture
 
 DeleteTexturesEXT(n, textures)
 	return		void
@@ -12275,7 +12482,6 @@ DeleteTexturesEXT(n, textures)
 	glxflags	EXT
 	glxvendorpriv	12
 	extension
-	glsopcode	0x0149
 	offset		561
 
 GenTexturesEXT(n, textures)
@@ -12288,7 +12494,6 @@ GenTexturesEXT(n, textures)
 	glxflags	EXT
 	glxvendorpriv	13
 	extension
-	glsopcode	0x014A
 	offset		440
 
 IsTextureEXT(texture)
@@ -12300,8 +12505,6 @@ IsTextureEXT(texture)
 	glxflags	EXT
 	glxvendorpriv	14
 	extension
-	glsflags	get
-	glsopcode	0x014B
 	offset		441
 
 PrioritizeTexturesEXT(n, textures, priorities)
@@ -12315,7 +12518,6 @@ PrioritizeTexturesEXT(n, textures, priorities)
 	glxropcode	4118
 	extension
 	alias		PrioritizeTextures
-	glsalias	PrioritizeTextures
 
 ###############################################################################
 #
@@ -12334,7 +12536,6 @@ DetailTexFuncSGIS(target, n, points)
 	version		1.0
 	glxropcode	2051
 	extension
-	glsopcode	0x0163
 	offset		442
 
 GetDetailTexFuncSGIS(target, points)
@@ -12347,8 +12548,6 @@ GetDetailTexFuncSGIS(target, points)
 	glxflags	SGI
 	glxvendorpriv	4096
 	extension
-	glsflags	get
-	glsopcode	0x0164
 	offset		443
 
 ###############################################################################
@@ -12368,7 +12567,6 @@ SharpenTexFuncSGIS(target, n, points)
 	version		1.0
 	glxropcode	2052
 	extension
-	glsopcode	0x0165
 	offset		444
 
 GetSharpenTexFuncSGIS(target, points)
@@ -12381,8 +12579,6 @@ GetSharpenTexFuncSGIS(target, points)
 	glxflags	SGI
 	glxvendorpriv	4097
 	extension
-	glsflags	get
-	glsopcode	0x0166
 	offset		445
 
 ###############################################################################
@@ -12422,7 +12618,6 @@ SampleMaskSGIS(value, invert)
 	glxflags	SGI
 	extension
 	alias		SampleMaskEXT
-	glsalias	SampleMaskEXT
 
 SamplePatternSGIS(pattern)
 	return		void
@@ -12433,7 +12628,6 @@ SamplePatternSGIS(pattern)
 	glxflags	SGI
 	extension
 	alias		SamplePatternEXT
-	glsalias	SamplePatternEXT
 
 ###############################################################################
 #
@@ -12474,7 +12668,6 @@ ArrayElementEXT(i)
 	version		1.0
 	extension
 	alias		ArrayElement
-	glsalias	ArrayElement
 
 ColorPointerEXT(size, type, stride, count, pointer)
 	return		void
@@ -12488,8 +12681,6 @@ ColorPointerEXT(size, type, stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x013F
 	offset		448
 
 DrawArraysEXT(mode, first, count)
@@ -12504,7 +12695,6 @@ DrawArraysEXT(mode, first, count)
 	glxropcode	4116
 	extension
 	alias		DrawArrays
-	glsopcode	0x0140
 
 EdgeFlagPointerEXT(stride, count, pointer)
 	return		void
@@ -12516,8 +12706,6 @@ EdgeFlagPointerEXT(stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x0141
 	offset		449
 
 GetPointervEXT(pname, params)
@@ -12530,7 +12718,6 @@ GetPointervEXT(pname, params)
 	version		1.0
 	extension
 	alias		GetPointerv
-	glsalias	GetPointerv
 
 IndexPointerEXT(type, stride, count, pointer)
 	return		void
@@ -12543,8 +12730,6 @@ IndexPointerEXT(type, stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x0143
 	offset		450
 
 NormalPointerEXT(type, stride, count, pointer)
@@ -12558,8 +12743,6 @@ NormalPointerEXT(type, stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x0144
 	offset		451
 
 TexCoordPointerEXT(size, type, stride, count, pointer)
@@ -12574,8 +12757,6 @@ TexCoordPointerEXT(size, type, stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x0145
 	offset		452
 
 VertexPointerEXT(size, type, stride, count, pointer)
@@ -12590,8 +12771,6 @@ VertexPointerEXT(size, type, stride, count, pointer)
 	glxflags	client-handcode server-handcode EXT
 	version		1.0
 	extension
-	glsflags	client
-	glsopcode	0x0146
 	offset		453
 
 ###############################################################################
@@ -12670,7 +12849,6 @@ BlendEquationEXT(mode)
 	glxflags	EXT
 	extension	soft
 	alias		BlendEquation
-	glsalias	BlendEquation
 
 ###############################################################################
 #
@@ -12757,8 +12935,6 @@ SpriteParameterfSGIX(pname, param)
 	glxflags	SGI
 	glxropcode	2060
 	extension
-	glsflags	gl-enum
-	glsopcode	0x0171
 	offset		454
 
 SpriteParameterfvSGIX(pname, params)
@@ -12770,8 +12946,6 @@ SpriteParameterfvSGIX(pname, params)
 	glxflags	SGI
 	glxropcode	2061
 	extension
-	glsflags	gl-enum
-	glsopcode	0x0172
 	offset		455
 
 SpriteParameteriSGIX(pname, param)
@@ -12783,8 +12957,6 @@ SpriteParameteriSGIX(pname, param)
 	glxflags	SGI
 	glxropcode	2062
 	extension
-	glsflags	gl-enum
-	glsopcode	0x0173
 	offset		456
 
 SpriteParameterivSGIX(pname, params)
@@ -12796,8 +12968,6 @@ SpriteParameterivSGIX(pname, params)
 	glxflags	SGI
 	glxropcode	2063
 	extension
-	glsflags	gl-enum
-	glsopcode	0x0174
 	offset		457
 
 ###############################################################################
@@ -12826,7 +12996,6 @@ PointParameterfEXT(pname, param)
 	glxflags	SGI
 	extension
 	alias		PointParameterfARB
-	glsalias	PointParameterfARB
 
 PointParameterfvEXT(pname, params)
 	return		void
@@ -12837,7 +13006,6 @@ PointParameterfvEXT(pname, params)
 	glxflags	SGI
 	extension
 	alias		PointParameterfvARB
-	glsalias	PointParameterfvARB
 
 PointParameterfSGIS(pname, param)
 	return		void
@@ -12848,7 +13016,6 @@ PointParameterfSGIS(pname, param)
 	glxflags	SGI
 	extension
 	alias		PointParameterfARB
-	glsalias	PointParameterfARB
 
 PointParameterfvSGIS(pname, params)
 	return		void
@@ -12859,7 +13026,6 @@ PointParameterfvSGIS(pname, params)
 	glxflags	SGI
 	extension
 	alias		PointParameterfvARB
-	glsalias	PointParameterfvARB
 
 ###############################################################################
 #
@@ -12876,8 +13042,6 @@ GetInstrumentsSGIX()
 	glxflags	SGI
 	glxvendorpriv	4102
 	extension
-	glsflags	get
-	glsopcode	0x017A
 	offset		460
 
 InstrumentsBufferSGIX(size, buffer)
@@ -12890,8 +13054,6 @@ InstrumentsBufferSGIX(size, buffer)
 	glxflags	SGI
 	glxvendorpriv	4103
 	extension
-	glsflags	client
-	glsopcode	0x017B
 	offset		461
 
 PollInstrumentsSGIX(marker_p)
@@ -12903,8 +13065,6 @@ PollInstrumentsSGIX(marker_p)
 	glxflags	SGI
 	glxvendorpriv	4104
 	extension
-	glsflags	get
-	glsopcode	0x017C
 	offset		462
 
 ReadInstrumentsSGIX(marker)
@@ -12915,7 +13075,6 @@ ReadInstrumentsSGIX(marker)
 	glxflags	SGI
 	glxropcode	2077
 	extension
-	glsopcode	0x017D
 	offset		463
 
 StartInstrumentsSGIX()
@@ -12925,7 +13084,6 @@ StartInstrumentsSGIX()
 	glxflags	SGI
 	glxropcode	2069
 	extension
-	glsopcode	0x017E
 	offset		464
 
 StopInstrumentsSGIX(marker)
@@ -12936,7 +13094,6 @@ StopInstrumentsSGIX(marker)
 	glxflags	SGI
 	glxropcode	2070
 	extension
-	glsopcode	0x017F
 	offset		465
 
 ###############################################################################
@@ -12964,7 +13121,6 @@ FrameZoomSGIX(factor)
 	glxflags	SGI
 	glxropcode	2072
 	extension
-	glsopcode	0x0182
 	offset		466
 
 ###############################################################################
@@ -12981,7 +13137,6 @@ TagSampleBufferSGIX()
 	glxropcode	2050
 	glxflags	SGI
 	extension
-	glsopcode	0x0162
 	offset		467
 
 ###############################################################################
@@ -13013,8 +13168,6 @@ DeformationMap3dSGIX(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, w
 	glxflags	SGI ignore
 	glxropcode	2073
 	extension
-	glsflags	capture-handcode
-	glsopcode	0x0184
 	offset		?
 
 DeformationMap3fSGIX(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, w1, w2, wstride, worder, points)
@@ -13039,8 +13192,6 @@ DeformationMap3fSGIX(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, w
 	glxflags	SGI ignore
 	glxropcode	2074
 	extension
-	glsflags	capture-handcode
-	glsopcode	0x0185
 	offset		?
 
 DeformSGIX(mask)
@@ -13051,7 +13202,6 @@ DeformSGIX(mask)
 	glxflags	SGI ignore
 	glxropcode	2075
 	extension
-	glsopcode	0x0186
 	offset		?
 
 LoadIdentityDeformationMapSGIX(mask)
@@ -13062,7 +13212,6 @@ LoadIdentityDeformationMapSGIX(mask)
 	glxflags	SGI ignore
 	glxropcode	2076
 	extension
-	glsopcode	0x0187
 	offset		?
 
 ###############################################################################
@@ -13080,7 +13229,6 @@ ReferencePlaneSGIX(equation)
 	glxflags	SGI
 	glxropcode	2071
 	extension
-	glsopcode	0x0181
 	offset		468
 
 ###############################################################################
@@ -13098,7 +13246,6 @@ FlushRasterSGIX()
 	glxflags	SGI
 	glxvendorpriv	4105
 	extension
-	glsopcode	0x0180
 	offset		469
 
 ###############################################################################
@@ -13133,7 +13280,6 @@ FogFuncSGIS(n, points)
 	glxflags	SGI
 	glxropcode	2067
 	extension
-	glsopcode	0x0179
 	offset
 
 # Need to insert GLX information
@@ -13145,8 +13291,6 @@ GetFogFuncSGIS(points)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsflags	get
-	glsopcode	0x0191
 	offset
 
 ###############################################################################
@@ -13174,7 +13318,6 @@ ImageTransformParameteriHP(target, pname, param)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ImageTransformParameterfHP(target, pname, param)
@@ -13185,7 +13328,6 @@ ImageTransformParameterfHP(target, pname, param)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ImageTransformParameterivHP(target, pname, params)
@@ -13196,7 +13338,6 @@ ImageTransformParameterivHP(target, pname, params)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ImageTransformParameterfvHP(target, pname, params)
@@ -13207,7 +13348,6 @@ ImageTransformParameterfvHP(target, pname, params)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GetImageTransformParameterivHP(target, pname, params)
@@ -13219,7 +13359,6 @@ GetImageTransformParameterivHP(target, pname, params)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GetImageTransformParameterfvHP(target, pname, params)
@@ -13230,7 +13369,6 @@ GetImageTransformParameterfvHP(target, pname, params)
 	category	HP_image_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -13292,7 +13430,6 @@ ColorSubTableEXT(target, start, count, format, type, data)
 	category	EXT_color_subtable
 	version		1.2
 	alias		ColorSubTable
-	glsalias	ColorSubTable
 
 CopyColorSubTableEXT(target, start, x, y, width)
 	return		void
@@ -13304,7 +13441,6 @@ CopyColorSubTableEXT(target, start, x, y, width)
 	category	EXT_color_subtable
 	version		1.2
 	alias		CopyColorSubTable
-	glsalias	CopyColorSubTable
 
 ###############################################################################
 #
@@ -13336,7 +13472,6 @@ HintPGI(target, mode)
 	category	PGI_misc_hints
 	version		1.1
 	offset		544
-	glsopcode	0x01D0
 
 ###############################################################################
 #
@@ -13356,7 +13491,6 @@ ColorTableEXT(target, internalFormat, width, format, type, table)
 	category	EXT_paletted_texture
 	version		1.1
 	alias		ColorTable
-	glsalias	ColorTable
 
 GetColorTableEXT(target, format, type, data)
 	return		void
@@ -13367,7 +13501,6 @@ GetColorTableEXT(target, format, type, data)
 	category	EXT_paletted_texture
 	version		1.1
 	offset		550
-	glsalias	GetColorTable
 
 GetColorTableParameterivEXT(target, pname, params)
 	return		void
@@ -13377,7 +13510,6 @@ GetColorTableParameterivEXT(target, pname, params)
 	category	EXT_paletted_texture
 	version		1.1
 	offset		551
-	glsalias	GetColorTableParameteriv
 
 GetColorTableParameterfvEXT(target, pname, params)
 	return		void
@@ -13387,7 +13519,6 @@ GetColorTableParameterfvEXT(target, pname, params)
 	category	EXT_paletted_texture
 	version		1.1
 	offset		552
-	glsalias	GetColorTableParameterfv
 
 ###############################################################################
 #
@@ -13418,7 +13549,6 @@ GetListParameterfvSGIX(list, pname, params)
 	version		1.0
 	glxvendorpriv	?
 	extension
-	glsopcode	0x0188
 	offset		470
 
 # @@@ Needs vendorpriv opcodes assigned
@@ -13433,7 +13563,6 @@ GetListParameterivSGIX(list, pname, params)
 	version		1.0
 	glxvendorpriv	?
 	extension
-	glsopcode	0x0189
 	offset		471
 
 ListParameterfSGIX(list, pname, param)
@@ -13447,7 +13576,6 @@ ListParameterfSGIX(list, pname, param)
 	version		1.0
 	glxropcode	2078
 	extension
-	glsopcode	0x018A
 	offset		472
 
 ListParameterfvSGIX(list, pname, params)
@@ -13461,7 +13589,6 @@ ListParameterfvSGIX(list, pname, params)
 	version		1.0
 	glxropcode	2079
 	extension
-	glsopcode	0x018B
 	offset		473
 
 ListParameteriSGIX(list, pname, param)
@@ -13475,7 +13602,6 @@ ListParameteriSGIX(list, pname, param)
 	version		1.0
 	glxropcode	2080
 	extension
-	glsopcode	0x018C
 	offset		474
 
 ListParameterivSGIX(list, pname, params)
@@ -13489,7 +13615,6 @@ ListParameterivSGIX(list, pname, params)
 	version		1.0
 	glxropcode	2081
 	extension
-	glsopcode	0x018D
 	offset		475
 
 ###############################################################################
@@ -13580,7 +13705,6 @@ IndexMaterialEXT(face, mode)
 	version		1.1
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D1
 	offset		538
 
 ###############################################################################
@@ -13598,7 +13722,6 @@ IndexFuncEXT(func, ref)
 	version		1.1
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D2
 	offset		539
 
 ###############################################################################
@@ -13627,7 +13750,6 @@ LockArraysEXT(first, count)
 	dlflags		notlistable
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D3
 	offset		540
 
 UnlockArraysEXT()
@@ -13637,7 +13759,6 @@ UnlockArraysEXT()
 	dlflags		notlistable
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D4
 	offset		541
 
 ###############################################################################
@@ -13656,7 +13777,6 @@ CullParameterdvEXT(pname, params)
 	dlflags		notlistable
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D5
 	offset		542
 
 CullParameterfvEXT(pname, params)
@@ -13668,7 +13788,6 @@ CullParameterfvEXT(pname, params)
 	dlflags		notlistable
 	extension	soft
 	glxflags	ignore
-	glsopcode	0x01D6
 	offset		543
 
 ###############################################################################
@@ -13703,7 +13822,6 @@ FragmentColorMaterialSGIX(face, mode)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x019E
 	offset		476
 
 FragmentLightfSGIX(light, pname, param)
@@ -13715,7 +13833,6 @@ FragmentLightfSGIX(light, pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x019F
 	offset		477
 
 FragmentLightfvSGIX(light, pname, params)
@@ -13727,7 +13844,6 @@ FragmentLightfvSGIX(light, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A0
 	offset		478
 
 FragmentLightiSGIX(light, pname, param)
@@ -13739,7 +13855,6 @@ FragmentLightiSGIX(light, pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A1
 	offset		479
 
 FragmentLightivSGIX(light, pname, params)
@@ -13751,7 +13866,6 @@ FragmentLightivSGIX(light, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A2
 	offset		480
 
 FragmentLightModelfSGIX(pname, param)
@@ -13762,8 +13876,6 @@ FragmentLightModelfSGIX(pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	gl-enum
-	glsopcode	0x01A3
 	offset		481
 
 FragmentLightModelfvSGIX(pname, params)
@@ -13774,8 +13886,6 @@ FragmentLightModelfvSGIX(pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	gl-enum
-	glsopcode	0x01A4
 	offset		482
 
 FragmentLightModeliSGIX(pname, param)
@@ -13786,8 +13896,6 @@ FragmentLightModeliSGIX(pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	gl-enum
-	glsopcode	0x01A5
 	offset		483
 
 FragmentLightModelivSGIX(pname, params)
@@ -13798,8 +13906,6 @@ FragmentLightModelivSGIX(pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	gl-enum
-	glsopcode	0x01A6
 	offset		484
 
 FragmentMaterialfSGIX(face, pname, param)
@@ -13811,7 +13917,6 @@ FragmentMaterialfSGIX(face, pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A7
 	offset		485
 
 FragmentMaterialfvSGIX(face, pname, params)
@@ -13823,7 +13928,6 @@ FragmentMaterialfvSGIX(face, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A8
 	offset		486
 
 FragmentMaterialiSGIX(face, pname, param)
@@ -13835,7 +13939,6 @@ FragmentMaterialiSGIX(face, pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01A9
 	offset		487
 
 FragmentMaterialivSGIX(face, pname, params)
@@ -13847,7 +13950,6 @@ FragmentMaterialivSGIX(face, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsopcode	0x01AA
 	offset		488
 
 GetFragmentLightfvSGIX(light, pname, params)
@@ -13860,8 +13962,6 @@ GetFragmentLightfvSGIX(light, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	get
-	glsopcode	0x01AB
 	offset		489
 
 GetFragmentLightivSGIX(light, pname, params)
@@ -13874,8 +13974,6 @@ GetFragmentLightivSGIX(light, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	get
-	glsopcode	0x01AC
 	offset		490
 
 GetFragmentMaterialfvSGIX(face, pname, params)
@@ -13888,8 +13986,6 @@ GetFragmentMaterialfvSGIX(face, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	get
-	glsopcode	0x01AD
 	offset		491
 
 GetFragmentMaterialivSGIX(face, pname, params)
@@ -13902,8 +13998,6 @@ GetFragmentMaterialivSGIX(face, pname, params)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	get
-	glsopcode	0x01AE
 	offset		492
 
 LightEnviSGIX(pname, param)
@@ -13914,8 +14008,6 @@ LightEnviSGIX(pname, param)
 	glxflags	ignore
 	version		1.0
 	extension
-	glsflags	gl-enum
-	glsopcode	0x01AF
 	offset		493
 
 ###############################################################################
@@ -13971,7 +14063,6 @@ DrawRangeElementsEXT(mode, start, end, count, type, indices)
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
 	alias		DrawRangeElements
-	glsalias	DrawRangeElements
 
 ###############################################################################
 #
@@ -14014,7 +14105,6 @@ ApplyTextureEXT(mode)
 	category	EXT_light_texture
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TextureLightEXT(pname)
@@ -14023,7 +14113,6 @@ TextureLightEXT(pname)
 	category	EXT_light_texture
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TextureMaterialEXT(face, mode)
@@ -14033,7 +14122,6 @@ TextureMaterialEXT(face, mode)
 	category	EXT_light_texture
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -14097,7 +14185,6 @@ AsyncMarkerSGIX(marker)
 	version		1.0
 	glxflags	ignore
 	extension
-	glsopcode	0x0198
 	offset		?
 
 FinishAsyncSGIX(markerp)
@@ -14108,7 +14195,6 @@ FinishAsyncSGIX(markerp)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsopcode	0x0199
 	offset		?
 
 PollAsyncSGIX(markerp)
@@ -14119,7 +14205,6 @@ PollAsyncSGIX(markerp)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsopcode	0x019A
 	offset		?
 
 GenAsyncMarkersSGIX(range)
@@ -14130,7 +14215,6 @@ GenAsyncMarkersSGIX(range)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsopcode	0x019B
 	offset		?
 
 DeleteAsyncMarkersSGIX(marker, range)
@@ -14142,7 +14226,6 @@ DeleteAsyncMarkersSGIX(marker, range)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsopcode	0x019C
 	offset		?
 
 IsAsyncMarkerSGIX(marker)
@@ -14153,7 +14236,6 @@ IsAsyncMarkerSGIX(marker)
 	dlflags		notlistable
 	glxflags	ignore
 	extension
-	glsopcode	0x019D
 	offset		?
 
 ###############################################################################
@@ -14198,7 +14280,6 @@ VertexPointervINTEL(size, type, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode EXT
 	version		1.1
-	glsflags	ignore client
 	offset		?
 
 NormalPointervINTEL(type, pointer)
@@ -14209,7 +14290,6 @@ NormalPointervINTEL(type, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode EXT
 	version		1.1
-	glsflags	ignore client
 	offset		?
 
 ColorPointervINTEL(size, type, pointer)
@@ -14221,7 +14301,6 @@ ColorPointervINTEL(size, type, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode EXT
 	version		1.1
-	glsflags	ignore client
 	offset		?
 
 TexCoordPointervINTEL(size, type, pointer)
@@ -14233,7 +14312,6 @@ TexCoordPointervINTEL(size, type, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode EXT
 	version		1.1
-	glsflags	ignore client
 	offset		?
 
 
@@ -14262,7 +14340,6 @@ PixelTransformParameteriEXT(target, pname, param)
 	category	EXT_pixel_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 PixelTransformParameterfEXT(target, pname, param)
@@ -14273,7 +14350,6 @@ PixelTransformParameterfEXT(target, pname, param)
 	category	EXT_pixel_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 PixelTransformParameterivEXT(target, pname, params)
@@ -14284,7 +14360,6 @@ PixelTransformParameterivEXT(target, pname, params)
 	category	EXT_pixel_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 PixelTransformParameterfvEXT(target, pname, params)
@@ -14295,7 +14370,6 @@ PixelTransformParameterfvEXT(target, pname, params)
 	category	EXT_pixel_transform
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -14357,7 +14431,6 @@ SecondaryColor3bEXT(red, green, blue)
 	vectorequiv	SecondaryColor3bvEXT
 	version		1.1
 	alias		SecondaryColor3b
-	glsalias	SecondaryColor3b
 
 SecondaryColor3bvEXT(v)
 	return		void
@@ -14366,7 +14439,6 @@ SecondaryColor3bvEXT(v)
 	version		1.1
 	glxropcode	4126
 	alias		SecondaryColor3bv
-	glsalias	SecondaryColor3bv
 
 SecondaryColor3dEXT(red, green, blue)
 	return		void
@@ -14377,7 +14449,6 @@ SecondaryColor3dEXT(red, green, blue)
 	vectorequiv	SecondaryColor3dvEXT
 	version		1.1
 	alias		SecondaryColor3d
-	glsalias	SecondaryColor3d
 
 SecondaryColor3dvEXT(v)
 	return		void
@@ -14386,7 +14457,6 @@ SecondaryColor3dvEXT(v)
 	version		1.1
 	glxropcode	4130
 	alias		SecondaryColor3dv
-	glsalias	SecondaryColor3dv
 
 SecondaryColor3fEXT(red, green, blue)
 	return		void
@@ -14397,7 +14467,6 @@ SecondaryColor3fEXT(red, green, blue)
 	vectorequiv	SecondaryColor3fvEXT
 	version		1.1
 	alias		SecondaryColor3f
-	glsalias	SecondaryColor3f
 
 SecondaryColor3fvEXT(v)
 	return		void
@@ -14406,7 +14475,6 @@ SecondaryColor3fvEXT(v)
 	version		1.1
 	glxropcode	4129
 	alias		SecondaryColor3fv
-	glsalias	SecondaryColor3fv
 
 SecondaryColor3iEXT(red, green, blue)
 	return		void
@@ -14417,7 +14485,6 @@ SecondaryColor3iEXT(red, green, blue)
 	vectorequiv	SecondaryColor3ivEXT
 	version		1.1
 	alias		SecondaryColor3i
-	glsalias	SecondaryColor3i
 
 SecondaryColor3ivEXT(v)
 	return		void
@@ -14425,10 +14492,8 @@ SecondaryColor3ivEXT(v)
 	category	EXT_secondary_color
 	version		1.1
 	glxropcode	4128
-	glsopcode	0x0200
 	offset		568
 	alias		SecondaryColor3iv
-	glsalias	SecondaryColor3iv
 
 SecondaryColor3sEXT(red, green, blue)
 	return		void
@@ -14439,7 +14504,6 @@ SecondaryColor3sEXT(red, green, blue)
 	vectorequiv	SecondaryColor3svEXT
 	version		1.1
 	alias		SecondaryColor3s
-	glsalias	SecondaryColor3s
 
 SecondaryColor3svEXT(v)
 	return		void
@@ -14448,7 +14512,6 @@ SecondaryColor3svEXT(v)
 	version		1.1
 	glxropcode	4127
 	alias		SecondaryColor3sv
-	glsalias	SecondaryColor3sv
 
 SecondaryColor3ubEXT(red, green, blue)
 	return		void
@@ -14459,7 +14522,6 @@ SecondaryColor3ubEXT(red, green, blue)
 	vectorequiv	SecondaryColor3ubvEXT
 	version		1.1
 	alias		SecondaryColor3ub
-	glsalias	SecondaryColor3ub
 
 SecondaryColor3ubvEXT(v)
 	return		void
@@ -14468,7 +14530,6 @@ SecondaryColor3ubvEXT(v)
 	version		1.1
 	glxropcode	4131
 	alias		SecondaryColor3ubv
-	glsalias	SecondaryColor3ubv
 
 SecondaryColor3uiEXT(red, green, blue)
 	return		void
@@ -14479,7 +14540,6 @@ SecondaryColor3uiEXT(red, green, blue)
 	vectorequiv	SecondaryColor3uivEXT
 	version		1.1
 	alias		SecondaryColor3ui
-	glsalias	SecondaryColor3ui
 
 SecondaryColor3uivEXT(v)
 	return		void
@@ -14488,7 +14548,6 @@ SecondaryColor3uivEXT(v)
 	version		1.1
 	glxropcode	4133
 	alias		SecondaryColor3uiv
-	glsalias	SecondaryColor3uiv
 
 SecondaryColor3usEXT(red, green, blue)
 	return		void
@@ -14499,7 +14558,6 @@ SecondaryColor3usEXT(red, green, blue)
 	vectorequiv	SecondaryColor3usvEXT
 	version		1.1
 	alias		SecondaryColor3us
-	glsalias	SecondaryColor3us
 
 SecondaryColor3usvEXT(v)
 	return		void
@@ -14508,7 +14566,6 @@ SecondaryColor3usvEXT(v)
 	version		1.1
 	glxropcode	4132
 	alias		SecondaryColor3usv
-	glsalias	SecondaryColor3usv
 
 SecondaryColorPointerEXT(size, type, stride, pointer)
 	return		void
@@ -14522,7 +14579,6 @@ SecondaryColorPointerEXT(size, type, stride, pointer)
 	version		1.1
 	extension
 	alias		SecondaryColorPointer
-	glsalias	SecondaryColorPointer
 
 ###############################################################################
 #
@@ -14548,7 +14604,6 @@ TextureNormalEXT(mode)
 	category	EXT_texture_perturb_normal
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -14569,7 +14624,6 @@ MultiDrawArraysEXT(mode, first, count, primcount)
 	version		1.1
 	glxropcode	?
 	alias		MultiDrawArrays
-	glsalias	MultiDrawArrays
 
 MultiDrawElementsEXT(mode, count, type, indices, primcount)
 	return		void
@@ -14582,7 +14636,6 @@ MultiDrawElementsEXT(mode, count, type, indices, primcount)
 	version		1.1
 	glxropcode	?
 	alias		MultiDrawElements
-	glsalias	MultiDrawElements
 
 ###############################################################################
 #
@@ -14598,7 +14651,6 @@ FogCoordfEXT(coord)
 	vectorequiv	FogCoordfvEXT
 	version		1.1
 	alias		FogCoordf
-	glsalias	FogCoordf
 
 FogCoordfvEXT(coord)
 	return		void
@@ -14607,7 +14659,6 @@ FogCoordfvEXT(coord)
 	version		1.1
 	glxropcode	4124
 	alias		FogCoordfv
-	glsalias	FogCoordfv
 
 FogCoorddEXT(coord)
 	return		void
@@ -14616,7 +14667,6 @@ FogCoorddEXT(coord)
 	vectorequiv	FogCoorddvEXT
 	version		1.1
 	alias		FogCoordd
-	glsalias	FogCoordd
 
 FogCoorddvEXT(coord)
 	return		void
@@ -14625,7 +14675,6 @@ FogCoorddvEXT(coord)
 	version		1.1
 	glxropcode	4125
 	alias		FogCoorddv
-	glsalias	FogCoorddv
 
 FogCoordPointerEXT(type, stride, pointer)
 	return		void
@@ -14637,7 +14686,6 @@ FogCoordPointerEXT(type, stride, pointer)
 	version		1.1
 	glxflags	client-handcode server-handcode EXT
 	alias		FogCoordPointer
-	glsalias	FogCoordPointer
 
 ###############################################################################
 #
@@ -14674,7 +14722,6 @@ Tangent3bEXT(tx, ty, tz)
 	category	EXT_coordinate_frame
 	vectorequiv	Tangent3bvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Tangent3bvEXT(v)
@@ -14683,7 +14730,6 @@ Tangent3bvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Tangent3dEXT(tx, ty, tz)
@@ -14694,7 +14740,6 @@ Tangent3dEXT(tx, ty, tz)
 	category	EXT_coordinate_frame
 	vectorequiv	Tangent3dvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Tangent3dvEXT(v)
@@ -14703,7 +14748,6 @@ Tangent3dvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Tangent3fEXT(tx, ty, tz)
@@ -14714,7 +14758,6 @@ Tangent3fEXT(tx, ty, tz)
 	category	EXT_coordinate_frame
 	vectorequiv	Tangent3fvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Tangent3fvEXT(v)
@@ -14723,7 +14766,6 @@ Tangent3fvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Tangent3iEXT(tx, ty, tz)
@@ -14734,7 +14776,6 @@ Tangent3iEXT(tx, ty, tz)
 	category	EXT_coordinate_frame
 	vectorequiv	Tangent3ivEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Tangent3ivEXT(v)
@@ -14743,7 +14784,6 @@ Tangent3ivEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Tangent3sEXT(tx, ty, tz)
@@ -14754,7 +14794,6 @@ Tangent3sEXT(tx, ty, tz)
 	category	EXT_coordinate_frame
 	vectorequiv	Tangent3svEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Tangent3svEXT(v)
@@ -14763,7 +14802,6 @@ Tangent3svEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Binormal3bEXT(bx, by, bz)
@@ -14774,7 +14812,6 @@ Binormal3bEXT(bx, by, bz)
 	category	EXT_coordinate_frame
 	vectorequiv	Binormal3bvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Binormal3bvEXT(v)
@@ -14783,7 +14820,6 @@ Binormal3bvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Binormal3dEXT(bx, by, bz)
@@ -14794,7 +14830,6 @@ Binormal3dEXT(bx, by, bz)
 	category	EXT_coordinate_frame
 	vectorequiv	Binormal3dvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Binormal3dvEXT(v)
@@ -14803,7 +14838,6 @@ Binormal3dvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Binormal3fEXT(bx, by, bz)
@@ -14814,7 +14848,6 @@ Binormal3fEXT(bx, by, bz)
 	category	EXT_coordinate_frame
 	vectorequiv	Binormal3fvEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Binormal3fvEXT(v)
@@ -14823,7 +14856,6 @@ Binormal3fvEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Binormal3iEXT(bx, by, bz)
@@ -14834,7 +14866,6 @@ Binormal3iEXT(bx, by, bz)
 	category	EXT_coordinate_frame
 	vectorequiv	Binormal3ivEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Binormal3ivEXT(v)
@@ -14843,7 +14874,6 @@ Binormal3ivEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Binormal3sEXT(bx, by, bz)
@@ -14854,7 +14884,6 @@ Binormal3sEXT(bx, by, bz)
 	category	EXT_coordinate_frame
 	vectorequiv	Binormal3svEXT
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 Binormal3svEXT(v)
@@ -14863,7 +14892,6 @@ Binormal3svEXT(v)
 	category	EXT_coordinate_frame
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TangentPointerEXT(type, stride, pointer)
@@ -14875,7 +14903,6 @@ TangentPointerEXT(type, stride, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 BinormalPointerEXT(type, stride, pointer)
@@ -14887,7 +14914,6 @@ BinormalPointerEXT(type, stride, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -14954,7 +14980,6 @@ FinishTextureSUNX()
 	category	SUNX_constant_data
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -14970,7 +14995,6 @@ GlobalAlphaFactorbSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactorsSUN(factor)
@@ -14979,7 +15003,6 @@ GlobalAlphaFactorsSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactoriSUN(factor)
@@ -14988,7 +15011,6 @@ GlobalAlphaFactoriSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactorfSUN(factor)
@@ -14997,7 +15019,6 @@ GlobalAlphaFactorfSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactordSUN(factor)
@@ -15006,7 +15027,6 @@ GlobalAlphaFactordSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactorubSUN(factor)
@@ -15015,7 +15035,6 @@ GlobalAlphaFactorubSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactorusSUN(factor)
@@ -15024,7 +15043,6 @@ GlobalAlphaFactorusSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 GlobalAlphaFactoruiSUN(factor)
@@ -15033,7 +15051,6 @@ GlobalAlphaFactoruiSUN(factor)
 	category	SUN_global_alpha
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -15049,7 +15066,6 @@ ReplacementCodeuiSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeusSUN(code)
@@ -15058,7 +15074,6 @@ ReplacementCodeusSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeubSUN(code)
@@ -15067,7 +15082,6 @@ ReplacementCodeubSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuivSUN(code)
@@ -15076,7 +15090,6 @@ ReplacementCodeuivSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeusvSUN(code)
@@ -15085,7 +15098,6 @@ ReplacementCodeusvSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeubvSUN(code)
@@ -15094,7 +15106,6 @@ ReplacementCodeubvSUN(code)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodePointerSUN(type, stride, pointer)
@@ -15105,7 +15116,6 @@ ReplacementCodePointerSUN(type, stride, pointer)
 	category	SUN_triangle_list
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -15126,7 +15136,6 @@ Color4ubVertex2fSUN(r, g, b, a, x, y)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color4ubVertex2fvSUN(c, v)
@@ -15136,7 +15145,6 @@ Color4ubVertex2fvSUN(c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color4ubVertex3fSUN(r, g, b, a, x, y, z)
@@ -15151,7 +15159,6 @@ Color4ubVertex3fSUN(r, g, b, a, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color4ubVertex3fvSUN(c, v)
@@ -15161,7 +15168,6 @@ Color4ubVertex3fvSUN(c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color3fVertex3fSUN(r, g, b, x, y, z)
@@ -15175,7 +15181,6 @@ Color3fVertex3fSUN(r, g, b, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color3fVertex3fvSUN(c, v)
@@ -15185,7 +15190,6 @@ Color3fVertex3fvSUN(c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Normal3fVertex3fSUN(nx, ny, nz, x, y, z)
@@ -15199,7 +15203,6 @@ Normal3fVertex3fSUN(nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Normal3fVertex3fvSUN(n, v)
@@ -15209,7 +15212,6 @@ Normal3fVertex3fvSUN(n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color4fNormal3fVertex3fSUN(r, g, b, a, nx, ny, nz, x, y, z)
@@ -15227,7 +15229,6 @@ Color4fNormal3fVertex3fSUN(r, g, b, a, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 Color4fNormal3fVertex3fvSUN(c, n, v)
@@ -15238,7 +15239,6 @@ Color4fNormal3fVertex3fvSUN(c, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fVertex3fSUN(s, t, x, y, z)
@@ -15251,7 +15251,6 @@ TexCoord2fVertex3fSUN(s, t, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fVertex3fvSUN(tc, v)
@@ -15261,7 +15260,6 @@ TexCoord2fVertex3fvSUN(tc, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord4fVertex4fSUN(s, t, p, q, x, y, z, w)
@@ -15277,7 +15275,6 @@ TexCoord4fVertex4fSUN(s, t, p, q, x, y, z, w)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord4fVertex4fvSUN(tc, v)
@@ -15287,7 +15284,6 @@ TexCoord4fVertex4fvSUN(tc, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor4ubVertex3fSUN(s, t, r, g, b, a, x, y, z)
@@ -15304,7 +15300,6 @@ TexCoord2fColor4ubVertex3fSUN(s, t, r, g, b, a, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor4ubVertex3fvSUN(tc, c, v)
@@ -15315,7 +15310,6 @@ TexCoord2fColor4ubVertex3fvSUN(tc, c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor3fVertex3fSUN(s, t, r, g, b, x, y, z)
@@ -15331,7 +15325,6 @@ TexCoord2fColor3fVertex3fSUN(s, t, r, g, b, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor3fVertex3fvSUN(tc, c, v)
@@ -15342,7 +15335,6 @@ TexCoord2fColor3fVertex3fvSUN(tc, c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fNormal3fVertex3fSUN(s, t, nx, ny, nz, x, y, z)
@@ -15358,7 +15350,6 @@ TexCoord2fNormal3fVertex3fSUN(s, t, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fNormal3fVertex3fvSUN(tc, n, v)
@@ -15369,7 +15360,6 @@ TexCoord2fNormal3fVertex3fvSUN(tc, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor4fNormal3fVertex3fSUN(s, t, r, g, b, a, nx, ny, nz, x, y, z)
@@ -15389,7 +15379,6 @@ TexCoord2fColor4fNormal3fVertex3fSUN(s, t, r, g, b, a, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord2fColor4fNormal3fVertex3fvSUN(tc, c, n, v)
@@ -15401,7 +15390,6 @@ TexCoord2fColor4fNormal3fVertex3fvSUN(tc, c, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord4fColor4fNormal3fVertex4fSUN(s, t, p, q, r, g, b, a, nx, ny, nz, x, y, z, w)
@@ -15424,7 +15412,6 @@ TexCoord4fColor4fNormal3fVertex4fSUN(s, t, p, q, r, g, b, a, nx, ny, nz, x, y, z
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoord4fColor4fNormal3fVertex4fvSUN(tc, c, n, v)
@@ -15436,7 +15423,6 @@ TexCoord4fColor4fNormal3fVertex4fvSUN(tc, c, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiVertex3fSUN(rc, x, y, z)
@@ -15448,7 +15434,6 @@ ReplacementCodeuiVertex3fSUN(rc, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiVertex3fvSUN(rc, v)
@@ -15458,7 +15443,6 @@ ReplacementCodeuiVertex3fvSUN(rc, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor4ubVertex3fSUN(rc, r, g, b, a, x, y, z)
@@ -15474,7 +15458,6 @@ ReplacementCodeuiColor4ubVertex3fSUN(rc, r, g, b, a, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor4ubVertex3fvSUN(rc, c, v)
@@ -15485,7 +15468,6 @@ ReplacementCodeuiColor4ubVertex3fvSUN(rc, c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor3fVertex3fSUN(rc, r, g, b, x, y, z)
@@ -15500,7 +15482,6 @@ ReplacementCodeuiColor3fVertex3fSUN(rc, r, g, b, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor3fVertex3fvSUN(rc, c, v)
@@ -15511,7 +15492,6 @@ ReplacementCodeuiColor3fVertex3fvSUN(rc, c, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiNormal3fVertex3fSUN(rc, nx, ny, nz, x, y, z)
@@ -15526,7 +15506,6 @@ ReplacementCodeuiNormal3fVertex3fSUN(rc, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiNormal3fVertex3fvSUN(rc, n, v)
@@ -15537,7 +15516,6 @@ ReplacementCodeuiNormal3fVertex3fvSUN(rc, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor4fNormal3fVertex3fSUN(rc, r, g, b, a, nx, ny, nz, x, y, z)
@@ -15556,7 +15534,6 @@ ReplacementCodeuiColor4fNormal3fVertex3fSUN(rc, r, g, b, a, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc, c, n, v)
@@ -15568,7 +15545,6 @@ ReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc, c, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fVertex3fSUN(rc, s, t, x, y, z)
@@ -15582,7 +15558,6 @@ ReplacementCodeuiTexCoord2fVertex3fSUN(rc, s, t, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fVertex3fvSUN(rc, tc, v)
@@ -15593,7 +15568,6 @@ ReplacementCodeuiTexCoord2fVertex3fvSUN(rc, tc, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(rc, s, t, nx, ny, nz, x, y, z)
@@ -15610,7 +15584,6 @@ ReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(rc, s, t, nx, ny, nz, x, y, z)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc, tc, n, v)
@@ -15622,7 +15595,6 @@ ReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc, tc, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc, s, t, r, g, b, a, nx, ny, nz, x, y, z)
@@ -15643,7 +15615,6 @@ ReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc, s, t, r, g, b, a, nx, 
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc, tc, c, n, v)
@@ -15656,7 +15627,6 @@ ReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc, tc, c, n, v)
 	category	SUN_vertex
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -15688,7 +15658,6 @@ BlendFuncSeparateEXT(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha)
 	version		1.0
 	extension
 	alias		BlendFuncSeparate
-	glsalias	BlendFuncSeparate
 
 BlendFuncSeparateINGR(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha)
 	return		void
@@ -15701,7 +15670,6 @@ BlendFuncSeparateINGR(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha)
 	version		1.0
 	extension
 	alias		BlendFuncSeparateEXT
-	glsalias	BlendFuncSeparateEXT
 
 ###############################################################################
 #
@@ -15848,7 +15816,6 @@ VertexWeightfvEXT(weight)
 	extension	soft WINSOFT NV10
 	glxropcode	4135
 	glxflags	ignore
-	glsopcode	0x01DE
 	offset		495
 
 VertexWeightPointerEXT(size, type, stride, pointer)
@@ -15862,8 +15829,6 @@ VertexWeightPointerEXT(size, type, stride, pointer)
 	extension	soft WINSOFT NV10
 	dlflags		notlistable
 	glxflags	ignore
-	glsflags	client
-	glsopcode	0x01DF
 	offset		496
 
 ###############################################################################
@@ -15890,8 +15855,6 @@ FlushVertexArrayRangeNV()
 	extension	soft WINSOFT NV10
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode ignore
-	glsflags	client
-	glsopcode	0x01E0
 	offset		497
 
 VertexArrayRangeNV(length, pointer)
@@ -15903,8 +15866,6 @@ VertexArrayRangeNV(length, pointer)
 	extension	soft WINSOFT NV10
 	dlflags		notlistable
 	glxflags	client-handcode server-handcode ignore
-	glsflags	client
-	glsopcode	0x01E1
 	offset		498
 
 ###############################################################################
@@ -15923,8 +15884,6 @@ CombinerParameterfvNV(pname, params)
 	extension	soft WINSOFT NV10
 	glxropcode	4137
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x01E2
 	offset		499
 
 CombinerParameterfNV(pname, param)
@@ -15936,8 +15895,6 @@ CombinerParameterfNV(pname, param)
 	extension	soft WINSOFT NV10
 	glxropcode	4136
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x01E3
 	offset		500
 
 CombinerParameterivNV(pname, params)
@@ -15949,8 +15906,6 @@ CombinerParameterivNV(pname, params)
 	extension	soft WINSOFT NV10
 	glxropcode	4139
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x01E4
 	offset		501
 
 CombinerParameteriNV(pname, param)
@@ -15962,8 +15917,6 @@ CombinerParameteriNV(pname, param)
 	extension	soft WINSOFT NV10
 	glxropcode	4138
 	glxflags	ignore
-	glsflags	gl-enum
-	glsopcode	0x01E5
 	offset		502
 
 CombinerInputNV(stage, portion, variable, input, mapping, componentUsage)
@@ -15979,7 +15932,6 @@ CombinerInputNV(stage, portion, variable, input, mapping, componentUsage)
 	extension	soft WINSOFT NV10
 	glxropcode	4140
 	glxflags	ignore
-	glsopcode	0x01E6
 	offset		503
 
 CombinerOutputNV(stage, portion, abOutput, cdOutput, sumOutput, scale, bias, abDotProduct, cdDotProduct, muxSum)
@@ -15999,7 +15951,6 @@ CombinerOutputNV(stage, portion, abOutput, cdOutput, sumOutput, scale, bias, abD
 	extension	soft WINSOFT NV10
 	glxropcode	4141
 	glxflags	ignore
-	glsopcode	0x01E7
 	offset		504
 
 FinalCombinerInputNV(variable, input, mapping, componentUsage)
@@ -16013,7 +15964,6 @@ FinalCombinerInputNV(variable, input, mapping, componentUsage)
 	extension	soft WINSOFT NV10
 	glxropcode	4142
 	glxflags	ignore
-	glsopcode	0x01E8
 	offset		505
 
 GetCombinerInputParameterfvNV(stage, portion, variable, pname, params)
@@ -16029,8 +15979,6 @@ GetCombinerInputParameterfvNV(stage, portion, variable, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1270
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01E9
 	offset		506
 
 GetCombinerInputParameterivNV(stage, portion, variable, pname, params)
@@ -16046,8 +15994,6 @@ GetCombinerInputParameterivNV(stage, portion, variable, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1271
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01EA
 	offset		507
 
 GetCombinerOutputParameterfvNV(stage, portion, pname, params)
@@ -16062,8 +16008,6 @@ GetCombinerOutputParameterfvNV(stage, portion, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1272
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01EB
 	offset		508
 
 GetCombinerOutputParameterivNV(stage, portion, pname, params)
@@ -16078,8 +16022,6 @@ GetCombinerOutputParameterivNV(stage, portion, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1273
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01EC
 	offset		509
 
 GetFinalCombinerInputParameterfvNV(variable, pname, params)
@@ -16093,8 +16035,6 @@ GetFinalCombinerInputParameterfvNV(variable, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1274
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01ED
 	offset		510
 
 GetFinalCombinerInputParameterivNV(variable, pname, params)
@@ -16108,8 +16048,6 @@ GetFinalCombinerInputParameterivNV(variable, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1275
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x01EE
 	offset		511
 
 ###############################################################################
@@ -16164,7 +16102,6 @@ ResizeBuffersMESA()
 	category	MESA_resize_buffers
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01EF
 	offset		512
 
 ###############################################################################
@@ -16192,7 +16129,6 @@ WindowPos2dvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F0
 	alias		WindowPos2dvARB
 
 WindowPos2fMESA(x, y)
@@ -16210,7 +16146,6 @@ WindowPos2fvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F1
 	alias		WindowPos2fvARB
 
 WindowPos2iMESA(x, y)
@@ -16228,7 +16163,6 @@ WindowPos2ivMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F2
 	alias		WindowPos2ivARB
 
 WindowPos2sMESA(x, y)
@@ -16246,7 +16180,6 @@ WindowPos2svMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F3
 	alias		WindowPos2svARB
 
 WindowPos3dMESA(x, y, z)
@@ -16265,7 +16198,6 @@ WindowPos3dvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F4
 	alias		WindowPos3dvARB
 
 WindowPos3fMESA(x, y, z)
@@ -16284,7 +16216,6 @@ WindowPos3fvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F5
 	alias		WindowPos3fvARB
 
 WindowPos3iMESA(x, y, z)
@@ -16303,7 +16234,6 @@ WindowPos3ivMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F6
 	alias		WindowPos3ivARB
 
 WindowPos3sMESA(x, y, z)
@@ -16322,7 +16252,6 @@ WindowPos3svMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F7
 	alias		WindowPos3svARB
 
 WindowPos4dMESA(x, y, z, w)
@@ -16342,7 +16271,6 @@ WindowPos4dvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F8
 	offset		530
 
 WindowPos4fMESA(x, y, z, w)
@@ -16362,7 +16290,6 @@ WindowPos4fvMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01F9
 	offset		532
 
 WindowPos4iMESA(x, y, z, w)
@@ -16382,7 +16309,6 @@ WindowPos4ivMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01FA
 	offset		534
 
 WindowPos4sMESA(x, y, z, w)
@@ -16402,7 +16328,6 @@ WindowPos4svMESA(v)
 	category	MESA_window_pos
 	version		1.0
 	glxropcode	?
-	glsopcode	0x01FB
 	offset		536
 
 ###############################################################################
@@ -16441,7 +16366,6 @@ MultiModeDrawArraysIBM(mode, first, count, primcount, modestride)
 	category	IBM_multimode_draw_arrays
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		708
 
 
@@ -16456,7 +16380,6 @@ MultiModeDrawElementsIBM(mode, count, type, indices, primcount, modestride)
 	category	IBM_multimode_draw_arrays
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		709
 
 ###############################################################################
@@ -16476,7 +16399,6 @@ ColorPointerListIBM(size, type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 SecondaryColorPointerListIBM(size, type, stride, pointer, ptrstride)
@@ -16489,7 +16411,6 @@ SecondaryColorPointerListIBM(size, type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 EdgeFlagPointerListIBM(stride, pointer, ptrstride)
@@ -16500,7 +16421,6 @@ EdgeFlagPointerListIBM(stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 FogCoordPointerListIBM(type, stride, pointer, ptrstride)
@@ -16512,7 +16432,6 @@ FogCoordPointerListIBM(type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 IndexPointerListIBM(type, stride, pointer, ptrstride)
@@ -16524,7 +16443,6 @@ IndexPointerListIBM(type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 NormalPointerListIBM(type, stride, pointer, ptrstride)
@@ -16536,7 +16454,6 @@ NormalPointerListIBM(type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 TexCoordPointerListIBM(size, type, stride, pointer, ptrstride)
@@ -16549,7 +16466,6 @@ TexCoordPointerListIBM(size, type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 VertexPointerListIBM(size, type, stride, pointer, ptrstride)
@@ -16562,7 +16478,6 @@ VertexPointerListIBM(size, type, stride, pointer, ptrstride)
 	category	IBM_vertex_array_lists
 	version		1.1
 	glxropcode	?
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -16638,8 +16553,6 @@ TbufferMask3DFX(mask)
 	category	3DFX_tbuffer
 	version		1.2
 	glxropcode	?
-	glsflags	ignore
-	glsopcode	0x01FC
 	offset		553
 
 ###############################################################################
@@ -16657,7 +16570,6 @@ SampleMaskEXT(value, invert)
 	version		1.0
 	glxropcode	?
 	extension
-	glsopcode	0x0160
 	offset		446
 
 SamplePatternEXT(pattern)
@@ -16668,7 +16580,6 @@ SamplePatternEXT(pattern)
 	glxropcode	?
 	glxflags
 	extension
-	glsopcode	0x0161
 	offset		447
 
 ###############################################################################
@@ -16728,7 +16639,6 @@ TextureColorMaskSGIS(red, green, blue, alpha)
 	version		1.1
 	glxropcode	2082
 	extension
-	glsopcode	0x01B0
 	offset		?
 
 ###############################################################################
@@ -16757,7 +16667,6 @@ IglooInterfaceSGIX(pname, params)
 	glxflags	SGI ignore
 	extension
 	glxropcode	200
-	glsopcode	0x0183
 	offset		?
 
 ###############################################################################
@@ -16796,7 +16705,6 @@ DeleteFencesNV(n, fences)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1276
 	glxflags	ignore
-	glsopcode	0x0216
 	offset		647
 
 GenFencesNV(n, fences)
@@ -16809,7 +16717,6 @@ GenFencesNV(n, fences)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1277
 	glxflags	ignore
-	glsopcode	0x0215
 	offset		648
 
 IsFenceNV(fence)
@@ -16821,8 +16728,6 @@ IsFenceNV(fence)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1278
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x021A
 	offset		649
 
 TestFenceNV(fence)
@@ -16834,8 +16739,6 @@ TestFenceNV(fence)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1279
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0218
 	offset		650
 
 GetFenceivNV(fence, pname, params)
@@ -16849,8 +16752,6 @@ GetFenceivNV(fence, pname, params)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1280
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x021B
 	offset		651
 
 FinishFenceNV(fence)
@@ -16862,8 +16763,6 @@ FinishFenceNV(fence)
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1312
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0219
 	offset		652
 
 SetFenceNV(fence, condition)
@@ -16874,7 +16773,6 @@ SetFenceNV(fence, condition)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsopcode	0x0217
 	offset		653
 
 ###############################################################################
@@ -16900,8 +16798,6 @@ MapControlPointsNV(target, index, type, ustride, vstride, uorder, vorder, packed
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	ignore
-	glsopcode	0x021C
 	offset		?
 
 MapParameterivNV(target, pname, params)
@@ -16913,8 +16809,6 @@ MapParameterivNV(target, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	ignore
-	glsopcode	0x021D
 	offset		?
 
 MapParameterfvNV(target, pname, params)
@@ -16926,8 +16820,6 @@ MapParameterfvNV(target, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	ignore
-	glsopcode	0x021E
 	offset		?
 
 GetMapControlPointsNV(target, index, type, ustride, vstride, packed, points)
@@ -16944,8 +16836,6 @@ GetMapControlPointsNV(target, index, type, ustride, vstride, packed, points)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x021F
 	offset		?
 
 GetMapParameterivNV(target, pname, params)
@@ -16958,8 +16848,6 @@ GetMapParameterivNV(target, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0220
 	offset		?
 
 GetMapParameterfvNV(target, pname, params)
@@ -16972,8 +16860,6 @@ GetMapParameterfvNV(target, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0221
 	offset		?
 
 GetMapAttribParameterivNV(target, index, pname, params)
@@ -16987,8 +16873,6 @@ GetMapAttribParameterivNV(target, index, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0222
 	offset		?
 
 GetMapAttribParameterfvNV(target, index, pname, params)
@@ -17002,8 +16886,6 @@ GetMapAttribParameterfvNV(target, index, pname, params)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0223
 	offset		?
 
 EvalMapsNV(target, mode)
@@ -17014,7 +16896,6 @@ EvalMapsNV(target, mode)
 	version		1.1
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsopcode	0x0224
 	offset		?
 
 ###############################################################################
@@ -17043,7 +16924,6 @@ CombinerStageParameterfvNV(stage, pname, params)
 	version		1.1
 	extension
 	glxflags	ignore
-	glsopcode	0x0225
 	offset		?
 
 GetCombinerStageParameterfvNV(stage, pname, params)
@@ -17056,8 +16936,6 @@ GetCombinerStageParameterfvNV(stage, pname, params)
 	version		1.1
 	extension
 	glxflags	ignore
-	glsflags	get
-	glsopcode	0x0226
 	offset		?
 
 ###############################################################################
@@ -17128,8 +17006,6 @@ AreProgramsResidentNV(n, programs, residences)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1293
-	glsflags	get
-	glsopcode	0x022B
 	offset		578
 
 BindProgramNV(target, id)
@@ -17140,9 +17016,7 @@ BindProgramNV(target, id)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4180
-	glsopcode	0x0227
 	alias		BindProgramARB
-	glsalias	BindProgramARB
 
 DeleteProgramsNV(n, programs)
 	return		void
@@ -17153,9 +17027,7 @@ DeleteProgramsNV(n, programs)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1294
-	glsopcode	0x0228
 	alias		DeleteProgramsARB
-	glsalias	DeleteProgramsARB
 
 ExecuteProgramNV(target, id, params)
 	return		void
@@ -17167,7 +17039,6 @@ ExecuteProgramNV(target, id, params)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxropcode	4181
-	glsopcode	0x0229
 	offset		581
 
 GenProgramsNV(n, programs)
@@ -17179,9 +17050,7 @@ GenProgramsNV(n, programs)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1295
-	glsopcode	0x022A
 	alias		GenProgramsARB
-	glsalias	GenProgramsARB
 
 GetProgramParameterdvNV(target, index, pname, params)
 	return		void
@@ -17195,8 +17064,6 @@ GetProgramParameterdvNV(target, index, pname, params)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1297
-	glsflags	get
-	glsopcode	0x022E
 	offset		583
 
 GetProgramParameterfvNV(target, index, pname, params)
@@ -17211,8 +17078,6 @@ GetProgramParameterfvNV(target, index, pname, params)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1296
-	glsflags	get
-	glsopcode	0x022D
 	offset		584
 
 # GetProgramParameterSigneddvNV(target, index, pname, params)
@@ -17225,7 +17090,6 @@ GetProgramParameterfvNV(target, index, pname, params)
 #	  dlflags	  notlistable
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 #
@@ -17239,7 +17103,6 @@ GetProgramParameterfvNV(target, index, pname, params)
 #	  dlflags	  notlistable
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 
@@ -17254,8 +17117,6 @@ GetProgramivNV(id, pname, params)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1298
-	glsflags	get
-	glsopcode	0x022F
 	offset		585
 
 GetProgramStringNV(id, pname, program)
@@ -17269,8 +17130,6 @@ GetProgramStringNV(id, pname, program)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1299
-	glsflags	get
-	glsopcode	0x0230
 	offset		586
 
 GetTrackMatrixivNV(target, address, pname, params)
@@ -17285,8 +17144,6 @@ GetTrackMatrixivNV(target, address, pname, params)
 	extension	soft WINSOFT NV10
 	glxflags	ignore
 	glxvendorpriv	1300
-	glsflags	get
-	glsopcode	0x0231
 	offset		587
 
 GetVertexAttribdvNV(index, pname, params)
@@ -17299,10 +17156,7 @@ GetVertexAttribdvNV(index, pname, params)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1301
-	glsflags	client get
-	glsopcode	0x0232
 	alias		GetVertexAttribdv
-	glsalias	GetVertexAttribdv
 
 GetVertexAttribfvNV(index, pname, params)
 	return		void
@@ -17314,10 +17168,7 @@ GetVertexAttribfvNV(index, pname, params)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1302
-	glsflags	client get
-	glsopcode	0x0233
 	alias		GetVertexAttribfv
-	glsalias	GetVertexAttribfv
 
 GetVertexAttribivNV(index, pname, params)
 	return		void
@@ -17329,10 +17180,7 @@ GetVertexAttribivNV(index, pname, params)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1303
-	glsflags	client get
-	glsopcode	0x0234
 	alias		GetVertexAttribiv
-	glsalias	GetVertexAttribiv
 
 GetVertexAttribPointervNV(index, pname, pointer)
 	return		void
@@ -17344,10 +17192,7 @@ GetVertexAttribPointervNV(index, pname, pointer)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	client get
-	glsopcode	0x0235
 	alias		GetVertexAttribPointerv
-	glsalias	GetVertexAttribPointerv
 
 IsProgramNV(id)
 	return		Boolean
@@ -17357,10 +17202,7 @@ IsProgramNV(id)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxvendorpriv	1304
-	glsflags	get
-	glsopcode	0x0236
 	alias		IsProgram
-	glsalias	IsProgram
 
 LoadProgramNV(target, id, len, program)
 	return		void
@@ -17372,7 +17214,6 @@ LoadProgramNV(target, id, len, program)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4183
-	glsopcode	0x0237
 	offset		593
 
 ProgramParameter4dNV(target, index, x, y, z, w)
@@ -17398,7 +17239,6 @@ ProgramParameter4dvNV(target, index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4185
-	glsopcode	0x0238
 	offset		595
 
 ProgramParameter4fNV(target, index, x, y, z, w)
@@ -17424,7 +17264,6 @@ ProgramParameter4fvNV(target, index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4184
-	glsopcode	0x0239
 	offset		597
 
 #??? 'count' was SizeI in the latest NVIDIA gl.spec, but UInt32 in the
@@ -17439,7 +17278,6 @@ ProgramParameters4dvNV(target, index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4187
-	glsopcode	0x023A
 	offset		598
 
 #??? 'count' was SizeI in the latest NVIDIA gl.spec, but UInt32 in the
@@ -17454,7 +17292,6 @@ ProgramParameters4fvNV(target, index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4186
-	glsopcode	0x023B
 	offset		599
 
 # ProgramParameterSigned4dNV(target, index, x, y, z, w)
@@ -17479,7 +17316,6 @@ ProgramParameters4fvNV(target, index, count, v)
 #	  category	  NV_vertex_program1_1_dcc
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 #
@@ -17505,7 +17341,6 @@ ProgramParameters4fvNV(target, index, count, v)
 #	  category	  NV_vertex_program1_1_dcc
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 #
@@ -17518,7 +17353,6 @@ ProgramParameters4fvNV(target, index, count, v)
 #	  category	  NV_vertex_program1_1_dcc
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 #
@@ -17531,7 +17365,6 @@ ProgramParameters4fvNV(target, index, count, v)
 #	  category	  NV_vertex_program1_1_dcc
 #	  version	  1.2
 #	  extension	  soft WINSOFT NV20
-#	  glsflags	  ignore
 #	  glxflags	  ignore
 #	  offset	  ?
 
@@ -17543,7 +17376,6 @@ RequestResidentProgramsNV(n, programs)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4182
-	glsopcode	0x022C
 	offset		600
 
 TrackMatrixNV(target, address, matrix, transform)
@@ -17556,7 +17388,6 @@ TrackMatrixNV(target, address, matrix, transform)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4188
-	glsopcode	0x023C
 	offset		601
 
 VertexAttribPointerNV(index, fsize, type, stride, pointer)
@@ -17571,8 +17402,6 @@ VertexAttribPointerNV(index, fsize, type, stride, pointer)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxflags	ignore
-	glsflags	client
-	glsopcode	0x023D
 	offset		602
 
 VertexAttrib1dNV(index, x)
@@ -17584,7 +17413,6 @@ VertexAttrib1dNV(index, x)
 	vectorequiv	VertexAttrib1dvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1d
-	glsalias	VertexAttrib1d
 
 VertexAttrib1dvNV(index, v)
 	return		void
@@ -17594,9 +17422,7 @@ VertexAttrib1dvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4197
-	glsopcode	0x0240
 	alias		VertexAttrib1dv
-	glsalias	VertexAttrib1dv
 
 VertexAttrib1fNV(index, x)
 	return		void
@@ -17607,7 +17433,6 @@ VertexAttrib1fNV(index, x)
 	vectorequiv	VertexAttrib1fvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1f
-	glsalias	VertexAttrib1f
 
 VertexAttrib1fvNV(index, v)
 	return		void
@@ -17617,9 +17442,7 @@ VertexAttrib1fvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4193
-	glsopcode	0x023F
 	alias		VertexAttrib1fv
-	glsalias	VertexAttrib1fv
 
 VertexAttrib1sNV(index, x)
 	return		void
@@ -17630,7 +17453,6 @@ VertexAttrib1sNV(index, x)
 	vectorequiv	VertexAttrib1svNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib1s
-	glsalias	VertexAttrib1s
 
 VertexAttrib1svNV(index, v)
 	return		void
@@ -17640,9 +17462,7 @@ VertexAttrib1svNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4189
-	glsopcode	0x023E
 	alias		VertexAttrib1sv
-	glsalias	VertexAttrib1sv
 
 VertexAttrib2dNV(index, x, y)
 	return		void
@@ -17654,7 +17474,6 @@ VertexAttrib2dNV(index, x, y)
 	vectorequiv	VertexAttrib2dvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2d
-	glsalias	VertexAttrib2d
 
 VertexAttrib2dvNV(index, v)
 	return		void
@@ -17664,9 +17483,7 @@ VertexAttrib2dvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4198
-	glsopcode	0x0243
 	alias		VertexAttrib2dv
-	glsalias	VertexAttrib2dv
 
 VertexAttrib2fNV(index, x, y)
 	return		void
@@ -17678,7 +17495,6 @@ VertexAttrib2fNV(index, x, y)
 	vectorequiv	VertexAttrib2fvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2f
-	glsalias	VertexAttrib2f
 
 VertexAttrib2fvNV(index, v)
 	return		void
@@ -17688,9 +17504,7 @@ VertexAttrib2fvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4194
-	glsopcode	0x0242
 	alias		VertexAttrib2fv
-	glsalias	VertexAttrib2fv
 
 VertexAttrib2sNV(index, x, y)
 	return		void
@@ -17702,7 +17516,6 @@ VertexAttrib2sNV(index, x, y)
 	vectorequiv	VertexAttrib2svNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib2s
-	glsalias	VertexAttrib2s
 
 VertexAttrib2svNV(index, v)
 	return		void
@@ -17712,9 +17525,7 @@ VertexAttrib2svNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4190
-	glsopcode	0x0241
 	alias		VertexAttrib2sv
-	glsalias	VertexAttrib2sv
 
 VertexAttrib3dNV(index, x, y, z)
 	return		void
@@ -17727,7 +17538,6 @@ VertexAttrib3dNV(index, x, y, z)
 	vectorequiv	VertexAttrib3dvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3d
-	glsalias	VertexAttrib3d
 
 VertexAttrib3dvNV(index, v)
 	return		void
@@ -17737,9 +17547,7 @@ VertexAttrib3dvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4199
-	glsopcode	0x0246
 	alias		VertexAttrib3dv
-	glsalias	VertexAttrib3dv
 
 VertexAttrib3fNV(index, x, y, z)
 	return		void
@@ -17752,7 +17560,6 @@ VertexAttrib3fNV(index, x, y, z)
 	vectorequiv	VertexAttrib3fvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3f
-	glsalias	VertexAttrib3f
 
 VertexAttrib3fvNV(index, v)
 	return		void
@@ -17762,9 +17569,7 @@ VertexAttrib3fvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4195
-	glsopcode	0x0245
 	alias		VertexAttrib3fv
-	glsalias	VertexAttrib3fv
 
 VertexAttrib3sNV(index, x, y, z)
 	return		void
@@ -17777,7 +17582,6 @@ VertexAttrib3sNV(index, x, y, z)
 	vectorequiv	VertexAttrib3svNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib3s
-	glsalias	VertexAttrib3s
 
 VertexAttrib3svNV(index, v)
 	return		void
@@ -17787,9 +17591,7 @@ VertexAttrib3svNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4191
-	glsopcode	0x0244
 	alias		VertexAttrib3sv
-	glsalias	VertexAttrib3sv
 
 VertexAttrib4dNV(index, x, y, z, w)
 	return		void
@@ -17803,7 +17605,6 @@ VertexAttrib4dNV(index, x, y, z, w)
 	vectorequiv	VertexAttrib4dvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4d
-	glsalias	VertexAttrib4d
 
 VertexAttrib4dvNV(index, v)
 	return		void
@@ -17813,9 +17614,7 @@ VertexAttrib4dvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4200
-	glsopcode	0x0249
 	alias		VertexAttrib4dv
-	glsalias	VertexAttrib4dv
 
 VertexAttrib4fNV(index, x, y, z, w)
 	return		void
@@ -17829,7 +17628,6 @@ VertexAttrib4fNV(index, x, y, z, w)
 	vectorequiv	VertexAttrib4fvNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4f
-	glsalias	VertexAttrib4f
 
 VertexAttrib4fvNV(index, v)
 	return		void
@@ -17839,9 +17637,7 @@ VertexAttrib4fvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4196
-	glsopcode	0x0248
 	alias		VertexAttrib4fv
-	glsalias	VertexAttrib4fv
 
 VertexAttrib4sNV(index, x, y, z, w)
 	return		void
@@ -17855,7 +17651,6 @@ VertexAttrib4sNV(index, x, y, z, w)
 	vectorequiv	VertexAttrib4svNV
 	extension	soft WINSOFT NV10
 	alias		VertexAttrib4s
-	glsalias	VertexAttrib4s
 
 VertexAttrib4svNV(index, v)
 	return		void
@@ -17865,9 +17660,7 @@ VertexAttrib4svNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4192
-	glsopcode	0x0247
 	alias		VertexAttrib4sv
-	glsalias	VertexAttrib4sv
 
 VertexAttrib4ubNV(index, x, y, z, w)
 	return		void
@@ -17881,7 +17674,6 @@ VertexAttrib4ubNV(index, x, y, z, w)
 	extension	soft WINSOFT NV10
 	vectorequiv	VertexAttrib4ubvNV
 	alias		VertexAttrib4Nub
-	glsalias	VertexAttrib4Nub
 
 VertexAttrib4ubvNV(index, v)
 	return		void
@@ -17891,9 +17683,7 @@ VertexAttrib4ubvNV(index, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4201
-	glsopcode	0x024A
 	alias		VertexAttrib4Nubv
-	glsalias	VertexAttrib4Nubv
 
 VertexAttribs1dvNV(index, count, v)
 	return		void
@@ -17905,7 +17695,6 @@ VertexAttribs1dvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4210
-	glsopcode	0x024D
 	offset		629
 
 VertexAttribs1fvNV(index, count, v)
@@ -17918,7 +17707,6 @@ VertexAttribs1fvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4206
-	glsopcode	0x024C
 	offset		630
 
 VertexAttribs1svNV(index, count, v)
@@ -17931,7 +17719,6 @@ VertexAttribs1svNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4202
-	glsopcode	0x024B
 	offset		631
 
 VertexAttribs2dvNV(index, count, v)
@@ -17944,7 +17731,6 @@ VertexAttribs2dvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4211
-	glsopcode	0x0250
 	offset		632
 
 VertexAttribs2fvNV(index, count, v)
@@ -17957,7 +17743,6 @@ VertexAttribs2fvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4207
-	glsopcode	0x024F
 	offset		633
 
 VertexAttribs2svNV(index, count, v)
@@ -17970,7 +17755,6 @@ VertexAttribs2svNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4203
-	glsopcode	0x024E
 	offset		634
 
 VertexAttribs3dvNV(index, count, v)
@@ -17983,7 +17767,6 @@ VertexAttribs3dvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4212
-	glsopcode	0x0253
 	offset		635
 
 VertexAttribs3fvNV(index, count, v)
@@ -17996,7 +17779,6 @@ VertexAttribs3fvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4208
-	glsopcode	0x0252
 	offset		636
 
 VertexAttribs3svNV(index, count, v)
@@ -18009,7 +17791,6 @@ VertexAttribs3svNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4204
-	glsopcode	0x0251
 	offset		637
 
 VertexAttribs4dvNV(index, count, v)
@@ -18022,7 +17803,6 @@ VertexAttribs4dvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4213
-	glsopcode	0x0256
 	offset		638
 
 VertexAttribs4fvNV(index, count, v)
@@ -18035,7 +17815,6 @@ VertexAttribs4fvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4209
-	glsopcode	0x0255
 	offset		639
 
 VertexAttribs4svNV(index, count, v)
@@ -18048,7 +17827,6 @@ VertexAttribs4svNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4205
-	glsopcode	0x0254
 	offset		640
 
 VertexAttribs4ubvNV(index, count, v)
@@ -18061,7 +17839,6 @@ VertexAttribs4ubvNV(index, count, v)
 	version		1.2
 	extension	soft WINSOFT NV10
 	glxropcode	4214
-	glsopcode	0x0257
 	offset		641
 
 
@@ -18160,7 +17937,6 @@ TexBumpParameterivATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 TexBumpParameterfvATI(pname, param)
@@ -18172,7 +17948,6 @@ TexBumpParameterfvATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GetTexBumpParameterivATI(pname, param)
@@ -18185,7 +17960,6 @@ GetTexBumpParameterivATI(pname, param)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetTexBumpParameterfvATI(pname, param)
@@ -18198,7 +17972,6 @@ GetTexBumpParameterfvATI(pname, param)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 ###############################################################################
@@ -18216,7 +17989,6 @@ GenFragmentShadersATI(range)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindFragmentShaderATI(id)
@@ -18227,7 +17999,6 @@ BindFragmentShaderATI(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 DeleteFragmentShaderATI(id)
@@ -18238,7 +18009,6 @@ DeleteFragmentShaderATI(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BeginFragmentShaderATI()
@@ -18248,7 +18018,6 @@ BeginFragmentShaderATI()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 EndFragmentShaderATI()
@@ -18258,7 +18027,6 @@ EndFragmentShaderATI()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 PassTexCoordATI(dst, coord, swizzle)
@@ -18271,7 +18039,6 @@ PassTexCoordATI(dst, coord, swizzle)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 SampleMapATI(dst, interp, swizzle)
@@ -18284,7 +18051,6 @@ SampleMapATI(dst, interp, swizzle)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ColorFragmentOp1ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod)
@@ -18301,7 +18067,6 @@ ColorFragmentOp1ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ColorFragmentOp2ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod)
@@ -18321,7 +18086,6 @@ ColorFragmentOp2ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ColorFragmentOp3ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod)
@@ -18344,7 +18108,6 @@ ColorFragmentOp3ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 AlphaFragmentOp1ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod)
@@ -18360,7 +18123,6 @@ AlphaFragmentOp1ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 AlphaFragmentOp2ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod)
@@ -18379,7 +18141,6 @@ AlphaFragmentOp2ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 AlphaFragmentOp3ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod)
@@ -18401,7 +18162,6 @@ AlphaFragmentOp3ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 SetFragmentShaderConstantATI(dst, value)
@@ -18413,7 +18173,6 @@ SetFragmentShaderConstantATI(dst, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -18432,7 +18191,6 @@ PNTrianglesiATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 PNTrianglesfATI(pname, param)
@@ -18444,7 +18202,6 @@ PNTrianglesfATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -18464,7 +18221,6 @@ NewObjectBufferATI(size, pointer, usage)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 IsObjectBufferATI(buffer)
@@ -18475,7 +18231,6 @@ IsObjectBufferATI(buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 UpdateObjectBufferATI(buffer, offset, size, pointer, preserve)
@@ -18490,7 +18245,6 @@ UpdateObjectBufferATI(buffer, offset, size, pointer, preserve)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GetObjectBufferfvATI(buffer, pname, params)
@@ -18504,7 +18258,6 @@ GetObjectBufferfvATI(buffer, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetObjectBufferivATI(buffer, pname, params)
@@ -18518,7 +18271,6 @@ GetObjectBufferivATI(buffer, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 FreeObjectBufferATI(buffer)
@@ -18529,7 +18281,6 @@ FreeObjectBufferATI(buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ArrayObjectATI(array, size, type, stride, buffer, offset)
@@ -18545,7 +18296,6 @@ ArrayObjectATI(array, size, type, stride, buffer, offset)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GetArrayObjectfvATI(array, pname, params)
@@ -18559,7 +18309,6 @@ GetArrayObjectfvATI(array, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetArrayObjectivATI(array, pname, params)
@@ -18573,7 +18322,6 @@ GetArrayObjectivATI(array, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 VariantArrayObjectATI(id, type, stride, buffer, offset)
@@ -18588,7 +18336,6 @@ VariantArrayObjectATI(id, type, stride, buffer, offset)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GetVariantArrayObjectfvATI(id, pname, params)
@@ -18602,7 +18349,6 @@ GetVariantArrayObjectfvATI(id, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetVariantArrayObjectivATI(id, pname, params)
@@ -18616,7 +18362,6 @@ GetVariantArrayObjectivATI(id, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 ###############################################################################
@@ -18633,7 +18378,6 @@ BeginVertexShaderEXT()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 EndVertexShaderEXT()
@@ -18643,7 +18387,6 @@ EndVertexShaderEXT()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindVertexShaderEXT(id)
@@ -18654,7 +18397,6 @@ BindVertexShaderEXT(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GenVertexShadersEXT(range)
@@ -18665,7 +18407,6 @@ GenVertexShadersEXT(range)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 DeleteVertexShaderEXT(id)
@@ -18676,7 +18417,6 @@ DeleteVertexShaderEXT(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ShaderOp1EXT(op, res, arg1)
@@ -18689,7 +18429,6 @@ ShaderOp1EXT(op, res, arg1)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ShaderOp2EXT(op, res, arg1, arg2)
@@ -18703,7 +18442,6 @@ ShaderOp2EXT(op, res, arg1, arg2)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ShaderOp3EXT(op, res, arg1, arg2, arg3)
@@ -18718,7 +18456,6 @@ ShaderOp3EXT(op, res, arg1, arg2, arg3)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 SwizzleEXT(res, in, outX, outY, outZ, outW)
@@ -18734,7 +18471,6 @@ SwizzleEXT(res, in, outX, outY, outZ, outW)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 WriteMaskEXT(res, in, outX, outY, outZ, outW)
@@ -18750,7 +18486,6 @@ WriteMaskEXT(res, in, outX, outY, outZ, outW)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 InsertComponentEXT(res, src, num)
@@ -18763,7 +18498,6 @@ InsertComponentEXT(res, src, num)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ExtractComponentEXT(res, src, num)
@@ -18776,7 +18510,6 @@ ExtractComponentEXT(res, src, num)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GenSymbolsEXT(datatype, storagetype, range, components)
@@ -18790,7 +18523,6 @@ GenSymbolsEXT(datatype, storagetype, range, components)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 SetInvariantEXT(id, type, addr)
@@ -18803,7 +18535,6 @@ SetInvariantEXT(id, type, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 SetLocalConstantEXT(id, type, addr)
@@ -18816,7 +18547,6 @@ SetLocalConstantEXT(id, type, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantbvEXT(id, addr)
@@ -18828,7 +18558,6 @@ VariantbvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantsvEXT(id, addr)
@@ -18840,7 +18569,6 @@ VariantsvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantivEXT(id, addr)
@@ -18852,7 +18580,6 @@ VariantivEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantfvEXT(id, addr)
@@ -18864,7 +18591,6 @@ VariantfvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantdvEXT(id, addr)
@@ -18876,7 +18602,6 @@ VariantdvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantubvEXT(id, addr)
@@ -18888,7 +18613,6 @@ VariantubvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantusvEXT(id, addr)
@@ -18900,7 +18624,6 @@ VariantusvEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantuivEXT(id, addr)
@@ -18912,7 +18635,6 @@ VariantuivEXT(id, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VariantPointerEXT(id, type, stride, addr)
@@ -18926,7 +18648,6 @@ VariantPointerEXT(id, type, stride, addr)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 EnableVariantClientStateEXT(id)
@@ -18937,7 +18658,6 @@ EnableVariantClientStateEXT(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 DisableVariantClientStateEXT(id)
@@ -18948,7 +18668,6 @@ DisableVariantClientStateEXT(id)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindLightParameterEXT(light, value)
@@ -18960,7 +18679,6 @@ BindLightParameterEXT(light, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindMaterialParameterEXT(face, value)
@@ -18972,7 +18690,6 @@ BindMaterialParameterEXT(face, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindTexGenParameterEXT(unit, coord, value)
@@ -18985,7 +18702,6 @@ BindTexGenParameterEXT(unit, coord, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindTextureUnitParameterEXT(unit, value)
@@ -18997,7 +18713,6 @@ BindTextureUnitParameterEXT(unit, value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 BindParameterEXT(value)
@@ -19008,7 +18723,6 @@ BindParameterEXT(value)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 IsVariantEnabledEXT(id, cap)
@@ -19020,7 +18734,6 @@ IsVariantEnabledEXT(id, cap)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 GetVariantBooleanvEXT(id, value, data)
@@ -19034,7 +18747,6 @@ GetVariantBooleanvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetVariantIntegervEXT(id, value, data)
@@ -19048,7 +18760,6 @@ GetVariantIntegervEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetVariantFloatvEXT(id, value, data)
@@ -19062,7 +18773,6 @@ GetVariantFloatvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetVariantPointervEXT(id, value, data)
@@ -19076,7 +18786,6 @@ GetVariantPointervEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetInvariantBooleanvEXT(id, value, data)
@@ -19090,7 +18799,6 @@ GetInvariantBooleanvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetInvariantIntegervEXT(id, value, data)
@@ -19104,7 +18812,6 @@ GetInvariantIntegervEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetInvariantFloatvEXT(id, value, data)
@@ -19118,7 +18825,6 @@ GetInvariantFloatvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetLocalConstantBooleanvEXT(id, value, data)
@@ -19132,7 +18838,6 @@ GetLocalConstantBooleanvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetLocalConstantIntegervEXT(id, value, data)
@@ -19146,7 +18851,6 @@ GetLocalConstantIntegervEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 GetLocalConstantFloatvEXT(id, value, data)
@@ -19160,7 +18864,6 @@ GetLocalConstantFloatvEXT(id, value, data)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	ignore get
 	offset		?
 
 ###############################################################################
@@ -19179,7 +18882,6 @@ VertexStream1sATI(stream, x)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1svATI(stream, coords)
@@ -19191,7 +18893,6 @@ VertexStream1svATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1iATI(stream, x)
@@ -19203,7 +18904,6 @@ VertexStream1iATI(stream, x)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1ivATI(stream, coords)
@@ -19215,7 +18915,6 @@ VertexStream1ivATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1fATI(stream, x)
@@ -19227,7 +18926,6 @@ VertexStream1fATI(stream, x)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1fvATI(stream, coords)
@@ -19239,7 +18937,6 @@ VertexStream1fvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1dATI(stream, x)
@@ -19251,7 +18948,6 @@ VertexStream1dATI(stream, x)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream1dvATI(stream, coords)
@@ -19263,7 +18959,6 @@ VertexStream1dvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2sATI(stream, x, y)
@@ -19276,7 +18971,6 @@ VertexStream2sATI(stream, x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2svATI(stream, coords)
@@ -19288,7 +18982,6 @@ VertexStream2svATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2iATI(stream, x, y)
@@ -19301,7 +18994,6 @@ VertexStream2iATI(stream, x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2ivATI(stream, coords)
@@ -19313,7 +19005,6 @@ VertexStream2ivATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2fATI(stream, x, y)
@@ -19326,7 +19017,6 @@ VertexStream2fATI(stream, x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2fvATI(stream, coords)
@@ -19338,7 +19028,6 @@ VertexStream2fvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2dATI(stream, x, y)
@@ -19351,7 +19040,6 @@ VertexStream2dATI(stream, x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream2dvATI(stream, coords)
@@ -19363,7 +19051,6 @@ VertexStream2dvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3sATI(stream, x, y, z)
@@ -19377,7 +19064,6 @@ VertexStream3sATI(stream, x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3svATI(stream, coords)
@@ -19389,7 +19075,6 @@ VertexStream3svATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3iATI(stream, x, y, z)
@@ -19403,7 +19088,6 @@ VertexStream3iATI(stream, x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3ivATI(stream, coords)
@@ -19415,7 +19099,6 @@ VertexStream3ivATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3fATI(stream, x, y, z)
@@ -19429,7 +19112,6 @@ VertexStream3fATI(stream, x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3fvATI(stream, coords)
@@ -19441,7 +19123,6 @@ VertexStream3fvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3dATI(stream, x, y, z)
@@ -19455,7 +19136,6 @@ VertexStream3dATI(stream, x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream3dvATI(stream, coords)
@@ -19467,7 +19147,6 @@ VertexStream3dvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4sATI(stream, x, y, z, w)
@@ -19482,7 +19161,6 @@ VertexStream4sATI(stream, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4svATI(stream, coords)
@@ -19494,7 +19172,6 @@ VertexStream4svATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4iATI(stream, x, y, z, w)
@@ -19509,7 +19186,6 @@ VertexStream4iATI(stream, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4ivATI(stream, coords)
@@ -19521,7 +19197,6 @@ VertexStream4ivATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4fATI(stream, x, y, z, w)
@@ -19536,7 +19211,6 @@ VertexStream4fATI(stream, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4fvATI(stream, coords)
@@ -19548,7 +19222,6 @@ VertexStream4fvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4dATI(stream, x, y, z, w)
@@ -19563,7 +19236,6 @@ VertexStream4dATI(stream, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexStream4dvATI(stream, coords)
@@ -19575,7 +19247,6 @@ VertexStream4dvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3bATI(stream, nx, ny, nz)
@@ -19589,7 +19260,6 @@ NormalStream3bATI(stream, nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3bvATI(stream, coords)
@@ -19601,7 +19271,6 @@ NormalStream3bvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3sATI(stream, nx, ny, nz)
@@ -19615,7 +19284,6 @@ NormalStream3sATI(stream, nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3svATI(stream, coords)
@@ -19627,7 +19295,6 @@ NormalStream3svATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3iATI(stream, nx, ny, nz)
@@ -19641,7 +19308,6 @@ NormalStream3iATI(stream, nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3ivATI(stream, coords)
@@ -19653,7 +19319,6 @@ NormalStream3ivATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3fATI(stream, nx, ny, nz)
@@ -19667,7 +19332,6 @@ NormalStream3fATI(stream, nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3fvATI(stream, coords)
@@ -19679,7 +19343,6 @@ NormalStream3fvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3dATI(stream, nx, ny, nz)
@@ -19693,7 +19356,6 @@ NormalStream3dATI(stream, nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 NormalStream3dvATI(stream, coords)
@@ -19705,7 +19367,6 @@ NormalStream3dvATI(stream, coords)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ClientActiveVertexStreamATI(stream)
@@ -19716,7 +19377,6 @@ ClientActiveVertexStreamATI(stream)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexBlendEnviATI(pname, param)
@@ -19728,7 +19388,6 @@ VertexBlendEnviATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 VertexBlendEnvfATI(pname, param)
@@ -19740,7 +19399,6 @@ VertexBlendEnvfATI(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsflags	ignore
 	offset		?
 
 ###############################################################################
@@ -19769,7 +19427,6 @@ ElementPointerATI(type, pointer)
 	dlflags		notlistable
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.2
-	glsflags	ignore
 	offset		?
 
 DrawElementArrayATI(mode, count)
@@ -19780,7 +19437,6 @@ DrawElementArrayATI(mode, count)
 	dlflags		handcode
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.2
-	glsopcode	?
 	offset		?
 
 DrawRangeElementArrayATI(mode, start, end, count)
@@ -19793,7 +19449,6 @@ DrawRangeElementArrayATI(mode, start, end, count)
 	dlflags		handcode
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.2
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -19814,7 +19469,6 @@ DrawMeshArraysSUN(mode, first, count, width)
 	glxflags	client-handcode client-intercept server-handcode
 	version		1.1
 	glxropcode	?
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -19862,7 +19516,6 @@ GenOcclusionQueriesNV(n, ids)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 DeleteOcclusionQueriesNV(n, ids)
@@ -19873,7 +19526,6 @@ DeleteOcclusionQueriesNV(n, ids)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 IsOcclusionQueryNV(id)
@@ -19883,7 +19535,6 @@ IsOcclusionQueryNV(id)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 BeginOcclusionQueryNV(id)
@@ -19892,7 +19543,6 @@ BeginOcclusionQueryNV(id)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 EndOcclusionQueryNV()
@@ -19900,7 +19550,6 @@ EndOcclusionQueryNV()
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 GetOcclusionQueryivNV(id, pname, params)
@@ -19912,7 +19561,6 @@ GetOcclusionQueryivNV(id, pname, params)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 GetOcclusionQueryuivNV(id, pname, params)
@@ -19924,7 +19572,6 @@ GetOcclusionQueryuivNV(id, pname, params)
 	category	NV_occlusion_query
 	version		1.2
 	extension	soft WINSOFT NV20
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -19943,7 +19590,6 @@ PointParameteriNV(pname, param)
 	extension	soft WINSOFT NV20
 	glxropcode	4221
 	alias		PointParameteri
-	glsalias	PointParameteri
 
 PointParameterivNV(pname, params)
 	return		void
@@ -19954,7 +19600,6 @@ PointParameterivNV(pname, params)
 	extension	soft WINSOFT NV20
 	glxropcode	4222
 	alias		PointParameteriv
-	glsalias	PointParameteriv
 
 ###############################################################################
 #
@@ -20006,7 +19651,6 @@ ActiveStencilFaceEXT(face)
 	category	EXT_stencil_two_side
 	version		1.3
 	glxropcode	4220
-	glsopcode	?
 	offset		646
 
 ###############################################################################
@@ -20048,7 +19692,6 @@ ElementPointerAPPLE(type, pointer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DrawElementArrayAPPLE(mode, first, count)
@@ -20061,7 +19704,6 @@ DrawElementArrayAPPLE(mode, first, count)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DrawRangeElementArrayAPPLE(mode, start, end, first, count)
@@ -20076,7 +19718,6 @@ DrawRangeElementArrayAPPLE(mode, start, end, first, count)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiDrawElementArrayAPPLE(mode, first, count, primcount)
@@ -20090,7 +19731,6 @@ MultiDrawElementArrayAPPLE(mode, first, count, primcount)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiDrawRangeElementArrayAPPLE(mode, start, end, first, count, primcount)
@@ -20106,7 +19746,6 @@ MultiDrawRangeElementArrayAPPLE(mode, start, end, first, count, primcount)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -20128,7 +19767,6 @@ GenFencesAPPLE(n, fences)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 DeleteFencesAPPLE(n, fences)
@@ -20140,7 +19778,6 @@ DeleteFencesAPPLE(n, fences)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 SetFenceAPPLE(fence)
@@ -20151,7 +19788,6 @@ SetFenceAPPLE(fence)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 IsFenceAPPLE(fence)
@@ -20162,7 +19798,6 @@ IsFenceAPPLE(fence)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TestFenceAPPLE(fence)
@@ -20173,7 +19808,6 @@ TestFenceAPPLE(fence)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FinishFenceAPPLE(fence)
@@ -20184,7 +19818,6 @@ FinishFenceAPPLE(fence)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TestObjectAPPLE(object, name)
@@ -20196,7 +19829,6 @@ TestObjectAPPLE(object, name)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FinishObjectAPPLE(object, name)
@@ -20208,7 +19840,6 @@ FinishObjectAPPLE(object, name)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -20227,7 +19858,6 @@ BindVertexArrayAPPLE(array)
 	glxropcode	?
 	glxflags	ignore
 	alias		BindVertexArray
-	glsalias	BindVertexArray
 
 DeleteVertexArraysAPPLE(n, arrays)
 	return		void
@@ -20239,7 +19869,6 @@ DeleteVertexArraysAPPLE(n, arrays)
 	glxropcode	?
 	glxflags	ignore
 	alias		DeleteVertexArrays
-	glsalias	DeleteVertexArrays
 
 GenVertexArraysAPPLE(n, arrays)
 	return		void
@@ -20251,7 +19880,6 @@ GenVertexArraysAPPLE(n, arrays)
 	glxropcode	?
 	glxflags	ignore
 	alias		GenVertexArray
-	glsalias	GenVertexArray
 
 IsVertexArrayAPPLE(array)
 	return		Boolean
@@ -20262,7 +19890,6 @@ IsVertexArrayAPPLE(array)
 	glxropcode	?
 	glxflags	ignore
 	alias		IsVertexArray
-	glsalias	IsVertexArray
 
 ###############################################################################
 #
@@ -20283,7 +19910,6 @@ VertexArrayRangeAPPLE(length, pointer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FlushVertexArrayRangeAPPLE(length, pointer)
@@ -20295,7 +19921,6 @@ FlushVertexArrayRangeAPPLE(length, pointer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexArrayParameteriAPPLE(pname, param)
@@ -20307,7 +19932,6 @@ VertexArrayParameteriAPPLE(pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -20346,7 +19970,6 @@ DrawBuffersATI(n, bufs)
 	extension
 	glxropcode	233
 	alias		DrawBuffers
-	glsalias	DrawBuffers
 
 ###############################################################################
 #
@@ -20416,7 +20039,6 @@ ProgramNamedParameter4fNV(id, len, name, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		682
 
 ProgramNamedParameter4dNV(id, len, name, x, y, z, w)
@@ -20433,7 +20055,6 @@ ProgramNamedParameter4dNV(id, len, name, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		683
 
 ProgramNamedParameter4fvNV(id, len, name, v)
@@ -20447,7 +20068,6 @@ ProgramNamedParameter4fvNV(id, len, name, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		684
 
 ProgramNamedParameter4dvNV(id, len, name, v)
@@ -20461,7 +20081,6 @@ ProgramNamedParameter4dvNV(id, len, name, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		685
 
 GetProgramNamedParameterfvNV(id, len, name, params)
@@ -20476,8 +20095,6 @@ GetProgramNamedParameterfvNV(id, len, name, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		686
 
 GetProgramNamedParameterdvNV(id, len, name, params)
@@ -20492,8 +20109,6 @@ GetProgramNamedParameterdvNV(id, len, name, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		687
 
 ###############################################################################
@@ -20514,7 +20129,6 @@ Vertex2hNV(x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Vertex2hvNV(v)
@@ -20525,7 +20139,6 @@ Vertex2hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Vertex3hNV(x, y, z)
@@ -20538,7 +20151,6 @@ Vertex3hNV(x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Vertex3hvNV(v)
@@ -20549,7 +20161,6 @@ Vertex3hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Vertex4hNV(x, y, z, w)
@@ -20563,7 +20174,6 @@ Vertex4hNV(x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Vertex4hvNV(v)
@@ -20574,7 +20184,6 @@ Vertex4hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Normal3hNV(nx, ny, nz)
@@ -20587,7 +20196,6 @@ Normal3hNV(nx, ny, nz)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Normal3hvNV(v)
@@ -20598,7 +20206,6 @@ Normal3hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Color3hNV(red, green, blue)
@@ -20611,7 +20218,6 @@ Color3hNV(red, green, blue)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Color3hvNV(v)
@@ -20622,7 +20228,6 @@ Color3hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Color4hNV(red, green, blue, alpha)
@@ -20636,7 +20241,6 @@ Color4hNV(red, green, blue, alpha)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 Color4hvNV(v)
@@ -20647,7 +20251,6 @@ Color4hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord1hNV(s)
@@ -20658,7 +20261,6 @@ TexCoord1hNV(s)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord1hvNV(v)
@@ -20669,7 +20271,6 @@ TexCoord1hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord2hNV(s, t)
@@ -20681,7 +20282,6 @@ TexCoord2hNV(s, t)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord2hvNV(v)
@@ -20692,7 +20292,6 @@ TexCoord2hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord3hNV(s, t, r)
@@ -20705,7 +20304,6 @@ TexCoord3hNV(s, t, r)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord3hvNV(v)
@@ -20716,7 +20314,6 @@ TexCoord3hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord4hNV(s, t, r, q)
@@ -20730,7 +20327,6 @@ TexCoord4hNV(s, t, r, q)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 TexCoord4hvNV(v)
@@ -20741,7 +20337,6 @@ TexCoord4hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord1hNV(target, s)
@@ -20753,7 +20348,6 @@ MultiTexCoord1hNV(target, s)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord1hvNV(target, v)
@@ -20765,7 +20359,6 @@ MultiTexCoord1hvNV(target, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord2hNV(target, s, t)
@@ -20778,7 +20371,6 @@ MultiTexCoord2hNV(target, s, t)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord2hvNV(target, v)
@@ -20790,7 +20382,6 @@ MultiTexCoord2hvNV(target, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord3hNV(target, s, t, r)
@@ -20804,7 +20395,6 @@ MultiTexCoord3hNV(target, s, t, r)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord3hvNV(target, v)
@@ -20816,7 +20406,6 @@ MultiTexCoord3hvNV(target, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord4hNV(target, s, t, r, q)
@@ -20831,7 +20420,6 @@ MultiTexCoord4hNV(target, s, t, r, q)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 MultiTexCoord4hvNV(target, v)
@@ -20843,7 +20431,6 @@ MultiTexCoord4hvNV(target, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FogCoordhNV(fog)
@@ -20854,7 +20441,6 @@ FogCoordhNV(fog)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FogCoordhvNV(fog)
@@ -20865,7 +20451,6 @@ FogCoordhvNV(fog)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 SecondaryColor3hNV(red, green, blue)
@@ -20878,7 +20463,6 @@ SecondaryColor3hNV(red, green, blue)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 SecondaryColor3hvNV(v)
@@ -20889,7 +20473,6 @@ SecondaryColor3hvNV(v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexWeighthNV(weight)
@@ -20900,7 +20483,6 @@ VertexWeighthNV(weight)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexWeighthvNV(weight)
@@ -20911,7 +20493,6 @@ VertexWeighthvNV(weight)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib1hNV(index, x)
@@ -20923,7 +20504,6 @@ VertexAttrib1hNV(index, x)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib1hvNV(index, v)
@@ -20935,7 +20515,6 @@ VertexAttrib1hvNV(index, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib2hNV(index, x, y)
@@ -20948,7 +20527,6 @@ VertexAttrib2hNV(index, x, y)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib2hvNV(index, v)
@@ -20960,7 +20538,6 @@ VertexAttrib2hvNV(index, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib3hNV(index, x, y, z)
@@ -20974,7 +20551,6 @@ VertexAttrib3hNV(index, x, y, z)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib3hvNV(index, v)
@@ -20986,7 +20562,6 @@ VertexAttrib3hvNV(index, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib4hNV(index, x, y, z, w)
@@ -21001,7 +20576,6 @@ VertexAttrib4hNV(index, x, y, z, w)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttrib4hvNV(index, v)
@@ -21013,7 +20587,6 @@ VertexAttrib4hvNV(index, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttribs1hvNV(index, n, v)
@@ -21026,7 +20599,6 @@ VertexAttribs1hvNV(index, n, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttribs2hvNV(index, n, v)
@@ -21039,7 +20611,6 @@ VertexAttribs2hvNV(index, n, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttribs3hvNV(index, n, v)
@@ -21052,7 +20623,6 @@ VertexAttribs3hvNV(index, n, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 VertexAttribs4hvNV(index, n, v)
@@ -21065,7 +20635,6 @@ VertexAttribs4hvNV(index, n, v)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21087,7 +20656,6 @@ PixelDataRangeNV(target, length, pointer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FlushPixelDataRangeNV(target)
@@ -21098,7 +20666,6 @@ FlushPixelDataRangeNV(target)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21117,7 +20684,6 @@ PrimitiveRestartNV()
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 PrimitiveRestartIndexNV(index)
@@ -21128,7 +20694,6 @@ PrimitiveRestartIndexNV(index)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 
@@ -21169,7 +20734,6 @@ MapObjectBufferATI(buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 UnmapObjectBufferATI(buffer)
@@ -21180,7 +20744,6 @@ UnmapObjectBufferATI(buffer)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21204,7 +20767,6 @@ StencilOpSeparateATI(face, sfail, dpfail, dppass)
 	glxropcode	?
 	glxflags	ignore
 	alias		StencilOpSeparate
-	glsalias	StencilOpSeparate
 
 StencilFuncSeparateATI(frontfunc, backfunc, ref, mask)
 	return		void
@@ -21218,7 +20780,6 @@ StencilFuncSeparateATI(frontfunc, backfunc, ref, mask)
 	glxropcode	?
 	glxflags	ignore
 	alias		StencilFuncSeparate
-	glsalias	StencilFuncSeparate
 
 ###############################################################################
 #
@@ -21243,7 +20804,6 @@ VertexAttribArrayObjectATI(index, size, type, normalized, stride, buffer, offset
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 GetVertexAttribArrayObjectfvATI(index, pname, params)
@@ -21257,8 +20817,6 @@ GetVertexAttribArrayObjectfvATI(index, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetVertexAttribArrayObjectivATI(index, pname, params)
@@ -21272,8 +20830,6 @@ GetVertexAttribArrayObjectivATI(index, pname, params)
 	extension
 	glxsingle	?
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21370,7 +20926,6 @@ DepthBoundsEXT(zmin, zmax)
 	version		1.2
 	extension
 	glxropcode	4229
-	glsopcode	?
 	offset		699
 
 ###############################################################################
@@ -21399,7 +20954,6 @@ BlendEquationSeparateEXT(modeRGB, modeAlpha)
 	extension
 	glxropcode	4228
 	alias		BlendEquationSeparate
-	glsalias	BlendEquationSeparate
 
 ###############################################################################
 #
@@ -21505,7 +21059,6 @@ IsRenderbufferEXT(renderbuffer)
 	glxvendorpriv	1422
 	glxflags	ignore
 	alias		IsRenderbuffer
-	glsalias	IsRenderbuffer
 
 BindRenderbufferEXT(target, renderbuffer)
 	return		void
@@ -21517,7 +21070,6 @@ BindRenderbufferEXT(target, renderbuffer)
 	glxropcode	4316
 	glxflags	ignore
 	alias		BindRenderbuffer
-	glsalias	BindRenderbuffer
 
 DeleteRenderbuffersEXT(n, renderbuffers)
 	return		void
@@ -21529,7 +21081,6 @@ DeleteRenderbuffersEXT(n, renderbuffers)
 	glxropcode	4317
 	glxflags	ignore
 	alias		DeleteRenderbuffers
-	glsalias	DeleteRenderbuffers
 
 GenRenderbuffersEXT(n, renderbuffers)
 	return		void
@@ -21541,7 +21092,6 @@ GenRenderbuffersEXT(n, renderbuffers)
 	glxvendorpriv	1423
 	glxflags	ignore
 	alias		GenRenderbuffers
-	glsalias	GenRenderbuffers
 
 RenderbufferStorageEXT(target, internalformat, width, height)
 	return		void
@@ -21555,7 +21105,6 @@ RenderbufferStorageEXT(target, internalformat, width, height)
 	glxropcode	4318
 	glxflags	ignore
 	alias		RenderbufferStorage
-	glsalias	RenderbufferStorage
 
 GetRenderbufferParameterivEXT(target, pname, params)
 	return		void
@@ -21568,9 +21117,7 @@ GetRenderbufferParameterivEXT(target, pname, params)
 	extension
 	glxvendorpriv	1424
 	glxflags	ignore
-	glsflags	get
 	alias		GetRenderbufferParameteriv
-	glsalias	GetRenderbufferParameteriv
 
 IsFramebufferEXT(framebuffer)
 	return		Boolean
@@ -21581,7 +21128,6 @@ IsFramebufferEXT(framebuffer)
 	glxvendorpriv	1425
 	glxflags	ignore
 	alias		IsFramebuffer
-	glsalias	IsFramebuffer
 
 BindFramebufferEXT(target, framebuffer)
 	return		void
@@ -21593,7 +21139,6 @@ BindFramebufferEXT(target, framebuffer)
 	glxropcode	4319
 	glxflags	ignore
 	alias		BindFramebuffer
-	glsalias	BindFramebuffer
 
 DeleteFramebuffersEXT(n, framebuffers)
 	return		void
@@ -21605,7 +21150,6 @@ DeleteFramebuffersEXT(n, framebuffers)
 	glxropcode	4320
 	glxflags	ignore
 	alias		DeleteFramebuffers
-	glsalias	DeleteFramebuffers
 
 GenFramebuffersEXT(n, framebuffers)
 	return		void
@@ -21617,7 +21161,6 @@ GenFramebuffersEXT(n, framebuffers)
 	glxvendorpriv	1426
 	glxflags	ignore
 	alias		GenFramebuffers
-	glsalias	GenFramebuffers
 
 CheckFramebufferStatusEXT(target)
 	return		GLenum
@@ -21628,7 +21171,6 @@ CheckFramebufferStatusEXT(target)
 	glxvendorpriv	1427
 	glxflags	ignore
 	alias		CheckFramebufferStatus
-	glsalias	CheckFramebufferStatus
 
 FramebufferTexture1DEXT(target, attachment, textarget, texture, level)
 	return		void
@@ -21643,7 +21185,6 @@ FramebufferTexture1DEXT(target, attachment, textarget, texture, level)
 	glxropcode	4321
 	glxflags	ignore
 	alias		FramebufferTexture1D
-	glsalias	FramebufferTexture1D
 
 FramebufferTexture2DEXT(target, attachment, textarget, texture, level)
 	return		void
@@ -21658,7 +21199,6 @@ FramebufferTexture2DEXT(target, attachment, textarget, texture, level)
 	glxropcode	4322
 	glxflags	ignore
 	alias		FramebufferTexture2D
-	glsalias	FramebufferTexture2D
 
 FramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset)
 	return		void
@@ -21674,7 +21214,6 @@ FramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset)
 	glxropcode	4323
 	glxflags	ignore
 	alias		FramebufferTexture3D
-	glsalias	FramebufferTexture3D
 
 FramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer)
 	return		void
@@ -21688,7 +21227,6 @@ FramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer)
 	glxropcode	4324
 	glxflags	ignore
 	alias		FramebufferRenderbuffer
-	glsalias	FramebufferRenderbuffer
 
 GetFramebufferAttachmentParameterivEXT(target, attachment, pname, params)
 	return		void
@@ -21702,9 +21240,7 @@ GetFramebufferAttachmentParameterivEXT(target, attachment, pname, params)
 	extension
 	glxvendorpriv	1428
 	glxflags	ignore
-	glsflags	get
 	alias		GetFramebufferAttachmentParameteriv
-	glsalias	GetFramebufferAttachmentParameteriv
 
 GenerateMipmapEXT(target)
 	return		void
@@ -21715,7 +21251,6 @@ GenerateMipmapEXT(target)
 	glxropcode	4325
 	glxflags	ignore
 	alias		GenerateMipmap
-	glsalias	GenerateMipmap
 
 
 ###############################################################################
@@ -21732,7 +21267,6 @@ StringMarkerGREMEDY(len, string)
 	category	GREMEDY_string_marker
 	version		1.0
 	extension
-	glsflags	ignore
 	glxflags	ignore
 	offset		?
 
@@ -21768,7 +21302,6 @@ StencilClearTagEXT(stencilTagBits, stencilClearTag)
 	extension
 	glxropcode	4223
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21804,7 +21337,6 @@ BlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask,
 	version		1.5
 	glxropcode	4330
 	alias		BlitFramebuffer
-	glsalias	BlitFramebuffer
 
 ###############################################################################
 #
@@ -21824,7 +21356,6 @@ RenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height
 	version		1.5
 	glxropcode	4331
 	alias		RenderbufferStorageMultisample
-	glsalias	RenderbufferStorageMultisample
 
 ###############################################################################
 #
@@ -21853,8 +21384,6 @@ GetQueryObjecti64vEXT(id, pname, params)
 	version		1.5
 	glxvendorpriv	1328
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 GetQueryObjectui64vEXT(id, pname, params)
@@ -21867,8 +21396,6 @@ GetQueryObjectui64vEXT(id, pname, params)
 	version		1.5
 	glxvendorpriv	1329
 	glxflags	ignore
-	glsflags	get
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21887,7 +21414,6 @@ ProgramEnvParameters4fvEXT(target, index, count, params)
 	category	EXT_gpu_program_parameters
 	version		1.2
 	glxropcode	4281
-	glsopcode	?
 	offset		?
 
 ProgramLocalParameters4fvEXT(target, index, count, params)
@@ -21899,7 +21425,6 @@ ProgramLocalParameters4fvEXT(target, index, count, params)
 	category	EXT_gpu_program_parameters
 	version		1.2
 	glxropcode	4282
-	glsopcode	?
 	offset		?
 
 ###############################################################################
@@ -21919,7 +21444,6 @@ BufferParameteriAPPLE(target, pname, param)
 	extension
 	glxropcode	?
 	glxflags	ignore
-	glsopcode	?
 	offset		?
 
 FlushMappedBufferRangeAPPLE(target, offset, size)
@@ -21933,7 +21457,6 @@ FlushMappedBufferRangeAPPLE(target, offset, size)
 	glxropcode	?
 	glxflags	ignore
 	alias		FlushMappedBufferRange
-	glsalias	FlushMappedBufferRange
 
 ###############################################################################
 #
@@ -21956,7 +21479,6 @@ ProgramLocalParameterI4iNV(target, index, x, y, z, w)
 	glxvectorequiv	ProgramLocalParameterI4ivNV
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramLocalParameterI4ivNV(target, index, params)
@@ -21968,7 +21490,6 @@ ProgramLocalParameterI4ivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramLocalParametersI4ivNV(target, index, count, params)
@@ -21981,7 +21502,6 @@ ProgramLocalParametersI4ivNV(target, index, count, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramLocalParameterI4uiNV(target, index, x, y, z, w)
@@ -21998,7 +21518,6 @@ ProgramLocalParameterI4uiNV(target, index, x, y, z, w)
 	glxvectorequiv	ProgramLocalParameterI4uivNV
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramLocalParameterI4uivNV(target, index, params)
@@ -22010,7 +21529,6 @@ ProgramLocalParameterI4uivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramLocalParametersI4uivNV(target, index, count, params)
@@ -22023,7 +21541,6 @@ ProgramLocalParametersI4uivNV(target, index, count, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParameterI4iNV(target, index, x, y, z, w)
@@ -22040,7 +21557,6 @@ ProgramEnvParameterI4iNV(target, index, x, y, z, w)
 	glxvectorequiv	ProgramEnvParameterI4ivNV
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParameterI4ivNV(target, index, params)
@@ -22052,7 +21568,6 @@ ProgramEnvParameterI4ivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParametersI4ivNV(target, index, count, params)
@@ -22065,7 +21580,6 @@ ProgramEnvParametersI4ivNV(target, index, count, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParameterI4uiNV(target, index, x, y, z, w)
@@ -22082,7 +21596,6 @@ ProgramEnvParameterI4uiNV(target, index, x, y, z, w)
 	glxvectorequiv	ProgramEnvParameterI4uivNV
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParameterI4uivNV(target, index, params)
@@ -22094,7 +21607,6 @@ ProgramEnvParameterI4uivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramEnvParametersI4uivNV(target, index, count, params)
@@ -22107,7 +21619,6 @@ ProgramEnvParametersI4uivNV(target, index, count, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetProgramLocalParameterIivNV(target, index, params)
@@ -22120,7 +21631,6 @@ GetProgramLocalParameterIivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetProgramLocalParameterIuivNV(target, index, params)
@@ -22133,7 +21643,6 @@ GetProgramLocalParameterIuivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetProgramEnvParameterIivNV(target, index, params)
@@ -22146,7 +21655,6 @@ GetProgramEnvParameterIivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetProgramEnvParameterIuivNV(target, index, params)
@@ -22159,7 +21667,6 @@ GetProgramEnvParameterIuivNV(target, index, params)
 	version		1.3
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -22177,7 +21684,6 @@ ProgramVertexLimitNV(target, limit)
 	version		2.0
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 FramebufferTextureEXT(target, attachment, texture, level)
@@ -22193,7 +21699,6 @@ FramebufferTextureEXT(target, attachment, texture, level)
 	glfflags	ignore
 	glxflags	ignore
 	alias		FramebufferTextureARB
-	glsalias	FramebufferTextureARB
 
 FramebufferTextureLayerEXT(target, attachment, texture, level, layer)
 	return		void
@@ -22209,7 +21714,6 @@ FramebufferTextureLayerEXT(target, attachment, texture, level, layer)
 	glfflags	ignore
 	glxflags	ignore
 	alias		FramebufferTextureLayer
-	glsalias	FramebufferTextureLayer
 
 FramebufferTextureFaceEXT(target, attachment, texture, level, face)
 	return		void
@@ -22225,7 +21729,6 @@ FramebufferTextureFaceEXT(target, attachment, texture, level, face)
 	glfflags	ignore
 	glxflags	ignore
 	alias		FramebufferTextureFaceARB
-	glsalias	FramebufferTextureFaceARB
 
 ###############################################################################
 #
@@ -22245,7 +21748,6 @@ ProgramParameteriEXT(program, pname, value)
 	glfflags	ignore
 	glxflags	ignore
 	alias		ProgramParameteriARB
-	glsalias	ProgramParameteriARB
 
 ###############################################################################
 #
@@ -22266,7 +21768,6 @@ VertexAttribI1iEXT(index, x)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI1i
-	glsalias	VertexAttribI1i
 
 VertexAttribI2iEXT(index, x, y)
 	return		void
@@ -22281,7 +21782,6 @@ VertexAttribI2iEXT(index, x, y)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI2i
-	glsalias	VertexAttribI2i
 
 VertexAttribI3iEXT(index, x, y, z)
 	return		void
@@ -22297,7 +21797,6 @@ VertexAttribI3iEXT(index, x, y, z)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI3i
-	glsalias	VertexAttribI3i
 
 VertexAttribI4iEXT(index, x, y, z, w)
 	return		void
@@ -22314,7 +21813,6 @@ VertexAttribI4iEXT(index, x, y, z, w)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4i
-	glsalias	VertexAttribI4i
 
 VertexAttribI1uiEXT(index, x)
 	return		void
@@ -22328,7 +21826,6 @@ VertexAttribI1uiEXT(index, x)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI1ui
-	glsalias	VertexAttribI1ui
 
 VertexAttribI2uiEXT(index, x, y)
 	return		void
@@ -22343,7 +21840,6 @@ VertexAttribI2uiEXT(index, x, y)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI2ui
-	glsalias	VertexAttribI2ui
 
 VertexAttribI3uiEXT(index, x, y, z)
 	return		void
@@ -22359,7 +21855,6 @@ VertexAttribI3uiEXT(index, x, y, z)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI3ui
-	glsalias	VertexAttribI3ui
 
 VertexAttribI4uiEXT(index, x, y, z, w)
 	return		void
@@ -22376,7 +21871,6 @@ VertexAttribI4uiEXT(index, x, y, z, w)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4ui
-	glsalias	VertexAttribI4ui
 
 VertexAttribI1ivEXT(index, v)
 	return		void
@@ -22388,7 +21882,6 @@ VertexAttribI1ivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI1iv
-	glsalias	VertexAttribI1iv
 
 VertexAttribI2ivEXT(index, v)
 	return		void
@@ -22400,7 +21893,6 @@ VertexAttribI2ivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI2iv
-	glsalias	VertexAttribI2iv
 
 VertexAttribI3ivEXT(index, v)
 	return		void
@@ -22412,7 +21904,6 @@ VertexAttribI3ivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI3iv
-	glsalias	VertexAttribI3iv
 
 VertexAttribI4ivEXT(index, v)
 	return		void
@@ -22424,7 +21915,6 @@ VertexAttribI4ivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4iv
-	glsalias	VertexAttribI4iv
 
 VertexAttribI1uivEXT(index, v)
 	return		void
@@ -22436,7 +21926,6 @@ VertexAttribI1uivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI1uiv
-	glsalias	VertexAttribI1uiv
 
 VertexAttribI2uivEXT(index, v)
 	return		void
@@ -22448,7 +21937,6 @@ VertexAttribI2uivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI2uiv
-	glsalias	VertexAttribI2uiv
 
 VertexAttribI3uivEXT(index, v)
 	return		void
@@ -22460,7 +21948,6 @@ VertexAttribI3uivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI3uiv
-	glsalias	VertexAttribI3uiv
 
 VertexAttribI4uivEXT(index, v)
 	return		void
@@ -22472,7 +21959,6 @@ VertexAttribI4uivEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4uiv
-	glsalias	VertexAttribI4uiv
 
 VertexAttribI4bvEXT(index, v)
 	return		void
@@ -22484,7 +21970,6 @@ VertexAttribI4bvEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4bv
-	glsalias	VertexAttribI4bv
 
 VertexAttribI4svEXT(index, v)
 	return		void
@@ -22496,7 +21981,6 @@ VertexAttribI4svEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4sv
-	glsalias	VertexAttribI4sv
 
 VertexAttribI4ubvEXT(index, v)
 	return		void
@@ -22508,7 +21992,6 @@ VertexAttribI4ubvEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4ubv
-	glsalias	VertexAttribI4ubv
 
 VertexAttribI4usvEXT(index, v)
 	return		void
@@ -22520,7 +22003,6 @@ VertexAttribI4usvEXT(index, v)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribI4usv
-	glsalias	VertexAttribI4usv
 
 VertexAttribIPointerEXT(index, size, type, stride, pointer)
 	return		void
@@ -22535,7 +22017,6 @@ VertexAttribIPointerEXT(index, size, type, stride, pointer)
 	glfflags	ignore
 	glxflags	ignore
 	alias		VertexAttribIPointer
-	glsalias	VertexAttribIPointer
 
 GetVertexAttribIivEXT(index, pname, params)
 	return		void
@@ -22548,7 +22029,6 @@ GetVertexAttribIivEXT(index, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetVertexAttribIiv
-	glsalias	GetVertexAttribIiv
 
 GetVertexAttribIuivEXT(index, pname, params)
 	return		void
@@ -22561,7 +22041,6 @@ GetVertexAttribIuivEXT(index, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetVertexAttribIuiv
-	glsalias	GetVertexAttribIuiv
 
 ###############################################################################
 #
@@ -22582,7 +22061,6 @@ GetUniformuivEXT(program, location, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetUniformuiv
-	glsalias	GetUniformuiv
 
 BindFragDataLocationEXT(program, color, name)
 	return		void
@@ -22596,7 +22074,6 @@ BindFragDataLocationEXT(program, color, name)
 	glfflags	ignore
 	glxflags	ignore
 	alias		BindFragDataLocation
-	glsalias	BindFragDataLocation
 
 GetFragDataLocationEXT(program, name)
 	return		Int32
@@ -22609,7 +22086,6 @@ GetFragDataLocationEXT(program, name)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetFragDataLocation
-	glsalias	GetFragDataLocation
 
 Uniform1uiEXT(location, v0)
 	return		void
@@ -22621,7 +22097,6 @@ Uniform1uiEXT(location, v0)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform1ui
-	glsalias	Uniform1ui
 
 Uniform2uiEXT(location, v0, v1)
 	return		void
@@ -22634,7 +22109,6 @@ Uniform2uiEXT(location, v0, v1)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform2ui
-	glsalias	Uniform2ui
 
 Uniform3uiEXT(location, v0, v1, v2)
 	return		void
@@ -22648,7 +22122,6 @@ Uniform3uiEXT(location, v0, v1, v2)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform3ui
-	glsalias	Uniform3ui
 
 Uniform4uiEXT(location, v0, v1, v2, v3)
 	return		void
@@ -22663,7 +22136,6 @@ Uniform4uiEXT(location, v0, v1, v2, v3)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform4ui
-	glsalias	Uniform4ui
 
 Uniform1uivEXT(location, count, value)
 	return		void
@@ -22676,7 +22148,6 @@ Uniform1uivEXT(location, count, value)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform1uiv
-	glsalias	Uniform1uiv
 
 Uniform2uivEXT(location, count, value)
 	return		void
@@ -22689,7 +22160,6 @@ Uniform2uivEXT(location, count, value)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform2uiv
-	glsalias	Uniform2uiv
 
 Uniform3uivEXT(location, count, value)
 	return		void
@@ -22702,7 +22172,6 @@ Uniform3uivEXT(location, count, value)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform3uiv
-	glsalias	Uniform3uiv
 
 Uniform4uivEXT(location, count, value)
 	return		void
@@ -22715,7 +22184,6 @@ Uniform4uivEXT(location, count, value)
 	glfflags	ignore
 	glxflags	ignore
 	alias		Uniform4uiv
-	glsalias	Uniform4uiv
 
 ###############################################################################
 #
@@ -22738,7 +22206,6 @@ DrawArraysInstancedEXT(mode, start, count, primcount)
 	glfflags	ignore
 	glxflags	ignore
 	alias		DrawArraysInstancedARB
-	glsalias	DrawArraysInstancedARB
 
 DrawElementsInstancedEXT(mode, count, type, indices, primcount)
 	return		void
@@ -22755,7 +22222,6 @@ DrawElementsInstancedEXT(mode, count, type, indices, primcount)
 	glfflags	ignore
 	glxflags	ignore
 	alias		DrawElementsInstancedARB
-	glsalias	DrawElementsInstancedARB
 
 ###############################################################################
 #
@@ -22795,7 +22261,6 @@ TexBufferEXT(target, internalformat, buffer)
 	glfflags	ignore
 	glxflags	ignore
 	alias		TexBufferARB
-	glsalias	TexBufferARB
 
 ###############################################################################
 #
@@ -22842,7 +22307,6 @@ DepthRangedNV(zNear, zFar)
 	extension	soft WINSOFT NV50
 	version		2.0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ClearDepthdNV(depth)
@@ -22852,7 +22316,6 @@ ClearDepthdNV(depth)
 	extension	soft WINSOFT NV50
 	version		2.0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 DepthBoundsdNV(zmin, zmax)
@@ -22863,7 +22326,6 @@ DepthBoundsdNV(zmin, zmax)
 	extension	soft WINSOFT NV50
 	version		2.0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -22896,7 +22358,6 @@ RenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, 
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -22937,7 +22398,6 @@ ProgramBufferParametersfvNV(target, buffer, index, count, params)
 	version		1.2
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramBufferParametersIivNV(target, buffer, index, count, params)
@@ -22951,7 +22411,6 @@ ProgramBufferParametersIivNV(target, buffer, index, count, params)
 	version		1.2
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ProgramBufferParametersIuivNV(target, buffer, index, count, params)
@@ -22965,7 +22424,6 @@ ProgramBufferParametersIuivNV(target, buffer, index, count, params)
 	version		1.2
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -22988,7 +22446,6 @@ ColorMaskIndexedEXT(index, r, g, b, a)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		ColorMaski
-	glsalias	ColorMaski
 
 GetBooleanIndexedvEXT(target, index, data)
 	return		void
@@ -23002,7 +22459,6 @@ GetBooleanIndexedvEXT(target, index, data)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		GetBooleani_v
-	glsalias	GetBooleani_v
 
 GetIntegerIndexedvEXT(target, index, data)
 	return		void
@@ -23016,7 +22472,6 @@ GetIntegerIndexedvEXT(target, index, data)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		GetIntegeri_v
-	glsalias	GetIntegeri_v
 
 EnableIndexedEXT(target, index)
 	return		void
@@ -23028,7 +22483,6 @@ EnableIndexedEXT(target, index)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		Enablei
-	glsalias	Enablei
 
 DisableIndexedEXT(target, index)
 	return		void
@@ -23040,7 +22494,6 @@ DisableIndexedEXT(target, index)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		Disablei
-	glsalias	Disablei
 
 IsEnabledIndexedEXT(target, index)
 	return		Boolean
@@ -23053,7 +22506,6 @@ IsEnabledIndexedEXT(target, index)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		IsEnabledi
-	glsalias	IsEnabledi
 
 ###############################################################################
 #
@@ -23072,7 +22524,6 @@ BeginTransformFeedbackNV(primitiveMode)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BeginTransformFeedback
-	glsalias	BeginTransformFeedback
 
 EndTransformFeedbackNV()
 	return		void
@@ -23083,7 +22534,6 @@ EndTransformFeedbackNV()
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		EndTransformFeedback
-	glsalias	EndTransformFeedback
 
 TransformFeedbackAttribsNV(count, attribs, bufferMode)
 	return		void
@@ -23095,7 +22545,6 @@ TransformFeedbackAttribsNV(count, attribs, bufferMode)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 BindBufferRangeNV(target, index, buffer, offset, size)
@@ -23112,7 +22561,6 @@ BindBufferRangeNV(target, index, buffer, offset, size)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BindBufferRange
-	glsalias	BindBufferRange
 
 BindBufferOffsetNV(target, index, buffer, offset)
 	return		void
@@ -23127,7 +22575,6 @@ BindBufferOffsetNV(target, index, buffer, offset)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BindBufferOffsetEXT
-	glsalias	BindBufferOffsetEXT
 
 BindBufferBaseNV(target, index, buffer)
 	return		void
@@ -23141,13 +22588,12 @@ BindBufferBaseNV(target, index, buffer)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BindBufferBase
-	glsalias	BindBufferBase
 
-TransformFeedbackVaryingsNV(program, count, locations, bufferMode)
+TransformFeedbackVaryingsNV(program, count, varyings, bufferMode)
 	return		void
 	param		program		UInt32 in value
 	param		count		SizeI in value
-	param		locations	Int32 in array [COMPSIZE(count)]
+	param		varyings	CharPointer in array [count]
 	param		bufferMode	GLenum in value
 	category	NV_transform_feedback
 	version		1.5
@@ -23156,7 +22602,6 @@ TransformFeedbackVaryingsNV(program, count, locations, bufferMode)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		TransformFeedbackVaryings
-	glsalias	TransformFeedbackVaryings
 
 ActiveVaryingNV(program, name)
 	return		void
@@ -23167,7 +22612,6 @@ ActiveVaryingNV(program, name)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 GetVaryingLocationNV(program, name)
@@ -23178,7 +22622,6 @@ GetVaryingLocationNV(program, name)
 	dlflags		notlistable
 	version		1.5
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 
@@ -23196,7 +22639,6 @@ GetActiveVaryingNV(program, index, bufSize, length, size, type, name)
 	version		1.5
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetTransformFeedbackVaryingNV(program, index, location)
@@ -23211,7 +22653,6 @@ GetTransformFeedbackVaryingNV(program, index, location)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetTransformFeedbackVarying
-	glsalias	GetTransformFeedbackVarying
 
 ###############################################################################
 #
@@ -23230,7 +22671,6 @@ UniformBufferEXT(program, location, buffer)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 GetUniformBufferSizeEXT(program, location)
 	return		Int32
@@ -23241,7 +22681,6 @@ GetUniformBufferSizeEXT(program, location)
 	version		2.0
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 GetUniformOffsetEXT(program, location)
@@ -23253,7 +22692,6 @@ GetUniformOffsetEXT(program, location)
 	version		2.0
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -23274,7 +22712,6 @@ TexParameterIivEXT(target, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		TexParameterIiv
-	glsalias	TexParameterIiv
 
 TexParameterIuivEXT(target, pname, params)
 	return		void
@@ -23287,7 +22724,6 @@ TexParameterIuivEXT(target, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		TexParameterIuiv
-	glsalias	TexParameterIuiv
 
 GetTexParameterIivEXT(target, pname, params)
 	return		void
@@ -23302,7 +22738,6 @@ GetTexParameterIivEXT(target, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetTexParameterIiv
-	glsalias	GetTexParameterIiv
 
 GetTexParameterIuivEXT(target, pname, params)
 	return		void
@@ -23317,7 +22752,6 @@ GetTexParameterIuivEXT(target, pname, params)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetTexParameterIuiv
-	glsalias	GetTexParameterIuiv
 
 ClearColorIiEXT(red, green, blue, alpha)
 	return		void
@@ -23329,7 +22763,6 @@ ClearColorIiEXT(red, green, blue, alpha)
 	version		2.0
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ClearColorIuiEXT(red, green, blue, alpha)
@@ -23342,7 +22775,6 @@ ClearColorIuiEXT(red, green, blue, alpha)
 	version		2.0
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 
 ###############################################################################
@@ -23363,7 +22795,6 @@ FrameTerminatorGREMEDY()
 	category	GREMEDY_frame_terminator
 	version		1.0
 	extension
-	glsflags	ignore
 	glxflags	ignore
 	offset		?
 
@@ -23382,16 +22813,13 @@ BeginConditionalRenderNV(id, mode)
 	glfflags	ignore
 	glxflags	ignore
 	alias		BeginConditionalRender
-	glsalias	BeginConditionalRender
 
 EndConditionalRenderNV()
 	return		void
 	category	NV_conditional_render
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	alias		EndConditionalRender
-	glsalias	EndConditionalRender
 
 ###############################################################################
 #
@@ -23401,8 +22829,6 @@ EndConditionalRenderNV()
 ###############################################################################
 
 # TBD
-newcategory: NV_present_video
-
 #    void PresentFrameKeyedNV(uint video_slot, uint64EXT minPresentTime,
 #			      uint beginPresentTimeId, uint
 #			      presentDurationId, enum type, enum target0,
@@ -23421,6 +22847,100 @@ newcategory: NV_present_video
 #    void GetVideoi64vNV(uint video_slot, enum pname, int64EXT *params);
 #    void GetVideoui64vNV(uint video_slot, enum pname, uint64EXT *params);
 #    void VideoParameterivNV(uint video_slot, enum pname, const int *params);
+
+PresentFrameKeyedNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, key0, target1, fill1, key1)
+	return		void
+	param		video_slot	UInt32 in value
+	param		minPresentTime	UInt64EXT in value
+	param		beginPresentTimeId	UInt32 in value
+	param		presentDurationId	UInt32 in value
+	param		type		GLenum in value
+	param		target0		GLenum in value
+	param		fill0		UInt32 in value
+	param		key0		UInt32 in value
+	param		target1		GLenum in value
+	param		fill1		UInt32 in value
+	param		key1		UInt32 in value
+	category	NV_present_video
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+PresentFrameDualFillNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, target1, fill1, target2, fill2, target3, fill3)
+	return		void
+	param		video_slot	UInt32 in value
+	param		minPresentTime	UInt64EXT in value
+	param		beginPresentTimeId	UInt32 in value
+	param		presentDurationId	UInt32 in value
+	param		type		GLenum in value
+	param		target0		GLenum in value
+	param		fill0		UInt32 in value
+	param		target1		GLenum in value
+	param		fill1		UInt32 in value
+	param		target2		GLenum in value
+	param		fill2		UInt32 in value
+	param		target3		GLenum in value
+	param		fill3		UInt32 in value
+	category	NV_present_video
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetVideoivNV(video_slot, pname, params)
+	return		void
+	param		video_slot	UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	NV_present_video
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideouivNV(video_slot, pname, params)
+	return		void
+	param		video_slot	UInt32 in value
+	param		pname		GLenum in value
+	param		params		UInt32 out array [COMPSIZE(pname)]
+	category	NV_present_video
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideoi64vNV(video_slot, pname, params)
+	return		void
+	param		video_slot	UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int64EXT out array [COMPSIZE(pname)]
+	category	NV_present_video
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetVideoui64vNV(video_slot, pname, params)
+	return		void
+	param		video_slot	UInt32 in value
+	param		pname		GLenum in value
+	param		params		UInt64EXT out array [COMPSIZE(pname)]
+	category	NV_present_video
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
 
 ###############################################################################
 #
@@ -23450,7 +22970,6 @@ BeginTransformFeedbackEXT(primitiveMode)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BeginTransformFeedback
-	glsalias	BeginTransformFeedback
 
 EndTransformFeedbackEXT()
 	return		void
@@ -23461,7 +22980,6 @@ EndTransformFeedbackEXT()
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		EndTransformFeedback
-	glsalias	EndTransformFeedback
 
 BindBufferRangeEXT(target, index, buffer, offset, size)
 	return		void
@@ -23477,7 +22995,6 @@ BindBufferRangeEXT(target, index, buffer, offset, size)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BindBufferRange
-	glsalias	BindBufferRange
 
 # Not promoted to the OpenGL 3.0 core
 BindBufferOffsetEXT(target, index, buffer, offset)
@@ -23491,7 +23008,6 @@ BindBufferOffsetEXT(target, index, buffer, offset)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 BindBufferBaseEXT(target, index, buffer)
@@ -23506,13 +23022,12 @@ BindBufferBaseEXT(target, index, buffer)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		BindBufferBase
-	glsalias	BindBufferBase
 
-TransformFeedbackVaryingsEXT(program, count, locations, bufferMode)
+TransformFeedbackVaryingsEXT(program, count, varyings, bufferMode)
 	return		void
 	param		program		UInt32 in value
 	param		count		SizeI in value
-	param		locations	Int32 in array [COMPSIZE(count)]
+	param		varyings	CharPointer in array [count]
 	param		bufferMode	GLenum in value
 	category	EXT_transform_feedback
 	version		2.0
@@ -23521,14 +23036,16 @@ TransformFeedbackVaryingsEXT(program, count, locations, bufferMode)
 	glfflags	ignore
 	extension	soft WINSOFT
 	alias		TransformFeedbackVaryings
-	glsalias	TransformFeedbackVaryings
 
-
-GetTransformFeedbackVaryingEXT(program, index, location)
+GetTransformFeedbackVaryingEXT(program, index, bufSize, length, size, type, name)
 	return		void
 	param		program		UInt32 in value
 	param		index		UInt32 in value
-	param		location	Int32 out array [1]
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		size		SizeI out array [1]
+	param		type		GLenum out array [1]
+	param		name		Char out array [COMPSIZE(length)]
 	category	EXT_transform_feedback
 	dlflags		notlistable
 	version		2.0
@@ -23536,7 +23053,6 @@ GetTransformFeedbackVaryingEXT(program, index, location)
 	glfflags	ignore
 	glxflags	ignore
 	alias		GetTransformFeedbackVarying
-	glsalias	GetTransformFeedbackVarying
 
 ###############################################################################
 #
@@ -23554,7 +23070,6 @@ ClientAttribDefaultEXT(mask)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glxflags	ignore ### client-handcode client-intercept server-handcode
-	glsflags	client-state
 
 PushClientAttribDefaultEXT(mask)
 	return		void
@@ -23563,7 +23078,6 @@ PushClientAttribDefaultEXT(mask)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glxflags	ignore ### client-handcode client-intercept server-handcode
-	glsflags	client-state
 
 # New 1.0 matrix commands
 
@@ -23575,7 +23089,6 @@ MatrixLoadfEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixLoaddEXT(mode, m)
 	return		void
@@ -23585,7 +23098,6 @@ MatrixLoaddEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixMultfEXT(mode, m)
 	return		void
@@ -23595,7 +23107,6 @@ MatrixMultfEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixMultdEXT(mode, m)
 	return		void
@@ -23605,7 +23116,6 @@ MatrixMultdEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixLoadIdentityEXT(mode)
 	return		void
@@ -23614,7 +23124,6 @@ MatrixLoadIdentityEXT(mode)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixRotatefEXT(mode, angle, x, y, z)
 	return		void
@@ -23627,7 +23136,6 @@ MatrixRotatefEXT(mode, angle, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixRotatedEXT(mode, angle, x, y, z)
 	return		void
@@ -23640,7 +23148,6 @@ MatrixRotatedEXT(mode, angle, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixScalefEXT(mode, x, y, z)
 	return		void
@@ -23652,7 +23159,6 @@ MatrixScalefEXT(mode, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixScaledEXT(mode, x, y, z)
 	return		void
@@ -23664,7 +23170,6 @@ MatrixScaledEXT(mode, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixTranslatefEXT(mode, x, y, z)
 	return		void
@@ -23676,7 +23181,6 @@ MatrixTranslatefEXT(mode, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixTranslatedEXT(mode, x, y, z)
 	return		void
@@ -23688,7 +23192,6 @@ MatrixTranslatedEXT(mode, x, y, z)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar)
 	return		void
@@ -23703,7 +23206,6 @@ MatrixFrustumEXT(mode, left, right, bottom, top, zNear, zFar)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar)
 	return		void
@@ -23718,7 +23220,6 @@ MatrixOrthoEXT(mode, left, right, bottom, top, zNear, zFar)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixPopEXT(mode)
 	return		void
@@ -23727,7 +23228,6 @@ MatrixPopEXT(mode)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixPushEXT(mode)
 	return		void
@@ -23736,7 +23236,6 @@ MatrixPushEXT(mode)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 # New 1.3 matrix transpose commands
 
@@ -23748,7 +23247,6 @@ MatrixLoadTransposefEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixLoadTransposedEXT(mode, m)
 	return		void
@@ -23758,7 +23256,6 @@ MatrixLoadTransposedEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixMultTransposefEXT(mode, m)
 	return		void
@@ -23768,7 +23265,6 @@ MatrixMultTransposefEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MatrixMultTransposedEXT(mode, m)
 	return		void
@@ -23778,7 +23274,6 @@ MatrixMultTransposedEXT(mode, m)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 # New 1.1 texture object commands
 
@@ -23792,7 +23287,6 @@ TextureParameterfEXT(texture, target, pname, param)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	vectorequiv	TextureParameterfvEXT
 
 TextureParameterfvEXT(texture, target, pname, params)
@@ -23805,7 +23299,6 @@ TextureParameterfvEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 TextureParameteriEXT(texture, target, pname, param)
 	return		void
@@ -23817,7 +23310,6 @@ TextureParameteriEXT(texture, target, pname, param)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	vectorequiv	TextureParameterivEXT
 
 TextureParameterivEXT(texture, target, pname, params)
@@ -23830,7 +23322,6 @@ TextureParameterivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 TextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels)
 	return		void
@@ -23848,7 +23339,6 @@ TextureImage1DEXT(texture, target, level, internalformat, width, border, format,
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-handcode decode-handcode pixel-unpack
-	glsflags	pixel-null pixel-unpack
 
 TextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels)
 	return		void
@@ -23867,7 +23357,6 @@ TextureImage2DEXT(texture, target, level, internalformat, width, height, border,
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-handcode decode-handcode pixel-unpack
-	glsflags	pixel-null pixel-unpack
 
 TextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels)
 	return		void
@@ -23885,7 +23374,6 @@ TextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixel
 	glxflags	ignore
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	pixel-unpack
 
 TextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels)
 	return		void
@@ -23904,7 +23392,6 @@ TextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, fo
 	glxflags	ignore ### EXT client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	pixel-unpack
 
 CopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border)
 	return		void
@@ -23978,7 +23465,6 @@ GetTextureImageEXT(texture, target, level, format, type, pixels)
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-execute capture-handcode decode-handcode pixel-pack
-	glsflags	get pixel-pack
 
 GetTextureParameterfvEXT(texture, target, pname, params)
 	return		void
@@ -23991,7 +23477,6 @@ GetTextureParameterfvEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetTextureParameterivEXT(texture, target, pname, params)
 	return		void
@@ -24004,7 +23489,6 @@ GetTextureParameterivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetTextureLevelParameterfvEXT(texture, target, level, pname, params)
 	return		void
@@ -24018,7 +23502,6 @@ GetTextureLevelParameterfvEXT(texture, target, level, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetTextureLevelParameterivEXT(texture, target, level, pname, params)
 	return		void
@@ -24032,7 +23515,6 @@ GetTextureLevelParameterivEXT(texture, target, level, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 # New 1.2 3D texture object commands
 
@@ -24054,7 +23536,6 @@ TextureImage3DEXT(texture, target, level, internalformat, width, height, depth, 
 	glxflags	ignore ### client-handcode server-handcode EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 TextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 	return		void
@@ -24075,7 +23556,6 @@ TextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, h
 	glxflags	ignore ### client-handcode server-handcode EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 CopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height)
 	return		void
@@ -24093,7 +23573,6 @@ CopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y
 	glxflags	ignore ### EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 # New 1.1 multitexture commands
 
@@ -24107,7 +23586,6 @@ MultiTexParameterfEXT(texunit, target, pname, param)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	vectorequiv	MultiTexParameterfvEXT
 
 MultiTexParameterfvEXT(texunit, target, pname, params)
@@ -24120,7 +23598,6 @@ MultiTexParameterfvEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MultiTexParameteriEXT(texunit, target, pname, param)
 	return		void
@@ -24132,7 +23609,6 @@ MultiTexParameteriEXT(texunit, target, pname, param)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	vectorequiv	MultiTexParameterivEXT
 
 MultiTexParameterivEXT(texunit, target, pname, params)
@@ -24145,7 +23621,6 @@ MultiTexParameterivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels)
 	return		void
@@ -24163,7 +23638,6 @@ MultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-handcode decode-handcode pixel-unpack
-	glsflags	pixel-null pixel-unpack
 
 MultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels)
 	return		void
@@ -24182,7 +23656,6 @@ MultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-handcode decode-handcode pixel-unpack
-	glsflags	pixel-null pixel-unpack
 
 MultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels)
 	return		void
@@ -24199,7 +23672,6 @@ MultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixe
 	glxflags	ignore ### EXT client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	pixel-unpack
 
 MultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels)
 	return		void
@@ -24218,7 +23690,6 @@ MultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, f
 	glxflags	ignore ### EXT client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	pixel-unpack
 
 CopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border)
 	return		void
@@ -24292,7 +23763,6 @@ GetMultiTexImageEXT(texunit, target, level, format, type, pixels)
 	glxflags	ignore ### client-handcode server-handcode
 	extension	soft WINSOFT
 	glfflags	capture-execute capture-handcode decode-handcode pixel-pack
-	glsflags	get pixel-pack
 
 GetMultiTexParameterfvEXT(texunit, target, pname, params)
 	return		void
@@ -24305,7 +23775,6 @@ GetMultiTexParameterfvEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexParameterivEXT(texunit, target, pname, params)
 	return		void
@@ -24318,7 +23787,6 @@ GetMultiTexParameterivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params)
 	return		void
@@ -24332,7 +23800,6 @@ GetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexLevelParameterivEXT(texunit, target, level, pname, params)
 	return		void
@@ -24346,7 +23813,6 @@ GetMultiTexLevelParameterivEXT(texunit, target, level, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 # New 1.2 3D multitexture commands
 
@@ -24368,7 +23834,6 @@ MultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth,
 	glxflags	ignore ### client-handcode server-handcode EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 MultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels)
 	return		void
@@ -24389,7 +23854,6 @@ MultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, 
 	glxflags	ignore ### client-handcode server-handcode EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 CopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height)
 	return		void
@@ -24407,7 +23871,6 @@ CopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, 
 	glxflags	ignore ### EXT
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 
 # New 1.2.1 multitexture texture commands
 
@@ -24428,7 +23891,6 @@ EnableClientStateIndexedEXT(array, index)
 	dlflags		notlistable
 	glxflags	ignore ### client-handcode client-intercept server-handcode
 	extension	soft WINSOFT
-	glsflags	client-state
 
 DisableClientStateIndexedEXT(array, index)
 	return		void
@@ -24438,7 +23900,6 @@ DisableClientStateIndexedEXT(array, index)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glxflags	ignore ### client-handcode client-intercept server-handcode
-	glsflags	client-state
 
 MultiTexCoordPointerEXT(texunit, size, type, stride, pointer)
 	return		void
@@ -24452,7 +23913,6 @@ MultiTexCoordPointerEXT(texunit, size, type, stride, pointer)
 	glxflags	ignore ### client-handcode client-intercept server-handcode
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	client-state
 
 MultiTexEnvfEXT(texunit, target, pname, param)
 	return		void
@@ -24465,7 +23925,6 @@ MultiTexEnvfEXT(texunit, target, pname, param)
 	vectorequiv	MultiTexEnvfvEXT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexEnvfvEXT(texunit, target, pname, params)
 	return		void
@@ -24477,7 +23936,6 @@ MultiTexEnvfvEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexEnviEXT(texunit, target, pname, param)
 	return		void
@@ -24490,7 +23948,6 @@ MultiTexEnviEXT(texunit, target, pname, param)
 	vectorequiv	MultiTexEnvivEXT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexEnvivEXT(texunit, target, pname, params)
 	return		void
@@ -24502,7 +23959,6 @@ MultiTexEnvivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGendEXT(texunit, coord, pname, param)
 	return		void
@@ -24515,7 +23971,6 @@ MultiTexGendEXT(texunit, coord, pname, param)
 	vectorequiv	MultiTexGendvEXT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGendvEXT(texunit, coord, pname, params)
 	return		void
@@ -24527,7 +23982,6 @@ MultiTexGendvEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGenfEXT(texunit, coord, pname, param)
 	return		void
@@ -24540,7 +23994,6 @@ MultiTexGenfEXT(texunit, coord, pname, param)
 	vectorequiv	MultiTexGenfvEXT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGenfvEXT(texunit, coord, pname, params)
 	return		void
@@ -24552,7 +24005,6 @@ MultiTexGenfvEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGeniEXT(texunit, coord, pname, param)
 	return		void
@@ -24565,7 +24017,6 @@ MultiTexGeniEXT(texunit, coord, pname, param)
 	vectorequiv	MultiTexGenivEXT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 MultiTexGenivEXT(texunit, coord, pname, params)
 	return		void
@@ -24577,7 +24028,6 @@ MultiTexGenivEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	gl-enum
-	glsflags	gl-enum
 
 # New 1.2.1 multitexture texture queries
 
@@ -24592,7 +24042,6 @@ GetMultiTexEnvfvEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexEnvivEXT(texunit, target, pname, params)
 	return		void
@@ -24605,7 +24054,6 @@ GetMultiTexEnvivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexGendvEXT(texunit, coord, pname, params)
 	return		void
@@ -24618,7 +24066,6 @@ GetMultiTexGendvEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexGenfvEXT(texunit, coord, pname, params)
 	return		void
@@ -24631,7 +24078,6 @@ GetMultiTexGenfvEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 GetMultiTexGenivEXT(texunit, coord, pname, params)
 	return		void
@@ -24644,7 +24090,6 @@ GetMultiTexGenivEXT(texunit, coord, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 # From EXT_draw_buffers2
 # EnableIndexedEXT
@@ -24660,7 +24105,6 @@ GetFloatIndexedvEXT(target, index, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 GetDoubleIndexedvEXT(target, index, data)
@@ -24672,7 +24116,6 @@ GetDoubleIndexedvEXT(target, index, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 GetPointerIndexedvEXT(target, index, data)
@@ -24684,7 +24127,6 @@ GetPointerIndexedvEXT(target, index, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 # New compressed texture commands
@@ -24705,7 +24147,6 @@ CompressedTextureImage3DEXT(texture, target, level, internalformat, width, heigh
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, bits)
@@ -24723,7 +24164,6 @@ CompressedTextureImage2DEXT(texture, target, level, internalformat, width, heigh
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, bits)
@@ -24740,7 +24180,6 @@ CompressedTextureImage1DEXT(texture, target, level, internalformat, width, borde
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits)
@@ -24761,7 +24200,6 @@ CompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, bits)
@@ -24780,7 +24218,6 @@ CompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, 
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, bits)
@@ -24797,7 +24234,6 @@ CompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, i
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 # New compressed texture query
@@ -24811,7 +24247,6 @@ GetCompressedTextureImageEXT(texture, target, lod, img)
 	category	EXT_direct_state_access
 	dlflags		notlistable
 	glxflags	ignore ### server-handcode
-	glsflags	ignore
 	extension	soft WINSOFT
 
 # New compressed multitexture commands
@@ -24832,7 +24267,6 @@ CompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, heig
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, bits)
@@ -24850,7 +24284,6 @@ CompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, heig
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, bits)
@@ -24867,7 +24300,6 @@ CompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, bord
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, bits)
@@ -24888,7 +24320,6 @@ CompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffse
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, bits)
@@ -24907,7 +24338,6 @@ CompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width,
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 CompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, bits)
@@ -24924,7 +24354,6 @@ CompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, 
 	dlflags		handcode
 	glxflags	ignore ### client-handcode server-handcode
 	glfflags	ignore
-	glsflags	ignore
 	extension	soft WINSOFT
 
 # New compressed multitexture query
@@ -24938,7 +24367,6 @@ GetCompressedMultiTexImageEXT(texunit, target, lod, img)
 	category	EXT_direct_state_access
 	dlflags		notlistable
 	glxflags	ignore ### server-handcode
-	glsflags	ignore
 	extension	soft WINSOFT
 
 # New ARB assembly program named commands
@@ -24954,7 +24382,6 @@ NamedProgramStringEXT(program, target, format, len, string)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### client-handcode server-handcode EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -24973,7 +24400,6 @@ NamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w)
 	glxvectorequiv	NamedProgramLocalParameter4dvEXT
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -24987,7 +24413,6 @@ NamedProgramLocalParameter4dvEXT(program, target, index, params)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25006,7 +24431,6 @@ NamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w)
 	glxvectorequiv	NamedProgramLocalParameter4fvEXT
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25020,7 +24444,6 @@ NamedProgramLocalParameter4fvEXT(program, target, index, params)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25037,7 +24460,6 @@ GetNamedProgramLocalParameterdvEXT(program, target, index, params)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### client-handcode server-handcode EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25052,7 +24474,6 @@ GetNamedProgramLocalParameterfvEXT(program, target, index, params)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### client-handcode server-handcode EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25067,7 +24488,6 @@ GetNamedProgramivEXT(program, target, pname, params)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### client-handcode server-handcode EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25082,7 +24502,6 @@ GetNamedProgramStringEXT(program, target, pname, string)
 	subcategory	ARB_vertex_program
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore ### client-handcode server-handcode EXT
 	glextmask	GL_MASK_ARB_vertex_program|GL_MASK_ARB_fragment_program
 
@@ -25099,7 +24518,6 @@ NamedProgramLocalParameters4fvEXT(program, target, index, count, params)
 	subcategory	EXT_gpu_program_parameters
 	extension	soft WINSOFT NV10
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_gpu_program_parameters
 
@@ -25120,7 +24538,6 @@ NamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w)
 	glxvectorequiv	NamedProgramLocalParameterI4ivEXT
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25134,7 +24551,6 @@ NamedProgramLocalParameterI4ivEXT(program, target, index, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25149,7 +24565,6 @@ NamedProgramLocalParametersI4ivEXT(program, target, index, count, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25168,7 +24583,6 @@ NamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w)
 	glxvectorequiv	NamedProgramLocalParameterI4uivEXT
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25182,7 +24596,6 @@ NamedProgramLocalParameterI4uivEXT(program, target, index, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25197,7 +24610,6 @@ NamedProgramLocalParametersI4uivEXT(program, target, index, count, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25212,7 +24624,6 @@ GetNamedProgramLocalParameterIivEXT(program, target, index, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25227,7 +24638,6 @@ GetNamedProgramLocalParameterIuivEXT(program, target, index, params)
 	subcategory	NV_gpu_program4
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -25244,7 +24654,6 @@ TextureParameterIivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
 TextureParameterIuivEXT(texture, target, pname, params)
@@ -25258,7 +24667,6 @@ TextureParameterIuivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
 # New EXT_texture_integer texture object queries
@@ -25275,7 +24683,6 @@ GetTextureParameterIivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 	glextmask	GL_MASK_EXT_texture_integer
 
 GetTextureParameterIuivEXT(texture, target, pname, params)
@@ -25290,7 +24697,6 @@ GetTextureParameterIuivEXT(texture, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 	glextmask	GL_MASK_EXT_texture_integer
 
 # New EXT_texture_integer multitexture commands
@@ -25306,7 +24712,6 @@ MultiTexParameterIivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
 MultiTexParameterIuivEXT(texunit, target, pname, params)
@@ -25320,7 +24725,6 @@ MultiTexParameterIuivEXT(texunit, target, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
 # New EXT_texture_integer multitexture queries
@@ -25336,7 +24740,6 @@ GetMultiTexParameterIivEXT(texunit, target, pname, params)
 	dlflags		notlistable
 	extension	soft WINSOFT
 	glfflags	capture-execute gl-enum
-	glsflags	get
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
@@ -25351,7 +24754,6 @@ GetMultiTexParameterIuivEXT(texunit, target, pname, params)
 	dlflags		notlistable
 	extension	soft WINSOFT
 	glfflags	capture-execute gl-enum
-	glsflags	get
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_texture_integer
 
@@ -25365,7 +24767,6 @@ ProgramUniform1fEXT(program, location, v0)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25379,7 +24780,6 @@ ProgramUniform2fEXT(program, location, v0, v1)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25394,7 +24794,6 @@ ProgramUniform3fEXT(program, location, v0, v1, v2)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25410,7 +24809,6 @@ ProgramUniform4fEXT(program, location, v0, v1, v2, v3)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25423,7 +24821,6 @@ ProgramUniform1iEXT(program, location, v0)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25437,7 +24834,6 @@ ProgramUniform2iEXT(program, location, v0, v1)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25452,7 +24848,6 @@ ProgramUniform3iEXT(program, location, v0, v1, v2)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25468,7 +24863,6 @@ ProgramUniform4iEXT(program, location, v0, v1, v2, v3)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25482,7 +24876,6 @@ ProgramUniform1fvEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25496,7 +24889,6 @@ ProgramUniform2fvEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25510,7 +24902,6 @@ ProgramUniform3fvEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25524,7 +24915,6 @@ ProgramUniform4fvEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25538,7 +24928,6 @@ ProgramUniform1ivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25552,7 +24941,6 @@ ProgramUniform2ivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25566,7 +24954,6 @@ ProgramUniform3ivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25580,7 +24967,6 @@ ProgramUniform4ivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25595,7 +24981,6 @@ ProgramUniformMatrix2fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25610,7 +24995,6 @@ ProgramUniformMatrix3fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25625,7 +25009,6 @@ ProgramUniformMatrix4fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_0
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25642,7 +25025,6 @@ ProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25657,7 +25039,6 @@ ProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25672,7 +25053,6 @@ ProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25687,7 +25067,6 @@ ProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25702,7 +25081,6 @@ ProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25717,7 +25095,6 @@ ProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value)
 	category	EXT_direct_state_access
 	subcategory	VERSION_2_1
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25732,7 +25109,6 @@ ProgramUniform1uiEXT(program, location, v0)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25746,7 +25122,6 @@ ProgramUniform2uiEXT(program, location, v0, v1)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25761,7 +25136,6 @@ ProgramUniform3uiEXT(program, location, v0, v1, v2)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25777,7 +25151,6 @@ ProgramUniform4uiEXT(program, location, v0, v1, v2, v3)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25791,7 +25164,6 @@ ProgramUniform1uivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25805,7 +25177,6 @@ ProgramUniform2uivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25819,7 +25190,6 @@ ProgramUniform3uivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25833,7 +25203,6 @@ ProgramUniform4uivEXT(program, location, count, value)
 	category	EXT_direct_state_access
 	subcategory	EXT_gpu_shader4
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	extension	soft WINSOFT
 	glextmask	GL_MASK_OpenGL_2_0
@@ -25851,7 +25220,6 @@ NamedBufferDataEXT(buffer, size, data, usage)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 NamedBufferSubDataEXT(buffer, offset, size, data)
 	return		void
@@ -25864,7 +25232,6 @@ NamedBufferSubDataEXT(buffer, offset, size, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 MapNamedBufferEXT(buffer, access)
 	return		VoidPointer
@@ -25875,7 +25242,6 @@ MapNamedBufferEXT(buffer, access)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 UnmapNamedBufferEXT(buffer)
 	return		Boolean
@@ -25885,7 +25251,6 @@ UnmapNamedBufferEXT(buffer)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 # New named buffer queries
 
@@ -25899,7 +25264,6 @@ GetNamedBufferParameterivEXT(buffer, pname, params)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 GetNamedBufferPointervEXT(buffer, pname, params)
 	return		void
@@ -25911,7 +25275,6 @@ GetNamedBufferPointervEXT(buffer, pname, params)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 GetNamedBufferSubDataEXT(buffer, offset, size, data)
 	return		void
@@ -25924,7 +25287,6 @@ GetNamedBufferSubDataEXT(buffer, offset, size, data)
 	dlflags		notlistable
 	glxflags	ignore
 	glfflags	ignore
-	glsflags	ignore
 
 # New named texture buffer texture object command
 
@@ -25938,7 +25300,6 @@ TextureBufferEXT(texture, target, internalformat, buffer)
 	subcategory	EXT_texture_buffer_object
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_texture_buffer_object
 	dlflags		notlistable
@@ -25955,7 +25316,6 @@ MultiTexBufferEXT(texunit, target, internalformat, buffer)
 	subcategory	EXT_texture_buffer_object
 	extension	soft WINSOFT NV50
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_texture_buffer_object
 	dlflags		notlistable
@@ -25973,7 +25333,6 @@ NamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -25987,7 +25346,6 @@ GetNamedRenderbufferParameterivEXT(renderbuffer, pname, params)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26000,7 +25358,6 @@ CheckNamedFramebufferStatusEXT(framebuffer, target)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26016,7 +25373,6 @@ NamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26032,7 +25388,6 @@ NamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26049,7 +25404,6 @@ NamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level,
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26064,7 +25418,6 @@ NamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, ren
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26079,7 +25432,6 @@ GetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, para
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26092,7 +25444,6 @@ GenerateTextureMipmapEXT(texture, target)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26105,7 +25456,6 @@ GenerateMultiTexMipmapEXT(texunit, target)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26117,7 +25467,6 @@ FramebufferDrawBufferEXT(framebuffer, mode)
 	subcategory	EXT_framebuffer_object
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26130,7 +25479,6 @@ FramebufferDrawBuffersEXT(framebuffer, n, bufs)
 	subcategory	EXT_framebuffer_object
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26142,7 +25490,6 @@ FramebufferReadBufferEXT(framebuffer, mode)
 	subcategory	EXT_framebuffer_object
 	extension	soft WINSOFT
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_object
 
@@ -26157,7 +25504,6 @@ GetFramebufferParameterivEXT(framebuffer, pname, params)
 	extension	soft WINSOFT
 	glxflags	ignore
 	glfflags	capture-execute gl-enum
-	glsflags	get
 
 # New named framebuffer multisample object commands
 
@@ -26173,7 +25519,6 @@ NamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, wi
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_EXT_framebuffer_multisample
 
@@ -26192,7 +25537,6 @@ NamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, co
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_framebuffer_multisample_coverage
 
@@ -26209,7 +25553,6 @@ NamedFramebufferTextureEXT(framebuffer, attachment, texture, level)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -26225,7 +25568,6 @@ NamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -26241,7 +25583,6 @@ NamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_gpu_program4
 
@@ -26257,7 +25598,6 @@ TextureRenderbufferEXT(texture, target, renderbuffer)
 	extension	soft WINSOFT NV50
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_explicit_multisample
 
@@ -26271,7 +25611,6 @@ MultiTexRenderbufferEXT(texunit, target, renderbuffer)
 	extension	soft WINSOFT NV50
 	dlflags		notlistable
 	glfflags	ignore
-	glsflags	ignore
 	glxflags	ignore
 	glextmask	GL_MASK_NV_explicit_multisample
 
@@ -26285,43 +25624,623 @@ MultiTexRenderbufferEXT(texunit, target, renderbuffer)
 # (none)
 newcategory: EXT_vertex_array_bgra
 
+###############################################################################
+#
+# Extension #355 - WGL_NV_gpu_affinity
+#
+###############################################################################
 
 ###############################################################################
 #
-# From mjk - need extension spec first
+# Extension #356
+# EXT_texture_swizzle commands
 #
-# ###############################################################################
-# #
-# # NV_explicit_multisample extension commands
-# #
-# ###############################################################################
+###############################################################################
+
+# (none)
+newcategory: EXT_texture_swizzle
+
+###############################################################################
 #
-# GetMultisamplefvNV(pname, index, val)
-#	  return	  void
-#	  param		  pname		  GetMultisamplePName in value
-#	  param		  index		  UInt32 in value
-#	  param		  val		  Float32 out array [2]
-#	  category	  NV_explicit_multisample
-#	  dlflags	  notlistable
-#	  glfflags	  ignore
-#	  glsflags	  ignore
-#	  glxflags	  ignore
+# Extension #357
+# NV_explicit_multisample commands
 #
-# SampleMaskIndexedNV(index, mask)
-#	  return	  void
-#	  param		  index		  UInt32 in value
-#	  param		  mask		  UInt32 in value
-#	  category	  NV_explicit_multisample
-#	  glfflags	  ignore
-#	  glsflags	  ignore
-#	  glxflags	  ignore
+###############################################################################
+
+# From EXT_draw_buffers2:  GetBooleanIndexedvEXT / GetIntegerIndexedvEXT
+
+GetMultisamplefvNV(pname, index, val)
+	return		void
+	param		pname		GetMultisamplePNameNV in value
+	param		index		UInt32 in value
+	param		val		Float32 out array [2]
+	category	NV_explicit_multisample
+	dlflags		notlistable
+	glfflags	ignore
+	glxflags	ignore
+
+SampleMaskIndexedNV(index, mask)
+	return		void
+	param		index		UInt32 in value
+	param		mask		SampleMaskNV in value
+	category	NV_explicit_multisample
+	glfflags	ignore
+	glxflags	ignore
+
+TexRenderbufferNV(target, renderbuffer)
+	return		void
+	param		target		TextureTarget in value
+	param		renderbuffer	UInt32 in value
+	category	NV_explicit_multisample
+	dlflags		notlistable
+	glfflags	ignore
+	glxflags	ignore
+
+###############################################################################
 #
-# TexRenderbufferNV(target, renderbuffer)
-#	  return	  void
-#	  param		  target	  TextureTarget in value
-#	  param		  renderbuffer	  UInt32 in value
-#	  category	  NV_explicit_multisample
-#	  dlflags	  notlistable
-#	  glfflags	  ignore
-#	  glsflags	  ignore
-#	  glxflags	  ignore
+# Extension #358
+# NV_transform_feedback2 commands
+#
+###############################################################################
+
+BindTransformFeedbackNV(target, id)
+	return		void
+	param		target		BufferTargetARB in value
+	param		id		UInt32 in value
+	category	NV_transform_feedback2
+	glfflags	ignore
+	glxflags	ignore
+
+DeleteTransformFeedbacksNV(n, ids)
+	return		void
+	param		n		SizeI in value
+	param		ids		UInt32 in array [n]
+	category	NV_transform_feedback2
+	dlflags		notlistable
+	glfflags	ignore
+	glxflags	ignore
+
+GenTransformFeedbacksNV(n, ids)
+	return		void
+	param		n		SizeI in value
+	param		ids		UInt32 out array [n]
+	category	NV_transform_feedback2
+	dlflags		notlistable
+	glfflags	ignore
+	glxflags	ignore
+
+IsTransformFeedbackNV(id)
+	return		Boolean
+	param		id		UInt32 in value
+	category	NV_transform_feedback2
+	dlflags		notlistable
+	glfflags	ignore
+	glxflags	ignore
+
+PauseTransformFeedbackNV()
+	return		void
+	category	NV_transform_feedback2
+	glfflags	ignore
+	glxflags	ignore
+
+ResumeTransformFeedbackNV()
+	return		void
+	category	NV_transform_feedback2
+	glfflags	ignore
+	glxflags	ignore
+
+DrawTransformFeedbackNV(mode, id)
+	return		void
+	param		mode		GLenum in value
+	param		id		UInt32 in value
+	category	NV_transform_feedback2
+	glfflags	ignore
+	glxflags	ignore
+
+###############################################################################
+#
+# Extension #359
+# ATI_meminfo commands
+#
+###############################################################################
+
+# (none)
+newcategory: ATI_meminfo
+
+###############################################################################
+#
+# Extension #360
+# AMD_performance_monitor commands
+#
+###############################################################################
+
+GetPerfMonitorGroupsAMD(numGroups, groupsSize, groups)
+	return		void
+	param		numGroups	Int32 out array [1]
+	param		groupsSize	SizeI in value
+	param		groups		UInt32 out array [groupsSize]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetPerfMonitorCountersAMD(group, numCounters, maxActiveCounters, counterSize, counters)
+	return		void
+	param		group		UInt32 in value
+	param		numCounters	Int32 out array [1]
+	param		maxActiveCounters Int32 out array [1]
+	param		counterSize	SizeI in value
+	param		counters	UInt32 out array [counterSize]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetPerfMonitorGroupStringAMD(group, bufSize, length, groupString)
+	return		void
+	param		group		UInt32 in value
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		groupString	Char out array [bufSize]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetPerfMonitorCounterStringAMD(group, counter, bufSize, length, counterString)
+	return		void
+	param		group		UInt32 in value
+	param		counter		UInt32 in value
+	param		bufSize		SizeI in value
+	param		length		SizeI out array [1]
+	param		counterString	Char out array [bufSize]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GetPerfMonitorCounterInfoAMD(group, counter, pname, data)
+	return		void
+	param		group		UInt32 in value
+	param		counter		UInt32 in value
+	param		pname		GLenum in value
+	param		data		void out array [COMPSIZE(pname)]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+GenPerfMonitorsAMD(n, monitors)
+	return		void
+	param		n		SizeI in value
+	param		monitors	UInt32 out array [n]
+	category	AMD_performance_monitor
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+# 'monitors' is actually in, not out, but extension spec doesn't use const
+DeletePerfMonitorsAMD(n, monitors)
+	return		void
+	param		n		SizeI in value
+	param		monitors	UInt32 out array [n]
+	category	AMD_performance_monitor
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+# 'counterList' is actually in, not out, but extension spec doesn't use const
+SelectPerfMonitorCountersAMD(monitor, enable, group, numCounters, counterList)
+	return		void
+	param		monitor		UInt32 in value
+	param		enable		Boolean in value
+	param		group		UInt32 in value
+	param		numCounters	Int32 in value
+	param		counterList	UInt32 out array [numCounters]
+	category	AMD_performance_monitor
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BeginPerfMonitorAMD(monitor)
+	return		void
+	param		monitor		UInt32 in value
+	category	AMD_performance_monitor
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+EndPerfMonitorAMD(monitor)
+	return		void
+	param		monitor		UInt32 in value
+	category	AMD_performance_monitor
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetPerfMonitorCounterDataAMD(monitor, pname, dataSize, data, bytesWritten)
+	return		void
+	param		monitor		UInt32 in value
+	param		pname		GLenum in value
+	param		dataSize	SizeI in value
+	param		data		UInt32 out array [dataSize]
+	param		bytesWritten	Int32 out array [1]
+	category	AMD_performance_monitor
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #361 - WGL_AMD_gpu_association
+#
+###############################################################################
+
+###############################################################################
+#
+# Extension #362
+# AMD_texture_texture4 commands
+#
+###############################################################################
+
+# (none)
+newcategory: AMD_texture_texture4
+
+###############################################################################
+#
+# Extension #363
+# AMD_vertex_shader_tesselator commands
+#
+###############################################################################
+
+TessellationFactorAMD(factor)
+	return		void
+	param		factor		Float32 in value
+	category	AMD_vertex_shader_tesselator
+	version		2.0
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+TessellationModeAMD(mode)
+	return		void
+	param		mode		GLenum in value
+	category	AMD_vertex_shader_tesselator
+	version		2.0
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #364
+# EXT_provoking_vertex commands
+#
+###############################################################################
+
+ProvokingVertexEXT(mode)
+	return		void
+	param		mode		GLenum in value
+	category	EXT_provoking_vertex
+	version		2.1
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #365
+# EXT_texture_snorm commands
+#
+###############################################################################
+
+# (none)
+newcategory: EXT_texture_snorm
+
+###############################################################################
+#
+# Extension #366
+# AMD_draw_buffers_blend commands
+#
+###############################################################################
+
+# void BlendFuncIndexedAMD(uint buf, enum src, enum dst)
+# void BlendFuncSeparateIndexedAMD(uint buf, enum srcRGB, enum dstRGB, enum srcAlpha, enum dstAlpha)
+# void BlendEquationIndexedAMD(uint buf, enum mode)
+# void BlendEquationSeparateIndexedAMD(uint buf, enum modeRGB, enum modeAlpha)
+
+BlendFuncIndexedAMD(buf, src, dst)
+	return		void
+	param		buf		UInt32 in value
+	param		src		GLenum in value
+	param		dst		GLenum in value
+	category	AMD_draw_buffers_blend
+	version		2.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendFuncSeparateIndexedAMD(buf, srcRGB, dstRGB, srcAlpha, dstAlpha)
+	return		void
+	param		buf		UInt32 in value
+	param		srcRGB		GLenum in value
+	param		dstRGB		GLenum in value
+	param		srcAlpha	GLenum in value
+	param		dstAlpha	GLenum in value
+	category	AMD_draw_buffers_blend
+	version		2.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendEquationIndexedAMD(buf, mode)
+	return		void
+	param		buf		UInt32 in value
+	param		mode		GLenum in value
+	category	AMD_draw_buffers_blend
+	version		2.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+BlendEquationSeparateIndexedAMD(buf, modeRGB, modeAlpha)
+	return		void
+	param		buf		UInt32 in value
+	param		modeRGB		GLenum in value
+	param		modeAlpha	GLenum in value
+	category	AMD_draw_buffers_blend
+	version		2.0
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #367
+# APPLE_texture_range commands
+#
+###############################################################################
+
+TextureRangeAPPLE(target, length, pointer)
+	return		void
+	param		target		GLenum in value
+	param		length		SizeI in value
+	param		pointer		Void in array [length]
+	category	APPLE_texture_range
+	version		1.2
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetTexParameterPointervAPPLE(target, pname, params)
+	return		void
+	param		target		GLenum in value
+	param		pname		GLenum in value
+	param		params		VoidPointer out array [1]
+	category	APPLE_texture_range
+	dlflags		notlistable
+	version		1.2
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #368
+# APPLE_float_pixels commands
+#
+###############################################################################
+
+# (none)
+newcategory: APPLE_float_pixels
+
+###############################################################################
+#
+# Extension #369
+# APPLE_vertex_program_evaluators commands
+#
+###############################################################################
+
+EnableVertexAttribAPPLE(index, pname)
+	return		void
+	param		index		UInt32 in value
+	param		pname		GLenum in value
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+DisableVertexAttribAPPLE(index, pname)
+	return		void
+	param		index		UInt32 in value
+	param		pname		GLenum in value
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+IsVertexAttribEnabledAPPLE(index, pname)
+	return		Boolean
+	param		index		UInt32 in value
+	param		pname		GLenum in value
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MapVertexAttrib1dAPPLE(index, size, u1, u2, stride, order, points)
+	return		void
+	param		index		UInt32 in value
+	param		size		UInt32 in value
+	param		u1		CoordD in value
+	param		u2		CoordD in value
+	param		stride		Int32 in value
+	param		order		CheckedInt32 in value
+	param		points		CoordD in array [COMPSIZE(size/stride/order)]
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MapVertexAttrib1fAPPLE(index, size, u1, u2, stride, order, points)
+	return		void
+	param		index		UInt32 in value
+	param		size		UInt32 in value
+	param		u1		CoordF in value
+	param		u2		CoordF in value
+	param		stride		Int32 in value
+	param		order		CheckedInt32 in value
+	param		points		CoordF in array [COMPSIZE(size/stride/order)]
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MapVertexAttrib2dAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
+	return		void
+	param		index		UInt32 in value
+	param		size		UInt32 in value
+	param		u1		CoordD in value
+	param		u2		CoordD in value
+	param		ustride		Int32 in value
+	param		uorder		CheckedInt32 in value
+	param		v1		CoordD in value
+	param		v2		CoordD in value
+	param		vstride		Int32 in value
+	param		vorder		CheckedInt32 in value
+	param		points		CoordD in array [COMPSIZE(size/ustride/uorder/vstride/vorder)]
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+MapVertexAttrib2fAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points)
+	return		void
+	param		index		UInt32 in value
+	param		size		UInt32 in value
+	param		u1		CoordF in value
+	param		u2		CoordF in value
+	param		ustride		Int32 in value
+	param		uorder		CheckedInt32 in value
+	param		v1		CoordF in value
+	param		v2		CoordF in value
+	param		vstride		Int32 in value
+	param		vorder		CheckedInt32 in value
+	param		points		CoordF in array [COMPSIZE(size/ustride/uorder/vstride/vorder)]
+	category	APPLE_vertex_program_evaluators
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #370
+# APPLE_aux_depth_stencil commands
+#
+###############################################################################
+
+# (none)
+newcategory: APPLE_aux_depth_stencil
+
+###############################################################################
+#
+# Extension #371
+# APPLE_object_purgeable commands
+#
+###############################################################################
+
+ObjectPurgeableAPPLE(objectType, name, option)
+	return		GLenum
+	param		objectType	GLenum in value
+	param		name		UInt32 in value
+	param		option		GLenum in value
+	category	APPLE_object_purgeable
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+ObjectUnpurgeableAPPLE(objectType, name, option)
+	return		GLenum
+	param		objectType	GLenum in value
+	param		name		UInt32 in value
+	param		option		GLenum in value
+	category	APPLE_object_purgeable
+	version		1.5
+	extension
+	glxropcode	?
+	glxflags	ignore
+	offset		?
+
+GetObjectParameterivAPPLE(objectType, name, pname, params)
+	return		void
+	param		objectType	GLenum in value
+	param		name		UInt32 in value
+	param		pname		GLenum in value
+	param		params		Int32 out array [COMPSIZE(pname)]
+	category	APPLE_object_purgeable
+	dlflags		notlistable
+	version		1.5
+	extension
+	glxsingle	?
+	glxflags	ignore
+	offset		?
+
+###############################################################################
+#
+# Extension #372
+# APPLE_row_bytes commands
+#
+###############################################################################
+
+# (none)
+newcategory: APPLE_row_bytes

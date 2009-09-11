@@ -30,928 +30,71 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 42 ( 2008/08/16 )
+;;; glext version 54 ( 2009-08-03 )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 42)
-(defparameter *glext-last-updated* "2008/08/16")
+(defparameter *glext-version* 54)
+(defparameter *glext-last-updated* "2009-08-03")
 
-;;; GL version: 1.0, display-list
-(defglfun ("glNewList" new-list) :void
-  (list uint)
-  (mode enum))
-
-;;; GL version: 1.0, display-list
-(defglfun ("glEndList" end-list) :void)
-
-;;; GL version: 1.0, display-list
-(defglfun ("glCallList" call-list) :void
-  (list uint))
-
-;;; GL version: 1.0, display-list
-(defglfun ("glCallLists" call-lists) :void
-  (n sizei)
-  (type enum)
-  (lists (:pointer void)))
-
-;;; GL version: 1.0, display-list
-(defglfun ("glDeleteLists" delete-lists) :void
-  (list uint)
-  (range sizei))
-
-;;; GL version: 1.0, display-list
-(defglfun ("glGenLists" gen-lists) uint
-  (range sizei))
-
-;;; GL version: 1.0, display-list
-(defglfun ("glListBase" list-base) :void
-  (base uint))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glBegin" begin) :void
-  (mode enum))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glBitmap" bitmap) :void
-  (width sizei)
-  (height sizei)
-  (xorig float)
-  (yorig float)
-  (xmove float)
-  (ymove float)
-  (bitmap (:pointer ubyte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3b" color-3b) :void
-  (red byte)
-  (green byte)
-  (blue byte))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3bv" color-3bv) :void
-  (v (:pointer byte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3d" color-3d) :void
-  (red double)
-  (green double)
-  (blue double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3dv" color-3dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3f" color-3f) :void
-  (red float)
-  (green float)
-  (blue float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3fv" color-3fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3i" color-3i) :void
-  (red int)
-  (green int)
-  (blue int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3iv" color-3iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3s" color-3s) :void
-  (red short)
-  (green short)
-  (blue short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3sv" color-3sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3ub" color-3ub) :void
-  (red ubyte)
-  (green ubyte)
-  (blue ubyte))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3ubv" color-3ubv) :void
-  (v (:pointer ubyte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3ui" color-3ui) :void
-  (red uint)
-  (green uint)
-  (blue uint))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3uiv" color-3uiv) :void
-  (v (:pointer uint)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3us" color-3us) :void
-  (red ushort)
-  (green ushort)
-  (blue ushort))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor3usv" color-3usv) :void
-  (v (:pointer ushort)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4b" color-4b) :void
-  (red byte)
-  (green byte)
-  (blue byte)
-  (alpha byte))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4bv" color-4bv) :void
-  (v (:pointer byte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4d" color-4d) :void
-  (red double)
-  (green double)
-  (blue double)
-  (alpha double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4dv" color-4dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4f" color-4f) :void
-  (red float)
-  (green float)
-  (blue float)
-  (alpha float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4fv" color-4fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4i" color-4i) :void
-  (red int)
-  (green int)
-  (blue int)
-  (alpha int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4iv" color-4iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4s" color-4s) :void
-  (red short)
-  (green short)
-  (blue short)
-  (alpha short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4sv" color-4sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4ub" color-4ub) :void
-  (red ubyte)
-  (green ubyte)
-  (blue ubyte)
-  (alpha ubyte))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4ubv" color-4ubv) :void
-  (v (:pointer ubyte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4ui" color-4ui) :void
-  (red uint)
-  (green uint)
-  (blue uint)
-  (alpha uint))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4uiv" color-4uiv) :void
-  (v (:pointer uint)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4us" color-4us) :void
-  (red ushort)
-  (green ushort)
-  (blue ushort)
-  (alpha ushort))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glColor4usv" color-4usv) :void
-  (v (:pointer ushort)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glEdgeFlag" edge-flag) :void
-  (flag boolean))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glEdgeFlagv" edge-flag-v) :void
-  (flag (:pointer boolean)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glEnd" end) :void)
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexd" index-d) :void
-  (c double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexdv" index-dv) :void
-  (c (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexf" index-f) :void
-  (c float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexfv" index-fv) :void
-  (c (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexi" index-i) :void
-  (c int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexiv" index-iv) :void
-  (c (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexs" index-s) :void
-  (c short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glIndexsv" index-sv) :void
-  (c (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3b" normal-3b) :void
-  (nx byte)
-  (ny byte)
-  (nz byte))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3bv" normal-3bv) :void
-  (v (:pointer byte)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3d" normal-3d) :void
-  (nx double)
-  (ny double)
-  (nz double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3dv" normal-3dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3f" normal-3f) :void
-  (nx float)
-  (ny float)
-  (nz float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3fv" normal-3fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3i" normal-3i) :void
-  (nx int)
-  (ny int)
-  (nz int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3iv" normal-3iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3s" normal-3s) :void
-  (nx short)
-  (ny short)
-  (nz short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glNormal3sv" normal-3sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2d" raster-pos-2d) :void
-  (x double)
-  (y double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2dv" raster-pos-2dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2f" raster-pos-2f) :void
-  (x float)
-  (y float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2fv" raster-pos-2fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2i" raster-pos-2i) :void
-  (x int)
-  (y int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2iv" raster-pos-2iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2s" raster-pos-2s) :void
-  (x short)
-  (y short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos2sv" raster-pos-2sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3d" raster-pos-3d) :void
-  (x double)
-  (y double)
-  (z double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3dv" raster-pos-3dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3f" raster-pos-3f) :void
-  (x float)
-  (y float)
-  (z float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3fv" raster-pos-3fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3i" raster-pos-3i) :void
-  (x int)
-  (y int)
-  (z int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3iv" raster-pos-3iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3s" raster-pos-3s) :void
-  (x short)
-  (y short)
-  (z short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos3sv" raster-pos-3sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4d" raster-pos-4d) :void
-  (x double)
-  (y double)
-  (z double)
-  (w double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4dv" raster-pos-4dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4f" raster-pos-4f) :void
-  (x float)
-  (y float)
-  (z float)
-  (w float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4fv" raster-pos-4fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4i" raster-pos-4i) :void
-  (x int)
-  (y int)
-  (z int)
-  (w int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4iv" raster-pos-4iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4s" raster-pos-4s) :void
-  (x short)
-  (y short)
-  (z short)
-  (w short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRasterPos4sv" raster-pos-4sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectd" rect-d) :void
-  (x1 double)
-  (y1 double)
-  (x2 double)
-  (y2 double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectdv" rect-dv) :void
-  (v1 (:pointer double))
-  (v2 (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectf" rect-f) :void
-  (x1 float)
-  (y1 float)
-  (x2 float)
-  (y2 float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectfv" rect-fv) :void
-  (v1 (:pointer float))
-  (v2 (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRecti" rect-i) :void
-  (x1 int)
-  (y1 int)
-  (x2 int)
-  (y2 int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectiv" rect-iv) :void
-  (v1 (:pointer int))
-  (v2 (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRects" rect-s) :void
-  (x1 short)
-  (y1 short)
-  (x2 short)
-  (y2 short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glRectsv" rect-sv) :void
-  (v1 (:pointer short))
-  (v2 (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1d" tex-coord-1d) :void
-  (s double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1dv" tex-coord-1dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1f" tex-coord-1f) :void
-  (s float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1fv" tex-coord-1fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1i" tex-coord-1i) :void
-  (s int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1iv" tex-coord-1iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1s" tex-coord-1s) :void
-  (s short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord1sv" tex-coord-1sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2d" tex-coord-2d) :void
-  (s double)
-  (tee double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2dv" tex-coord-2dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2f" tex-coord-2f) :void
-  (s float)
-  (tee float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2fv" tex-coord-2fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2i" tex-coord-2i) :void
-  (s int)
-  (tee int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2iv" tex-coord-2iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2s" tex-coord-2s) :void
-  (s short)
-  (tee short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord2sv" tex-coord-2sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3d" tex-coord-3d) :void
-  (s double)
-  (tee double)
-  (r double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3dv" tex-coord-3dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3f" tex-coord-3f) :void
-  (s float)
-  (tee float)
-  (r float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3fv" tex-coord-3fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3i" tex-coord-3i) :void
-  (s int)
-  (tee int)
-  (r int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3iv" tex-coord-3iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3s" tex-coord-3s) :void
-  (s short)
-  (tee short)
-  (r short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord3sv" tex-coord-3sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4d" tex-coord-4d) :void
-  (s double)
-  (tee double)
-  (r double)
-  (q double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4dv" tex-coord-4dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4f" tex-coord-4f) :void
-  (s float)
-  (tee float)
-  (r float)
-  (q float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4fv" tex-coord-4fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4i" tex-coord-4i) :void
-  (s int)
-  (tee int)
-  (r int)
-  (q int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4iv" tex-coord-4iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4s" tex-coord-4s) :void
-  (s short)
-  (tee short)
-  (r short)
-  (q short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glTexCoord4sv" tex-coord-4sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2d" vertex-2d) :void
-  (x double)
-  (y double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2dv" vertex-2dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2f" vertex-2f) :void
-  (x float)
-  (y float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2fv" vertex-2fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2i" vertex-2i) :void
-  (x int)
-  (y int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2iv" vertex-2iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2s" vertex-2s) :void
-  (x short)
-  (y short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex2sv" vertex-2sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3d" vertex-3d) :void
-  (x double)
-  (y double)
-  (z double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3dv" vertex-3dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3f" vertex-3f) :void
-  (x float)
-  (y float)
-  (z float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3fv" vertex-3fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3i" vertex-3i) :void
-  (x int)
-  (y int)
-  (z int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3iv" vertex-3iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3s" vertex-3s) :void
-  (x short)
-  (y short)
-  (z short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex3sv" vertex-3sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4d" vertex-4d) :void
-  (x double)
-  (y double)
-  (z double)
-  (w double))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4dv" vertex-4dv) :void
-  (v (:pointer double)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4f" vertex-4f) :void
-  (x float)
-  (y float)
-  (z float)
-  (w float))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4fv" vertex-4fv) :void
-  (v (:pointer float)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4i" vertex-4i) :void
-  (x int)
-  (y int)
-  (z int)
-  (w int))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4iv" vertex-4iv) :void
-  (v (:pointer int)))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4s" vertex-4s) :void
-  (x short)
-  (y short)
-  (z short)
-  (w short))
-
-;;; GL version: 1.0, drawing
-(defglfun ("glVertex4sv" vertex-4sv) :void
-  (v (:pointer short)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glClipPlane" clip-plane) :void
-  (plane enum)
-  (equation (:pointer double)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glColorMaterial" color-material) :void
-  (face enum)
-  (mode enum))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
   (mode enum))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glFogf" fog-f) :void
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glFogfv" fog-fv) :void
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glFogi" fog-i) :void
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glFogiv" fog-iv) :void
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glFrontFace" front-face) :void
   (mode enum))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glHint" hint) :void
   (target enum)
   (mode enum))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightf" light-f) :void
-  (light enum)
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightfv" light-fv) :void
-  (light enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLighti" light-i) :void
-  (light enum)
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightiv" light-iv) :void
-  (light enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightModelf" light-model-f) :void
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightModelfv" light-model-fv) :void
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightModeli" light-model-i) :void
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLightModeliv" light-model-iv) :void
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glLineStipple" line-stipple) :void
-  (factor int)
-  (pattern ushort))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glLineWidth" line-width) :void
   (width float))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glMaterialf" material-f) :void
-  (face enum)
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glMaterialfv" material-fv) :void
-  (face enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glMateriali" material-i) :void
-  (face enum)
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glMaterialiv" material-iv) :void
-  (face enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glPointSize" point-size) :void
   (size float))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glPolygonMode" polygon-mode) :void
   (face enum)
   (mode enum))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glPolygonStipple" polygon-stipple) :void
-  (mask (:pointer ubyte)))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glScissor" scissor) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glShadeModel" shade-model) :void
-  (mode enum))
-
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexParameterf" tex-parameter-f) :void
   (target enum)
   (pname enum)
   (param float))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexParameterfv" tex-parameter-fv) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexParameteri" tex-parameter-i) :void
   (target enum)
   (pname enum)
   (param int))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexParameteriv" tex-parameter-iv) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexImage1D" tex-image-1d) :void
   (target enum)
   (level int)
@@ -962,7 +105,7 @@
   (type enum)
   (pixels (:pointer void)))
 
-;;; GL version: 1.0, drawing-control
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexImage2D" tex-image-2d) :void
   (target enum)
   (level int)
@@ -974,179 +117,1162 @@
   (type enum)
   (pixels (:pointer void)))
 
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexEnvf" tex-env-f) :void
-  (target enum)
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexEnvfv" tex-env-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexEnvi" tex-env-i) :void
-  (target enum)
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexEnviv" tex-env-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGend" tex-gen-d) :void
-  (coord enum)
-  (pname enum)
-  (param double))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGendv" tex-gen-dv) :void
-  (coord enum)
-  (pname enum)
-  (params (:pointer double)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGenf" tex-gen-f) :void
-  (coord enum)
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGenfv" tex-gen-fv) :void
-  (coord enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGeni" tex-gen-i) :void
-  (coord enum)
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, drawing-control
-(defglfun ("glTexGeniv" tex-gen-iv) :void
-  (coord enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glFeedbackBuffer" feedback-buffer) :void
-  (size sizei)
-  (type enum)
-  (buffer (:pointer float)))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glSelectBuffer" select-buffer) :void
-  (size sizei)
-  (buffer (:pointer uint)))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glRenderMode" render-mode) int
-  (mode enum))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glInitNames" init-names) :void)
-
-;;; GL version: 1.0, feedback
-(defglfun ("glLoadName" load-name) :void
-  (name uint))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glPassThrough" pass-through) :void
-  (token float))
-
-;;; GL version: 1.0, feedback
-(defglfun ("glPopName" pop-name) :void)
-
-;;; GL version: 1.0, feedback
-(defglfun ("glPushName" push-name) :void
-  (name uint))
-
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glDrawBuffer" draw-buffer) :void
   (mode enum))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClear" clear) :void
   (mask ClearBufferMask))
 
-;;; GL version: 1.0, framebuf
-(defglfun ("glClearAccum" clear-accum) :void
-  (red float)
-  (green float)
-  (blue float)
-  (alpha float))
-
-;;; GL version: 1.0, framebuf
-(defglfun ("glClearIndex" clear-index) :void
-  (c float))
-
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearColor" clear-color) :void
   (red clampf)
   (green clampf)
   (blue clampf)
   (alpha clampf))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearStencil" clear-stencil) :void
   (s int))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearDepth" clear-depth) :void
   (depth clampd))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glStencilMask" stencil-mask) :void
   (mask uint))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glColorMask" color-mask) :void
   (red boolean)
   (green boolean)
   (blue boolean)
   (alpha boolean))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glDepthMask" depth-mask) :void
   (flag boolean))
 
-;;; GL version: 1.0, framebuf
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glDisable" disable) :void
+  (cap enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glEnable" enable) :void
+  (cap enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glFinish" finish) :void)
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glFlush" flush) :void)
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glBlendFunc" blend-func) :void
+  (sfactor enum)
+  (dfactor enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glLogicOp" logic-op) :void
+  (opcode enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glStencilFunc" stencil-func) :void
+  (func enum)
+  (ref int)
+  (mask uint))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glStencilOp" stencil-op) :void
+  (fail enum)
+  (zfail enum)
+  (zpass enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glDepthFunc" depth-func) :void
+  (func enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glPixelStoref" pixel-store-f) :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glPixelStorei" pixel-store-i) :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glReadBuffer" read-buffer) :void
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glReadPixels" read-pixels) :void
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetBooleanv" get-boolean-v) :void
+  (pname enum)
+  (params (:pointer boolean)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetDoublev" get-double-v) :void
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetError" get-error) enum)
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetFloatv" get-float-v) :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetIntegerv" get-integer-v) :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetString" get-string) string
+  (name enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetTexImage" get-tex-image) :void
+  (target enum)
+  (level int)
+  (format enum)
+  (type enum)
+  (pixels (:pointer void)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetTexParameteriv" get-tex-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetTexLevelParameterfv" get-tex-level-parameter-fv) :void
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glGetTexLevelParameteriv" get-tex-level-parameter-iv) :void
+  (target enum)
+  (level int)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glIsEnabled" is-enabled) boolean
+  (cap enum))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glDepthRange" depth-range) :void
+  (near clampd)
+  (far clampd))
+
+;;; GL version: 1.0, VERSION_1_0
+(defglfun ("glViewport" viewport) :void
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNewList" new-list) :void
+  (list uint)
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glEndList" end-list) :void)
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glCallList" call-list) :void
+  (list uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glCallLists" call-lists) :void
+  (n sizei)
+  (type enum)
+  (lists (:pointer void)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glDeleteLists" delete-lists) :void
+  (list uint)
+  (range sizei))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glGenLists" gen-lists) uint
+  (range sizei))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glListBase" list-base) :void
+  (base uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glBegin" begin) :void
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glBitmap" bitmap) :void
+  (width sizei)
+  (height sizei)
+  (xorig float)
+  (yorig float)
+  (xmove float)
+  (ymove float)
+  (bitmap (:pointer ubyte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3b" color-3b) :void
+  (red byte)
+  (green byte)
+  (blue byte))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3bv" color-3bv) :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3d" color-3d) :void
+  (red double)
+  (green double)
+  (blue double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3dv" color-3dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3f" color-3f) :void
+  (red float)
+  (green float)
+  (blue float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3fv" color-3fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3i" color-3i) :void
+  (red int)
+  (green int)
+  (blue int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3iv" color-3iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3s" color-3s) :void
+  (red short)
+  (green short)
+  (blue short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3sv" color-3sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3ub" color-3ub) :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3ubv" color-3ubv) :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3ui" color-3ui) :void
+  (red uint)
+  (green uint)
+  (blue uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3uiv" color-3uiv) :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3us" color-3us) :void
+  (red ushort)
+  (green ushort)
+  (blue ushort))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor3usv" color-3usv) :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4b" color-4b) :void
+  (red byte)
+  (green byte)
+  (blue byte)
+  (alpha byte))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4bv" color-4bv) :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4d" color-4d) :void
+  (red double)
+  (green double)
+  (blue double)
+  (alpha double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4dv" color-4dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4f" color-4f) :void
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4fv" color-4fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4i" color-4i) :void
+  (red int)
+  (green int)
+  (blue int)
+  (alpha int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4iv" color-4iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4s" color-4s) :void
+  (red short)
+  (green short)
+  (blue short)
+  (alpha short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4sv" color-4sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4ub" color-4ub) :void
+  (red ubyte)
+  (green ubyte)
+  (blue ubyte)
+  (alpha ubyte))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4ubv" color-4ubv) :void
+  (v (:pointer ubyte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4ui" color-4ui) :void
+  (red uint)
+  (green uint)
+  (blue uint)
+  (alpha uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4uiv" color-4uiv) :void
+  (v (:pointer uint)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4us" color-4us) :void
+  (red ushort)
+  (green ushort)
+  (blue ushort)
+  (alpha ushort))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColor4usv" color-4usv) :void
+  (v (:pointer ushort)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glEdgeFlag" edge-flag) :void
+  (flag boolean))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glEdgeFlagv" edge-flag-v) :void
+  (flag (:pointer boolean)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glEnd" end) :void)
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexd" index-d) :void
+  (c double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexdv" index-dv) :void
+  (c (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexf" index-f) :void
+  (c float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexfv" index-fv) :void
+  (c (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexi" index-i) :void
+  (c int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexiv" index-iv) :void
+  (c (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexs" index-s) :void
+  (c short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glIndexsv" index-sv) :void
+  (c (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3b" normal-3b) :void
+  (nx byte)
+  (ny byte)
+  (nz byte))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3bv" normal-3bv) :void
+  (v (:pointer byte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3d" normal-3d) :void
+  (nx double)
+  (ny double)
+  (nz double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3dv" normal-3dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3f" normal-3f) :void
+  (nx float)
+  (ny float)
+  (nz float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3fv" normal-3fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3i" normal-3i) :void
+  (nx int)
+  (ny int)
+  (nz int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3iv" normal-3iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3s" normal-3s) :void
+  (nx short)
+  (ny short)
+  (nz short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glNormal3sv" normal-3sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2d" raster-pos-2d) :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2dv" raster-pos-2dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2f" raster-pos-2f) :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2fv" raster-pos-2fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2i" raster-pos-2i) :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2iv" raster-pos-2iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2s" raster-pos-2s) :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos2sv" raster-pos-2sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3d" raster-pos-3d) :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3dv" raster-pos-3dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3f" raster-pos-3f) :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3fv" raster-pos-3fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3i" raster-pos-3i) :void
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3iv" raster-pos-3iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3s" raster-pos-3s) :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos3sv" raster-pos-3sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4d" raster-pos-4d) :void
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4dv" raster-pos-4dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4f" raster-pos-4f) :void
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4fv" raster-pos-4fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4i" raster-pos-4i) :void
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4iv" raster-pos-4iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4s" raster-pos-4s) :void
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRasterPos4sv" raster-pos-4sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectd" rect-d) :void
+  (x1 double)
+  (y1 double)
+  (x2 double)
+  (y2 double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectdv" rect-dv) :void
+  (v1 (:pointer double))
+  (v2 (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectf" rect-f) :void
+  (x1 float)
+  (y1 float)
+  (x2 float)
+  (y2 float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectfv" rect-fv) :void
+  (v1 (:pointer float))
+  (v2 (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRecti" rect-i) :void
+  (x1 int)
+  (y1 int)
+  (x2 int)
+  (y2 int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectiv" rect-iv) :void
+  (v1 (:pointer int))
+  (v2 (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRects" rect-s) :void
+  (x1 short)
+  (y1 short)
+  (x2 short)
+  (y2 short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRectsv" rect-sv) :void
+  (v1 (:pointer short))
+  (v2 (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1d" tex-coord-1d) :void
+  (s double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1dv" tex-coord-1dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1f" tex-coord-1f) :void
+  (s float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1fv" tex-coord-1fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1i" tex-coord-1i) :void
+  (s int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1iv" tex-coord-1iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1s" tex-coord-1s) :void
+  (s short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord1sv" tex-coord-1sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2d" tex-coord-2d) :void
+  (s double)
+  (tee double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2dv" tex-coord-2dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2f" tex-coord-2f) :void
+  (s float)
+  (tee float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2fv" tex-coord-2fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2i" tex-coord-2i) :void
+  (s int)
+  (tee int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2iv" tex-coord-2iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2s" tex-coord-2s) :void
+  (s short)
+  (tee short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord2sv" tex-coord-2sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3d" tex-coord-3d) :void
+  (s double)
+  (tee double)
+  (r double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3dv" tex-coord-3dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3f" tex-coord-3f) :void
+  (s float)
+  (tee float)
+  (r float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3fv" tex-coord-3fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3i" tex-coord-3i) :void
+  (s int)
+  (tee int)
+  (r int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3iv" tex-coord-3iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3s" tex-coord-3s) :void
+  (s short)
+  (tee short)
+  (r short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord3sv" tex-coord-3sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4d" tex-coord-4d) :void
+  (s double)
+  (tee double)
+  (r double)
+  (q double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4dv" tex-coord-4dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4f" tex-coord-4f) :void
+  (s float)
+  (tee float)
+  (r float)
+  (q float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4fv" tex-coord-4fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4i" tex-coord-4i) :void
+  (s int)
+  (tee int)
+  (r int)
+  (q int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4iv" tex-coord-4iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4s" tex-coord-4s) :void
+  (s short)
+  (tee short)
+  (r short)
+  (q short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexCoord4sv" tex-coord-4sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2d" vertex-2d) :void
+  (x double)
+  (y double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2dv" vertex-2dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2f" vertex-2f) :void
+  (x float)
+  (y float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2fv" vertex-2fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2i" vertex-2i) :void
+  (x int)
+  (y int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2iv" vertex-2iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2s" vertex-2s) :void
+  (x short)
+  (y short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex2sv" vertex-2sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3d" vertex-3d) :void
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3dv" vertex-3dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3f" vertex-3f) :void
+  (x float)
+  (y float)
+  (z float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3fv" vertex-3fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3i" vertex-3i) :void
+  (x int)
+  (y int)
+  (z int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3iv" vertex-3iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3s" vertex-3s) :void
+  (x short)
+  (y short)
+  (z short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex3sv" vertex-3sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4d" vertex-4d) :void
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4dv" vertex-4dv) :void
+  (v (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4f" vertex-4f) :void
+  (x float)
+  (y float)
+  (z float)
+  (w float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4fv" vertex-4fv) :void
+  (v (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4i" vertex-4i) :void
+  (x int)
+  (y int)
+  (z int)
+  (w int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4iv" vertex-4iv) :void
+  (v (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4s" vertex-4s) :void
+  (x short)
+  (y short)
+  (z short)
+  (w short))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glVertex4sv" vertex-4sv) :void
+  (v (:pointer short)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glClipPlane" clip-plane) :void
+  (plane enum)
+  (equation (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glColorMaterial" color-material) :void
+  (face enum)
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glFogf" fog-f) :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glFogfv" fog-fv) :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glFogi" fog-i) :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glFogiv" fog-iv) :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightf" light-f) :void
+  (light enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightfv" light-fv) :void
+  (light enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLighti" light-i) :void
+  (light enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightiv" light-iv) :void
+  (light enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightModelf" light-model-f) :void
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightModelfv" light-model-fv) :void
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightModeli" light-model-i) :void
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLightModeliv" light-model-iv) :void
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLineStipple" line-stipple) :void
+  (factor int)
+  (pattern ushort))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glMaterialf" material-f) :void
+  (face enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glMaterialfv" material-fv) :void
+  (face enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glMateriali" material-i) :void
+  (face enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glMaterialiv" material-iv) :void
+  (face enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glPolygonStipple" polygon-stipple) :void
+  (mask (:pointer ubyte)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glShadeModel" shade-model) :void
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexEnvf" tex-env-f) :void
+  (target enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexEnvfv" tex-env-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexEnvi" tex-env-i) :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexEnviv" tex-env-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGend" tex-gen-d) :void
+  (coord enum)
+  (pname enum)
+  (param double))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGendv" tex-gen-dv) :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer double)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGenf" tex-gen-f) :void
+  (coord enum)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGenfv" tex-gen-fv) :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGeni" tex-gen-i) :void
+  (coord enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glTexGeniv" tex-gen-iv) :void
+  (coord enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glFeedbackBuffer" feedback-buffer) :void
+  (size sizei)
+  (type enum)
+  (buffer (:pointer float)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glSelectBuffer" select-buffer) :void
+  (size sizei)
+  (buffer (:pointer uint)))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glRenderMode" render-mode) int
+  (mode enum))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glInitNames" init-names) :void)
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glLoadName" load-name) :void
+  (name uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glPassThrough" pass-through) :void
+  (token float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glPopName" pop-name) :void)
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glPushName" push-name) :void
+  (name uint))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glClearAccum" clear-accum) :void
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
+(defglfun ("glClearIndex" clear-index) :void
+  (c float))
+
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glIndexMask" index-mask) :void
   (mask uint))
 
-;;; GL version: 1.0, misc
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glAccum" accum) :void
   (op enum)
   (value float))
 
-;;; GL version: 1.0, misc
-(defglfun ("glDisable" disable) :void
-  (cap enum))
-
-;;; GL version: 1.0, misc
-(defglfun ("glEnable" enable) :void
-  (cap enum))
-
-;;; GL version: 1.0, misc
-(defglfun ("glFinish" finish) :void)
-
-;;; GL version: 1.0, misc
-(defglfun ("glFlush" flush) :void)
-
-;;; GL version: 1.0, misc
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPopAttrib" pop-attrib) :void)
 
-;;; GL version: 1.0, misc
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPushAttrib" push-attrib) :void
   (mask AttribMask))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMap1d" map-1d) :void
   (target enum)
   (u1 double)
@@ -1155,7 +1281,7 @@
   (order int)
   (points (:pointer double)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMap1f" map-1f) :void
   (target enum)
   (u1 float)
@@ -1164,7 +1290,7 @@
   (order int)
   (points (:pointer float)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMap2d" map-2d) :void
   (target enum)
   (u1 double)
@@ -1177,7 +1303,7 @@
   (vorder int)
   (points (:pointer double)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMap2f" map-2f) :void
   (target enum)
   (u1 float)
@@ -1190,19 +1316,19 @@
   (vorder int)
   (points (:pointer float)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMapGrid1d" map-grid-1d) :void
   (un int)
   (u1 double)
   (u2 double))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMapGrid1f" map-grid-1f) :void
   (un int)
   (u1 float)
   (u2 float))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMapGrid2d" map-grid-2d) :void
   (un int)
   (u1 double)
@@ -1211,7 +1337,7 @@
   (v1 double)
   (v2 double))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMapGrid2f" map-grid-2f) :void
   (un int)
   (u1 float)
@@ -1220,51 +1346,51 @@
   (v1 float)
   (v2 float))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord1d" eval-coord-1d) :void
   (u double))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord1dv" eval-coord-1dv) :void
   (u (:pointer double)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord1f" eval-coord-1f) :void
   (u float))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord1fv" eval-coord-1fv) :void
   (u (:pointer float)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord2d" eval-coord-2d) :void
   (u double)
   (v double))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord2dv" eval-coord-2dv) :void
   (u (:pointer double)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord2f" eval-coord-2f) :void
   (u float)
   (v float))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalCoord2fv" eval-coord-2fv) :void
   (u (:pointer float)))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalMesh1" eval-mesh-1) :void
   (mode enum)
   (i1 int)
   (i2 int))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalPoint1" eval-point-1) :void
   (i int))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalMesh2" eval-mesh-2) :void
   (mode enum)
   (i1 int)
@@ -1272,89 +1398,50 @@
   (j1 int)
   (j2 int))
 
-;;; GL version: 1.0, modeling
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glEvalPoint2" eval-point-2) :void
   (i int)
   (j int))
 
-;;; GL version: 1.0, pixel-op
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glAlphaFunc" alpha-func) :void
   (func enum)
   (ref clampf))
 
-;;; GL version: 1.0, pixel-op
-(defglfun ("glBlendFunc" blend-func) :void
-  (sfactor enum)
-  (dfactor enum))
-
-;;; GL version: 1.0, pixel-op
-(defglfun ("glLogicOp" logic-op) :void
-  (opcode enum))
-
-;;; GL version: 1.0, pixel-op
-(defglfun ("glStencilFunc" stencil-func) :void
-  (func enum)
-  (ref int)
-  (mask uint))
-
-;;; GL version: 1.0, pixel-op
-(defglfun ("glStencilOp" stencil-op) :void
-  (fail enum)
-  (zfail enum)
-  (zpass enum))
-
-;;; GL version: 1.0, pixel-op
-(defglfun ("glDepthFunc" depth-func) :void
-  (func enum))
-
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelZoom" pixel-zoom) :void
   (xfactor float)
   (yfactor float))
 
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelTransferf" pixel-transfer-f) :void
   (pname enum)
   (param float))
 
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelTransferi" pixel-transfer-i) :void
   (pname enum)
   (param int))
 
-;;; GL version: 1.0, pixel-rw
-(defglfun ("glPixelStoref" pixel-store-f) :void
-  (pname enum)
-  (param float))
-
-;;; GL version: 1.0, pixel-rw
-(defglfun ("glPixelStorei" pixel-store-i) :void
-  (pname enum)
-  (param int))
-
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelMapfv" pixel-map-fv) :void
   (map enum)
   (mapsize int)
   (values (:pointer float)))
 
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelMapuiv" pixel-map-uiv) :void
   (map enum)
   (mapsize int)
   (values (:pointer uint)))
 
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelMapusv" pixel-map-usv) :void
   (map enum)
   (mapsize int)
   (values (:pointer ushort)))
 
-;;; GL version: 1.0, pixel-rw
-(defglfun ("glReadBuffer" read-buffer) :void
-  (mode enum))
-
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glCopyPixels" copy-pixels) :void
   (x int)
   (y int)
@@ -1362,17 +1449,7 @@
   (height sizei)
   (type enum))
 
-;;; GL version: 1.0, pixel-rw
-(defglfun ("glReadPixels" read-pixels) :void
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei)
-  (format enum)
-  (type enum)
-  (pixels (:pointer void)))
-
-;;; GL version: 1.0, pixel-rw
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glDrawPixels" draw-pixels) :void
   (width sizei)
   (height sizei)
@@ -1380,177 +1457,107 @@
   (type enum)
   (pixels (:pointer void)))
 
-;;; GL version: 1.0, state-req
-(defglfun ("glGetBooleanv" get-boolean-v) :void
-  (pname enum)
-  (params (:pointer boolean)))
-
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetClipPlane" get-clip-plane) :void
   (plane enum)
   (equation (:pointer double)))
 
-;;; GL version: 1.0, state-req
-(defglfun ("glGetDoublev" get-double-v) :void
-  (pname enum)
-  (params (:pointer double)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetError" get-error) enum)
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetFloatv" get-float-v) :void
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetIntegerv" get-integer-v) :void
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetLightfv" get-light-fv) :void
   (light enum)
   (pname enum)
   (params (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetLightiv" get-light-iv) :void
   (light enum)
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetMapdv" get-map-dv) :void
   (target enum)
   (query enum)
   (v (:pointer double)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetMapfv" get-map-fv) :void
   (target enum)
   (query enum)
   (v (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetMapiv" get-map-iv) :void
   (target enum)
   (query enum)
   (v (:pointer int)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetMaterialfv" get-material-fv) :void
   (face enum)
   (pname enum)
   (params (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetMaterialiv" get-material-iv) :void
   (face enum)
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapfv" get-pixel-map-fv) :void
   (map enum)
   (values (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapuiv" get-pixel-map-uiv) :void
   (map enum)
   (values (:pointer uint)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapusv" get-pixel-map-usv) :void
   (map enum)
   (values (:pointer ushort)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPolygonStipple" get-polygon-stipple) :void
   (mask (:pointer ubyte)))
 
-;;; GL version: 1.0, state-req
-(defglfun ("glGetString" get-string) string
-  (name enum))
-
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexEnvfv" get-tex-env-fv) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexEnviv" get-tex-env-iv) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexGendv" get-tex-gen-dv) :void
   (coord enum)
   (pname enum)
   (params (:pointer double)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexGenfv" get-tex-gen-fv) :void
   (coord enum)
   (pname enum)
   (params (:pointer float)))
 
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexGeniv" get-tex-gen-iv) :void
   (coord enum)
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.0, state-req
-(defglfun ("glGetTexImage" get-tex-image) :void
-  (target enum)
-  (level int)
-  (format enum)
-  (type enum)
-  (pixels (:pointer void)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetTexParameteriv" get-tex-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetTexLevelParameterfv" get-tex-level-parameter-fv) :void
-  (target enum)
-  (level int)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glGetTexLevelParameteriv" get-tex-level-parameter-iv) :void
-  (target enum)
-  (level int)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.0, state-req
-(defglfun ("glIsEnabled" is-enabled) boolean
-  (cap enum))
-
-;;; GL version: 1.0, state-req
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glIsList" is-list) boolean
   (list uint))
 
-;;; GL version: 1.0, xform
-(defglfun ("glDepthRange" depth-range) :void
-  (near clampd)
-  (far clampd))
-
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glFrustum" frustum) :void
   (left double)
   (right double)
@@ -1559,30 +1566,30 @@
   (zNear double)
   (zFar double))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glLoadIdentity" load-identity) :void)
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glLoadMatrixf" load-matrix-f) :void
   (m (:pointer float)))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glLoadMatrixd" load-matrix-d) :void
   (m (:pointer double)))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMatrixMode" matrix-mode) :void
   (mode enum))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMultMatrixf" mult-matrix-f) :void
   (m (:pointer float)))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glMultMatrixd" mult-matrix-d) :void
   (m (:pointer double)))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glOrtho" ortho) :void
   (left double)
   (right double)
@@ -1591,137 +1598,74 @@
   (zNear double)
   (zFar double))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPopMatrix" pop-matrix) :void)
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPushMatrix" push-matrix) :void)
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glRotated" rotate-d) :void
   (angle double)
   (x double)
   (y double)
   (z double))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glRotatef" rotate-f) :void
   (angle float)
   (x float)
   (y float)
   (z float))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glScaled" scale-d) :void
   (x double)
   (y double)
   (z double))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glScalef" scale-f) :void
   (x float)
   (y float)
   (z float))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glTranslated" translate-d) :void
   (x double)
   (y double)
   (z double))
 
-;;; GL version: 1.0, xform
+;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glTranslatef" translate-f) :void
   (x float)
   (y float)
   (z float))
 
-;;; GL version: 1.0, xform
-(defglfun ("glViewport" viewport) :void
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glArrayElement" array-element) :void
-  (i int))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glColorPointer" color-pointer) :void
-  (size int)
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glDisableClientState" disable-client-state) :void
-  (array enum))
-
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glDrawArrays" draw-arrays) :void
   (mode enum)
   (first int)
   (count sizei))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glDrawElements" draw-elements) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer void)))
 
-;;; GL version: 1.1, 1_1
-(defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glEnableClientState" enable-client-state) :void
-  (array enum))
-
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glGetPointerv" get-pointer-v) :void
   (pname enum)
   (params (:pointer (:pointer void))))
 
-;;; GL version: 1.1, 1_1
-(defglfun ("glIndexPointer" index-pointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glInterleavedArrays" interleaved-arrays) :void
-  (format enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glNormalPointer" normal-pointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glTexCoordPointer" tex-coord-pointer) :void
-  (size int)
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glVertexPointer" vertex-pointer) :void
-  (size int)
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glPolygonOffset" polygon-offset) :void
   (factor float)
   (units float))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glCopyTexImage1D" copy-tex-image-1d) :void
   (target enum)
   (level int)
@@ -1731,7 +1675,7 @@
   (width sizei)
   (border int))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glCopyTexImage2D" copy-tex-image-2d) :void
   (target enum)
   (level int)
@@ -1742,7 +1686,7 @@
   (height sizei)
   (border int))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glCopyTexSubImage1D" copy-tex-sub-image-1d) :void
   (target enum)
   (level int)
@@ -1751,7 +1695,7 @@
   (y int)
   (width sizei))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glCopyTexSubImage2D" copy-tex-sub-image-2d) :void
   (target enum)
   (level int)
@@ -1762,7 +1706,7 @@
   (width sizei)
   (height sizei))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glTexSubImage1D" tex-sub-image-1d) :void
   (target enum)
   (level int)
@@ -1772,7 +1716,7 @@
   (type enum)
   (pixels (:pointer void)))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glTexSubImage2D" tex-sub-image-2d) :void
   (target enum)
   (level int)
@@ -1784,49 +1728,105 @@
   (type enum)
   (pixels (:pointer void)))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1
+(defglfun ("glBindTexture" bind-texture) :void
+  (target enum)
+  (texture uint))
+
+;;; GL version: 1.1, VERSION_1_1
+(defglfun ("glDeleteTextures" delete-textures) :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.1, VERSION_1_1
+(defglfun ("glGenTextures" gen-textures) :void
+  (n sizei)
+  (textures (:pointer uint)))
+
+;;; GL version: 1.1, VERSION_1_1
+(defglfun ("glIsTexture" is-texture) boolean
+  (texture uint))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glArrayElement" array-element) :void
+  (i int))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glColorPointer" color-pointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glDisableClientState" disable-client-state) :void
+  (array enum))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glEnableClientState" enable-client-state) :void
+  (array enum))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glIndexPointer" index-pointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glInterleavedArrays" interleaved-arrays) :void
+  (format enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glNormalPointer" normal-pointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glTexCoordPointer" tex-coord-pointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
+(defglfun ("glVertexPointer" vertex-pointer) :void
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glAreTexturesResident" are-textures-resident) boolean
   (n sizei)
   (textures (:pointer uint))
   (residences (:pointer boolean)))
 
-;;; GL version: 1.1, 1_1
-(defglfun ("glBindTexture" bind-texture) :void
-  (target enum)
-  (texture uint))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glDeleteTextures" delete-textures) :void
-  (n sizei)
-  (textures (:pointer uint)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glGenTextures" gen-textures) :void
-  (n sizei)
-  (textures (:pointer uint)))
-
-;;; GL version: 1.1, 1_1
-(defglfun ("glIsTexture" is-texture) boolean
-  (texture uint))
-
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glPrioritizeTextures" prioritize-textures) :void
   (n sizei)
   (textures (:pointer uint))
   (priorities (:pointer clampf)))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glIndexub" index-ub) :void
   (c ubyte))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glIndexubv" index-ubv) :void
   (c (:pointer ubyte)))
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glPopClientAttrib" pop-client-attrib) :void)
 
-;;; GL version: 1.1, 1_1
+;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glPushClientAttrib" push-client-attrib) :void
   (mask ClientAttribMask))
 
@@ -1849,231 +1849,6 @@
   (count sizei)
   (type enum)
   (indices (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glColorTable" color-table) :void
-  (target enum)
-  (internalformat enum)
-  (width sizei)
-  (format enum)
-  (type enum)
-  (table (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glColorTableParameterfv" color-table-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glColorTableParameteriv" color-table-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glCopyColorTable" copy-color-table) :void
-  (target enum)
-  (internalformat enum)
-  (x int)
-  (y int)
-  (width sizei))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetColorTable" get-color-table) :void
-  (target enum)
-  (format enum)
-  (type enum)
-  (table (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetColorTableParameterfv" get-color-table-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetColorTableParameteriv" get-color-table-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glColorSubTable" color-sub-table) :void
-  (target enum)
-  (start sizei)
-  (count sizei)
-  (format enum)
-  (type enum)
-  (data (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glCopyColorSubTable" copy-color-sub-table) :void
-  (target enum)
-  (start sizei)
-  (x int)
-  (y int)
-  (width sizei))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionFilter1D" convolution-filter-1d) :void
-  (target enum)
-  (internalformat enum)
-  (width sizei)
-  (format enum)
-  (type enum)
-  (image (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionFilter2D" convolution-filter-2d) :void
-  (target enum)
-  (internalformat enum)
-  (width sizei)
-  (height sizei)
-  (format enum)
-  (type enum)
-  (image (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionParameterf" convolution-parameter-f) :void
-  (target enum)
-  (pname enum)
-  (params float))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionParameterfv" convolution-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionParameteri" convolution-parameter-i) :void
-  (target enum)
-  (pname enum)
-  (params int))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glConvolutionParameteriv" convolution-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glCopyConvolutionFilter1D" copy-convolution-filter-1d) :void
-  (target enum)
-  (internalformat enum)
-  (x int)
-  (y int)
-  (width sizei))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glCopyConvolutionFilter2D" copy-convolution-filter-2d) :void
-  (target enum)
-  (internalformat enum)
-  (x int)
-  (y int)
-  (width sizei)
-  (height sizei))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetConvolutionFilter" get-convolution-filter) :void
-  (target enum)
-  (format enum)
-  (type enum)
-  (image (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetConvolutionParameterfv" get-convolution-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetConvolutionParameteriv" get-convolution-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetSeparableFilter" get-separable-filter) :void
-  (target enum)
-  (format enum)
-  (type enum)
-  (row (:pointer void))
-  (column (:pointer void))
-  (span (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glSeparableFilter2D" separable-filter-2d) :void
-  (target enum)
-  (internalformat enum)
-  (width sizei)
-  (height sizei)
-  (format enum)
-  (type enum)
-  (row (:pointer void))
-  (column (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetHistogram" get-histogram) :void
-  (target enum)
-  (reset boolean)
-  (format enum)
-  (type enum)
-  (values (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetHistogramParameterfv" get-histogram-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetHistogramParameteriv" get-histogram-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetMinmax" get-minmax) :void
-  (target enum)
-  (reset boolean)
-  (format enum)
-  (type enum)
-  (values (:pointer void)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetMinmaxParameterfv" get-minmax-parameter-fv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer float)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glGetMinmaxParameteriv" get-minmax-parameter-iv) :void
-  (target enum)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glHistogram" histogram) :void
-  (target enum)
-  (width sizei)
-  (internalformat enum)
-  (sink boolean))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glMinmax" minmax) :void
-  (target enum)
-  (internalformat enum)
-  (sink boolean))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glResetHistogram" reset-histogram) :void
-  (target enum))
-
-;;; GL version: 1.2, VERSION_1_2
-(defglextfun ("glResetMinmax" reset-minmax) :void
-  (target enum))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glTexImage3D" tex-image-3d) :void
@@ -2114,213 +1889,234 @@
   (width sizei)
   (height sizei))
 
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glColorTable" color-table) :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glColorTableParameterfv" color-table-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glColorTableParameteriv" color-table-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glCopyColorTable" copy-color-table) :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetColorTable" get-color-table) :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (table (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetColorTableParameterfv" get-color-table-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetColorTableParameteriv" get-color-table-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glColorSubTable" color-sub-table) :void
+  (target enum)
+  (start sizei)
+  (count sizei)
+  (format enum)
+  (type enum)
+  (data (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glCopyColorSubTable" copy-color-sub-table) :void
+  (target enum)
+  (start sizei)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionFilter1D" convolution-filter-1d) :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionFilter2D" convolution-filter-2d) :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionParameterf" convolution-parameter-f) :void
+  (target enum)
+  (pname enum)
+  (params float))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionParameterfv" convolution-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionParameteri" convolution-parameter-i) :void
+  (target enum)
+  (pname enum)
+  (params int))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glConvolutionParameteriv" convolution-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glCopyConvolutionFilter1D" copy-convolution-filter-1d) :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glCopyConvolutionFilter2D" copy-convolution-filter-2d) :void
+  (target enum)
+  (internalformat enum)
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetConvolutionFilter" get-convolution-filter) :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (image (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetConvolutionParameterfv" get-convolution-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetConvolutionParameteriv" get-convolution-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetSeparableFilter" get-separable-filter) :void
+  (target enum)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void))
+  (span (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glSeparableFilter2D" separable-filter-2d) :void
+  (target enum)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (format enum)
+  (type enum)
+  (row (:pointer void))
+  (column (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetHistogram" get-histogram) :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetHistogramParameterfv" get-histogram-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetHistogramParameteriv" get-histogram-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetMinmax" get-minmax) :void
+  (target enum)
+  (reset boolean)
+  (format enum)
+  (type enum)
+  (values (:pointer void)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetMinmaxParameterfv" get-minmax-parameter-fv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glGetMinmaxParameteriv" get-minmax-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glHistogram" histogram) :void
+  (target enum)
+  (width sizei)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glMinmax" minmax) :void
+  (target enum)
+  (internalformat enum)
+  (sink boolean))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glResetHistogram" reset-histogram) :void
+  (target enum))
+
+;;; GL version: 1.2, VERSION_1_2_DEPRECATED
+(defglextfun ("glResetMinmax" reset-minmax) :void
+  (target enum))
+
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glActiveTexture" active-texture) :void
   (texture enum))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glClientActiveTexture" client-active-texture) :void
-  (texture enum))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d) :void
-  (target enum)
-  (s double))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1dv" multi-tex-coord-1dv) :void
-  (target enum)
-  (v (:pointer double)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1f" multi-tex-coord-1f) :void
-  (target enum)
-  (s float))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1fv" multi-tex-coord-1fv) :void
-  (target enum)
-  (v (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1i" multi-tex-coord-1i) :void
-  (target enum)
-  (s int))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1iv" multi-tex-coord-1iv) :void
-  (target enum)
-  (v (:pointer int)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1s" multi-tex-coord-1s) :void
-  (target enum)
-  (s short))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord1sv" multi-tex-coord-1sv) :void
-  (target enum)
-  (v (:pointer short)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2d" multi-tex-coord-2d) :void
-  (target enum)
-  (s double)
-  (tee double))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2dv" multi-tex-coord-2dv) :void
-  (target enum)
-  (v (:pointer double)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2f" multi-tex-coord-2f) :void
-  (target enum)
-  (s float)
-  (tee float))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2fv" multi-tex-coord-2fv) :void
-  (target enum)
-  (v (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2i" multi-tex-coord-2i) :void
-  (target enum)
-  (s int)
-  (tee int))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2iv" multi-tex-coord-2iv) :void
-  (target enum)
-  (v (:pointer int)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2s" multi-tex-coord-2s) :void
-  (target enum)
-  (s short)
-  (tee short))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord2sv" multi-tex-coord-2sv) :void
-  (target enum)
-  (v (:pointer short)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3d" multi-tex-coord-3d) :void
-  (target enum)
-  (s double)
-  (tee double)
-  (r double))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3dv" multi-tex-coord-3dv) :void
-  (target enum)
-  (v (:pointer double)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3f" multi-tex-coord-3f) :void
-  (target enum)
-  (s float)
-  (tee float)
-  (r float))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3fv" multi-tex-coord-3fv) :void
-  (target enum)
-  (v (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3i" multi-tex-coord-3i) :void
-  (target enum)
-  (s int)
-  (tee int)
-  (r int))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3iv" multi-tex-coord-3iv) :void
-  (target enum)
-  (v (:pointer int)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3s" multi-tex-coord-3s) :void
-  (target enum)
-  (s short)
-  (tee short)
-  (r short))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord3sv" multi-tex-coord-3sv) :void
-  (target enum)
-  (v (:pointer short)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4d" multi-tex-coord-4d) :void
-  (target enum)
-  (s double)
-  (tee double)
-  (r double)
-  (q double))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4dv" multi-tex-coord-4dv) :void
-  (target enum)
-  (v (:pointer double)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4f" multi-tex-coord-4f) :void
-  (target enum)
-  (s float)
-  (tee float)
-  (r float)
-  (q float))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4fv" multi-tex-coord-4fv) :void
-  (target enum)
-  (v (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4i" multi-tex-coord-4i) :void
-  (target enum)
-  (s int)
-  (tee int)
-  (r int)
-  (q int))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4iv" multi-tex-coord-4iv) :void
-  (target enum)
-  (v (:pointer int)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4s" multi-tex-coord-4s) :void
-  (target enum)
-  (s short)
-  (tee short)
-  (r short)
-  (q short))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultiTexCoord4sv" multi-tex-coord-4sv) :void
-  (target enum)
-  (v (:pointer short)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glLoadTransposeMatrixf" load-transpose-matrix-f) :void
-  (m (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glLoadTransposeMatrixd" load-transpose-matrix-d) :void
-  (m (:pointer double)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultTransposeMatrixf" mult-transpose-matrix-f) :void
-  (m (:pointer float)))
-
-;;; GL version: 1.3, VERSION_1_3
-(defglextfun ("glMultTransposeMatrixd" mult-transpose-matrix-d) :void
-  (m (:pointer double)))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glSampleCoverage" sample-coverage) :void
@@ -2402,34 +2198,216 @@
   (level int)
   (img (:pointer void)))
 
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glClientActiveTexture" client-active-texture) :void
+  (texture enum))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d) :void
+  (target enum)
+  (s double))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1dv" multi-tex-coord-1dv) :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1f" multi-tex-coord-1f) :void
+  (target enum)
+  (s float))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1fv" multi-tex-coord-1fv) :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1i" multi-tex-coord-1i) :void
+  (target enum)
+  (s int))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1iv" multi-tex-coord-1iv) :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1s" multi-tex-coord-1s) :void
+  (target enum)
+  (s short))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord1sv" multi-tex-coord-1sv) :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2d" multi-tex-coord-2d) :void
+  (target enum)
+  (s double)
+  (tee double))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2dv" multi-tex-coord-2dv) :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2f" multi-tex-coord-2f) :void
+  (target enum)
+  (s float)
+  (tee float))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2fv" multi-tex-coord-2fv) :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2i" multi-tex-coord-2i) :void
+  (target enum)
+  (s int)
+  (tee int))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2iv" multi-tex-coord-2iv) :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2s" multi-tex-coord-2s) :void
+  (target enum)
+  (s short)
+  (tee short))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord2sv" multi-tex-coord-2sv) :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3d" multi-tex-coord-3d) :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3dv" multi-tex-coord-3dv) :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3f" multi-tex-coord-3f) :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3fv" multi-tex-coord-3fv) :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3i" multi-tex-coord-3i) :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3iv" multi-tex-coord-3iv) :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3s" multi-tex-coord-3s) :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord3sv" multi-tex-coord-3sv) :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4d" multi-tex-coord-4d) :void
+  (target enum)
+  (s double)
+  (tee double)
+  (r double)
+  (q double))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4dv" multi-tex-coord-4dv) :void
+  (target enum)
+  (v (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4f" multi-tex-coord-4f) :void
+  (target enum)
+  (s float)
+  (tee float)
+  (r float)
+  (q float))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4fv" multi-tex-coord-4fv) :void
+  (target enum)
+  (v (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4i" multi-tex-coord-4i) :void
+  (target enum)
+  (s int)
+  (tee int)
+  (r int)
+  (q int))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4iv" multi-tex-coord-4iv) :void
+  (target enum)
+  (v (:pointer int)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4s" multi-tex-coord-4s) :void
+  (target enum)
+  (s short)
+  (tee short)
+  (r short)
+  (q short))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultiTexCoord4sv" multi-tex-coord-4sv) :void
+  (target enum)
+  (v (:pointer short)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glLoadTransposeMatrixf" load-transpose-matrix-f) :void
+  (m (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glLoadTransposeMatrixd" load-transpose-matrix-d) :void
+  (m (:pointer double)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultTransposeMatrixf" mult-transpose-matrix-f) :void
+  (m (:pointer float)))
+
+;;; GL version: 1.3, VERSION_1_3_DEPRECATED
+(defglextfun ("glMultTransposeMatrixd" mult-transpose-matrix-d) :void
+  (m (:pointer double)))
+
 ;;; GL version: 1.4, VERSION_1_4
 (defglextfun ("glBlendFuncSeparate" blend-func-separate) :void
   (sfactorRGB enum)
   (dfactorRGB enum)
   (sfactorAlpha enum)
   (dfactorAlpha enum))
-
-;;; GL version: 1.4, VERSION_1_4
-(defglextfun ("glFogCoordf" fog-coord-f) :void
-  (coord float))
-
-;;; GL version: 1.4, VERSION_1_4
-(defglextfun ("glFogCoordfv" fog-coord-fv) :void
-  (coord (:pointer float)))
-
-;;; GL version: 1.4, VERSION_1_4
-(defglextfun ("glFogCoordd" fog-coord-d) :void
-  (coord double))
-
-;;; GL version: 1.4, VERSION_1_4
-(defglextfun ("glFogCoorddv" fog-coord-dv) :void
-  (coord (:pointer double)))
-
-;;; GL version: 1.4, VERSION_1_4
-(defglextfun ("glFogCoordPointer" fog-coord-pointer) :void
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
 
 ;;; GL version: 1.4, VERSION_1_4
 (defglextfun ("glMultiDrawArrays" multi-draw-arrays) :void
@@ -2466,166 +2444,188 @@
   (pname enum)
   (params (:pointer int)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
+(defglextfun ("glFogCoordf" fog-coord-f) :void
+  (coord float))
+
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
+(defglextfun ("glFogCoordfv" fog-coord-fv) :void
+  (coord (:pointer float)))
+
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
+(defglextfun ("glFogCoordd" fog-coord-d) :void
+  (coord double))
+
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
+(defglextfun ("glFogCoorddv" fog-coord-dv) :void
+  (coord (:pointer double)))
+
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
+(defglextfun ("glFogCoordPointer" fog-coord-pointer) :void
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3b" secondary-color-3b) :void
   (red byte)
   (green byte)
   (blue byte))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3bv" secondary-color-3bv) :void
   (v (:pointer byte)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3d" secondary-color-3d) :void
   (red double)
   (green double)
   (blue double))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3dv" secondary-color-3dv) :void
   (v (:pointer double)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3f" secondary-color-3f) :void
   (red float)
   (green float)
   (blue float))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3fv" secondary-color-3fv) :void
   (v (:pointer float)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3i" secondary-color-3i) :void
   (red int)
   (green int)
   (blue int))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3iv" secondary-color-3iv) :void
   (v (:pointer int)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3s" secondary-color-3s) :void
   (red short)
   (green short)
   (blue short))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3sv" secondary-color-3sv) :void
   (v (:pointer short)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3ub" secondary-color-3ub) :void
   (red ubyte)
   (green ubyte)
   (blue ubyte))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3ubv" secondary-color-3ubv) :void
   (v (:pointer ubyte)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3ui" secondary-color-3ui) :void
   (red uint)
   (green uint)
   (blue uint))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3uiv" secondary-color-3uiv) :void
   (v (:pointer uint)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3us" secondary-color-3us) :void
   (red ushort)
   (green ushort)
   (blue ushort))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3usv" secondary-color-3usv) :void
   (v (:pointer ushort)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColorPointer" secondary-color-pointer) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer void)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2d" window-pos-2d) :void
   (x double)
   (y double))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2dv" window-pos-2dv) :void
   (v (:pointer double)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2f" window-pos-2f) :void
   (x float)
   (y float))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2fv" window-pos-2fv) :void
   (v (:pointer float)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2i" window-pos-2i) :void
   (x int)
   (y int))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2iv" window-pos-2iv) :void
   (v (:pointer int)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2s" window-pos-2s) :void
   (x short)
   (y short))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2sv" window-pos-2sv) :void
   (v (:pointer short)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3d" window-pos-3d) :void
   (x double)
   (y double)
   (z double))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3dv" window-pos-3dv) :void
   (v (:pointer double)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3f" window-pos-3f) :void
   (x float)
   (y float)
   (z float))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3fv" window-pos-3fv) :void
   (v (:pointer float)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3i" window-pos-3i) :void
   (x int)
   (y int)
   (z int))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3iv" window-pos-3iv) :void
   (v (:pointer int)))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3s" window-pos-3s) :void
   (x short)
   (y short)
   (z short))
 
-;;; GL version: 1.4, VERSION_1_4
+;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos3sv" window-pos-3sv) :void
   (v (:pointer short)))
 
@@ -3369,14 +3369,18 @@
 (defglextfun ("glTransformFeedbackVaryings" transform-feedback-varyings) :void
   (program uint)
   (count sizei)
-  (locations (:pointer int))
+  (varyings (:pointer (:pointer char)))
   (bufferMode enum))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glGetTransformFeedbackVarying" get-transform-feedback-varying) :void
   (program uint)
   (index uint)
-  (location (:pointer int)))
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (size (:pointer sizei))
+  (type (:pointer enum))
+  (name (:pointer char)))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glClampColor" clamp-color) :void
@@ -3390,6 +3394,26 @@
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glEndConditionalRender" end-conditional-render) :void)
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glVertexAttribIPointer" vertex-attrib-ipointer) :void
+  (index uint)
+  (size int)
+  (type enum)
+  (stride sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 3.0, VERSION_3_0
+(defglextfun ("glGetVertexAttribIuiv" get-vertex-attrib-iuiv) :void
+  (index uint)
+  (pname enum)
+  (params (:pointer uint)))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glVertexAttribI1i" vertex-attrib-i1i) :void
@@ -3504,26 +3528,6 @@
   (v (:pointer ushort)))
 
 ;;; GL version: 3.0, VERSION_3_0
-(defglextfun ("glVertexAttribIPointer" vertex-attrib-ipointer) :void
-  (index uint)
-  (size int)
-  (type enum)
-  (stride sizei)
-  (pointer (:pointer void)))
-
-;;; GL version: 3.0, VERSION_3_0
-(defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
-  (index uint)
-  (pname enum)
-  (params (:pointer int)))
-
-;;; GL version: 3.0, VERSION_3_0
-(defglextfun ("glGetVertexAttribIuiv" get-vertex-attrib-iuiv) :void
-  (index uint)
-  (pname enum)
-  (params (:pointer uint)))
-
-;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glGetUniformuiv" get-uniform-uiv) :void
   (program uint)
   (location int)
@@ -3617,21 +3621,25 @@
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glClearBufferiv" clear-buffer-iv) :void
   (buffer enum)
+  (drawbuffer int)
   (value (:pointer int)))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glClearBufferuiv" clear-buffer-uiv) :void
   (buffer enum)
+  (drawbuffer int)
   (value (:pointer uint)))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glClearBufferfv" clear-buffer-fv) :void
   (buffer enum)
+  (drawbuffer int)
   (value (:pointer float)))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glClearBufferfi" clear-buffer-fi) :void
   (buffer enum)
+  (drawbuffer int)
   (depth float)
   (stencil int))
 
@@ -3639,6 +3647,64 @@
 (defglextfun ("glGetStringi" get-string-i) string
   (name enum)
   (index uint))
+
+;;; GL version: 3.1, VERSION_3_1
+(defglextfun ("glDrawArraysInstanced" draw-arrays-instanced) :void
+  (mode enum)
+  (first int)
+  (count sizei)
+  (primcount sizei))
+
+;;; GL version: 3.1, VERSION_3_1
+(defglextfun ("glDrawElementsInstanced" draw-elements-instanced) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (primcount sizei))
+
+;;; GL version: 3.1, VERSION_3_1
+(defglextfun ("glTexBuffer" tex-buffer) :void
+  (target enum)
+  (internalformat enum)
+  (buffer uint))
+
+;;; GL version: 3.1, VERSION_3_1
+(defglextfun ("glPrimitiveRestartIndex" primitive-restart-index) :void
+  (index uint))
+
+;;; GL version: 3.2, VERSION_3_2
+(defglextfun ("glGetInteger64i_v" get-integer-64-i-v) :void
+  (target enum)
+  (index uint)
+  (data (:pointer int64)))
+
+;;; GL version: 3.2, VERSION_3_2
+(defglextfun ("glGetBufferParameteri64v" get-buffer-parameter-i64v) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int64)))
+
+;;; GL version: 1.2, VERSION_3_2
+(defglextfun ("glProgramParameteri" program-parameter-i) :void
+  (program uint)
+  (pname enum)
+  (value int))
+
+;;; GL version: 1.2, VERSION_3_2
+(defglextfun ("glFramebufferTexture" framebuffer-texture) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int))
+
+;;; GL version: 1.2, VERSION_3_2
+(defglextfun ("glFramebufferTextureFace" framebuffer-texture-face) :void
+  (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (face enum))
 
 ;;; GL version: 1.2, ARB_multitexture
 (defglextfun ("glActiveTextureARB" active-texture-arb) :void
@@ -4989,12 +5055,12 @@
   (face enum))
 
 ;;; GL version: 2.0, ARB_instanced_arrays
-(defglextfun ("glVertexAttribDivisor" vertex-attrib-divisor) :void
+(defglextfun ("glVertexAttribDivisorARB" vertex-attrib-divisor-arb) :void
   (index uint)
   (divisor uint))
 
 ;;; GL version: 3.0, ARB_map_buffer_range
-(defglextfun ("glMapBufferRange" map-buffer-range) :void
+(defglextfun ("glMapBufferRange" map-buffer-range) (:pointer void)
   (target enum)
   (offset intptr)
   (length sizeiptr)
@@ -5029,6 +5095,200 @@
 ;;; GL version: 3.0, ARB_vertex_array_object
 (defglextfun ("glIsVertexArray" is-vertex-array) boolean
   (array uint))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetUniformIndices" get-uniform-indices) :void
+  (program uint)
+  (uniformCount sizei)
+  (uniformNames (:pointer (:pointer char)))
+  (uniformIndices (:pointer uint)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetActiveUniformsiv" get-active-uniforms-iv) :void
+  (program uint)
+  (uniformCount sizei)
+  (uniformIndices (:pointer uint))
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetActiveUniformName" get-active-uniform-name) :void
+  (program uint)
+  (uniformIndex uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (uniformName (:pointer char)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetUniformBlockIndex" get-uniform-block-index) uint
+  (program uint)
+  (uniformBlockName (:pointer char)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetActiveUniformBlockiv" get-active-uniform-block-iv) :void
+  (program uint)
+  (uniformBlockIndex uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glGetActiveUniformBlockName" get-active-uniform-block-name) :void
+  (program uint)
+  (uniformBlockIndex uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (uniformBlockName (:pointer char)))
+
+;;; GL version: 2.0, ARB_uniform_buffer_object
+(defglextfun ("glUniformBlockBinding" uniform-block-binding) :void
+  (program uint)
+  (uniformBlockIndex uint)
+  (uniformBlockBinding uint))
+
+;;; GL version: 3.0, ARB_copy_buffer
+(defglextfun ("glCopyBufferSubData" copy-buffer-sub-data) :void
+  (readTarget enum)
+  (writeTarget enum)
+  (readOffset intptr)
+  (writeOffset intptr)
+  (size sizeiptr))
+
+;;; GL version: 1.2, ARB_draw_elements_base_vertex
+(defglextfun ("glDrawElementsBaseVertex" draw-elements-base-vertex) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (basevertex int))
+
+;;; GL version: 1.2, ARB_draw_elements_base_vertex
+(defglextfun ("glDrawRangeElementsBaseVertex" draw-range-elements-base-vertex) :void
+  (mode enum)
+  (start uint)
+  (end uint)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (basevertex int))
+
+;;; GL version: 1.2, ARB_draw_elements_base_vertex
+(defglextfun ("glDrawElementsInstancedBaseVertex" draw-elements-instanced-base-vertex) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer void))
+  (primcount sizei)
+  (basevertex int))
+
+;;; GL version: 1.2, ARB_draw_elements_base_vertex
+(defglextfun ("glMultiDrawElementsBaseVertex" multi-draw-elements-base-vertex) :void
+  (mode enum)
+  (count (:pointer sizei))
+  (type enum)
+  (indices (:pointer (:pointer void)))
+  (primcount sizei)
+  (basevertex (:pointer int)))
+
+;;; GL version: 1.2, ARB_provoking_vertex
+(defglextfun ("glProvokingVertex" provoking-vertex) :void
+  (mode enum))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glFenceSync" fence-sync) :pointer
+  (condition enum)
+  (flags bitfield))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glIsSync" is-sync) boolean
+  (sync :pointer))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glDeleteSync" delete-sync) :void
+  (sync :pointer))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glClientWaitSync" client-wait-sync) enum
+  (sync :pointer)
+  (flags bitfield)
+  (timeout uint64))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glWaitSync" wait-sync) :void
+  (sync :pointer)
+  (flags bitfield)
+  (timeout uint64))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glGetInteger64v" get-integer-64-v) :void
+  (pname enum)
+  (params (:pointer int64)))
+
+;;; GL version: 1.2, ARB_sync
+(defglextfun ("glGetSynciv" get-sync-iv) :void
+  (sync :pointer)
+  (pname enum)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (values (:pointer int)))
+
+;;; GL version: 1.2, ARB_texture_multisample
+(defglextfun ("glTexImage2DMultisample" tex-image-2d-multisample) :void
+  (target enum)
+  (samples sizei)
+  (internalformat int)
+  (width sizei)
+  (height sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 1.2, ARB_texture_multisample
+(defglextfun ("glTexImage3DMultisample" tex-image-3d-multisample) :void
+  (target enum)
+  (samples sizei)
+  (internalformat int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 1.2, ARB_texture_multisample
+(defglextfun ("glGetMultisamplefv" get-multisample-fv) :void
+  (pname enum)
+  (index uint)
+  (val (:pointer float)))
+
+;;; GL version: 1.2, ARB_texture_multisample
+(defglextfun ("glSampleMaski" sample-mask-i) :void
+  (index uint)
+  (mask bitfield))
+
+;;; GL version: 1.2, ARB_draw_buffers_blend
+(defglextfun ("glBlendEquationi" blend-equation-i) :void
+  (buf uint)
+  (mode enum))
+
+;;; GL version: 1.2, ARB_draw_buffers_blend
+(defglextfun ("glBlendEquationSeparatei" blend-equation-separate-i) :void
+  (buf uint)
+  (modeRGB enum)
+  (modeAlpha enum))
+
+;;; GL version: 1.2, ARB_draw_buffers_blend
+(defglextfun ("glBlendFunci" blend-func-i) :void
+  (buf uint)
+  (src enum)
+  (dst enum))
+
+;;; GL version: 1.2, ARB_draw_buffers_blend
+(defglextfun ("glBlendFuncSeparatei" blend-func-separate-i) :void
+  (buf uint)
+  (srcRGB enum)
+  (dstRGB enum)
+  (srcAlpha enum)
+  (dstAlpha enum))
+
+;;; GL version: 1.2, ARB_sample_shading
+(defglextfun ("glMinSampleShading" min-sample-shading) :void
+  (value clampf))
 
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
@@ -9426,7 +9686,7 @@
 (defglextfun ("glTransformFeedbackVaryingsNV" transform-feedback-varyings-nv) :void
   (program uint)
   (count sizei)
-  (locations (:pointer int))
+  (varyings (:pointer (:pointer char)))
   (bufferMode enum))
 
 ;;; GL version: 1.5, NV_transform_feedback
@@ -9520,6 +9780,60 @@
 ;;; GL version: 1.0, NV_conditional_render
 (defglextfun ("glEndConditionalRenderNV" end-conditional-render-nv) :void)
 
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glPresentFrameKeyedNV" present-frame-keyed-nv) :void
+  (video_slot uint)
+  (minPresentTime uint64-ext)
+  (beginPresentTimeId uint)
+  (presentDurationId uint)
+  (type enum)
+  (target0 enum)
+  (fill0 uint)
+  (key0 uint)
+  (target1 enum)
+  (fill1 uint)
+  (key1 uint))
+
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glPresentFrameDualFillNV" present-frame-dual-fill-nv) :void
+  (video_slot uint)
+  (minPresentTime uint64-ext)
+  (beginPresentTimeId uint)
+  (presentDurationId uint)
+  (type enum)
+  (target0 enum)
+  (fill0 uint)
+  (target1 enum)
+  (fill1 uint)
+  (target2 enum)
+  (fill2 uint)
+  (target3 enum)
+  (fill3 uint))
+
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glGetVideoivNV" get-video-iv-nv) :void
+  (video_slot uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glGetVideouivNV" get-video-uiv-nv) :void
+  (video_slot uint)
+  (pname enum)
+  (params (:pointer uint)))
+
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glGetVideoi64vNV" get-video-i64v-nv) :void
+  (video_slot uint)
+  (pname enum)
+  (params (:pointer int64-ext)))
+
+;;; GL version: 1.2, NV_present_video
+(defglextfun ("glGetVideoui64vNV" get-video-ui64v-nv) :void
+  (video_slot uint)
+  (pname enum)
+  (params (:pointer uint64-ext)))
+
 ;;; GL version: 2.0, EXT_transform_feedback
 (defglextfun ("glBeginTransformFeedbackEXT" begin-transform-feedback-ext) :void
   (primitiveMode enum))
@@ -9552,14 +9866,18 @@
 (defglextfun ("glTransformFeedbackVaryingsEXT" transform-feedback-varyings-ext) :void
   (program uint)
   (count sizei)
-  (locations (:pointer int))
+  (varyings (:pointer (:pointer char)))
   (bufferMode enum))
 
 ;;; GL version: 2.0, EXT_transform_feedback
 (defglextfun ("glGetTransformFeedbackVaryingEXT" get-transform-feedback-varying-ext) :void
   (program uint)
   (index uint)
-  (location (:pointer int)))
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (size (:pointer sizei))
+  (type (:pointer enum))
+  (name (:pointer char)))
 
 ;;; GL version: 1.0, EXT_direct_state_access
 (defglextfun ("glClientAttribDefaultEXT" client-attrib-default-ext) :void
@@ -11042,3 +11360,250 @@
   (texunit enum)
   (target enum)
   (renderbuffer uint))
+
+;;; GL version: 1.0, NV_explicit_multisample
+(defglextfun ("glGetMultisamplefvNV" get-multisample-fv-nv) :void
+  (pname enum)
+  (index uint)
+  (val (:pointer float)))
+
+;;; GL version: 1.0, NV_explicit_multisample
+(defglextfun ("glSampleMaskIndexedNV" sample-mask-indexed-nv) :void
+  (index uint)
+  (mask bitfield))
+
+;;; GL version: 1.0, NV_explicit_multisample
+(defglextfun ("glTexRenderbufferNV" tex-renderbuffer-nv) :void
+  (target enum)
+  (renderbuffer uint))
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glBindTransformFeedbackNV" bind-transform-feedback-nv) :void
+  (target enum)
+  (id uint))
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glDeleteTransformFeedbacksNV" delete-transform-feedbacks-nv) :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glGenTransformFeedbacksNV" gen-transform-feedbacks-nv) :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glIsTransformFeedbackNV" is-transform-feedback-nv) boolean
+  (id uint))
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glPauseTransformFeedbackNV" pause-transform-feedback-nv) :void)
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glResumeTransformFeedbackNV" resume-transform-feedback-nv) :void)
+
+;;; GL version: 1.0, NV_transform_feedback2
+(defglextfun ("glDrawTransformFeedbackNV" draw-transform-feedback-nv) :void
+  (mode enum)
+  (id uint))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorGroupsAMD" get-perf-monitor-groups-amd) :void
+  (numGroups (:pointer int))
+  (groupsSize sizei)
+  (groups (:pointer uint)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorCountersAMD" get-perf-monitor-counters-amd) :void
+  (group uint)
+  (numCounters (:pointer int))
+  (maxActiveCounters (:pointer int))
+  (counterSize sizei)
+  (counters (:pointer uint)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorGroupStringAMD" get-perf-monitor-group-string-amd) :void
+  (group uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (groupString (:pointer char)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorCounterStringAMD" get-perf-monitor-counter-string-amd) :void
+  (group uint)
+  (counter uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (counterString (:pointer char)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorCounterInfoAMD" get-perf-monitor-counter-info-amd) :void
+  (group uint)
+  (counter uint)
+  (pname enum)
+  (data (:pointer :void)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGenPerfMonitorsAMD" gen-perf-monitors-amd) :void
+  (n sizei)
+  (monitors (:pointer uint)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glDeletePerfMonitorsAMD" delete-perf-monitors-amd) :void
+  (n sizei)
+  (monitors (:pointer uint)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glSelectPerfMonitorCountersAMD" select-perf-monitor-counters-amd) :void
+  (monitor uint)
+  (enable boolean)
+  (group uint)
+  (numCounters int)
+  (counterList (:pointer uint)))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glBeginPerfMonitorAMD" begin-perf-monitor-amd) :void
+  (monitor uint))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glEndPerfMonitorAMD" end-perf-monitor-amd) :void
+  (monitor uint))
+
+;;; GL version: 1.2, AMD_performance_monitor
+(defglextfun ("glGetPerfMonitorCounterDataAMD" get-perf-monitor-counter-data-amd) :void
+  (monitor uint)
+  (pname enum)
+  (dataSize sizei)
+  (data (:pointer uint))
+  (bytesWritten (:pointer int)))
+
+;;; GL version: 2.0, AMD_vertex_shader_tesselator
+(defglextfun ("glTessellationFactorAMD" tessellation-factor-amd) :void
+  (factor float))
+
+;;; GL version: 2.0, AMD_vertex_shader_tesselator
+(defglextfun ("glTessellationModeAMD" tessellation-mode-amd) :void
+  (mode enum))
+
+;;; GL version: 2.1, EXT_provoking_vertex
+(defglextfun ("glProvokingVertexEXT" provoking-vertex-ext) :void
+  (mode enum))
+
+;;; GL version: 2.0, AMD_draw_buffers_blend
+(defglextfun ("glBlendFuncIndexedAMD" blend-func-indexed-amd) :void
+  (buf uint)
+  (src enum)
+  (dst enum))
+
+;;; GL version: 2.0, AMD_draw_buffers_blend
+(defglextfun ("glBlendFuncSeparateIndexedAMD" blend-func-separate-indexed-amd) :void
+  (buf uint)
+  (srcRGB enum)
+  (dstRGB enum)
+  (srcAlpha enum)
+  (dstAlpha enum))
+
+;;; GL version: 2.0, AMD_draw_buffers_blend
+(defglextfun ("glBlendEquationIndexedAMD" blend-equation-indexed-amd) :void
+  (buf uint)
+  (mode enum))
+
+;;; GL version: 2.0, AMD_draw_buffers_blend
+(defglextfun ("glBlendEquationSeparateIndexedAMD" blend-equation-separate-indexed-amd) :void
+  (buf uint)
+  (modeRGB enum)
+  (modeAlpha enum))
+
+;;; GL version: 1.2, APPLE_texture_range
+(defglextfun ("glTextureRangeAPPLE" texture-range-apple) :void
+  (target enum)
+  (length sizei)
+  (pointer (:pointer void)))
+
+;;; GL version: 1.2, APPLE_texture_range
+(defglextfun ("glGetTexParameterPointervAPPLE" get-tex-parameter-pointer-v-apple) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer (:pointer void))))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glEnableVertexAttribAPPLE" enable-vertex-attrib-apple) :void
+  (index uint)
+  (pname enum))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glDisableVertexAttribAPPLE" disable-vertex-attrib-apple) :void
+  (index uint)
+  (pname enum))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glIsVertexAttribEnabledAPPLE" is-vertex-attrib-enabled-apple) boolean
+  (index uint)
+  (pname enum))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glMapVertexAttrib1dAPPLE" map-vertex-attrib-1d-apple) :void
+  (index uint)
+  (size uint)
+  (u1 double)
+  (u2 double)
+  (stride int)
+  (order int)
+  (points (:pointer double)))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glMapVertexAttrib1fAPPLE" map-vertex-attrib-1f-apple) :void
+  (index uint)
+  (size uint)
+  (u1 float)
+  (u2 float)
+  (stride int)
+  (order int)
+  (points (:pointer float)))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glMapVertexAttrib2dAPPLE" map-vertex-attrib-2d-apple) :void
+  (index uint)
+  (size uint)
+  (u1 double)
+  (u2 double)
+  (ustride int)
+  (uorder int)
+  (v1 double)
+  (v2 double)
+  (vstride int)
+  (vorder int)
+  (points (:pointer double)))
+
+;;; GL version: 1.5, APPLE_vertex_program_evaluators
+(defglextfun ("glMapVertexAttrib2fAPPLE" map-vertex-attrib-2f-apple) :void
+  (index uint)
+  (size uint)
+  (u1 float)
+  (u2 float)
+  (ustride int)
+  (uorder int)
+  (v1 float)
+  (v2 float)
+  (vstride int)
+  (vorder int)
+  (points (:pointer float)))
+
+;;; GL version: 1.5, APPLE_object_purgeable
+(defglextfun ("glObjectPurgeableAPPLE" object-purgeable-apple) enum
+  (objectType enum)
+  (name uint)
+  (option enum))
+
+;;; GL version: 1.5, APPLE_object_purgeable
+(defglextfun ("glObjectUnpurgeableAPPLE" object-unpurgeable-apple) enum
+  (objectType enum)
+  (name uint)
+  (option enum))
+
+;;; GL version: 1.5, APPLE_object_purgeable
+(defglextfun ("glGetObjectParameterivAPPLE" get-object-parameter-iv-apple) :void
+  (objectType enum)
+  (name uint)
+  (pname enum)
+  (params (:pointer int)))

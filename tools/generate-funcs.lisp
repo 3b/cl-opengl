@@ -69,13 +69,23 @@
     ("GetPointerIndexedvEXT" . "get-pointer-indexed-v-ext")
     ("GetFloatIndexedvEXT" . "get-float-indexed-v-ext")
     ("GetDoubleIndexedvEXT" . "get-double-indexed-v-ext")
-    ("GetIntegerIndexedvEXT" . "get-integer-indexed-v-ext")))
+    ("GetIntegerIndexedvEXT" . "get-integer-indexed-v-ext")
+    ;; 3.1/3.2 stuff
+    ("GetVideoi64vNV" . "get-video-i64v-nv")
+    ("GetVideoui64vNV" . "get-video-ui64v-nv")
+    ("GetBufferParameteri64v" . "get-buffer-parameter-i64v")
+    ("GetInteger64v" . "get-integer-64-v")
+    ("TexImage2DMultisample" . "tex-image-2d-multisample")
+    ("TexImage3DMultisample" . "tex-image-3d-multisample")
+
+
+))
 
 (defparameter *whole-words*
   '("push" "depth" "mesh" "finish" "flush" "attach" "detach" "through" "width"
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
     "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
-    "instanced" "indexed"))
+    "instanced" "indexed" "perf" "keyed" "Integer64"))
 
 (defmacro add-dashes-by-regex (regex str)
   ;; macro so we don't miss ppcre compiler macros on the regex
@@ -171,6 +181,7 @@
 ;;;  alias: ...
 ;;;  offset: ...
 ;;;  passthru: ...
+;;;  deprecated: ...
 ;;;  newcategory
 ;;;
 ;;; function def:
@@ -185,6 +196,7 @@
 ;;;    glsopcode ...
 ;;;    wglflags ...
 ;;;    offset ...
+;;;    deprecated	...
 
 (defparameter *gl-types*
   '("char" "char-arb" "intptr" "sizeiptr" "intptr-arb" "sizeiptr-arb"
@@ -217,7 +229,12 @@
   (loop for line = (read-line stream nil nil)
         while line do (add-type-map line))
   ;; gl.tm maps string to const GLubyte*, so override that
-   (setf (gethash "String" *type-map*) "string"))
+  (setf (gethash "String" *type-map*) "string")
+  ;; and add some missing types in 3.2 spec files
+  (setf (gethash "Int64" *type-map*) "int64")
+  (setf (gethash "UInt64" *type-map*) "uint64")
+  (setf (gethash "GLbitfield" *type-map*) "bitfield")
+  (setf (gethash "sync" *type-map*) ":pointer"))
 
 (defparameter *current-fun* nil)
 (defparameter *function-list* nil)
@@ -342,14 +359,18 @@
   ;; extra info...
   (format stream "~&~%;;; GL version: ~A.~A, ~A~%"
           (major fun) (minor fun) (category fun))
-  ;; spec files don't have consistent extension flags, so use
-  ;; the same heuristic as the perl parsers do:
-  ;; version >= 1.2, or category starting with capital letter
+  ;; 3.2 spec files use VERSION_1_0, VERSION_1_0_DEPRECATED, etc
+  ;; instead of lower case tags, so check for those explicitly instead of
+  ;; lower case letter at start of category name to determine which
+  ;; functions should be loaded at runtime
   (format stream "(~A (\"~A\" ~A) ~A"
           (if (or (extension fun)
                   (or (>= (major fun) 2)
                       (>= (minor fun) 2))
-                  (upper-case-p (char (category fun) 0)))
+                  (not (and
+                        (>= (length (category fun)) 11)
+                        (or (string= "VERSION_1_0" (category fun) :end2 11 )
+                            (string= "VERSION_1_1" (category fun) :end2 11 )))))
               *ext-definer*
               *core-definer*)
           (mangle-for-c (name fun))
@@ -440,6 +461,7 @@
    (ignore-tag "alias")
    (ignore-tag "offset")
    (ignore-tag "passthru")
+   (ignore-tag "deprecated") ;; fixme: probably should use this somewhere...
    (ignore-tag "newcategory")
    (ignore-tag "glfflags")
    (ignore-tag "beginend")
@@ -480,6 +502,7 @@
    (ignore-ftag "beginend")
    (ignore-ftag "glextmask")
    (ignore-ftag "subcategory")
+   (ignore-ftag "deprecated") ;; fixme: probably should use this somewhere
 
    (make-matcher ".*"
      (format t " unmatched line? ~s ~%" line))))
@@ -521,7 +544,16 @@
         (multiple-value-bind (match regs)
             (scan-to-strings
              "^passthru:\\s+#define GL_GLEXT_VERSION\\s+([^\\s]+)" line)
-          (when match (setf *glext-version* (parse-integer (aref regs 0)))))))
+          (when match (setf *glext-version* (parse-integer (aref regs 0))))))
+  ;; 3.2 .spec files don't appear to have version/modification times.
+  ;; Using hand coded values for now, might want to parse glext.h to get
+  ;; version/date if they don't put it back in .specs
+  (unless *glext-version*
+    (error "glext version not found in .spec files")
+    (setf *glext-version* 54))
+  (when (string= *glext-last-updated* "<unknown>")
+    (error "glext update date not found in .spec files")
+    (setf *glext-last-updated* "2009-08-03")))
 
 (defun main ()
   (let* ((this-file (load-time-value *load-pathname*))
