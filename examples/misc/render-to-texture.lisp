@@ -46,7 +46,7 @@
 
     ;; validate framebuffer
     (let ((framebuffer-status (gl:check-framebuffer-status-ext :framebuffer-ext)))
-      (unless (eql framebuffer-status :framebuffer-complete-ext)
+      (unless (gl::enum= framebuffer-status :framebuffer-complete-ext)
         (error "Framebuffer not complete: ~A." framebuffer-status)))
 
     (setf (texture w) texture

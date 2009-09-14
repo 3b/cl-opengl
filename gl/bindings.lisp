@@ -47,9 +47,11 @@
 (let ((in-begin nil))
   (defun set-in-begin (a) (setf in-begin a))
   (defun check-error (&optional context)
+    (declare (optimize speed))
     (unless in-begin
-      (let ((error-code (get-error)))
-        (unless (eq error-code :zero)
+      (let ((error-code (foreign-funcall ("glGetError" :library opengl)
+                                         :int32)))
+        (unless (zerop error-code)
           (restart-case
               (error 'opengl-error :error-code error-code :error-context context)
             (continue () :report "Continue")))))))
@@ -61,13 +63,11 @@
      #-cl-opengl-no-check-error
        (defun ,lname ,(mapcar #'first body)
          (multiple-value-prog1
-             (foreign-funcall-pointer
-              (foreign-symbol-pointer ,cname)
-              (:library opengl)
-              ,@(loop for i in body
-                   collect (second i)
-                   collect (first i))
-              ,result-type)
+             (foreign-funcall (,cname :library opengl)
+                              ,@(loop for i in body
+                                   collect (second i)
+                                   collect (first i))
+                              ,result-type)
            ,@(cond
               ((string= cname "glGetError") ())
               ((string= cname "glBegin")

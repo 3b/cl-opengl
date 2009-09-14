@@ -242,3 +242,20 @@ producing a symbol in the current package."
   (with-unique-names (array offset)
     `(definline ,name (,@head-args ,array ,offset)
        (,builtin-name ,@head-args (gl-array-pointer-offset ,array ,offset)))))
+
+
+;;; hack for dealing with duplicate enum values in %gl:enum
+;;; todo: &rest ...
+(defun enum= (a b)
+  (= (if (numberp a) a (cffi:foreign-enum-value '%gl:enum a))
+     (if (numberp b) b (cffi:foreign-enum-value '%gl:enum b))))
+
+(define-compiler-macro enum= (&whole whole a b)
+  (if (or (constantp a) (constantp b))
+      `(= ,(if (constantp a)
+               (if (numberp a) a (cffi:foreign-enum-value '%gl:enum a))
+               `(if (numberp ,a) ,a (cffi:foreign-enum-value '%gl:enum ,a)))
+          ,(if (constantp b)
+               (if (numberp b) b (cffi:foreign-enum-value '%gl:enum b))
+               `(if (numberp ,b) ,b (cffi:foreign-enum-value '%gl:enum ,b))))
+      whole))
