@@ -50,10 +50,13 @@
     (declare (optimize speed))
     (unless in-begin
       (let ((error-code (foreign-funcall ("glGetError" :library opengl)
-                                         :int32)))
+                                         :unsigned-int)))
         (unless (zerop error-code)
           (restart-case
-              (error 'opengl-error :error-code error-code :error-context context)
+              (error 'opengl-error
+                     :error-code (cons error-code
+                                       (cffi:foreign-enum-keyword '%gl:enum error-code))
+                     :error-context context)
             (continue () :report "Continue")))))))
 
 ;;; Helper macro to define a GL API function and declare it inline.
