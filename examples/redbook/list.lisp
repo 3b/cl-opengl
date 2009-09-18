@@ -12,11 +12,13 @@
 (in-package #:cl-glut-examples)
 
 (defclass list-window (glut:window)
-  ((list-name :accessor list-name :initform (gl:gen-lists 1)))
+  ((list-name :accessor list-name :initform nil))
   (:default-initargs
    :width 600 :height 50 :title "list.lisp" :mode '(:single :rgb)))
 
 (defmethod glut:display-window :before ((w list-window))
+  (unless (list-name w)
+    (setf (list-name w) (gl:gen-lists 1)))
   (gl:with-new-list ((list-name w) :compile)
     (gl:color 1 0 0)                    ; red
     (gl:with-primitives :triangles
@@ -27,6 +29,7 @@
   (gl:shade-model :flat))
 
 (defmethod glut:display ((w list-window))
+  (gl:load-identity)
   (gl:clear :color-buffer)
   (gl:color 0 1 0)                      ; current color green
   (loop repeat 10 do (gl:call-list (list-name w)))

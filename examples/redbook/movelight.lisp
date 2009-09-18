@@ -23,7 +23,7 @@
 (defclass movelight-window (glut:window)
   ((spin :initform 0))
   (:default-initargs :width 500 :height 500 :pos-x 100 :pos-y 100
-                     :mode '(:single :rgb) :title "movelight.lisp"))
+                     :mode '(:single :rgb :depth) :title "movelight.lisp"))
 
 (defmethod glut:display-window :before ((w movelight-window))
   (gl:clear-color 0 0 0 0)
