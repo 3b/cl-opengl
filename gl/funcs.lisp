@@ -229,7 +229,7 @@
   (params (:pointer double)))
 
 ;;; GL version: 1.0, VERSION_1_0
-(defglfun ("glGetError" get-error) enum)
+(defglfun ("glGetError" get-error) :unsigned-int)
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glGetFloatv" get-float-v) :void
@@ -4950,7 +4950,7 @@
   (framebuffers (:pointer uint)))
 
 ;;; GL version: 3.0, ARB_framebuffer_object
-(defglextfun ("glCheckFramebufferStatus" check-framebuffer-status) enum
+(defglextfun ("glCheckFramebufferStatus" check-framebuffer-status) :unsigned-int
   (target enum))
 
 ;;; GL version: 3.0, ARB_framebuffer_object
@@ -5207,7 +5207,7 @@
   (sync :pointer))
 
 ;;; GL version: 1.2, ARB_sync
-(defglextfun ("glClientWaitSync" client-wait-sync) enum
+(defglextfun ("glClientWaitSync" client-wait-sync) :unsigned-int
   (sync :pointer)
   (flags bitfield)
   (timeout uint64))
@@ -9085,7 +9085,7 @@
   (framebuffers (:pointer uint)))
 
 ;;; GL version: 1.2, EXT_framebuffer_object
-(defglextfun ("glCheckFramebufferStatusEXT" check-framebuffer-status-ext) enum
+(defglextfun ("glCheckFramebufferStatusEXT" check-framebuffer-status-ext) :unsigned-int
   (target enum))
 
 ;;; GL version: 1.2, EXT_framebuffer_object
@@ -11234,7 +11234,7 @@
   (params (:pointer int)))
 
 ;;; GL version: 1.0, EXT_direct_state_access
-(defglextfun ("glCheckNamedFramebufferStatusEXT" check-named-framebuffer-status-ext) enum
+(defglextfun ("glCheckNamedFramebufferStatusEXT" check-named-framebuffer-status-ext) :unsigned-int
   (framebuffer uint)
   (target enum))
 
@@ -11590,13 +11590,13 @@
   (points (:pointer float)))
 
 ;;; GL version: 1.5, APPLE_object_purgeable
-(defglextfun ("glObjectPurgeableAPPLE" object-purgeable-apple) enum
+(defglextfun ("glObjectPurgeableAPPLE" object-purgeable-apple) :unsigned-int
   (objectType enum)
   (name uint)
   (option enum))
 
 ;;; GL version: 1.5, APPLE_object_purgeable
-(defglextfun ("glObjectUnpurgeableAPPLE" object-unpurgeable-apple) enum
+(defglextfun ("glObjectUnpurgeableAPPLE" object-unpurgeable-apple) :unsigned-int
   (objectType enum)
   (name uint)
   (option enum))
@@ -11659,7 +11659,7 @@
   (params (:pointer double)))
 
 ;;; GL version: 1.2, NV_video_capture
-(defglextfun ("glVideoCaptureNV" video-capture-nv) enum
+(defglextfun ("glVideoCaptureNV" video-capture-nv) :unsigned-int
   (video_capture_slot uint)
   (sequence_num uint)
   (capture_time uint64-ext))

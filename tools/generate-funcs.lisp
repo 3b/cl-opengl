@@ -330,9 +330,13 @@
         (t arg)))
 
 (defun remap-return (type)
+  ;; the cffi enum doesn't work well for return values due to duplicate
+  ;; names, so we just force it to unsigned int here
   (let ((remapped (gethash type *type-map* nil)))
     (if remapped
-        (remap-base-and-pointer-types remapped)
+        (if (or (string= type "GLenum") (string= remapped "GLenum"))
+            ":unsigned-int"
+            (remap-base-and-pointer-types remapped))
         (progn (format t "unable to remap return type ~a ~%" type)
                type))))
 
