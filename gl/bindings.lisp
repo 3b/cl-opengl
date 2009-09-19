@@ -31,7 +31,7 @@
 
 ;;; in case we want to be able to tell whether we are using a cl-opengl with
 ;;; automatic error checking, push something on *features*
-#-cl-opengl-no-check-error(push :cl-opengl-checks-errors *features*)
+#-cl-opengl-no-check-error(pushnew :cl-opengl-checks-errors *features*)
 
 (define-condition opengl-error (simple-error)
   ((error-code :initarg :error-code :reader opengl-error.error-code)
