@@ -359,6 +359,8 @@
     (:max-elements-vertices :integer 1)
     (:compressed-texture-formats :enum :num-compressed-texture-formats)
     (:num-compressed-texture-formats :integer 1)
+    (:max-texture-buffer-size :integer 1)
+    (:max-rectangle-texture-size :integer 1)
     (:extensions :string 1)
     (:num-extensions :integer 1)
     (:major-version :integer 1)
