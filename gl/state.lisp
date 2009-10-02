@@ -537,7 +537,6 @@
       (destructuring-bind (e type count)
           (assoc name *query-enum-sizes*)
         (declare (ignore e))
-        (format t "foo")
         `(let ((size ,(if (keywordp count) `(get-integer ,count 1) count)))
            (declare (ignorable size))
            , (ecase type
