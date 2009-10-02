@@ -79,6 +79,11 @@
    #:unmap-buffer
    ;; 2.10 Rectangles
    #:rect
+   ;; 2.10 Vertex Arrays
+   #:gen-vertex-array
+   #:gen-vertex-arrays
+   #:delete-vertex-arrays
+   #:bind-vertex-array
    ;; 2.11.1 Controlling the Viewport
    #:depth-range
    #:viewport
