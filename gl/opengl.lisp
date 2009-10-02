@@ -652,11 +652,16 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 
 (define-compiler-macro uniformf (&whole form location x &optional y z w)
   (declare (ignore form))
-  (cond
-    (w `(%gl:uniform-4f ,location ,(float x) ,(float y) ,(float z) ,(float w)))
-    (z `(%gl:uniform-3f ,location ,(float x) ,(float y) ,(float z)))
-    (y `(%gl:uniform-2f ,location ,(float x) ,(float y)))
-    (x `(%gl:uniform-1f ,location ,(float x)))))
+  (flet ((float* (x)
+           (if (numberp x)
+               (float x 1f0)
+               `(float ,x 1f0))))
+    (cond
+      (w `(%gl:uniform-4f ,location ,(float* x) ,(float* y) ,(float* z) ,(float* w)))
+      (z `(%gl:uniform-3f ,location ,(float* x) ,(float* y) ,(float* z)))
+      (y `(%gl:uniform-2f ,location ,(float* x) ,(float* y)))
+      (x `(%gl:uniform-1f ,location ,(float* x))))))
+
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))
   (check-type dim (integer 2 4))
