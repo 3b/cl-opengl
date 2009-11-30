@@ -582,11 +582,11 @@
 
 ;; external
 (defun gl3-major-version ()
-  (get-integer :GL_MAJOR_VERSION))
+  (get-integer :major-version))
 
 ;; external
 (defun gl3-minor-version ()
-  (get-integer :GL_MINOR_VERSION))
+  (get-integer :minor-version))
 
 (defun parse-gl-version-string-values (string)
   ;; major version is integer value up to first #\.
