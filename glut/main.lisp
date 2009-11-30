@@ -43,11 +43,6 @@
     (%glutMainLoop))
   (init))
 
-#+(and darwin (or openmcl-native-threads sb-thread))
-(defun interrupt-thread (thread function)
-  #+ccl (ccl:process-interrupt thread function)
-  #+sbcl (sb-thread:interrupt-thread thread function))
-
 #+darwin
 (let ((darwin-run-main-loop-p t))
   (defun main-loop ()
@@ -56,9 +51,6 @@
                (loop while darwin-run-main-loop-p do (check-loop)))
              (init)
              (setf darwin-run-main-loop-p t)))
-      #+(or openmcl-native-threads sb-thread)
-      (interrupt-thread *glut-thread* #'%loop)
-      #-(or openmcl-native-threads sb-thread)
       (%loop)))
   (defun leave-main-loop ()
     (setf darwin-run-main-loop-p nil)))
