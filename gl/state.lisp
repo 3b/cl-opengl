@@ -478,13 +478,13 @@
 ;;; passing an array of foreign type TYPE.  The elements of the
 ;;; foreign array are converted back to Lisp values by first
 ;;; dereferencing the buffer.
-(defmacro define-query-function (name fn type)
+(defmacro define-query-function (name fn type &optional (lisp-type t))
   `(defun ,name (value &optional (count (query-enum-size value)))
      (declare (fixnum count))
      (with-foreign-object (buf ',type count)
        (,fn value buf)
        (if (> count 1)
-           (let ((result (make-array count)))
+           (let ((result (make-array count :element-type ',lisp-type)))
              (dotimes (i count)
                (setf (aref result i) (mem-aref buf ',type i)))
              result)
@@ -493,8 +493,8 @@
 ;;; Define query functions for the basic types.
 (define-query-function get-boolean %gl:get-boolean-v %gl:boolean)
 (define-query-function get-integer %gl:get-integer-v %gl:int)
-(define-query-function get-float %gl:get-float-v %gl:float)
-(define-query-function get-double %gl:get-double-v %gl:double)
+(define-query-function get-float %gl:get-float-v %gl:float single-float)
+(define-query-function get-double %gl:get-double-v %gl:double double-float)
 (define-query-function get-pointer %gl:get-pointer-v :pointer)
 
 (defun try-to-parse-enum (value)
