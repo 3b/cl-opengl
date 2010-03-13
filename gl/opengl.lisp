@@ -675,11 +675,11 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
                   (row-major-aref matrix j)))))
       (case dim
         (2 (%gl:uniform-matrix-2fv
-            location matrix-count (if transpose 1 0) array))
+            location matrix-count transpose array))
         (3 (%gl:uniform-matrix-3fv
-            location matrix-count (if transpose 1 0) array))
+            location matrix-count transpose array))
         (4 (%gl:uniform-matrix-4fv
-            location matrix-count (if transpose 1 0) array))))))
+            location matrix-count transpose array))))))
 
 ;;; 2.15.4 Shader Execution
 
