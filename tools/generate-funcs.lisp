@@ -88,13 +88,19 @@
     ("ProgramUniformui64NV" . "program-uniform-ui64-nv")
     ("ProgramUniformui64vNV" . "program-uniform-ui64v-nv")
     ("VertexAttribIFormatNV" . "vertex-attrib-i-format-nv")
-    ("GetIntegerui64i_vNV" . "get-integer-ui64i-v-nv")))
+    ("GetIntegerui64i_vNV" . "get-integer-ui64i-v-nv")
+    ;; .spec 60 : gl 3.3/4.0
+    ;; fixme: still need to handle u?i64v? properly
+    ("GetQueryObjecti64v" . "get-query-object-i64v")
+    ("GetQueryObjectui64v" . "get-query-object-ui64v")
+))
 
 (defparameter *whole-words*
   '("push" "depth" "mesh" "finish" "flush" "attach" "detach" "through" "width"
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
     "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
-    "instanced" "indexed" "perf" "keyed" "Integer64"))
+    "instanced" "indexed" "perf" "keyed" "Integer64"
+    "patch"))
 
 (defmacro add-dashes-by-regex (regex str)
   ;; macro so we don't miss ppcre compiler macros on the regex
@@ -130,7 +136,8 @@
     ;; type signature, not sure if it should be separate or not,
     ;; leaving it as i4ui etc. for now, but still gets special cased
     ;; since it confuses the main regex...
-    ((cl-ppcre:scan "^I[1-4]?[bisuv]+$" name) name)
+    ;; and gl4 adds P*, so handle that too
+    ((cl-ppcre:scan "^[IP][1-4]?[bisuv]+$" name) name)
 
     ;; GL3 adds some i_v suffixed functions, turn that into -i-v for now
     ((cl-ppcre:scan "i_v$" name)
@@ -481,6 +488,7 @@
    (ignore-tag "glxvectorequiv")
    (ignore-tag "glextmask")
    (ignore-tag "subcategory")
+   (ignore-matcher "^@@@.*$")
 
    (make-matcher "^(\\w+)\\(.*\\)$"
      (new-fun (reg 0)))

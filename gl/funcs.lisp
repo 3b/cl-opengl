@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 55 ( 2009-09-11 )
+;;; glext version 60 ( 2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010) )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 55)
-(defparameter *glext-last-updated* "2009-09-11")
+(defparameter *glext-version* 60)
+(defparameter *glext-last-updated* "2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010)")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -3698,14 +3698,6 @@
   (texture uint)
   (level int))
 
-;;; GL version: 1.2, VERSION_3_2
-(defglextfun ("glFramebufferTextureFace" framebuffer-texture-face) :void
-  (target enum)
-  (attachment enum)
-  (texture uint)
-  (level int)
-  (face enum))
-
 ;;; GL version: 1.2, ARB_multitexture
 (defglextfun ("glActiveTextureARB" active-texture-arb) :void
   (texture enum))
@@ -5289,6 +5281,749 @@
 ;;; GL version: 1.2, ARB_sample_shading
 (defglextfun ("glMinSampleShading" min-sample-shading) :void
   (value clampf))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glNamedStringARB" named-string-arb) :void
+  (type enum)
+  (namelen int)
+  (name (:pointer char))
+  (stringlen int)
+  (string (:pointer char)))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glDeleteNamedStringARB" delete-named-string-arb) :void
+  (namelen int)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glCompileShaderIncludeARB" compile-shader-include-arb) :void
+  (shader uint)
+  (count sizei)
+  (path (:pointer (:pointer char)))
+  (length (:pointer int)))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glIsNamedStringARB" is-named-string-arb) boolean
+  (namelen int)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glGetNamedStringARB" get-named-string-arb) :void
+  (namelen int)
+  (name (:pointer char))
+  (bufSize sizei)
+  (stringlen (:pointer int))
+  (string (:pointer char)))
+
+;;; GL version: 1.2, ARB_shading_language_include
+(defglextfun ("glGetNamedStringivARB" get-named-string-iv-arb) :void
+  (namelen int)
+  (name (:pointer char))
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_blend_func_extended
+(defglextfun ("glBindFragDataLocationIndexed" bind-frag-data-location-indexed) :void
+  (program uint)
+  (colorNumber uint)
+  (index uint)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_blend_func_extended
+(defglextfun ("glGetFragDataIndex" get-frag-data-index) int
+  (program uint)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glGenSamplers" gen-samplers) :void
+  (count sizei)
+  (samplers (:pointer uint)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glDeleteSamplers" delete-samplers) :void
+  (count sizei)
+  (samplers (:pointer uint)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glIsSampler" is-sampler) boolean
+  (sampler uint))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glBindSampler" bind-sampler) :void
+  (unit enum)
+  (sampler uint))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameteri" sampler-parameter-i) :void
+  (sampler uint)
+  (pname enum)
+  (param int))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameteriv" sampler-parameter-iv) :void
+  (sampler uint)
+  (pname enum)
+  (param (:pointer int)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameterf" sampler-parameter-f) :void
+  (sampler uint)
+  (pname enum)
+  (param float))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameterfv" sampler-parameter-fv) :void
+  (sampler uint)
+  (pname enum)
+  (param (:pointer float)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameterIiv" sampler-parameter-iiv) :void
+  (sampler uint)
+  (pname enum)
+  (param (:pointer int)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glSamplerParameterIuiv" sampler-parameter-iuiv) :void
+  (sampler uint)
+  (pname enum)
+  (param (:pointer uint)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glGetSamplerParameteriv" get-sampler-parameter-iv) :void
+  (sampler uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glGetSamplerParameterIiv" get-sampler-parameter-iiv) :void
+  (sampler uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glGetSamplerParameterfv" get-sampler-parameter-fv) :void
+  (sampler uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ARB_sampler_objects
+(defglextfun ("glGetSamplerParameterIfv" get-sampler-parameter-ifv) :void
+  (sampler uint)
+  (pname enum)
+  (params (:pointer float)))
+
+;;; GL version: 1.2, ARB_timer_query
+(defglextfun ("glQueryCounter" query-counter) :void
+  (id uint)
+  (target enum))
+
+;;; GL version: 1.2, ARB_timer_query
+(defglextfun ("glGetQueryObjecti64v" get-query-object-i64v) :void
+  (id uint)
+  (pname enum)
+  (params (:pointer int64)))
+
+;;; GL version: 1.2, ARB_timer_query
+(defglextfun ("glGetQueryObjectui64v" get-query-object-ui64v) :void
+  (id uint)
+  (pname enum)
+  (params (:pointer uint64)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP2ui" vertex-p2ui) :void
+  (type enum)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP2uiv" vertex-p2uiv) :void
+  (type enum)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP3ui" vertex-p3ui) :void
+  (type enum)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP3uiv" vertex-p3uiv) :void
+  (type enum)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP4ui" vertex-p4ui) :void
+  (type enum)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexP4uiv" vertex-p4uiv) :void
+  (type enum)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP1ui" tex-coord-p1ui) :void
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP1uiv" tex-coord-p1uiv) :void
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP2ui" tex-coord-p2ui) :void
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP2uiv" tex-coord-p2uiv) :void
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP3ui" tex-coord-p3ui) :void
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP3uiv" tex-coord-p3uiv) :void
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP4ui" tex-coord-p4ui) :void
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glTexCoordP4uiv" tex-coord-p4uiv) :void
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP1ui" multi-tex-coord-p1ui) :void
+  (texture enum)
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP1uiv" multi-tex-coord-p1uiv) :void
+  (texture enum)
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP2ui" multi-tex-coord-p2ui) :void
+  (texture enum)
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP2uiv" multi-tex-coord-p2uiv) :void
+  (texture enum)
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP3ui" multi-tex-coord-p3ui) :void
+  (texture enum)
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP3uiv" multi-tex-coord-p3uiv) :void
+  (texture enum)
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP4ui" multi-tex-coord-p4ui) :void
+  (texture enum)
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glMultiTexCoordP4uiv" multi-tex-coord-p4uiv) :void
+  (texture enum)
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glNormalP3ui" normal-p3ui) :void
+  (type enum)
+  (coords uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glNormalP3uiv" normal-p3uiv) :void
+  (type enum)
+  (coords (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glColorP3ui" color-p3ui) :void
+  (type enum)
+  (color uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glColorP3uiv" color-p3uiv) :void
+  (type enum)
+  (color (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glColorP4ui" color-p4ui) :void
+  (type enum)
+  (color uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glColorP4uiv" color-p4uiv) :void
+  (type enum)
+  (color (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glSecondaryColorP3ui" secondary-color-p3ui) :void
+  (type enum)
+  (color uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glSecondaryColorP3uiv" secondary-color-p3uiv) :void
+  (type enum)
+  (color (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP1ui" vertex-attrib-p1ui) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP1uiv" vertex-attrib-p1uiv) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP2ui" vertex-attrib-p2ui) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP2uiv" vertex-attrib-p2uiv) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP3ui" vertex-attrib-p3ui) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP3uiv" vertex-attrib-p3uiv) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP4ui" vertex-attrib-p4ui) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value uint))
+
+;;; GL version: 1.2, ARB_vertex_type_2_10_10_10_rev
+(defglextfun ("glVertexAttribP4uiv" vertex-attrib-p4uiv) :void
+  (index uint)
+  (type enum)
+  (normalized boolean)
+  (value (:pointer uint)))
+
+;;; GL version: 1.2, ARB_draw_indirect
+(defglextfun ("glDrawArraysIndirect" draw-arrays-indirect) :void
+  (mode enum)
+  (indirect (:pointer void)))
+
+;;; GL version: 1.2, ARB_draw_indirect
+(defglextfun ("glDrawElementsIndirect" draw-elements-indirect) :void
+  (mode enum)
+  (type enum)
+  (indirect (:pointer void)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform1d" uniform-1d) :void
+  (location int)
+  (x double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform2d" uniform-2d) :void
+  (location int)
+  (x double)
+  (y double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform3d" uniform-3d) :void
+  (location int)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform4d" uniform-4d) :void
+  (location int)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform1dv" uniform-1dv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform2dv" uniform-2dv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform3dv" uniform-3dv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniform4dv" uniform-4dv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix2dv" uniform-matrix-2dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix3dv" uniform-matrix-3dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix4dv" uniform-matrix-4dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix2x3dv" uniform-matrix-2x3-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix2x4dv" uniform-matrix-2x4-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix3x2dv" uniform-matrix-3x2-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix3x4dv" uniform-matrix-3x4-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix4x2dv" uniform-matrix-4x2-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glUniformMatrix4x3dv" uniform-matrix-4x3-dv) :void
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glGetUniformdv" get-uniform-dv) :void
+  (program uint)
+  (location int)
+  (params (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform1dEXT" program-uniform-1d-ext) :void
+  (program uint)
+  (location int)
+  (x double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform2dEXT" program-uniform-2d-ext) :void
+  (program uint)
+  (location int)
+  (x double)
+  (y double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform3dEXT" program-uniform-3d-ext) :void
+  (program uint)
+  (location int)
+  (x double)
+  (y double)
+  (z double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform4dEXT" program-uniform-4d-ext) :void
+  (program uint)
+  (location int)
+  (x double)
+  (y double)
+  (z double)
+  (w double))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform1dvEXT" program-uniform-1dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform2dvEXT" program-uniform-2dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform3dvEXT" program-uniform-3dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniform4dvEXT" program-uniform-4dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix2dvEXT" program-uniform-matrix-2dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix3dvEXT" program-uniform-matrix-3dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix4dvEXT" program-uniform-matrix-4dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix2x3dvEXT" program-uniform-matrix-2x3-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix2x4dvEXT" program-uniform-matrix-2x4-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix3x2dvEXT" program-uniform-matrix-3x2-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix3x4dvEXT" program-uniform-matrix-3x4-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix4x2dvEXT" program-uniform-matrix-4x2-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_gpu_shader_fp64
+(defglextfun ("glProgramUniformMatrix4x3dvEXT" program-uniform-matrix-4x3-dv-ext) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (transpose boolean)
+  (value (:pointer double)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetSubroutineUniformLocation" get-subroutine-uniform-location) int
+  (program uint)
+  (shadertype enum)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetSubroutineIndex" get-subroutine-index) uint
+  (program uint)
+  (shadertype enum)
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetActiveSubroutineUniformiv" get-active-subroutine-uniform-iv) :void
+  (program uint)
+  (shadertype enum)
+  (index uint)
+  (pname enum)
+  (values (:pointer int)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetActiveSubroutineUniformName" get-active-subroutine-uniform-name) :void
+  (program uint)
+  (shadertype enum)
+  (index uint)
+  (bufsize sizei)
+  (length (:pointer sizei))
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetActiveSubroutineName" get-active-subroutine-name) :void
+  (program uint)
+  (shadertype enum)
+  (index uint)
+  (bufsize sizei)
+  (length (:pointer sizei))
+  (name (:pointer char)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glUniformSubroutinesuiv" uniform-subroutines-uiv) :void
+  (shadertype enum)
+  (count sizei)
+  (indices (:pointer uint)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetUniformSubroutineuiv" get-uniform-subroutine-uiv) :void
+  (shadertype enum)
+  (location int)
+  (params (:pointer uint)))
+
+;;; GL version: 1.2, ARB_shader_subroutine
+(defglextfun ("glGetProgramStageiv" get-program-stage-iv) :void
+  (program uint)
+  (shadertype enum)
+  (pname enum)
+  (values (:pointer int)))
+
+;;; GL version: 1.2, ARB_tessellation_shader
+(defglextfun ("glPatchParameteri" patch-parameter-i) :void
+  (pname enum)
+  (value int))
+
+;;; GL version: 1.2, ARB_tessellation_shader
+(defglextfun ("glPatchParameterfv" patch-parameter-fv) :void
+  (pname enum)
+  (values (:pointer float)))
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glBindTransformFeedback" bind-transform-feedback) :void
+  (target enum)
+  (id uint))
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glDeleteTransformFeedbacks" delete-transform-feedbacks) :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glGenTransformFeedbacks" gen-transform-feedbacks) :void
+  (n sizei)
+  (ids (:pointer uint)))
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glIsTransformFeedback" is-transform-feedback) boolean
+  (id uint))
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glPauseTransformFeedback" pause-transform-feedback) :void)
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glResumeTransformFeedback" resume-transform-feedback) :void)
+
+;;; GL version: 1.2, ARB_transform_feedback2
+(defglextfun ("glDrawTransformFeedback" draw-transform-feedback) :void
+  (mode enum)
+  (id uint))
+
+;;; GL version: 1.2, ARB_transform_feedback3
+(defglextfun ("glDrawTransformFeedbackStream" draw-transform-feedback-stream) :void
+  (mode enum)
+  (id uint)
+  (stream uint))
+
+;;; GL version: 1.2, ARB_transform_feedback3
+(defglextfun ("glBeginQueryIndexed" begin-query-indexed) :void
+  (target enum)
+  (index uint)
+  (id uint))
+
+;;; GL version: 1.2, ARB_transform_feedback3
+(defglextfun ("glEndQueryIndexed" end-query-indexed) :void
+  (target enum)
+  (index uint))
+
+;;; GL version: 1.2, ARB_transform_feedback3
+(defglextfun ("glGetQueryIndexediv" get-query-indexed-iv) :void
+  (target enum)
+  (index uint)
+  (pname enum)
+  (params (:pointer int)))
 
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
@@ -11731,12 +12466,12 @@
   (target enum))
 
 ;;; GL version: 1.2, NV_shader_buffer_load
-(defglextfun ("glNamedMakeBufferResidentNV" named-make-buffer-resident-nv) :void
+(defglextfun ("glMakeNamedBufferResidentNV" make-named-buffer-resident-nv) :void
   (buffer uint)
   (access enum))
 
 ;;; GL version: 1.2, NV_shader_buffer_load
-(defglextfun ("glNamedMakeBufferNonResidentNV" named-make-buffer-non-resident-nv) :void
+(defglextfun ("glMakeNamedBufferNonResidentNV" make-named-buffer-non-resident-nv) :void
   (buffer uint))
 
 ;;; GL version: 1.2, NV_shader_buffer_load

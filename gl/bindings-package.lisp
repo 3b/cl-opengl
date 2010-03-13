@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 55 ( 2009-09-11 )
+;;; glext version 60 ( 2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -209,29 +209,28 @@
   #:get-string-i #:draw-arrays-instanced #:draw-elements-instanced 
   #:tex-buffer #:primitive-restart-index #:get-integer-64-i-v 
   #:get-buffer-parameter-i64v #:program-parameter-i 
-  #:framebuffer-texture #:framebuffer-texture-face 
-  #:active-texture-arb #:client-active-texture-arb 
-  #:multi-tex-coord-1d-arb #:multi-tex-coord-1dv-arb 
-  #:multi-tex-coord-1f-arb #:multi-tex-coord-1fv-arb 
-  #:multi-tex-coord-1i-arb #:multi-tex-coord-1iv-arb 
-  #:multi-tex-coord-1s-arb #:multi-tex-coord-1sv-arb 
-  #:multi-tex-coord-2d-arb #:multi-tex-coord-2dv-arb 
-  #:multi-tex-coord-2f-arb #:multi-tex-coord-2fv-arb 
-  #:multi-tex-coord-2i-arb #:multi-tex-coord-2iv-arb 
-  #:multi-tex-coord-2s-arb #:multi-tex-coord-2sv-arb 
-  #:multi-tex-coord-3d-arb #:multi-tex-coord-3dv-arb 
-  #:multi-tex-coord-3f-arb #:multi-tex-coord-3fv-arb 
-  #:multi-tex-coord-3i-arb #:multi-tex-coord-3iv-arb 
-  #:multi-tex-coord-3s-arb #:multi-tex-coord-3sv-arb 
-  #:multi-tex-coord-4d-arb #:multi-tex-coord-4dv-arb 
-  #:multi-tex-coord-4f-arb #:multi-tex-coord-4fv-arb 
-  #:multi-tex-coord-4i-arb #:multi-tex-coord-4iv-arb 
-  #:multi-tex-coord-4s-arb #:multi-tex-coord-4sv-arb 
-  #:load-transpose-matrix-f-arb #:load-transpose-matrix-d-arb 
-  #:mult-transpose-matrix-f-arb #:mult-transpose-matrix-d-arb 
-  #:sample-coverage-arb #:compressed-tex-image-3d-arb 
-  #:compressed-tex-image-2d-arb #:compressed-tex-image-1d-arb 
-  #:compressed-tex-sub-image-3d-arb 
+  #:framebuffer-texture #:active-texture-arb 
+  #:client-active-texture-arb #:multi-tex-coord-1d-arb 
+  #:multi-tex-coord-1dv-arb #:multi-tex-coord-1f-arb 
+  #:multi-tex-coord-1fv-arb #:multi-tex-coord-1i-arb 
+  #:multi-tex-coord-1iv-arb #:multi-tex-coord-1s-arb 
+  #:multi-tex-coord-1sv-arb #:multi-tex-coord-2d-arb 
+  #:multi-tex-coord-2dv-arb #:multi-tex-coord-2f-arb 
+  #:multi-tex-coord-2fv-arb #:multi-tex-coord-2i-arb 
+  #:multi-tex-coord-2iv-arb #:multi-tex-coord-2s-arb 
+  #:multi-tex-coord-2sv-arb #:multi-tex-coord-3d-arb 
+  #:multi-tex-coord-3dv-arb #:multi-tex-coord-3f-arb 
+  #:multi-tex-coord-3fv-arb #:multi-tex-coord-3i-arb 
+  #:multi-tex-coord-3iv-arb #:multi-tex-coord-3s-arb 
+  #:multi-tex-coord-3sv-arb #:multi-tex-coord-4d-arb 
+  #:multi-tex-coord-4dv-arb #:multi-tex-coord-4f-arb 
+  #:multi-tex-coord-4fv-arb #:multi-tex-coord-4i-arb 
+  #:multi-tex-coord-4iv-arb #:multi-tex-coord-4s-arb 
+  #:multi-tex-coord-4sv-arb #:load-transpose-matrix-f-arb 
+  #:load-transpose-matrix-d-arb #:mult-transpose-matrix-f-arb 
+  #:mult-transpose-matrix-d-arb #:sample-coverage-arb 
+  #:compressed-tex-image-3d-arb #:compressed-tex-image-2d-arb 
+  #:compressed-tex-image-1d-arb #:compressed-tex-sub-image-3d-arb 
   #:compressed-tex-sub-image-2d-arb 
   #:compressed-tex-sub-image-1d-arb #:get-compressed-tex-image-arb 
   #:point-parameter-f-arb #:point-parameter-fv-arb #:weight-bv-arb 
@@ -328,22 +327,74 @@
   #:get-integer-64-v #:get-sync-iv #:tex-image-2d-multisample 
   #:tex-image-3d-multisample #:get-multisample-fv #:sample-mask-i 
   #:blend-equation-i #:blend-equation-separate-i #:blend-func-i 
-  #:blend-func-separate-i #:min-sample-shading #:blend-color-ext 
-  #:polygon-offset-ext #:tex-image-3d-ext #:tex-sub-image-3d-ext 
-  #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
-  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
-  #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
-  #:copy-tex-sub-image-1d-ext #:copy-tex-sub-image-2d-ext 
-  #:copy-tex-sub-image-3d-ext #:get-histogram-ext 
-  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext 
-  #:get-minmax-ext #:get-minmax-parameter-fv-ext 
-  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext 
-  #:reset-histogram-ext #:reset-minmax-ext 
-  #:convolution-filter-1d-ext #:convolution-filter-2d-ext 
-  #:convolution-parameter-f-ext #:convolution-parameter-fv-ext 
-  #:convolution-parameter-i-ext #:convolution-parameter-iv-ext 
-  #:copy-convolution-filter-1d-ext #:copy-convolution-filter-2d-ext 
-  #:get-convolution-filter-ext #:get-convolution-parameter-fv-ext 
+  #:blend-func-separate-i #:min-sample-shading #:named-string-arb 
+  #:delete-named-string-arb #:compile-shader-include-arb 
+  #:is-named-string-arb #:get-named-string-arb 
+  #:get-named-string-iv-arb #:bind-frag-data-location-indexed 
+  #:get-frag-data-index #:gen-samplers #:delete-samplers 
+  #:is-sampler #:bind-sampler #:sampler-parameter-i 
+  #:sampler-parameter-iv #:sampler-parameter-f 
+  #:sampler-parameter-fv #:sampler-parameter-iiv 
+  #:sampler-parameter-iuiv #:get-sampler-parameter-iv 
+  #:get-sampler-parameter-iiv #:get-sampler-parameter-fv 
+  #:get-sampler-parameter-ifv #:query-counter 
+  #:get-query-object-i64v #:get-query-object-ui64v #:vertex-p2ui 
+  #:vertex-p2uiv #:vertex-p3ui #:vertex-p3uiv #:vertex-p4ui 
+  #:vertex-p4uiv #:tex-coord-p1ui #:tex-coord-p1uiv #:tex-coord-p2ui 
+  #:tex-coord-p2uiv #:tex-coord-p3ui #:tex-coord-p3uiv 
+  #:tex-coord-p4ui #:tex-coord-p4uiv #:multi-tex-coord-p1ui 
+  #:multi-tex-coord-p1uiv #:multi-tex-coord-p2ui 
+  #:multi-tex-coord-p2uiv #:multi-tex-coord-p3ui 
+  #:multi-tex-coord-p3uiv #:multi-tex-coord-p4ui 
+  #:multi-tex-coord-p4uiv #:normal-p3ui #:normal-p3uiv #:color-p3ui 
+  #:color-p3uiv #:color-p4ui #:color-p4uiv #:secondary-color-p3ui 
+  #:secondary-color-p3uiv #:vertex-attrib-p1ui #:vertex-attrib-p1uiv 
+  #:vertex-attrib-p2ui #:vertex-attrib-p2uiv #:vertex-attrib-p3ui 
+  #:vertex-attrib-p3uiv #:vertex-attrib-p4ui #:vertex-attrib-p4uiv 
+  #:draw-arrays-indirect #:draw-elements-indirect #:uniform-1d 
+  #:uniform-2d #:uniform-3d #:uniform-4d #:uniform-1dv #:uniform-2dv 
+  #:uniform-3dv #:uniform-4dv #:uniform-matrix-2dv 
+  #:uniform-matrix-3dv #:uniform-matrix-4dv #:uniform-matrix-2x3-dv 
+  #:uniform-matrix-2x4-dv #:uniform-matrix-3x2-dv 
+  #:uniform-matrix-3x4-dv #:uniform-matrix-4x2-dv 
+  #:uniform-matrix-4x3-dv #:get-uniform-dv #:program-uniform-1d-ext 
+  #:program-uniform-2d-ext #:program-uniform-3d-ext 
+  #:program-uniform-4d-ext #:program-uniform-1dv-ext 
+  #:program-uniform-2dv-ext #:program-uniform-3dv-ext 
+  #:program-uniform-4dv-ext #:program-uniform-matrix-2dv-ext 
+  #:program-uniform-matrix-3dv-ext #:program-uniform-matrix-4dv-ext 
+  #:program-uniform-matrix-2x3-dv-ext 
+  #:program-uniform-matrix-2x4-dv-ext 
+  #:program-uniform-matrix-3x2-dv-ext 
+  #:program-uniform-matrix-3x4-dv-ext 
+  #:program-uniform-matrix-4x2-dv-ext 
+  #:program-uniform-matrix-4x3-dv-ext 
+  #:get-subroutine-uniform-location #:get-subroutine-index 
+  #:get-active-subroutine-uniform-iv 
+  #:get-active-subroutine-uniform-name #:get-active-subroutine-name 
+  #:uniform-subroutines-uiv #:get-uniform-subroutine-uiv 
+  #:get-program-stage-iv #:patch-parameter-i #:patch-parameter-fv 
+  #:bind-transform-feedback #:delete-transform-feedbacks 
+  #:gen-transform-feedbacks #:is-transform-feedback 
+  #:pause-transform-feedback #:resume-transform-feedback 
+  #:draw-transform-feedback #:draw-transform-feedback-stream 
+  #:begin-query-indexed #:end-query-indexed #:get-query-indexed-iv 
+  #:blend-color-ext #:polygon-offset-ext #:tex-image-3d-ext 
+  #:tex-sub-image-3d-ext #:get-tex-filter-func-sgis 
+  #:tex-filter-func-sgis #:tex-sub-image-1d-ext 
+  #:tex-sub-image-2d-ext #:copy-tex-image-1d-ext 
+  #:copy-tex-image-2d-ext #:copy-tex-sub-image-1d-ext 
+  #:copy-tex-sub-image-2d-ext #:copy-tex-sub-image-3d-ext 
+  #:get-histogram-ext #:get-histogram-parameter-fv-ext 
+  #:get-histogram-parameter-iv-ext #:get-minmax-ext 
+  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext 
+  #:histogram-ext #:minmax-ext #:reset-histogram-ext 
+  #:reset-minmax-ext #:convolution-filter-1d-ext 
+  #:convolution-filter-2d-ext #:convolution-parameter-f-ext 
+  #:convolution-parameter-fv-ext #:convolution-parameter-i-ext 
+  #:convolution-parameter-iv-ext #:copy-convolution-filter-1d-ext 
+  #:copy-convolution-filter-2d-ext #:get-convolution-filter-ext 
+  #:get-convolution-parameter-fv-ext 
   #:get-convolution-parameter-iv-ext #:get-separable-filter-ext 
   #:separable-filter-2d-ext #:color-table-sgi 
   #:color-table-parameter-fv-sgi #:color-table-parameter-iv-sgi 
@@ -849,8 +900,8 @@
   #:use-shader-program-ext #:active-program-ext 
   #:create-shader-program-ext #:make-buffer-resident-nv 
   #:make-buffer-non-resident-nv #:is-buffer-resident-nv 
-  #:named-make-buffer-resident-nv 
-  #:named-make-buffer-non-resident-nv #:is-named-buffer-resident-nv 
+  #:make-named-buffer-resident-nv 
+  #:make-named-buffer-non-resident-nv #:is-named-buffer-resident-nv 
   #:get-buffer-parameter-ui64v-nv 
   #:get-named-buffer-parameter-ui64v-nv #:get-integer-ui64v-nv 
   #:uniform-ui64-nv #:uniform-ui64v-nv #:get-uniform-ui64v-nv 
