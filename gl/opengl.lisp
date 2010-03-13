@@ -671,7 +671,7 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
       (dotimes (i matrix-count)
         (let ((matrix (aref matrices i)))
           (dotimes (j matrix-size)
-            (setf (mem-aref array '%gl:float (* i j))
+            (setf (mem-aref array '%gl:float (+ j (* i matrix-size)))
                   (row-major-aref matrix j)))))
       (case dim
         (2 (%gl:uniform-matrix-2fv
