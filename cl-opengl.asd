@@ -28,7 +28,7 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defsystem cl-opengl
-  :depends-on (cffi)
+  :depends-on (cffi alexandria)
   :components
   ((:module "gl"
     :components

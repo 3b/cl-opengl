@@ -28,7 +28,7 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defpackage #:cl-opengl
-  (:use #:cl #:cffi)
+  (:use #:cl #:cffi #:alexandria)
   (:nicknames #:opengl #:gl)
   (:export
    ;; 2.5 GL Errors

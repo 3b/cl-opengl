@@ -710,6 +710,12 @@ currently implemented for speed, so avoid in inner loops"
       :uniform-block-referenced-by-fragment-shader
       :uniform-block-referenced-by-geometry-shader)
      (plusp (get-active-uniform-block-aux program block-index pname :int)))
+    ((:uniform-block-active-uniform-indices)
+     (let ((i-count (get-active-uniform-block-aux 
+                          program block-index :uniform-block-active-uniforms
+                          :int)))
+       (ensure-list (get-active-uniform-block-aux program block-index 
+                                                  pname :int i-count))))
     (otherwise
      (get-active-uniform-block-aux program block-index pname :int))))
 
