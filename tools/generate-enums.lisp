@@ -211,25 +211,26 @@
 
 ;;; Write expressions to define CFFI bitfields for bitfields in PARSER
 ;;; to STREAM 
-(defun write-bitfields (parser stream)
-  (loop with enum-hash = (parser-enums parser)
-     for bitfield in (parser-bitfields parser)
-     do (destructuring-bind (&key enum-type enums &allow-other-keys)
-            bitfield
-          ;;; fixme: probably should clean up the bitfield names
-          (format stream "(defbitfield (~A :unsigned-int)"
-                  enum-type)
-          (loop for enum in enums
-             for enum-name = (convert-enum-name enum)
-             ;; We additionally generate versions without the
-             ;; -BIT and -BITS suffixes.
-             for enum-alias = (maybe-generate-shorthand-name enum-name)
-             when enum-alias
-             do (format stream "~% (:~A #x~X)"
-                        enum-alias (gethash enum-name enum-hash))
-             do (format stream "~% (:~A #x~X)"
-                        enum-name (gethash enum-name enum-hash)))
-          (format stream ")~%~%"))))
+(defun write-bitfields (parser stream) 
+  (let ((*print-case* :downcase))
+    (loop with enum-hash = (parser-enums parser)
+      for bitfield in (parser-bitfields parser)
+      do (destructuring-bind (&key enum-type enums &allow-other-keys)
+             bitfield
+;;; fixme: probably should clean up the bitfield names
+           (format stream "(defbitfield (~A :unsigned-int)"
+                   enum-type)
+           (loop for enum in enums
+              for enum-name = (convert-enum-name enum)
+              ;; We additionally generate versions without the
+              ;; -BIT and -BITS suffixes.
+              for enum-alias = (maybe-generate-shorthand-name enum-name)
+              when enum-alias
+              do (format stream "~% (:~A #x~X)"
+                         enum-alias (gethash enum-name enum-hash))
+              do (format stream "~% (:~A #x~X)"
+                         enum-name (gethash enum-name enum-hash)))
+           (format stream ")~%~%")))))
 
 
 ;;; Generate the CL-OPENGL source file containing the enums from the
