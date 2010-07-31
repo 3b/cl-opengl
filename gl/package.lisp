@@ -329,7 +329,7 @@
    #:get-program-info-log
    #:get-shader-source
    #:get-active-uniform-block-name
-   #:get-active-uniform-block-iv
+   #:get-active-uniform-block
    ;; 6.1.15 Saving and Restoring State
    #:push-attrib
    #:push-client-attrib

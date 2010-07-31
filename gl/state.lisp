@@ -704,11 +704,13 @@ currently implemented for speed, so avoid in inner loops"
     (program uniformblockindex pname)
   (%gl:get-active-uniform-block-iv :int int))
 
-(defun get-active-uniform-block-iv (program block-index pname)
+(defun get-active-uniform-block (program block-index pname)
   (case pname
     ((:uniform-block-referenced-by-vertex-shader
       :uniform-block-referenced-by-fragment-shader
-      :uniform-block-referenced-by-geometry-shader)
+      :uniform-block-referenced-by-geometry-shader
+      :uniform-block-referenced-by-tess-control-shader
+      :uniform-block-referenced-by-tess-evaluation-shader)
      (plusp (get-active-uniform-block-aux program block-index pname :int)))
     ((:uniform-block-active-uniform-indices)
      (let ((i-count (get-active-uniform-block-aux
@@ -720,8 +722,8 @@ currently implemented for speed, so avoid in inner loops"
      (get-active-uniform-block-aux program block-index pname :int))))
 
 (defun get-active-uniform-block-name (program block-index)
-  (let ((name-length (get-active-uniform-block-iv program block-index
-                                                  :uniform-block-name-length)))
+  (let ((name-length (get-active-uniform-block program block-index
+                                               :uniform-block-name-length)))
     (with-foreign-objects ((characters-written '%gl:sizei)
                            (name '%gl:char name-length))
       (%gl:get-active-uniform-block-name program block-index name-length
