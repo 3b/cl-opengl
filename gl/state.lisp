@@ -700,7 +700,7 @@ currently implemented for speed, so avoid in inner loops"
     (otherwise
      (get-program-aux program pname :int))))
 
-(define-get-function get-active-uniform-block-aux 
+(define-get-function get-active-uniform-block-aux
     (program uniformblockindex pname)
   (%gl:get-active-uniform-block-iv :int int))
 
@@ -711,22 +711,22 @@ currently implemented for speed, so avoid in inner loops"
       :uniform-block-referenced-by-geometry-shader)
      (plusp (get-active-uniform-block-aux program block-index pname :int)))
     ((:uniform-block-active-uniform-indices)
-     (let ((i-count (get-active-uniform-block-aux 
-                          program block-index :uniform-block-active-uniforms
-                          :int)))
-       (ensure-list (get-active-uniform-block-aux program block-index 
+     (let ((i-count (get-active-uniform-block-aux
+                     program block-index :uniform-block-active-uniforms
+                     :int)))
+       (ensure-list (get-active-uniform-block-aux program block-index
                                                   pname :int i-count))))
     (otherwise
      (get-active-uniform-block-aux program block-index pname :int))))
 
 (defun get-active-uniform-block-name (program block-index)
-  (let ((name-length (get-active-uniform-block-iv program block-index 
+  (let ((name-length (get-active-uniform-block-iv program block-index
                                                   :uniform-block-name-length)))
     (with-foreign-objects ((characters-written '%gl:sizei)
                            (name '%gl:char name-length))
       (%gl:get-active-uniform-block-name program block-index name-length
                                          characters-written name)
-      (when (< 0 (mem-ref characters-written '%gl:sizei))        
+      (when (< 0 (mem-ref characters-written '%gl:sizei))
         (foreign-string-to-lisp name)))))
 
 (defun get-attached-shaders (program)
