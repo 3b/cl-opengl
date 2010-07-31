@@ -28,7 +28,7 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defpackage #:cl-opengl
-  (:use #:cl #:cffi)
+  (:use #:cl #:cffi #:alexandria)
   (:nicknames #:opengl #:gl)
   (:export
    ;; 2.5 GL Errors
@@ -328,6 +328,8 @@
    #:get-shader-info-log
    #:get-program-info-log
    #:get-shader-source
+   #:get-active-uniform-block-name
+   #:get-active-uniform-block-iv
    ;; 6.1.15 Saving and Restoring State
    #:push-attrib
    #:push-client-attrib
