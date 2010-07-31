@@ -147,7 +147,7 @@
                             ,(converting `(elt ,lisp-sequence i))))
              ,@body))))))
 
-;;; The following utils were taken from SBCL's
+;;; The following util was taken from SBCL's
 ;;; src/code/*-extensions.lisp
 
 (defun symbolicate-package (package &rest things)
@@ -162,28 +162,6 @@ producing a symbol in the current package."
                (len (length x)))
           (replace name x :start1 index)
           (incf index len))))))
-
-(defun symbolicate (&rest things)
-  (apply #'symbolicate-package *package* things))
-
-;;; Automate an idiom often found in macros:
-;;;   (LET ((FOO (GENSYM "FOO"))
-;;;         (MAX-INDEX (GENSYM "MAX-INDEX-")))
-;;;     ...)
-;;;
-;;; "Good notation eliminates thought." -- Eric Siggia
-;;;
-;;; Incidentally, this is essentially the same operator which
-;;; _On Lisp_ calls WITH-GENSYMS.
-(defmacro with-unique-names (symbols &body body)
-  `(let ,(mapcar (lambda (symbol)
-                   (let* ((symbol-name (symbol-name symbol))
-                          (stem (if (every #'alpha-char-p symbol-name)
-                                    symbol-name
-                                    (concatenate 'string symbol-name "-"))))
-                     `(,symbol (gensym ,stem))))
-                 symbols)
-     ,@body))
 
 ;;; Yes, this is somewhat silly since package.lisp interns and exports
 ;;; the symbols then we unintern, import from %GL and re-export.  It,
