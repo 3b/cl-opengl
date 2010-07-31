@@ -34,7 +34,7 @@
 
 (define-foreign-library opengl
   (:darwin (:framework "OpenGL"))
-  (:windows "opengl32.dll" :calling-convention :stdcall)
+  (:windows "opengl32.dll" :convention :stdcall)
   (:unix (:or "libGL.so" "libGL.so.2" "libGL.so.1")))
 
 (use-foreign-library opengl)
