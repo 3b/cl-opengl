@@ -1,5 +1,7 @@
-# List of GL enumerants for glext.h header
+# enumext.spec - list of GL enumerants for glext.h header
 #
+# $Revision: 11742 $ on $Date: 2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010) $
+
 # This is derived from the master GL enumerant registry (enum.spec).
 #
 # Unlike enum.spec, enumext.spec is
@@ -14,8 +16,8 @@
 #   (4) Is processed by glextenum.pl, which has evolved
 #	from enum.pl - should merge back into one script.
 
-# glext.h version number - this should be automatically updated,
-#   when changing either enum or template spec files.
+# The release number encoded into glext.h is now defined in
+# glextrelease.txt.
 
 ###############################################################################
 #
@@ -2790,7 +2792,7 @@ ARB_gpu_shader5 enum:
 	MIN_FRAGMENT_INTERPOLATION_OFFSET		= 0x8E5B
 	MAX_FRAGMENT_INTERPOLATION_OFFSET		= 0x8E5C
 	FRAGMENT_INTERPOLATION_OFFSET_BITS		= 0x8E5D
-	MAX_VERTEX_STREAMS				= 0x8E71
+	use ARB_texture_multisample	    MAX_VERTEX_STREAMS
 
 ###############################################################################
 
@@ -5360,11 +5362,10 @@ APPLE_client_storage enum:
 ###############################################################################
 
 # Extension #271
-# (extends ATI_element_array???)
 APPLE_element_array enum:
-	ELEMENT_ARRAY_APPLE				= 0x8768
-	ELEMENT_ARRAY_TYPE_APPLE			= 0x8769
-	ELEMENT_ARRAY_POINTER_APPLE			= 0x876A
+	ELEMENT_ARRAY_APPLE				= 0x8A0C
+	ELEMENT_ARRAY_TYPE_APPLE			= 0x8A0D
+	ELEMENT_ARRAY_POINTER_APPLE			= 0x8A0E
 
 ###############################################################################
 
@@ -5385,12 +5386,12 @@ APPLE_vertex_array_object enum:
 ###############################################################################
 
 # Extension #274
-# (How does this interact with NV_vertex_array_range???)
 APPLE_vertex_array_range enum:
 	VERTEX_ARRAY_RANGE_APPLE			= 0x851D
 	VERTEX_ARRAY_RANGE_LENGTH_APPLE			= 0x851E
 	VERTEX_ARRAY_STORAGE_HINT_APPLE			= 0x851F
 	VERTEX_ARRAY_RANGE_POINTER_APPLE		= 0x8521
+	STORAGE_CLIENT_APPLE				= 0x85B4
 	STORAGE_CACHED_APPLE				= 0x85BE
 	STORAGE_SHARED_APPLE				= 0x85BF
 
@@ -5679,7 +5680,10 @@ NV_vertex_program3 enum:
 
 # Extension #307 - GLX_SGIX_hyperpipe
 # Extension #308 - GLX_MESA_agp_offset
+
 # Extension #309 - GL_EXT_texture_compression_dxt1 (OpenGL ES only, subset of _s3tc version)
+#	 use EXT_texture_compression_s3tc    COMPRESSED_RGB_S3TC_DXT1_EXT
+#	 use EXT_texture_compression_s3tc    COMPRESSED_RGBA_S3TC_DXT1_EXT
 
 ###############################################################################
 
@@ -6528,4 +6532,212 @@ AMD_seamless_cubemap_per_texture enum:
 ###############################################################################
 
 # Extension #384 - GLX_INTEL_swap_event
+
+###############################################################################
+
+# No new tokens
+# Extension #385
+AMD_conservative_depth enum:
+
+###############################################################################
+
+# Extension #386
+EXT_shader_image_load_store enum:
+	MAX_IMAGE_UNITS_EXT				= 0x8F38
+	MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS_EXT = 0x8F39
+	IMAGE_BINDING_NAME_EXT				= 0x8F3A
+	IMAGE_BINDING_LEVEL_EXT				= 0x8F3B
+	IMAGE_BINDING_LAYERED_EXT			= 0x8F3C
+	IMAGE_BINDING_LAYER_EXT				= 0x8F3D
+	IMAGE_BINDING_ACCESS_EXT			= 0x8F3E
+	IMAGE_1D_EXT					= 0x904C
+	IMAGE_2D_EXT					= 0x904D
+	IMAGE_3D_EXT					= 0x904E
+	IMAGE_2D_RECT_EXT				= 0x904F
+	IMAGE_CUBE_EXT					= 0x9050
+	IMAGE_BUFFER_EXT				= 0x9051
+	IMAGE_1D_ARRAY_EXT				= 0x9052
+	IMAGE_2D_ARRAY_EXT				= 0x9053
+	IMAGE_CUBE_MAP_ARRAY_EXT			= 0x9054
+	IMAGE_2D_MULTISAMPLE_EXT			= 0x9055
+	IMAGE_2D_MULTISAMPLE_ARRAY_EXT			= 0x9056
+	INT_IMAGE_1D_EXT				= 0x9057
+	INT_IMAGE_2D_EXT				= 0x9058
+	INT_IMAGE_3D_EXT				= 0x9059
+	INT_IMAGE_2D_RECT_EXT				= 0x905A
+	INT_IMAGE_CUBE_EXT				= 0x905B
+	INT_IMAGE_BUFFER_EXT				= 0x905C
+	INT_IMAGE_1D_ARRAY_EXT				= 0x905D
+	INT_IMAGE_2D_ARRAY_EXT				= 0x905E
+	INT_IMAGE_CUBE_MAP_ARRAY_EXT			= 0x905F
+	INT_IMAGE_2D_MULTISAMPLE_EXT			= 0x9060
+	INT_IMAGE_2D_MULTISAMPLE_ARRAY_EXT		= 0x9061
+	UNSIGNED_INT_IMAGE_1D_EXT			= 0x9062
+	UNSIGNED_INT_IMAGE_2D_EXT			= 0x9063
+	UNSIGNED_INT_IMAGE_3D_EXT			= 0x9064
+	UNSIGNED_INT_IMAGE_2D_RECT_EXT			= 0x9065
+	UNSIGNED_INT_IMAGE_CUBE_EXT			= 0x9066
+	UNSIGNED_INT_IMAGE_BUFFER_EXT			= 0x9067
+	UNSIGNED_INT_IMAGE_1D_ARRAY_EXT			= 0x9068
+	UNSIGNED_INT_IMAGE_2D_ARRAY_EXT			= 0x9069
+	UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY_EXT		= 0x906A
+	UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_EXT		= 0x906B
+	UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY_EXT	= 0x906C
+	MAX_IMAGE_SAMPLES_EXT				= 0x906D
+	IMAGE_BINDING_FORMAT_EXT			= 0x906E
+# ??? Not clear where to put new types of mask bits yet
+	VERTEX_ATTRIB_ARRAY_BARRIER_BIT_EXT		= 0x00000001
+	ELEMENT_ARRAY_BARRIER_BIT_EXT			= 0x00000002
+	UNIFORM_BARRIER_BIT_EXT				= 0x00000004
+	TEXTURE_FETCH_BARRIER_BIT_EXT			= 0x00000008
+	SHADER_IMAGE_ACCESS_BARRIER_BIT_EXT		= 0x00000020
+	COMMAND_BARRIER_BIT_EXT				= 0x00000040
+	PIXEL_BUFFER_BARRIER_BIT_EXT			= 0x00000080
+	TEXTURE_UPDATE_BARRIER_BIT_EXT			= 0x00000100
+	BUFFER_UPDATE_BARRIER_BIT_EXT			= 0x00000200
+	FRAMEBUFFER_BARRIER_BIT_EXT			= 0x00000400
+	TRANSFORM_FEEDBACK_BARRIER_BIT_EXT		= 0x00000800
+	ATOMIC_COUNTER_BARRIER_BIT_EXT			= 0x00001000
+	ALL_BARRIER_BITS_EXT				= 0xFFFFFFFF
+
+###############################################################################
+
+# Extension #387
+EXT_vertex_attrib_64bit enum:
+	use VERSION_1_1			    DOUBLE
+	DOUBLE_VEC2_EXT					= 0x8FFC
+	DOUBLE_VEC3_EXT					= 0x8FFD
+	DOUBLE_VEC4_EXT					= 0x8FFE
+	DOUBLE_MAT2_EXT					= 0x8F46
+	DOUBLE_MAT3_EXT					= 0x8F47
+	DOUBLE_MAT4_EXT					= 0x8F48
+	DOUBLE_MAT2x3_EXT				= 0x8F49
+	DOUBLE_MAT2x4_EXT				= 0x8F4A
+	DOUBLE_MAT3x2_EXT				= 0x8F4B
+	DOUBLE_MAT3x4_EXT				= 0x8F4C
+	DOUBLE_MAT4x2_EXT				= 0x8F4D
+	DOUBLE_MAT4x3_EXT				= 0x8F4E
+
+###############################################################################
+
+# Extension #388
+NV_gpu_program5 enum:
+	MAX_GEOMETRY_PROGRAM_INVOCATIONS_NV		= 0x8E5A
+	MIN_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5B
+	MAX_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5C
+	FRAGMENT_PROGRAM_INTERPOLATION_OFFSET_BITS_NV	= 0x8E5D
+
+###############################################################################
+
+# Extension #389
+NV_gpu_shader5 enum:
+	INT64_NV					= 0x140E
+	UNSIGNED_INT64_NV				= 0x140F
+	INT8_NV						= 0x8FE0
+	INT8_VEC2_NV					= 0x8FE1
+	INT8_VEC3_NV					= 0x8FE2
+	INT8_VEC4_NV					= 0x8FE3
+	INT16_NV					= 0x8FE4
+	INT16_VEC2_NV					= 0x8FE5
+	INT16_VEC3_NV					= 0x8FE6
+	INT16_VEC4_NV					= 0x8FE7
+	INT64_VEC2_NV					= 0x8FE9
+	INT64_VEC3_NV					= 0x8FEA
+	INT64_VEC4_NV					= 0x8FEB
+	UNSIGNED_INT8_NV				= 0x8FEC
+	UNSIGNED_INT8_VEC2_NV				= 0x8FED
+	UNSIGNED_INT8_VEC3_NV				= 0x8FEE
+	UNSIGNED_INT8_VEC4_NV				= 0x8FEF
+	UNSIGNED_INT16_NV				= 0x8FF0
+	UNSIGNED_INT16_VEC2_NV				= 0x8FF1
+	UNSIGNED_INT16_VEC3_NV				= 0x8FF2
+	UNSIGNED_INT16_VEC4_NV				= 0x8FF3
+	UNSIGNED_INT64_VEC2_NV				= 0x8FF5
+	UNSIGNED_INT64_VEC3_NV				= 0x8FF6
+	UNSIGNED_INT64_VEC4_NV				= 0x8FF7
+	FLOAT16_NV					= 0x8FF8
+	FLOAT16_VEC2_NV					= 0x8FF9
+	FLOAT16_VEC3_NV					= 0x8FFA
+	FLOAT16_VEC4_NV					= 0x8FFB
+	use ARB_tessellation_shader	    PATCHES
+
+###############################################################################
+
+# Extension #390
+NV_shader_buffer_store enum:
+	SHADER_GLOBAL_ACCESS_BARRIER_BIT_NV		= 0x00000010
+	use VERSION_1_5			    READ_WRITE
+	use VERSION_1_5			    WRITE_ONLY
+
+###############################################################################
+
+# Extension #391
+NV_tessellation_program5 enum:
+	MAX_PROGRAM_PATCH_ATTRIBS_NV			= 0x86D8
+	TESS_CONTROL_PROGRAM_NV				= 0x891E
+	TESS_EVALUATION_PROGRAM_NV			= 0x891F
+	TESS_CONTROL_PROGRAM_PARAMETER_BUFFER_NV	= 0x8C74
+	TESS_EVALUATION_PROGRAM_PARAMETER_BUFFER_NV	= 0x8C75
+
+###############################################################################
+
+# Extension #392
+NV_vertex_attrib_integer_64bit enum:
+	use NV_gpu_shader5		    INT64_NV
+	use NV_gpu_shader5		    UNSIGNED_INT64_NV
+
+###############################################################################
+
+# Extension #393
+# Reuses SAMPLES enum as COVERAGE_SAMPLES
+NV_multisample_coverage enum:
+	COVERAGE_SAMPLES_NV				= 0x80A9
+	COLOR_SAMPLES_NV				= 0x8E20
+
+###############################################################################
+
+# Extension #394
+AMD_name_gen_delete enum:
+	DATA_BUFFER_AMD					= 0x9151
+	PERFORMANCE_MONITOR_AMD				= 0x9152
+	QUERY_OBJECT_AMD				= 0x9153
+	VERTEX_ARRAY_OBJECT_AMD				= 0x9154
+	SAMPLER_OBJECT_AMD				= 0x9155
+
+###############################################################################
+
+# Extension #395
+AMD_debug_output enum:
+	MAX_DEBUG_LOGGED_MESSAGES_AMD			= 0x9144
+	DEBUG_LOGGED_MESSAGES_AMD			= 0x9145
+	DEBUG_SEVERITY_HIGH_AMD				= 0x9146
+	DEBUG_SEVERITY_MEDIUM_AMD			= 0x9147
+	DEBUG_SEVERITY_LOW_AMD				= 0x9148
+	DEBUG_CATEGORY_API_ERROR_AMD			= 0x9149
+	DEBUG_CATEGORY_WINDOW_SYSTEM_AMD		= 0x914A
+	DEBUG_CATEGORY_DEPRECATION_AMD			= 0x914B
+	DEBUG_CATEGORY_UNDEFINED_BEHAVIOR_AMD		= 0x914C
+	DEBUG_CATEGORY_PERFORMANCE_AMD			= 0x914D
+	DEBUG_CATEGORY_SHADER_COMPILER_AMD		= 0x914E
+	DEBUG_CATEGORY_APPLICATION_AMD			= 0x914F
+	DEBUG_CATEGORY_OTHER_AMD			= 0x9150
+
+###############################################################################
+
+# Extension #396
+NV_vdpau_interop enum:
+	SURFACE_STATE_NV				= 0x86EB
+	SURFACE_REGISTERED_NV				= 0x86FD
+	SURFACE_MAPPED_NV				= 0x8700
+	WRITE_DISCARD_NV				= 0x88BE
+
+###############################################################################
+
+# No new tokens
+# Extension #397
+AMD_transform_feedback3_lines_triangles enum:
+
+###############################################################################
+
+# Extension #398 - GLX_AMD_gpu_association
 

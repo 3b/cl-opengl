@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 60 ( 2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010) )
+;;; glext version 63 ( 2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010)  )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 60)
-(defparameter *glext-last-updated* "2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010)")
+(defparameter *glext-version* 63)
+(defparameter *glext-last-updated* "2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010) ")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -5350,7 +5350,7 @@
 
 ;;; GL version: 1.2, ARB_sampler_objects
 (defglextfun ("glBindSampler" bind-sampler) :void
-  (unit enum)
+  (unit uint)
   (sampler uint))
 
 ;;; GL version: 1.2, ARB_sampler_objects
@@ -11921,6 +11921,27 @@
 ;;; GL version: 1.0, EXT_direct_state_access
 (defglextfun ("glUnmapNamedBufferEXT" unmap-named-buffer-ext) boolean
   (buffer uint))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glMapNamedBufferRangeEXT" map-named-buffer-range-ext) (:pointer void)
+  (buffer uint)
+  (offset intptr)
+  (length sizeiptr)
+  (access BufferAccessMask))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glFlushMappedNamedBufferRangeEXT" flush-mapped-named-buffer-range-ext) :void
+  (buffer uint)
+  (offset intptr)
+  (length sizeiptr))
+
+;;; GL version: 1.0, EXT_direct_state_access
+(defglextfun ("glNamedCopyBufferSubDataEXT" named-copy-buffer-sub-data-ext) :void
+  (readBuffer uint)
+  (writeBuffer uint)
+  (readOffset intptr)
+  (writeOffset intptr)
+  (size sizeiptr))
 
 ;;; GL version: 1.0, EXT_direct_state_access
 (defglextfun ("glGetNamedBufferParameterivEXT" get-named-buffer-parameter-iv-ext) :void

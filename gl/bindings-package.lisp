@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 60 ( 2010-03-11 11:19:31 -0800 (Thu, 11 Mar 2010) )
+;;; glext version 63 ( 2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010)  )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -849,7 +849,10 @@
   #:program-uniform-2uiv-ext #:program-uniform-3uiv-ext 
   #:program-uniform-4uiv-ext #:named-buffer-data-ext 
   #:named-buffer-sub-data-ext #:map-named-buffer-ext 
-  #:unmap-named-buffer-ext #:get-named-buffer-parameter-iv-ext 
+  #:unmap-named-buffer-ext #:map-named-buffer-range-ext 
+  #:flush-mapped-named-buffer-range-ext 
+  #:named-copy-buffer-sub-data-ext 
+  #:get-named-buffer-parameter-iv-ext 
   #:get-named-buffer-pointer-v-ext #:get-named-buffer-sub-data-ext 
   #:texture-buffer-ext #:multi-tex-buffer-ext 
   #:named-renderbuffer-storage-ext 

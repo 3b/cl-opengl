@@ -2,11 +2,12 @@
 # DON'T REMOVE PREVIOUS LINE!!! libspec depends on it!
 #
 # Copyright (c) 1991-2005 Silicon Graphics, Inc. All Rights Reserved.
-# Copyright (c) 2006-2009 The Khronos Group Inc.
+# Copyright (c) 2006-2010 The Khronos Group Inc.
 #
 # This document is licensed under the SGI Free Software B License Version
 # 2.0. For details, see http://oss.sgi.com/projects/FreeB/ .
-
+#
+# $Revision: 12069 $ on $Date: 2010-07-22 13:04:27 -0700 (Thu, 22 Jul 2010) $
 
 required-props:
 # Description of a parameter
@@ -20,7 +21,7 @@ vectorequiv:	*
 # Category this function falls in. While there are many categories for
 # early GL 1.0 functions, later functions just have a core version
 # (e.g. VERSION_major_minor) or extension name for the category.
-category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform VERSION_1_0 VERSION_1_0_DEPRECATED VERSION_1_1 VERSION_1_1_DEPRECATED VERSION_1_2 VERSION_1_2_DEPRECATED VERSION_1_3 VERSION_1_3_DEPRECATED VERSION_1_4 VERSION_1_4_DEPRECATED VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 VERSION_3_0_DEPRECATED VERSION_3_1 VERSION_3_2 VERSION_3_3 VERSION_4_0 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access EXT_vertex_array_bgra EXT_texture_swizzle NV_explicit_multisample NV_transform_feedback2 ATI_meminfo AMD_performance_monitor AMD_vertex_shader_tesselator EXT_provoking_vertex ARB_uniform_buffer_object ARB_copy_buffer EXT_texture_snorm AMD_draw_buffers_blend APPLE_texture_range APPLE_float_pixels APPLE_vertex_program_evaluators APPLE_aux_depth_stencil APPLE_object_purgeable APPLE_row_bytes ARB_draw_elements_base_vertex ARB_provoking_vertex ARB_sync ARB_texture_multisample ARB_draw_buffers_blend ARB_sample_shading NV_video_capture NV_copy_image EXT_separate_shader_objects NV_parameter_buffer_object2 NV_shader_buffer_load NV_vertex_buffer_unified_memory NV_texture_barrier ARB_shading_language_include ARB_blend_func_extended ARB_sampler_objects ARB_timer_query ARB_vertex_type_2_10_10_10_rev ARB_draw_indirect ARB_gpu_shader_fp64 ARB_shader_subroutine ARB_tessellation_shader ARB_transform_feedback2 ARB_transform_feedback3
+category:	display-list drawing drawing-control feedback framebuf misc modeling pixel-op pixel-rw state-req xform VERSION_1_0 VERSION_1_0_DEPRECATED VERSION_1_1 VERSION_1_1_DEPRECATED VERSION_1_2 VERSION_1_2_DEPRECATED VERSION_1_3 VERSION_1_3_DEPRECATED VERSION_1_4 VERSION_1_4_DEPRECATED VERSION_1_5 VERSION_2_0 VERSION_2_1 VERSION_3_0 VERSION_3_0_DEPRECATED VERSION_3_1 VERSION_3_2 VERSION_3_3 VERSION_4_0 ATI_element_array ATI_envmap_bumpmap ATI_fragment_shader ATI_pn_triangles ATI_vertex_array_object ATI_vertex_streams EXT_blend_color EXT_blend_minmax EXT_convolution EXT_copy_texture EXT_histogram EXT_polygon_offset EXT_subtexture EXT_texture3D EXT_texture_object EXT_vertex_array EXT_vertex_shader SGIS_detail_texture SGIS_multisample SGIS_pixel_texture ARB_point_parameters EXT_point_parameters SGIS_point_parameters SGIS_sharpen_texture SGIS_texture4D SGIS_texture_filter4 SGIX_async SGIX_flush_raster SGIX_fragment_lighting SGIX_framezoom SGIX_igloo_interface SGIX_instruments SGIX_list_priority SGIX_pixel_texture SGIX_polynomial_ffd SGIX_reference_plane SGIX_sprite SGIX_tag_sample_buffer SGI_color_table ARB_multitexture ARB_multisample ARB_texture_compression ARB_transpose_matrix ARB_vertex_blend ARB_matrix_palette EXT_compiled_vertex_array EXT_cull_vertex EXT_index_func EXT_index_material EXT_draw_range_elements EXT_vertex_weighting INGR_blend_func_separate NV_evaluators NV_fence NV_occlusion_query NV_point_sprite NV_register_combiners NV_register_combiners2 NV_vertex_array_range NV_vertex_program NV_vertex_program1_1_dcc MESA_resize_buffers MESA_window_pos PGI_misc_hints EXT_fog_coord EXT_blend_func_separate EXT_color_subtable EXT_coordinate_frame EXT_light_texture EXT_multi_draw_arrays EXT_paletted_texture EXT_pixel_transform EXT_secondary_color EXT_texture_perturb_normal HP_image_transform IBM_multimode_draw_arrays IBM_vertex_array_lists INTEL_parallel_arrays SUNX_constant_data SUN_global_alpha SUN_mesh_array SUN_triangle_list SUN_vertex 3DFX_tbuffer EXT_multisample SGIS_fog_function SGIS_texture_color_mask ARB_window_pos EXT_stencil_two_side EXT_depth_bounds_test EXT_blend_equation_separate ARB_vertex_program ARB_fragment_program ARB_vertex_buffer_object ARB_occlusion_query ARB_shader_objects ARB_vertex_shader ARB_fragment_shader S3_s3tc ATI_draw_buffers ATI_texture_env_combine3 ATI_texture_float NV_float_buffer NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart NV_texture_expand_normal NV_texture_expand_normal NV_vertex_program2 APPLE_element_array APPLE_fence APPLE_vertex_array_object APPLE_vertex_array_range ATI_draw_buffers NV_fragment_program NV_half_float NV_pixel_data_range NV_primitive_restart ATI_map_object_buffer ATI_separate_stencil ATI_vertex_attrib_array_object ARB_draw_buffers ARB_texture_rectangle ARB_color_buffer_float EXT_framebuffer_object GREMEDY_string_marker EXT_stencil_clear_tag EXT_framebuffer_blit EXT_framebuffer_multisample MESAX_texture_stack EXT_timer_query EXT_gpu_program_parameters APPLE_flush_buffer_range NV_gpu_program4 NV_geometry_program4 EXT_geometry_shader4 NV_vertex_program4 EXT_gpu_shader4 EXT_draw_instanced EXT_texture_buffer_object NV_depth_buffer_float NV_framebuffer_multisample_coverage NV_parameter_buffer_object EXT_draw_buffers2 NV_transform_feedback EXT_bindable_uniform EXT_texture_integer GREMEDY_frame_terminator NV_conditional_render NV_present_video EXT_transform_feedback ARB_depth_buffer_float ARB_draw_instanced ARB_framebuffer_object ARB_framebuffer_sRGB ARB_geometry_shader4 ARB_half_float_vertex ARB_instanced_arrays ARB_map_buffer_range ARB_texture_buffer_object ARB_texture_compression_rgtc ARB_texture_rg ARB_vertex_array_object EXT_direct_state_access EXT_vertex_array_bgra EXT_texture_swizzle NV_explicit_multisample NV_transform_feedback2 ATI_meminfo AMD_performance_monitor AMD_vertex_shader_tesselator EXT_provoking_vertex ARB_uniform_buffer_object ARB_copy_buffer EXT_texture_snorm AMD_draw_buffers_blend APPLE_texture_range APPLE_float_pixels APPLE_vertex_program_evaluators APPLE_aux_depth_stencil APPLE_object_purgeable APPLE_row_bytes ARB_draw_elements_base_vertex ARB_provoking_vertex ARB_sync ARB_texture_multisample ARB_draw_buffers_blend ARB_sample_shading NV_video_capture NV_copy_image EXT_separate_shader_objects NV_parameter_buffer_object2 NV_shader_buffer_load NV_vertex_buffer_unified_memory NV_texture_barrier ARB_shading_language_include ARB_blend_func_extended ARB_sampler_objects ARB_timer_query ARB_vertex_type_2_10_10_10_rev ARB_draw_indirect ARB_gpu_shader_fp64 ARB_shader_subroutine ARB_tessellation_shader ARB_transform_feedback2 ARB_transform_feedback3 AMD_conservative_depth NV_vdpau_interop
 
 # Categories for extensions with no functions - need not be included now
 # ARB_texture_env_add ARB_texture_cube_map ARB_texture_border_clamp
@@ -193,7 +194,7 @@ passthru: typedef int64_t GLint64EXT;
 passthru: typedef uint64_t GLuint64EXT;
 passthru: #endif
 passthru:
-passthru: #ifndef ARB_sync
+passthru: #ifndef GL_ARB_sync
 passthru: typedef int64_t GLint64;
 passthru: typedef uint64_t GLuint64;
 passthru: typedef struct __GLsync *GLsync;
@@ -10573,6 +10574,8 @@ IsRenderbuffer(renderbuffer)
 	glxflags	ignore
 	offset		?
 
+# GLX opcode changed so it can be differentiated from BindRenderbufferEXT
+# (see ARB_framebuffer_object extension spec revision 23)
 BindRenderbuffer(target, renderbuffer)
 	return		void
 	param		target		RenderbufferTarget in value
@@ -10580,7 +10583,7 @@ BindRenderbuffer(target, renderbuffer)
 	category	ARB_framebuffer_object
 	version		3.0
 	extension
-	glxropcode	4316
+	glxropcode	235
 	glxflags	ignore
 	offset		?
 
@@ -10642,6 +10645,8 @@ IsFramebuffer(framebuffer)
 	glxflags	ignore
 	offset		?
 
+# GLX opcode changed so it can be differentiated from BindFramebufferEXT
+# (see ARB_framebuffer_object extension spec revision 23)
 BindFramebuffer(target, framebuffer)
 	return		void
 	param		target		FramebufferTarget in value
@@ -10649,7 +10654,7 @@ BindFramebuffer(target, framebuffer)
 	category	ARB_framebuffer_object
 	version		3.0
 	extension
-	glxropcode	4319
+	glxropcode	236
 	glxflags	ignore
 	offset		?
 
@@ -10809,7 +10814,8 @@ FramebufferTextureLayer(target, attachment, texture, level, layer)
 	extension	soft WINSOFT
 	dlflags		notlistable
 	glfflags	ignore
-	glxflags	ignore
+	glxropcode	237
+	offset		?
 
 
 ###############################################################################
@@ -11761,7 +11767,7 @@ IsSampler(sampler)
 
 BindSampler(unit, sampler)
 	return		void
-	param		unit		GLenum in value
+	param		unit		UInt32 in value
 	param		sampler		UInt32 in value
 	category	ARB_sampler_objects
 	version		1.2
@@ -22732,6 +22738,9 @@ newcategory: NV_vertex_program3
 #
 ###############################################################################
 
+# (none)
+# newcategory: EXT_texture_compression_dxt1
+
 ###############################################################################
 #
 # Extension #310
@@ -22749,6 +22758,7 @@ IsRenderbufferEXT(renderbuffer)
 	glxflags	ignore
 	alias		IsRenderbuffer
 
+# Not aliased to BindRenderbuffer
 BindRenderbufferEXT(target, renderbuffer)
 	return		void
 	param		target		RenderbufferTarget in value
@@ -22758,7 +22768,6 @@ BindRenderbufferEXT(target, renderbuffer)
 	extension
 	glxropcode	4316
 	glxflags	ignore
-	alias		BindRenderbuffer
 
 DeleteRenderbuffersEXT(n, renderbuffers)
 	return		void
@@ -22818,6 +22827,7 @@ IsFramebufferEXT(framebuffer)
 	glxflags	ignore
 	alias		IsFramebuffer
 
+# Not aliased to BindFramebuffer
 BindFramebufferEXT(target, framebuffer)
 	return		void
 	param		target		FramebufferTarget in value
@@ -22827,7 +22837,6 @@ BindFramebufferEXT(target, framebuffer)
 	extension
 	glxropcode	4319
 	glxflags	ignore
-	alias		BindFramebuffer
 
 DeleteFramebuffersEXT(n, framebuffers)
 	return		void
@@ -26941,6 +26950,42 @@ UnmapNamedBufferEXT(buffer)
 	glxflags	ignore
 	glfflags	ignore
 
+MapNamedBufferRangeEXT(buffer, offset, length, access)
+	return		VoidPointer
+	param		buffer		UInt32 in value
+	param		offset		Intptr in value
+	param		length		Sizeiptr in value
+	param		access		BufferAccessMask in value
+	category	EXT_direct_state_access
+	extension	soft WINSOFT
+	dlflags		notlistable
+	glxflags	ignore
+	glfflags	ignore
+
+FlushMappedNamedBufferRangeEXT(buffer, offset, length)
+	return		void
+	param		buffer		UInt32 in value
+	param		offset		Intptr in value
+	param		length		Sizeiptr in value
+	category	EXT_direct_state_access
+	extension	soft WINSOFT
+	dlflags		notlistable
+	glxflags	ignore
+	glfflags	ignore
+
+NamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size)
+	return		void
+	param		readBuffer	UInt32 in value
+	param		writeBuffer	UInt32 in value
+	param		readOffset	Intptr in value
+	param		writeOffset	Intptr in value
+	param		size		Sizeiptr in value
+	category	EXT_direct_state_access
+	extension	soft WINSOFT
+	dlflags		notlistable
+	glxflags	ignore
+	glfflags	ignore
+
 # New named buffer queries
 
 GetNamedBufferParameterivEXT(buffer, pname, params)
@@ -28545,6 +28590,281 @@ newcategory: AMD_seamless_cubemap_per_texture
 ###############################################################################
 #
 # Extension #384 - GLX_INTEL_swap_event
+#
+###############################################################################
+
+###############################################################################
+#
+# Extension #385
+# AMD_conservative_depth commands
+#
+###############################################################################
+
+newcategory: AMD_conservative_depth
+
+###############################################################################
+#
+# Extension #386
+# EXT_shader_image_load_store commands
+#
+###############################################################################
+
+newcategory: EXT_shader_image_load_store
+#@    void BindImageTextureEXT(uint index, uint texture, int level,
+#@			       boolean layered, int layer, enum access,
+#@			       int format);
+#@    void MemoryBarrierEXT(bitfield barriers);
+
+###############################################################################
+#
+# Extension #387
+# EXT_vertex_attrib_64bit commands
+#
+###############################################################################
+
+newcategory: EXT_vertex_attrib_64bit
+#@  void VertexAttribL1dEXT(uint index, double x);
+#@    void VertexAttribL2dEXT(uint index, double x, double y);
+#@    void VertexAttribL3dEXT(uint index, double x, double y, double z);
+#@    void VertexAttribL4dEXT(uint index, double x, double y, double z, double w);
+#@    void VertexAttribL1dvEXT(uint index, const double *v);
+#@    void VertexAttribL2dvEXT(uint index, const double *v);
+#@    void VertexAttribL3dvEXT(uint index, const double *v);
+#@    void VertexAttribL4dvEXT(uint index, const double *v);
+#@    void VertexAttribLPointerEXT(uint index, int size, enum type, sizei stride,
+#@				   const void *pointer);
+#@    void GetVertexAttribLdvEXT(uint index, enum pname, double *params);
+#@    void VertexArrayVertexAttribLOffsetEXT(uint vaobj, uint buffer,
+#@					     uint index, int size,
+#@					     enum type, sizei stride,
+#@					     intptr offset);
+#@    EXT_direct_state_access_memory is supported.)
+
+###############################################################################
+#
+# Extension #388
+# NV_gpu_program5 commands
+#
+###############################################################################
+
+newcategory: NV_gpu_program5
+
+###############################################################################
+#
+# Extension #389
+# NV_gpu_shader5 commands
+#
+###############################################################################
+
+newcategory: NV_gpu_shader5
+#@    void Uniform1i64NV(int location, int64EXT x);
+#@    void Uniform2i64NV(int location, int64EXT x, int64EXT y);
+#@    void Uniform3i64NV(int location, int64EXT x, int64EXT y, int64EXT z);
+#@    void Uniform4i64NV(int location, int64EXT x, int64EXT y, int64EXT z,
+#@			 int64EXT w);
+#@    void Uniform1i64vNV(int location, sizei count, const int64EXT *value);
+#@    void Uniform2i64vNV(int location, sizei count, const int64EXT *value);
+#@    void Uniform3i64vNV(int location, sizei count, const int64EXT *value);
+#@    void Uniform4i64vNV(int location, sizei count, const int64EXT *value);
+#@
+#@    void Uniform1ui64NV(int location, uint64EXT x);
+#@    void Uniform2ui64NV(int location, uint64EXT x, uint64EXT y);
+#@    void Uniform3ui64NV(int location, uint64EXT x, uint64EXT y, uint64EXT z);
+#@    void Uniform4ui64NV(int location, uint64EXT x, uint64EXT y, uint64EXT z,
+#@			 uint64EXT w);
+#@    void Uniform1ui64vNV(int location, sizei count, const uint64EXT *value);
+#@    void Uniform2ui64vNV(int location, sizei count, const uint64EXT *value);
+#@    void Uniform3ui64vNV(int location, sizei count, const uint64EXT *value);
+#@    void Uniform4ui64vNV(int location, sizei count, const uint64EXT *value);
+#@
+#@    void GetUniformi64vNV(uint program, int location, int64EXT *params);
+#@
+#@    (The following function is also provided by NV_shader_buffer_load.)
+#@    void GetUniformui64vNV(uint program, int location, uint64EXT *params);
+#@
+#@    void ProgramUniform1i64NV(uint program, int location, int64EXT x);
+#@    void ProgramUniform2i64NV(uint program, int location, int64EXT x,
+#@				int64EXT y);
+#@    void ProgramUniform3i64NV(uint program, int location, int64EXT x,
+#@				int64EXT y, int64EXT z);
+#@    void ProgramUniform4i64NV(uint program, int location, int64EXT x,
+#@				int64EXT y, int64EXT z, int64EXT w);
+#@    void ProgramUniform1i64vNV(uint program, int location, sizei count,
+#@				 const int64EXT *value);
+#@    void ProgramUniform2i64vNV(uint program, int location, sizei count,
+#@				 const int64EXT *value);
+#@    void ProgramUniform3i64vNV(uint program, int location, sizei count,
+#@				 const int64EXT *value);
+#@    void ProgramUniform4i64vNV(uint program, int location, sizei count,
+#@				 const int64EXT *value);
+#@
+#@    void ProgramUniform1ui64NV(uint program, int location, uint64EXT x);
+#@    void ProgramUniform2ui64NV(uint program, int location, uint64EXT x,
+#@				 uint64EXT y);
+#@    void ProgramUniform3ui64NV(uint program, int location, uint64EXT x,
+#@				 uint64EXT y, uint64EXT z);
+#@    void ProgramUniform4ui64NV(uint program, int location, uint64EXT x,
+#@				 uint64EXT y, uint64EXT z, uint64EXT w);
+#@    void ProgramUniform1ui64vNV(uint program, int location, sizei count,
+#@				  const uint64EXT *value);
+#@    void ProgramUniform2ui64vNV(uint program, int location, sizei count,
+#@				  const uint64EXT *value);
+#@    void ProgramUniform3ui64vNV(uint program, int location, sizei count,
+#@				  const uint64EXT *value);
+#@    void ProgramUniform4ui64vNV(uint program, int location, sizei count,
+#@				  const uint64EXT *value);
+
+###############################################################################
+#
+# Extension #390
+# NV_shader_buffer_store commands
+#
+###############################################################################
+
+newcategory: NV_shader_buffer_store
+
+###############################################################################
+#
+# Extension #391
+# NV_tessellation_program5 commands
+#
+###############################################################################
+
+newcategory: NV_tessellation_program5
+
+###############################################################################
+#
+# Extension #392
+# NV_vertex_attrib_integer_64bit commands
+#
+###############################################################################
+
+newcategory: NV_vertex_attrib_integer_64bit
+#@    void VertexAttribL1i64NV(uint index, int64EXT x);
+#@    void VertexAttribL2i64NV(uint index, int64EXT x, int64EXT y);
+#@    void VertexAttribL3i64NV(uint index, int64EXT x, int64EXT y,
+#@			       int64EXT z);
+#@    void VertexAttribL4i64NV(uint index, int64EXT x, int64EXT y,
+#@			       int64EXT z, int64EXT w);
+#@    void VertexAttribL1i64vNV(uint index, const int64EXT *v);
+#@    void VertexAttribL2i64vNV(uint index, const int64EXT *v);
+#@    void VertexAttribL3i64vNV(uint index, const int64EXT *v);
+#@    void VertexAttribL4i64vNV(uint index, const int64EXT *v);
+#@
+#@    void VertexAttribL1ui64NV(uint index, uint64EXT x);
+#@    void VertexAttribL2ui64NV(uint index, uint64EXT x, uint64EXT y);
+#@    void VertexAttribL3ui64NV(uint index, uint64EXT x, uint64EXT y,
+#@				uint64EXT z);
+#@    void VertexAttribL4ui64NV(uint index, uint64EXT x, uint64EXT y,
+#@				uint64EXT z, uint64EXT w);
+#@    void VertexAttribL1ui64vNV(uint index, const uint64EXT *v);
+#@    void VertexAttribL2ui64vNV(uint index, const uint64EXT *v);
+#@    void VertexAttribL3ui64vNV(uint index, const uint64EXT *v);
+#@    void VertexAttribL4ui64vNV(uint index, const uint64EXT *v);
+#@
+#@    void GetVertexAttribLi64vNV(uint index, enum pname, int64EXT *params);
+#@    void GetVertexAttribLui64vNV(uint index, enum pname, uint64EXT *params);
+#@
+#@    void VertexAttribLFormatNV(uint index, int size, enum type, sizei stride);
+#@
+#@    (note:  VertexAttribLFormatNV is provided only if
+#@    NV_vertex_buffer_unified_memory is supported.)
+
+###############################################################################
+#
+# Extension #393
+# NV_multisample_coverage commands
+#
+###############################################################################
+
+newcategory: NV_multisample_coverage
+
+###############################################################################
+#
+# Extension #394
+# AMD_name_gen_delete commands
+#
+###############################################################################
+
+newcategory: AMD_name_gen_delete
+#@    void GenNamesAMD(enum identifier, uint num, uint *names);
+#@    void DeleteNamesAMD(enum identifier, uint num, const uint *names);
+#@    boolean IsNameAMD(enum identifier, uint name);
+
+###############################################################################
+#
+# Extension #395
+# AMD_debug_output commands
+#
+###############################################################################
+
+#@ void DebugMessageEnableAMD(enum category, enum severity, sizei
+#@			      count, const uint* ids, boolean enabled);
+#@
+#@ void DebugMessageInsertAMD(enum category, enum severity, uint id,
+#@			      sizei length, const char* buf);
+#@
+#@ void DebugMessageCallbackAMD(DEBUGPROCAMD callback, void*
+#@				userParam);
+#@
+#@ uint GetDebugMessageLogAMD(uint count, sizei bufsize, enum*
+#@			      categories, uint* severities, uint* ids,
+#@			      sizei* lengths, char* message);
+#@
+#@ The callback function that applications can define, and
+#@ is accepted by DebugMessageCallbackAMD, is defined as:
+#@
+#@     typedef void (APIENTRY *GLDEBUGPROCAMD)(GLuint id,
+#@					       GLenum category,
+#@					       GLenum severity,
+#@					       GLsizei length,
+#@					       const GLchar* message,
+#@					       GLvoid* userParam);
+
+###############################################################################
+#
+# Extension #396
+# NV_vdpau_interop commands
+#
+###############################################################################
+
+#@  void VDPAUInitNV (const void *vdpDevice,
+#@		      const void *getProcAddress);
+#@  void VDPAUFiniNV (void);
+#@  vdpauSurfaceNV VDPAURegisterVideoSurfaceNV (const void *vdpSurface,
+#@						enum	   target,
+#@						sizei	   numTextureNames,
+#@						const uint *textureNames);
+#@  vdpauSurfaceNV VDPAURegisterOutputSurfaceNV (const void *vdpSurface,
+#@						 enum	    target,
+#@						 sizei	    numTextureNames,
+#@						 const uint *textureNames);
+#@  void VDPAUIsSurfaceNV (vdpauSurfaceNV surface);
+#@  void VDPAUUnregisterSurfaceNV (vdpauSurfaceNV surface);
+#@  void VDPAUGetSurfaceivNV (vdpauSurfaceNV surface,
+#@			      enum	     pname,
+#@			      sizei	     bufSize,
+#@			      sizei	     *length,
+#@			      int	     *values);
+#@  void VDPAUSurfaceAccessNV (vdpauSurfaceNV surface,
+#@			       enum	      access);
+#@  void VDPAUMapSurfacesNV (sizei		  numSurfaces,
+#@			     const vdpauSurfaceNV *surfaces);
+#@  void VDPAUUnmapSurfacesNV (sizei		    numSurface,
+#@			       const vdpauSurfaceNV *surfaces);
+
+###############################################################################
+#
+# Extension #397
+# AMD_transform_feedback3_lines_triangles commands
+#
+###############################################################################
+
+newcategory: AMD_transform_feedback3_lines_triangles
+
+###############################################################################
+#
+# Extension #398 - GLX_AMD_gpu_association
 #
 ###############################################################################
 
