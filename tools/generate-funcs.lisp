@@ -93,6 +93,10 @@
     ;; fixme: still need to handle u?i64v? properly
     ("GetQueryObjecti64v" . "get-query-object-i64v")
     ("GetQueryObjectui64v" . "get-query-object-ui64v")
+    ;; .spec 64 : gl 4.1
+    ("ScissorIndexedv" . "scissor-indexed-v")
+    ("VDPAUFiniNV" . "vdpau-fini-nv")
+    ("CreateSyncFromCLeventARB" . "create-sync-from-cl-event-arb")
 ))
 
 (defparameter *whole-words*
@@ -102,7 +106,7 @@
     "instanced" "indexed" "perf" "keyed" "Integer64"
     "patch"))
 
-(defmacro add-dashes-by-regex (regex str)
+(defmacro add-dashes-by-regex (regex str &optional exceptions)
   ;; macro so we don't miss ppcre compiler macros on the regex
   (let ((r1 (gensym "R1"))
         (r2 (gensym "R2"))
@@ -111,8 +115,12 @@
       ,regex
       ,str
       (lambda (,match ,r1 ,r2)
-        (declare (ignore ,match))
-        (format nil "~A-~A" ,r1 ,r2))
+        (declare (ignorable ,match))
+        ,@(if exceptions
+              `((if (cl-ppcre:scan ,exceptions ,match)
+                    ,match
+                    (format nil "~A-~A" ,r1 ,r2)))
+              `((format nil "~A-~A" ,r1 ,r2))))
       :simple-calls t)))
 
 ;;; words ending in 's'...
@@ -137,6 +145,7 @@
     ;; leaving it as i4ui etc. for now, but still gets special cased
     ;; since it confuses the main regex...
     ;; and gl4 adds P*, so handle that too
+    ;; 4.1 adds L, not sure if it needs handled or not
     ((cl-ppcre:scan "^[IP][1-4]?[bisuv]+$" name) name)
 
     ;; GL3 adds some i_v suffixed functions, turn that into -i-v for now
@@ -151,8 +160,10 @@
       ;; (can't catch the u?i64v? types here, so special case them for now...)
       ;; 's' catches too many plurals, so skipping for now...
       ;; (just rect,index anyway, can special case them...)
-      "([a-z][a-tv-z]|[2-4]x[2-4])((?:h|b|i|f|d|ub|us|ui|hv|bv|iv|fv|fi|dv|sv|ubv|usv|uiv|v)|[0-9]+)$"
-      name))))
+      "([a-z][a-tv-z]|[2-4]x[2-4])((?:h|b|i|f|d|ub|us|ui|hv|bv|iv|fv|fi|dv|sv|ubv|usv|uiv|v|i64|ui64|i64v|ui64v)|[0-9]+)$"
+      name
+      "^i64|^ui64|^i64v|^ui64v"))))
+
 
 ;;; TODO: fix special cases.
 (defun fix-type-suffixes (name)
@@ -162,6 +173,16 @@
      (declare (ignore match))
      (format nil "~A~A" (fix-type-suffix r1) (or r2 "")))
    :simple-calls t))
+
+(defun split-vendor-extensions (str)
+  (add-dashes-by-regex
+   "(.*)((?:3DFX|3DL|AMD|APPLE|ARB|ATI|EXT|GREMEDY|HP|I3D|IBM|INGR|INTEL|MESA|NV|OES|OML|PGI|REND|S3|SGI|SGIS|SUN|WIN)X?$)"
+   str))
+
+(defun split-misc-prefix (str)
+  (add-dashes-by-regex
+   "^(VDPAU)(.*)"
+   str))
 
 (defun mixedcaps->lcdash (str)
   (string-downcase
@@ -173,7 +194,10 @@
        (fix-type-suffixes
         (add-dashes-by-regex
          "([a-z])([A-Z])"
-         (add-dashes-by-regex "((?:[^2-4][a-z])|[2-4][a-wyz])([0-9])" str))))))
+         (add-dashes-by-regex "((?:[^2-4][a-z])|[2-4][a-wyz])([0-9]+)"
+                              (split-misc-prefix
+                               (split-vendor-extensions str))
+                              "i64|ui64|i64v|ui64v"))))))
 
 (defun fix-gl-function-name (name)
   (mixedcaps->lcdash name))

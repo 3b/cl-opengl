@@ -1,6 +1,6 @@
 # enumext.spec - list of GL enumerants for glext.h header
 #
-# $Revision: 11742 $ on $Date: 2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010) $
+# $Revision: 12183 $ on $Date: 2010-08-06 02:53:05 -0700 (Fri, 06 Aug 2010) $
 
 # This is derived from the master GL enumerant registry (enum.spec).
 #
@@ -1380,7 +1380,7 @@ VERSION_3_1 enum:
 passthru: /* Reuse tokens from ARB_copy_buffer */
 	use ARB_copy_buffer		    COPY_READ_BUFFER
 	use ARB_copy_buffer		    COPY_WRITE_BUFFER
-passthru: /* Would reuse tokens from ARB_draw_instanced, but it has none */
+passthru: /* Reuse tokens from ARB_draw_instanced (none) */
 passthru: /* Reuse tokens from ARB_uniform_buffer_object */
 	use ARB_uniform_buffer_object	    UNIFORM_BUFFER
 	use ARB_uniform_buffer_object	    UNIFORM_BUFFER_BINDING
@@ -1447,8 +1447,8 @@ VERSION_3_2 enum:
 	use ARB_framebuffer_object	    FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER
 passthru: /* Reuse tokens from ARB_depth_clamp */
 	use ARB_depth_clamp		    DEPTH_CLAMP
-passthru: /* Would reuse tokens from ARB_draw_elements_base_vertex, but it has none */
-passthru: /* Would reuse tokens from ARB_fragment_coord_conventions, but it has none */
+passthru: /* Reuse tokens from ARB_draw_elements_base_vertex (none) */
+passthru: /* Reuse tokens from ARB_fragment_coord_conventions (none) */
 passthru: /* Reuse tokens from ARB_provoking_vertex */
 	use ARB_provoking_vertex	    QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION
 	use ARB_provoking_vertex	    FIRST_VERTEX_CONVENTION
@@ -1504,17 +1504,18 @@ passthru: /* Don't need to reuse tokens from ARB_vertex_array_bgra since they're
 ###############################################################################
 
 VERSION_3_3 enum:
+	VERTEX_ATTRIB_ARRAY_DIVISOR			= 0x88FE    # ARB_instanced_arrays
 passthru: /* Reuse tokens from ARB_blend_func_extended */
 	use ARB_blend_func_extended	    SRC1_COLOR
 	use ARB_blend_func_extended	    ONE_MINUS_SRC1_COLOR
 	use ARB_blend_func_extended	    ONE_MINUS_SRC1_ALPHA
 	use ARB_blend_func_extended	    MAX_DUAL_SOURCE_DRAW_BUFFERS
-passthru: /* Would reuse tokens from ARB_explicit_attrib_location, but it has none */
+passthru: /* Reuse tokens from ARB_explicit_attrib_location (none) */
 passthru: /* Reuse tokens from ARB_occlusion_query2 */
 	use ARB_occlusion_query2	    ANY_SAMPLES_PASSED
 passthru: /* Reuse tokens from ARB_sampler_objects */
 	use ARB_sampler_objects		    SAMPLER_BINDING
-passthru: /* Would reuse tokens from ARB_shader_bit_encoding, but it has none */
+passthru: /* Reuse tokens from ARB_shader_bit_encoding (none) */
 passthru: /* Reuse tokens from ARB_texture_rgb10_a2ui */
 	use ARB_texture_rgb10_a2ui	    RGB10_A2UI
 passthru: /* Reuse tokens from ARB_texture_swizzle */
@@ -1536,6 +1537,19 @@ passthru: /* Reuse tokens from ARB_vertex_type_2_10_10_10_rev */
 ###############################################################################
 
 VERSION_4_0 enum:
+	SAMPLE_SHADING					= 0x8C36    # ARB_sample_shading
+	MIN_SAMPLE_SHADING_VALUE			= 0x8C37    # ARB_sample_shading
+	MIN_PROGRAM_TEXTURE_GATHER_OFFSET		= 0x8E5E    # ARB_texture_gather
+	MAX_PROGRAM_TEXTURE_GATHER_OFFSET		= 0x8E5F    # ARB_texture_gather
+	TEXTURE_CUBE_MAP_ARRAY				= 0x9009    # ARB_texture_cube_map_array
+	TEXTURE_BINDING_CUBE_MAP_ARRAY			= 0x900A    # ARB_texture_cube_map_array
+	PROXY_TEXTURE_CUBE_MAP_ARRAY			= 0x900B    # ARB_texture_cube_map_array
+	SAMPLER_CUBE_MAP_ARRAY				= 0x900C    # ARB_texture_cube_map_array
+	SAMPLER_CUBE_MAP_ARRAY_SHADOW			= 0x900D    # ARB_texture_cube_map_array
+	INT_SAMPLER_CUBE_MAP_ARRAY			= 0x900E    # ARB_texture_cube_map_array
+	UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY		= 0x900F    # ARB_texture_cube_map_array
+passthru: /* Reuse tokens from ARB_texture_query_lod (none) */
+passthru: /* Reuse tokens from ARB_draw_buffers_blend (none) */
 passthru: /* Reuse tokens from ARB_draw_indirect */
 	use ARB_draw_indirect		    DRAW_INDIRECT_BUFFER
 	use ARB_draw_indirect		    DRAW_INDIRECT_BUFFER_BINDING
@@ -1602,7 +1616,7 @@ passthru: /* Reuse tokens from ARB_tessellation_shader */
 	use ARB_tessellation_shader	    UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER
 	use ARB_tessellation_shader	    TESS_EVALUATION_SHADER
 	use ARB_tessellation_shader	    TESS_CONTROL_SHADER
-passthru: /* Would reuse tokens from ARB_texture_buffer_object_rgb32, but it has none */
+passthru: /* Reuse tokens from ARB_texture_buffer_object_rgb32 (none) */
 passthru: /* Reuse tokens from ARB_transform_feedback2 */
 	use ARB_tessellation_shader	    TRANSFORM_FEEDBACK
 	use ARB_tessellation_shader	    TRANSFORM_FEEDBACK_BUFFER_PAUSED
@@ -1611,6 +1625,53 @@ passthru: /* Reuse tokens from ARB_transform_feedback2 */
 passthru: /* Reuse tokens from ARB_transform_feedback3 */
 	use ARB_tessellation_shader	    MAX_TRANSFORM_FEEDBACK_BUFFERS
 	use ARB_tessellation_shader	    MAX_VERTEX_STREAMS
+
+###############################################################################
+#
+# OpenGL 4.1 enums
+#
+###############################################################################
+
+VERSION_4_1 enum:
+passthru: /* Reuse tokens from ARB_ES2_compatibility */
+	use ARB_ES2_compatibility	    FIXED
+	use ARB_ES2_compatibility	    IMPLEMENTATION_COLOR_READ_TYPE
+	use ARB_ES2_compatibility	    IMPLEMENTATION_COLOR_READ_FORMAT
+	use ARB_ES2_compatibility	    LOW_FLOAT
+	use ARB_ES2_compatibility	    MEDIUM_FLOAT
+	use ARB_ES2_compatibility	    HIGH_FLOAT
+	use ARB_ES2_compatibility	    LOW_INT
+	use ARB_ES2_compatibility	    MEDIUM_INT
+	use ARB_ES2_compatibility	    HIGH_INT
+	use ARB_ES2_compatibility	    SHADER_COMPILER
+	use ARB_ES2_compatibility	    NUM_SHADER_BINARY_FORMATS
+	use ARB_ES2_compatibility	    MAX_VERTEX_UNIFORM_VECTORS
+	use ARB_ES2_compatibility	    MAX_VARYING_VECTORS
+	use ARB_ES2_compatibility	    MAX_FRAGMENT_UNIFORM_VECTORS
+passthru: /* Reuse tokens from ARB_get_program_binary */
+	use ARB_get_program_binary	    PROGRAM_BINARY_RETRIEVABLE_HINT
+	use ARB_get_program_binary	    PROGRAM_BINARY_LENGTH
+	use ARB_get_program_binary	    NUM_PROGRAM_BINARY_FORMATS
+	use ARB_get_program_binary	    PROGRAM_BINARY_FORMATS
+passthru: /* Reuse tokens from ARB_separate_shader_objects */
+	use ARB_separate_shader_objects     VERTEX_SHADER_BIT
+	use ARB_separate_shader_objects     FRAGMENT_SHADER_BIT
+	use ARB_separate_shader_objects     GEOMETRY_SHADER_BIT
+	use ARB_separate_shader_objects     TESS_CONTROL_SHADER_BIT
+	use ARB_separate_shader_objects     TESS_EVALUATION_SHADER_BIT
+	use ARB_separate_shader_objects     ALL_SHADER_BITS
+	use ARB_separate_shader_objects     PROGRAM_SEPARABLE
+	use ARB_separate_shader_objects     ACTIVE_PROGRAM
+	use ARB_separate_shader_objects     PROGRAM_PIPELINE_BINDING
+passthru: /* Reuse tokens from ARB_shader_precision (none) */
+passthru: /* Reuse tokens from ARB_vertex_attrib_64bit - all are in GL 3.0 and 4.0 already */
+passthru: /* Reuse tokens from ARB_viewport_array - some are in GL 1.1 and ARB_provoking_vertex already */
+	use ARB_viewport_array		    MAX_VIEWPORTS
+	use ARB_viewport_array		    VIEWPORT_SUBPIXEL_BITS
+	use ARB_viewport_array		    VIEWPORT_BOUNDS_RANGE
+	use ARB_viewport_array		    LAYER_PROVOKING_VERTEX
+	use ARB_viewport_array		    VIEWPORT_INDEX_PROVOKING_VERTEX
+	use ARB_viewport_array		    UNDEFINED_VERTEX
 
 
 ###############################################################################
@@ -2433,7 +2494,7 @@ ARB_half_float_vertex enum:
 
 # ARB Extension #49
 ARB_instanced_arrays enum:
-       VERTEX_ATTRIB_ARRAY_DIVISOR_ARB			= 0x88FE
+	VERTEX_ATTRIB_ARRAY_DIVISOR_ARB			= 0x88FE
 
 ###############################################################################
 
@@ -2652,33 +2713,29 @@ ARB_vertex_array_bgra enum:
 # No new tokens
 # ARB Extension #69
 ARB_draw_buffers_blend enum:
-#@@@ Add ARB suffixes here & functions!
 
 ###############################################################################
 
 # ARB Extension #70
-#@@@ Add ARB suffixes here & functions!
 ARB_sample_shading enum:
-	SAMPLE_SHADING					= 0x8C36
-	MIN_SAMPLE_SHADING_VALUE			= 0x8C37
+	SAMPLE_SHADING_ARB				= 0x8C36
+	MIN_SAMPLE_SHADING_VALUE_ARB			= 0x8C37
 
 ###############################################################################
 
 # ARB Extension #71
-#@@@ Add ARB suffixes here & functions!
 ARB_texture_cube_map_array enum:
-	TEXTURE_CUBE_MAP_ARRAY				= 0x9009
-	TEXTURE_BINDING_CUBE_MAP_ARRAY			= 0x900A
-	PROXY_TEXTURE_CUBE_MAP_ARRAY			= 0x900B
-	SAMPLER_CUBE_MAP_ARRAY				= 0x900C
-	SAMPLER_CUBE_MAP_ARRAY_SHADOW			= 0x900D
-	INT_SAMPLER_CUBE_MAP_ARRAY			= 0x900E
-	UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY		= 0x900F
+	TEXTURE_CUBE_MAP_ARRAY_ARB			= 0x9009
+	TEXTURE_BINDING_CUBE_MAP_ARRAY_ARB		= 0x900A
+	PROXY_TEXTURE_CUBE_MAP_ARRAY_ARB		= 0x900B
+	SAMPLER_CUBE_MAP_ARRAY_ARB			= 0x900C
+	SAMPLER_CUBE_MAP_ARRAY_SHADOW_ARB		= 0x900D
+	INT_SAMPLER_CUBE_MAP_ARRAY_ARB			= 0x900E
+	UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_ARB		= 0x900F
 
 ###############################################################################
 
 # ARB Extension #72
-#@@@ Add ARB suffixes here & functions!
 ARB_texture_gather enum:
 	MIN_PROGRAM_TEXTURE_GATHER_OFFSET_ARB		= 0x8E5E
 	MAX_PROGRAM_TEXTURE_GATHER_OFFSET_ARB		= 0x8E5F
@@ -2893,6 +2950,149 @@ ARB_transform_feedback2 enum:
 ARB_transform_feedback3 enum:
 	MAX_TRANSFORM_FEEDBACK_BUFFERS			= 0x8E70
 	MAX_VERTEX_STREAMS				= 0x8E71
+
+###############################################################################
+
+# ARB Extension #95
+ARB_ES2_compatibility enum:
+	FIXED						= 0x140C
+	IMPLEMENTATION_COLOR_READ_TYPE			= 0x8B9A
+	IMPLEMENTATION_COLOR_READ_FORMAT		= 0x8B9B
+	LOW_FLOAT					= 0x8DF0
+	MEDIUM_FLOAT					= 0x8DF1
+	HIGH_FLOAT					= 0x8DF2
+	LOW_INT						= 0x8DF3
+	MEDIUM_INT					= 0x8DF4
+	HIGH_INT					= 0x8DF5
+	SHADER_COMPILER					= 0x8DFA
+	NUM_SHADER_BINARY_FORMATS			= 0x8DF9
+	MAX_VERTEX_UNIFORM_VECTORS			= 0x8DFB
+	MAX_VARYING_VECTORS				= 0x8DFC
+	MAX_FRAGMENT_UNIFORM_VECTORS			= 0x8DFD
+
+###############################################################################
+
+# ARB Extension #96
+ARB_get_program_binary enum:
+	PROGRAM_BINARY_RETRIEVABLE_HINT			= 0x8257
+	PROGRAM_BINARY_LENGTH				= 0x8741
+	NUM_PROGRAM_BINARY_FORMATS			= 0x87FE
+	PROGRAM_BINARY_FORMATS				= 0x87FF
+
+###############################################################################
+
+# ARB Extension #97
+ARB_separate_shader_objects enum:
+	VERTEX_SHADER_BIT				= 0x00000001
+	FRAGMENT_SHADER_BIT				= 0x00000002
+	GEOMETRY_SHADER_BIT				= 0x00000004
+	TESS_CONTROL_SHADER_BIT				= 0x00000008
+	TESS_EVALUATION_SHADER_BIT			= 0x00000010
+	ALL_SHADER_BITS					= 0xFFFFFFFF
+	PROGRAM_SEPARABLE				= 0x8258
+	ACTIVE_PROGRAM					= 0x8259
+	PROGRAM_PIPELINE_BINDING			= 0x825A
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #98
+ARB_shader_precision enum:
+
+###############################################################################
+
+# ARB Extension #99
+ARB_vertex_attrib_64bit enum:
+	use VERSION_3_0			    RGB32I
+	use ARB_gpu_shader_fp64		    DOUBLE_VEC2
+	use ARB_gpu_shader_fp64		    DOUBLE_VEC3
+	use ARB_gpu_shader_fp64		    DOUBLE_VEC4
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT2
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT3
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT4
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT2x3
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT2x4
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT3x2
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT3x4
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT4x2
+	use ARB_gpu_shader_fp64		    DOUBLE_MAT4x3
+
+###############################################################################
+
+# ARB Extension #100
+ARB_viewport_array enum:
+	use VERSION_1_1			    SCISSOR_BOX
+	use VERSION_1_1			    VIEWPORT
+	use VERSION_1_1			    DEPTH_RANGE
+	use VERSION_1_1			    SCISSOR_TEST
+	MAX_VIEWPORTS					= 0x825B
+	VIEWPORT_SUBPIXEL_BITS				= 0x825C
+	VIEWPORT_BOUNDS_RANGE				= 0x825D
+	LAYER_PROVOKING_VERTEX				= 0x825E
+	VIEWPORT_INDEX_PROVOKING_VERTEX			= 0x825F
+	UNDEFINED_VERTEX				= 0x8260
+	use ARB_provoking_vertex	    FIRST_VERTEX_CONVENTION
+	use ARB_provoking_vertex	    LAST_VERTEX_CONVENTION
+	use ARB_provoking_vertex	    PROVOKING_VERTEX
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #101 - GLX_ARB_create_context_robustness
+# ARB Extension #102 - WGL_ARB_create_context_robustness
+
+###############################################################################
+
+# ARB Extension #103
+ARB_cl_event enum:
+	SYNC_CL_EVENT_ARB				= 0x8240
+	SYNC_CL_EVENT_COMPLETE_ARB			= 0x8241
+
+###############################################################################
+
+# ARB Extension #104
+ARB_debug_output enum:
+	DEBUG_OUTPUT_SYNCHRONOUS_ARB			= 0x8242
+	DEBUG_NEXT_LOGGED_MESSAGE_LENGTH_ARB		= 0x8243
+	DEBUG_CALLBACK_FUNCTION_ARB			= 0x8244
+	DEBUG_CALLBACK_USER_PARAM_ARB			= 0x8245
+	DEBUG_SOURCE_API_ARB				= 0x8246
+	DEBUG_SOURCE_WINDOW_SYSTEM_ARB			= 0x8247
+	DEBUG_SOURCE_SHADER_COMPILER_ARB		= 0x8248
+	DEBUG_SOURCE_THIRD_PARTY_ARB			= 0x8249
+	DEBUG_SOURCE_APPLICATION_ARB			= 0x824A
+	DEBUG_SOURCE_OTHER_ARB				= 0x824B
+	DEBUG_TYPE_ERROR_ARB				= 0x824C
+	DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB		= 0x824D
+	DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB		= 0x824E
+	DEBUG_TYPE_PORTABILITY_ARB			= 0x824F
+	DEBUG_TYPE_PERFORMANCE_ARB			= 0x8250
+	DEBUG_TYPE_OTHER_ARB				= 0x8251
+	MAX_DEBUG_MESSAGE_LENGTH_ARB			= 0x9143
+	MAX_DEBUG_LOGGED_MESSAGES_ARB			= 0x9144
+	DEBUG_LOGGED_MESSAGES_ARB			= 0x9145
+	DEBUG_SEVERITY_HIGH_ARB				= 0x9146
+	DEBUG_SEVERITY_MEDIUM_ARB			= 0x9147
+	DEBUG_SEVERITY_LOW_ARB				= 0x9148
+
+###############################################################################
+
+# ARB Extension #105
+ARB_robustness enum:
+	use VERSION_1_1			    NO_ERROR
+	CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB		= 0x00000004
+	LOSE_CONTEXT_ON_RESET_ARB			= 0x8252
+	GUILTY_CONTEXT_RESET_ARB			= 0x8253
+	INNOCENT_CONTEXT_RESET_ARB			= 0x8254
+	UNKNOWN_CONTEXT_RESET_ARB			= 0x8255
+	RESET_NOTIFICATION_STRATEGY_ARB			= 0x8256
+	NO_RESET_NOTIFICATION_ARB			= 0x8261
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #106
+ARB_shader_stencil_export enum:
 
 
 ###############################################################################
@@ -6082,6 +6282,12 @@ NV_transform_feedback enum:
 	SEPARATE_ATTRIBS_NV				= 0x8C8D
 	TRANSFORM_FEEDBACK_BUFFER_NV			= 0x8C8E
 	TRANSFORM_FEEDBACK_BUFFER_BINDING_NV		= 0x8C8F
+	LAYER_NV					= 0x8DAA
+	NEXT_BUFFER_NV					= -2	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS4_NV				= -3	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS3_NV				= -4	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS2_NV				= -5	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS1_NV				= -6	    # Requires ARB_transform_feedback3
 
 ###############################################################################
 
@@ -6510,6 +6716,9 @@ NV_vertex_buffer_unified_memory enum:
 	SECONDARY_COLOR_ARRAY_LENGTH_NV			= 0x8F31
 	FOG_COORD_ARRAY_LENGTH_NV			= 0x8F32
 	ELEMENT_ARRAY_LENGTH_NV				= 0x8F33
+	DRAW_INDIRECT_UNIFIED_NV			= 0x8F40    # Requires ARB_draw_indirect
+	DRAW_INDIRECT_ADDRESS_NV			= 0x8F41    # Requires ARB_draw_indirect
+	DRAW_INDIRECT_LENGTH_NV				= 0x8F42    # Requires ARB_draw_indirect
 
 ###############################################################################
 
@@ -6626,6 +6835,8 @@ NV_gpu_program5 enum:
 	MIN_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5B
 	MAX_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5C
 	FRAGMENT_PROGRAM_INTERPOLATION_OFFSET_BITS_NV	= 0x8E5D
+	MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV		= 0x8F44    # Requires ARB_shader_subroutine
+	MAX_PROGRAM_SUBROUTINE_NUM_NV			= 0x8F45    # Requires ARB_shader_subroutine
 
 ###############################################################################
 
@@ -6740,4 +6951,6 @@ AMD_transform_feedback3_lines_triangles enum:
 ###############################################################################
 
 # Extension #398 - GLX_AMD_gpu_association
+# Extension #399 - GLX_EXT_create_context_es2_profile
+# Extension #400 - WGL_EXT_create_context_es2_profile
 

@@ -3,7 +3,7 @@
 # It is an extremely important file. Do not mess with it unless
 # you know what you're doing and have permission to do so.
 #
-# $Revision: 12070 $ on $Date: 2010-07-22 17:00:28 -0700 (Thu, 22 Jul 2010) $
+# $Revision: 12183 $ on $Date: 2010-08-06 02:53:05 -0700 (Fri, 06 Aug 2010) $
 
 ###############################################################################
 #
@@ -273,7 +273,7 @@ ARB_robustness enum:
 
 # UseProgramStages stage bits
 
-ARB_separate_shader_objects enum:
+ARB_separate_shader_objects enum: (additional; see below)
 	VERTEX_SHADER_BIT				= 0x00000001
 	FRAGMENT_SHADER_BIT				= 0x00000002
 	GEOMETRY_SHADER_BIT				= 0x00000004
@@ -325,7 +325,7 @@ ARB_tessellation_shader enum:
 NV_gpu_shader5 enum:
 	use ARB_tessellation_shader	    PATCHES
 
-# BeginMode_future_use: 0x000E
+# BeginMode_future_use: 0x000F
 
 ###############################################################################
 
@@ -1443,6 +1443,9 @@ NV_half_float enum:
 
 APPLE_float_pixels enum: (additional; see below)
 	HALF_APPLE					= 0x140B
+
+ARB_ES2_compatibility enum: (additional; see below)
+	FIXED						= 0x140C
 
 OES_fixed_point enum: (OpenGL ES only)
 	FIXED_OES					= 0x140C
@@ -3343,7 +3346,7 @@ ARB_robustness enum:
 	UNKNOWN_CONTEXT_RESET_ARB			= 0x8255
 	RESET_NOTIFICATION_STRATEGY_ARB			= 0x8256
 
-ARB_get_program_binary enum:
+ARB_get_program_binary enum: (additional; see below)
 	PROGRAM_BINARY_RETRIEVABLE_HINT			= 0x8257
 
 ARB_separate_shader_objects enum:
@@ -3359,10 +3362,10 @@ ARB_viewport_array enum:
 	VIEWPORT_INDEX_PROVOKING_VERTEX			= 0x825F
 	UNDEFINED_VERTEX				= 0x8260
 
-ARB_robustness enum: (additional; see above):
+ARB_robustness enum: (additional; see above)
 	NO_RESET_NOTIFICATION_ARB			= 0x8261
 
-ARB_future_use: 0x8262-0x82AF
+# ARB_future_use: 0x8262-0x82AF
 
 ###############################################################################
 
@@ -4934,6 +4937,9 @@ AMD_program_binary_Z400 enum: (OpenGL ES only)
 OES_get_program_binary enum: (OpenGL ES only; additional; see below)
 	PROGRAM_BINARY_LENGTH_OES			= 0x8741
 
+ARB_get_program_binary enum: (additional; see below)
+	PROGRAM_BINARY_LENGTH				= 0x8741
+
 ATI_texture_mirror_once enum:
 	MIRROR_CLAMP_ATI				= 0x8742
 	MIRROR_CLAMP_TO_EDGE_ATI			= 0x8743
@@ -5181,6 +5187,10 @@ ATI_meminfo enum:
 OES_get_program_binary enum: (OpenGL ES only;
 	NUM_PROGRAM_BINARY_FORMATS_OES			= 0x87FE
 	PROGRAM_BINARY_FORMATS_OES			= 0x87FF
+
+ARB_get_program_binary enum:
+	NUM_PROGRAM_BINARY_FORMATS			= 0x87FE
+	PROGRAM_BINARY_FORMATS				= 0x87FF
 
 VERSION_2_0 enum: (Promoted for OpenGL 2.0)
 	STENCIL_BACK_FUNC				= 0x8800    # VERSION_2_0
@@ -5760,6 +5770,9 @@ VERSION_3_0 enum:
 NV_vertex_program4 enum:
 	VERTEX_ATTRIB_ARRAY_INTEGER_NV			= 0x88FD
 
+VERSION_3_3 enum:
+	VERTEX_ATTRIB_ARRAY_DIVISOR			= 0x88FE    # VERSION_3_3
+
 ARB_instanced_arrays enum:
 	VERTEX_ATTRIB_ARRAY_DIVISOR_ARB			= 0x88FE
 
@@ -6278,6 +6291,11 @@ OES_read_format enum: (OpenGL ES, also implemented in Mesa)
 	IMPLEMENTATION_COLOR_READ_TYPE_OES		= 0x8B9A
 	IMPLEMENTATION_COLOR_READ_FORMAT_OES		= 0x8B9B
 
+# Also OpenGL ES
+ARB_ES2_compatibility enum: (additional; see below)
+	IMPLEMENTATION_COLOR_READ_TYPE			= 0x8B9A
+	IMPLEMENTATION_COLOR_READ_FORMAT		= 0x8B9B
+
 OES_point_size_array enum: (OpenGL ES only; additional; see above)
 	POINT_SIZE_ARRAY_OES				= 0x8B9C
 
@@ -6357,7 +6375,7 @@ IMG_texture_env_enhanced_fixed_function enum: (OpenGL ES only)
 	FRAGMENT_ALPHA_MODULATE_IMG			= 0x8C08
 	ADD_BLEND_IMG					= 0x8C09
 
-IMG_shader_binary: (OpenGL ES only)
+IMG_shader_binary enum: (OpenGL ES only)
 	SGX_BINARY_IMG					= 0x8C0A
 
 # IMG_future_use: 0x8C0B-0x8C0F
@@ -6977,7 +6995,16 @@ NV_geometry_program4 enum: (additional; see above)
 	FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT	= 0x8DA8
 	FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT		= 0x8DA9
 
-# NV_future_use: 0x8DAA
+# The NEXT_BUFFER / SKIP_* tokens aren't in numerical order but
+# since NVIDIA is allocating them, it doesn't have to be dealt
+# with here.
+NV_transform_feedback enum: (additional; see above)
+	LAYER_NV					= 0x8DAA
+	NEXT_BUFFER_NV					= -2	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS4_NV				= -3	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS3_NV				= -4	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS2_NV				= -5	    # Requires ARB_transform_feedback3
+	SKIP_COMPONENTS1_NV				= -6	    # Requires ARB_transform_feedback3
 
 VERSION_3_0 enum:
 ARB_depth_buffer_float enum: (additional; see above; some values different from NV; note: no ARB suffixes)
@@ -7137,13 +7164,29 @@ EXT_bindable_uniform enum: (additional; see above)
 
 # Khronos OpenGL ES WG: 0x8DF0-0x8E0F
 
-# Khronos_future_use: 0x8DF0-0x8DF5
+# Also OpenGL ES
+ARB_ES2_compatibility enum: (additional; see below)
+	LOW_FLOAT					= 0x8DF0
+	MEDIUM_FLOAT					= 0x8DF1
+	HIGH_FLOAT					= 0x8DF2
+	LOW_INT						= 0x8DF3
+	MEDIUM_INT					= 0x8DF4
+	HIGH_INT					= 0x8DF5
 
 OES_vertex_type_10_10_10_2 enum: (OpenGL ES only)
 	UNSIGNED_INT_10_10_10_2_OES			= 0x8DF6
 	INT_10_10_10_2_OES				= 0x8DF7
 
-# Khronos_future_use: 0x8DF8-0x8E0F
+# Also OpenGL ES
+ARB_ES2_compatibility enum:
+	SHADER_BINARY_FORMATS				= 0x8DF8
+	NUM_SHADER_BINARY_FORMATS			= 0x8DF9
+	SHADER_COMPILER					= 0x8DFA
+	MAX_VERTEX_UNIFORM_VECTORS			= 0x8DFB
+	MAX_VARYING_VECTORS				= 0x8DFC
+	MAX_FRAGMENT_UNIFORM_VECTORS			= 0x8DFD
+
+# Khronos_future_use: 0x8DFE-0x8E0F
 
 ###############################################################################
 
@@ -7161,7 +7204,7 @@ VERSION_3_0 enum:
 	QUERY_BY_REGION_WAIT				= 0x8E15    # VERSION_3_0
 	QUERY_BY_REGION_NO_WAIT				= 0x8E16    # VERSION_3_0
 
-GL_NV_conditional_render enum:
+NV_conditional_render enum:
 	QUERY_WAIT_NV					= 0x8E13
 	QUERY_NO_WAIT_NV				= 0x8E14
 	QUERY_BY_REGION_WAIT_NV				= 0x8E15
@@ -7234,6 +7277,11 @@ ARB_shader_subroutine enum:
 
 VERSION_3_2 enum:
 	use ARB_provoking_vertex	    QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION
+	use ARB_provoking_vertex	    FIRST_VERTEX_CONVENTION
+	use ARB_provoking_vertex	    LAST_VERTEX_CONVENTION
+	use ARB_provoking_vertex	    PROVOKING_VERTEX
+
+ARB_viewport_array enum: (additional; see above)
 	use ARB_provoking_vertex	    FIRST_VERTEX_CONVENTION
 	use ARB_provoking_vertex	    LAST_VERTEX_CONVENTION
 	use ARB_provoking_vertex	    PROVOKING_VERTEX
@@ -7337,7 +7385,7 @@ ARB_texture_compression_bptc enum:
 ###############################################################################
 
 # QNX: 0x8E90-0x8E9F
-# For GL_QNX_texture_tiling, GL_QNX_complex_polygon, GL_QNX_stippled_lines
+# For QNX_texture_tiling, QNX_complex_polygon, QNX_stippled_lines
 # (Khronos bug 696)
 
 # QNX_future_use: 0x8E90-0x8E9F
@@ -7424,12 +7472,19 @@ EXT_shader_image_load_store enum: (additional; see below)
 ARB_draw_indirect enum:
 	DRAW_INDIRECT_BUFFER				= 0x8F3F
 
-# NVIDIA_future_use: 0x8F40-0x8F42
+# Requires ARB_draw_indirect
+NV_vertex_buffer_unified_memory enum: (additional; see above)
+	DRAW_INDIRECT_UNIFIED_NV			= 0x8F40
+	DRAW_INDIRECT_ADDRESS_NV			= 0x8F41
+	DRAW_INDIRECT_LENGTH_NV				= 0x8F42
 
 ARB_draw_indirect enum: (additional; see below)
 	DRAW_INDIRECT_BUFFER_BINDING			= 0x8F43
 
-# NVIDIA_future_use: 0x8F44-0x8F45
+# Requires ARB_shader_subroutine
+NV_gpu_program5 enum: (additional; see above)
+	MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV		= 0x8F44
+	MAX_PROGRAM_SUBROUTINE_NUM_NV			= 0x8F45
 
 ARB_gpu_shader_fp64 enum:
 	DOUBLE_MAT2					= 0x8F46
@@ -7464,6 +7519,11 @@ EXT_vertex_attrib_64bit enum:
 
 # ARM: 0x8F60-0x8F6F
 # Assigned for Remi Pedersen (Khronos bug 3745)
+
+ARM_mali_shader_binary enum: (OpenGL ES only)
+	MALI_SHADER_BINARY_ARM				= 0x8F60
+
+# ARM_future_use: 0x8F61-0x8F6F
 
 ###############################################################################
 
@@ -7814,7 +7874,15 @@ IMG_multisampled_render_to_texture enum: (OpenGL ES only)
 
 # AMD: 0x9140-0x923F (Khronos bugs 5899, 6004)
 
-# AMD_future_use: 0x9140-0x9143
+# AMD_future_use: 0x9140-0x9142
+
+ARB_debug_output enum: (additional; see above)
+	MAX_DEBUG_MESSAGE_LENGTH_ARB			= 0x9143
+	MAX_DEBUG_LOGGED_MESSAGES_ARB			= 0x9144
+	DEBUG_LOGGED_MESSAGES_ARB			= 0x9145
+	DEBUG_SEVERITY_HIGH_ARB				= 0x9146
+	DEBUG_SEVERITY_MEDIUM_ARB			= 0x9147
+	DEBUG_SEVERITY_LOW_ARB				= 0x9148
 
 AMD_debug_output enum:
 	MAX_DEBUG_LOGGED_MESSAGES_AMD			= 0x9144

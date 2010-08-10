@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 63 ( 2010-06-15 23:46:28 -0700 (Tue, 15 Jun 2010)  )
+;;; glext version 64 ( 2010-08-03 01:30:25 -0700 (Tue, 03 Aug 2010) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -208,29 +208,31 @@
   #:clear-buffer-uiv #:clear-buffer-fv #:clear-buffer-fi 
   #:get-string-i #:draw-arrays-instanced #:draw-elements-instanced 
   #:tex-buffer #:primitive-restart-index #:get-integer-64-i-v 
-  #:get-buffer-parameter-i64v #:program-parameter-i 
-  #:framebuffer-texture #:active-texture-arb 
-  #:client-active-texture-arb #:multi-tex-coord-1d-arb 
-  #:multi-tex-coord-1dv-arb #:multi-tex-coord-1f-arb 
-  #:multi-tex-coord-1fv-arb #:multi-tex-coord-1i-arb 
-  #:multi-tex-coord-1iv-arb #:multi-tex-coord-1s-arb 
-  #:multi-tex-coord-1sv-arb #:multi-tex-coord-2d-arb 
-  #:multi-tex-coord-2dv-arb #:multi-tex-coord-2f-arb 
-  #:multi-tex-coord-2fv-arb #:multi-tex-coord-2i-arb 
-  #:multi-tex-coord-2iv-arb #:multi-tex-coord-2s-arb 
-  #:multi-tex-coord-2sv-arb #:multi-tex-coord-3d-arb 
-  #:multi-tex-coord-3dv-arb #:multi-tex-coord-3f-arb 
-  #:multi-tex-coord-3fv-arb #:multi-tex-coord-3i-arb 
-  #:multi-tex-coord-3iv-arb #:multi-tex-coord-3s-arb 
-  #:multi-tex-coord-3sv-arb #:multi-tex-coord-4d-arb 
-  #:multi-tex-coord-4dv-arb #:multi-tex-coord-4f-arb 
-  #:multi-tex-coord-4fv-arb #:multi-tex-coord-4i-arb 
-  #:multi-tex-coord-4iv-arb #:multi-tex-coord-4s-arb 
-  #:multi-tex-coord-4sv-arb #:load-transpose-matrix-f-arb 
-  #:load-transpose-matrix-d-arb #:mult-transpose-matrix-f-arb 
-  #:mult-transpose-matrix-d-arb #:sample-coverage-arb 
-  #:compressed-tex-image-3d-arb #:compressed-tex-image-2d-arb 
-  #:compressed-tex-image-1d-arb #:compressed-tex-sub-image-3d-arb 
+  #:get-buffer-parameter-i64v #:framebuffer-texture 
+  #:vertex-attrib-divisor #:min-sample-shading #:blend-equation-i 
+  #:blend-equation-separate-i #:blend-func-i #:blend-func-separate-i 
+  #:active-texture-arb #:client-active-texture-arb 
+  #:multi-tex-coord-1d-arb #:multi-tex-coord-1dv-arb 
+  #:multi-tex-coord-1f-arb #:multi-tex-coord-1fv-arb 
+  #:multi-tex-coord-1i-arb #:multi-tex-coord-1iv-arb 
+  #:multi-tex-coord-1s-arb #:multi-tex-coord-1sv-arb 
+  #:multi-tex-coord-2d-arb #:multi-tex-coord-2dv-arb 
+  #:multi-tex-coord-2f-arb #:multi-tex-coord-2fv-arb 
+  #:multi-tex-coord-2i-arb #:multi-tex-coord-2iv-arb 
+  #:multi-tex-coord-2s-arb #:multi-tex-coord-2sv-arb 
+  #:multi-tex-coord-3d-arb #:multi-tex-coord-3dv-arb 
+  #:multi-tex-coord-3f-arb #:multi-tex-coord-3fv-arb 
+  #:multi-tex-coord-3i-arb #:multi-tex-coord-3iv-arb 
+  #:multi-tex-coord-3s-arb #:multi-tex-coord-3sv-arb 
+  #:multi-tex-coord-4d-arb #:multi-tex-coord-4dv-arb 
+  #:multi-tex-coord-4f-arb #:multi-tex-coord-4fv-arb 
+  #:multi-tex-coord-4i-arb #:multi-tex-coord-4iv-arb 
+  #:multi-tex-coord-4s-arb #:multi-tex-coord-4sv-arb 
+  #:load-transpose-matrix-f-arb #:load-transpose-matrix-d-arb 
+  #:mult-transpose-matrix-f-arb #:mult-transpose-matrix-d-arb 
+  #:sample-coverage-arb #:compressed-tex-image-3d-arb 
+  #:compressed-tex-image-2d-arb #:compressed-tex-image-1d-arb 
+  #:compressed-tex-sub-image-3d-arb 
   #:compressed-tex-sub-image-2d-arb 
   #:compressed-tex-sub-image-1d-arb #:get-compressed-tex-image-arb 
   #:point-parameter-f-arb #:point-parameter-fv-arb #:weight-bv-arb 
@@ -326,8 +328,9 @@
   #:is-sync #:delete-sync #:client-wait-sync #:wait-sync 
   #:get-integer-64-v #:get-sync-iv #:tex-image-2d-multisample 
   #:tex-image-3d-multisample #:get-multisample-fv #:sample-mask-i 
-  #:blend-equation-i #:blend-equation-separate-i #:blend-func-i 
-  #:blend-func-separate-i #:min-sample-shading #:named-string-arb 
+  #:blend-equation-i-arb #:blend-equation-separate-i-arb 
+  #:blend-func-i-arb #:blend-func-separate-i-arb 
+  #:min-sample-shading-arb #:named-string-arb 
   #:delete-named-string-arb #:compile-shader-include-arb 
   #:is-named-string-arb #:get-named-string-arb 
   #:get-named-string-iv-arb #:bind-frag-data-location-indexed 
@@ -337,7 +340,7 @@
   #:sampler-parameter-fv #:sampler-parameter-iiv 
   #:sampler-parameter-iuiv #:get-sampler-parameter-iv 
   #:get-sampler-parameter-iiv #:get-sampler-parameter-fv 
-  #:get-sampler-parameter-ifv #:query-counter 
+  #:get-sampler-parameter-iuiv #:query-counter 
   #:get-query-object-i64v #:get-query-object-ui64v #:vertex-p2ui 
   #:vertex-p2uiv #:vertex-p3ui #:vertex-p3uiv #:vertex-p4ui 
   #:vertex-p4uiv #:tex-coord-p1ui #:tex-coord-p1uiv #:tex-coord-p2ui 
@@ -357,18 +360,7 @@
   #:uniform-matrix-3dv #:uniform-matrix-4dv #:uniform-matrix-2x3-dv 
   #:uniform-matrix-2x4-dv #:uniform-matrix-3x2-dv 
   #:uniform-matrix-3x4-dv #:uniform-matrix-4x2-dv 
-  #:uniform-matrix-4x3-dv #:get-uniform-dv #:program-uniform-1d-ext 
-  #:program-uniform-2d-ext #:program-uniform-3d-ext 
-  #:program-uniform-4d-ext #:program-uniform-1dv-ext 
-  #:program-uniform-2dv-ext #:program-uniform-3dv-ext 
-  #:program-uniform-4dv-ext #:program-uniform-matrix-2dv-ext 
-  #:program-uniform-matrix-3dv-ext #:program-uniform-matrix-4dv-ext 
-  #:program-uniform-matrix-2x3-dv-ext 
-  #:program-uniform-matrix-2x4-dv-ext 
-  #:program-uniform-matrix-3x2-dv-ext 
-  #:program-uniform-matrix-3x4-dv-ext 
-  #:program-uniform-matrix-4x2-dv-ext 
-  #:program-uniform-matrix-4x3-dv-ext 
+  #:uniform-matrix-4x3-dv #:get-uniform-dv 
   #:get-subroutine-uniform-location #:get-subroutine-index 
   #:get-active-subroutine-uniform-iv 
   #:get-active-subroutine-uniform-name #:get-active-subroutine-name 
@@ -379,22 +371,67 @@
   #:pause-transform-feedback #:resume-transform-feedback 
   #:draw-transform-feedback #:draw-transform-feedback-stream 
   #:begin-query-indexed #:end-query-indexed #:get-query-indexed-iv 
-  #:blend-color-ext #:polygon-offset-ext #:tex-image-3d-ext 
-  #:tex-sub-image-3d-ext #:get-tex-filter-func-sgis 
-  #:tex-filter-func-sgis #:tex-sub-image-1d-ext 
-  #:tex-sub-image-2d-ext #:copy-tex-image-1d-ext 
-  #:copy-tex-image-2d-ext #:copy-tex-sub-image-1d-ext 
-  #:copy-tex-sub-image-2d-ext #:copy-tex-sub-image-3d-ext 
-  #:get-histogram-ext #:get-histogram-parameter-fv-ext 
-  #:get-histogram-parameter-iv-ext #:get-minmax-ext 
-  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext 
-  #:histogram-ext #:minmax-ext #:reset-histogram-ext 
-  #:reset-minmax-ext #:convolution-filter-1d-ext 
-  #:convolution-filter-2d-ext #:convolution-parameter-f-ext 
-  #:convolution-parameter-fv-ext #:convolution-parameter-i-ext 
-  #:convolution-parameter-iv-ext #:copy-convolution-filter-1d-ext 
-  #:copy-convolution-filter-2d-ext #:get-convolution-filter-ext 
-  #:get-convolution-parameter-fv-ext 
+  #:release-shader-compiler #:shader-binary 
+  #:get-shader-precision-format #:depth-range-f #:clear-depth-f 
+  #:get-program-binary #:program-binary #:program-parameter-i 
+  #:use-program-stages #:active-shader-program 
+  #:create-shader-program-v #:bind-program-pipeline 
+  #:delete-program-pipelines #:gen-program-pipelines 
+  #:is-program-pipeline #:get-program-pipeline-iv 
+  #:program-uniform-1i #:program-uniform-1iv #:program-uniform-1f 
+  #:program-uniform-1fv #:program-uniform-1d #:program-uniform-1dv 
+  #:program-uniform-1ui #:program-uniform-1uiv #:program-uniform-2i 
+  #:program-uniform-2iv #:program-uniform-2f #:program-uniform-2fv 
+  #:program-uniform-2d #:program-uniform-2dv #:program-uniform-2ui 
+  #:program-uniform-2uiv #:program-uniform-3i #:program-uniform-3iv 
+  #:program-uniform-3f #:program-uniform-3fv #:program-uniform-3d 
+  #:program-uniform-3dv #:program-uniform-3ui #:program-uniform-3uiv 
+  #:program-uniform-4i #:program-uniform-4iv #:program-uniform-4f 
+  #:program-uniform-4fv #:program-uniform-4d #:program-uniform-4dv 
+  #:program-uniform-4ui #:program-uniform-4uiv 
+  #:program-uniform-matrix-2fv #:program-uniform-matrix-3fv 
+  #:program-uniform-matrix-4fv #:program-uniform-matrix-2dv 
+  #:program-uniform-matrix-3dv #:program-uniform-matrix-4dv 
+  #:program-uniform-matrix-2x3-fv #:program-uniform-matrix-3x2-fv 
+  #:program-uniform-matrix-2x4-fv #:program-uniform-matrix-4x2-fv 
+  #:program-uniform-matrix-3x4-fv #:program-uniform-matrix-4x3-fv 
+  #:program-uniform-matrix-2x3-dv #:program-uniform-matrix-3x2-dv 
+  #:program-uniform-matrix-2x4-dv #:program-uniform-matrix-4x2-dv 
+  #:program-uniform-matrix-3x4-dv #:program-uniform-matrix-4x3-dv 
+  #:validate-program-pipeline #:get-program-pipeline-info-log 
+  #:vertex-attrib-l1d #:vertex-attrib-l2d #:vertex-attrib-l3d 
+  #:vertex-attrib-l4d #:vertex-attrib-l1dv #:vertex-attrib-l2dv 
+  #:vertex-attrib-l3dv #:vertex-attrib-l4dv #:vertex-attrib-lpointer 
+  #:get-vertex-attrib-ldv #:viewport-array-v #:viewport-indexed-f 
+  #:viewport-indexed-fv #:scissor-array-v #:scissor-indexed 
+  #:scissor-indexed-v #:depth-range-array-v #:depth-range-indexed 
+  #:get-float-i-v #:get-double-i-v #:create-sync-from-cl-event-arb 
+  #:debug-message-control-arb #:debug-message-insert-arb 
+  #:debug-message-callback-arb #:get-debug-message-log-arb 
+  #:get-graphics-reset-status-arb #:getn-map-dv-arb 
+  #:getn-map-fv-arb #:getn-map-iv-arb #:getn-pixel-map-fv-arb 
+  #:getn-pixel-map-uiv-arb #:getn-pixel-map-usv-arb 
+  #:getn-polygon-stipple-arb #:getn-color-table-arb 
+  #:getn-convolution-filter-arb #:getn-separable-filter-arb 
+  #:getn-histogram-arb #:getn-minmax-arb #:getn-tex-image-arb 
+  #:readn-pixels-arb #:getn-compressed-tex-image-arb 
+  #:getn-uniform-fv-arb #:getn-uniform-iv-arb #:getn-uniform-uiv-arb 
+  #:getn-uniform-dv-arb #:blend-color-ext #:polygon-offset-ext 
+  #:tex-image-3d-ext #:tex-sub-image-3d-ext 
+  #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
+  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
+  #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
+  #:copy-tex-sub-image-1d-ext #:copy-tex-sub-image-2d-ext 
+  #:copy-tex-sub-image-3d-ext #:get-histogram-ext 
+  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext 
+  #:get-minmax-ext #:get-minmax-parameter-fv-ext 
+  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext 
+  #:reset-histogram-ext #:reset-minmax-ext 
+  #:convolution-filter-1d-ext #:convolution-filter-2d-ext 
+  #:convolution-parameter-f-ext #:convolution-parameter-fv-ext 
+  #:convolution-parameter-i-ext #:convolution-parameter-iv-ext 
+  #:copy-convolution-filter-1d-ext #:copy-convolution-filter-2d-ext 
+  #:get-convolution-filter-ext #:get-convolution-parameter-fv-ext 
   #:get-convolution-parameter-iv-ext #:get-separable-filter-ext 
   #:separable-filter-2d-ext #:color-table-sgi 
   #:color-table-parameter-fv-sgi #:color-table-parameter-iv-sgi 
@@ -741,18 +778,18 @@
   #:bind-buffer-base-nv #:transform-feedback-varyings-nv 
   #:active-varying-nv #:get-varying-location-nv 
   #:get-active-varying-nv #:get-transform-feedback-varying-nv 
-  #:uniform-buffer-ext #:get-uniform-buffer-size-ext 
-  #:get-uniform-offset-ext #:tex-parameter-iiv-ext 
-  #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext 
-  #:get-tex-parameter-iuiv-ext #:clear-color-ii-ext 
-  #:clear-color-iui-ext #:frame-terminator-gremedy 
-  #:begin-conditional-render-nv #:end-conditional-render-nv 
-  #:present-frame-keyed-nv #:present-frame-dual-fill-nv 
-  #:get-video-iv-nv #:get-video-uiv-nv #:get-video-i64v-nv 
-  #:get-video-ui64v-nv #:begin-transform-feedback-ext 
-  #:end-transform-feedback-ext #:bind-buffer-range-ext 
-  #:bind-buffer-offset-ext #:bind-buffer-base-ext 
-  #:transform-feedback-varyings-ext 
+  #:transform-feedback-stream-attribs-nv #:uniform-buffer-ext 
+  #:get-uniform-buffer-size-ext #:get-uniform-offset-ext 
+  #:tex-parameter-iiv-ext #:tex-parameter-iuiv-ext 
+  #:get-tex-parameter-iiv-ext #:get-tex-parameter-iuiv-ext 
+  #:clear-color-ii-ext #:clear-color-iui-ext 
+  #:frame-terminator-gremedy #:begin-conditional-render-nv 
+  #:end-conditional-render-nv #:present-frame-keyed-nv 
+  #:present-frame-dual-fill-nv #:get-video-iv-nv #:get-video-uiv-nv 
+  #:get-video-i64v-nv #:get-video-ui64v-nv 
+  #:begin-transform-feedback-ext #:end-transform-feedback-ext 
+  #:bind-buffer-range-ext #:bind-buffer-offset-ext 
+  #:bind-buffer-base-ext #:transform-feedback-varyings-ext 
   #:get-transform-feedback-varying-ext #:client-attrib-default-ext 
   #:push-client-attrib-default-ext #:matrix-load-f-ext 
   #:matrix-load-d-ext #:matrix-mult-f-ext #:matrix-mult-d-ext 
@@ -871,7 +908,18 @@
   #:named-framebuffer-texture-ext 
   #:named-framebuffer-texture-layer-ext 
   #:named-framebuffer-texture-face-ext #:texture-renderbuffer-ext 
-  #:multi-tex-renderbuffer-ext #:get-multisample-fv-nv 
+  #:multi-tex-renderbuffer-ext #:program-uniform-1d-ext 
+  #:program-uniform-2d-ext #:program-uniform-3d-ext 
+  #:program-uniform-4d-ext #:program-uniform-1dv-ext 
+  #:program-uniform-2dv-ext #:program-uniform-3dv-ext 
+  #:program-uniform-4dv-ext #:program-uniform-matrix-2dv-ext 
+  #:program-uniform-matrix-3dv-ext #:program-uniform-matrix-4dv-ext 
+  #:program-uniform-matrix-2x3-dv-ext 
+  #:program-uniform-matrix-2x4-dv-ext 
+  #:program-uniform-matrix-3x2-dv-ext 
+  #:program-uniform-matrix-3x4-dv-ext 
+  #:program-uniform-matrix-4x2-dv-ext 
+  #:program-uniform-matrix-4x3-dv-ext #:get-multisample-fv-nv 
   #:sample-mask-indexed-nv #:tex-renderbuffer-nv 
   #:bind-transform-feedback-nv #:delete-transform-feedbacks-nv 
   #:gen-transform-feedbacks-nv #:is-transform-feedback-nv 
@@ -914,5 +962,44 @@
   #:edge-flag-format-nv #:secondary-color-format-nv 
   #:fog-coord-format-nv #:vertex-attrib-format-nv 
   #:vertex-attrib-i-format-nv #:get-integer-ui64i-v-nv 
-  #:texture-barrier-nv ))
+  #:texture-barrier-nv #:bind-image-texture-ext #:memory-barrier-ext 
+  #:vertex-attrib-l1d-ext #:vertex-attrib-l2d-ext 
+  #:vertex-attrib-l3d-ext #:vertex-attrib-l4d-ext 
+  #:vertex-attrib-l1dv-ext #:vertex-attrib-l2dv-ext 
+  #:vertex-attrib-l3dv-ext #:vertex-attrib-l4dv-ext 
+  #:vertex-attrib-lpointer-ext #:get-vertex-attrib-ldv-ext 
+  #:vertex-array-vertex-attrib-loffset-ext 
+  #:program-subroutine-parameters-uiv-nv 
+  #:get-program-subroutine-parameter-uiv-nv #:uniform-1i64-nv 
+  #:uniform-2i64-nv #:uniform-3i64-nv #:uniform-4i64-nv 
+  #:uniform-1i64v-nv #:uniform-2i64v-nv #:uniform-3i64v-nv 
+  #:uniform-4i64v-nv #:uniform-1ui64-nv #:uniform-2ui64-nv 
+  #:uniform-3ui64-nv #:uniform-4ui64-nv #:uniform-1ui64v-nv 
+  #:uniform-2ui64v-nv #:uniform-3ui64v-nv #:uniform-4ui64v-nv 
+  #:get-uniform-i64v-nv #:program-uniform-1i64-nv 
+  #:program-uniform-2i64-nv #:program-uniform-3i64-nv 
+  #:program-uniform-4i64-nv #:program-uniform-1i64v-nv 
+  #:program-uniform-2i64v-nv #:program-uniform-3i64v-nv 
+  #:program-uniform-4i64v-nv #:program-uniform-1ui64-nv 
+  #:program-uniform-2ui64-nv #:program-uniform-3ui64-nv 
+  #:program-uniform-4ui64-nv #:program-uniform-1ui64v-nv 
+  #:program-uniform-2ui64v-nv #:program-uniform-3ui64v-nv 
+  #:program-uniform-4ui64v-nv #:vertex-attrib-l1i64-nv 
+  #:vertex-attrib-l2i64-nv #:vertex-attrib-l3i64-nv 
+  #:vertex-attrib-l4i64-nv #:vertex-attrib-l1i64v-nv 
+  #:vertex-attrib-l2i64v-nv #:vertex-attrib-l3i64v-nv 
+  #:vertex-attrib-l4i64v-nv #:vertex-attrib-l1ui64-nv 
+  #:vertex-attrib-l2ui64-nv #:vertex-attrib-l3ui64-nv 
+  #:vertex-attrib-l4ui64-nv #:vertex-attrib-l1ui64v-nv 
+  #:vertex-attrib-l2ui64v-nv #:vertex-attrib-l3ui64v-nv 
+  #:vertex-attrib-l4ui64v-nv #:get-vertex-attrib-li64v-nv 
+  #:get-vertex-attrib-lui64v-nv #:vertex-attrib-lformat-nv 
+  #:gen-names-amd #:delete-names-amd #:is-name-amd 
+  #:debug-message-enable-amd #:debug-message-insert-amd 
+  #:debug-message-callback-amd #:get-debug-message-log-amd 
+  #:vdpau-init-nv #:vdpau-fini-nv #:vdpau-register-video-surface-nv 
+  #:vdpau-register-output-surface-nv #:vdpau-is-surface-nv 
+  #:vdpau-unregister-surface-nv #:vdpau-get-surface-iv-nv 
+  #:vdpau-surface-access-nv #:vdpau-map-surfaces-nv 
+  #:vdpau-unmap-surfaces-nv ))
 
