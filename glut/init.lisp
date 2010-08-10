@@ -76,7 +76,10 @@
 ;; main.lisp and some other places. We do this to avoid having
 ;; freeglut call exit() when performing some operation that needs
 ;; previous initialization.
-(init)
+;; -- this is causing problems in other situations (loading without X
+;;    available for example, possibly also making the OSX threading stuff
+;;    worse), so disabling for now.
+;; (init)
 
 ;;; The display-mode bitfield is defined in state.lisp
 (defcfun ("glutInitDisplayMode" %glutInitDisplayMode) :void
