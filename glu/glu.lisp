@@ -255,10 +255,7 @@
 
 ;;;; 5. Polygon Tessellation
 
-;;; TODO: make an object for these too..
-
 ;;;; 5.1 The Tessellation Object
-
 (defctype tesselator :pointer)
 
 (defcfun ("gluNewTess" new-tess) tesselator)
@@ -287,6 +284,21 @@
   (tess tesselator))
 
 ;;;; 5.3 Callbacks
+
+(defcenum (tesselation-type %gl:enum)
+  :tess-begin
+  :tess-edge-flag
+  :tess-vertex
+  :tess-end
+  :tess-error
+  :tess-combine
+  :tess-begin-data
+  :tess-edge-flag-data
+  :tess-vertex-data
+  :tess-end-data
+  :tess-error-data
+  :tess-combine-data)
+
 
 ;;; TODO
 ;;(defcfun ("gluTessCallback" tess-callback) :void
