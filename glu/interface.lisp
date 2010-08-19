@@ -38,10 +38,10 @@
 #|
 Sample output for input:
  (define-tessellation-callback
-		    tess-begin (tesselator (type  tessellation-type)))
+		    tess-begin (tessellator (type  tessellation-type)))
 
  (DEFGENERIC TESS-BEGIN
-     (TESSELATOR TYPE))
+     (TESSELLATOR TYPE))
  (DEFCALLBACK %TESS-BEGIN
     :VOID
     ((TYPE TESSELLATION-TYPE))
@@ -65,21 +65,25 @@ Sample output for input:
 	 do `(define-tessellation-callback ,name ,args))))
 
 (define-tessellation-callbacks
-  (tess-begin (tesselator (type  tessellation-type)))
-  (tess-edge-flag (tesselator (flag  %gl:boolean)))
-  (tess-vertex (tesselator (vertex-data :pointer)))
-  (tess-end (tesselator))
+  (tess-begin (tessellator (type  tessellation-type)))
+  (tess-edge-flag (tessellator (flag  %gl:boolean)))
+  (tess-vertex (tessellator (vertex-data :pointer)))
+  (tess-end (tessellator))
   ;;TODO error enum
-  (tess-error (tesselator (error-number %gl:enum)))  
+  (tess-error (tessellator (error-number %gl:enum)))  
   ;:TODO add body to convert to arrays
-  (tess-combine (tesselator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer)))
-  (tess-begin-data (tesselator (type %gl:enum) (polygon-data :pointer)))
-  (tess-edge-flag-data (tesselator (flag %gl:boolean) (polygon-data :pointer)))
-  (tess-end-data (tesselator (polygon-data :pointer)))
-  (tess-vertex-data (tesselator (vertex-data :pointer) (polygon-data :pointer)))
+  (tess-combine (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer)))
+  (tess-begin-data (tessellator (type %gl:enum) (polygon-data :pointer)))
+  (tess-edge-flag-data (tessellator (flag %gl:boolean) (polygon-data :pointer)))
+  (tess-end-data (tessellator (polygon-data :pointer)))
+  (tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer)))
   ;;TODO error enum
-  (tess-error-data (tesselator (error-number %gl:enum) (polygon-data :pointer)))
-  (tess-combine-data (tesselator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer) (polygon-data :pointer)))
+  (tess-error-data (tessellator (error-number %gl:enum) (polygon-data :pointer)))
+  (tess-combine-data (tessellator (coords :pointer) 
+                                  (vertex-data :pointer) 
+                                  (weight :pointer) 
+                                  (out-data :pointer) 
+                                  (polygon-data :pointer))))
 
 (defclass tessellator ()
   ((glu-tessellator :reader glu-tessellator)))
@@ -97,7 +101,7 @@ Sample output for input:
   (tess-begin-contour tess))
 
 (defmethod vertex ((tess tessellator) coords vertex-data)
-  (tess-vertex tess coods vertex-data))
+  (tess-vertex tess coords vertex-data))
 
 (defmethod end-contour ((tess tessellator))
   (tess-end-contour tess))
