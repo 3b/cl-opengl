@@ -32,14 +32,32 @@
 
 (in-package #:cl-glu)
 
-;;;; 5. Polygon Tessellation
+;;;; Polygon Tessellation
+(defparameter *active-tessellator* nil)
+
+#|
+Sample output for input:
+ (define-tessellation-callback
+		    tess-begin (tesselator (type  tessellation-type)))
+
+ (DEFGENERIC TESS-BEGIN
+     (TESSELATOR TYPE))
+ (DEFCALLBACK %TESS-BEGIN
+    :VOID
+    ((TYPE TESSELLATION-TYPE))
+  (TESS-BEGIN *ACTIVE-TESSELLATOR* TYPE)))
+|#
+
 (defmacro define-tessellation-callback (name args &body callback-body)
   (let ((arg-names (mapcar #'car (cdr args)))
 	 (tessellation-cb (gl::symbolicate "%" name)))
      `(progn
 	(defgeneric ,name (,(car args) ,@arg-names))
-	(defcallback ,tessellation-cb :void ,(cdr args)
-	  ,@callback-body))))
+        ,(if callback-body
+             `(defcallback ,tessellation-cb :void ,(cdr args)
+                ,@callback-body)
+             `(defcallback ,tessellation-cb :void ,(cdr args)
+               (,name *active-tessellator* ,@arg-names))))))
 
 (defmacro define-tessellation-callbacks (&body callback-specs)
   `(progn
@@ -47,26 +65,43 @@
 	 do `(define-tessellation-callback ,name ,args))))
 
 (define-tessellation-callbacks
-  (begin (tesselator (type  tessellation-type)))
-  (edge-flag (tesselator (flag  %gl:boolean)))
-  (vertex (tesselator (vertex-data :pointer)))
-  (end (tesselator)))
-  ;;TODO
-  ;;(tess-error (tesselator ( GLenum errno )))
-;;   (combine ( GLdouble coords[3], void *vertex data[4],
-;; 		      GLfloat weight[4], void **outData );
-;; 	   void beginData( GLenum type, void *polygon data );
-;; 	   void edgeFlagData( GLboolean ag, void *polygon data );
-;; 	   void endData( void *polygon data );
-;; 	   void vertexData( void *vertex data, void *polygon data );
-;; 	   void errorData( GLenum errno, void *polygon data );
-;; 	   void combineData( GLdouble coords[3],
-;; 				      void *vertex data[4], GLfloat weight[4], void **outDatab,
-;; 				      void *polygon data );
+  (tess-begin (tesselator (type  tessellation-type)))
+  (tess-edge-flag (tesselator (flag  %gl:boolean)))
+  (tess-vertex (tesselator (vertex-data :pointer)))
+  (tess-end (tesselator))
+  ;;TODO error enum
+  (tess-error (tesselator (error-number %gl:enum)))  
+  ;:TODO add body to convert to arrays
+  (tess-combine (tesselator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer)))
+  (tess-begin-data (tesselator (type %gl:enum) (polygon-data :pointer)))
+  (tess-edge-flag-data (tesselator (flag %gl:boolean) (polygon-data :pointer)))
+  (tess-end-data (tesselator (polygon-data :pointer)))
+  (tess-vertex-data (tesselator (vertex-data :pointer) (polygon-data :pointer)))
+  ;;TODO error enum
+  (tess-error-data (tesselator (error-number %gl:enum) (polygon-data :pointer)))
+  (tess-combine-data (tesselator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer) (polygon-data :pointer)))
 
-(defclass tesselator ()
-  ((glu-tesselator :reader glu-tesselator)))
+(defclass tessellator ()
+  ((glu-tessellator :reader glu-tessellator)))
 
-(defmethod initialize-instance :after ((obj tesselator) &key)
+(defmethod initialize-instance :after ((obj tessellator) &key)
   ;;TODO signal error if return value is 0
-  (setf (slot-value obj 'glu-tesselator) (new-tess)))
+  (setf (slot-value obj 'glu-tessellator) (new-tess)))
+
+(defmethod begin-polygon ((tess tessellator) polygon-data)
+  (setf *active-tessellator* tess)
+  (tess-begin-polygon tess polygon-data))
+
+(defmethod begin-contour ((tess tessellator))
+  ;;todo assert tess is equal *active-tessellator*???
+  (tess-begin-contour tess))
+
+(defmethod vertex ((tess tessellator) coords vertex-data)
+  (tess-vertex tess coods vertex-data))
+
+(defmethod end-contour ((tess tessellator))
+  (tess-end-contour tess))
+
+(defmethod end-polygon ((tess tessellator))
+  (setf *active-tessellator nil)
+  (tess-end-polygon tess))
