@@ -256,37 +256,37 @@
 ;;;; 5. Polygon Tessellation
 
 ;;;; 5.1 The Tessellation Object
-(defctype tesselator :pointer)
+(defctype tess-pointer :pointer)
 
-(defcfun ("gluNewTess" new-tess) tesselator)
+(defcfun ("gluNewTess" new-tess) tess-pointer)
 
 (defcfun ("gluDeleteTess" delete-tess) :void
-  (tess-obj tesselator))
+  (tess-obj tess-pointer))
 
 ;;;; 5.2 Polygon Definition
 
 (defcfun ("gluTessBeginPolygon" tess-begin-polygon) :void
-  (tess tesselator)
+  (tess tess-pointer)
   (polygon-data :pointer))
 
 (defcfun ("gluTessBeginContour" tess-begin-contour) :void
-  (tess tesselator))
+  (tess tess-pointer))
 
 (defcfun ("gluTessVertex" tess-vertex) :void
-  (tess tesselator)
+  (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
 
 (defcfun ("gluTessEndContour" tess-end-contour) :void
-  (tess tesselator))
+  (tess tess-pointer))
 
 (defcfun ("gluTessEndPolygon" tess-end-polygon) :void
-  (tess tesselator))
+  (tess tess-pointer))
 
 ;;;; 5.3 Callbacks
 
-(defcenum (tesselation-type %gl:enum)
-  :tess-begin
+(defcenum (tessellation-type %gl:enum)
+  (:tess-begin 100100)
   :tess-edge-flag
   :tess-vertex
   :tess-end
@@ -300,9 +300,8 @@
   :tess-combine-data)
 
 
-;;; TODO
-;;(defcfun ("gluTessCallback" tess-callback) :void
-;;  )
+(defcfun ("gluTessCallback" tess-callback) :void
+  (tess tess-pointer) (type tessellation-type) (callback :pointer))
 
 ;;;; 5.4 Control Over Tessellation
 

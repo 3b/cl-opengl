@@ -52,12 +52,14 @@ Sample output for input:
   (let ((arg-names (mapcar #'car (cdr args)))
 	 (tessellation-cb (gl::symbolicate "%" name)))
      `(progn
+        ;;define generic function
 	(defgeneric ,name (,(car args) ,@arg-names))
+        ;;define callback
         ,(if callback-body
              `(defcallback ,tessellation-cb :void ,(cdr args)
                 ,@callback-body)
              `(defcallback ,tessellation-cb :void ,(cdr args)
-               (,name *active-tessellator* ,@arg-names))))))
+                (,name *active-tessellator* ,@arg-names))))))
 
 (defmacro define-tessellation-callbacks (&body callback-specs)
   `(progn
@@ -65,14 +67,19 @@ Sample output for input:
 	 do `(define-tessellation-callback ,name ,args))))
 
 (define-tessellation-callbacks
-  (tess-begin (tessellator (type  tessellation-type)))
+  (tess-begin (tessellator (type  %gl:enum)))
   (tess-edge-flag (tessellator (flag  %gl:boolean)))
   (tess-vertex (tessellator (vertex-data :pointer)))
   (tess-end (tessellator))
   ;;TODO error enum
   (tess-error (tessellator (error-number %gl:enum)))  
   ;:TODO add body to convert to arrays
-  (tess-combine (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer)))
+  (tess-combine (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer))
+                (let ((coords-array (make-gl-array coords %gl:double 3))
+                      (vertex-data-array (make-gl-vertex-array vertex-data gl-vertex 4))
+                      (weight-array (make-gl-array weight %gl:float 4))))
+                ;;todo handle out data
+                )
   (tess-begin-data (tessellator (type %gl:enum) (polygon-data :pointer)))
   (tess-edge-flag-data (tessellator (flag %gl:boolean) (polygon-data :pointer)))
   (tess-end-data (tessellator (polygon-data :pointer)))
@@ -94,18 +101,23 @@ Sample output for input:
 
 (defmethod begin-polygon ((tess tessellator) polygon-data)
   (setf *active-tessellator* tess)
-  (tess-begin-polygon tess polygon-data))
+  (tess-begin-polygon (glu-tessellator tess) polygon-data))
 
 (defmethod begin-contour ((tess tessellator))
-  ;;todo assert tess is equal *active-tessellator*???
-  (tess-begin-contour tess))
+  (tess-begin-contour (glu-tessellator tess)))
 
 (defmethod vertex ((tess tessellator) coords vertex-data)
-  (tess-vertex tess coords vertex-data))
+  (tess-vertex (glu-tessellator tess) coords vertex-data))
 
 (defmethod end-contour ((tess tessellator))
-  (tess-end-contour tess))
+  (tess-end-contour (glu-tessellator tess)))
 
 (defmethod end-polygon ((tess tessellator))
-  (setf *active-tessellator nil)
-  (tess-end-polygon tess))
+  (tess-end-polygon (glu-tessellator tess)))
+
+(defmethod tess-begin :before ((tess tessellator) which)
+  (gl:begin which))
+
+(defmethod tess-end :after ((tess tessellator))
+  (gl:end)
+  (setf *active-tessellator* nil))
