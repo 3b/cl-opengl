@@ -35,22 +35,14 @@
 ;;;; Polygon Tessellation
 (defparameter *active-tessellator* nil)
 
-#|
-Sample output for input:
- (define-tessellation-callback
-		    tess-begin (tessellator (type  tessellation-type)))
+(defparameter *tess-callbacks* '())
 
- (DEFGENERIC TESS-BEGIN
-     (TESSELLATOR TYPE))
- (DEFCALLBACK %TESS-BEGIN
-    :VOID
-    ((TYPE TESSELLATION-TYPE))
-  (TESS-BEGIN *ACTIVE-TESSELLATOR* TYPE)))
-|#
+(defstruct tess-callback name gf cb arg-count)
 
 (defmacro define-tessellation-callback (name args &body callback-body)
   (let ((arg-names (mapcar #'car (cdr args)))
-	 (tessellation-cb (gl::symbolicate "%" name)))
+        (tessellation-cb (gl::symbolicate "%" name))
+        (tessellation-name (intern (symbol-name name) '#:keyword)))
      `(progn
         ;;define generic function
 	(defgeneric ,name (,(car args) ,@arg-names))
@@ -59,15 +51,19 @@ Sample output for input:
              `(defcallback ,tessellation-cb :void ,(cdr args)
                 ,@callback-body)
              `(defcallback ,tessellation-cb :void ,(cdr args)
-                (,name *active-tessellator* ,@arg-names))))))
+                (,name *active-tessellator* ,@arg-names)))
+        (push (make-tess-callback :name ,tessellation-name :gf #',name 
+                                  :cb ',tessellation-cb :arg-count ,(length arg-names))
+              *tess-callbacks*))))
 
 (defmacro define-tessellation-callbacks (&body callback-specs)
   `(progn
-     ,(loop for (name args) in callback-specs 
-	 do `(define-tessellation-callback ,name ,args))))
+     (setq *tess-callbacks* '())
+     ,@(loop for (name args) in callback-specs 
+          collect `(define-tessellation-callback ,name ,args))))
 
 (define-tessellation-callbacks
-  (tess-begin (tessellator (type  %gl:enum)))
+  (tess-begin (tessellator (type %gl:enum)))
   (tess-edge-flag (tessellator (flag  %gl:boolean)))
   (tess-vertex (tessellator (vertex-data :pointer)))
   (tess-end (tessellator))
@@ -80,6 +76,7 @@ Sample output for input:
                       (weight-array (make-gl-array weight %gl:float 4))))
                 ;;todo handle out data
                 )
+  ;;TODO consider declaring only one flavor of callbacks
   (tess-begin-data (tessellator (type %gl:enum) (polygon-data :pointer)))
   (tess-edge-flag-data (tessellator (flag %gl:boolean) (polygon-data :pointer)))
   (tess-end-data (tessellator (polygon-data :pointer)))
@@ -97,11 +94,14 @@ Sample output for input:
 
 (defmethod initialize-instance :after ((obj tessellator) &key)
   ;;TODO signal error if return value is 0
-  (setf (slot-value obj 'glu-tessellator) (new-tess)))
+  (setf (slot-value obj 'glu-tessellator) (new-tess))
+  (register-callbacks obj))
 
+;;TODO make polygon-data optional
 (defmethod begin-polygon ((tess tessellator) polygon-data)
   (setf *active-tessellator* tess)
-  (tess-begin-polygon (glu-tessellator tess) polygon-data))
+  (tess-begin-polygon (glu-tessellator tess) 
+                      (or polygon-data (null-pointer))))
 
 (defmethod begin-contour ((tess tessellator))
   (tess-begin-contour (glu-tessellator tess)))
@@ -118,6 +118,19 @@ Sample output for input:
 (defmethod tess-begin :before ((tess tessellator) which)
   (gl:begin which))
 
+(defmethod tess-error ((tess tessellator) error-code)
+  ;;TODO handle error
+  (break "tess-error"))
+
 (defmethod tess-end :after ((tess tessellator))
   (gl:end)
   (setf *active-tessellator* nil))
+
+(defun register-callbacks (tess)
+  (loop for tess-cb in *tess-callbacks*
+     when (compute-applicable-methods 
+           (tess-callback-gf tess-cb) 
+           (cons tess (loop repeat (tess-callback-arg-count tess-cb) collect t)))
+     do (tess-callback (glu-tessellator tess) 
+                       (tess-callback-name tess-cb)
+                       (get-callback (tess-callback-cb tess-cb)))))
