@@ -43,18 +43,18 @@
   (let ((arg-names (mapcar #'car (cdr args)))
         (tessellation-cb (gl::symbolicate "%" name))
         (tessellation-name (intern (symbol-name name) '#:keyword)))
-     `(progn
-        ;;define generic function
-	(defgeneric ,name (,(car args) ,@arg-names))
-        ;;define callback
-        ,(if callback-body
-             `(defcallback ,tessellation-cb :void ,(cdr args)
-                ,@callback-body)
-             `(defcallback ,tessellation-cb :void ,(cdr args)
-                (,name *active-tessellator* ,@arg-names)))
-        (push (make-tess-callback :name ,tessellation-name :gf #',name 
-                                  :cb ',tessellation-cb :arg-count ,(length arg-names))
-              *tess-callbacks*))))
+    `(progn
+       ;;define generic function
+       (defgeneric ,name (,(car args) ,@arg-names))
+       ;;define callback
+       ,(if callback-body
+            `(defcallback ,tessellation-cb :void ,(cdr args)
+               ,@callback-body)
+            `(defcallback ,tessellation-cb :void ,(cdr args)
+               (,name *active-tessellator* ,@arg-names)))
+       (push (make-tess-callback :name ,tessellation-name :gf #',name 
+                                 :cb ',tessellation-cb :arg-count ,(length arg-names))
+             *tess-callbacks*))))
 
 (defmacro define-tessellation-callbacks (&body callback-specs)
   `(progn
@@ -63,31 +63,31 @@
           collect `(define-tessellation-callback ,name ,args))))
 
 (define-tessellation-callbacks
-  (tess-begin (tessellator (type %gl:enum)))
-  (tess-edge-flag (tessellator (flag  %gl:boolean)))
-  (tess-vertex (tessellator (vertex-data :pointer)))
-  (tess-end (tessellator))
+  (tess-begin-cb (tessellator (type %gl:enum)))
+  (tess-edge-flag-cb (tessellator (flag  %gl:boolean)))
+  (tess-vertex-cb (tessellator (vertex-data :pointer)))
+  (tess-end-cb (tessellator))
   ;;TODO error enum
-  (tess-error (tessellator (error-number %gl:enum)))  
-  ;:TODO add body to convert to arrays
-  (tess-combine (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer))
-                (let ((coords-array (make-gl-array coords %gl:double 3))
-                      (vertex-data-array (make-gl-vertex-array vertex-data gl-vertex 4))
-                      (weight-array (make-gl-array weight %gl:float 4))))
-                ;;todo handle out data
-                )
+  (tess-error-cb (tessellator (error-number %gl:enum)))  
+                                        ;:TODO add body to convert to arrays
+  (tess-combine-cb (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer))
+                   (let ((coords-array (make-gl-array coords %gl:double 3))
+                         (vertex-data-array (make-gl-vertex-array vertex-data gl-vertex 4))
+                         (weight-array (make-gl-array weight %gl:float 4))))
+                   ;;todo handle out data
+                   )
   ;;TODO consider declaring only one flavor of callbacks
-  (tess-begin-data (tessellator (type %gl:enum) (polygon-data :pointer)))
-  (tess-edge-flag-data (tessellator (flag %gl:boolean) (polygon-data :pointer)))
-  (tess-end-data (tessellator (polygon-data :pointer)))
-  (tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer)))
+  (tess-begin-data-cb (tessellator (type %gl:enum) (polygon-data :pointer)))
+  (tess-edge-flag-data-cb (tessellator (flag %gl:boolean) (polygon-data :pointer)))
+  (tess-end-data-cb (tessellator (polygon-data :pointer)))
+  (tess-vertex-data-cb (tessellator (vertex-data :pointer) (polygon-data :pointer)))
   ;;TODO error enum
-  (tess-error-data (tessellator (error-number %gl:enum) (polygon-data :pointer)))
-  (tess-combine-data (tessellator (coords :pointer) 
-                                  (vertex-data :pointer) 
-                                  (weight :pointer) 
-                                  (out-data :pointer) 
-                                  (polygon-data :pointer))))
+  (tess-error-data-cb (tessellator (error-number %gl:enum) (polygon-data :pointer)))
+  (tess-combine-data-cb (tessellator (coords :pointer) 
+                                     (vertex-data :pointer) 
+                                     (weight :pointer) 
+                                     (out-data :pointer) 
+                                     (polygon-data :pointer))))
 
 (defclass tessellator ()
   ((glu-tessellator :reader glu-tessellator)))
