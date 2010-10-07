@@ -27,12 +27,14 @@
   (:default-initargs :width 500 :height 500 :title "tess.lisp"
                      :mode '(:single :rgb)))
 
+(defclass example-tessellator (glu:tessellator)
+  ())
 
 (defmethod glut:display ((w tess-window))
   (gl:clear :color-buffer)
   (gl:color 1 1 1)
   (gl:call-list *start-list*)
-  (gl:call-list (+1 *start-list*))
+  (gl:call-list (1+ *start-list*))
   (gl:flush))
 
 (defmethod glut:reshape ((w tess-window) width height)
@@ -45,26 +47,7 @@
   (declare (ignore x y))
   (when (eql key #\Esc)
     (glut:destroy-current-window)))
-#|  
-void CALLBACK beginCallback(GLenum which)
-{
-   glBegin(which);
-}
-
-void CALLBACK errorCallback(GLenum errorCode)
-{
-   const GLubyte *estring;
-
-   estring = gluErrorString(errorCode);
-   fprintf(stderr, "Tessellation Error: %s\n", (char *) estring);
-   exit(0);
-}
-
-void CALLBACK endCallback(void)
-{
-   glEnd();
-}
-
+#|
 void CALLBACK vertexCallback(GLvoid *vertex)
 {
    const GLdouble *pointer;
@@ -98,55 +81,54 @@ void CALLBACK combineCallback(GLdouble coords[3],
                   + weight[3] * vertex_data[3][i];
    *dataOut = vertex;
 }
+|#
 
-void init (void)
-{
-   GLUtesselator *tobj;
-   GLdouble rect[4][3] = {{50.0, 50.0, 0.0},
-                          {200.0, 50.0, 0.0},
-                          {200.0, 200.0, 0.0},
-                          {50.0, 200.0, 0.0}};
-   GLdouble tri[3][3] = {{75.0, 75.0, 0.0},
-                         {125.0, 175.0, 0.0},
-                         {175.0, 75.0, 0.0}};
-   GLdouble star[5][6] = {{250.0, 50.0, 0.0, 1.0, 0.0, 1.0},
-                          {325.0, 200.0, 0.0, 1.0, 1.0, 0.0},
-                          {400.0, 50.0, 0.0, 0.0, 1.0, 1.0},
-                          {250.0, 150.0, 0.0, 1.0, 0.0, 0.0},
-                          {400.0, 150.0, 0.0, 0.0, 1.0, 0.0}};
+(defun init ()
+  (let ((tobj (make-instance 'example-tessellator)))
+        
+  
+;;   {
+;;    GLdouble tri[3][3] = {{75.0, 75.0, 0.0},
+;;                          {125.0, 175.0, 0.0},
+;;                          {175.0, 75.0, 0.0}};
+;;    GLdouble star[5][6] = {{250.0, 50.0, 0.0, 1.0, 0.0, 1.0},
+;;                           {325.0, 200.0, 0.0, 1.0, 1.0, 0.0},
+;;                           {400.0, 50.0, 0.0, 0.0, 1.0, 1.0},
+;;                           {250.0, 150.0, 0.0, 1.0, 0.0, 0.0},
+;;                           {400.0, 150.0, 0.0, 0.0, 1.0, 0.0}};
 
-   glClearColor(0.0, 0.0, 0.0, 0.0);
+        (gl:clear-color 0 0 0 0)
+        (setf *start-list* (gl:gen-lists 2))
 
-   startList = glGenLists(2);
+;;    gluTessCallback(tobj, GLU_TESS_VERTEX,
+;;                    (GLvoid (CALLBACK*) ()) &glVertex3dv);
+;;    gluTessCallback(tobj, GLU_TESS_BEGIN,
+;;                    (GLvoid (CALLBACK*) ()) &beginCallback);
+;;    gluTessCallback(tobj, GLU_TESS_END,
+;;                    (GLvoid (CALLBACK*) ()) &endCallback);
+;;    gluTessCallback(tobj, GLU_TESS_ERROR,
+;;                    (GLvoid (CALLBACK*) ()) &errorCallback);
 
-   tobj = gluNewTess();
-   gluTessCallback(tobj, GLU_TESS_VERTEX,
-                   (GLvoid (CALLBACK*) ()) &glVertex3dv);
-   gluTessCallback(tobj, GLU_TESS_BEGIN,
-                   (GLvoid (CALLBACK*) ()) &beginCallback);
-   gluTessCallback(tobj, GLU_TESS_END,
-                   (GLvoid (CALLBACK*) ()) &endCallback);
-   gluTessCallback(tobj, GLU_TESS_ERROR,
-                   (GLvoid (CALLBACK*) ()) &errorCallback);
+   ;;rectangle with triangular hole inside
+        (gl:new-list *start-list* :compile)
+        (gl:shade-model :flat)
+        (glu:tess-begin-polygon tobj nil)
+        (glu:tess-begin-contour tobj)
+        (glu:tess-vertex tobj '(50 50 0) '(50 50 0))
+        (glu:tess-vertex tobj '(200 50 0) '(200 50 0))
+        (glu:tess-vertex tobj '(200 200 0) '(200 200 0))
+        (glu:tess-vertex tobj '(50 200 0) '(50 200 0))
+        (glu:tess-end-contour tobj)
 
-   /*  rectangle with triangular hole inside  */
-   glNewList(startList, GL_COMPILE);
-   glShadeModel(GL_FLAT);
-   gluTessBeginPolygon(tobj, NULL);
-      gluTessBeginContour(tobj);
-         gluTessVertex(tobj, rect[0], rect[0]);
-         gluTessVertex(tobj, rect[1], rect[1]);
-         gluTessVertex(tobj, rect[2], rect[2]);
-         gluTessVertex(tobj, rect[3], rect[3]);
-      gluTessEndContour(tobj);
-      gluTessBeginContour(tobj);
-         gluTessVertex(tobj, tri[0], tri[0]);
-         gluTessVertex(tobj, tri[1], tri[1]);
-         gluTessVertex(tobj, tri[2], tri[2]);
-      gluTessEndContour(tobj);
-   gluTessEndPolygon(tobj);
-   glEndList();
-
+        (glu:tess-begin-contour tobj)
+        (glu:tess-vertex tobj '(75 75 0) '(75 75 0))
+        (glu:tess-vertex tobj '(125 175 0) '(125 175 0))
+        (glu:tess-vertex tobj '(175 75 0) '(175 75 0))
+        (glu:tess-end-contour tobj)
+        (glu:tess-end-polygon tobj)
+        (gl:end-list)
+))
+#|
    gluTessCallback(tobj, GLU_TESS_VERTEX,
                    (GLvoid (CALLBACK*) ()) &vertexCallback);
    gluTessCallback(tobj, GLU_TESS_BEGIN,
@@ -178,5 +160,7 @@ void init (void)
 |#
 
 (defun rb-tess ()
+  (setf glut:*run-main-loop-after-display* nil)
   (glut:display-window (make-instance 'tess-window))
-  (init))
+  (init)
+  (glut:main-loop))

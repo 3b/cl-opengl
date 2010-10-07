@@ -258,29 +258,29 @@
 ;;;; 5.1 The Tessellation Object
 (defctype tess-pointer :pointer)
 
-(defcfun ("gluNewTess" new-tess) tess-pointer)
+(defcfun ("gluNewTess" glu-new-tess) tess-pointer)
 
-(defcfun ("gluDeleteTess" delete-tess) :void
+(defcfun ("gluDeleteTess" glu-delete-tess) :void
   (tess-obj tess-pointer))
 
 ;;;; 5.2 Polygon Definition
 
-(defcfun ("gluTessBeginPolygon" tess-begin-polygon) :void
+(defcfun ("gluTessBeginPolygon" glu-tess-begin-polygon) :void
   (tess tess-pointer)
   (polygon-data :pointer))
 
-(defcfun ("gluTessBeginContour" tess-begin-contour) :void
+(defcfun ("gluTessBeginContour" glu-tess-begin-contour) :void
   (tess tess-pointer))
 
-(defcfun ("gluTessVertex" tess-vertex) :void
+(defcfun ("gluTessVertex" glu-tess-vertex) :void
   (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
 
-(defcfun ("gluTessEndContour" tess-end-contour) :void
+(defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))
 
-(defcfun ("gluTessEndPolygon" tess-end-polygon) :void
+(defcfun ("gluTessEndPolygon" glu-tess-end-polygon) :void
   (tess tess-pointer))
 
 ;;;; 5.3 Callbacks
@@ -300,7 +300,7 @@
   :tess-combine-data)
 
 
-(defcfun ("gluTessCallback" tess-callback) :void
+(defcfun ("gluTessCallback" glu-tess-callback) :void
   (tess tess-pointer) (type tessellation-type) (callback :pointer))
 
 ;;;; 5.4 Control Over Tessellation

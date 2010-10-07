@@ -98,29 +98,29 @@
   (register-callbacks obj))
 
 ;;TODO make polygon-data optional
-(defmethod begin-polygon ((tess tessellator) polygon-data)
+(defmethod tess-begin-polygon ((tess tessellator) polygon-data)
   (setf *active-tessellator* tess)
-  (tess-begin-polygon (glu-tessellator tess) 
+  (glu-tess-begin-polygon (glu-tessellator tess) 
                       (or polygon-data (null-pointer))))
 
-(defmethod begin-contour ((tess tessellator))
-  (tess-begin-contour (glu-tessellator tess)))
+(defmethod tess-begin-contour ((tess tessellator))
+  (glu-tess-begin-contour (glu-tessellator tess)))
 
-(defmethod vertex ((tess tessellator) coords vertex-data)
-  (tess-vertex (glu-tessellator tess) coords vertex-data))
+(defmethod tess-vertex ((tess tessellator) coords vertex-data)
+  (glu-tess-vertex (glu-tessellator tess) coords vertex-data))
 
-(defmethod end-contour ((tess tessellator))
-  (tess-end-contour (glu-tessellator tess)))
+(defmethod tess-end-contour ((tess tessellator))
+  (glu-tess-end-contour (glu-tessellator tess)))
 
-(defmethod end-polygon ((tess tessellator))
-  (tess-end-polygon (glu-tessellator tess)))
+(defmethod tess-end-polygon ((tess tessellator))
+  (glu-tess-end-polygon (glu-tessellator tess)))
 
 (defmethod tess-begin :before ((tess tessellator) which)
   (gl:begin which))
 
 (defmethod tess-error ((tess tessellator) error-code)
   ;;TODO handle error
-  (break "tess-error"))
+  (break error-code))
 
 (defmethod tess-end :after ((tess tessellator))
   (gl:end)

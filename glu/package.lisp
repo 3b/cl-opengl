@@ -53,4 +53,28 @@
    #:pick-matrix
    #:project
    #:un-project
-   #:un-project4))
+   #:un-project4
+   ;; Tessellation
+   #:tessellator
+   ;; Tessellator methods
+   #:tess-begin-polygon
+   #:tess-begin-contour
+   #:tess-vertex
+   #:tess-end-contour
+   #:tess-end-polygon
+   #:tess-begin
+   #:tess-error
+   #:tess-end
+   ;; Tessellator callbacks
+   #:tess-begin-cb
+   #:tess-edge-flag-cb
+   #:tess-vertex-cb
+   #:tess-end-cb
+   #:tess-error-cb
+   #:tess-combine-cb
+   #:tess-begin-data-cb
+   #:tess-edge-flag-data-cb
+   #:tess-end-data-cb
+   #:tess-vertex-data-cb
+   #:tess-error-data-cb
+   #:tess-combine-data-cb))
