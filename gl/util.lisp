@@ -31,35 +31,6 @@
 
 ;;; the following three where taken from CFFI
 
-(defun starts-with (list x)
-  "Is x a list whose first element is x?"
-  (and (consp list) (eql (first list) x)))
-
-(defun side-effect-free? (exp)
-  "Is exp a constant, variable, or function,
-  or of the form (THE type x) where x is side-effect-free?"
-  (or (atom exp) (constantp exp)
-      (starts-with exp 'function)
-      (and (starts-with exp 'the)
-           (side-effect-free? (third exp)))))
-
-(defmacro once-only (variables &rest body)
-    "Returns the code built by BODY.  If any of VARIABLES
-  might have side effects, they are evaluated once and stored
-  in temporary variables that are then passed to BODY."
-    (assert (every #'symbolp variables))
-    (let ((temps nil))
-      (dotimes (i (length variables)) (push (gensym "ONCE") temps))
-      `(if (every #'side-effect-free? (list .,variables))
-   (progn .,body)
-   (list 'let
-    ,`(list ,@(mapcar #'(lambda (tmp var)
-                `(list ',tmp ,var))
-            temps variables))
-    (let ,(mapcar #'(lambda (var tmp) `(,var ',tmp))
-             variables temps)
-      .,body)))))
-
 (defun symbolic-type->real-type (type)
   (ecase type
     (:byte '%gl:byte)

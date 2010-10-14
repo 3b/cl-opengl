@@ -30,6 +30,8 @@
 (defpackage #:cl-opengl
   (:use #:cl #:cffi #:alexandria)
   (:nicknames #:opengl #:gl)
+  ;; Alexandria also exports ROTATE
+  (:shadow #:rotate)
   (:export
    ;; 2.5 GL Errors
    #:get-error
