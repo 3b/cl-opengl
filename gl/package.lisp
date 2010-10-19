@@ -28,10 +28,13 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defpackage #:cl-opengl
-  (:use #:cl #:cffi #:alexandria)
+  (:use #:cl #:cffi)
   (:nicknames #:opengl #:gl)
-  ;; Alexandria also exports ROTATE
-  (:shadow #:rotate)
+  (:import-from #:alexandria
+                #:once-only
+                #:symbolicate
+                #:with-unique-names
+                #:ensure-list)
   (:export
    ;; 2.5 GL Errors
    #:get-error
