@@ -272,11 +272,15 @@
 (defcfun ("gluTessBeginContour" glu-tess-begin-contour) :void
   (tess tess-pointer))
 
-(defcfun ("gluTessVertex" glu-tess-vertex) :void
+(defcfun ("gluTessVertex" %gluTessVertex) :void
   (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
 
+(defun glu-tess-vertex (tess coords)
+  (gl::with-opengl-sequence (array '%gl:double coords)
+    (%gluTessVertex tess array array)))
+                        
 (defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))
 

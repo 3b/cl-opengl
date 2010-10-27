@@ -42,13 +42,13 @@
 (defmacro define-tessellation-callback (name args &body callback-body)
   (let ((arg-names (mapcar #'car (cdr args)))
         (tessellation-cb (gl::symbolicate "%" name))
-        (tessellation-name (intern (symbol-name name) '#:keyword)))
+        (tessellation-name (intern (symbol-name (subseq name 0 (- (length name) 3))) '#:keyword)))
     `(progn
        ;;define generic function
        (defgeneric ,name (,(car args) ,@arg-names))
        ;;define callback
        ,(if callback-body
-            `(defcallback ,tessellation-cb :void ,(cdr args)
+            `(defcallback ,tessellation-cb :void ,(cdr args)v
                ,@callback-body)
             `(defcallback ,tessellation-cb :void ,(cdr args)
                (,name *active-tessellator* ,@arg-names)))
@@ -106,8 +106,8 @@
 (defmethod tess-begin-contour ((tess tessellator))
   (glu-tess-begin-contour (glu-tessellator tess)))
 
-(defmethod tess-vertex ((tess tessellator) coords vertex-data)
-  (glu-tess-vertex (glu-tessellator tess) coords vertex-data))
+(defmethod tess-vertex ((tess tessellator) coords)
+  (glu-tess-vertex (glu-tessellator tess) coords))
 
 (defmethod tess-end-contour ((tess tessellator))
   (glu-tess-end-contour (glu-tessellator tess)))
@@ -128,9 +128,10 @@
 
 (defun register-callbacks (tess)
   (loop for tess-cb in *tess-callbacks*
-     when (compute-applicable-methods 
-           (tess-callback-gf tess-cb) 
-           (cons tess (loop repeat (tess-callback-arg-count tess-cb) collect t)))
-     do (tess-callback (glu-tessellator tess) 
-                       (tess-callback-name tess-cb)
-                       (get-callback (tess-callback-cb tess-cb)))))
+     ;;TODO uncomment and fix this
+     ;when (compute-applicable-methods 
+     ;      (tess-callback-gf tess-cb) 
+     ;      (cons tess (loop repeat (tess-callback-arg-count tess-cb) collect t)))
+     do (glu-tess-callback (glu-tessellator tess) 
+                           (tess-callback-name tess-cb)
+                           (get-callback (tess-callback-cb tess-cb)))))

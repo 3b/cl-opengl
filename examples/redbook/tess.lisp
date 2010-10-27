@@ -47,6 +47,12 @@
   (declare (ignore x y))
   (when (eql key #\Esc)
     (glut:destroy-current-window)))
+
+(defmethod tess-vertex-data-cb ((tess example-tessellator) vertex-data polygon-data)
+  (break "llala")
+  (gl:color 0.2 0.3 0.4)
+  (gl:vertex 2 3))
+
 #|
 void CALLBACK vertexCallback(GLvoid *vertex)
 {
@@ -56,6 +62,7 @@ void CALLBACK vertexCallback(GLvoid *vertex)
    glColor3dv(pointer+3);
    glVertex3dv(pointer);
 }
+
 
 /*  combineCallback is used to create a new vertex when edges
  *  intersect.  coordinate location is trivial to calculate,
@@ -84,18 +91,19 @@ void CALLBACK combineCallback(GLdouble coords[3],
 |#
 
 (defun init ()
-  (let ((tobj (make-instance 'example-tessellator)))
-        
-  
-;;   {
-;;    GLdouble tri[3][3] = {{75.0, 75.0, 0.0},
-;;                          {125.0, 175.0, 0.0},
-;;                          {175.0, 75.0, 0.0}};
-;;    GLdouble star[5][6] = {{250.0, 50.0, 0.0, 1.0, 0.0, 1.0},
-;;                           {325.0, 200.0, 0.0, 1.0, 1.0, 0.0},
-;;                           {400.0, 50.0, 0.0, 0.0, 1.0, 1.0},
-;;                           {250.0, 150.0, 0.0, 1.0, 0.0, 0.0},
-;;                           {400.0, 150.0, 0.0, 0.0, 1.0, 0.0}};
+  (let ((tobj (make-instance 'example-tessellator))
+        (rect '((50.0 50.0 0.0)
+                (200.0 50.0 0.0)
+                (200.0 200.0 0.0)
+                (50.0 200.0 0.0)))
+        (tri '((75.0 75.0 0.0)
+               (125.0 175.0 0.0)
+               (175.0 75.0 0.0))))
+        ;;  (star '((250.0 50.0 0.0 1.0 0.0 1.0)
+;;                  (325.0 200.0 0.0 1.0 1.0 0.0)
+;;                  (400.0 50.0 0.0 0.0 1.0 1.0)
+;;                  (250.0 150.0 0.0 1.0 0.0 0.0)
+;;                  (400.0 150.0 0.0 0.0 1.0 0.0))))
 
         (gl:clear-color 0 0 0 0)
         (setf *start-list* (gl:gen-lists 2))
@@ -114,16 +122,13 @@ void CALLBACK combineCallback(GLdouble coords[3],
         (gl:shade-model :flat)
         (glu:tess-begin-polygon tobj nil)
         (glu:tess-begin-contour tobj)
-        (glu:tess-vertex tobj '(50 50 0) '(50 50 0))
-        (glu:tess-vertex tobj '(200 50 0) '(200 50 0))
-        (glu:tess-vertex tobj '(200 200 0) '(200 200 0))
-        (glu:tess-vertex tobj '(50 200 0) '(50 200 0))
+        (loop for coords in rect
+           do (glu:tess-vertex tobj coords))
         (glu:tess-end-contour tobj)
 
         (glu:tess-begin-contour tobj)
-        (glu:tess-vertex tobj '(75 75 0) '(75 75 0))
-        (glu:tess-vertex tobj '(125 175 0) '(125 175 0))
-        (glu:tess-vertex tobj '(175 75 0) '(175 75 0))
+        (loop for coords in tri
+           do (glu:tess-vertex tobj coords))
         (glu:tess-end-contour tobj)
         (glu:tess-end-polygon tobj)
         (gl:end-list)
