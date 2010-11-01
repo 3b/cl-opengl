@@ -471,7 +471,14 @@
   :out-of-memory
   :incompatible-gl-version
   :invalid-operation
-  ;; plus NURBS, Quadrics and Tesselation errors?
+  ;;Tesselation errors
+  (:tess-missing-begin-polygon 100151)
+  (:tess-missing-begin-contour 100152)
+  (:tess-missing-end-polygon 100153)
+  (:tess-missing-end-contour 100154)
+  (:tess-coord-too-large 100155)
+  (:tess-need-combine-callback 100156)
+  ;; plus NURBS, Quadrics
   ;; probably not necessary
   )
 

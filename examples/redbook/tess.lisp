@@ -53,6 +53,9 @@
   (gl:color 0.2 0.3 0.4)
   (gl:vertex 2 3))
 
+(defmethod tess-combine-data-cb ((tess example-tessellator) coords vertex-data weight data-out polygon-data)
+  (break vertex-data))
+
 #|
 void CALLBACK vertexCallback(GLvoid *vertex)
 {
@@ -105,34 +108,30 @@ void CALLBACK combineCallback(GLdouble coords[3],
 ;;                  (250.0 150.0 0.0 1.0 0.0 0.0)
 ;;                  (400.0 150.0 0.0 0.0 1.0 0.0))))
 
-        (gl:clear-color 0 0 0 0)
-        (setf *start-list* (gl:gen-lists 2))
+    (gl:clear-color 0 0 0 0)
+    (setf *start-list* (gl:gen-lists 2))
+    
+    ;;rectangle with triangular hole inside
+    (gl:new-list *start-list* :compile)
+    (gl:shade-model :flat)
+    (glu:tess-begin-polygon tobj nil)
+    (glu:tess-begin-contour tobj)
+    (glu:tess-vertex tobj '(50.0 50.0 0.0))
+;    (glu:tess-vertex tobj '(200.0 50.0 0.0))
+;    (glu:tess-vertex tobj '(200.0 200.0 0.0))
+;    (glu:tess-vertex tobj '(50.0 200.0 0.0))
 
-;;    gluTessCallback(tobj, GLU_TESS_VERTEX,
-;;                    (GLvoid (CALLBACK*) ()) &glVertex3dv);
-;;    gluTessCallback(tobj, GLU_TESS_BEGIN,
-;;                    (GLvoid (CALLBACK*) ()) &beginCallback);
-;;    gluTessCallback(tobj, GLU_TESS_END,
-;;                    (GLvoid (CALLBACK*) ()) &endCallback);
-;;    gluTessCallback(tobj, GLU_TESS_ERROR,
-;;                    (GLvoid (CALLBACK*) ()) &errorCallback);
-
-   ;;rectangle with triangular hole inside
-        (gl:new-list *start-list* :compile)
-        (gl:shade-model :flat)
-        (glu:tess-begin-polygon tobj nil)
-        (glu:tess-begin-contour tobj)
-        (loop for coords in rect
-           do (glu:tess-vertex tobj coords))
-        (glu:tess-end-contour tobj)
-
-        (glu:tess-begin-contour tobj)
-        (loop for coords in tri
-           do (glu:tess-vertex tobj coords))
-        (glu:tess-end-contour tobj)
-        (glu:tess-end-polygon tobj)
-        (gl:end-list)
-))
+;;    (loop for coords in rect
+;;       do (glu:tess-vertex tobj coords))
+;    (glu:tess-end-contour tobj)
+    
+    (glu:tess-begin-contour tobj)
+    (loop for coords in tri
+       do (glu:tess-vertex tobj coords))
+    (glu:tess-end-contour tobj)
+    (glu:tess-end-polygon tobj)
+    (gl:end-list)
+    ))
 #|
    gluTessCallback(tobj, GLU_TESS_VERTEX,
                    (GLvoid (CALLBACK*) ()) &vertexCallback);

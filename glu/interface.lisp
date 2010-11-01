@@ -37,12 +37,12 @@
 
 (defparameter *tess-callbacks* '())
 
-(defstruct tess-callback name gf cb arg-count)
+(defstruct tess-callback name generic-function callback callback-type arg-count)
 
-(defmacro define-tessellation-callback (name args &body callback-body)
+(defmacro define-tessellation-callback (name callback-type args &body callback-body)
   (let ((arg-names (mapcar #'car (cdr args)))
         (tessellation-cb (gl::symbolicate "%" name))
-        (tessellation-name (intern (symbol-name (subseq name 0 (- (length name) 3))) '#:keyword)))
+        (tessellation-name (intern (symbol-name name) '#:keyword)))
     `(progn
        ;;define generic function
        (defgeneric ,name (,(car args) ,@arg-names))
@@ -52,42 +52,30 @@
                ,@callback-body)
             `(defcallback ,tessellation-cb :void ,(cdr args)
                (,name *active-tessellator* ,@arg-names)))
-       (push (make-tess-callback :name ,tessellation-name :gf #',name 
-                                 :cb ',tessellation-cb :arg-count ,(length arg-names))
+       (push (make-tess-callback :name ,tessellation-name :generic-function #',name 
+                                 :callback ',tessellation-cb :callback-type ,callback-type
+                                 :arg-count ,(length arg-names))
              *tess-callbacks*))))
 
 (defmacro define-tessellation-callbacks (&body callback-specs)
   `(progn
      (setq *tess-callbacks* '())
-     ,@(loop for (name args) in callback-specs 
-          collect `(define-tessellation-callback ,name ,args))))
+     ,@(loop for (name callback-type args) in callback-specs 
+          collect `(define-tessellation-callback ,name ,callback-type ,args))))
 
 (define-tessellation-callbacks
-  (tess-begin-cb (tessellator (type %gl:enum)))
-  (tess-edge-flag-cb (tessellator (flag  %gl:boolean)))
-  (tess-vertex-cb (tessellator (vertex-data :pointer)))
-  (tess-end-cb (tessellator))
-  ;;TODO error enum
-  (tess-error-cb (tessellator (error-number %gl:enum)))  
-                                        ;:TODO add body to convert to arrays
-  (tess-combine-cb (tessellator (coords :pointer) (vertex-data :pointer) (weight :pointer) (out-data :pointer))
-                   (let ((coords-array (make-gl-array coords %gl:double 3))
-                         (vertex-data-array (make-gl-vertex-array vertex-data gl-vertex 4))
-                         (weight-array (make-gl-array weight %gl:float 4))))
-                   ;;todo handle out data
-                   )
   ;;TODO consider declaring only one flavor of callbacks
-  (tess-begin-data-cb (tessellator (type %gl:enum) (polygon-data :pointer)))
-  (tess-edge-flag-data-cb (tessellator (flag %gl:boolean) (polygon-data :pointer)))
-  (tess-end-data-cb (tessellator (polygon-data :pointer)))
-  (tess-vertex-data-cb (tessellator (vertex-data :pointer) (polygon-data :pointer)))
+  (tess-begin-data-cb :tess-begin-data (tessellator (type :unsigned-int) (polygon-data :pointer)))
+  (tess-edge-flag-data-cb :tess-edge-flag (tessellator (flag %gl:boolean) (polygon-data :pointer)))
+  (tess-end-data-cb :tess-end-data (tessellator (polygon-data :pointer)))
+  (tess-vertex-data-cb :tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer)))
   ;;TODO error enum
-  (tess-error-data-cb (tessellator (error-number %gl:enum) (polygon-data :pointer)))
-  (tess-combine-data-cb (tessellator (coords :pointer) 
-                                     (vertex-data :pointer) 
-                                     (weight :pointer) 
-                                     (out-data :pointer) 
-                                     (polygon-data :pointer))))
+  (tess-error-data-cb :tess-error-data (tessellator (error-number %gl:enum) (polygon-data :pointer)))
+  (tess-combine-data-cb :tess-combine-data (tessellator (coords :pointer) 
+                                                        (vertex-data :pointer) 
+                                                        (weight :pointer) 
+                                                        (out-data :pointer) 
+                                                        (polygon-data :pointer))))
 
 (defclass tessellator ()
   ((glu-tessellator :reader glu-tessellator)))
@@ -115,12 +103,12 @@
 (defmethod tess-end-polygon ((tess tessellator))
   (glu-tess-end-polygon (glu-tessellator tess)))
 
-(defmethod tess-begin :before ((tess tessellator) which)
+(defmethod tess-begin-data-cb ((tess tessellator) which polygon-data)
   (gl:begin which))
 
-(defmethod tess-error ((tess tessellator) error-code)
+(defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
   ;;TODO handle error
-  (break error-code))
+  (format t "~a" (error-string error-code)))
 
 (defmethod tess-end :after ((tess tessellator))
   (gl:end)
@@ -129,9 +117,9 @@
 (defun register-callbacks (tess)
   (loop for tess-cb in *tess-callbacks*
      ;;TODO uncomment and fix this
-     ;when (compute-applicable-methods 
-     ;      (tess-callback-gf tess-cb) 
-     ;      (cons tess (loop repeat (tess-callback-arg-count tess-cb) collect t)))
+     when (compute-applicable-methods 
+           (tess-callback-generic-function tess-cb) 
+           (cons tess (loop repeat (tess-callback-arg-count tess-cb) collect t)))
      do (glu-tess-callback (glu-tessellator tess) 
-                           (tess-callback-name tess-cb)
-                           (get-callback (tess-callback-cb tess-cb)))))
+                           (tess-callback-callback-type tess-cb)
+                           (get-callback (tess-callback-callback tess-cb)))))
