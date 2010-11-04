@@ -291,18 +291,17 @@
 
 (defcenum (tessellation-type %gl:enum)
   (:tess-begin 100100)
-  :tess-edge-flag
-  :tess-vertex
-  :tess-end
-  :tess-error
-  :tess-combine
-  :tess-begin-data
-  :tess-edge-flag-data
-  :tess-vertex-data
-  :tess-end-data
-  :tess-error-data
-  :tess-combine-data)
-
+  (:tess-vertex 100101)
+  (:tess-end 100102)
+  (:tess-error 100103)
+  (:tess-edge-flag 100104)
+  (:tess-combine 100105)
+  (:tess-begin-data 100106)
+  (:tess-vertex-data 100107)
+  (:tess-end-data 100108)
+  (:tess-error-data 100109)
+  (:tess-edge-flag-data 100110)
+  (:tess-combine-data 100111))
 
 (defcfun ("gluTessCallback" glu-tess-callback) :void
   (tess tess-pointer) (type tessellation-type) (callback :pointer))

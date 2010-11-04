@@ -66,12 +66,6 @@
    #:tess-error
    #:tess-end
    ;; Tessellator callbacks
-   #:tess-begin-cb
-   #:tess-edge-flag-cb
-   #:tess-vertex-cb
-   #:tess-end-cb
-   #:tess-error-cb
-   #:tess-combine-cb
    #:tess-begin-data-cb
    #:tess-edge-flag-data-cb
    #:tess-end-data-cb

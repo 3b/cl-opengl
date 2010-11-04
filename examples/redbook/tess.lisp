@@ -32,10 +32,9 @@
 
 (defmethod glut:display ((w tess-window))
   (gl:clear :color-buffer)
-  (gl:color 1 1 1)
+  (gl:color 1 0.28 1)
   (gl:call-list *start-list*)
-  (gl:call-list (1+ *start-list*))
-  (gl:flush))
+  (gl:call-list (1+ *start-list*)))
 
 (defmethod glut:reshape ((w tess-window) width height)
   (gl:viewport 0 0 width height)
@@ -48,13 +47,14 @@
   (when (eql key #\Esc)
     (glut:destroy-current-window)))
 
-(defmethod tess-vertex-data-cb ((tess example-tessellator) vertex-data polygon-data)
-  (break "llala")
-  (gl:color 0.2 0.3 0.4)
-  (gl:vertex 2 3))
+(defmethod glu:tess-vertex-data-cb ((tess example-tessellator) vertex-data polygon-data)
+ ; (break polygon-data))
+;  (gl:color 0.2 0.3 0.4)
+  (break "~a" (gl::make-gl-array-from-pointer vertex-data :double 3)))
+;  (gl:vertex ))
 
-(defmethod tess-combine-data-cb ((tess example-tessellator) coords vertex-data weight data-out polygon-data)
-  (break vertex-data))
+(defmethod glu:tess-combine-data-cb ((tess example-tessellator) coords vertex-data weight data-out polygon-data)
+  (break coords))
 
 #|
 void CALLBACK vertexCallback(GLvoid *vertex)
@@ -95,10 +95,10 @@ void CALLBACK combineCallback(GLdouble coords[3],
 
 (defun init ()
   (let ((tobj (make-instance 'example-tessellator))
-        (rect '((50.0 50.0 0.0)
-                (200.0 50.0 0.0)
-                (200.0 200.0 0.0)
-                (50.0 200.0 0.0)))
+        (rect '((5.0 5.0 0.0)
+                (20.0 5.0 0.0)
+                (20.0 20.0 0.0)
+                (5.0 20.0 0.0)))
         (tri '((75.0 75.0 0.0)
                (125.0 175.0 0.0)
                (175.0 75.0 0.0))))
@@ -116,19 +116,14 @@ void CALLBACK combineCallback(GLdouble coords[3],
     (gl:shade-model :flat)
     (glu:tess-begin-polygon tobj nil)
     (glu:tess-begin-contour tobj)
-    (glu:tess-vertex tobj '(50.0 50.0 0.0))
-;    (glu:tess-vertex tobj '(200.0 50.0 0.0))
-;    (glu:tess-vertex tobj '(200.0 200.0 0.0))
-;    (glu:tess-vertex tobj '(50.0 200.0 0.0))
-
-;;    (loop for coords in rect
-;;       do (glu:tess-vertex tobj coords))
-;    (glu:tess-end-contour tobj)
-    
-    (glu:tess-begin-contour tobj)
-    (loop for coords in tri
+    (loop for coords in rect
        do (glu:tess-vertex tobj coords))
     (glu:tess-end-contour tobj)
+    
+;;     (glu:tess-begin-contour tobj)
+;;     (loop for coords in tri
+;;        do (glu:tess-vertex tobj coords))
+;;     (glu:tess-end-contour tobj)
     (glu:tess-end-polygon tobj)
     (gl:end-list)
     ))
