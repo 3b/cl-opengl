@@ -204,15 +204,14 @@
 ;;; appropriate type to contain the modelview matrix, projection
 ;;; matrix, and viewport for calls to GLU projection functions.
 (defmacro with-projection-arrays ((model proj viewport) &body body)
-  (gl::once-only (model proj viewport)
-    `(progn
-       (assert (= (length ,model) 16))
-       (assert (= (length ,proj) 16))
-       (assert (= (length ,viewport) 4))
-       (gl::with-opengl-arrays ((,model '%gl:double ,model)
-                                (,proj '%gl:double ,proj)
-                                (,viewport '%gl:int ,viewport))
-         ,@body))))
+  `(progn
+     (assert (= (length ,model) 16))
+     (assert (= (length ,proj) 16))
+     (assert (= (length ,viewport) 4))
+     (gl::with-opengl-arrays ((,model '%gl:double ,model)
+                              (,proj '%gl:double ,proj)
+                              (,viewport '%gl:int ,viewport))
+       ,@body)))
 
 ;;; Map object coordinates to window coordinates.  The MODELVIEW
 ;;; matrix, PROJECTION matrix, and VIEWPORT dimensions will be queried
