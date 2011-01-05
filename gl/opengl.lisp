@@ -447,6 +447,16 @@ another buffer is bound within FORMS."
      (multiple-value-prog1 (progn ,@body)
        (pop-matrix))))
 
+(defmacro with-pushed-matrix* ((matrix) &body body)
+  ;; fixme: should once-only matrix, but only if it isn't a keyword
+  `(progn
+     (matrix-mode ,matrix)
+     (push-matrix)
+     (unwind-protect
+          (progn ,@body)
+       (matrix-mode ,matrix)
+       (pop-matrix))))
+
 (import-export %gl:active-texture)
 
 ;;;
