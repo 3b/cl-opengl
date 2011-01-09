@@ -673,6 +673,14 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
       (x `(%gl:uniform-1f ,location ,(float* x))))))
 
 
+(definline uniformfv (location a)
+  (case (length a)
+    (4 (%gl:uniform-4f location (aref a 0) (aref a 1) (aref a 2) (aref a 3)))
+    (3 (%gl:uniform-3f location (aref a 0) (aref a 1) (aref a 2)))
+    (2 (%gl:uniform-2f location (aref a 0) (aref a 1)))
+    (1 (%gl:uniform-1f location (aref a 0)))))
+
+
 (defun uniform-matrix (location dim matrices &optional (transpose t))
   (check-type dim (integer 2 4))
   (let ((matrix-count (length matrices))

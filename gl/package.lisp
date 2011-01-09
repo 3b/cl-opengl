@@ -359,4 +359,5 @@
    #:framebuffer-renderbuffer-ext
    #:generate-mipmap-ext
    #:with-pushed-matrix*
+   #:uniformfv
    ))
