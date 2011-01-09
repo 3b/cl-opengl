@@ -358,4 +358,5 @@
    #:framebuffer-texture-3d-ext
    #:framebuffer-renderbuffer-ext
    #:generate-mipmap-ext
+   #:with-pushed-matrix*
    ))
