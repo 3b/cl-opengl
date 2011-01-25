@@ -278,8 +278,12 @@
   (vertex-data :pointer))
 
 (defun glu-tess-vertex (tess coords)
-  (gl::with-opengl-sequence (array '%gl:double coords)
-    (%gluTessVertex tess array array)))
+  (let* ((count (length coords))
+        (arr (foreign-alloc '%gl:double :count count)))
+    (loop for i below count
+       do (setf (mem-aref arr '%gl:double i)
+                (float (elt coords i))))
+    (%gluTessVertex tess arr arr)))
                         
 (defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))

@@ -67,7 +67,9 @@
   (tess-begin-data-cb :tess-begin-data (tessellator (type :unsigned-int) (polygon-data :pointer)))
   (tess-edge-flag-data-cb :tess-edge-flag (tessellator (flag %gl:boolean) (polygon-data :pointer)))
   (tess-end-data-cb :tess-end-data (tessellator (polygon-data :pointer)))
-  (tess-vertex-data-cb :tess-vertex-data (tessellator (vertex-data (:pointer :void)) (polygon-data (:pointer :void))))
+  (tess-vertex-data-cb :tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer))
+                       ;;TODO need to free vertex-data here
+                       )
   (tess-error-data-cb :tess-error-data (tessellator (error-number :unsigned-int) (polygon-data (:pointer :void))))
   (tess-combine-data-cb :tess-combine-data (tessellator (coords :pointer) 
                                                         (vertex-data :pointer) 
@@ -105,9 +107,9 @@
   (gl:begin which))
 
 (defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
-  (format t "~A" (error-string error-code)))
+  (format t "error ~A" (error-string error-code)))
 
-(defmethod tess-end :after ((tess tessellator))
+(defmethod tess-end-data-cb ((tess tessellator) polygon-data)
   (gl:end)
   (setf *active-tessellator* nil))
 
