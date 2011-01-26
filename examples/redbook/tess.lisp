@@ -99,9 +99,7 @@
   ;;;; smooth shaded, self-intersecting star
   (gl:new-list (1+ *start-list*) :compile)
   (gl:shade-model :smooth)
-  ;;;TODO no support for tessproperty yet
-;   gluTessProperty(tobj, GLU_TESS_WINDING_RULE,
-;                   GLU_TESS_WINDING_POSITIVE);
+  (glu:tess-property tobj :tess-winding-rule :tess-winding-positive)
   (glu:tess-begin-polygon tobj nil)
   (glu:tess-begin-contour tobj)
   (loop for coords in star

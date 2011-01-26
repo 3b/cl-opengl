@@ -107,11 +107,15 @@
   (gl:begin which))
 
 (defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
+  ::TODO this must signal an error
   (format t "error ~A" (error-string error-code)))
 
 (defmethod tess-end-data-cb ((tess tessellator) polygon-data)
   (gl:end)
   (setf *active-tessellator* nil))
+
+(defmethod tess-property ((tess tessellator) which value)
+  (glu-tess-property (glu-tessellator tess) which value))
 
 (defun register-callbacks (tess)
   (loop for tess-cb in *tess-callbacks*      

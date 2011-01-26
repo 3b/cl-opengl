@@ -65,6 +65,7 @@
    #:tess-begin
    #:tess-error
    #:tess-end
+   #:tess-property
    ;; Tessellator callbacks
    #:tess-begin-data-cb
    #:tess-edge-flag-data-cb

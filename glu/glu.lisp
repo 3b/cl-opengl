@@ -311,9 +311,22 @@
   (tess tess-pointer) (type tessellation-type) (callback :pointer))
 
 ;;;; 5.4 Control Over Tessellation
+(defcenum (tess-property %gl:enum)
+  (:tess-winding-rule 100140)
+  (:tess-boundary-only 100141)
+  (:tess-tolerance 100142))
 
-;;(defcfun ("gluTessProperty" tess-property) :void
-;;  )
+(defcenum (tess-winding %gl:enum)
+  (:tess-winding-odd 100130)
+  (:tess-winding-nonzero 100131)
+  (:tess-winding-positive 100132)
+  (:tess-winding-negative 100133)
+  (:tess-winding-abs-geq-two 100134))
+
+(defcfun ("gluTessProperty" glu-tess-property) :void
+  (tess tess-pointer)
+  (which tess-property)
+  (value tess-winding))
 
 ;;;; 5.7 Backwards Compatibility
 
