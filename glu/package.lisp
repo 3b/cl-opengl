@@ -72,4 +72,10 @@
    #:tess-end-data-cb
    #:tess-vertex-data-cb
    #:tess-error-data-cb
-   #:tess-combine-data-cb))
+   #:tess-combine-data-cb
+   ;; Tessellator properties
+   #:+tess-winding-odd+
+   #:+tess-winding-nonzero+
+   #:+tess-winding-positive+
+   #:+tess-winding-negative+
+   #:+tess-winding-abs-geq-two+))

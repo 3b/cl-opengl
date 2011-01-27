@@ -316,17 +316,16 @@
   (:tess-boundary-only 100141)
   (:tess-tolerance 100142))
 
-(defcenum (tess-winding %gl:enum)
-  (:tess-winding-odd 100130)
-  (:tess-winding-nonzero 100131)
-  (:tess-winding-positive 100132)
-  (:tess-winding-negative 100133)
-  (:tess-winding-abs-geq-two 100134))
+(defconstant +tess-winding-odd+ 100130)
+(defconstant +tess-winding-nonzero+ 100131)
+(defconstant +tess-winding-positive+ 100132)
+(defconstant +tess-winding-negative+ 100133)
+(defconstant +tess-winding-abs-geq-two+ 100134)
 
 (defcfun ("gluTessProperty" glu-tess-property) :void
   (tess tess-pointer)
   (which tess-property)
-  (value tess-winding))
+  (value %gl:double))
 
 ;;;; 5.7 Backwards Compatibility
 

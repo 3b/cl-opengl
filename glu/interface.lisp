@@ -107,8 +107,12 @@
   (gl:begin which))
 
 (defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
-  ::TODO this must signal an error
-  (format t "error ~A" (error-string error-code)))
+  ;;TODO this must signal an error
+  (format t "error ~A~%" (error-string error-code)))
+
+(defmethod tess-error-data-cb (tess error-code polygon-data)
+  ;;TODO this must signal an error
+  (format t "error ~A~%" (error-string error-code)))
 
 (defmethod tess-end-data-cb ((tess tessellator) polygon-data)
   (gl:end)
