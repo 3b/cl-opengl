@@ -71,9 +71,9 @@
                        ;;TODO need to free vertex-data here
                        )
   (tess-error-data-cb :tess-error-data (tessellator (error-number :unsigned-int) (polygon-data (:pointer :void))))
-  (tess-combine-data-cb :tess-combine-data (tessellator (coords :pointer) 
-                                                        (vertex-data :pointer) 
-                                                        (weight :pointer) 
+  (tess-combine-data-cb :tess-combine-data (tessellator (coords (:pointer %gl:double)) 
+                                                        (vertex-data (:pointer %gl:double)) 
+                                                        (weight (:pointer %gl:float)) 
                                                         (out-data :pointer) 
                                                         (polygon-data :pointer))))
 
@@ -116,7 +116,9 @@
 
 (defmethod tess-end-data-cb ((tess tessellator) polygon-data)
   (gl:end)
-  (setf *active-tessellator* nil))
+  ;;TODO this is not the right location for this
+  ;(setf *active-tessellator* nil)
+)
 
 (defmethod tess-property ((tess tessellator) which value)
   (glu-tess-property (glu-tessellator tess) which value))

@@ -57,10 +57,15 @@
     (gl:vertex (gl:glaref varray 0)
                (gl:glaref varray 1))))
 
-(defmethod glu:tess-combine-data-cb ((tess example-tessellator) coords vertex-data weight data-out polygon-data)
-;;TODO figure this out
-  ;(let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
-)
+(defmethod glu:tess-combine-data-cb ((tess example-tessellator) coords vertex-data weight data-out polygon-adata)
+  (let ((vertex (cffi:foreign-alloc '%gl:double :count 3)))
+    (loop for i from 0 below 3
+       do (setf (cffi:mem-aref vertex '%gl:double i)
+                (cffi:mem-aref coords '%gl:double i)))
+    
+    ;;TODO set colours
+                   
+    (setf (cffi:mem-ref data-out :pointer) vertex)))
 
 (defun init ()
   (let ((tobj (make-instance 'example-tessellator))
