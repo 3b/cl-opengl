@@ -67,7 +67,6 @@
        do (setf (cffi:mem-aref vertex '%gl:double i)
                 (cffi:mem-aref coords '%gl:double i)))
     
-    ;;TODO set colours
     (loop for i from 3 below 6
          do (setf (cffi:mem-aref vertex '%gl:double i)
                   (+ 
