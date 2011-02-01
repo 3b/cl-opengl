@@ -1,5 +1,5 @@
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
-;;; tess.lisp --- Lisp version of tess.c (Red Book examples)
+;;; tess-wind.lisp --- Lisp version of tesswind.c (Red Book examples)
 ;;;
 ;;; Original C version contains the following copyright notice:
 ;;;   Copyright (c) 1993-1997, Silicon Graphics, Inc.
@@ -151,7 +151,7 @@
   (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
     (gl:vertex (gl:glaref varray 0)
                (gl:glaref varray 1)
-               (gl:glaref varray 3))))
+               (gl:glaref varray 2))))
 
 (defmethod glu:tess-combine-data-cb ((tess winding-tessellator) coords vertex-data weight data-out polygon-adata)
   (let ((vertex (cffi:foreign-alloc '%gl:double :count 3)))

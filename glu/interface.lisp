@@ -81,9 +81,13 @@
   ((glu-tessellator :reader glu-tessellator)))
 
 (defmethod initialize-instance :after ((obj tessellator) &key)
-  ;;TODO signal error if return value is 0
-  (setf (slot-value obj 'glu-tessellator) (new-tess))
-  (register-callbacks obj))
+  (let ((tess (new-tess)))
+    (if (cffi:null-pointer-p tess)
+        (error "Error creating tessellator object")
+        (progn
+          (setf (slot-value obj 'glu-tessellator) (new-tess))
+          (register-callbacks obj)))))
+        
 
 ;;TODO make polygon-data optional
 (defmethod tess-begin-polygon ((tess tessellator) polygon-data)
@@ -107,18 +111,10 @@
   (gl:begin which))
 
 (defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
-  ;;TODO this must signal an error
-  (format t "error ~A~%" (error-string error-code)))
-
-(defmethod tess-error-data-cb (tess error-code polygon-data)
-  ;;TODO this must signal an error
-  (format t "error ~A~%" (error-string error-code)))
+  (error "Tessellation error: ~A~%" (error-string error-code)))
 
 (defmethod tess-end-data-cb ((tess tessellator) polygon-data)
-  (gl:end)
-  ;;TODO this is not the right location for this
-  ;(setf *active-tessellator* nil)
-)
+  (gl:end))
 
 (defmethod tess-property ((tess tessellator) which value)
   (glu-tess-property (glu-tessellator tess) which value))

@@ -54,7 +54,7 @@
   (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
     (gl:vertex (gl:glaref varray 0)
                (gl:glaref varray 1)
-               (gl:glaref varray 3))))
+               (gl:glaref varray 2))))
 
 (defmethod glu:tess-vertex-data-cb ((tess star-tessellator) vertex-data polygon-data)
   (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 6)))
