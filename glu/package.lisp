@@ -56,6 +56,7 @@
    #:un-project4
    ;; Tessellation
    #:tessellator
+   #:tess-delete
    ;; Tessellator methods
    #:tess-begin-polygon
    #:tess-begin-contour

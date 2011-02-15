@@ -113,6 +113,7 @@
     (glu:tess-end-contour tobj)
     (glu:tess-end-polygon tobj)
     (gl:end-list)
+    (glu:tess-delete tobj)
     
   ;;;; smooth shaded, self-intersecting star
     (setf tobj (make-instance 'star-tessellator))
@@ -125,7 +126,9 @@
        do (glu:tess-vertex tobj coords))                           
     (glu:tess-end-contour tobj)
     (glu:tess-end-polygon tobj)
-    (gl:end-list)))
+    (gl:end-list)
+    (glu:tess-delete tobj)))
+
 
 (defun rb-tess ()
   (setf glut:*run-main-loop-after-display* nil)

@@ -67,9 +67,7 @@
   (tess-begin-data-cb :tess-begin-data (tessellator (type :unsigned-int) (polygon-data :pointer)))
   (tess-edge-flag-data-cb :tess-edge-flag (tessellator (flag %gl:boolean) (polygon-data :pointer)))
   (tess-end-data-cb :tess-end-data (tessellator (polygon-data :pointer)))
-  (tess-vertex-data-cb :tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer))
-                       ;;TODO need to free vertex-data here
-                       )
+  (tess-vertex-data-cb :tess-vertex-data (tessellator (vertex-data :pointer) (polygon-data :pointer)))
   (tess-error-data-cb :tess-error-data (tessellator (error-number :unsigned-int) (polygon-data (:pointer :void))))
   (tess-combine-data-cb :tess-combine-data (tessellator (coords (:pointer %gl:double)) 
                                                         (vertex-data (:pointer %gl:double)) 
@@ -89,8 +87,10 @@
           (register-callbacks obj)))))
         
 
-;;TODO make polygon-data optional
-(defmethod tess-begin-polygon ((tess tessellator) polygon-data)
+(defmethod tess-delete ((obj tessellator))
+  (glu-delete-tess (glu-tessellator obj)))
+
+(defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
   (setf *active-tessellator* tess)
   (glu-tess-begin-polygon (glu-tessellator tess) 
                       (or polygon-data (null-pointer))))
@@ -107,17 +107,17 @@
 (defmethod tess-end-polygon ((tess tessellator))
   (glu-tess-end-polygon (glu-tessellator tess)))
 
+(defmethod tess-property ((tess tessellator) which value)
+  (glu-tess-property (glu-tessellator tess) which value))
+
 (defmethod tess-begin-data-cb ((tess tessellator) which polygon-data)
   (gl:begin which))
-
+  
 (defmethod tess-error-data-cb ((tess tessellator) error-code polygon-data)
   (error "Tessellation error: ~A~%" (error-string error-code)))
 
 (defmethod tess-end-data-cb ((tess tessellator) polygon-data)
   (gl:end))
-
-(defmethod tess-property ((tess tessellator) which value)
-  (glu-tess-property (glu-tessellator tess) which value))
 
 (defun register-callbacks (tess)
   (loop for tess-cb in *tess-callbacks*      
