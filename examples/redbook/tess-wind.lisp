@@ -141,7 +141,7 @@
       (loop for i from 0 below 3
          do (glu:tess-vertex tobj (elt tri i)))
       (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
+      (glu:tess-end-polygon tobj))))
 
 (defmethod glu:tess-vertex-data-callback ((tess winding-tessellator) vertex-data polygon-data)
   (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
