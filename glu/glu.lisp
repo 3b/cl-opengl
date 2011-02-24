@@ -272,7 +272,7 @@
 (defcfun ("gluTessBeginContour" glu-tess-begin-contour) :void
   (tess tess-pointer))
 
-(defcfun ("gluTessVertex" %gluTessVertex) :void
+(defcfun ("gluTessVertex" %glu-tess-vertex) :void
   (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
@@ -283,7 +283,7 @@
     (loop for i below count
        do (setf (mem-aref arr '%gl:double i)
                 (float (elt coords i))))
-    (%gluTessVertex tess arr arr)))
+    (%glu-tess-vertex tess arr arr)))
                         
 (defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))
@@ -294,38 +294,48 @@
 ;;;; 5.3 Callbacks
 
 (defcenum (tessellation-type %gl:enum)
-  (:tess-begin 100100)
-  (:tess-vertex 100101)
-  (:tess-end 100102)
-  (:tess-error 100103)
-  (:tess-edge-flag 100104)
-  (:tess-combine 100105)
-  (:tess-begin-data 100106)
-  (:tess-vertex-data 100107)
-  (:tess-end-data 100108)
-  (:tess-error-data 100109)
-  (:tess-edge-flag-data 100110)
-  (:tess-combine-data 100111))
+  (:begin 100100)
+  :vertex
+  :end
+  :error
+  :edge-flag
+  :combine
+  :begin-data
+  :vertex-data
+  :end-data
+  :error-data
+  :edge-flag-data
+  :combine-data)
 
 (defcfun ("gluTessCallback" glu-tess-callback) :void
   (tess tess-pointer) (type tessellation-type) (callback :pointer))
 
 ;;;; 5.4 Control Over Tessellation
 (defcenum (tess-property %gl:enum)
-  (:tess-winding-rule 100140)
-  (:tess-boundary-only 100141)
-  (:tess-tolerance 100142))
+  (:winding-rule 100140)
+  :boundary-only
+  :tolerance)
 
-(defconstant +tess-winding-odd+ 100130)
-(defconstant +tess-winding-nonzero+ 100131)
-(defconstant +tess-winding-positive+ 100132)
-(defconstant +tess-winding-negative+ 100133)
-(defconstant +tess-winding-abs-geq-two+ 100134)
+(defcenum (tess-winding-rule %gl:double)
+  (:odd 100130)
+  :nonzero
+  :positive
+  :negative
+  :abs-geq-two)
 
-(defcfun ("gluTessProperty" glu-tess-property) :void
+(defcfun ("gluTessProperty" %glu-tess-property) :void
   (tess tess-pointer)
   (which tess-property)
   (value %gl:double))
+
+(defun glu-tess-property (tess which value)
+  (let ((cffi-value
+         (ecase which 
+           (:winding-rule (cffi:foreign-enum-value 'tess-winding-rule value))
+           (:boundary-only (cffi:foreign-enum-value '%gl:boolean value))
+           (:tolerance value))))
+    (%glu-tess-property tess which cffi-value)))
+                           
 
 ;;;; 5.7 Backwards Compatibility
 

@@ -68,15 +68,9 @@
    #:tess-end
    #:tess-property
    ;; Tessellator callbacks
-   #:tess-begin-data-cb
-   #:tess-edge-flag-data-cb
-   #:tess-end-data-cb
-   #:tess-vertex-data-cb
-   #:tess-error-data-cb
-   #:tess-combine-data-cb
-   ;; Tessellator properties
-   #:+tess-winding-odd+
-   #:+tess-winding-nonzero+
-   #:+tess-winding-positive+
-   #:+tess-winding-negative+
-   #:+tess-winding-abs-geq-two+))
+   #:tess-begin-data-callback
+   #:tess-edge-flag-data-callback
+   #:tess-end-data-callback
+   #:tess-vertex-data-callback
+   #:tess-error-data-callback
+   #:tess-combine-data-callback))
