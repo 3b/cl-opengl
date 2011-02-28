@@ -127,3 +127,13 @@
      do (glu-tess-callback (glu-tessellator tess) 
                            (tess-callback-callback-type tess-callback)
                            (get-callback (tess-callback-callback tess-callback)))))
+
+(defmacro with-tess-polygon ((tess-obj polygon-data) &body body)
+  `(unwind-protect (tess-begin-polygon ,tess-obj ,polygon-data)
+       (progn ,@body)
+     (tess-end-polygon ,tess-obj)))
+
+(defmacro with-tess-contour (tess-obj &body body)
+  `(unwind-protect (tess-begin-contour ,tess-obj)
+       (progn ,@body)
+     (tess-end-contour ,tess-obj)))

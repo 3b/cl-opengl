@@ -73,4 +73,7 @@
    #:tess-end-data-callback
    #:tess-vertex-data-callback
    #:tess-error-data-callback
-   #:tess-combine-data-callback))
+   #:tess-combine-data-callback
+   ;; Tessellator macros
+   #:with-tess-polygon
+   #:with-tess-contour))

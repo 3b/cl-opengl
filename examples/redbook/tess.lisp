@@ -90,47 +90,40 @@
                (125 175 0)
                (175 75 0)))
         (star '((250 50 0 1 0 1)
-                  (325 200 0 1 1 0)
-                  (400 50 0 0 1 1)
-                  (250 150 0 1 0 0)
-                  (400 150 0 0 1 0))))
-
+                (325 200 0 1 1 0)
+                (400 50 0 0 1 1)
+                (250 150 0 1 0 0)
+                (400 150 0 0 1 0))))
+    
     (gl:clear-color 0 0 0 0)
     (setf *start-list* (gl:gen-lists 2))
     
     ;; need to initialize tess property in case it is messed up
     (glu:tess-property tobj :winding-rule :positive)
-
+    
     ;;rectangle with triangular hole inside
     (gl:with-new-list (*start-list* :compile)
       (gl:shade-model :flat)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for coords in rect
-         do (glu:tess-vertex tobj coords))
-      (glu:tess-end-contour tobj)
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for coords in rect
+             do (glu:tess-vertex tobj coords)))
+        (glu:with-tess-contour tobj
+          (loop for coords in tri
+             do (glu:tess-vertex tobj coords))))
+      (glu:tess-delete tobj))
       
-      (glu:tess-begin-contour tobj)
-      (loop for coords in tri
-         do (glu:tess-vertex tobj coords))
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
-    (glu:tess-delete tobj)
-    
   ;;;; smooth shaded, self-intersecting star
     (setf tobj (make-instance 'star-tessellator))
     (gl:with-new-list ((1+ *start-list*) :compile) 
       (gl:shade-model :smooth)
       (glu:tess-property tobj :winding-rule :positive)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for coords in star
-         do (glu:tess-vertex tobj coords))                           
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
-    (glu:tess-delete tobj)))
-
-
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for coords in star
+             do (glu:tess-vertex tobj coords))))
+      (glu:tess-delete tobj))))
+    
 (defun rb-tess ()
   (setf glut:*run-main-loop-after-display* nil)
   (glut:display-window (make-instance 'tess-window))

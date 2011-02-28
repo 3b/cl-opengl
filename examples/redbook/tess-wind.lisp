@@ -88,60 +88,47 @@
     (glu:tess-property tobj :winding-rule *current-winding*)
     
     (gl:with-new-list (*list* :compile)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 4
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 4 below 8
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 8 below 12
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 4
+             do (glu:tess-vertex tobj (elt rects i))))
+        (glu:with-tess-contour tobj
+          (loop for i from 4 below 8
+             do (glu:tess-vertex tobj (elt rects i))))
+        (glu:with-tess-contour tobj
+          (loop for i from 8 below 12
+             do (glu:tess-vertex tobj (elt rects i))))))
       
     (gl:with-new-list ((+ *list* 1) :compile)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 4
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 7 downto 4
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 11 downto 8
-         do (glu:tess-vertex tobj (elt rects i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 4
+             do (glu:tess-vertex tobj (elt rects i))))
+        (glu:with-tess-contour tobj
+          (loop for i from 7 downto 4
+             do (glu:tess-vertex tobj (elt rects i))))
+
+        (glu:with-tess-contour tobj
+          (loop for i from 11 downto 8
+             do (glu:tess-vertex tobj (elt rects i))))))
     
     (gl:with-new-list ((+ *list* 2) :compile)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 16
-         do (glu:tess-vertex tobj (elt spiral i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 16
+             do (glu:tess-vertex tobj (elt spiral i))))))
     
     (gl:with-new-list ((+ *list* 3) :compile)
-      (glu:tess-begin-polygon tobj nil)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 4
-         do (glu:tess-vertex tobj (elt quad1 i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 4
-         do (glu:tess-vertex tobj (elt quad2 i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-begin-contour tobj)
-      (loop for i from 0 below 3
-         do (glu:tess-vertex tobj (elt tri i)))
-      (glu:tess-end-contour tobj)
-      (glu:tess-end-polygon tobj))))
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 4
+             do (glu:tess-vertex tobj (elt quad1 i))))
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 4
+             do (glu:tess-vertex tobj (elt quad2 i))))
+        (glu:with-tess-contour tobj
+          (loop for i from 0 below 3
+             do (glu:tess-vertex tobj (elt tri i))))))))
 
 (defmethod glu:tess-vertex-data-callback ((tess winding-tessellator) vertex-data polygon-data)
   (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
