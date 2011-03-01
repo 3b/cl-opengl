@@ -273,8 +273,7 @@ allocating new memory."
 
 (defun make-null-gl-array (type)
   "Returns a GL-ARRAY with a size of 0, a null pointer and of type TYPE."
-  (make-gl-array-from-pointer (null-pointer) 0 type))
-
+  (make-gl-array-from-pointer (null-pointer) type 0))
 
 ;;; Returns a pointer to the OFFSET-th element in ARRAY.  I think this
 ;;; is different from mem-aref for simple types.
