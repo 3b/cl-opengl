@@ -564,11 +564,27 @@
   (dolist (cap caps)
     (%gl:enable cap)))
 
+(define-compiler-macro enable (&rest caps)
+  `(progn
+     ,@(loop for cap in caps
+          for v = (when (keywordp cap)
+                    (foreign-enum-value '%gl:enum cap :errorp nil))
+          when v collect `(%gl:enable ,v)
+          else collect `(%gl:enable ,cap))))
+
 ;; external
 (defun disable (&rest caps)
   (declare (dynamic-extent caps))
   (dolist (cap caps)
     (%gl:disable cap)))
+
+(define-compiler-macro disable (&rest caps)
+  `(progn
+     ,@(loop for cap in caps
+          for v = (when (keywordp cap)
+                    (foreign-enum-value '%gl:enum cap :errorp nil))
+          when v collect `(%gl:disable ,v)
+          else collect `(%gl:disable ,cap))))
 
 ;; external
 (definline enabledp (cap)
