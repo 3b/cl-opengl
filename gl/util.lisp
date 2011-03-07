@@ -69,7 +69,8 @@
 (defmacro with-opengl-array ((var type lisp-array) &body body)
   (check-type var symbol)
   (let ((count (gensym "COUNT"))
-        (array (gensym "ARRAY")))
+        (array (gensym "ARRAY"))
+        (original-type type))
     (once-only (type)
       `(let* ((,array ,lisp-array)
               (,count (length ,array)))
@@ -77,16 +78,24 @@
            ;; we need type to be a constant within the loop so cffi can
            ;; optimize it, so check type outside the loop, and make a
            ;; copy of the loop for any types we care about
-           (case ,type
-             ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short %gl:ushort
-                                   %gl:int %gl:uint %gl:float)
-                  collect 
-                    `(,ctype
-                      (loop for i below ,count
-                         do (setf (mem-aref ,var ',ctype i) (aref ,array i)))))
-             (t 
-              (loop for i below ,count
-                 do (setf (mem-aref ,var ,type i) (aref ,array i)))))
+           ;; (unless we know the type at compile time, in which case only
+           ;;  generate code for that type)
+           ,(if (or (keywordp original-type)
+                    (and (consp original-type)
+                         (eq (first original-type) 'quote)))
+                `(loop for i below ,count
+                    do (setf (mem-aref ,var ,original-type i)
+                             (aref ,array i)))
+                `(case ,type
+                   ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short
+                                          %gl:ushort %gl:int %gl:uint %gl:float)
+                        collect
+                          `(,ctype
+                            (loop for i below ,count
+                               do (setf (mem-aref ,var ',ctype i) (aref ,array i)))))
+                   (t
+                    (loop for i below ,count
+                       do (setf (mem-aref ,var ,type i) (aref ,array i))))))
            ,@body)))))
 
 (defmacro with-opengl-arrays (bindings &body body)
