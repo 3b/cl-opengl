@@ -76,7 +76,8 @@
                                                         (polygon-data :pointer))))
 
 (defclass tessellator ()
-  ((glu-tessellator :reader glu-tessellator)))
+  ((glu-tessellator :reader glu-tessellator)
+   (data-to-free :accessor data :initform '())))
 
 (defmethod initialize-instance :after ((obj tessellator) &key)
   (let ((tess (new-tess)))
@@ -87,8 +88,9 @@
           (register-callbacks obj)))))
         
 
-(defmethod tess-delete ((obj tessellator))
-  (glu-delete-tess (glu-tessellator obj)))
+(defmethod tess-delete ((tess tessellator))
+  (glu-delete-tess (glu-tessellator tess))
+  (free-tess-data tess))
 
 (defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
   (setf *active-tessellator* tess)
@@ -99,13 +101,20 @@
   (glu-tess-begin-contour (glu-tessellator tess)))
 
 (defmethod tess-vertex ((tess tessellator) coords)
-  (glu-tess-vertex (glu-tessellator tess) coords))
+  (let* ((count (length coords))
+         (arr (foreign-alloc '%gl:double :count count)))
+    (loop for i below count
+       do (setf (mem-aref arr '%gl:double i)
+                (float (elt coords i))))
+    (glu-tess-vertex (glu-tessellator tess) arr arr)
+    (push arr (data tess))))
 
 (defmethod tess-end-contour ((tess tessellator))
   (glu-tess-end-contour (glu-tessellator tess)))
 
 (defmethod tess-end-polygon ((tess tessellator))
-  (glu-tess-end-polygon (glu-tessellator tess)))
+  (glu-tess-end-polygon (glu-tessellator tess))
+  (free-tess-data tess))
 
 (defmethod tess-property ((tess tessellator) which value)
   (glu-tess-property (glu-tessellator tess) which value))
@@ -114,6 +123,7 @@
   (gl:begin which))
   
 (defmethod tess-error-data-callback ((tess tessellator) error-code polygon-data)
+  (free-tess-data tess)
   (error "Tessellation error: ~A~%" (error-string error-code)))
 
 (defmethod tess-end-data-callback ((tess tessellator) polygon-data)
@@ -127,6 +137,12 @@
      do (glu-tess-callback (glu-tessellator tess) 
                            (tess-callback-callback-type tess-callback)
                            (get-callback (tess-callback-callback tess-callback)))))
+
+(defun free-tess-data (tess)
+  "Free data allocated with tess-vertex"
+  (loop for pointer in (data tess)
+     do (foreign-free pointer))
+  (setf (data tess) nil))
 
 (defmacro with-tess-polygon ((tess-obj polygon-data) &body body)
   `(unwind-protect (tess-begin-polygon ,tess-obj ,polygon-data)

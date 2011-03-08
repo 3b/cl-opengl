@@ -272,18 +272,10 @@
 (defcfun ("gluTessBeginContour" glu-tess-begin-contour) :void
   (tess tess-pointer))
 
-(defcfun ("gluTessVertex" %glu-tess-vertex) :void
+(defcfun ("gluTessVertex" glu-tess-vertex) :void
   (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
-
-(defun glu-tess-vertex (tess coords)
-  (let* ((count (length coords))
-         (arr (foreign-alloc '%gl:double :count count)))
-    (loop for i below count
-       do (setf (mem-aref arr '%gl:double i)
-                (float (elt coords i))))
-    (%glu-tess-vertex tess arr arr)))
                         
 (defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))
