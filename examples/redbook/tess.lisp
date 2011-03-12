@@ -61,11 +61,10 @@
         (gl:color (gl:glaref varray 3) (gl:glaref varray 4) (gl:glaref varray 5))
         (gl:vertex (gl:glaref varray 0) (gl:glaref varray 1) (gl:glaref varray 2))))
 
-(defmethod glu:tess-combine-data-callback ((tess star-tessellator) coords vertex-data weight data-out polygon-adata)
+(defmethod glu:tess-combine-data-callback ((tess star-tessellator) coords vertex-data weight data-out polygon-data)
   (let ((vertex (cffi:foreign-alloc '%gl:double :count 6)))
     (loop for i from 0 below 3
-       do (setf (cffi:mem-aref vertex '%gl:double i)
-                (cffi:mem-aref coords '%gl:double i)))
+       do (setf (cffi:mem-aref vertex '%gl:double i) (cffi:mem-aref coords '%gl:double i)))
     
     (loop for i from 3 below 6
          do (setf (cffi:mem-aref vertex '%gl:double i)

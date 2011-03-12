@@ -81,7 +81,7 @@
 
 (defmethod initialize-instance :after ((obj tessellator) &key)
   (let ((tess (new-tess)))
-    (if (cffi:null-pointer-p tess)
+    (if (null-pointer-p tess)
         (error "Error creating tessellator object")
         (progn
           (setf (slot-value obj 'glu-tessellator) (new-tess))
@@ -107,7 +107,7 @@
        do (setf (mem-aref arr '%gl:double i)
                 (float (elt coords i))))
     (glu-tess-vertex (glu-tessellator tess) arr arr)
-    (push arr (data tess))))
+    (save-data-to-free arr tess)))
 
 (defmethod tess-end-contour ((tess tessellator))
   (glu-tess-end-contour (glu-tessellator tess)))
@@ -121,6 +121,9 @@
 
 (defmethod tess-begin-data-callback ((tess tessellator) which polygon-data)
   (gl:begin which))
+
+(defmethod tess-combine-data-callback :after ((tess tessellator) coords vertex-data weight data-out polygon-data)
+  (save-data-to-free data-out tess))
   
 (defmethod tess-error-data-callback ((tess tessellator) error-code polygon-data)
   (free-tess-data tess)
@@ -140,9 +143,19 @@
 
 (defun free-tess-data (tess)
   "Free data allocated with tess-vertex"
+  ;(format t "~a" (data tess))
   (loop for pointer in (data tess)
-     do (foreign-free pointer))
+     when (and (pointerp pointer) 
+               (not (null-pointer-p pointer)))
+     do (format t "~a~%" pointer) 
+       ;;todo this doesn't work with a pointer to a pointer
+       (foreign-free pointer))
   (setf (data tess) nil))
+
+(defun save-data-to-free (data-to-free tess)
+  (when (and (pointerp data-to-free)
+             (not (null-pointer-p data-to-free)))
+    (pushnew data-to-free (data tess) :test 'cffi:pointer-eq)))
 
 (defmacro with-tess-polygon ((tess-obj polygon-data) &body body)
   `(unwind-protect (tess-begin-polygon ,tess-obj ,polygon-data)
