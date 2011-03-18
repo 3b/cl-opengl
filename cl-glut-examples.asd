@@ -52,7 +52,9 @@
        (:file "list")
        (:file "stroke")
        (:file "smooth")
-       (:file "movelight")))
+       (:file "movelight")
+       (:file "tess")
+       (:file "tess-wind")))
      (:module "mesademos"
       :depends-on ("examples")
       :components
