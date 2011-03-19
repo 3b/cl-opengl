@@ -50,18 +50,14 @@
   (when (eql key #\Esc)
     (glut:destroy-current-window)))
 
-(defmethod glu:tess-vertex-data-callback ((tess example-tessellator) vertex-data polygon-data)
-  (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 3)))
-    (gl:vertex (gl:glaref varray 0)
-               (gl:glaref varray 1)
-               (gl:glaref varray 2))))
+(defmethod glu:vertex-data-callback ((tess example-tessellator) vertex-data polygon-data)
+  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
 
-(defmethod glu:tess-vertex-data-callback ((tess star-tessellator) vertex-data polygon-data)
-  (let ((varray (gl::make-gl-array-from-pointer vertex-data '%gl:double 6)))
-        (gl:color (gl:glaref varray 3) (gl:glaref varray 4) (gl:glaref varray 5))
-        (gl:vertex (gl:glaref varray 0) (gl:glaref varray 1) (gl:glaref varray 2))))
+(defmethod glu:vertex-data-callback ((tess star-tessellator) vertex-data polygon-data)
+  (gl:color (gl:glaref vertex-data 3) (gl:glaref vertex-data 4) (gl:glaref vertex-data 5))
+  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2))))
 
-(defmethod glu:tess-combine-data-callback ((tess star-tessellator) coords vertex-data weight data-out polygon-data)
+(defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight data-out polygon-data)
   (let ((vertex (cffi:foreign-alloc '%gl:double :count 6)))
     (loop for i from 0 below 3
        do (setf (cffi:mem-aref vertex '%gl:double i) (cffi:mem-aref coords '%gl:double i)))
