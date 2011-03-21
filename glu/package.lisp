@@ -68,12 +68,12 @@
    #:tess-end
    #:tess-property
    ;; Tessellator callbacks
-   #:tess-begin-data-callback
-   #:tess-edge-flag-data-callback
-   #:tess-end-data-callback
-   #:tess-vertex-data-callback
-   #:tess-error-data-callback
-   #:tess-combine-data-callback
+   #:begin-data-callback
+   #:edge-flag-data-callback
+   #:end-data-callback
+   #:vertex-data-callback
+   #:error-data-callback
+   #:combine-data-callback
    ;; Tessellator macros
    #:with-tess-polygon
    #:with-tess-contour))

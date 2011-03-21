@@ -55,25 +55,20 @@
 
 (defmethod glu:vertex-data-callback ((tess star-tessellator) vertex-data polygon-data)
   (gl:color (gl:glaref vertex-data 3) (gl:glaref vertex-data 4) (gl:glaref vertex-data 5))
-  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2))))
+  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
 
-(defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight data-out polygon-data)
-  (let ((vertex (cffi:foreign-alloc '%gl:double :count 6)))
+(defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight polygon-data)
+  (let ((vertex '()))
     (loop for i from 0 below 3
-       do (setf (cffi:mem-aref vertex '%gl:double i) (cffi:mem-aref coords '%gl:double i)))
+       do (push (gl:glaref coords i) vertex))
     
-    (loop for i from 3 below 6
-         do (setf (cffi:mem-aref vertex '%gl:double i)
-                  (+ 
-                   (* (cffi:mem-aref weight '%gl:float 0)
-                      (cffi:mem-aref (cffi:mem-aref vertex-data :pointer 0) '%gl:double i))
-                   (* (cffi:mem-aref weight '%gl:float 1)
-                      (cffi:mem-aref (cffi:mem-aref vertex-data :pointer 1) '%gl:double i))
-                   (* (cffi:mem-aref weight '%gl:float 2)
-                      (cffi:mem-aref (cffi:mem-aref vertex-data :pointer 2) '%gl:double i))
-                   (* (cffi:mem-aref weight '%gl:float 3)
-                      (cffi:mem-aref (cffi:mem-aref vertex-data :pointer 3) '%gl:double i)))))
-    (setf (cffi:mem-ref data-out :pointer) vertex)))
+     (loop for i from 3 below 6
+        do (push i ;(+ (* (gl:glaref weight 0) (gl:glaref (gl:glaref vertex-data 0) i))
+                 ;   (* (gl:glaref weight 1) (gl:glaref (gl:glaref vertex-data 1) i))
+                 ;   (* (gl:glaref weight 2) (gl:glaref (gl:glaref vertex-data 2) i))
+                 ;   (* (gl:glaref weight 3) (gl:glaref (gl:glaref vertex-data 3) i)))
+                 vertex))
+    vertex))
 
 (defun init ()
   (let ((tobj (make-instance 'example-tessellator))
@@ -108,7 +103,7 @@
              do (glu:tess-vertex tobj coords))))
       (glu:tess-delete tobj))
       
-  ;;;; smooth shaded, self-intersecting star
+    ;;smooth shaded, self-intersecting star
     (setf tobj (make-instance 'star-tessellator))
     (gl:with-new-list ((1+ *start-list*) :compile) 
       (gl:shade-model :smooth)
