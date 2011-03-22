@@ -139,7 +139,7 @@
   (loop for i from 0 below 3
      collect (gl:glaref coords i)))
 
-(defun init ()
+(defun init-tess-wind ()
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat)
   (setf *list* (gl:gen-lists 4))
@@ -148,5 +148,5 @@
 (defun rb-tess-wind ()
   (setf glut:*run-main-loop-after-display* nil)
   (glut:display-window (make-instance 'tess-wind-window))
-  (init)
+  (init-tess-wind)
   (glut:main-loop))
