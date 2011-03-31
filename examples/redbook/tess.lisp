@@ -59,18 +59,19 @@
 
 (defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight polygon-data)
   (let ((vertex '()))
-    (loop for i from 3 below 6
-         do (push i vertex))
-
     (loop for i from 3 downto 0
        do (push (gl:glaref coords i) vertex))
     
-     ;(loop for i from 3 below 6
-     ;    do (push i ;(+ (* (gl:glaref weight 0) (gl:glaref (gl:glaref vertex-data 0) i))
-     ;;             ;   (* (gl:glaref weight 1) (gl:glaref (gl:glaref vertex-data 1) i))
-     ;;             ;   (* (gl:glaref weight 2) (gl:glaref (gl:glaref vertex-data 2) i))
-     ;;             ;   (* (gl:glaref weight 3) (gl:glaref (gl:glaref vertex-data 3) i)))
-     ;             vertex))
+    (loop for i from 5 downto 0
+       do (push (+ (* (gl:glaref weight 0) 
+                      (gl:glaref (aref vertex-data 0) i))
+                   (* (gl:glaref weight 1) 
+                      (gl:glaref (aref vertex-data 1) i))
+                   (* (gl:glaref weight 2) 
+                      (gl:glaref (aref vertex-data 2) i))
+                   (* (gl:glaref weight 3) 
+                      (gl:glaref (aref vertex-data 3) i)))
+                vertex))
      vertex))
 
 (defun init-tess ()

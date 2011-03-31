@@ -150,7 +150,7 @@
 
 (defcallback %combine-data-callback :void ((coords (:pointer %gl:double)) (vertex-data (:pointer %gl:double)) (weight (:pointer %gl:float)) (out-data :pointer) (polygon-data :pointer))
   (let* ((coords-array (gl::make-gl-array-from-pointer coords '%gl:double 3))
-         (vertex-data-array (->vertex-data-array vertex-data *active-tessellator*)) ;;todo this is wrong - this should be an array of vertex-arrays
+         (vertex-data-array (->combine-vertex-data-array vertex-data *active-tessellator*))
          (weight-array (gl::make-gl-array-from-pointer weight '%gl:float 4))
          (polygon-data-array (->polygon-data-array polygon-data *active-tessellator*))
          (combined-result (list-to-pointer (combine-data-callback *active-tessellator* coords-array vertex-data-array weight-array polygon-data-array))))
@@ -186,6 +186,12 @@
              (not (null-pointer-p vertex-data))
              (< 0 (vertex-data-length tessellator)))
     (gl::make-gl-array-from-pointer vertex-data '%gl:double (vertex-data-length tessellator))))
+
+(defun ->combine-vertex-data-array (vertex-data tessellator)
+  (let ((result (cl:make-array 4)))
+    (loop for i from 0 below 4
+       do (setf (aref result i) (->vertex-data-array (mem-aref vertex-data ':pointer i) tessellator)))
+    result))
 
 (defun ->polygon-data-array (polygon-data tessellator)
   (when (and (pointerp polygon-data)
