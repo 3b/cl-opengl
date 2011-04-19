@@ -40,9 +40,13 @@
    #:quadric-texture
    #:quadric-orientation
    #:quadric-normals
+   #:quadric-draw-style
    #:new-quadric
    #:quadric-normals
    #:sphere
+   #:cylinder
+   #:disk
+   #:partial-disk
    #:build-2d-mipmaps
    #:get-string
    #:check-extension

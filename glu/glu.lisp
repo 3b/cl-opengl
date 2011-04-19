@@ -376,7 +376,15 @@
   (quadric-object quadric-obj)
   (normals glu-normals))
 
-;; gluQuadricDrawStyle
+(defcenum draw-styles
+  (:point #x186AA)
+  :line
+  :fill 
+  :silhouette)
+
+(defcfun ("gluQuadricDrawStyle" quadric-draw-style) :void
+  (quadric-object quadric-obj)
+  (draw-style draw-styles))
 
 ;;;; 6.4 Quadrics Primitives
 
