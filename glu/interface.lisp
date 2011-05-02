@@ -179,7 +179,9 @@
      when (and (pointerp pointer)
                (not (null-pointer-p pointer)))
      do (foreign-free pointer))
-  (setf (data tess) nil))
+  (setf (data tess) nil)
+  (setf (vertex-data-length tess) 0)
+  (setf (polygon-data-length tess) 0))
 
 (defun ->vertex-data-array (vertex-data tessellator)
   (when (and (pointerp vertex-data)
