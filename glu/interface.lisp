@@ -86,6 +86,18 @@
 (defgeneric error-data-callback (tessellator error-number polygon-data))
 (defgeneric combine-data-callback (tessellator coords vertex-data weight polygon-data))
 
+(defmethod initialize-instance :after ((obj tessellator) &key)
+  (let ((tess (glu-new-tess)))
+    (if (null-pointer-p tess)
+        (error "Error creating tessellator object")
+        (progn
+          (setf (slot-value obj 'glu-tessellator) (glu-new-tess))
+          (register-callbacks obj)))))
+
+(defmethod tess-delete ((tess tessellator))
+  (glu-delete-tess (glu-tessellator tess))
+  (free-tess-data tess))
+
 (defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
   (setf *active-tessellator* tess)
   (glu-tess-begin-polygon (glu-tessellator tess)
