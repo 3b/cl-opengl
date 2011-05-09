@@ -69,6 +69,16 @@
    (vertex-data-length :accessor vertex-data-length :initform 0)
    (polygon-data-length :accessor polygon-data-length :initform 0)))
 
+;;methods 
+(defgeneric tess-delete (tessellator))
+(defgeneric tess-begin-polygon (tessellator &optional polygon-data))
+(defgeneric tess-begin-contour (tessellator))
+(defgeneric tess-vertex (tessellator coords &optional vertex-data))
+(defgeneric tess-end-contour (tessellator))
+(defgeneric tess-end-polygon (tessellator))
+(defgeneric tess-property (tessellator which value))
+
+;;callbacks
 (defgeneric begin-data-callback (tessellator type polygon-data))
 (defgeneric edge-flag-data-callback (tessellator flag polygon-data))
 (defgeneric end-data-callback (tessellator polygon-data))
@@ -76,19 +86,6 @@
 (defgeneric error-data-callback (tessellator error-number polygon-data))
 (defgeneric combine-data-callback (tessellator coords vertex-data weight polygon-data))
 
-(defmethod initialize-instance :after ((obj tessellator) &key)
-  (let ((tess (glu-new-tess)))
-    (if (null-pointer-p tess)
-        (error "Error creating tessellator object")
-        (progn
-          (setf (slot-value obj 'glu-tessellator) (glu-new-tess))
-          (register-callbacks obj)))))
-
-(defmethod tess-delete ((tess tessellator))
-  (glu-delete-tess (glu-tessellator tess))
-  (free-tess-data tess))
-
-;;todo handle polygon-data in all functions
 (defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
   (setf *active-tessellator* tess)
   (glu-tess-begin-polygon (glu-tessellator tess)
