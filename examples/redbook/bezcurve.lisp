@@ -7,7 +7,7 @@
 
 (defvar control-points (make-array '(4 3) :initial-contents
 				   '((-4 -4 0) (-2 4 0)
-				     (2 4 0) (4 4 0))))
+				     (2 -4 0) (4 4 0))))
 
 (defclass bezcurve-window (glut:window)
   ()
@@ -24,22 +24,22 @@
 
    ;; The following code displays the control points as dots.
   (gl:point-size 5)
-  (gl:color 1 1 1)
+  (gl:color 1 1 0)
 
   (gl:with-primitive :points
-     (loop for i from 0 upto 4
-	do (destructuring-bind (x y z)
-	       (aref control-points i)
-	     (gl:vertex x y z))))
+    (loop for i from 0 below 4
+         for l = (* 3 i)
+       do (gl:vertex 
+           (row-major-aref control-points l)
+           (row-major-aref control-points (+ 1 l))
+           (row-major-aref control-points (+ 2 l)))))
   (gl:flush))
 
 (defun init-bezcurve ()
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat)
-  (gl:map1 :map1-vertex-3 0 1 (aref control-points 0)); control-points) ;;todo this should be array
+  (gl:map1 :map1-vertex-3 0 1 control-points)
   (gl:enable :map1-vertex-3))
-
-;;   glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpoints[0][0]);
 
 (defmethod glut:reshape ((w bezcurve-window) width height)
   (gl:viewport 0 0 width height)
