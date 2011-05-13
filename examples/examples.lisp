@@ -16,7 +16,8 @@
     ("Other Examples"
      glut-teapot
      render-to-texture
-     misc-opengl-array)))
+     misc-opengl-array
+     shader-vao)))
 
 ;;; export symbols
 (dolist (section +examples+)
