@@ -2,10 +2,9 @@
 ;; Assignment 2: Molecule Viewer
 ;; COSC414 with Dr. Alan Paeth, UBC Okanagan
 
-;; To protect your rights, this program is distributed under
-;; the terms and conditions of the GNU GPL, http://gnu.org
-
-;; For power I decided to use Common Lisp instead of C.
+;; This program is distributed under the terms and
+;; conditions of the BSD license:
+;; http://www.opensource.org/licenses/bsd-license.php
 
 ;; This should be ANSI Common Lisp code that uses the OpenGL
 ;; libraries through the cl-opengl bindings.
@@ -161,7 +160,7 @@
 
 (defmethod glut:keyboard ((window mol-window) key x y)
   (declare (ignore x y)) 
-  (case key
+  (case (code-char key)
     (#\x (incf view-rotx spin-speed))
     (#\X (decf view-rotx spin-speed))
     (#\y (incf view-roty spin-speed))
