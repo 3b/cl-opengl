@@ -17,7 +17,8 @@
      glut-teapot
      render-to-texture
      misc-opengl-array
-     shader-vao)))
+     shader-vao
+     molview)))
 
 ;;; export symbols
 (dolist (section +examples+)
