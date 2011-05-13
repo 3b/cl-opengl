@@ -182,13 +182,13 @@
              rest
            `(progn
               (client-active-texture ,stage)
-              (tex-coord-pointer ,size ,gl-type ,stride ,address-expr))))
+              (,func-name ,size ,gl-type ,stride ,address-expr))))
         (edge-flag                      ; type is fixed
-         `(edge-flag-pointer ,stride ,address-expr))
+         `(,func-name ,stride ,address-expr))
         (vertex-attrib
          (destructuring-bind (&key (index 0) (normalized nil) &allow-other-keys)
              rest
-           `(vertex-attrib-pointer ,index ,size ,type ,normalized ,stride
+           `(,func-name ,index ,size ,type ,normalized ,stride
                                    ,address-expr)))))))
 
 (defmacro define-gl-array-format (name &body clauses)
