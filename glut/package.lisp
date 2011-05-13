@@ -228,7 +228,7 @@
    #:layer-get
    #:layer-getp
    #:get-layer-in-use
-   #:get-modifers
+   #:get-modifiers
    #:get-modifier-values
    #:extension-supported-p
    #:get-proc-address
