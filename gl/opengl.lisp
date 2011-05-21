@@ -273,8 +273,7 @@ allocating new memory."
 
 (defun make-null-gl-array (type)
   "Returns a GL-ARRAY with a size of 0, a null pointer and of type TYPE."
-  (make-gl-array-from-pointer (null-pointer) 0 type))
-
+  (make-gl-array-from-pointer (null-pointer) type 0))
 
 ;;; Returns a pointer to the OFFSET-th element in ARRAY.  I think this
 ;;; is different from mem-aref for simple types.
@@ -445,6 +444,16 @@ another buffer is bound within FORMS."
   `(progn
      (push-matrix)
      (multiple-value-prog1 (progn ,@body)
+       (pop-matrix))))
+
+(defmacro with-pushed-matrix* ((matrix) &body body)
+  ;; fixme: should once-only matrix, but only if it isn't a keyword
+  `(progn
+     (matrix-mode ,matrix)
+     (push-matrix)
+     (unwind-protect
+          (progn ,@body)
+       (matrix-mode ,matrix)
        (pop-matrix))))
 
 (import-export %gl:active-texture)
@@ -661,6 +670,14 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
       (z `(%gl:uniform-3f ,location ,(float* x) ,(float* y) ,(float* z)))
       (y `(%gl:uniform-2f ,location ,(float* x) ,(float* y)))
       (x `(%gl:uniform-1f ,location ,(float* x))))))
+
+
+(definline uniformfv (location a)
+  (case (length a)
+    (4 (%gl:uniform-4f location (aref a 0) (aref a 1) (aref a 2) (aref a 3)))
+    (3 (%gl:uniform-3f location (aref a 0) (aref a 1) (aref a 2)))
+    (2 (%gl:uniform-2f location (aref a 0) (aref a 1)))
+    (1 (%gl:uniform-1f location (aref a 0)))))
 
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))

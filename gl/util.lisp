@@ -31,35 +31,6 @@
 
 ;;; the following three where taken from CFFI
 
-(defun starts-with (list x)
-  "Is x a list whose first element is x?"
-  (and (consp list) (eql (first list) x)))
-
-(defun side-effect-free? (exp)
-  "Is exp a constant, variable, or function,
-  or of the form (THE type x) where x is side-effect-free?"
-  (or (atom exp) (constantp exp)
-      (starts-with exp 'function)
-      (and (starts-with exp 'the)
-           (side-effect-free? (third exp)))))
-
-(defmacro once-only (variables &rest body)
-    "Returns the code built by BODY.  If any of VARIABLES
-  might have side effects, they are evaluated once and stored
-  in temporary variables that are then passed to BODY."
-    (assert (every #'symbolp variables))
-    (let ((temps nil))
-      (dotimes (i (length variables)) (push (gensym "ONCE") temps))
-      `(if (every #'side-effect-free? (list .,variables))
-   (progn .,body)
-   (list 'let
-    ,`(list ,@(mapcar #'(lambda (tmp var)
-                `(list ',tmp ,var))
-            temps variables))
-    (let ,(mapcar #'(lambda (var tmp) `(,var ',tmp))
-             variables temps)
-      .,body)))))
-
 (defun symbolic-type->real-type (type)
   (ecase type
     (:byte '%gl:byte)
@@ -98,7 +69,8 @@
 (defmacro with-opengl-array ((var type lisp-array) &body body)
   (check-type var symbol)
   (let ((count (gensym "COUNT"))
-        (array (gensym "ARRAY")))
+        (array (gensym "ARRAY"))
+        (original-type type))
     (once-only (type)
       `(let* ((,array ,lisp-array)
               (,count (length ,array)))
@@ -106,16 +78,24 @@
            ;; we need type to be a constant within the loop so cffi can
            ;; optimize it, so check type outside the loop, and make a
            ;; copy of the loop for any types we care about
-           (case ,type
-             ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short %gl:ushort
-                                   %gl:int %gl:uint %gl:float)
-                  collect 
-                    `(,ctype
-                      (loop for i below ,count
-                         do (setf (mem-aref ,var ',ctype i) (aref ,array i)))))
-             (t 
-              (loop for i below ,count
-                 do (setf (mem-aref ,var ,type i) (aref ,array i)))))
+           ;; (unless we know the type at compile time, in which case only
+           ;;  generate code for that type)
+           ,(if (or (keywordp original-type)
+                    (and (consp original-type)
+                         (eq (first original-type) 'quote)))
+                `(loop for i below ,count
+                    do (setf (mem-aref ,var ,original-type i)
+                             (aref ,array i)))
+                `(case ,type
+                   ,@(loop for ctype in '(%gl:byte %gl:ubyte %gl:short
+                                          %gl:ushort %gl:int %gl:uint %gl:float)
+                        collect
+                          `(,ctype
+                            (loop for i below ,count
+                               do (setf (mem-aref ,var ',ctype i) (aref ,array i)))))
+                   (t
+                    (loop for i below ,count
+                       do (setf (mem-aref ,var ,type i) (aref ,array i))))))
            ,@body)))))
 
 (defmacro with-opengl-arrays (bindings &body body)

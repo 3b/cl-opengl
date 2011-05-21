@@ -73,6 +73,8 @@
       :components
       ((:file "glut-teapot")
        (:file "render-to-texture")
-       (:file "opengl-array")))))))
+       (:file "opengl-array")
+       (:file "shader-vao")
+       (:file "molview")))))))
 
 ;;; vim: ft=lisp et

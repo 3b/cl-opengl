@@ -28,8 +28,13 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defpackage #:cl-opengl
-  (:use #:cl #:cffi #:alexandria)
+  (:use #:cl #:cffi)
   (:nicknames #:opengl #:gl)
+  (:import-from #:alexandria
+                #:once-only
+                #:symbolicate
+                #:with-unique-names
+                #:ensure-list)
   (:export
    ;; 2.5 GL Errors
    #:get-error
@@ -353,4 +358,6 @@
    #:framebuffer-texture-3d-ext
    #:framebuffer-renderbuffer-ext
    #:generate-mipmap-ext
+   #:with-pushed-matrix*
+   #:uniformfv
    ))

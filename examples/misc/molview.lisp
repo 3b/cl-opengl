@@ -35,19 +35,26 @@
 
 
 ;; We depend on cl-glut (which depends on cl-opengl and cffi)
+;;(require :cl-glut)
 
-(require :cl-glut)
-
-
+(defpackage #:cl-glut-examples-molview
+  (:use :cl)
+  (:import-from #:cl-glut-examples
+                #:molview)
+  (:export #:molview
+           #:ethanol
+           #:water))
+(in-package #:cl-glut-examples-molview)
 
 ;; Hard-coded molecules
 
-(defconstant water
+(alexandria:define-constant water
   '((O  0.000 0.000 0.000)
     (H -0.900 0.000 0.000)
-    (H  0.000 1.000 0.000)))
+    (H  0.000 1.000 0.000))
+  :test 'equal)
 
-(defconstant ethanol
+(alexandria:define-constant ethanol
   '((C -0.426  -0.115  -0.147)
     (O -0.599   1.244  -0.481)
     (H -0.750  -0.738  -0.981)
@@ -56,7 +63,8 @@
     (C  1.047  -0.383   0.147)
     (H  1.370   0.240   0.981)
     (H  1.642  -0.147  -0.735)
-    (H  1.180  -1.434   0.405)))
+    (H  1.180  -1.434   0.405))
+  :test 'equal)
 
 
 
@@ -84,7 +92,7 @@
 
 ;; Main function
 
-(defun molview (mol)
+(defun molview (&optional (mol ethanol))
   (setq curr-mol mol)
   (glut:display-window (make-instance 'mol-window)))
 
@@ -193,7 +201,10 @@
     (#\l (setq show-light-source (not show-light-source))) 
 
     (#\q (glut:destroy-current-window)
-         (return-from glut:keyboard)))
+         (return-from glut:keyboard))
+    (#\escape
+     (glut:destroy-current-window)
+     (return-from glut:keyboard)))
 
   (lim-between light-r 0 1)
   (lim-between light-g 0 1)
