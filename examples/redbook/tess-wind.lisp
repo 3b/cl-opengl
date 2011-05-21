@@ -8,7 +8,7 @@
 (in-package #:cl-glut-examples)
 (defparameter *current-winding* :odd)
 (defparameter *current-shape* 0)
-(defparameter *list* nil)
+(defparameter *tess-wind-list* nil)
 
 (defclass winding-tessellator (glu:tessellator)
   ())
@@ -22,13 +22,13 @@
   (gl:clear :color-buffer)
   (gl:color 1 1 1)
   (gl:with-pushed-matrix 
-    (gl:call-list *list*)
+    (gl:call-list *tess-wind-list*)
     (gl:translate 0 500 0)
-    (gl:call-list (1+ *list*))
+    (gl:call-list (1+ *tess-wind-list*))
     (gl:translate 500 -500 0)
-    (gl:call-list (+ *list* 2))
+    (gl:call-list (+ *tess-wind-list* 2))
     (gl:translate 0 500 0)
-    (gl:call-list (+ *list* 3)))
+    (gl:call-list (+ *tess-wind-list* 3)))
   (gl:flush))
 
 (defmethod glut:reshape ((w tess-wind-window) width height)
@@ -87,7 +87,7 @@
  
     (glu:tess-property tobj :winding-rule *current-winding*)
     
-    (gl:with-new-list (*list* :compile)
+    (gl:with-new-list (*tess-wind-list* :compile)
       (glu:with-tess-polygon (tobj nil)
         (glu:with-tess-contour tobj
           (loop for i from 0 below 4
@@ -99,7 +99,7 @@
           (loop for i from 8 below 12
              do (glu:tess-vertex tobj (elt rects i))))))
       
-    (gl:with-new-list ((+ *list* 1) :compile)
+    (gl:with-new-list ((+ *tess-wind-list* 1) :compile)
       (glu:with-tess-polygon (tobj nil)
         (glu:with-tess-contour tobj
           (loop for i from 0 below 4
@@ -112,13 +112,13 @@
           (loop for i from 11 downto 8
              do (glu:tess-vertex tobj (elt rects i))))))
     
-    (gl:with-new-list ((+ *list* 2) :compile)
+    (gl:with-new-list ((+ *tess-wind-list* 2) :compile)
       (glu:with-tess-polygon (tobj nil)
         (glu:with-tess-contour tobj
           (loop for i from 0 below 16
              do (glu:tess-vertex tobj (elt spiral i))))))
     
-    (gl:with-new-list ((+ *list* 3) :compile)
+    (gl:with-new-list ((+ *tess-wind-list* 3) :compile)
       (glu:with-tess-polygon (tobj nil)
         (glu:with-tess-contour tobj
           (loop for i from 0 below 4
@@ -142,11 +142,11 @@
 (defun init-tess-wind ()
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat)
-  (setf *list* (gl:gen-lists 4))
+  (setf *tess-wind-list* (gl:gen-lists 4))
   (make-new-lists))
 
 (defun rb-tess-wind ()
-  (setf glut:*run-main-loop-after-display* nil)
-  (glut:display-window (make-instance 'tess-wind-window))
-  (init-tess-wind)
-  (glut:main-loop))
+  (let ((glut:*run-main-loop-after-display* nil))
+    (glut:display-window (make-instance 'tess-wind-window))
+    (init-tess-wind)
+    (glut:main-loop)))

@@ -19,7 +19,7 @@
 
 (in-package #:cl-glut-examples)
 
-(defparameter *start-list* nil)
+(defparameter *tess-start-list* nil)
 
 (defclass tess-window (glut:window)
   ()
@@ -35,8 +35,8 @@
 (defmethod glut:display ((w tess-window))
   (gl:clear :color-buffer)
   (gl:color 1 1 1)
-  (gl:call-list *start-list*)
-  (gl:call-list (1+ *start-list*))
+  (gl:call-list *tess-start-list*)
+  (gl:call-list (1+ *tess-start-list*))
   (gl:flush))
 
 (defmethod glut:reshape ((w tess-window) width height)
@@ -90,13 +90,13 @@
                 (400 150 0 0 1 0))))
     
     (gl:clear-color 0 0 0 0)
-    (setf *start-list* (gl:gen-lists 2))
+    (setf *tess-start-list* (gl:gen-lists 2))
     
     ;; need to initialize tess property in case it is messed up
     (glu:tess-property tobj :winding-rule :positive)
     
     ;;rectangle with triangular hole inside
-    (gl:with-new-list (*start-list* :compile)
+    (gl:with-new-list (*tess-start-list* :compile)
       (gl:shade-model :flat)
       (glu:with-tess-polygon (tobj nil)
         (glu:with-tess-contour tobj
@@ -109,7 +109,7 @@
       
     ;;smooth shaded, self-intersecting star
     (setf tobj (make-instance 'star-tessellator))
-    (gl:with-new-list ((1+ *start-list*) :compile) 
+    (gl:with-new-list ((1+ *tess-start-list*) :compile) 
       (gl:shade-model :smooth)
       (glu:tess-property tobj :winding-rule :positive)
       (glu:with-tess-polygon (tobj nil)
@@ -119,7 +119,7 @@
     (glu:tess-delete tobj)))
     
 (defun rb-tess ()
-  (setf glut:*run-main-loop-after-display* nil)
-  (glut:display-window (make-instance 'tess-window))
-  (init-tess)
-  (glut:main-loop))
+  (let ((glut:*run-main-loop-after-display* nil))
+    (glut:display-window (make-instance 'tess-window))
+    (init-tess)
+    (glut:main-loop)))

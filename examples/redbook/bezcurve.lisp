@@ -5,7 +5,7 @@
 
 (in-package #:cl-glut-examples)
 
-(defvar control-points (make-array '(4 3) :initial-contents
+(defvar *bezcurve-control-points* (make-array '(4 3) :initial-contents
 				   '((-4 -4 0) (-2 4 0)
 				     (2 -4 0) (4 4 0))))
 
@@ -30,9 +30,9 @@
     (loop for i from 0 below 4
          for l = (* 3 i)
        do (gl:vertex 
-           (row-major-aref control-points l)
-           (row-major-aref control-points (+ 1 l))
-           (row-major-aref control-points (+ 2 l)))))
+           (row-major-aref *bezcurve-control-points* l)
+           (row-major-aref *bezcurve-control-points* (+ 1 l))
+           (row-major-aref *bezcurve-control-points* (+ 2 l)))))
   (gl:flush))
 
 (defun init-bezcurve ()
@@ -60,7 +60,7 @@
     (glut:destroy-current-window)))
 
 (defun rb-bezcurve ()
-  (setf glut:*run-main-loop-after-display* nil)
-  (glut:display-window (make-instance 'bezcurve-window))
-  (init-bezcurve)
-  (glut:main-loop))
+  (let ((glut:*run-main-loop-after-display* nil))
+    (glut:display-window (make-instance 'bezcurve-window))
+    (init-bezcurve)
+    (glut:main-loop)))

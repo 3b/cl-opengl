@@ -54,13 +54,17 @@
           collect `(init-tessellation-callback ,name ,callback-type ,args))))
 
 (defmacro with-tess-polygon ((tess-obj polygon-data) &body body)
-  `(unwind-protect (tess-begin-polygon ,tess-obj ,polygon-data)
-       (progn ,@body)
+  `(unwind-protect 
+       (progn 
+         (tess-begin-polygon ,tess-obj ,polygon-data)
+         ,@body)
      (tess-end-polygon ,tess-obj)))
 
 (defmacro with-tess-contour (tess-obj &body body)
-  `(unwind-protect (tess-begin-contour ,tess-obj)
-       (progn ,@body)
+  `(unwind-protect 
+       (progn 
+         (tess-begin-contour ,tess-obj)
+         ,@body)
      (tess-end-contour ,tess-obj)))
 
 (defclass tessellator ()
@@ -214,9 +218,10 @@
   (when list
     (let* ((list-length (length list))
            (pointer (foreign-alloc '%gl:double :count list-length)))
-      (loop for i from 0 below list-length
+      (loop for elt in list
+         for i from 0
          do (setf (mem-aref pointer '%gl:double i)
-                  (float (elt list i))))
+                  (float elt)))
       pointer)))
 
 ;;Initialize information about defined callbacks. The actual definition is handled separately."

@@ -54,7 +54,9 @@
        (:file "smooth")
        (:file "movelight")
        (:file "tess")
-       (:file "tess-wind")))
+       (:file "tess-wind")
+       (:file "quadric")
+       (:file "bezcurve"))
      (:module "mesademos"
       :depends-on ("examples")
       :components

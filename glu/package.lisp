@@ -42,6 +42,7 @@
    #:quadric-normals
    #:quadric-draw-style
    #:new-quadric
+   #:delete-quadric
    #:quadric-normals
    #:sphere
    #:cylinder

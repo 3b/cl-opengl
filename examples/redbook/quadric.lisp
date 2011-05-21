@@ -4,7 +4,7 @@
 
 (in-package #:cl-glut-examples)
 
-(defparameter *start-list* nil)
+(defparameter *quadric-start-list* nil)
 
 (defclass quadric-window (glut:window)
   ()
@@ -17,19 +17,19 @@
     (gl:enable :lighting)
     (gl:shade-model :smooth)
     (gl:translate -1.0 -1.0 0.0)
-    (gl:call-list *start-list*)
+    (gl:call-list *quadric-start-list*)
     (gl:shade-model :flat)
     (gl:translate 0.0 2.0 0.0)
     (gl:with-pushed-matrix
       (gl:rotate 300.0 1.0 0.0 0.0)
-      (gl:call-list (1+ *start-list*)))
+      (gl:call-list (1+ *quadric-start-list*)))
     (gl:disable :lighting)
     (gl:color 0.0 1.0 1.0)
     (gl:translate 2.0 -2.0 0.0)
-    (gl:call-list (+ 2 *start-list*))
+    (gl:call-list (+ 2 *quadric-start-list*))
     (gl:color 1.0 1.0 0.0)
     (gl:translate 0.0 2.0 0.0)
-    (gl:call-list (+ 3 *start-list*)))
+    (gl:call-list (+ 3 *quadric-start-list*)))
   (gl:flush))
 
 (defmethod glut:reshape ((w quadric-window) width height)
@@ -71,7 +71,7 @@
     ;; Different drawing styles and surface normal specifications
     ;; are demonstrated.
  
-    (setf *start-list* (gl:gen-lists 4))
+    (setf *quadric-start-list* (gl:gen-lists 4))
     (setf quadric-obj (glu:new-quadric))
     
     ;;todo
@@ -80,27 +80,28 @@
 
     (glu:quadric-draw-style quadric-obj :fill) ;;smooth shaded
     (glu:quadric-normals quadric-obj :smooth)
-    (gl:with-new-list (*start-list* :compile)
+    (gl:with-new-list (*quadric-start-list* :compile)
 		      (glu:sphere quadric-obj 0.75 15 10))
 
     (glu:quadric-draw-style quadric-obj :fill) ;;flat shaded
     (glu:quadric-normals quadric-obj :flat)
-    (gl:with-new-list ((1+ *start-list*) :compile)
+    (gl:with-new-list ((1+ *quadric-start-list*) :compile)
 		      (glu:cylinder quadric-obj 0.5 0.3 1 15 5))
 
     (glu:quadric-draw-style quadric-obj :line) ;;all polygons wireframe
     (glu:quadric-normals quadric-obj :none)
-    (gl:with-new-list ((+ 2 *start-list*) :compile)
+    (gl:with-new-list ((+ 2 *quadric-start-list*) :compile)
 		      (glu:disk quadric-obj 0.25 1 20 4))
-
 
     (glu:quadric-draw-style quadric-obj :silhouette) ;;boundary only
     (glu:quadric-normals quadric-obj :none)
-    (gl:with-new-list ((+ 3 *start-list*) :compile)
-		      (glu:partial-disk quadric-obj 0 1 20 4 0 225))))
+    (gl:with-new-list ((+ 3 *quadric-start-list*) :compile)
+		      (glu:partial-disk quadric-obj 0 1 20 4 0 225))
+    
+    (glu:delete-quadric quadric-obj)))
 
 (defun rb-quadric ()
-  (setf glut:*run-main-loop-after-display* nil)
-  (glut:display-window (make-instance 'quadric-window))
-  (init-quadric)
-  (glut:main-loop))
+  (let ((glut:*run-main-loop-after-display* nil))
+    (glut:display-window (make-instance 'quadric-window))
+    (init-quadric)
+    (glut:main-loop)))
