@@ -5,16 +5,20 @@
 
 (in-package #:cl-glut-examples)
 
-(defvar *bezcurve-control-points* (make-array '(4 3) :initial-contents
-				   '((-4 -4 0) (-2 4 0)
-				     (2 -4 0) (4 4 0))))
-
 (defclass bezcurve-window (glut:window)
-  ()
+  ((control-points :accessor control-points :initform (make-array '(4 3) :initial-contents
+                                                                  '((-4 -4 0) (-2 4 0)
+                                                                    (2 -4 0) (4 4 0)))))
   (:default-initargs :width 500 :height 500 :title "bezcurve.lisp"
                      :mode '(:single :rgb)))
 
-(defmethod glut:display ((w bezcurve-window))
+(defmethod glut:display-window :before ((window bezcurve-window))
+  (gl:clear-color 0 0 0 0)
+  (gl:shade-model :flat)
+  (gl:map1 :map1-vertex-3 0 1 (control-points window))
+  (gl:enable :map1-vertex-3))
+
+(defmethod glut:display ((window bezcurve-window))
   (gl:clear :color-buffer-bit)
   (gl:color 1 1 1)
 
@@ -30,16 +34,10 @@
     (loop for i from 0 below 4
          for l = (* 3 i)
        do (gl:vertex 
-           (row-major-aref *bezcurve-control-points* l)
-           (row-major-aref *bezcurve-control-points* (+ 1 l))
-           (row-major-aref *bezcurve-control-points* (+ 2 l)))))
+           (row-major-aref (control-points window) l)
+           (row-major-aref (control-points window) (+ 1 l))
+           (row-major-aref (control-points window) (+ 2 l)))))
   (gl:flush))
-
-(defun init-bezcurve ()
-  (gl:clear-color 0 0 0 0)
-  (gl:shade-model :flat)
-  (gl:map1 :map1-vertex-3 0 1 control-points)
-  (gl:enable :map1-vertex-3))
 
 (defmethod glut:reshape ((w bezcurve-window) width height)
   (gl:viewport 0 0 width height)
@@ -60,7 +58,4 @@
     (glut:destroy-current-window)))
 
 (defun rb-bezcurve ()
-  (let ((glut:*run-main-loop-after-display* nil))
-    (glut:display-window (make-instance 'bezcurve-window))
-    (init-bezcurve)
-    (glut:main-loop)))
+  (glut:display-window (make-instance 'bezcurve-window)))

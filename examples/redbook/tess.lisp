@@ -19,10 +19,10 @@
 
 (in-package #:cl-glut-examples)
 
-(defparameter *tess-start-list* nil)
+
 
 (defclass tess-window (glut:window)
-  ()
+  ((start-list :accessor start-list))
   (:default-initargs :width 500 :height 500 :title "tess.lisp"
                      :mode '(:single :rgb)))
 
@@ -32,11 +32,55 @@
 (defclass star-tessellator (glu:tessellator)
   ())
 
-(defmethod glut:display ((w tess-window))
+(defmethod glut:display :before ((window tess-window))
+  (let ((tobj (make-instance 'example-tessellator))
+        (rect '((50 50 0)
+                (200 50 0)
+                (200 200 0)
+                (50 200 0)))
+        (tri '((75 75 0)
+               (125 175 0)
+               (175 75 0)))
+        (star '((250 50 0 1 0 1)
+                (325 200 0 1 1 0)
+                (400 50 0 0 1 1)
+                (250 150 0 1 0 0)
+                (400 150 0 0 1 0))))
+    
+    (gl:clear-color 0 0 0 0)
+    (setf (start-list window) (gl:gen-lists 2))
+    
+    ;; need to initialize tess property in case it is messed up
+    (glu:tess-property tobj :winding-rule :positive)
+    
+    ;;rectangle with triangular hole inside
+    (gl:with-new-list ((start-list window) :compile)
+      (gl:shade-model :flat)
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for coords in rect
+             do (glu:tess-vertex tobj coords)))
+        (glu:with-tess-contour tobj
+          (loop for coords in tri
+             do (glu:tess-vertex tobj coords)))))
+    (glu:tess-delete tobj)
+      
+    ;;smooth shaded, self-intersecting star
+    (setf tobj (make-instance 'star-tessellator))
+    (gl:with-new-list ((1+ (start-list window)) :compile) 
+      (gl:shade-model :smooth)
+      (glu:tess-property tobj :winding-rule :positive)
+      (glu:with-tess-polygon (tobj nil)
+        (glu:with-tess-contour tobj
+          (loop for coords in star
+             do (glu:tess-vertex tobj coords)))))
+    (glu:tess-delete tobj)))
+
+(defmethod glut:display ((window tess-window))
   (gl:clear :color-buffer)
   (gl:color 1 1 1)
-  (gl:call-list *tess-start-list*)
-  (gl:call-list (1+ *tess-start-list*))
+  (gl:call-list (start-list window))
+  (gl:call-list (1+ (start-list window)))
   (gl:flush))
 
 (defmethod glut:reshape ((w tess-window) width height)
@@ -59,6 +103,7 @@
 
 (defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight polygon-data)
   (let ((vertex '()))
+    ;;todo refactor this
     (loop for i from 3 downto 0
        do (push (gl:glaref coords i) vertex))
     
@@ -74,52 +119,5 @@
                 vertex))
      vertex))
 
-(defun init-tess ()
-  (let ((tobj (make-instance 'example-tessellator))
-        (rect '((50 50 0)
-                (200 50 0)
-                (200 200 0)
-                (50 200 0)))
-        (tri '((75 75 0)
-               (125 175 0)
-               (175 75 0)))
-        (star '((250 50 0 1 0 1)
-                (325 200 0 1 1 0)
-                (400 50 0 0 1 1)
-                (250 150 0 1 0 0)
-                (400 150 0 0 1 0))))
-    
-    (gl:clear-color 0 0 0 0)
-    (setf *tess-start-list* (gl:gen-lists 2))
-    
-    ;; need to initialize tess property in case it is messed up
-    (glu:tess-property tobj :winding-rule :positive)
-    
-    ;;rectangle with triangular hole inside
-    (gl:with-new-list (*tess-start-list* :compile)
-      (gl:shade-model :flat)
-      (glu:with-tess-polygon (tobj nil)
-        (glu:with-tess-contour tobj
-          (loop for coords in rect
-             do (glu:tess-vertex tobj coords)))
-        (glu:with-tess-contour tobj
-          (loop for coords in tri
-             do (glu:tess-vertex tobj coords)))))
-    (glu:tess-delete tobj)
-      
-    ;;smooth shaded, self-intersecting star
-    (setf tobj (make-instance 'star-tessellator))
-    (gl:with-new-list ((1+ *tess-start-list*) :compile) 
-      (gl:shade-model :smooth)
-      (glu:tess-property tobj :winding-rule :positive)
-      (glu:with-tess-polygon (tobj nil)
-        (glu:with-tess-contour tobj
-          (loop for coords in star
-             do (glu:tess-vertex tobj coords)))))
-    (glu:tess-delete tobj)))
-    
 (defun rb-tess ()
-  (let ((glut:*run-main-loop-after-display* nil))
-    (glut:display-window (make-instance 'tess-window))
-    (init-tess)
-    (glut:main-loop)))
+  (glut:display-window (make-instance 'tess-window)))

@@ -1,56 +1,16 @@
+
 ;;;; -*- Mode: lisp; indent-tabs-mode: nil -*-
 ;;; quadric.lisp --- Lisp version of quadric.c (Red Book examples)
 ;;;
 
 (in-package #:cl-glut-examples)
 
-(defparameter *quadric-start-list* nil)
-
 (defclass quadric-window (glut:window)
-  ()
+  ((start-list :accessor start-list))
   (:default-initargs :width 500 :height 500 :title "quadric.lisp"
                      :mode '(:single :rgb :depth)))
 
-(defmethod glut:display ((w quadric-window))
-  (gl:clear :color-buffer :depth-buffer-bit)
-  (gl:with-pushed-matrix 
-    (gl:enable :lighting)
-    (gl:shade-model :smooth)
-    (gl:translate -1.0 -1.0 0.0)
-    (gl:call-list *quadric-start-list*)
-    (gl:shade-model :flat)
-    (gl:translate 0.0 2.0 0.0)
-    (gl:with-pushed-matrix
-      (gl:rotate 300.0 1.0 0.0 0.0)
-      (gl:call-list (1+ *quadric-start-list*)))
-    (gl:disable :lighting)
-    (gl:color 0.0 1.0 1.0)
-    (gl:translate 2.0 -2.0 0.0)
-    (gl:call-list (+ 2 *quadric-start-list*))
-    (gl:color 1.0 1.0 0.0)
-    (gl:translate 0.0 2.0 0.0)
-    (gl:call-list (+ 3 *quadric-start-list*)))
-  (gl:flush))
-
-(defmethod glut:reshape ((w quadric-window) width height)
-  (gl:viewport 0 0 width height)
-  (gl:matrix-mode :projection)
-  (gl:load-identity)
-
-  (if (<= width height)
-      (gl:ortho -2.5 2.5 (/ (* -2.5 height) width)
-		(/ (* 2.5 height) width) -10.0 10.0)
-      (gl:ortho (/ (* -2.5 width) height) (/ (* 2.5 width) height)
-		-2.5 2.5 -10 10))
-  (gl:matrix-mode :modelview)
-  (gl:load-identity))
-
-(defmethod glut:keyboard ((w quadric-window) key x y)
-  (declare (ignore x y))
-  (when (eql key #\Esc)
-    (glut:destroy-current-window)))
-
-(defun init-quadric ()
+(defmethod glut:display :before ((window quadric-window))
   (let ((quadric-obj)
 	(mat-ambient '(0.5 0.5 0.5 1.0))
 	(mat-specular '(1.0 1.0 1.0 1.0))
@@ -71,7 +31,7 @@
     ;; Different drawing styles and surface normal specifications
     ;; are demonstrated.
  
-    (setf *quadric-start-list* (gl:gen-lists 4))
+    (setf (start-list window) (gl:gen-lists 4))
     (setf quadric-obj (glu:new-quadric))
     
     ;;todo
@@ -80,28 +40,64 @@
 
     (glu:quadric-draw-style quadric-obj :fill) ;;smooth shaded
     (glu:quadric-normals quadric-obj :smooth)
-    (gl:with-new-list (*quadric-start-list* :compile)
-		      (glu:sphere quadric-obj 0.75 15 10))
+    (gl:with-new-list ((start-list window) :compile)
+      (glu:sphere quadric-obj 0.75 15 10))
 
     (glu:quadric-draw-style quadric-obj :fill) ;;flat shaded
     (glu:quadric-normals quadric-obj :flat)
-    (gl:with-new-list ((1+ *quadric-start-list*) :compile)
-		      (glu:cylinder quadric-obj 0.5 0.3 1 15 5))
+    (gl:with-new-list ((1+ (start-list window)) :compile)
+      (glu:cylinder quadric-obj 0.5 0.3 1 15 5))
 
     (glu:quadric-draw-style quadric-obj :line) ;;all polygons wireframe
     (glu:quadric-normals quadric-obj :none)
-    (gl:with-new-list ((+ 2 *quadric-start-list*) :compile)
-		      (glu:disk quadric-obj 0.25 1 20 4))
+    (gl:with-new-list ((+ 2 (start-list window)) :compile)
+      (glu:disk quadric-obj 0.25 1 20 4))
 
     (glu:quadric-draw-style quadric-obj :silhouette) ;;boundary only
     (glu:quadric-normals quadric-obj :none)
-    (gl:with-new-list ((+ 3 *quadric-start-list*) :compile)
-		      (glu:partial-disk quadric-obj 0 1 20 4 0 225))
+    (gl:with-new-list ((+ 3 (start-list window)) :compile)
+      (glu:partial-disk quadric-obj 0 1 20 4 0 225))
     
     (glu:delete-quadric quadric-obj)))
 
+(defmethod glut:display ((window quadric-window))
+  (gl:clear :color-buffer :depth-buffer-bit)
+  (gl:with-pushed-matrix 
+    (gl:enable :lighting)
+    (gl:shade-model :smooth)
+    (gl:translate -1.0 -1.0 0.0)
+    (gl:call-list (start-list window))
+    (gl:shade-model :flat)
+    (gl:translate 0.0 2.0 0.0)
+    (gl:with-pushed-matrix
+      (gl:rotate 300.0 1.0 0.0 0.0)
+      (gl:call-list (1+ (start-list window))))
+    (gl:disable :lighting)
+    (gl:color 0.0 1.0 1.0)
+    (gl:translate 2.0 -2.0 0.0)
+    (gl:call-list (+ 2 (start-list window)))
+    (gl:color 1.0 1.0 0.0)
+    (gl:translate 0.0 2.0 0.0)
+    (gl:call-list (+ 3 (start-list window))))
+  (gl:flush))
+
+(defmethod glut:reshape ((w quadric-window) width height)
+  (gl:viewport 0 0 width height)
+  (gl:matrix-mode :projection)
+  (gl:load-identity)
+
+  (if (<= width height)
+      (gl:ortho -2.5 2.5 (/ (* -2.5 height) width)
+		(/ (* 2.5 height) width) -10.0 10.0)
+      (gl:ortho (/ (* -2.5 width) height) (/ (* 2.5 width) height)
+		-2.5 2.5 -10 10))
+  (gl:matrix-mode :modelview)
+  (gl:load-identity))
+
+(defmethod glut:keyboard ((w quadric-window) key x y)
+  (declare (ignore x y))
+  (when (eql key #\Esc)
+    (glut:destroy-current-window)))
+
 (defun rb-quadric ()
-  (let ((glut:*run-main-loop-after-display* nil))
-    (glut:display-window (make-instance 'quadric-window))
-    (init-quadric)
-    (glut:main-loop)))
+  (glut:display-window (make-instance 'quadric-window)))

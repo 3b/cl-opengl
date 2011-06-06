@@ -56,7 +56,7 @@
        (:file "tess")
        (:file "tess-wind")
        (:file "quadric")
-       (:file "bezcurve"))
+       (:file "bezcurve")))
      (:module "mesademos"
       :depends-on ("examples")
       :components
