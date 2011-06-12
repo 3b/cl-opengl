@@ -35,7 +35,7 @@
   :author "Luis Oliveira  <loliveira@common-lisp.net>"
   :version "0.1.0"
   :licence "BSD"
-  :depends-on (cffi cl-opengl)
+  :depends-on (alexandria cffi cl-opengl)
   :components
   ((:module "glut"
     :components
