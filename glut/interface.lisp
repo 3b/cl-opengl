@@ -333,6 +333,9 @@ Lexically binds CURRENT-WINDOW to the respective object."
   #+darwin
   (when (not (destroyed w))
     (setf (destroyed w) t)
+    ;; Apple's GLUT doesn't actually close the window when its close
+    ;; button is pressed. So we ensure it's destroyed, otherwise it'll
+    ;; hang around indefinitely not listening to events.
     (destroy-window (id w)))
   (when (null *windows-with-idle-event*)
     (unregister-callback (find-event-or-lose :idle)))
