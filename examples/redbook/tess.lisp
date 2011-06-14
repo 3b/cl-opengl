@@ -19,8 +19,6 @@
 
 (in-package #:cl-glut-examples)
 
-
-
 (defclass tess-window (glut:window)
   ((start-list :accessor start-list))
   (:default-initargs :width 500 :height 500 :title "tess.lisp"
@@ -32,7 +30,7 @@
 (defclass star-tessellator (glu:tessellator)
   ())
 
-(defmethod glut:display :before ((window tess-window))
+(defmethod glut:display-window :before ((window tess-window))
   (let ((tobj (make-instance 'example-tessellator))
         (rect '((50 50 0)
                 (200 50 0)

@@ -10,7 +10,7 @@
   (:default-initargs :width 500 :height 500 :title "quadric.lisp"
                      :mode '(:single :rgb :depth)))
 
-(defmethod glut:display :before ((window quadric-window))
+(defmethod glut:display-window :before ((window quadric-window))
   (let ((quadric-obj)
 	(mat-ambient '(0.5 0.5 0.5 1.0))
 	(mat-specular '(1.0 1.0 1.0 1.0))

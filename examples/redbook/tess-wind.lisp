@@ -17,7 +17,7 @@
   (:default-initargs :width 500 :height 500 :title "tess-wind.lisp"
                      :mode '(:single :rgb)))
 
-(defmethod glut:display :before ((window tess-wind-window))
+(defmethod glut:display-window :before ((window tess-wind-window))
   (gl:clear-color 0 0 0 0)
   (gl:shade-model :flat)
   (setf (wind-list window) (gl:gen-lists 4))
