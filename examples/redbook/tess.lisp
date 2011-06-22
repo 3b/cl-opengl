@@ -54,7 +54,7 @@
     ;;rectangle with triangular hole inside
     (gl:with-new-list ((start-list window) :compile)
       (gl:shade-model :flat)
-      (glu:with-tess-polygon (tobj nil)
+      (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
           (loop for coords in rect
              do (glu:tess-vertex tobj coords)))
@@ -62,13 +62,13 @@
           (loop for coords in tri
              do (glu:tess-vertex tobj coords)))))
     (glu:tess-delete tobj)
-      
+    
     ;;smooth shaded, self-intersecting star
     (setf tobj (make-instance 'star-tessellator))
     (gl:with-new-list ((1+ (start-list window)) :compile) 
       (gl:shade-model :smooth)
       (glu:tess-property tobj :winding-rule :positive)
-      (glu:with-tess-polygon (tobj nil)
+      (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
           (loop for coords in star
              do (glu:tess-vertex tobj coords)))))

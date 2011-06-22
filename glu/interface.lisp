@@ -53,23 +53,19 @@
      ,@(loop for (name callback-type args) in callback-specs
           collect `(init-tessellation-callback ,name ,callback-type ,args))))
 
-;;todo make polygon-data optional
-(defmacro with-tess-polygon ((tess-obj polygon-data) &body body)
-  `(unwind-protect 
-        (progn 
-          (tess-begin-polygon ,tess-obj ,polygon-data)
-          ,@body)
-     (tess-end-polygon ,tess-obj)))
+(defmacro with-tess-polygon ((tess-obj &optional polygon-data) &body body)
+  `(progn (tess-begin-polygon ,tess-obj ,polygon-data)
+          (unwind-protect (progn ,@body)
+            (tess-end-polygon ,tess-obj))))
 
 (defmacro with-tess-contour (tess-obj &body body)
-  `(unwind-protect 
-        (progn 
-          (tess-begin-contour ,tess-obj)
-          ,@body)
-     (tess-end-contour ,tess-obj)))
+  `(progn (tess-begin-contour ,tess-obj)
+          (unwind-protect (progn ,@body)
+            (tess-end-contour ,tess-obj))))
 
 (defclass tessellator ()
   ((glu-tessellator :reader glu-tessellator)
+   (id :reader id)
    (data-to-free :accessor data :initform '())
    (vertex-data-length :accessor vertex-data-length :initform 0)
    (polygon-data :accessor polygon-data :initform (make-hash-table))))
@@ -96,36 +92,35 @@
     (if (null-pointer-p tess)
         (error "Error creating tessellator object")
         (progn
-          (setf (slot-value obj 'glu-tessellator) (glu-new-tess))
+          (let ((tessellator-id (pointer-address tess)))
+            (setf (slot-value obj 'glu-tessellator) tess)
+            (setf (slot-value obj 'id) tessellator-id)
+            ;;put the tessellator object in the table of known tessellators
+            ;;key of the tessellator is the pointer address of its corresponding glu-tessellator
+            (when (nth-value 1 (gethash tessellator-id *tessellators*))
+              (warn "A tessellator with this id is already registred"))
+            (setf (gethash tessellator-id *tessellators*) obj))
           (register-callbacks obj)))))
 
 (defmethod tess-delete ((tess tessellator))
   (glu-delete-tess (glu-tessellator tess))
+  (remhash (id tess) *tessellators*)
   (free-tess-data tess))
 
 (defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
-  ;;put the tessellator object in the table of known tessellators
-  ;;key of the tessellator is the pointer address of its corresponding glu-tessellator
-  (let ((tessellator-id (pointer-address (glu-tessellator tess)))
-        ;;use -1 when no polygon-data is used
-        (polygon-data-id -1))
-    (unless (nth-value 1 (gethash tessellator-id *tessellators*))
-      (setf (gethash tessellator-id *tessellators*) tess))
-    
-    (when polygon-data
-      (setf polygon-data-id
-            (or 
-             (loop for value being the hash-values of (polygon-data tess)
-                using (hash-key key)
-                when (eq value polygon-data)
-                return key)
-             (hash-table-count (polygon-data tess))))
-      (setf (gethash polygon-data-id (polygon-data tess)) polygon-data))
-
-    (glu-tess-begin-polygon (glu-tessellator tess)
-                            ;;todo need to clean up this pointer
-                            ;;todo this doesn't work
-                            (foreign-alloc :int :initial-contents '(tessellator-id polygon-data-id)))))
+  (let* ((polygon-data-id 
+          (if polygon-data
+              (or (loop for value being the hash-values of (polygon-data tess)
+                     using (hash-key key)
+                     when (eq value polygon-data)
+                     return key)
+                  (hash-table-count (polygon-data tess)))
+              -1)) ;;use -1 when no polygon-data is used
+         ;;todo this still doesn't work
+         (foreign-key (foreign-alloc :int :initial-contents (list (id tess) polygon-data-id))))
+    (setf (gethash polygon-data-id (polygon-data tess)) polygon-data)
+    (save-data-to-free foreign-key tess)
+    (glu-tess-begin-polygon (glu-tessellator tess) foreign-key)))
 
 (defmethod tess-begin-contour ((tess tessellator))
   (glu-tess-begin-contour (glu-tessellator tess)))
@@ -189,7 +184,7 @@
          (vertex-data-array (->vertex-data-array vertex-data-pointer tess)))
     (vertex-data-callback tess vertex-data-array polygon-data)))
 
-(defcallback %error-data-callback :void ((error-number :unsigned-int) (polygon-data-pointer (:pointer :void)))
+(defcallback %error-data-callback :void ((error-number :unsigned-int) (polygon-data-pointer :pointer))
   (let* ((tess (get-tessellator polygon-data-pointer))
          (polygon-data (get-polygon-data tess polygon-data-pointer)))
     (error-data-callback tess error-number polygon-data)))
@@ -231,8 +226,7 @@
      do (foreign-free pointer))
   (setf (data tess) nil)
   (setf (vertex-data-length tess) 0)
-  ;;todo clear polygon-data
-  )
+  (clrhash (polygon-data tess)))
 
 (defun ->vertex-data-array (vertex-data tessellator)
   (when (and (pointerp vertex-data)
@@ -255,15 +249,18 @@
          do (setf (mem-aref pointer '%gl:double i)
                   (float elt)))
       pointer)))
+
 (defun get-tessellator (polygon-data-pointer)
-  (let ((tessellator-id (mem-aref polygon-data-pointer :int 0)))
-    (gethash tessellator-id *tessellators*)))
+  (unless (null-pointer-p polygon-data-pointer)
+    (let ((tessellator-id (mem-aref polygon-data-pointer :int 0)))
+      (gethash tessellator-id *tessellators*))))
 
 (defun get-polygon-data (tess polygon-data-pointer)
-  (let ((polygon-data-id (mem-aref polygon-data-pointer :int 1)))
-    (if (>= polygon-data-id 0)
-        (gethash polygon-data-id (polygon-data tess))
-        nil)))
+  (unless (null-pointer-p polygon-data-pointer)
+    (let ((polygon-data-id (mem-aref polygon-data-pointer :int 1)))
+      (if (>= polygon-data-id 0)
+          (gethash polygon-data-id (polygon-data tess))
+        nil))))
 
 ;;Initialize information about defined callbacks. The actual definition is handled separately.
 (init-tessellation-callbacks 
