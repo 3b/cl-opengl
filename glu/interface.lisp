@@ -33,8 +33,6 @@
 (in-package #:cl-glu)
 
 ;;;; Polygon Tessellation
-(defconstant +nil-polygon-data-id+ 0)
-
 (defparameter *tessellators* (make-hash-table))
 
 (defparameter *tess-callbacks* '())
@@ -111,16 +109,15 @@
 
 (defmethod tess-begin-polygon ((tess tessellator) &optional (polygon-data nil))
   (let* ((polygon-data-id 
-          (if polygon-data
-              (or (loop for value being the hash-values of (polygon-data tess)
-                     using (hash-key key)
-                     when (eq value polygon-data)
-                     return key)
-                  (hash-table-count (polygon-data tess)))
-              +nil-polygon-data-id+))
+          (or (loop for value being the hash-values of (polygon-data tess)
+                 using (hash-key key)
+                 when (eq value polygon-data)
+                 return key)
+              (hash-table-count (polygon-data tess))))
          (foreign-key (foreign-alloc :uint64 :initial-contents (list (id tess) polygon-data-id))))
-    (unless (eq polygon-data-id +nil-polygon-data-id+)
-      (setf (gethash polygon-data-id (polygon-data tess)) polygon-data))
+    
+    (setf (gethash polygon-data-id (polygon-data tess)) polygon-data)
+
     (save-data-to-free foreign-key tess)
     (glu-tess-begin-polygon (glu-tessellator tess) foreign-key)))
 
@@ -262,9 +259,7 @@
 (defun get-polygon-data (tess polygon-data-pointer)
   (unless (null-pointer-p polygon-data-pointer)
     (let ((polygon-data-id (mem-aref polygon-data-pointer :uint64 1)))
-      (if (> polygon-data-id +nil-polygon-data-id+)
-          (gethash polygon-data-id (polygon-data tess))
-        nil))))
+      (gethash polygon-data-id (polygon-data tess)))))
 
 ;;Initialize information about defined callbacks. The actual definition is handled separately.
 (init-tessellation-callbacks 
