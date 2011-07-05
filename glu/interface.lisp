@@ -67,7 +67,7 @@
   ((glu-tessellator :reader glu-tessellator)
    (id :reader id)
    (data-to-free :accessor data :initform '())
-   (vertex-data-length :accessor vertex-data-length :initform 0)
+   (vertex-data :accessor vertex-data :initform (make-hash-table))
    (polygon-data :accessor polygon-data :initform (make-hash-table))))
 
 ;;methods 
@@ -124,25 +124,25 @@
 (defmethod tess-begin-contour ((tess tessellator))
   (glu-tess-begin-contour (glu-tessellator tess)))
 
-(defmethod tess-vertex ((tess tessellator) coords &optional (vertex-data nil))
+(defmethod tess-vertex ((tess tessellator) coords &optional vertex-data)
   (let* ((coords-data (list-to-pointer coords))
-         (vertex-data-pointer (if vertex-data 
-                                  (list-to-pointer vertex-data)
-                                  coords-data)))
-    (glu-tess-vertex (glu-tessellator tess) coords-data vertex-data-pointer)
+         ;;todo check if data is already present
+         (vertex-data-id (hash-table-count (vertex-data tess)))
+         (vertex-data-pointer (foreign-alloc :uint64 :initial-element vertex-data-id)))
+    
+    (setf (gethash vertex-data-id (vertex-data tess)) (or vertex-data coords))
+    
     (save-data-to-free coords-data tess)
     (save-data-to-free vertex-data-pointer tess)
-    (if (and (< 0 (vertex-data-length tess))
-             (not (= (vertex-data-length tess) (length coords))))
-        (warn "Vertex coordinates data must have the same length for one polygon.")
-        (setf (vertex-data-length tess) (length coords)))))
+    
+    (glu-tess-vertex (glu-tessellator tess) coords-data vertex-data-pointer)))
 
 (defmethod tess-end-contour ((tess tessellator))
   (glu-tess-end-contour (glu-tessellator tess)))
 
 (defmethod tess-end-polygon ((tess tessellator))
-  (glu-tess-end-polygon (glu-tessellator tess)))
-;;  (free-tess-data tess))
+  (glu-tess-end-polygon (glu-tessellator tess))
+  (free-tess-data tess))
 
 (defmethod tess-property ((tess tessellator) which value)
   (glu-tess-property (glu-tessellator tess) which value))
@@ -179,24 +179,23 @@
 (defcallback %vertex-data-callback :void ((vertex-data-pointer :pointer) (polygon-data-pointer :pointer))
   (let* ((tess (get-tessellator polygon-data-pointer))
          (polygon-data (get-polygon-data tess polygon-data-pointer))
-         ;;todo vertex data handling
-         (vertex-data-array (->vertex-data-array vertex-data-pointer tess)))
-    (vertex-data-callback tess vertex-data-array polygon-data)))
+         (vertex-data (get-vertex-data tess vertex-data-pointer)))
+    (vertex-data-callback tess vertex-data polygon-data)))
 
 (defcallback %error-data-callback :void ((error-number :unsigned-int) (polygon-data-pointer :pointer))
   (let* ((tess (get-tessellator polygon-data-pointer))
          (polygon-data (get-polygon-data tess polygon-data-pointer)))
     (error-data-callback tess error-number polygon-data)))
 
-(defcallback %combine-data-callback :void ((coords (:pointer %gl:double)) (vertex-data (:pointer %gl:double)) (weight (:pointer %gl:float)) (out-data :pointer) (polygon-data-pointer :pointer))
+(defcallback %combine-data-callback :void ((coords (:pointer %gl:double)) (vertex-data-pointer :pointer) (weight (:pointer %gl:float)) (out-data :pointer) (polygon-data-pointer :pointer))
   (let* ((tess (get-tessellator polygon-data-pointer))
          (polygon-data (get-polygon-data tess polygon-data-pointer))
          (coords-array (gl::make-gl-array-from-pointer coords '%gl:double 3))
-         ;;todo vertex data array handling or comment
-         (vertex-data-array (->combine-vertex-data-array vertex-data tess))
+         (vertex-data-array (->combine-vertex-data-array tess vertex-data-pointer))
          (weight-array (gl::make-gl-array-from-pointer weight '%gl:float 4))
          (combined-result (list-to-pointer 
                            (combine-data-callback tess coords-array vertex-data-array weight-array polygon-data))))
+    ;;todo handle combined result as ordinary vertex-data (get-id, store in vertex-data etc.)
     (setf (cffi:mem-ref out-data :pointer) combined-result)
     (save-data-to-free combined-result tess)))
 
@@ -214,7 +213,7 @@
 (defun save-data-to-free (data-to-free tess)
   (when (and (pointerp data-to-free)
              (not (null-pointer-p data-to-free)))
-    ;;todo don't use pushnew
+    ;;todo don't use pushnew (depends on coords vs. vertex-data)
     (pushnew data-to-free (data tess) :test 'cffi:pointer-eq)))
 
 (defun free-tess-data (tess)
@@ -224,22 +223,18 @@
                (not (null-pointer-p pointer)))
      do (foreign-free pointer))
   (setf (data tess) nil)
-  (setf (vertex-data-length tess) 0)
+  (clrhash (vertex-data tess))
   (clrhash (polygon-data tess)))
 
-(defun ->vertex-data-array (vertex-data tessellator)
-  (when (and (pointerp vertex-data)
-             (not (null-pointer-p vertex-data))
-             (< 0 (vertex-data-length tessellator)))
-    (gl::make-gl-array-from-pointer vertex-data '%gl:double (vertex-data-length tessellator))))
-
-(defun ->combine-vertex-data-array (vertex-data tessellator)
-  (let ((result (cl:make-array 4)))
+(defun ->combine-vertex-data-array (tess vertex-data)
+  (let ((result (make-array 4)))
     (loop for i from 0 below 4
-       do (setf (aref result i) (->vertex-data-array (mem-aref vertex-data ':pointer i) tessellator)))
+       do (setf (aref result i)
+                (get-vertex-data tess (mem-aref vertex-data ':pointer i))))
     result))
 
 (defun list-to-pointer (list)
+  ;;todo make this work with any sequence
   (when list
     (let* ((list-length (length list))
            (pointer (foreign-alloc '%gl:double :count list-length)))
@@ -260,6 +255,11 @@
   (unless (null-pointer-p polygon-data-pointer)
     (let ((polygon-data-id (mem-aref polygon-data-pointer :uint64 1)))
       (gethash polygon-data-id (polygon-data tess)))))
+
+(defun get-vertex-data (tess vertex-data-pointer)
+  (unless (null-pointer-p vertex-data-pointer)
+    (let ((vertex-data-id (mem-ref vertex-data-pointer :uint64)))
+      (gethash vertex-data-id (vertex-data tess)))))
 
 ;;Initialize information about defined callbacks. The actual definition is handled separately.
 (init-tessellation-callbacks 

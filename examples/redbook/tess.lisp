@@ -93,11 +93,11 @@
     (glut:destroy-current-window)))
 
 (defmethod glu:vertex-data-callback ((tess example-tessellator) vertex-data polygon-data)
-  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
+  (gl:vertex (first vertex-data) (second vertex-data) (third vertex-data)))
 
 (defmethod glu:vertex-data-callback ((tess star-tessellator) vertex-data polygon-data)
-  (gl:color (gl:glaref vertex-data 3) (gl:glaref vertex-data 4) (gl:glaref vertex-data 5))
-  (gl:vertex (gl:glaref vertex-data 0) (gl:glaref vertex-data 1) (gl:glaref vertex-data 2)))
+  (gl:color (fourth vertex-data) (fifth vertex-data) (sixth vertex-data))
+  (gl:vertex (first vertex-data) (second vertex-data) (third vertex-data)))
 
 (defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight polygon-data)
   (let ((vertex '()))
@@ -107,13 +107,13 @@
     
     (loop for i from 5 downto 0
        do (push (+ (* (gl:glaref weight 0) 
-                      (gl:glaref (aref vertex-data 0) i))
+                      (nth i (aref vertex-data 0)))
                    (* (gl:glaref weight 1) 
-                      (gl:glaref (aref vertex-data 1) i))
+                      (nth i (aref vertex-data 1)))
                    (* (gl:glaref weight 2) 
-                      (gl:glaref (aref vertex-data 2) i))
+                      (nth i (aref vertex-data 2)))
                    (* (gl:glaref weight 3) 
-                      (gl:glaref (aref vertex-data 3) i)))
+                      (nth i (aref vertex-data 3))))
                 vertex))
      vertex))
 
