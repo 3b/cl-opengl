@@ -57,10 +57,10 @@
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
           (loop for coords in rect
-             do (glu:tess-vertex tobj coords)))
+             do (glu:tess-vertex tobj coords coords)))
         (glu:with-tess-contour tobj
           (loop for coords in tri
-             do (glu:tess-vertex tobj coords)))))
+             do (glu:tess-vertex tobj coords coords)))))
     (glu:tess-delete tobj)
     
     ;;smooth shaded, self-intersecting star
@@ -71,7 +71,7 @@
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
           (loop for coords in star
-             do (glu:tess-vertex tobj coords)))))
+             do (glu:tess-vertex tobj coords coords)))))
     (glu:tess-delete tobj)))
 
 (defmethod glut:display ((window tess-window))

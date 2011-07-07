@@ -126,15 +126,9 @@
 
 (defmethod tess-vertex ((tess tessellator) coords &optional vertex-data)
   (let* ((coords-data (list-to-pointer coords))
-         ;;todo check if data is already present
-         (vertex-data-id (hash-table-count (vertex-data tess)))
-         (vertex-data-pointer (foreign-alloc :uint64 :initial-element vertex-data-id)))
-    
-    (setf (gethash vertex-data-id (vertex-data tess)) (or vertex-data coords))
+         (vertex-data-pointer (vertex-data-to-pointer tess vertex-data)))
     
     (save-data-to-free coords-data tess)
-    (save-data-to-free vertex-data-pointer tess)
-    
     (glu-tess-vertex (glu-tessellator tess) coords-data vertex-data-pointer)))
 
 (defmethod tess-end-contour ((tess tessellator))
@@ -193,11 +187,9 @@
          (coords-array (gl::make-gl-array-from-pointer coords '%gl:double 3))
          (vertex-data-array (->combine-vertex-data-array tess vertex-data-pointer))
          (weight-array (gl::make-gl-array-from-pointer weight '%gl:float 4))
-         (combined-result (list-to-pointer 
-                           (combine-data-callback tess coords-array vertex-data-array weight-array polygon-data))))
-    ;;todo handle combined result as ordinary vertex-data (get-id, store in vertex-data etc.)
-    (setf (cffi:mem-ref out-data :pointer) combined-result)
-    (save-data-to-free combined-result tess)))
+         (combined-result (combine-data-callback tess coords-array vertex-data-array weight-array polygon-data))
+         (combined-result-pointer (vertex-data-to-pointer tess combined-result)))
+    (setf (cffi:mem-ref out-data :pointer) combined-result-pointer)))
 
 ;;;; Functions
 (defun register-callbacks (tess)
@@ -225,6 +217,19 @@
   (setf (data tess) nil)
   (clrhash (vertex-data tess))
   (clrhash (polygon-data tess)))
+
+(defun vertex-data-to-pointer (tess vertex-data)
+  (let* ((vertex-data-id 
+          (or (loop for value being the hash-values of (vertex-data tess)
+                 using (hash-key key)
+                 when (eq value vertex-data)
+                 return key)
+              (hash-table-count (vertex-data tess))))
+         (vertex-data-pointer (foreign-alloc :uint64 :initial-element vertex-data-id)))
+    
+    (setf (gethash vertex-data-id (vertex-data tess)) vertex-data)
+    (save-data-to-free vertex-data-pointer tess)
+  vertex-data-pointer))
 
 (defun ->combine-vertex-data-array (tess vertex-data)
   (let ((result (make-array 4)))
