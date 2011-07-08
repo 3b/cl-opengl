@@ -125,7 +125,7 @@
   (glu-tess-begin-contour (glu-tessellator tess)))
 
 (defmethod tess-vertex ((tess tessellator) coords &optional vertex-data)
-  (let* ((coords-data (list-to-pointer coords))
+  (let* ((coords-data (coords-to-pointer coords))
          (vertex-data-pointer (vertex-data-to-pointer tess vertex-data)))
     
     (save-data-to-free coords-data tess)
@@ -205,8 +205,7 @@
 (defun save-data-to-free (data-to-free tess)
   (when (and (pointerp data-to-free)
              (not (null-pointer-p data-to-free)))
-    ;;todo don't use pushnew (depends on coords vs. vertex-data)
-    (pushnew data-to-free (data tess) :test 'cffi:pointer-eq)))
+    (push data-to-free (data tess))))
 
 (defun free-tess-data (tess)
   "Free data allocated with tess-vertex and tess-combine-callback"
@@ -238,16 +237,27 @@
                 (get-vertex-data tess (mem-aref vertex-data ':pointer i))))
     result))
 
-(defun list-to-pointer (list)
-  ;;todo make this work with any sequence
-  (when list
-    (let* ((list-length (length list))
-           (pointer (foreign-alloc '%gl:double :count list-length)))
-      (loop for elt in list
-         for i from 0
-         do (setf (mem-aref pointer '%gl:double i)
-                  (float elt)))
-      pointer)))
+(defun coords-to-pointer (coords)
+  (etypecase coords
+    (sequence
+     (let* ((coords-length (length coords))
+            (pointer (foreign-alloc '%gl:double :count coords-length)))
+       (typecase coords
+         (list
+          (loop for elt in coords
+             for i from 0
+             do (setf (mem-aref pointer '%gl:double i)
+                      (float elt))))
+          (T
+           (loop for elt across coords
+              for i from 0
+              do (setf (mem-aref pointer '%gl:double i)
+                       (float elt)))))
+      pointer))
+    (gl:gl-array
+     (if (not (equal (gl::gl-array-type coords) '%gl:double))
+         (error "Coordinates must have type gl:double")
+         (gl::gl-array-pointer coords)))))
 
 (defun get-tessellator (polygon-data-pointer)
   (unless (null-pointer-p polygon-data-pointer)
