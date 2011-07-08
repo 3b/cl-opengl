@@ -242,17 +242,17 @@
     (sequence
      (let* ((coords-length (length coords))
             (pointer (foreign-alloc '%gl:double :count coords-length)))
-       (typecase coords
+       (etypecase coords
          (list
           (loop for elt in coords
              for i from 0
              do (setf (mem-aref pointer '%gl:double i)
                       (float elt))))
-          (T
-           (loop for elt across coords
-              for i from 0
-              do (setf (mem-aref pointer '%gl:double i)
-                       (float elt)))))
+         (vector
+          (loop for elt across coords
+             for i from 0
+             do (setf (mem-aref pointer '%gl:double i)
+                      (float elt)))))
       pointer))
     (gl:gl-array
      (if (not (equal (gl::gl-array-type coords) '%gl:double))
