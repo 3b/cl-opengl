@@ -100,22 +100,19 @@
   (gl:vertex (first vertex-data) (second vertex-data) (third vertex-data)))
 
 (defmethod glu:combine-data-callback ((tess star-tessellator) coords vertex-data weight polygon-data)
-  (let ((vertex '()))
-    ;;todo refactor this
-    (loop for i from 3 downto 0
-       do (push (gl:glaref coords i) vertex))
+  (nconc 
+    (loop for i from 0 below 3
+       collect (gl:glaref coords i))
     
-    (loop for i from 5 downto 0
-       do (push (+ (* (gl:glaref weight 0) 
-                      (nth i (aref vertex-data 0)))
-                   (* (gl:glaref weight 1) 
-                      (nth i (aref vertex-data 1)))
-                   (* (gl:glaref weight 2) 
-                      (nth i (aref vertex-data 2)))
-                   (* (gl:glaref weight 3) 
-                      (nth i (aref vertex-data 3))))
-                vertex))
-     vertex))
+    (loop for i from 3 below 6
+       collect (+ (* (gl:glaref weight 0) 
+                     (nth i (aref vertex-data 0)))
+                  (* (gl:glaref weight 1) 
+                     (nth i (aref vertex-data 1)))
+                  (* (gl:glaref weight 2) 
+                     (nth i (aref vertex-data 2)))
+                  (* (gl:glaref weight 3) 
+                     (nth i (aref vertex-data 3)))))))
 
 (defun rb-tess ()
   (glut:display-window (make-instance 'tess-window)))
