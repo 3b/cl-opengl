@@ -75,8 +75,6 @@
     ("GetVideoui64vNV" . "get-video-ui64v-nv")
     ("GetBufferParameteri64v" . "get-buffer-parameter-i64v")
     ("GetInteger64v" . "get-integer-64-v")
-    ("TexImage2DMultisample" . "tex-image-2d-multisample")
-    ("TexImage3DMultisample" . "tex-image-3d-multisample")
     ;; extensions in .spec version 55
     ;; fixme: handle u?i64v? properly...
     ("GetBufferParameterui64vNV" . "get-buffer-parameter-ui64v-nv")
@@ -97,6 +95,10 @@
     ("ScissorIndexedv" . "scissor-indexed-v")
     ("VDPAUFiniNV" . "vdpau-fini-nv")
     ("CreateSyncFromCLeventARB" . "create-sync-from-cl-event-arb")
+    ;; .spec 72: gl 4.2
+    ;; spec uses "internalformat" as a single word, but enums split it,
+    ;; so splitting here too since that seems nicer anyway
+    ("GetInternalformativ" . "get-internal-format-iv")
 ))
 
 (defparameter *whole-words*
@@ -140,6 +142,9 @@
     ;; ext_vertex_shader
     ((cl-ppcre:scan "[1-3](ATI|EXT)" name)
      (cl-ppcre:regex-replace "([1-3])(EXT|ATI)" name "\\1-\\2"))
+    ;; fix [23]DMultisample
+    ((cl-ppcre:scan "[1-3]DMultisample" name)
+     (cl-ppcre:regex-replace "([1-3]D)(Multisample)" name "\\1-\\2"))
     ;; nv-gpu-program4 extension has a bunch of functions with I before the
     ;; type signature, not sure if it should be separate or not,
     ;; leaving it as i4ui etc. for now, but still gets special cased
@@ -583,7 +588,9 @@
   (loop for line = (read-line stream nil nil)
         while line
         do (multiple-value-bind (match regs)
-               (scan-to-strings "^passthru:\\s+.*last updated ([^\\s]+)\\s*"
+               #++(scan-to-strings "^passthru:\\s+.*last updated ([^\\s]+)\\s*"
+                                line)
+               (scan-to-strings "^# \\$Revision:.*\\$Date:\\s+(.*)\\s\\$$"
                                 line)
              (when match (setf *glext-last-updated* (aref regs 0))))
         (multiple-value-bind (match regs)
@@ -595,7 +602,7 @@
   ;; version/date if they don't put it back in .specs
   (unless *glext-version*
     (error "glext version not found in .spec files")
-    (setf *glext-version* 55))
+    (setf *glext-version* 72))
   (when (string= *glext-last-updated* "<unknown>")
     (error "glext update date not found in .spec files")
     (setf *glext-last-updated* "2009-09-11")))
