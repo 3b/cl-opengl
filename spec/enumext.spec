@@ -1,6 +1,6 @@
 # enumext.spec - list of GL enumerants for glext.h header
 #
-# $Revision: 12183 $ on $Date: 2010-08-06 02:53:05 -0700 (Fri, 06 Aug 2010) $
+# $Revision: 15267 $ on $Date: 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) $
 
 # This is derived from the master GL enumerant registry (enum.spec).
 #
@@ -1673,6 +1673,129 @@ passthru: /* Reuse tokens from ARB_viewport_array - some are in GL 1.1 and ARB_p
 	use ARB_viewport_array		    VIEWPORT_INDEX_PROVOKING_VERTEX
 	use ARB_viewport_array		    UNDEFINED_VERTEX
 
+###############################################################################
+#
+# OpenGL 4.2 enums
+#
+###############################################################################
+
+VERSION_4_2 enum:
+passthru: /* Reuse tokens from ARB_base_instance (none) */
+passthru: /* Reuse tokens from ARB_shading_language_420pack (none) */
+passthru: /* Reuse tokens from ARB_transform_feedback_instanced (none) */
+passthru: /* Reuse tokens from ARB_compressed_texture_pixel_storage */
+	use ARB_compressed_texture_pixel_storage    UNPACK_COMPRESSED_BLOCK_WIDTH
+	use ARB_compressed_texture_pixel_storage    UNPACK_COMPRESSED_BLOCK_HEIGHT
+	use ARB_compressed_texture_pixel_storage    UNPACK_COMPRESSED_BLOCK_DEPTH
+	use ARB_compressed_texture_pixel_storage    UNPACK_COMPRESSED_BLOCK_SIZE
+	use ARB_compressed_texture_pixel_storage    PACK_COMPRESSED_BLOCK_WIDTH
+	use ARB_compressed_texture_pixel_storage    PACK_COMPRESSED_BLOCK_HEIGHT
+	use ARB_compressed_texture_pixel_storage    PACK_COMPRESSED_BLOCK_DEPTH
+	use ARB_compressed_texture_pixel_storage    PACK_COMPRESSED_BLOCK_SIZE
+passthru: /* Reuse tokens from ARB_conservative_depth (none) */
+passthru: /* Reuse tokens from ARB_internalformat_query */
+	use ARB_internalformat_query	    NUM_SAMPLE_COUNTS
+passthru: /* Reuse tokens from ARB_map_buffer_alignment */
+	use ARB_map_buffer_alignment	    MIN_MAP_BUFFER_ALIGNMENT
+passthru: /* Reuse tokens from ARB_shader_atomic_counters */
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_BINDING
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_START
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_SIZE
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_DATA_SIZE
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_REFERENCED_BY_VERTEX_SHADER
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_CONTROL_SHADER
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER
+	use ARB_shader_atomic_counters	    ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER
+	use ARB_shader_atomic_counters	    MAX_VERTEX_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_COMBINED_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    MAX_VERTEX_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_TESS_CONTROL_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_TESS_EVALUATION_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_GEOMETRY_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_FRAGMENT_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_COMBINED_ATOMIC_COUNTERS
+	use ARB_shader_atomic_counters	    MAX_ATOMIC_COUNTER_BUFFER_SIZE
+	use ARB_shader_atomic_counters	    MAX_ATOMIC_COUNTER_BUFFER_BINDINGS
+	use ARB_shader_atomic_counters	    ACTIVE_ATOMIC_COUNTER_BUFFERS
+	use ARB_shader_atomic_counters	    UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX
+	use ARB_shader_atomic_counters	    UNSIGNED_INT_ATOMIC_COUNTER
+passthru: /* Reuse tokens from ARB_shader_image_load_store */
+	use ARB_shader_image_load_store     VERTEX_ATTRIB_ARRAY_BARRIER_BIT
+	use ARB_shader_image_load_store     ELEMENT_ARRAY_BARRIER_BIT
+	use ARB_shader_image_load_store     UNIFORM_BARRIER_BIT
+	use ARB_shader_image_load_store     TEXTURE_FETCH_BARRIER_BIT
+	use ARB_shader_image_load_store     SHADER_IMAGE_ACCESS_BARRIER_BIT
+	use ARB_shader_image_load_store     COMMAND_BARRIER_BIT
+	use ARB_shader_image_load_store     PIXEL_BUFFER_BARRIER_BIT
+	use ARB_shader_image_load_store     TEXTURE_UPDATE_BARRIER_BIT
+	use ARB_shader_image_load_store     BUFFER_UPDATE_BARRIER_BIT
+	use ARB_shader_image_load_store     FRAMEBUFFER_BARRIER_BIT
+	use ARB_shader_image_load_store     TRANSFORM_FEEDBACK_BARRIER_BIT
+	use ARB_shader_image_load_store     ATOMIC_COUNTER_BARRIER_BIT
+	use ARB_shader_image_load_store     ALL_BARRIER_BITS
+	use ARB_shader_image_load_store     MAX_IMAGE_UNITS
+	use ARB_shader_image_load_store     MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS
+	use ARB_shader_image_load_store     IMAGE_BINDING_NAME
+	use ARB_shader_image_load_store     IMAGE_BINDING_LEVEL
+	use ARB_shader_image_load_store     IMAGE_BINDING_LAYERED
+	use ARB_shader_image_load_store     IMAGE_BINDING_LAYER
+	use ARB_shader_image_load_store     IMAGE_BINDING_ACCESS
+	use ARB_shader_image_load_store     IMAGE_1D
+	use ARB_shader_image_load_store     IMAGE_2D
+	use ARB_shader_image_load_store     IMAGE_3D
+	use ARB_shader_image_load_store     IMAGE_2D_RECT
+	use ARB_shader_image_load_store     IMAGE_CUBE
+	use ARB_shader_image_load_store     IMAGE_BUFFER
+	use ARB_shader_image_load_store     IMAGE_1D_ARRAY
+	use ARB_shader_image_load_store     IMAGE_2D_ARRAY
+	use ARB_shader_image_load_store     IMAGE_CUBE_MAP_ARRAY
+	use ARB_shader_image_load_store     IMAGE_2D_MULTISAMPLE
+	use ARB_shader_image_load_store     IMAGE_2D_MULTISAMPLE_ARRAY
+	use ARB_shader_image_load_store     INT_IMAGE_1D
+	use ARB_shader_image_load_store     INT_IMAGE_2D
+	use ARB_shader_image_load_store     INT_IMAGE_3D
+	use ARB_shader_image_load_store     INT_IMAGE_2D_RECT
+	use ARB_shader_image_load_store     INT_IMAGE_CUBE
+	use ARB_shader_image_load_store     INT_IMAGE_BUFFER
+	use ARB_shader_image_load_store     INT_IMAGE_1D_ARRAY
+	use ARB_shader_image_load_store     INT_IMAGE_2D_ARRAY
+	use ARB_shader_image_load_store     INT_IMAGE_CUBE_MAP_ARRAY
+	use ARB_shader_image_load_store     INT_IMAGE_2D_MULTISAMPLE
+	use ARB_shader_image_load_store     INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_1D
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_2D
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_3D
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_2D_RECT
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_CUBE
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_BUFFER
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_1D_ARRAY
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_2D_ARRAY
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_2D_MULTISAMPLE
+	use ARB_shader_image_load_store     UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY
+	use ARB_shader_image_load_store     MAX_IMAGE_SAMPLES
+	use ARB_shader_image_load_store     IMAGE_BINDING_FORMAT
+	use ARB_shader_image_load_store     IMAGE_FORMAT_COMPATIBILITY_TYPE
+	use ARB_shader_image_load_store     IMAGE_FORMAT_COMPATIBILITY_BY_SIZE
+	use ARB_shader_image_load_store     IMAGE_FORMAT_COMPATIBILITY_BY_CLASS
+	use ARB_shader_image_load_store     MAX_VERTEX_IMAGE_UNIFORMS
+	use ARB_shader_image_load_store     MAX_TESS_CONTROL_IMAGE_UNIFORMS
+	use ARB_shader_image_load_store     MAX_TESS_EVALUATION_IMAGE_UNIFORMS
+	use ARB_shader_image_load_store     MAX_GEOMETRY_IMAGE_UNIFORMS
+	use ARB_shader_image_load_store     MAX_FRAGMENT_IMAGE_UNIFORMS
+	use ARB_shader_image_load_store     MAX_COMBINED_IMAGE_UNIFORMS
+passthru: /* Reuse tokens from ARB_shading_language_packing (none) */
+passthru: /* Reuse tokens from ARB_texture_storage */
+	use ARB_texture_storage		    TEXTURE_IMMUTABLE_FORMAT
+
 
 ###############################################################################
 #
@@ -3093,6 +3216,170 @@ ARB_robustness enum:
 # No new tokens
 # ARB Extension #106
 ARB_shader_stencil_export enum:
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #107
+ARB_base_instance enum:
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #108
+ARB_shading_language_420pack enum:
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #109
+ARB_transform_feedback_instanced enum:
+
+###############################################################################
+
+# ARB Extension #110
+ARB_compressed_texture_pixel_storage enum:
+	UNPACK_COMPRESSED_BLOCK_WIDTH			= 0x9127
+	UNPACK_COMPRESSED_BLOCK_HEIGHT			= 0x9128
+	UNPACK_COMPRESSED_BLOCK_DEPTH			= 0x9129
+	UNPACK_COMPRESSED_BLOCK_SIZE			= 0x912A
+	PACK_COMPRESSED_BLOCK_WIDTH			= 0x912B
+	PACK_COMPRESSED_BLOCK_HEIGHT			= 0x912C
+	PACK_COMPRESSED_BLOCK_DEPTH			= 0x912D
+	PACK_COMPRESSED_BLOCK_SIZE			= 0x912E
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #111
+ARB_conservative_depth enum:
+
+###############################################################################
+
+# ARB Extension #112
+ARB_internalformat_query enum:
+	NUM_SAMPLE_COUNTS				= 0x9380
+
+###############################################################################
+
+# ARB Extension #113
+ARB_map_buffer_alignment enum:
+	MIN_MAP_BUFFER_ALIGNMENT			= 0x90BC
+
+###############################################################################
+
+# ARB Extension #114
+ARB_shader_atomic_counters enum:
+	ATOMIC_COUNTER_BUFFER				 = 0x92C0
+	ATOMIC_COUNTER_BUFFER_BINDING			 = 0x92C1
+	ATOMIC_COUNTER_BUFFER_START			 = 0x92C2
+	ATOMIC_COUNTER_BUFFER_SIZE			 = 0x92C3
+	ATOMIC_COUNTER_BUFFER_DATA_SIZE			 = 0x92C4
+	ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTERS	 = 0x92C5
+	ATOMIC_COUNTER_BUFFER_ACTIVE_ATOMIC_COUNTER_INDICES	   = 0x92C6
+	ATOMIC_COUNTER_BUFFER_REFERENCED_BY_VERTEX_SHADER	   = 0x92C7
+	ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_CONTROL_SHADER    = 0x92C8
+	ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TESS_EVALUATION_SHADER = 0x92C9
+	ATOMIC_COUNTER_BUFFER_REFERENCED_BY_GEOMETRY_SHADER	   = 0x92CA
+	ATOMIC_COUNTER_BUFFER_REFERENCED_BY_FRAGMENT_SHADER	   = 0x92CB
+	MAX_VERTEX_ATOMIC_COUNTER_BUFFERS		 = 0x92CC
+	MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS		 = 0x92CD
+	MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS	 = 0x92CE
+	MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS		 = 0x92CF
+	MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS		 = 0x92D0
+	MAX_COMBINED_ATOMIC_COUNTER_BUFFERS		 = 0x92D1
+	MAX_VERTEX_ATOMIC_COUNTERS			 = 0x92D2
+	MAX_TESS_CONTROL_ATOMIC_COUNTERS		 = 0x92D3
+	MAX_TESS_EVALUATION_ATOMIC_COUNTERS		 = 0x92D4
+	MAX_GEOMETRY_ATOMIC_COUNTERS			 = 0x92D5
+	MAX_FRAGMENT_ATOMIC_COUNTERS			 = 0x92D6
+	MAX_COMBINED_ATOMIC_COUNTERS			 = 0x92D7
+	MAX_ATOMIC_COUNTER_BUFFER_SIZE			 = 0x92D8
+	MAX_ATOMIC_COUNTER_BUFFER_BINDINGS		 = 0x92DC
+	ACTIVE_ATOMIC_COUNTER_BUFFERS			 = 0x92D9
+	UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX		 = 0x92DA
+	UNSIGNED_INT_ATOMIC_COUNTER			 = 0x92DB
+
+###############################################################################
+
+# ARB Extension #115
+ARB_shader_image_load_store enum:
+	VERTEX_ATTRIB_ARRAY_BARRIER_BIT			= 0x00000001
+	ELEMENT_ARRAY_BARRIER_BIT			= 0x00000002
+	UNIFORM_BARRIER_BIT				= 0x00000004
+	TEXTURE_FETCH_BARRIER_BIT			= 0x00000008
+	SHADER_IMAGE_ACCESS_BARRIER_BIT			= 0x00000020
+	COMMAND_BARRIER_BIT				= 0x00000040
+	PIXEL_BUFFER_BARRIER_BIT			= 0x00000080
+	TEXTURE_UPDATE_BARRIER_BIT			= 0x00000100
+	BUFFER_UPDATE_BARRIER_BIT			= 0x00000200
+	FRAMEBUFFER_BARRIER_BIT				= 0x00000400
+	TRANSFORM_FEEDBACK_BARRIER_BIT			= 0x00000800
+	ATOMIC_COUNTER_BARRIER_BIT			= 0x00001000
+	ALL_BARRIER_BITS				= 0xFFFFFFFF
+	MAX_IMAGE_UNITS					= 0x8F38
+	MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS	= 0x8F39
+	IMAGE_BINDING_NAME				= 0x8F3A
+	IMAGE_BINDING_LEVEL				= 0x8F3B
+	IMAGE_BINDING_LAYERED				= 0x8F3C
+	IMAGE_BINDING_LAYER				= 0x8F3D
+	IMAGE_BINDING_ACCESS				= 0x8F3E
+	IMAGE_1D					= 0x904C
+	IMAGE_2D					= 0x904D
+	IMAGE_3D					= 0x904E
+	IMAGE_2D_RECT					= 0x904F
+	IMAGE_CUBE					= 0x9050
+	IMAGE_BUFFER					= 0x9051
+	IMAGE_1D_ARRAY					= 0x9052
+	IMAGE_2D_ARRAY					= 0x9053
+	IMAGE_CUBE_MAP_ARRAY				= 0x9054
+	IMAGE_2D_MULTISAMPLE				= 0x9055
+	IMAGE_2D_MULTISAMPLE_ARRAY			= 0x9056
+	INT_IMAGE_1D					= 0x9057
+	INT_IMAGE_2D					= 0x9058
+	INT_IMAGE_3D					= 0x9059
+	INT_IMAGE_2D_RECT				= 0x905A
+	INT_IMAGE_CUBE					= 0x905B
+	INT_IMAGE_BUFFER				= 0x905C
+	INT_IMAGE_1D_ARRAY				= 0x905D
+	INT_IMAGE_2D_ARRAY				= 0x905E
+	INT_IMAGE_CUBE_MAP_ARRAY			= 0x905F
+	INT_IMAGE_2D_MULTISAMPLE			= 0x9060
+	INT_IMAGE_2D_MULTISAMPLE_ARRAY			= 0x9061
+	UNSIGNED_INT_IMAGE_1D				= 0x9062
+	UNSIGNED_INT_IMAGE_2D				= 0x9063
+	UNSIGNED_INT_IMAGE_3D				= 0x9064
+	UNSIGNED_INT_IMAGE_2D_RECT			= 0x9065
+	UNSIGNED_INT_IMAGE_CUBE				= 0x9066
+	UNSIGNED_INT_IMAGE_BUFFER			= 0x9067
+	UNSIGNED_INT_IMAGE_1D_ARRAY			= 0x9068
+	UNSIGNED_INT_IMAGE_2D_ARRAY			= 0x9069
+	UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY		= 0x906A
+	UNSIGNED_INT_IMAGE_2D_MULTISAMPLE		= 0x906B
+	UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY		= 0x906C
+	MAX_IMAGE_SAMPLES				= 0x906D
+	IMAGE_BINDING_FORMAT				= 0x906E
+	IMAGE_FORMAT_COMPATIBILITY_TYPE			= 0x90C7
+	IMAGE_FORMAT_COMPATIBILITY_BY_SIZE		= 0x90C8
+	IMAGE_FORMAT_COMPATIBILITY_BY_CLASS		= 0x90C9
+	MAX_VERTEX_IMAGE_UNIFORMS			= 0x90CA
+	MAX_TESS_CONTROL_IMAGE_UNIFORMS			= 0x90CB
+	MAX_TESS_EVALUATION_IMAGE_UNIFORMS		= 0x90CC
+	MAX_GEOMETRY_IMAGE_UNIFORMS			= 0x90CD
+	MAX_FRAGMENT_IMAGE_UNIFORMS			= 0x90CE
+	MAX_COMBINED_IMAGE_UNIFORMS			= 0x90CF
+
+###############################################################################
+
+# No new tokens
+# ARB Extension #116
+ARB_shading_language_packing enum:
+
+###############################################################################
+
+# ARB Extension #117
+ARB_texture_storage enum:
+	TEXTURE_IMMUTABLE_FORMAT			= 0x912F
 
 
 ###############################################################################
@@ -6736,7 +7023,7 @@ AMD_shader_stencil_export enum:
 
 # Extension #383
 AMD_seamless_cubemap_per_texture enum:
-    use ARB_seamless_cube_map		    TEXTURE_CUBE_MAP_SEAMLESS_ARB
+    use ARB_seamless_cube_map		    TEXTURE_CUBE_MAP_SEAMLESS
 
 ###############################################################################
 
@@ -6835,6 +7122,8 @@ NV_gpu_program5 enum:
 	MIN_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5B
 	MAX_FRAGMENT_INTERPOLATION_OFFSET_NV		= 0x8E5C
 	FRAGMENT_PROGRAM_INTERPOLATION_OFFSET_BITS_NV	= 0x8E5D
+	MIN_PROGRAM_TEXTURE_GATHER_OFFSET_NV		= 0x8E5E
+	MAX_PROGRAM_TEXTURE_GATHER_OFFSET_NV		= 0x8E5F
 	MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV		= 0x8F44    # Requires ARB_shader_subroutine
 	MAX_PROGRAM_SUBROUTINE_NUM_NV			= 0x8F45    # Requires ARB_shader_subroutine
 
@@ -6954,3 +7243,60 @@ AMD_transform_feedback3_lines_triangles enum:
 # Extension #399 - GLX_EXT_create_context_es2_profile
 # Extension #400 - WGL_EXT_create_context_es2_profile
 
+###############################################################################
+
+# Extension #401
+AMD_depth_clamp_separate enum:
+	DEPTH_CLAMP_NEAR_AMD				= 0x901E
+	DEPTH_CLAMP_FAR_AMD				= 0x901F
+
+###############################################################################
+
+# Extension #402
+EXT_texture_sRGB_decode enum:
+	TEXTURE_SRGB_DECODE_EXT				= 0x8A48
+	DECODE_EXT					= 0x8A49
+	SKIP_DECODE_EXT					= 0x8A4A
+
+###############################################################################
+
+# Extension #403
+NV_texture_multisample enum:
+	TEXTURE_COVERAGE_SAMPLES_NV			= 0x9045
+	TEXTURE_COLOR_SAMPLES_NV			= 0x9046
+
+###############################################################################
+
+# Extension #404
+AMD_blend_minmax_factor enum:
+	FACTOR_MIN_AMD					= 0x901C
+	FACTOR_MAX_AMD					= 0x901D
+
+###############################################################################
+
+# Extension #405
+AMD_sample_positions enum:
+	SUBSAMPLE_DISTANCE_AMD				= 0x883F
+
+###############################################################################
+
+# Extension #406
+EXT_x11_sync_object enum:
+	SYNC_X11_FENCE_EXT				= 0x90E1
+
+###############################################################################
+
+# Extension #407 - WGL_NV_DX_interop
+
+###############################################################################
+
+# No new tokens
+# Extension #408
+AMD_multi_draw_indirect enum:
+
+###############################################################################
+
+# Extension #409
+EXT_framebuffer_multisample_blit_scaled enum:
+	SCALED_RESOLVE_FASTEST_EXT			= 0x90BA
+	SCALED_RESOLVE_NICEST_EXT			= 0x90BB
