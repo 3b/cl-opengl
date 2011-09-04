@@ -35,6 +35,7 @@
 (defpackage #:cl-glut
   (:nicknames #:glut)
   (:use #:cl #:cffi)
+  (:import-from #:alexandria #:deletef #:emptyp)
   ;; interface.lisp stuff
   (:shadow #:special #:close)
   (:export
