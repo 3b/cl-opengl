@@ -73,6 +73,7 @@
        (:file "render-to-texture")
        (:file "opengl-array")
        (:file "shader-vao")
-       (:file "molview")))))))
+       (:file "molview")
+       (:file "gl-info")))))))
 
 ;;; vim: ft=lisp et
