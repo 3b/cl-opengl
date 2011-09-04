@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 64 ( 2010-08-03 01:30:25 -0700 (Tue, 03 Aug 2010) )
+;;; glext version 72 ( 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 64)
-(defparameter *glext-last-updated* "2010-08-03 01:30:25 -0700 (Tue, 03 Aug 2010)")
+(defparameter *glext-version* 72)
+(defparameter *glext-last-updated* "2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011)")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -6708,6 +6708,126 @@
   (bufSize sizei)
   (params (:pointer double)))
 
+;;; GL version: 4.2, ARB_base_instance
+(defglextfun ("glDrawArraysInstancedBaseInstance" draw-arrays-instanced-base-instance) :void
+  (mode enum)
+  (first int)
+  (count sizei)
+  (primcount sizei)
+  (baseinstance uint))
+
+;;; GL version: 4.2, ARB_base_instance
+(defglextfun ("glDrawElementsInstancedBaseInstance" draw-elements-instanced-base-instance) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer :void))
+  (primcount sizei)
+  (baseinstance uint))
+
+;;; GL version: 4.2, ARB_base_instance
+(defglextfun ("glDrawElementsInstancedBaseVertexBaseInstance" draw-elements-instanced-base-vertex-base-instance) :void
+  (mode enum)
+  (count sizei)
+  (type enum)
+  (indices (:pointer :void))
+  (primcount sizei)
+  (basevertex int)
+  (baseinstance uint))
+
+;;; GL version: 4.2, ARB_transform_feedback_instanced
+(defglextfun ("glDrawTransformFeedbackInstanced" draw-transform-feedback-instanced) :void
+  (mode enum)
+  (id uint)
+  (primcount sizei))
+
+;;; GL version: 4.2, ARB_transform_feedback_instanced
+(defglextfun ("glDrawTransformFeedbackStreamInstanced" draw-transform-feedback-stream-instanced) :void
+  (mode enum)
+  (id uint)
+  (stream uint)
+  (primcount sizei))
+
+;;; GL version: 4.2, ARB_internalformat_query
+(defglextfun ("glGetInternalformativ" get-internal-format-iv) :void
+  (target enum)
+  (internalformat enum)
+  (pname enum)
+  (bufSize sizei)
+  (params (:pointer int)))
+
+;;; GL version: 4.2, ARB_shader_atomic_counters
+(defglextfun ("glGetActiveAtomicCounterBufferiv" get-active-atomic-counter-buffer-iv) :void
+  (program uint)
+  (bufferIndex uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 4.2, ARB_shader_image_load_store
+(defglextfun ("glBindImageTexture" bind-image-texture) :void
+  (unit uint)
+  (texture uint)
+  (level int)
+  (layered boolean)
+  (layer int)
+  (access enum)
+  (format enum))
+
+;;; GL version: 4.2, ARB_shader_image_load_store
+(defglextfun ("glMemoryBarrier" memory-barrier) :void
+  (barriers bitfield))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTexStorage1D" tex-storage-1d) :void
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTexStorage2D" tex-storage-2d) :void
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTexStorage3D" tex-storage-3d) :void
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTextureStorage1DEXT" texture-storage-1d-ext) :void
+  (texture uint)
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTextureStorage2DEXT" texture-storage-2d-ext) :void
+  (texture uint)
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 4.2, ARB_texture_storage
+(defglextfun ("glTextureStorage3DEXT" texture-storage-3d-ext) :void
+  (texture uint)
+  (target enum)
+  (levels sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei))
+
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
   (red clampf)
@@ -8946,14 +9066,14 @@
 (defglextfun ("glProgramParameters4dvNV" program-parameters-4dv-nv) :void
   (target enum)
   (index uint)
-  (count uint)
+  (count sizei)
   (v (:pointer double)))
 
 ;;; GL version: 1.2, NV_vertex_program
 (defglextfun ("glProgramParameters4fvNV" program-parameters-4fv-nv) :void
   (target enum)
   (index uint)
-  (count uint)
+  (count sizei)
   (v (:pointer float)))
 
 ;;; GL version: 1.2, NV_vertex_program
@@ -13970,3 +14090,95 @@
 (defglextfun ("glVDPAUUnmapSurfacesNV" vdpau-unmap-surfaces-nv) :void
   (numSurface sizei)
   (surfaces (:pointer vdpauSurface-nv)))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTexImage2DMultisampleCoverageNV" tex-image-2d-multisample-coverage-nv) :void
+  (target enum)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTexImage3DMultisampleCoverageNV" tex-image-3d-multisample-coverage-nv) :void
+  (target enum)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTextureImage2DMultisampleNV" texture-image-2d-multisample-nv) :void
+  (texture uint)
+  (target enum)
+  (samples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTextureImage3DMultisampleNV" texture-image-3d-multisample-nv) :void
+  (texture uint)
+  (target enum)
+  (samples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTextureImage2DMultisampleCoverageNV" texture-image-2d-multisample-coverage-nv) :void
+  (texture uint)
+  (target enum)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 4.1, NV_texture_multisample
+(defglextfun ("glTextureImage3DMultisampleCoverageNV" texture-image-3d-multisample-coverage-nv) :void
+  (texture uint)
+  (target enum)
+  (coverageSamples sizei)
+  (colorSamples sizei)
+  (internalFormat int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedSampleLocations boolean))
+
+;;; GL version: 3.2, AMD_sample_positions
+(defglextfun ("glSetMultisamplefvAMD" set-multisample-fv-amd) :void
+  (pname enum)
+  (index uint)
+  (val (:pointer float)))
+
+;;; GL version: 3.2, EXT_x11_sync_object
+(defglextfun ("glImportSyncEXT" import-sync-ext) :pointer
+  (external_sync_type enum)
+  (external_sync intptr)
+  (flags bitfield))
+
+;;; GL version: 4.0, AMD_multi_draw_indirect
+(defglextfun ("glMultiDrawArraysIndirectAMD" multi-draw-arrays-indirect-amd) :void
+  (mode enum)
+  (indirect (:pointer void))
+  (primcount sizei)
+  (stride sizei))
+
+;;; GL version: 4.0, AMD_multi_draw_indirect
+(defglextfun ("glMultiDrawElementsIndirectAMD" multi-draw-elements-indirect-amd) :void
+  (mode enum)
+  (type enum)
+  (indirect (:pointer void))
+  (primcount sizei)
+  (stride sizei))

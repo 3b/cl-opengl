@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 64 ( 2010-08-03 01:30:25 -0700 (Tue, 03 Aug 2010) )
+;;; glext version 72 ( 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -416,22 +416,31 @@
   #:getn-histogram-arb #:getn-minmax-arb #:getn-tex-image-arb 
   #:readn-pixels-arb #:getn-compressed-tex-image-arb 
   #:getn-uniform-fv-arb #:getn-uniform-iv-arb #:getn-uniform-uiv-arb 
-  #:getn-uniform-dv-arb #:blend-color-ext #:polygon-offset-ext 
-  #:tex-image-3d-ext #:tex-sub-image-3d-ext 
-  #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
-  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
-  #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
-  #:copy-tex-sub-image-1d-ext #:copy-tex-sub-image-2d-ext 
-  #:copy-tex-sub-image-3d-ext #:get-histogram-ext 
-  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext 
-  #:get-minmax-ext #:get-minmax-parameter-fv-ext 
-  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext 
-  #:reset-histogram-ext #:reset-minmax-ext 
-  #:convolution-filter-1d-ext #:convolution-filter-2d-ext 
-  #:convolution-parameter-f-ext #:convolution-parameter-fv-ext 
-  #:convolution-parameter-i-ext #:convolution-parameter-iv-ext 
-  #:copy-convolution-filter-1d-ext #:copy-convolution-filter-2d-ext 
-  #:get-convolution-filter-ext #:get-convolution-parameter-fv-ext 
+  #:getn-uniform-dv-arb #:draw-arrays-instanced-base-instance 
+  #:draw-elements-instanced-base-instance 
+  #:draw-elements-instanced-base-vertex-base-instance 
+  #:draw-transform-feedback-instanced 
+  #:draw-transform-feedback-stream-instanced 
+  #:get-internal-format-iv #:get-active-atomic-counter-buffer-iv 
+  #:bind-image-texture #:memory-barrier #:tex-storage-1d 
+  #:tex-storage-2d #:tex-storage-3d #:texture-storage-1d-ext 
+  #:texture-storage-2d-ext #:texture-storage-3d-ext 
+  #:blend-color-ext #:polygon-offset-ext #:tex-image-3d-ext 
+  #:tex-sub-image-3d-ext #:get-tex-filter-func-sgis 
+  #:tex-filter-func-sgis #:tex-sub-image-1d-ext 
+  #:tex-sub-image-2d-ext #:copy-tex-image-1d-ext 
+  #:copy-tex-image-2d-ext #:copy-tex-sub-image-1d-ext 
+  #:copy-tex-sub-image-2d-ext #:copy-tex-sub-image-3d-ext 
+  #:get-histogram-ext #:get-histogram-parameter-fv-ext 
+  #:get-histogram-parameter-iv-ext #:get-minmax-ext 
+  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext 
+  #:histogram-ext #:minmax-ext #:reset-histogram-ext 
+  #:reset-minmax-ext #:convolution-filter-1d-ext 
+  #:convolution-filter-2d-ext #:convolution-parameter-f-ext 
+  #:convolution-parameter-fv-ext #:convolution-parameter-i-ext 
+  #:convolution-parameter-iv-ext #:copy-convolution-filter-1d-ext 
+  #:copy-convolution-filter-2d-ext #:get-convolution-filter-ext 
+  #:get-convolution-parameter-fv-ext 
   #:get-convolution-parameter-iv-ext #:get-separable-filter-ext 
   #:separable-filter-2d-ext #:color-table-sgi 
   #:color-table-parameter-fv-sgi #:color-table-parameter-iv-sgi 
@@ -1001,5 +1010,13 @@
   #:vdpau-register-output-surface-nv #:vdpau-is-surface-nv 
   #:vdpau-unregister-surface-nv #:vdpau-get-surface-iv-nv 
   #:vdpau-surface-access-nv #:vdpau-map-surfaces-nv 
-  #:vdpau-unmap-surfaces-nv ))
+  #:vdpau-unmap-surfaces-nv #:tex-image-2d-multisample-coverage-nv 
+  #:tex-image-3d-multisample-coverage-nv 
+  #:texture-image-2d-multisample-nv 
+  #:texture-image-3d-multisample-nv 
+  #:texture-image-2d-multisample-coverage-nv 
+  #:texture-image-3d-multisample-coverage-nv 
+  #:set-multisample-fv-amd #:import-sync-ext 
+  #:multi-draw-arrays-indirect-amd 
+  #:multi-draw-elements-indirect-amd ))
 
