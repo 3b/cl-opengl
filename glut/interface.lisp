@@ -356,7 +356,9 @@ Lexically binds CURRENT-WINDOW to the respective object."
       ((game-mode current-window)
        (leave-game-mode))
       (t
-       (destroy-window (id current-window))
+       (when (not (destroyed current-window))
+         (setf (destroyed current-window) t)
+         (destroy-window (id current-window)))
        #+darwin
        (%close current-window)))))
 

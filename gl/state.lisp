@@ -1313,6 +1313,8 @@ named GL extension
                          ((stringp x) `(extension-present-p ,x))
                          ((eq x :major-version) `(major-version))
                          ((eq x :minor-version) `(minor-version))
+                         ((eq x :gl-version) `(gl-version))
+                         ((eq x :glsl-version) `(glsl-version))
                          ((listp x) (build-tests x))
                          (t x)))
                      list)))
