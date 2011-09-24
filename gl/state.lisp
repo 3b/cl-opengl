@@ -959,7 +959,7 @@
       (destructuring-bind (enum type size &optional max)
           (assoc name *query-enum-sizes*)
         (declare (ignore enum max))
-        `(let ((size ,(if (keywordp count) `(get-integer ,count 1) count)))
+        `(let ((size ,(if (keywordp size) `(get-integer ,size 1) size)))
            (declare (ignorable size))
            ;; fixme: get rid of this duplicated code somehow?
            ,(ecase type
