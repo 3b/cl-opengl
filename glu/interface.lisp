@@ -279,7 +279,7 @@
 ;;Initialize information about defined callbacks. The actual definition is handled separately.
 (init-tessellation-callbacks 
   (begin-data-callback :begin-data 2)
-  (edge-flag-data-callback :edge-flag 2)
+  (edge-flag-data-callback :edge-flag-data 2)
   (end-data-callback :end-data 1)
   (vertex-data-callback :vertex-data 2)
   (error-data-callback :error-data 2)
