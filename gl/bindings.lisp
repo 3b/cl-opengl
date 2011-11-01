@@ -99,8 +99,21 @@
 ;;; wglGetProcAddress(), etc.
 (defparameter *gl-get-proc-address* nil)
 
+;;; Fallback get-proc-address bindings which should work for common
+;;; configurations
+;;; TODO: Darwin
+#+linux
+(defcfun ("glXGetProcAddress" glx-get-proc-address) :pointer
+  (proc-name :string))
+#+win32
+(defcfun ("wglGetProcAddress" wgl-get-proc-address) :pointer
+  (proc-name :string))
+
 (defun gl-get-proc-address (name)
-  (funcall *gl-get-proc-address* name))
+  (funcall (or *gl-get-proc-address*
+               #+linux #'glx-get-proc-address
+               #+win32 #'wgl-get-proc-address)
+           name))
 
 (eval-when (:load-toplevel :execute)
   #+clisp (pushnew 'reset-gl-pointers custom:*fini-hooks*)
