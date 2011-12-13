@@ -28,6 +28,7 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defsystem cl-opengl
+  :description "Common Lisp bindings to OpenGL."
   :depends-on (cffi alexandria)
   :components
   ((:module "gl"
