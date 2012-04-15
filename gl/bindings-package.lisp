@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 72 ( 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) )
+;;; glext version 78 ( 2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -1018,5 +1018,34 @@
   #:texture-image-3d-multisample-coverage-nv 
   #:set-multisample-fv-amd #:import-sync-ext 
   #:multi-draw-arrays-indirect-amd 
-  #:multi-draw-elements-indirect-amd ))
+  #:multi-draw-elements-indirect-amd #:gen-paths-nv 
+  #:delete-paths-nv #:is-path-nv #:path-commands-nv #:path-coords-nv 
+  #:path-sub-commands-nv #:path-sub-coords-nv #:path-string-nv 
+  #:path-glyphs-nv #:path-glyph-range-nv #:weight-paths-nv 
+  #:copy-path-nv #:interpolate-paths-nv #:transform-path-nv 
+  #:path-parameter-iv-nv #:path-parameter-i-nv 
+  #:path-parameter-fv-nv #:path-parameter-f-nv #:path-dash-array-nv 
+  #:path-stencil-func-nv #:path-stencil-depth-offset-nv 
+  #:stencil-fill-path-nv #:stencil-stroke-path-nv 
+  #:stencil-fill-path-instanced-nv 
+  #:stencil-stroke-path-instanced-nv #:path-cover-depth-func-nv 
+  #:path-color-gen-nv #:path-tex-gen-nv #:path-fog-gen-nv 
+  #:cover-fill-path-nv #:cover-stroke-path-nv 
+  #:cover-fill-path-instanced-nv #:cover-stroke-path-instanced-nv 
+  #:get-path-parameter-iv-nv #:get-path-parameter-fv-nv 
+  #:get-path-commands-nv #:get-path-coords-nv 
+  #:get-path-dash-array-nv #:get-path-metrics-nv 
+  #:get-path-metric-range-nv #:get-path-spacing-nv 
+  #:get-path-color-gen-iv-nv #:get-path-color-gen-fv-nv 
+  #:get-path-tex-gen-iv-nv #:get-path-tex-gen-fv-nv 
+  #:is-point-in-fill-path-nv #:is-point-in-stroke-path-nv 
+  #:get-path-length-nv #:point-along-path-nv #:stencil-op-value-amd 
+  #:get-texture-handle-nv #:get-texture-sampler-handle-nv 
+  #:make-texture-handle-resident-nv 
+  #:make-texture-handle-non-resident-nv #:get-image-handle-nv 
+  #:make-image-handle-resident-nv 
+  #:make-image-handle-non-resident-nv #:uniform-handle-ui64-nv 
+  #:uniform-handle-ui64v-nv #:program-uniform-handle-ui64-nv 
+  #:program-uniform-handle-ui64v-nv #:is-texture-handle-resident-nv 
+  #:is-image-handle-resident-nv ))
 

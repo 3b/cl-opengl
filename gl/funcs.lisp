@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 72 ( 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) )
+;;; glext version 78 ( 2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012) )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 72)
-(defparameter *glext-last-updated* "2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011)")
+(defparameter *glext-version* 78)
+(defparameter *glext-last-updated* "2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012)")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -127,10 +127,10 @@
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearColor" clear-color) :void
-  (red clampf)
-  (green clampf)
-  (blue clampf)
-  (alpha clampf))
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearStencil" clear-stencil) :void
@@ -138,7 +138,7 @@
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glClearDepth" clear-depth) :void
-  (depth clampd))
+  (depth double))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glStencilMask" stencil-mask) :void
@@ -285,8 +285,8 @@
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glDepthRange" depth-range) :void
-  (near clampd)
-  (far clampd))
+  (near double)
+  (far double))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glViewport" viewport) :void
@@ -1406,7 +1406,7 @@
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glAlphaFunc" alpha-func) :void
   (func enum)
-  (ref clampf))
+  (ref float))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelZoom" pixel-zoom) :void
@@ -1813,7 +1813,7 @@
 (defglfun ("glPrioritizeTextures" prioritize-textures) :void
   (n sizei)
   (textures (:pointer uint))
-  (priorities (:pointer clampf)))
+  (priorities (:pointer float)))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glIndexub" index-ub) :void
@@ -1832,10 +1832,10 @@
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glBlendColor" blend-color) :void
-  (red clampf)
-  (green clampf)
-  (blue clampf)
-  (alpha clampf))
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glBlendEquation" blend-equation) :void
@@ -2120,7 +2120,7 @@
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glSampleCoverage" sample-coverage) :void
-  (value clampf)
+  (value float)
   (invert boolean))
 
 ;;; GL version: 1.3, VERSION_1_3
@@ -3699,7 +3699,7 @@
 
 ;;; GL version: 1.2, VERSION_4_0
 (defglextfun ("glMinSampleShading" min-sample-shading) :void
-  (value clampf))
+  (value float))
 
 ;;; GL version: 1.2, VERSION_4_0
 (defglextfun ("glBlendEquationi" blend-equation-i) :void
@@ -3936,7 +3936,7 @@
 
 ;;; GL version: 1.2, ARB_multisample
 (defglextfun ("glSampleCoverageARB" sample-coverage-arb) :void
-  (value clampf)
+  (value float)
   (invert boolean))
 
 ;;; GL version: 1.2, ARB_texture_compression
@@ -5308,7 +5308,7 @@
 
 ;;; GL version: 1.2, ARB_sample_shading
 (defglextfun ("glMinSampleShadingARB" min-sample-shading-arb) :void
-  (value clampf))
+  (value float))
 
 ;;; GL version: 1.2, ARB_shading_language_include
 (defglextfun ("glNamedStringARB" named-string-arb) :void
@@ -5943,12 +5943,12 @@
 
 ;;; GL version: 4.1, ARB_ES2_compatibility
 (defglextfun ("glDepthRangef" depth-range-f) :void
-  (n clampf)
-  (f clampf))
+  (n float)
+  (f float))
 
 ;;; GL version: 4.1, ARB_ES2_compatibility
 (defglextfun ("glClearDepthf" clear-depth-f) :void
-  (d clampf))
+  (d float))
 
 ;;; GL version: 4.1, ARB_get_program_binary
 (defglextfun ("glGetProgramBinary" get-program-binary) :void
@@ -6501,13 +6501,13 @@
 (defglextfun ("glDepthRangeArrayv" depth-range-array-v) :void
   (first uint)
   (count sizei)
-  (v (:pointer clampd)))
+  (v (:pointer double)))
 
 ;;; GL version: 4.1, ARB_viewport_array
 (defglextfun ("glDepthRangeIndexed" depth-range-indexed) :void
   (index uint)
-  (n clampd)
-  (f clampd))
+  (n double)
+  (f double))
 
 ;;; GL version: 4.1, ARB_viewport_array
 (defglextfun ("glGetFloati_v" get-float-i-v) :void
@@ -6830,10 +6830,10 @@
 
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
-  (red clampf)
-  (green clampf)
-  (blue clampf)
-  (alpha clampf))
+  (red float)
+  (green float)
+  (blue float)
+  (alpha float))
 
 ;;; GL version: 1.0, EXT_polygon_offset
 (defglextfun ("glPolygonOffsetEXT" polygon-offset-ext) :void
@@ -14182,3 +14182,418 @@
   (indirect (:pointer void))
   (primcount sizei)
   (stride sizei))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGenPathsNV" gen-paths-nv) uint
+  (range sizei))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glDeletePathsNV" delete-paths-nv) :void
+  (path uint)
+  (range sizei))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glIsPathNV" is-path-nv) boolean
+  (path uint))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathCommandsNV" path-commands-nv) :void
+  (path uint)
+  (numCommands sizei)
+  (commands (:pointer ubyte))
+  (numCoords sizei)
+  (coordType enum)
+  (coords (:pointer void)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathCoordsNV" path-coords-nv) :void
+  (path uint)
+  (numCoords sizei)
+  (coordType enum)
+  (coords (:pointer void)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathSubCommandsNV" path-sub-commands-nv) :void
+  (path uint)
+  (commandStart sizei)
+  (commandsToDelete sizei)
+  (numCommands sizei)
+  (commands (:pointer ubyte))
+  (numCoords sizei)
+  (coordType enum)
+  (coords (:pointer void)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathSubCoordsNV" path-sub-coords-nv) :void
+  (path uint)
+  (coordStart sizei)
+  (numCoords sizei)
+  (coordType enum)
+  (coords (:pointer void)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathStringNV" path-string-nv) :void
+  (path uint)
+  (format enum)
+  (length sizei)
+  (pathString (:pointer void)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathGlyphsNV" path-glyphs-nv) :void
+  (firstPathName uint)
+  (fontTarget enum)
+  (fontName (:pointer void))
+  (fontStyle bitfield)
+  (numGlyphs sizei)
+  (type enum)
+  (charcodes (:pointer void))
+  (handleMissingGlyphs enum)
+  (pathParameterTemplate uint)
+  (emScale float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathGlyphRangeNV" path-glyph-range-nv) :void
+  (firstPathName uint)
+  (fontTarget enum)
+  (fontName (:pointer void))
+  (fontStyle bitfield)
+  (firstGlyph uint)
+  (numGlyphs sizei)
+  (handleMissingGlyphs enum)
+  (pathParameterTemplate uint)
+  (emScale float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glWeightPathsNV" weight-paths-nv) :void
+  (resultPath uint)
+  (numPaths sizei)
+  (paths (:pointer uint))
+  (weights (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glCopyPathNV" copy-path-nv) :void
+  (resultPath uint)
+  (srcPath uint))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glInterpolatePathsNV" interpolate-paths-nv) :void
+  (resultPath uint)
+  (pathA uint)
+  (pathB uint)
+  (weight float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glTransformPathNV" transform-path-nv) :void
+  (resultPath uint)
+  (srcPath uint)
+  (transformType enum)
+  (transformValues (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathParameterivNV" path-parameter-iv-nv) :void
+  (path uint)
+  (pname enum)
+  (value (:pointer int)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathParameteriNV" path-parameter-i-nv) :void
+  (path uint)
+  (pname enum)
+  (value int))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathParameterfvNV" path-parameter-fv-nv) :void
+  (path uint)
+  (pname enum)
+  (value (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathParameterfNV" path-parameter-f-nv) :void
+  (path uint)
+  (pname enum)
+  (value float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathDashArrayNV" path-dash-array-nv) :void
+  (path uint)
+  (dashCount sizei)
+  (dashArray (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathStencilFuncNV" path-stencil-func-nv) :void
+  (func enum)
+  (ref int)
+  (mask uint))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathStencilDepthOffsetNV" path-stencil-depth-offset-nv) :void
+  (factor float)
+  (units float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glStencilFillPathNV" stencil-fill-path-nv) :void
+  (path uint)
+  (fillMode enum)
+  (mask uint))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glStencilStrokePathNV" stencil-stroke-path-nv) :void
+  (path uint)
+  (reference int)
+  (mask uint))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glStencilFillPathInstancedNV" stencil-fill-path-instanced-nv) :void
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (fillMode enum)
+  (mask uint)
+  (transformType enum)
+  (transformValues (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glStencilStrokePathInstancedNV" stencil-stroke-path-instanced-nv) :void
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (reference int)
+  (mask uint)
+  (transformType enum)
+  (transformValues (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathCoverDepthFuncNV" path-cover-depth-func-nv) :void
+  (func enum))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathColorGenNV" path-color-gen-nv) :void
+  (color enum)
+  (genMode enum)
+  (colorFormat enum)
+  (coeffs (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathTexGenNV" path-tex-gen-nv) :void
+  (texCoordSet enum)
+  (genMode enum)
+  (components int)
+  (coeffs (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPathFogGenNV" path-fog-gen-nv) :void
+  (genMode enum))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glCoverFillPathNV" cover-fill-path-nv) :void
+  (path uint)
+  (coverMode enum))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glCoverStrokePathNV" cover-stroke-path-nv) :void
+  (path uint)
+  (coverMode enum))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glCoverFillPathInstancedNV" cover-fill-path-instanced-nv) :void
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (coverMode enum)
+  (transformType enum)
+  (transformValues (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glCoverStrokePathInstancedNV" cover-stroke-path-instanced-nv) :void
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (coverMode enum)
+  (transformType enum)
+  (transformValues (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathParameterivNV" get-path-parameter-iv-nv) :void
+  (path uint)
+  (pname enum)
+  (value (:pointer int)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathParameterfvNV" get-path-parameter-fv-nv) :void
+  (path uint)
+  (pname enum)
+  (value (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathCommandsNV" get-path-commands-nv) :void
+  (path uint)
+  (commands (:pointer ubyte)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathCoordsNV" get-path-coords-nv) :void
+  (path uint)
+  (coords (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathDashArrayNV" get-path-dash-array-nv) :void
+  (path uint)
+  (dashArray (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathMetricsNV" get-path-metrics-nv) :void
+  (metricQueryMask bitfield)
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (stride sizei)
+  (metrics (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathMetricRangeNV" get-path-metric-range-nv) :void
+  (metricQueryMask bitfield)
+  (firstPathName uint)
+  (numPaths sizei)
+  (stride sizei)
+  (metrics (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathSpacingNV" get-path-spacing-nv) :void
+  (pathListMode enum)
+  (numPaths sizei)
+  (pathNameType enum)
+  (paths (:pointer void))
+  (pathBase uint)
+  (advanceScale float)
+  (kerningScale float)
+  (transformType enum)
+  (returnedSpacing (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathColorGenivNV" get-path-color-gen-iv-nv) :void
+  (color enum)
+  (pname enum)
+  (value (:pointer int)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathColorGenfvNV" get-path-color-gen-fv-nv) :void
+  (color enum)
+  (pname enum)
+  (value (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathTexGenivNV" get-path-tex-gen-iv-nv) :void
+  (texCoordSet enum)
+  (pname enum)
+  (value (:pointer int)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathTexGenfvNV" get-path-tex-gen-fv-nv) :void
+  (texCoordSet enum)
+  (pname enum)
+  (value (:pointer float)))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glIsPointInFillPathNV" is-point-in-fill-path-nv) boolean
+  (path uint)
+  (mask uint)
+  (x float)
+  (y float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glIsPointInStrokePathNV" is-point-in-stroke-path-nv) boolean
+  (path uint)
+  (x float)
+  (y float))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glGetPathLengthNV" get-path-length-nv) float
+  (path uint)
+  (startSegment sizei)
+  (numSegments sizei))
+
+;;; GL version: 1.1, NV_path_rendering
+(defglextfun ("glPointAlongPathNV" point-along-path-nv) boolean
+  (path uint)
+  (startSegment sizei)
+  (numSegments sizei)
+  (distance float)
+  (x (:pointer float))
+  (y (:pointer float))
+  (tangentX (:pointer float))
+  (tangentY (:pointer float)))
+
+;;; GL version: 1.2, AMD_stencil_operation_extended
+(defglextfun ("glStencilOpValueAMD" stencil-op-value-amd) :void
+  (face enum)
+  (value uint))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glGetTextureHandleNV" get-texture-handle-nv) uint64
+  (texture uint))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glGetTextureSamplerHandleNV" get-texture-sampler-handle-nv) uint64
+  (texture uint)
+  (sampler uint))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glMakeTextureHandleResidentNV" make-texture-handle-resident-nv) :void
+  (handle uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glMakeTextureHandleNonResidentNV" make-texture-handle-non-resident-nv) :void
+  (handle uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glGetImageHandleNV" get-image-handle-nv) uint64
+  (texture uint)
+  (level int)
+  (layered boolean)
+  (layer int)
+  (format enum))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glMakeImageHandleResidentNV" make-image-handle-resident-nv) :void
+  (handle uint64)
+  (access enum))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glMakeImageHandleNonResidentNV" make-image-handle-non-resident-nv) :void
+  (handle uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glUniformHandleui64NV" uniform-handle-ui64-nv) :void
+  (location int)
+  (value uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glUniformHandleui64vNV" uniform-handle-ui64v-nv) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint64)))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glProgramUniformHandleui64NV" program-uniform-handle-ui64-nv) :void
+  (program uint)
+  (location int)
+  (value uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glProgramUniformHandleui64vNV" program-uniform-handle-ui64v-nv) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (values (:pointer uint64)))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glIsTextureHandleResidentNV" is-texture-handle-resident-nv) boolean
+  (handle uint64))
+
+;;; GL version: 4.0, NV_bindless_texture
+(defglextfun ("glIsImageHandleResidentNV" is-image-handle-resident-nv) boolean
+  (handle uint64))
