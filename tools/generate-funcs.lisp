@@ -106,7 +106,7 @@
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
     "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
     "instanced" "indexed" "perf" "keyed" "Integer64"
-    "patch"))
+    "patch" "path" "glyph" "dash" "length"))
 
 (defmacro add-dashes-by-regex (regex str &optional exceptions)
   ;; macro so we don't miss ppcre compiler macros on the regex
@@ -602,10 +602,10 @@
   ;; version/date if they don't put it back in .specs
   (unless *glext-version*
     (error "glext version not found in .spec files")
-    (setf *glext-version* 72))
+    (setf *glext-version* 78))
   (when (string= *glext-last-updated* "<unknown>")
     (error "glext update date not found in .spec files")
-    (setf *glext-last-updated* "2009-09-11")))
+    (setf *glext-last-updated* "2012-03-28")))
 
 (defun main ()
   (let* ((this-file (load-time-value *load-pathname*))
