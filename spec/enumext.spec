@@ -1,6 +1,6 @@
 # enumext.spec - list of GL enumerants for glext.h header
 #
-# $Revision: 15267 $ on $Date: 2011-08-08 00:37:03 -0700 (Mon, 08 Aug 2011) $
+# $Revision: 17214 $ on $Date: 2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012) $
 
 # This is derived from the master GL enumerant registry (enum.spec).
 #
@@ -1117,8 +1117,6 @@ VERSION_3_0 enum:
 	MINOR_VERSION					= 0x821C
 	NUM_EXTENSIONS					= 0x821D
 	CONTEXT_FLAGS					= 0x821E
-	DEPTH_BUFFER					= 0x8223
-	STENCIL_BUFFER					= 0x8224
 	COMPRESSED_RED					= 0x8225
 	COMPRESSED_RG					= 0x8226
 	CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT		= 0x0001
@@ -7300,3 +7298,192 @@ AMD_multi_draw_indirect enum:
 EXT_framebuffer_multisample_blit_scaled enum:
 	SCALED_RESOLVE_FASTEST_EXT			= 0x90BA
 	SCALED_RESOLVE_NICEST_EXT			= 0x90BB
+
+###############################################################################
+
+# Extension #410
+NV_path_rendering enum:
+	PATH_FORMAT_SVG_NV				= 0x9070
+	PATH_FORMAT_PS_NV				= 0x9071
+	STANDARD_FONT_NAME_NV				= 0x9072
+	SYSTEM_FONT_NAME_NV				= 0x9073
+	FILE_NAME_NV					= 0x9074
+	PATH_STROKE_WIDTH_NV				= 0x9075
+	PATH_END_CAPS_NV				= 0x9076
+	PATH_INITIAL_END_CAP_NV				= 0x9077
+	PATH_TERMINAL_END_CAP_NV			= 0x9078
+	PATH_JOIN_STYLE_NV				= 0x9079
+	PATH_MITER_LIMIT_NV				= 0x907A
+	PATH_DASH_CAPS_NV				= 0x907B
+	PATH_INITIAL_DASH_CAP_NV			= 0x907C
+	PATH_TERMINAL_DASH_CAP_NV			= 0x907D
+	PATH_DASH_OFFSET_NV				= 0x907E
+	PATH_CLIENT_LENGTH_NV				= 0x907F
+	PATH_FILL_MODE_NV				= 0x9080
+	PATH_FILL_MASK_NV				= 0x9081
+	PATH_FILL_COVER_MODE_NV				= 0x9082
+	PATH_STROKE_COVER_MODE_NV			= 0x9083
+	PATH_STROKE_MASK_NV				= 0x9084
+	PATH_SAMPLE_QUALITY_NV				= 0x9085
+	PATH_STROKE_BOUND_NV				= 0x9086
+	PATH_STROKE_OVERSAMPLE_COUNT_NV			= 0x9087
+	COUNT_UP_NV					= 0x9088
+	COUNT_DOWN_NV					= 0x9089
+	PATH_OBJECT_BOUNDING_BOX_NV			= 0x908A
+	CONVEX_HULL_NV					= 0x908B
+	MULTI_HULLS_NV					= 0x908C
+	BOUNDING_BOX_NV					= 0x908D
+	TRANSLATE_X_NV					= 0x908E
+	TRANSLATE_Y_NV					= 0x908F
+	TRANSLATE_2D_NV					= 0x9090
+	TRANSLATE_3D_NV					= 0x9091
+	AFFINE_2D_NV					= 0x9092
+	PROJECTIVE_2D_NV				= 0x9093
+	AFFINE_3D_NV					= 0x9094
+	PROJECTIVE_3D_NV				= 0x9095
+	TRANSPOSE_AFFINE_2D_NV				= 0x9096
+	TRANSPOSE_PROJECTIVE_2D_NV			= 0x9097
+	TRANSPOSE_AFFINE_3D_NV				= 0x9098
+	TRANSPOSE_PROJECTIVE_3D_NV			= 0x9099
+	UTF8_NV						= 0x909A
+	UTF16_NV					= 0x909B
+	BOUNDING_BOX_OF_BOUNDING_BOXES_NV		= 0x909C
+	PATH_COMMAND_COUNT_NV				= 0x909D
+	PATH_COORD_COUNT_NV				= 0x909E
+	PATH_DASH_ARRAY_COUNT_NV			= 0x909F
+	PATH_COMPUTED_LENGTH_NV				= 0x90A0
+	PATH_FILL_BOUNDING_BOX_NV			= 0x90A1
+	PATH_STROKE_BOUNDING_BOX_NV			= 0x90A2
+	SQUARE_NV					= 0x90A3
+	ROUND_NV					= 0x90A4
+	TRIANGULAR_NV					= 0x90A5
+	BEVEL_NV					= 0x90A6
+	MITER_REVERT_NV					= 0x90A7
+	MITER_TRUNCATE_NV				= 0x90A8
+	SKIP_MISSING_GLYPH_NV				= 0x90A9
+	USE_MISSING_GLYPH_NV				= 0x90AA
+	PATH_ERROR_POSITION_NV				= 0x90AB
+	PATH_FOG_GEN_MODE_NV				= 0x90AC
+	ACCUM_ADJACENT_PAIRS_NV				= 0x90AD
+	ADJACENT_PAIRS_NV				= 0x90AE
+	FIRST_TO_REST_NV				= 0x90AF
+	PATH_GEN_MODE_NV				= 0x90B0
+	PATH_GEN_COEFF_NV				= 0x90B1
+	PATH_GEN_COLOR_FORMAT_NV			= 0x90B2
+	PATH_GEN_COMPONENTS_NV				= 0x90B3
+	PATH_STENCIL_FUNC_NV				= 0x90B7
+	PATH_STENCIL_REF_NV				= 0x90B8
+	PATH_STENCIL_VALUE_MASK_NV			= 0x90B9
+	PATH_STENCIL_DEPTH_OFFSET_FACTOR_NV		= 0x90BD
+	PATH_STENCIL_DEPTH_OFFSET_UNITS_NV		= 0x90BE
+	PATH_COVER_DEPTH_FUNC_NV			= 0x90BF
+	PATH_DASH_OFFSET_RESET_NV			= 0x90B4
+	MOVE_TO_RESETS_NV				= 0x90B5
+	MOVE_TO_CONTINUES_NV				= 0x90B6
+	CLOSE_PATH_NV					= 0x00
+	MOVE_TO_NV					= 0x02
+	RELATIVE_MOVE_TO_NV				= 0x03
+	LINE_TO_NV					= 0x04
+	RELATIVE_LINE_TO_NV				= 0x05
+	HORIZONTAL_LINE_TO_NV				= 0x06
+	RELATIVE_HORIZONTAL_LINE_TO_NV			= 0x07
+	VERTICAL_LINE_TO_NV				= 0x08
+	RELATIVE_VERTICAL_LINE_TO_NV			= 0x09
+	QUADRATIC_CURVE_TO_NV				= 0x0A
+	RELATIVE_QUADRATIC_CURVE_TO_NV			= 0x0B
+	CUBIC_CURVE_TO_NV				= 0x0C
+	RELATIVE_CUBIC_CURVE_TO_NV			= 0x0D
+	SMOOTH_QUADRATIC_CURVE_TO_NV			= 0x0E
+	RELATIVE_SMOOTH_QUADRATIC_CURVE_TO_NV		= 0x0F
+	SMOOTH_CUBIC_CURVE_TO_NV			= 0x10
+	RELATIVE_SMOOTH_CUBIC_CURVE_TO_NV		= 0x11
+	SMALL_CCW_ARC_TO_NV				= 0x12
+	RELATIVE_SMALL_CCW_ARC_TO_NV			= 0x13
+	SMALL_CW_ARC_TO_NV				= 0x14
+	RELATIVE_SMALL_CW_ARC_TO_NV			= 0x15
+	LARGE_CCW_ARC_TO_NV				= 0x16
+	RELATIVE_LARGE_CCW_ARC_TO_NV			= 0x17
+	LARGE_CW_ARC_TO_NV				= 0x18
+	RELATIVE_LARGE_CW_ARC_TO_NV			= 0x19
+	RESTART_PATH_NV					= 0xF0
+	DUP_FIRST_CUBIC_CURVE_TO_NV			= 0xF2
+	DUP_LAST_CUBIC_CURVE_TO_NV			= 0xF4
+	RECT_NV						= 0xF6
+	CIRCULAR_CCW_ARC_TO_NV				= 0xF8
+	CIRCULAR_CW_ARC_TO_NV				= 0xFA
+	CIRCULAR_TANGENT_ARC_TO_NV			= 0xFC
+	ARC_TO_NV					= 0xFE
+	RELATIVE_ARC_TO_NV				= 0xFF
+	BOLD_BIT_NV					= 0x01
+	ITALIC_BIT_NV					= 0x02
+	GLYPH_WIDTH_BIT_NV				= 0x01
+	GLYPH_HEIGHT_BIT_NV				= 0x02
+	GLYPH_HORIZONTAL_BEARING_X_BIT_NV		= 0x04
+	GLYPH_HORIZONTAL_BEARING_Y_BIT_NV		= 0x08
+	GLYPH_HORIZONTAL_BEARING_ADVANCE_BIT_NV		= 0x10
+	GLYPH_VERTICAL_BEARING_X_BIT_NV			= 0x20
+	GLYPH_VERTICAL_BEARING_Y_BIT_NV			= 0x40
+	GLYPH_VERTICAL_BEARING_ADVANCE_BIT_NV		= 0x80
+	GLYPH_HAS_KERNING_NV				= 0x100
+	FONT_X_MIN_BOUNDS_NV				= 0x00010000
+	FONT_Y_MIN_BOUNDS_NV				= 0x00020000
+	FONT_X_MAX_BOUNDS_NV				= 0x00040000
+	FONT_Y_MAX_BOUNDS_NV				= 0x00080000
+	FONT_UNITS_PER_EM_NV				= 0x00100000
+	FONT_ASCENDER_NV				= 0x00200000
+	FONT_DESCENDER_NV				= 0x00400000
+	FONT_HEIGHT_NV					= 0x00800000
+	FONT_MAX_ADVANCE_WIDTH_NV			= 0x01000000
+	FONT_MAX_ADVANCE_HEIGHT_NV			= 0x02000000
+	FONT_UNDERLINE_POSITION_NV			= 0x04000000
+	FONT_UNDERLINE_THICKNESS_NV			= 0x08000000
+	FONT_HAS_KERNING_NV				= 0x10000000
+
+###############################################################################
+
+# Extension #411
+AMD_pinned_memory enum:
+	EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD		= 0x9160
+
+###############################################################################
+
+# Extension #412 - WGL_NV_DX_interop2
+
+###############################################################################
+
+# Extension #413
+AMD_stencil_operation_extended enum:
+	SET_AMD						= 0x874A
+	REPLACE_VALUE_AMD				= 0x874B
+	STENCIL_OP_VALUE_AMD				= 0x874C
+	STENCIL_BACK_OP_VALUE_AMD			= 0x874D
+
+###############################################################################
+
+# Extension #414 - GLX_EXT_swap_control_tear
+# Extension #415 - WGL_EXT_swap_control_tear
+
+###############################################################################
+
+# No new tokens
+# Extension #416
+AMD_vertex_shader_viewport_index enum:
+
+###############################################################################
+
+# No new tokens
+# Extension #417
+AMD_vertex_shader_layer enum:
+
+###############################################################################
+
+# No new tokens
+# Extension #418
+NV_bindless_texture enum:
+
+###############################################################################
+
+# No new tokens
+# Extension #419
+NV_shader_atomic_float enum:
+
