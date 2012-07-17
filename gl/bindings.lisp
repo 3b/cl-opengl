@@ -44,20 +44,20 @@
                   (format s "OpenGL signalled ~A."
                           (opengl-error.error-code c))))))
 
-(let ((in-begin nil))
-  (defun set-in-begin (a) (setf in-begin a))
-  (defun check-error (&optional context)
-    (declare (optimize speed))
-    (unless in-begin
-      (let ((error-code (foreign-funcall ("glGetError" :library opengl)
-                                         :unsigned-int)))
-        (unless (zerop error-code)
-          (restart-case
-              (error 'opengl-error
-                     :error-code (cons error-code
-                                       (cffi:foreign-enum-keyword '%gl:enum error-code))
-                     :error-context context)
-            (continue () :report "Continue")))))))
+(defparameter *in-begin* nil)
+(declaim (inline check-error))
+(defun check-error (&optional context)
+  (declare (optimize speed))
+  (unless *in-begin*
+    (let ((error-code (foreign-funcall ("glGetError" :library opengl)
+                                       :unsigned-int)))
+      (unless (zerop error-code)
+        (restart-case
+            (error 'opengl-error
+                   :error-code (cons error-code
+                                     (cffi:foreign-enum-keyword '%gl:enum error-code))
+                   :error-context context)
+          (continue () :report "Continue"))))))
 
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body body)
@@ -74,13 +74,12 @@
            ,@(cond
               ((string= cname "glGetError") ())
               ((string= cname "glBegin")
-               `((set-in-begin t)))
+               `((setf *in-begin* t)))
               ((string= cname "glEnd")
-               `((set-in-begin nil)
+               `((setf *in-begin* nil)
                  (check-error ',lname)))
               (t
-               `((check-error ',lname)))))
-         )
+               `((check-error ',lname))))))
      #+cl-opengl-no-check-error
      (defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
