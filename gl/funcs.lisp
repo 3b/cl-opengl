@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 78 ( 2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012) )
+;;; glext version 82 ( 2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012) )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 78)
-(defparameter *glext-last-updated* "2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012)")
+(defparameter *glext-version* 82)
+(defparameter *glext-last-updated* "2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012)")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -13358,8 +13358,8 @@
 ;;; GL version: 1.2, NV_video_capture
 (defglextfun ("glVideoCaptureNV" video-capture-nv) :unsigned-int
   (video_capture_slot uint)
-  (sequence_num uint)
-  (capture_time uint64-ext))
+  (sequence_num (:pointer uint))
+  (capture_time (:pointer uint64-ext)))
 
 ;;; GL version: 1.2, NV_video_capture
 (defglextfun ("glVideoCaptureStreamParameterivNV" video-capture-stream-parameter-iv-nv) :void
@@ -14026,7 +14026,7 @@
 ;;; GL version: 4.1, AMD_debug_output
 (defglextfun ("glDebugMessageCallbackAMD" debug-message-callback-amd) :void
   (callback DEBUGPROCAMD)
-  (userParam void))
+  (userParam (:pointer void)))
 
 ;;; GL version: 4.1, AMD_debug_output
 (defglextfun ("glGetDebugMessageLogAMD" get-debug-message-log-amd) uint
@@ -14040,22 +14040,22 @@
 
 ;;; GL version: 4.1, NV_vdpau_interop
 (defglextfun ("glVDPAUInitNV" vdpau-init-nv) :void
-  (vdpDevice void)
-  (getProcAddress void))
+  (vdpDevice (:pointer void))
+  (getProcAddress (:pointer void)))
 
 ;;; GL version: 4.1, NV_vdpau_interop
 (defglextfun ("glVDPAUFiniNV" vdpau-fini-nv) :void)
 
 ;;; GL version: 4.1, NV_vdpau_interop
 (defglextfun ("glVDPAURegisterVideoSurfaceNV" vdpau-register-video-surface-nv) vdpauSurface-nv
-  (vdpSurface void)
+  (vdpSurface (:pointer void))
   (target enum)
   (numTextureNames sizei)
   (textureNames (:pointer uint)))
 
 ;;; GL version: 4.1, NV_vdpau_interop
 (defglextfun ("glVDPAURegisterOutputSurfaceNV" vdpau-register-output-surface-nv) vdpauSurface-nv
-  (vdpSurface void)
+  (vdpSurface (:pointer void))
   (target enum)
   (numTextureNames sizei)
   (textureNames (:pointer uint)))
@@ -14073,7 +14073,7 @@
   (surface vdpauSurface-nv)
   (pname enum)
   (bufSize sizei)
-  (length sizei)
+  (length (:pointer sizei))
   (values (:pointer int)))
 
 ;;; GL version: 4.1, NV_vdpau_interop

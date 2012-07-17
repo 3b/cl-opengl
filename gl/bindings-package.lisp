@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 78 ( 2012-03-26 17:44:23 -0700 (Mon, 26 Mar 2012) )
+;;; glext version 82 ( 2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
