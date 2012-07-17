@@ -446,7 +446,8 @@
         (append (parameters *current-fun*)
                 (list
                  (make-instance 'fun-parm :name name :type type
-                                :array-flag (string= val-array "array")
+                                :array-flag (or (string= val-array "array")
+                                                (string= val-array "reference"))
                                 :inout io :retained retained)))))
 
 (defun set-return (return-type)
@@ -602,10 +603,10 @@
   ;; version/date if they don't put it back in .specs
   (unless *glext-version*
     (error "glext version not found in .spec files")
-    (setf *glext-version* 78))
+    (setf *glext-version* 82))
   (when (string= *glext-last-updated* "<unknown>")
     (error "glext update date not found in .spec files")
-    (setf *glext-last-updated* "2012-03-28")))
+    (setf *glext-last-updated* "2012-06-18")))
 
 (defun main ()
   (let* ((this-file (load-time-value *load-pathname*))
