@@ -3,7 +3,7 @@
 # It is an extremely important file. Do not mess with it unless
 # you know what you're doing and have permission to do so.
 #
-# $Revision: 17023 $ on $Date: 2012-03-05 02:53:16 -0800 (Mon, 05 Mar 2012) $
+# $Revision: 18230 $ on $Date: 2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012) $
 
 ###############################################################################
 #
@@ -279,6 +279,7 @@ ARB_separate_shader_objects enum: (additional; see below)
 	GEOMETRY_SHADER_BIT				= 0x00000004
 	TESS_CONTROL_SHADER_BIT				= 0x00000008
 	TESS_EVALUATION_SHADER_BIT			= 0x00000010
+# RESERVED for features in progress: 0x00000020
 	ALL_SHADER_BITS					= 0xFFFFFFFF
 
 # Aliases ARB_separate_shader_objects enum above
@@ -3397,6 +3398,7 @@ EXT_texture_rg enum: (OpenGL ES only; additional; see above)
 ###############################################################################
 
 # ARB: 0x8240-0x82AF (range released by Microsoft on 2002/9/16)
+# ARB: 0x82B0-0x830F (range reclaimed from long-out-of-business ADD on 2012/05/10)
 
 ARB_cl_event enum:
 	SYNC_CL_EVENT_ARB				= 0x8240
@@ -3452,11 +3454,9 @@ ARB_viewport_array enum:
 ARB_robustness enum: (additional; see above)
 	NO_RESET_NOTIFICATION_ARB			= 0x8261
 
-# ARB_future_use: 0x8262-0x82AF
+# RESERVED for features in progress: 0x8262-0x82E9
 
-###############################################################################
-
-# ADD: 0x82B0-0x830F
+# ARB_future_use: 0x82EA-0x830F
 
 ###############################################################################
 
@@ -5056,7 +5056,10 @@ AMD_stencil_operation_extended enum:
 	STENCIL_OP_VALUE_AMD				= 0x874C
 	STENCIL_BACK_OP_VALUE_AMD			= 0x874D
 
-# AMD_future_use: 0x874E-0x874F
+# ARB_future_use: 0x874E
+#	VERTEX_ATTRIB_ARRAY_LONG			= 0x874E
+
+# AMD_future_use: 0x874F
 
 ###############################################################################
 
@@ -7112,7 +7115,13 @@ OES_vertex_half_float enum: (OpenGL ES only)
 OES_framebuffer_object enum: (OpenGL ES only)
 	RGB565_OES					= 0x8D62
 
-# Khronos_future_use: 0x8D63
+VERSION_4_1 enum:
+ARB_ES2_compatibility enum: (additional; see below)
+# Added 2012/04/13 in revision 6 of the extension
+	RGB565						= 0x8D62
+
+# VERSION_ES_FUTURE enum: (OpenGL ES future version only)
+#	TEXTURE_IMMUTABLE_LEVELS			= 0x8D63
 
 OES_compressed_ETC1_RGB8_texture enum: (OpenGL ES only)
 	ETC1_RGB8_OES					= 0x8D64
@@ -7124,7 +7133,7 @@ OES_EGL_image_external enum: (OpenGL ES only) (Khronos bug 4621)
 	REQUIRED_TEXTURE_IMAGE_UNITS_OES		= 0x8D68
 
 # VERSION_ES_FUTURE enum: (OpenGL ES future version only)
-#	PRIMITIVE_RESTART_MAX_INDEX			= 0x8D69
+#	PRIMITIVE_RESTART_FIXED_INDEX			= 0x8D69
 #	ANY_SAMPLES_PASSED_CONSERVATIVE			= 0x8D6A
 #	MAX_ELEMENT_INDEX				= 0x8D6B
 
@@ -7469,8 +7478,10 @@ NV_multisample_coverage enum:
 
 ARB_transform_feedback2 enum:
 	TRANSFORM_FEEDBACK				= 0x8E22
-	TRANSFORM_FEEDBACK_BUFFER_PAUSED		= 0x8E23
-	TRANSFORM_FEEDBACK_BUFFER_ACTIVE		= 0x8E24
+	TRANSFORM_FEEDBACK_PAUSED			= 0x8E23
+	TRANSFORM_FEEDBACK_BUFFER_PAUSED		= GL_TRANSFORM_FEEDBACK_PAUSED
+	TRANSFORM_FEEDBACK_ACTIVE			= 0x8E24
+	TRANSFORM_FEEDBACK_BUFFER_ACTIVE		= GL_TRANSFORM_FEEDBACK_ACTIVE
 	TRANSFORM_FEEDBACK_BINDING			= 0x8E25
 
 NV_transform_feedback2 enum:
@@ -7703,8 +7714,10 @@ NV_shader_buffer_load enum: (additional; see above)
 	MAX_SHADER_BUFFER_ADDRESS_NV			= 0x8F35
 
 ARB_copy_buffer enum:
-	COPY_READ_BUFFER				= 0x8F36
-	COPY_WRITE_BUFFER				= 0x8F37
+	COPY_READ_BUFFER_BINDING			= 0x8F36
+	COPY_READ_BUFFER				= GL_COPY_READ_BUFFER_BINDING
+	COPY_WRITE_BUFFER_BINDING			= 0x8F37
+	COPY_WRITE_BUFFER				= GL_COPY_WRITE_BUFFER_BINDING
 
 VERSION_3_1 enum:
 	use ARB_copy_buffer		    COPY_READ_BUFFER
@@ -8217,10 +8230,14 @@ ARB_shader_image_load_store
 
 # NV_future_use: 0x90D0-0x90E0
 
+# RESERVED for features in progress: 0x90D2-0x90DF
+
 EXT_x11_sync_object enum:
 	SYNC_X11_FENCE_EXT				= 0x90E1
 
 # NV_future_use: 0x90E2-0x90FF
+
+# RESERVED for features in progress: 0x90EA-0x90EF
 
 ###############################################################################
 
@@ -8392,7 +8409,17 @@ EXT_debug_label enum: (OpenGL ES only; additional; see above)
 AMD_pinned_memory enum:
 	EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD		= 0x9160
 
-# AMD_future_use: 0x9161-0x923F
+# AMD_future_use: 0x9161-0x9191
+
+AMD_query_buffer_object enum:
+	QUERY_BUFFER_AMD				0x9192
+	QUERY_BUFFER_BINDING_AMD			0x9193
+	QUERY_RESULT_NO_WAIT_AMD			0x9194
+
+# AMD_future_use: 0x9195-0x923F
+
+# RESERVED for features in progress: 0x919D-0x919F
+# RESERVED for features in progress: 0x91B9-0x91BF
 
 ###############################################################################
 
@@ -8422,9 +8449,10 @@ DMP_shader_binary enum: (OpenGL ES only)
 
 # Fujitsu: 0x9260-0x926F (Khronos bug 7486)
 
-# FJ_shader_binary enum: (OpenGL ES only)
+FJ_shader_binary_GCCSO enum: (OpenGL ES only)
+	GCCSO_SHADER_BINARY_FJ				= 0x9260
 
-# FJ_future_use: 0x9260-0x926F
+# FJ_future_use: 0x9261-0x926F
 
 ###############################################################################
 
@@ -8482,6 +8510,8 @@ ARB_shader_atomic_counters enum:
 
 # NV_future_use: 0x92DC-0x937F
 
+# RESERVED for features in progress: 0x92E0-0x9318
+
 ###############################################################################
 
 # OpenGL ARB: 0x9380-0x939F
@@ -8509,12 +8539,18 @@ ANGLE_pack_reverse_row_order enum: (OpenGL ES only)
 # ANGLE_future_use: 0x93A1,0x93A5-0x93AF
 
 ###############################################################################
+
+# Khronos OpenGL ES: 0x93B0-0x93EF (Khronos Bug 8853)
+
+# Khronos_future_use: 0x93B0-0x93EF
+
+###############################################################################
 ### Please remember that new enumerant allocations must be obtained by request
 ### to the Khronos API registrar (see comments at the top of this file)
 ### File requests in the Khronos Bugzilla, OpenGL project, Registry component.
 ###############################################################################
 
-# Any_vendor_future_use: 0x93B0-0xFFFF
+# Any_vendor_future_use: 0x93F0-0xFFFF
 #
 #   This range must be the last range in the file.  To generate a new
 #   range, allocate multiples of 16 from the beginning of the
