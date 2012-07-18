@@ -256,33 +256,45 @@
 
 ;;; 3.8.4 Texture parameters
 
-(defun tex-parameter (target pname param)
-  (ecase pname
-    ((:texture-wrap-s :texture-wrap-t :texture-wrap-r)
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:texture-min-filter
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:texture-mag-filter
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:texture-border-color
-     (with-foreign-object (array '%gl:float 4)
-       (dotimes (i 4)
-         (setf (mem-aref array '%gl:float i) (elt param i)))
-       (%gl:tex-parameter-fv target pname array)))
-    ((:texture-priority :texture-min-lod :texture-max-lod)
-     (%gl:tex-parameter-f target pname param))
-    ((:texture-base-level :texture-lod-bias)
-     (%gl:tex-parameter-i target pname (truncate param)))
-    (:depth-texture-mode
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:texture-compare-mode
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:texture-compare-func
-     (%gl:tex-parameter-i target pname (foreign-enum-value '%gl:enum param)))
-    (:generate-mipmap
-     (%gl:tex-parameter-i target pname (if param 1 0)))
-    (:texture-max-anisotropy-ext
-     (%gl:tex-parameter-f target pname param))))
+(macrolet ((body (target i f fv &optional tex)
+             `(ecase pname
+                ;; valid for both
+                ((:texture-wrap-s :texture-wrap-t :texture-wrap-r)
+                 (,i ,target pname (foreign-enum-value '%gl:enum param)))
+                ((:texture-min-filter :texture-mag-filter)
+                 (,i ,target pname (foreign-enum-value '%gl:enum param)))
+                (:texture-border-color
+                 (with-foreign-object (array '%gl:float 4)
+                   (dotimes (i 4)
+                     (setf (mem-aref array '%gl:float i) (elt param i)))
+                   (,fv ,target pname array)))
+                ((:texture-min-lod :texture-max-lod)
+                 (,f ,target pname param))
+                ((:texture-lod-bias)
+                 (,i ,target pname (truncate param)))
+                (:depth-texture-mode
+                 (,i ,target pname (foreign-enum-value '%gl:enum param)))
+                ((:texture-compare-mode :texture-compare-func)
+                 (,i ,target pname (foreign-enum-value '%gl:enum param)))
+                (:texture-max-anisotropy-ext
+                 (,f ,target pname param))
+                ;; tex only
+                ,@(when tex
+                    `(((:texture-base-level)
+                       (,i ,target pname (truncate param)))
+                      (:generate-mipmap
+                       (,i ,target pname (if param 1 0)))
+                      ((:texture-priority )
+                       (,f ,target pname param))))
+
+
+)))
+  (defun tex-parameter (target pname param)
+    (body target %gl:tex-parameter-i %gl:tex-parameter-f %gl:tex-parameter-fv
+          t))
+  (defun sampler-parameter (sampler pname param)
+    (body sampler
+          %gl:tex-parameter-i %gl:tex-parameter-f %gl:tex-parameter-fv)))
 
 ;;; 3.8.12 Texture Objects
 
@@ -297,6 +309,19 @@
     (%gl:gen-textures count texture-array)
     (loop for i below count
           collecting (mem-aref texture-array '%gl:uint i))))
+
+(import-export %gl:bind-sampler)
+
+(defun delete-sampler (samplers)
+  (with-opengl-sequence (array '%gl:uint samplers)
+    (%gl:delete-samplers (length samplers) array)))
+
+(defun gen-samplers (count)
+  (with-foreign-object (sampler-array '%gl:uint count)
+    (%gl:gen-samplers count sampler-array)
+    (loop for i below count
+          collecting (mem-aref sampler-array '%gl:uint i))))
+
 
 
 ;;; The following two functions look awkward to use, so we'll provide the two
