@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 82 ( 2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012) )
+;;; glext version 83 ( 2012-08-06 08:39:04 -0700 (Mon, 06 Aug 2012) )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -425,22 +425,52 @@
   #:bind-image-texture #:memory-barrier #:tex-storage-1d 
   #:tex-storage-2d #:tex-storage-3d #:texture-storage-1d-ext 
   #:texture-storage-2d-ext #:texture-storage-3d-ext 
-  #:blend-color-ext #:polygon-offset-ext #:tex-image-3d-ext 
-  #:tex-sub-image-3d-ext #:get-tex-filter-func-sgis 
-  #:tex-filter-func-sgis #:tex-sub-image-1d-ext 
-  #:tex-sub-image-2d-ext #:copy-tex-image-1d-ext 
-  #:copy-tex-image-2d-ext #:copy-tex-sub-image-1d-ext 
-  #:copy-tex-sub-image-2d-ext #:copy-tex-sub-image-3d-ext 
-  #:get-histogram-ext #:get-histogram-parameter-fv-ext 
-  #:get-histogram-parameter-iv-ext #:get-minmax-ext 
-  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext 
-  #:histogram-ext #:minmax-ext #:reset-histogram-ext 
-  #:reset-minmax-ext #:convolution-filter-1d-ext 
-  #:convolution-filter-2d-ext #:convolution-parameter-f-ext 
-  #:convolution-parameter-fv-ext #:convolution-parameter-i-ext 
-  #:convolution-parameter-iv-ext #:copy-convolution-filter-1d-ext 
-  #:copy-convolution-filter-2d-ext #:get-convolution-filter-ext 
-  #:get-convolution-parameter-fv-ext 
+  #:debug-message-control #:debug-message-insert 
+  #:debug-message-callback #:get-debug-message-log 
+  #:push-debug-group #:pop-debug-group #:object-label 
+  #:get-object-label #:object-ptr-label #:get-object-ptr-label 
+  #:clear-buffer-data #:clear-buffer-sub-data 
+  #:clear-named-buffer-data-ext #:clear-named-buffer-sub-data-ext 
+  #:dispatch-compute #:dispatch-compute-indirect 
+  #:copy-image-sub-data #:framebuffer-parameter-i 
+  #:get-framebuffer-parameter-iv #:named-framebuffer-parameter-i-ext 
+  #:get-named-framebuffer-parameter-iv-ext #:get-internalformat-i64v 
+  #:invalidate-tex-sub-image #:invalidate-tex-image 
+  #:invalidate-buffer-sub-data #:invalidate-buffer-data 
+  #:invalidate-framebuffer #:invalidate-sub-framebuffer 
+  #:multi-draw-arrays-indirect #:multi-draw-elements-indirect 
+  #:get-program-interface-iv #:get-program-resource-index 
+  #:get-program-resource-name #:get-program-resource-iv 
+  #:get-program-resource-location 
+  #:get-program-resource-location-index 
+  #:shader-storage-block-binding #:tex-buffer-range 
+  #:texture-buffer-range-ext #:tex-storage-2d-multisample 
+  #:tex-storage-3d-multisample #:texture-storage-2d-multisample-ext 
+  #:texture-storage-3d-multisample-ext #:texture-view 
+  #:bind-vertex-buffer #:vertex-attrib-format 
+  #:vertex-attrib-i-format #:vertex-attrib-l-format 
+  #:vertex-attrib-binding #:vertex-binding-divisor 
+  #:vertex-array-bind-vertex-buffer-ext 
+  #:vertex-array-vertex-attrib-format-ext 
+  #:vertex-array-vertex-attrib-i-format-ext 
+  #:vertex-array-vertex-attrib-l-format-ext 
+  #:vertex-array-vertex-attrib-binding-ext 
+  #:vertex-array-vertex-binding-divisor-ext #:blend-color-ext 
+  #:polygon-offset-ext #:tex-image-3d-ext #:tex-sub-image-3d-ext 
+  #:get-tex-filter-func-sgis #:tex-filter-func-sgis 
+  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext 
+  #:copy-tex-image-1d-ext #:copy-tex-image-2d-ext 
+  #:copy-tex-sub-image-1d-ext #:copy-tex-sub-image-2d-ext 
+  #:copy-tex-sub-image-3d-ext #:get-histogram-ext 
+  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext 
+  #:get-minmax-ext #:get-minmax-parameter-fv-ext 
+  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext 
+  #:reset-histogram-ext #:reset-minmax-ext 
+  #:convolution-filter-1d-ext #:convolution-filter-2d-ext 
+  #:convolution-parameter-f-ext #:convolution-parameter-fv-ext 
+  #:convolution-parameter-i-ext #:convolution-parameter-iv-ext 
+  #:copy-convolution-filter-1d-ext #:copy-convolution-filter-2d-ext 
+  #:get-convolution-filter-ext #:get-convolution-parameter-fv-ext 
   #:get-convolution-parameter-iv-ext #:get-separable-filter-ext 
   #:separable-filter-2d-ext #:color-table-sgi 
   #:color-table-parameter-fv-sgi #:color-table-parameter-iv-sgi 
@@ -1002,7 +1032,7 @@
   #:vertex-attrib-l4ui64-nv #:vertex-attrib-l1ui64v-nv 
   #:vertex-attrib-l2ui64v-nv #:vertex-attrib-l3ui64v-nv 
   #:vertex-attrib-l4ui64v-nv #:get-vertex-attrib-li64v-nv 
-  #:get-vertex-attrib-lui64v-nv #:vertex-attrib-lformat-nv 
+  #:get-vertex-attrib-lui64v-nv #:vertex-attrib-l-format-nv 
   #:gen-names-amd #:delete-names-amd #:is-name-amd 
   #:debug-message-enable-amd #:debug-message-insert-amd 
   #:debug-message-callback-amd #:get-debug-message-log-amd 

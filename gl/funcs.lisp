@@ -30,12 +30,12 @@
 ;;; version 1.2.1 Specification.
 ;;;
 
-;;; glext version 82 ( 2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012) )
+;;; glext version 83 ( 2012-08-06 08:39:04 -0700 (Mon, 06 Aug 2012) )
 
 (in-package #:cl-opengl-bindings)
 
-(defparameter *glext-version* 82)
-(defparameter *glext-last-updated* "2012-06-18 11:27:28 -0700 (Mon, 18 Jun 2012)")
+(defparameter *glext-version* 83)
+(defparameter *glext-last-updated* "2012-08-06 08:39:04 -0700 (Mon, 06 Aug 2012)")
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glCullFace" cull-face) :void
@@ -2414,7 +2414,7 @@
   (mode enum)
   (first (:pointer int))
   (count (:pointer sizei))
-  (primcount sizei))
+  (drawcount sizei))
 
 ;;; GL version: 1.4, VERSION_1_4
 (defglextfun ("glMultiDrawElements" multi-draw-elements) :void
@@ -2422,7 +2422,7 @@
   (count (:pointer sizei))
   (type enum)
   (indices (:pointer (:pointer void)))
-  (primcount sizei))
+  (drawcount sizei))
 
 ;;; GL version: 1.4, VERSION_1_4
 (defglextfun ("glPointParameterf" point-parameter-f) :void
@@ -3653,7 +3653,7 @@
   (mode enum)
   (first int)
   (count sizei)
-  (primcount sizei))
+  (instancecount sizei))
 
 ;;; GL version: 3.1, VERSION_3_1
 (defglextfun ("glDrawElementsInstanced" draw-elements-instanced) :void
@@ -3661,7 +3661,7 @@
   (count sizei)
   (type enum)
   (indices (:pointer void))
-  (primcount sizei))
+  (instancecount sizei))
 
 ;;; GL version: 3.1, VERSION_3_1
 (defglextfun ("glTexBuffer" tex-buffer) :void
@@ -5197,7 +5197,7 @@
   (count sizei)
   (type enum)
   (indices (:pointer void))
-  (primcount sizei)
+  (instancecount sizei)
   (basevertex int))
 
 ;;; GL version: 1.2, ARB_draw_elements_base_vertex
@@ -5206,7 +5206,7 @@
   (count (:pointer sizei))
   (type enum)
   (indices (:pointer (:pointer void)))
-  (primcount sizei)
+  (drawcount sizei)
   (basevertex (:pointer int)))
 
 ;;; GL version: 1.2, ARB_provoking_vertex
@@ -6713,7 +6713,7 @@
   (mode enum)
   (first int)
   (count sizei)
-  (primcount sizei)
+  (instancecount sizei)
   (baseinstance uint))
 
 ;;; GL version: 4.2, ARB_base_instance
@@ -6722,7 +6722,7 @@
   (count sizei)
   (type enum)
   (indices (:pointer :void))
-  (primcount sizei)
+  (instancecount sizei)
   (baseinstance uint))
 
 ;;; GL version: 4.2, ARB_base_instance
@@ -6731,7 +6731,7 @@
   (count sizei)
   (type enum)
   (indices (:pointer :void))
-  (primcount sizei)
+  (instancecount sizei)
   (basevertex int)
   (baseinstance uint))
 
@@ -6739,14 +6739,14 @@
 (defglextfun ("glDrawTransformFeedbackInstanced" draw-transform-feedback-instanced) :void
   (mode enum)
   (id uint)
-  (primcount sizei))
+  (instancecount sizei))
 
 ;;; GL version: 4.2, ARB_transform_feedback_instanced
 (defglextfun ("glDrawTransformFeedbackStreamInstanced" draw-transform-feedback-stream-instanced) :void
   (mode enum)
   (id uint)
   (stream uint)
-  (primcount sizei))
+  (instancecount sizei))
 
 ;;; GL version: 4.2, ARB_internalformat_query
 (defglextfun ("glGetInternalformativ" get-internal-format-iv) :void
@@ -6827,6 +6827,434 @@
   (width sizei)
   (height sizei)
   (depth sizei))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glDebugMessageControl" debug-message-control) :void
+  (source enum)
+  (type enum)
+  (severity enum)
+  (count sizei)
+  (ids (:pointer uint))
+  (enabled boolean))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glDebugMessageInsert" debug-message-insert) :void
+  (source enum)
+  (type enum)
+  (id uint)
+  (severity enum)
+  (length sizei)
+  (buf (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glDebugMessageCallback" debug-message-callback) :void
+  (callback DEBUGPROC)
+  (userParam (:pointer :void)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glGetDebugMessageLog" get-debug-message-log) uint
+  (count uint)
+  (bufsize sizei)
+  (sources (:pointer enum))
+  (types (:pointer enum))
+  (ids (:pointer uint))
+  (severities (:pointer enum))
+  (lengths (:pointer sizei))
+  (messageLog (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glPushDebugGroup" push-debug-group) :void
+  (source enum)
+  (id uint)
+  (length sizei)
+  (message (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glPopDebugGroup" pop-debug-group) :void)
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glObjectLabel" object-label) :void
+  (identifier enum)
+  (name uint)
+  (length sizei)
+  (label (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glGetObjectLabel" get-object-label) :void
+  (identifier enum)
+  (name uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (label (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glObjectPtrLabel" object-ptr-label) :void
+  (ptr (:pointer :void))
+  (length sizei)
+  (label (:pointer char)))
+
+;;; GL version: 4.3, KHR_debug
+(defglextfun ("glGetObjectPtrLabel" get-object-ptr-label) :void
+  (ptr (:pointer :void))
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (label (:pointer char)))
+
+;;; GL version: 4.3, ARB_clear_buffer_object
+(defglextfun ("glClearBufferData" clear-buffer-data) :void
+  (target enum)
+  (internalformat enum)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
+
+;;; GL version: 4.3, ARB_clear_buffer_object
+(defglextfun ("glClearBufferSubData" clear-buffer-sub-data) :void
+  (target enum)
+  (internalformat enum)
+  (offset intptr)
+  (size sizeiptr)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
+
+;;; GL version: 4.3, ARB_clear_buffer_object
+(defglextfun ("glClearNamedBufferDataEXT" clear-named-buffer-data-ext) :void
+  (buffer uint)
+  (internalformat enum)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
+
+;;; GL version: 4.3, ARB_clear_buffer_object
+(defglextfun ("glClearNamedBufferSubDataEXT" clear-named-buffer-sub-data-ext) :void
+  (buffer uint)
+  (internalformat enum)
+  (offset sizeiptr)
+  (size sizeiptr)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
+
+;;; GL version: 4.3, ARB_compute_shader
+(defglextfun ("glDispatchCompute" dispatch-compute) :void
+  (num_groups_x uint)
+  (num_groups_y uint)
+  (num_groups_z uint))
+
+;;; GL version: 4.3, ARB_compute_shader
+(defglextfun ("glDispatchComputeIndirect" dispatch-compute-indirect) :void
+  (indirect intptr))
+
+;;; GL version: 4.3, ARB_copy_image
+(defglextfun ("glCopyImageSubData" copy-image-sub-data) :void
+  (srcName uint)
+  (srcTarget enum)
+  (srcLevel int)
+  (srcX int)
+  (srcY int)
+  (srcZ int)
+  (dstName uint)
+  (dstTarget enum)
+  (dstLevel int)
+  (dstX int)
+  (dstY int)
+  (dstZ int)
+  (srcWidth sizei)
+  (srcHeight sizei)
+  (srcDepth sizei))
+
+;;; GL version: 4.3, ARB_framebuffer_no_attachments
+(defglextfun ("glFramebufferParameteri" framebuffer-parameter-i) :void
+  (target enum)
+  (pname enum)
+  (param int))
+
+;;; GL version: 4.3, ARB_framebuffer_no_attachments
+(defglextfun ("glGetFramebufferParameteriv" get-framebuffer-parameter-iv) :void
+  (target enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 4.3, ARB_framebuffer_no_attachments
+(defglextfun ("glNamedFramebufferParameteriEXT" named-framebuffer-parameter-i-ext) :void
+  (framebuffer uint)
+  (pname enum)
+  (param int))
+
+;;; GL version: 4.3, ARB_framebuffer_no_attachments
+(defglextfun ("glGetNamedFramebufferParameterivEXT" get-named-framebuffer-parameter-iv-ext) :void
+  (framebuffer uint)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 4.3, ARB_internalformat_query2
+(defglextfun ("glGetInternalformati64v" get-internalformat-i64v) :void
+  (target enum)
+  (internalformat enum)
+  (pname enum)
+  (bufSize sizei)
+  (params (:pointer int64)))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateTexSubImage" invalidate-tex-sub-image) :void
+  (texture uint)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateTexImage" invalidate-tex-image) :void
+  (texture uint)
+  (level int))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateBufferSubData" invalidate-buffer-sub-data) :void
+  (buffer uint)
+  (offset intptr)
+  (length sizeiptr))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateBufferData" invalidate-buffer-data) :void
+  (buffer uint))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateFramebuffer" invalidate-framebuffer) :void
+  (target enum)
+  (numAttachments sizei)
+  (attachments (:pointer enum)))
+
+;;; GL version: 4.3, ARB_invalidate_subdata
+(defglextfun ("glInvalidateSubFramebuffer" invalidate-sub-framebuffer) :void
+  (target enum)
+  (numAttachments sizei)
+  (attachments (:pointer enum))
+  (x int)
+  (y int)
+  (width sizei)
+  (height sizei))
+
+;;; GL version: 4.3, ARB_multi_draw_indirect
+(defglextfun ("glMultiDrawArraysIndirect" multi-draw-arrays-indirect) :void
+  (mode enum)
+  (indirect (:pointer :void))
+  (drawcount sizei)
+  (stride sizei))
+
+;;; GL version: 4.3, ARB_multi_draw_indirect
+(defglextfun ("glMultiDrawElementsIndirect" multi-draw-elements-indirect) :void
+  (mode enum)
+  (type enum)
+  (indirect (:pointer :void))
+  (drawcount sizei)
+  (stride sizei))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramInterfaceiv" get-program-interface-iv) :void
+  (program uint)
+  (programInterface enum)
+  (pname enum)
+  (params (:pointer int)))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramResourceIndex" get-program-resource-index) uint
+  (program uint)
+  (programInterface enum)
+  (name (:pointer char)))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramResourceName" get-program-resource-name) :void
+  (program uint)
+  (programInterface enum)
+  (index uint)
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (name (:pointer char)))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramResourceiv" get-program-resource-iv) :void
+  (program uint)
+  (programInterface enum)
+  (index uint)
+  (propCount sizei)
+  (props (:pointer enum))
+  (bufSize sizei)
+  (length (:pointer sizei))
+  (params (:pointer int)))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramResourceLocation" get-program-resource-location) int
+  (program uint)
+  (programInterface enum)
+  (name (:pointer char)))
+
+;;; GL version: 4.3, ARB_program_interface_query
+(defglextfun ("glGetProgramResourceLocationIndex" get-program-resource-location-index) int
+  (program uint)
+  (programInterface enum)
+  (name (:pointer char)))
+
+;;; GL version: 4.3, ARB_shader_storage_buffer_object
+(defglextfun ("glShaderStorageBlockBinding" shader-storage-block-binding) :void
+  (program uint)
+  (storageBlockIndex uint)
+  (storageBlockBinding uint))
+
+;;; GL version: 4.3, ARB_texture_buffer_range
+(defglextfun ("glTexBufferRange" tex-buffer-range) :void
+  (target enum)
+  (internalformat enum)
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 4.3, ARB_texture_buffer_range
+(defglextfun ("glTextureBufferRangeEXT" texture-buffer-range-ext) :void
+  (texture uint)
+  (target enum)
+  (internalformat enum)
+  (buffer uint)
+  (offset intptr)
+  (size sizeiptr))
+
+;;; GL version: 4.3, ARB_texture_storage_multisample
+(defglextfun ("glTexStorage2DMultisample" tex-storage-2d-multisample) :void
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 4.3, ARB_texture_storage_multisample
+(defglextfun ("glTexStorage3DMultisample" tex-storage-3d-multisample) :void
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 4.3, ARB_texture_storage_multisample
+(defglextfun ("glTextureStorage2DMultisampleEXT" texture-storage-2d-multisample-ext) :void
+  (texture uint)
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 4.3, ARB_texture_storage_multisample
+(defglextfun ("glTextureStorage3DMultisampleEXT" texture-storage-3d-multisample-ext) :void
+  (texture uint)
+  (target enum)
+  (samples sizei)
+  (internalformat enum)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (fixedsamplelocations boolean))
+
+;;; GL version: 4.3, ARB_texture_view
+(defglextfun ("glTextureView" texture-view) :void
+  (texture uint)
+  (target enum)
+  (origtexture uint)
+  (internalformat enum)
+  (minlevel uint)
+  (numlevels uint)
+  (minlayer uint)
+  (numlayers uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glBindVertexBuffer" bind-vertex-buffer) :void
+  (bindingindex uint)
+  (buffer uint)
+  (offset intptr)
+  (stride sizei))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexAttribFormat" vertex-attrib-format) :void
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexAttribIFormat" vertex-attrib-i-format) :void
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexAttribLFormat" vertex-attrib-l-format) :void
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexAttribBinding" vertex-attrib-binding) :void
+  (attribindex uint)
+  (bindingindex uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexBindingDivisor" vertex-binding-divisor) :void
+  (bindingindex uint)
+  (divisor uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayBindVertexBufferEXT" vertex-array-bind-vertex-buffer-ext) :void
+  (vaobj uint)
+  (bindingindex uint)
+  (buffer uint)
+  (offset intptr)
+  (stride sizei))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayVertexAttribFormatEXT" vertex-array-vertex-attrib-format-ext) :void
+  (vaobj uint)
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (normalized boolean)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayVertexAttribIFormatEXT" vertex-array-vertex-attrib-i-format-ext) :void
+  (vaobj uint)
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayVertexAttribLFormatEXT" vertex-array-vertex-attrib-l-format-ext) :void
+  (vaobj uint)
+  (attribindex uint)
+  (size int)
+  (type enum)
+  (relativeoffset uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayVertexAttribBindingEXT" vertex-array-vertex-attrib-binding-ext) :void
+  (vaobj uint)
+  (attribindex uint)
+  (bindingindex uint))
+
+;;; GL version: 4.3, ARB_vertex_attrib_binding
+(defglextfun ("glVertexArrayVertexBindingDivisorEXT" vertex-array-vertex-binding-divisor-ext) :void
+  (vaobj uint)
+  (bindingindex uint)
+  (divisor uint))
 
 ;;; GL version: 1.0, EXT_blend_color
 (defglextfun ("glBlendColorEXT" blend-color-ext) :void
@@ -13984,7 +14412,7 @@
   (params (:pointer uint64-ext)))
 
 ;;; GL version: 4.1, NV_vertex_attrib_integer_64bit
-(defglextfun ("glVertexAttribLFormatNV" vertex-attrib-lformat-nv) :void
+(defglextfun ("glVertexAttribLFormatNV" vertex-attrib-l-format-nv) :void
   (index uint)
   (size int)
   (type enum)
