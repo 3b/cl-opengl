@@ -106,7 +106,7 @@
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
     "compressed" "attached" "enabled" "attrib" "multi" "status" "mapped"
     "instanced" "indexed" "perf" "keyed" "Integer64"
-    "patch" "path" "glyph" "dash" "length"))
+    "patch" "path" "glyph" "dash" "length" "dispatch"))
 
 (defmacro add-dashes-by-regex (regex str &optional exceptions)
   ;; macro so we don't miss ppcre compiler macros on the regex
@@ -156,6 +156,9 @@
     ;; GL3 adds some i_v suffixed functions, turn that into -i-v for now
     ((cl-ppcre:scan "i_v$" name)
      (cl-ppcre:regex-replace "i_v" name "-i-v"))
+    ;; 4.3 add some things with "IFormat" and "LFormat", so split those..
+    ((cl-ppcre:scan "[IL]Format" name)
+     (cl-ppcre:regex-replace "([IL])Format" name "\\1-format"))
     (t ; anything else, try to split
      (add-dashes-by-regex
       ;;#
@@ -603,7 +606,7 @@
   ;; version/date if they don't put it back in .specs
   (unless *glext-version*
     (error "glext version not found in .spec files")
-    (setf *glext-version* 82))
+    (setf *glext-version* 83))
   (when (string= *glext-last-updated* "<unknown>")
     (error "glext update date not found in .spec files")
     (setf *glext-last-updated* "2012-06-18")))

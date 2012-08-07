@@ -162,7 +162,8 @@
     (loop repeat 5 ;; failsafe, don't loop forever if we have cycles
        while (not (zerop (hash-table-count indirect-enums)))
          do (loop for k being the hash-keys of indirect-enums using (hash-value v)
-               for ref = (convert-enum-name (subseq v 3)) ;; strip GL_ prefix
+                  for skip = (mismatch "GL_" v)
+               for ref = (convert-enum-name (subseq v skip)) ;; strip GL_ prefix
                if (gethash ref enums)
                do
                  (setf (gethash k enums) (gethash ref enums))
