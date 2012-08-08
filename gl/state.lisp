@@ -751,7 +751,21 @@
     (:max-debug-message-length-arb :integer 1)
     (:max-debug-logged-messages-arb :integer 1)
     ;; #105 ARB_robustness
-    (:reset-notification-strategy-arb :enum 1)))
+    (:reset-notification-strategy-arb :enum 1)
+    ;; 4.3 - table 23.61
+    (:max-compute-work-group-count :integer-i 3)
+    (:max-compute-work-group-size :integer-i 3)
+    ;; (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
+    (:max-compute-local-invocations :integer 1) ;; not documented?
+    (:max-compute-uniform-blocks :integer 1)
+    (:max-compute-texture-image-units :integer 1)
+    (:max-compute-atomic-counter-buffers :integer 1)
+    (:max-compute-atomic-counters :integer 1)
+    (:max-compute-shared-memory-size :integer 1)
+    (:max-compute-uniform-components :integer 1)
+    (:max-compute-image-uniforms :integer 1)
+    (:max-combined-compute-uniform-components :integer 1)
+    (:max-compute-shader-storage-blocks :integer 1)))
 
 ;;; Return the default array size for a state query enum.
 (defun query-enum-size (value)
