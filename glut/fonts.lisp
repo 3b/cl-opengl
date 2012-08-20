@@ -40,41 +40,56 @@
 ;;; Unless it's windows, in which case it's a sort of enum-as-pointer
 ;;; thing. "So here it goes:"
 
-(defparameter +stroke-roman+
-  #+windows (make-pointer 0)
-  #-windows (foreign-symbol-pointer "glutStrokeRoman"))
+(defvar +stroke-roman+)
+(defvar +stroke-mono-roman+)
+(defvar +bitmap-9-by-15+)
+(defvar +bitmap-8-by-13+)
+(defvar +bitmap-times-roman-10+)
+(defvar +bitmap-times-roman-24+)
+(defvar +bitmap-helvetica-10+)
+(defvar +bitmap-helvetica-12+)
+(defvar +bitmap-helvetica-18+)
 
-(defparameter +stroke-mono-roman+
-  #+windows (make-pointer 1)
-  #-windows (foreign-symbol-pointer "glutStrokeMonoRoman"))
+;; we need to be able to reinitialize the pointers after loading a
+;; saved core, so move it to a separate function...
+(defun init-font-pointers ()
+  (setf +stroke-roman+
+        #+windows (make-pointer 0)
+        #-windows (foreign-symbol-pointer "glutStrokeRoman"))
 
-(defparameter +bitmap-9-by-15+
-  #+windows (make-pointer 2)
-  #-windows (foreign-symbol-pointer "glutBitmap9By15"))
+  (setf +stroke-mono-roman+
+        #+windows (make-pointer 1)
+        #-windows (foreign-symbol-pointer "glutStrokeMonoRoman"))
 
-(defparameter +bitmap-8-by-13+
-  #+windows (make-pointer 3)
-  #-windows (foreign-symbol-pointer "glutBitmap8By13"))
+  (setf +bitmap-9-by-15+
+        #+windows (make-pointer 2)
+        #-windows (foreign-symbol-pointer "glutBitmap9By15"))
 
-(defparameter +bitmap-times-roman-10+
-  #+windows (make-pointer 4)
-  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman10"))
+  (setf +bitmap-8-by-13+
+        #+windows (make-pointer 3)
+        #-windows (foreign-symbol-pointer "glutBitmap8By13"))
 
-(defparameter +bitmap-times-roman-24+
-  #+windows (make-pointer 5)
-  #-windows (foreign-symbol-pointer "glutBitmapTimesRoman24"))
+  (setf +bitmap-times-roman-10+
+        #+windows (make-pointer 4)
+        #-windows (foreign-symbol-pointer "glutBitmapTimesRoman10"))
 
-(defparameter +bitmap-helvetica-10+
-  #+windows (make-pointer 6)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica10"))
+  (setf +bitmap-times-roman-24+
+        #+windows (make-pointer 5)
+        #-windows (foreign-symbol-pointer "glutBitmapTimesRoman24"))
 
-(defparameter +bitmap-helvetica-12+
-  #+windows (make-pointer 7)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica12"))
+  (setf +bitmap-helvetica-10+
+        #+windows (make-pointer 6)
+        #-windows (foreign-symbol-pointer "glutBitmapHelvetica10"))
 
-(defparameter +bitmap-helvetica-18+
-  #+windows (make-pointer 8)
-  #-windows (foreign-symbol-pointer "glutBitmapHelvetica18"))
+  (setf +bitmap-helvetica-12+
+        #+windows (make-pointer 7)
+        #-windows (foreign-symbol-pointer "glutBitmapHelvetica12"))
+
+  (setf +bitmap-helvetica-18+
+        #+windows (make-pointer 8)
+        #-windows (foreign-symbol-pointer "glutBitmapHelvetica18")))
+
+(init-font-pointers)
 
 ;;; Functions
 

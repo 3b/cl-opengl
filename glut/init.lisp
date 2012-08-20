@@ -51,6 +51,7 @@
     (with-foreign-string (str program-name)
       (setf (mem-ref argv :pointer) str)
       (%glutInit argcp argv)
+      (init-font-pointers)
       (setf *glut-initialized-p* t)))
   ;; By default, we choose the saner option to return from the event
   ;; loop on window close instead of exit()ing.
