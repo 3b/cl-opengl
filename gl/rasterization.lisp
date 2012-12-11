@@ -399,6 +399,97 @@
       (ecase pname
         (:coord-replace (%gl:tex-env-i target pname-value (if value 1 0))))))))
 
+;;; texture queries
+(defun get-tex-parameter (target pname)
+  (macrolet ((floats (c)
+               `(with-foreign-object (buf '%gl:float ,c)
+                  (%gl:get-tex-parameter-fv target pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:float 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:float i)))))
+             (ints (c)
+               `(with-foreign-object (buf '%gl:int ,c)
+                  (%gl:get-tex-parameter-iv target pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:int 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:int i)))))
+             (enums (c)
+               `(with-foreign-object (buf '%gl:enum ,c)
+                  (%gl:get-tex-parameter-iv target pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:enum 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:enum i))))))
+    (ecase pname
+      ((:depth-stencil-texture-mode
+        :texture-mag-filter :texture-min-filter
+        :texture-swizzle-r :texture-swizzle-g
+        :texture-swizzle-b :texture-swizzle-a
+        :texture-wrap-s :texture-wrap-t :texture-wrap-r
+        :texture-compare-mode :texture-compare-func
+        :texture-immutable-format)
+       (enums 1))
+      ((:texture-swizzle-rgba)
+       (enums 4))
+      ((:texture-base-level :texture-max-level
+        :texture-view-min-level :texture-view-num-levels
+        :texture-view-min-layer :texture-view-num-layers
+        :texture-immutable-levels)
+       (ints 1))
+      ((:texture-min-lod :texture-max-lod)
+       (floats 1))
+      ((:texture-border-color)
+       (floats 4)))))
+
+(defun get-tex-level-parameter (target level pname)
+  (macrolet ((floats (c)
+               `(with-foreign-object (buf '%gl:float ,c)
+                  (%gl:get-tex-level-parameter-fv target level pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:float 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:float i)))))
+             (ints (c)
+               `(with-foreign-object (buf '%gl:int ,c)
+                  (%gl:get-tex-level-parameter-iv target level pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:int 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:int i)))))
+             (enums (c)
+               `(with-foreign-object (buf '%gl:enum ,c)
+                  (%gl:get-tex-level-parameter-iv target level pname buf)
+                  ,(if (= c 1)
+                       `(mem-aref buf '%gl:enum 0)
+                        `(loop for i below ,c
+                              collect (mem-aref buf '%gl:enum i)))))
+             (bool (c)
+               `(with-foreign-object (buf '%gl:int ,c)
+                  (%gl:get-tex-level-parameter-iv target level pname buf)
+                  ,(if (= c 1)
+                       `(not (zerop (mem-aref buf '%gl:int 0)))
+                       `(loop for i below ,c
+                              collect (not (zerop (mem-aref buf '%gl:int i))))))))
+    (ecase pname
+      (:texture-internal-format
+       (let ((a (ints 1)))
+         (if (<= a 4)
+             a
+             (cffi:foreign-enum-keyword '%gl::enum a))))
+      ((:texture-red-type :texture-green-type :texture-blue-type
+        :texture-alpha-type :texture-depth-type)
+       (enums 1))
+      ((:texture-compressed)
+       (bool 1))
+      ((:texture-width :texture-height :texture-depth
+        :texture-red-size :texture-green-size :texture-blue-size
+        :texture-alpha-size :texture-depth-size
+        :texture-compressed-image-size
+        :texture-buffer-offset :texture-buffer-size)
+       (ints 1)))))
+
 ;;;
 ;;; 3.10 Fog
 ;;;
