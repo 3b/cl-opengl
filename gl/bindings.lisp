@@ -45,7 +45,9 @@
                           (opengl-error.error-code c))))))
 
 (defparameter *in-begin* nil)
-(declaim (inline check-error))
+;; inlining lots of restart-case kills compilation times on SBCL, and doesn't
+;; seem to help performance much
+;; (declaim (inline check-error))
 (defun check-error (&optional context)
   (declare (optimize speed))
   (unless *in-begin*
