@@ -280,7 +280,7 @@
                  (,f ,target pname param))
                 ;; tex only
                 ,@(when tex
-                    `(((:texture-base-level)
+                    `(((:texture-base-level :texture-max-level)
                        (,i ,target pname (truncate param)))
                       (:generate-mipmap
                        (,i ,target pname (if param 1 0)))
