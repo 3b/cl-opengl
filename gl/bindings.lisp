@@ -120,7 +120,8 @@
   #+clisp (pushnew 'reset-gl-pointers custom:*fini-hooks*)
   #+sbcl (pushnew 'reset-gl-pointers sb-ext:*save-hooks*)
   #+cmu (pushnew 'reset-gl-pointers ext:*before-save-initializations*)
-  #-(or clisp sbcl cmu)
+  ;; ECL does not need this since it does not save images
+  #-(or clisp sbcl cmu ecl)
   (warn "Don't know how to setup a hook before saving cores on this Lisp."))
 
 ;;;; Bart's version of DEFGLEXTFUN.
