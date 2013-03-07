@@ -101,6 +101,75 @@
     ("GetInternalformativ" . "get-internal-format-iv")
 ))
 
+;;; some functions optionally use 'pointer' fields as offsets, and
+;;; passing offsets as pointers is apparently inefficient on some lisps,
+;;; so add special cases for those functions to allow passing integers
+;;; or pointers
+(defparameter *pointer-is-offset-functions*
+  ;; name . list of pointer/offset args (0-based)
+  `(("VertexAttribPointer" 5)
+    ("VertexAttribIPointer" 4)
+    ("VertexAttribLPointer" 4)
+    ("ReadPixels" 6)
+    ("TexImage1D" 7)
+    ("TexImage2D" 8)
+    ("TexImage3D" 9)
+    ("GetTexImage" 4)
+    ("TexSubImage1D" 6)
+    ("TexSubImage2D" 8)
+    ("TexSubImage3D" 10)
+    ("CompressedTexImage1D" 6)
+    ("CompressedTexImage2D" 7)
+    ("CompressedTexImage3D" 8)
+    ("CompressedTexSubImage1D" 6)
+    ("CompressedTexSubImage2D" 8)
+    ("CompressedTexSubImage3D" 10)
+    ("GetCompressedTexImage" 2)
+    ("DrawArraysIndirect" 1)
+    ("DrawElementsIndirect" 2)
+    ("MultiDrawArraysIndirect" 1)
+    ("MultiDrawElementsIndirect" 2)
+    ("DrawElements" 3)
+    ("DrawRangeElements" 5)
+    ("DrawElementsInstanced" 3)
+    ("DrawElementsBaseVertex" 3)
+    ("DrawRangeElementsBaseVertex" 5)
+    ("DrawElementsInstancedBaseVertex" 3)
+    ;;MultiDrawElements  = real pointer to offsets
+    ;;MultiDrawElementsBaseVertex = real pointer to offsets
+
+    ;; old/deprecated stuff
+    ("Bitmap" 6)
+    ("ColorPointer" 3)
+    ("ColorSubTable" 5)
+    ("ColorTable" 5)
+    ("ConvolutionFilter1D" 5)
+    ("ConvolutionFilter2D" 6)
+    ("DrawPixels" 4)
+    ("EdgeFlagPointer" 1)
+    ("FogCoordPointer" 2)
+    ("GetColorTable" 3)
+    ("GetConvolutionFilter" 3)
+    ("GetHistogram" 4)
+    ("GetMinmax" 4)
+    ("GetPixelMapfv" 1)
+    ("GetPixelMapuiv" 1)
+    ("GetPixelMapusv" 1)
+    ("GetPolygonStipple" 0)
+    ("GetSeparableFilter" 3 4 5)
+    ("IndexPointer" 2)
+    ("NormalPointer" 2)
+    ("PixelMapfv" 2)
+    ("PixelMapuiv" 2)
+    ("PixelMapusv" 2)
+    ("PolygonStipple" 0)
+    ("SecondaryColorPointer" 3)
+    ("SeparableFilter2D" 6 7)
+    ("TexCoordPointer" 3)
+    ("VertexPointer" 3)
+    ;; todo: extensions?
+    ))
+
 (defparameter *whole-words*
   '("push" "depth" "mesh" "finish" "flush" "attach" "detach" "through" "width"
     "interleaved" "load" "end" "bind" "named" "grid" "coord" "read" "blend"
@@ -386,12 +455,22 @@
         (progn (format t "unable to remap type ~a ~%" type)
                type))))
 
-(defun dump-param (stream parm)
-  (format stream "~&  (~a ~a)"
-          (fix-arg (name parm))
-          (if (array-flag parm)
-              (format nil "(:pointer ~a)" (remap-type (ctype parm)))
-              (remap-type (ctype parm)))))
+(defun dump-param (stream parm fun index)
+  (let* ((offset-params (cdr (assoc (name fun) *pointer-is-offset-functions*
+                                      :test 'string=)))
+         (offset-param (member index offset-params)))
+    (format stream "~&  (~a ~a)"
+            (fix-arg (name parm))
+            (cond
+              ((and (array-flag parm)
+                    offset-param)
+               (format nil "offset-or-pointer"))
+              ((array-flag parm)
+               (format nil "(:pointer ~a)" (remap-type (ctype parm))))
+              (offset-param
+               (error "got non-array parameter ~s(~s) for function ~s flagged as offset-or-array?" parm index (name fun)))
+              (t
+               (remap-type (ctype parm)))))))
 
 (defun dump-return-enum-list (stream fun)
   (when (member (gethash (return-type fun) *type-map* "")
@@ -429,7 +508,8 @@
           (mangle-for-lisp (name fun))
           (remap-return (return-type fun)))
   (loop for i in (parameters fun)
-        do (dump-param stream i))
+        for index from 0
+        do (dump-param stream i fun index))
   (format stream ")~%"))
 
 (defun new-fun (name)

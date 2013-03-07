@@ -103,7 +103,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glTexImage2D" tex-image-2d) :void
@@ -115,7 +115,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glDrawBuffer" draw-buffer) :void
@@ -216,7 +216,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glGetBooleanv" get-boolean-v) :void
@@ -251,7 +251,7 @@
   (level int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0
 (defglfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
@@ -338,7 +338,7 @@
   (yorig float)
   (xmove float)
   (ymove float)
-  (bitmap (:pointer ubyte)))
+  (bitmap offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glColor3b" color-3b) :void
@@ -1146,7 +1146,7 @@
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPolygonStipple" polygon-stipple) :void
-  (mask (:pointer ubyte)))
+  (mask offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glShadeModel" shade-model) :void
@@ -1427,19 +1427,19 @@
 (defglfun ("glPixelMapfv" pixel-map-fv) :void
   (map enum)
   (mapsize int)
-  (values (:pointer float)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelMapuiv" pixel-map-uiv) :void
   (map enum)
   (mapsize int)
-  (values (:pointer uint)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glPixelMapusv" pixel-map-usv) :void
   (map enum)
   (mapsize int)
-  (values (:pointer ushort)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glCopyPixels" copy-pixels) :void
@@ -1455,7 +1455,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetClipPlane" get-clip-plane) :void
@@ -1507,21 +1507,21 @@
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapfv" get-pixel-map-fv) :void
   (map enum)
-  (values (:pointer float)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapuiv" get-pixel-map-uiv) :void
   (map enum)
-  (values (:pointer uint)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPixelMapusv" get-pixel-map-usv) :void
   (map enum)
-  (values (:pointer ushort)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetPolygonStipple" get-polygon-stipple) :void
-  (mask (:pointer ubyte)))
+  (mask offset-or-pointer))
 
 ;;; GL version: 1.0, VERSION_1_0_DEPRECATED
 (defglfun ("glGetTexEnvfv" get-tex-env-fv) :void
@@ -1653,7 +1653,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void)))
+  (indices offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glGetPointerv" get-pointer-v) :void
@@ -1714,7 +1714,7 @@
   (width sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glTexSubImage2D" tex-sub-image-2d) :void
@@ -1726,7 +1726,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1
 (defglfun ("glBindTexture" bind-texture) :void
@@ -1756,7 +1756,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glDisableClientState" disable-client-state) :void
@@ -1765,7 +1765,7 @@
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glEnableClientState" enable-client-state) :void
@@ -1775,7 +1775,7 @@
 (defglfun ("glIndexPointer" index-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glInterleavedArrays" interleaved-arrays) :void
@@ -1787,21 +1787,21 @@
 (defglfun ("glNormalPointer" normal-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glTexCoordPointer" tex-coord-pointer) :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glVertexPointer" vertex-pointer) :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.1, VERSION_1_1_DEPRECATED
 (defglfun ("glAreTexturesResident" are-textures-resident) boolean
@@ -1848,7 +1848,7 @@
   (end uint)
   (count sizei)
   (type enum)
-  (indices (:pointer void)))
+  (indices offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glTexImage3D" tex-image-3d) :void
@@ -1861,7 +1861,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glTexSubImage3D" tex-sub-image-3d) :void
@@ -1875,7 +1875,7 @@
   (depth sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2
 (defglextfun ("glCopyTexSubImage3D" copy-tex-sub-image-3d) :void
@@ -1896,7 +1896,7 @@
   (width sizei)
   (format enum)
   (type enum)
-  (table (:pointer void)))
+  (table offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glColorTableParameterfv" color-table-parameter-fv) :void
@@ -1923,7 +1923,7 @@
   (target enum)
   (format enum)
   (type enum)
-  (table (:pointer void)))
+  (table offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glGetColorTableParameterfv" get-color-table-parameter-fv) :void
@@ -1944,7 +1944,7 @@
   (count sizei)
   (format enum)
   (type enum)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glCopyColorSubTable" copy-color-sub-table) :void
@@ -1961,7 +1961,7 @@
   (width sizei)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glConvolutionFilter2D" convolution-filter-2d) :void
@@ -1971,7 +1971,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glConvolutionParameterf" convolution-parameter-f) :void
@@ -2019,7 +2019,7 @@
   (target enum)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glGetConvolutionParameterfv" get-convolution-parameter-fv) :void
@@ -2038,9 +2038,9 @@
   (target enum)
   (format enum)
   (type enum)
-  (row (:pointer void))
-  (column (:pointer void))
-  (span (:pointer void)))
+  (row offset-or-pointer)
+  (column offset-or-pointer)
+  (span offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glSeparableFilter2D" separable-filter-2d) :void
@@ -2050,8 +2050,8 @@
   (height sizei)
   (format enum)
   (type enum)
-  (row (:pointer void))
-  (column (:pointer void)))
+  (row offset-or-pointer)
+  (column offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glGetHistogram" get-histogram) :void
@@ -2059,7 +2059,7 @@
   (reset boolean)
   (format enum)
   (type enum)
-  (values (:pointer void)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glGetHistogramParameterfv" get-histogram-parameter-fv) :void
@@ -2079,7 +2079,7 @@
   (reset boolean)
   (format enum)
   (type enum)
-  (values (:pointer void)))
+  (values offset-or-pointer))
 
 ;;; GL version: 1.2, VERSION_1_2_DEPRECATED
 (defglextfun ("glGetMinmaxParameterfv" get-minmax-parameter-fv) :void
@@ -2133,7 +2133,7 @@
   (depth sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glCompressedTexImage2D" compressed-tex-image-2d) :void
@@ -2144,7 +2144,7 @@
   (height sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glCompressedTexImage1D" compressed-tex-image-1d) :void
@@ -2154,7 +2154,7 @@
   (width sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glCompressedTexSubImage3D" compressed-tex-sub-image-3d) :void
@@ -2168,7 +2168,7 @@
   (depth sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d) :void
@@ -2180,7 +2180,7 @@
   (height sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d) :void
@@ -2190,13 +2190,13 @@
   (width sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3
 (defglextfun ("glGetCompressedTexImage" get-compressed-tex-image) :void
   (target enum)
   (level int)
-  (img (:pointer void)))
+  (img offset-or-pointer))
 
 ;;; GL version: 1.3, VERSION_1_3_DEPRECATED
 (defglextfun ("glClientActiveTexture" client-active-texture) :void
@@ -2464,7 +2464,7 @@
 (defglextfun ("glFogCoordPointer" fog-coord-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glSecondaryColor3b" secondary-color-3b) :void
@@ -2551,7 +2551,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 1.4, VERSION_1_4_DEPRECATED
 (defglextfun ("glWindowPos2d" window-pos-2d) :void
@@ -3265,7 +3265,7 @@
   (type enum)
   (normalized boolean)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 2.1, VERSION_2_1
 (defglextfun ("glUniformMatrix2x3fv" uniform-matrix-2x3-fv) :void
@@ -3401,7 +3401,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 3.0, VERSION_3_0
 (defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
@@ -3660,7 +3660,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (instancecount sizei))
 
 ;;; GL version: 3.1, VERSION_3_1
@@ -5178,7 +5178,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (basevertex int))
 
 ;;; GL version: 1.2, ARB_draw_elements_base_vertex
@@ -5188,7 +5188,7 @@
   (end uint)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (basevertex int))
 
 ;;; GL version: 1.2, ARB_draw_elements_base_vertex
@@ -5196,7 +5196,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (instancecount sizei)
   (basevertex int))
 
@@ -5675,13 +5675,13 @@
 ;;; GL version: 1.2, ARB_draw_indirect
 (defglextfun ("glDrawArraysIndirect" draw-arrays-indirect) :void
   (mode enum)
-  (indirect (:pointer void)))
+  (indirect offset-or-pointer))
 
 ;;; GL version: 1.2, ARB_draw_indirect
 (defglextfun ("glDrawElementsIndirect" draw-elements-indirect) :void
   (mode enum)
   (type enum)
-  (indirect (:pointer void)))
+  (indirect offset-or-pointer))
 
 ;;; GL version: 1.2, ARB_gpu_shader_fp64
 (defglextfun ("glUniform1d" uniform-1d) :void
@@ -6451,7 +6451,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 ;;; GL version: 4.1, ARB_vertex_attrib_64bit
 (defglextfun ("glGetVertexAttribLdv" get-vertex-attrib-ldv) :void
@@ -7041,7 +7041,7 @@
 ;;; GL version: 4.3, ARB_multi_draw_indirect
 (defglextfun ("glMultiDrawArraysIndirect" multi-draw-arrays-indirect) :void
   (mode enum)
-  (indirect (:pointer :void))
+  (indirect offset-or-pointer)
   (drawcount sizei)
   (stride sizei))
 
@@ -7049,7 +7049,7 @@
 (defglextfun ("glMultiDrawElementsIndirect" multi-draw-elements-indirect) :void
   (mode enum)
   (type enum)
-  (indirect (:pointer :void))
+  (indirect offset-or-pointer)
   (drawcount sizei)
   (stride sizei))
 

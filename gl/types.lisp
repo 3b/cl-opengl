@@ -74,6 +74,28 @@
       (cl:float (eval value) 1.0d0)
       `(cl:float ,value 1.0d0)))
 
+(define-foreign-type offset-or-pointer ()
+  ()
+  (:actual-type ptrdiff-t)
+  (:simple-parser offset-or-pointer))
+
+(defmethod translate-to-foreign (value (type offset-or-pointer))
+  (if (pointerp value)
+      (pointer-address value)
+      value))
+
+(defmethod expand-to-foreign (value (type offset-or-pointer))
+  (cond
+    ((and (constantp value) (pointerp value))
+     (pointer-address value))
+    ((and (constantp value) (typep value '(integer 0)))
+     value)
+    (t
+     (alexandria:once-only (value)
+       `(if (pointerp ,value)
+            (pointer-address ,value)
+            ,value)))))
+
 ;;;; Deftypes
 
 (defctype boolean (:boolean :unsigned-char))
