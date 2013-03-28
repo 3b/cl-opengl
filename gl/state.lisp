@@ -1262,7 +1262,7 @@ If there is no string to return because there is no info log, return nil"
   "Returns as a string the entire info log for PROGRAM.
 If there is no string to return because there is no info log, return nil"
   (let ((info-log-length (get-program program :info-log-length)))
-    (when (> info-log-length)
+    (when (> info-log-length 0)
       (with-foreign-object (info-log '%gl:char info-log-length)
         (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
         (foreign-string-to-lisp info-log)))))
