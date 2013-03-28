@@ -1250,25 +1250,31 @@ currently implemented for speed, so avoid in inner loops"
             collecting (mem-aref shaders '%gl:uint i)))))
 
 (defun get-shader-info-log (shader)
-  "Returns as a string the entire info log for SHADER"
+  "Returns as a string the entire info log for SHADER.
+If there is no string to return because there is no info log, return nil"
   (let ((info-log-length (get-shader shader :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
-      (foreign-string-to-lisp info-log))))
+    (when (> info-log-length 0)
+      (with-foreign-object (info-log '%gl:char info-log-length)
+        (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
+        (foreign-string-to-lisp info-log)))))
 
 (defun get-program-info-log (program)
-  "Returns as a string the entire info log for PROGRAM"
+  "Returns as a string the entire info log for PROGRAM.
+If there is no string to return because there is no info log, return nil"
   (let ((info-log-length (get-program program :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
-      (foreign-string-to-lisp info-log))))
+    (when (> info-log-length)
+      (with-foreign-object (info-log '%gl:char info-log-length)
+        (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
+        (foreign-string-to-lisp info-log)))))
 
 (defun get-shader-source (shader)
-  "Returns as a string the entire source of SHADER"
+  "Returns as a string the entire source of SHADER.
+Returns nil if there is no source available."
   (let ((source-length (get-shader shader :shader-source-length)))
-    (with-foreign-object (source '%gl:char source-length)
-      (%gl:get-shader-source shader source-length (null-pointer) source)
-      (foreign-string-to-lisp source))))
+    (when (> source-length 0)
+      (with-foreign-object (source '%gl:char source-length)
+        (%gl:get-shader-source shader source-length (null-pointer) source)
+        (foreign-string-to-lisp source)))))
 
 ;;; 6.1.15 Saving and Restoring State
 
