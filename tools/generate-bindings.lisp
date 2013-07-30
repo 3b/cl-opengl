@@ -142,6 +142,31 @@
           when (and (consp i) (member (car i) '(defctype defcstruct)))
             collect (second i))))
 
+
+(defun load-bindings (gl-dir)
+  ;; fixme: probably should combine this with read-name-map?
+  (loop with hash = (make-hash-table :test 'equal)
+        for funcs-file in (directory (merge-pathnames "funcs-*.lisp" gl-dir))
+        for filename = (enough-namestring funcs-file (truename gl-dir))
+        do (format t "~s -> ~s~%" funcs-file filename)
+           (with-open-file (in funcs-file)
+                (loop for i = (read in nil in)
+                      until (eq i in)
+                      when (and (consp i) (member (car i) '(defglfun defglextfun)))
+                        do (setf (gethash (first (second i)) hash)
+                                 (list filename i))))
+        finally (return hash)))
+
+(defun load-enums (gl-dir)
+  (with-open-file (in (merge-pathnames "constants.lisp" gl-dir))
+    (alexandria:alist-hash-table
+     (loop for i = (read in nil in)
+           until (eq i in)
+           when (and (consp i) (member (car i) '(defbitfield defcenum)))
+             collect (cons (second i) i))
+     :test 'equal)))
+
+
 (defparameter *base-types*
   '(("int"            . ":int")
     ("unsigned int"   . ":unsigned-int")
@@ -223,7 +248,9 @@
        (bitfields  (make-hash-table :test 'equal))
        (enums (make-hash-table :test 'equal))
        (funcs (make-hash-table :test 'equal))
-       (function-apis (make-hash-table :test 'equal)))
+       (function-apis (make-hash-table :test 'equal))
+       (old-bindings (load-bindings gl-dir))
+       (old-enums (load-enums gl-dir)))
 
   ;; remove some other text from the comment if present
   (let ((s (search "This file, gl.xml, is the OpenGL and OpenGL API Registry."
@@ -536,6 +563,68 @@
                      (or (gethash i name-map)
                          (mixedcaps->lcdash i))))
     (format out "))~%~%"))
+
+  ;; print out changes
+  (let ((new-bindings (load-bindings gl-dir))
+        (new-enums (load-enums gl-dir)))
+    (flet ((eb (x)
+             (ecase (first x)
+               (defbitfield "bitfield")
+               (defcenum "enum"))))
+      ;; todo: check for changed types of enums/bitfields? (should
+      ;; only be :unsigned-int currently, so not bothering for no)
+      (format t "checking for removed enums/bitfields:~%")
+      (loop for k being the hash-keys of old-enums using (hash-value v)
+            unless (gethash k new-enums)
+              do (format t "removed ~a ~s~%" (eb v) k))
+      (format t "checking for new or modified enums/bitfields:~%")
+      (loop for k1 being the hash-keys of new-enums using (hash-value new-form)
+            for old-form = (gethash k1 old-enums nil)
+            for k = (if (consp k1) (car k1) k)
+            do (cond
+                 ((not old-form)
+                  (format t "new ~a ~s~%" (eb new-form) k))
+                 ((not (eql (car new-form) (car old-form)))
+                  (format t "~a ~s changed to ~a~%"
+                          (eb old-form) k (eb new-form)))
+                 ((not (equal new-form old-form))
+                  (let ((removed (set-difference
+                                  (mapcar 'first (cddr old-form))
+                                  (mapcar 'first (cddr new-form)))))
+                    (loop for i in removed
+                          do (format t "~a ~s: removed ~s~%"
+                                     (eb new-form) k i)))
+                  (loop with h = (alexandria:alist-hash-table (cddr old-form))
+                        for (name value) in (cddr new-form)
+                        for (old-value) = (gethash name h)
+                        when (not old-value)
+                          do  (format t "~a ~s: added ~s = #x~x~%"
+                                     (eb new-form) k name value)
+                        else when (/= value old-value)
+                        do  (format t "~a ~s: ~s value changed from #x~x to #x~x~%"
+                                     (eb new-form) k name old-value value))))))
+
+    (format t "checking for removed bindings:~%")
+    (loop for k being the hash-keys of old-bindings
+          unless (gethash k new-bindings)
+            do (format t "removed binding ~s~%" k))
+    (format t "checking for new or modified bindings:~%")
+    (loop for k being the hash-keys of new-bindings using (hash-value v)
+          for (new-file new-form) = v
+          for (old-file old-form) = (gethash k old-bindings nil)
+          do (cond
+               ((not old-file)
+                (format t "+~a ~{~s -> ~s~}~%" new-file (second new-form)))
+               ((not (equal new-file old-file))
+                (format t "binding ~s moves from ~s to ~s~%"
+                        k old-file new-file))
+               ((not (equal new-form old-form))
+                ;; todo: ignore changes in names of args
+                (format t "definition of binding ~s changed:~%from: ~s~%to:   ~s~%" k old-form new-form))))
+
+
+
+)
 
   (force-output)
   nil)
