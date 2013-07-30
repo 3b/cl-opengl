@@ -133,3 +133,15 @@
 (defctype clampf ensure-float)
 (defctype double ensure-double)
 (defctype clampd ensure-double)
+
+(defctype clampx :int)
+(defctype egl-image-oes (:pointer :void))
+(defctype fixed int)
+(defctype int64-ext :int64)
+(defctype uint64-ext :uint64)
+(defctype sync (:pointer)) ;; struct __GLsync *
+(defctype vdpau-surface-nv intptr)
+
+;; fixme: should these be here? better name if so?
+(defcstruct _cl_context) ; "struct _cl_context"
+(defcstruct _cl_event) ; "struct _cl_event"
