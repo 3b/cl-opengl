@@ -480,11 +480,11 @@
                  ;; todo: break these up into separate packages?
                  (format out "~%(in-package #:cl-opengl-bindings)~%~%")
 
-                 (format out "~{;;; generated ~d-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ~%~%~}"
+                 (format out "~{;;; generated ~d-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ~%~}"
                          (cdddr (reverse (multiple-value-list
                                           (decode-universal-time
                                            (get-universal-time) 0)))))
-                 (format out ";;; from gl.xml @ svn rev ~a, ~a~%"
+                 (format out ";;; from gl.xml @ svn rev ~a, ~a~%~%"
                          *glext-svn-version* *glext-last-updated*)
 
                  (when (string= filename "funcs-gl-glcore-gles1-gles2.lisp")
