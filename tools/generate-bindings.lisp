@@ -238,13 +238,9 @@
                                     (cxml:make-whitespace-normalizer
                                      (stp:make-builder))))
          (date (sv "/info/entry/commit/date" svn-info))
-         (svn (sv "/info/entry/commit/@revision" svn-info))
-         #++(ts (cdddr (reverse (multiple-value-list (decode-universal-time
-                                                      (get-universal-time) 0))))))
-    (setf *glext-version* (subseq (remove #\- date) 0 8)
-          #++(format nil "~:@{~d~2,'0d~2,'0d~}" ts))
-    (setf *glext-last-updated* date
-          #++(format nil "~{~d-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0dZ~}" ts))
+         (svn (sv "/info/entry/commit/@revision" svn-info)))
+    (setf *glext-version* (subseq (remove #\- date) 0 8))
+    (setf *glext-last-updated* date)
     (setf *glext-svn-version* svn))
 
   ;; extract types
@@ -253,25 +249,10 @@
       (unless (or (find (string-upcase (translate-type-name name)) types
                         :test 'string=)
                   (find name *base-types* :key 'car :test 'string=))
-        (format t "types = ~s~%" types)
         (format t "new type ~s : (defctype ~(~s~) ~s) ~%"
                 name
                 (string-upcase (translate-type-name name))
                 (xpath:string-value (xpath:evaluate "text()" node))))))
-
-  ;; extract enum groups
-  ;; not sure if we will use these or just keep using 'enum'?
-  #++
-  (xpath:do-node-set (node (xpath:evaluate "/registry/groups/group" gl.xml))
-    (let ((name (xpath:string-value (xpath:evaluate "@name" node)))
-          #++(value (xpath:string-value (xpath:evaluate "@value" node))))
-      ;; existing bitfields are named without #\-, so keep them that
-      ;; way in case anyone used them directly...
-      (push (list* name                ;(mixedcaps->lcdash name)
-                   (mapcar (lambda (a)
-                             (convert-enum-name (xpath:string-value a)))
-                           (xpath:all-nodes (xpath:evaluate "enum/@name" node))))
-            groups)))
 
   ;; extract bitfields
   (xpath:do-node-set (node (xpath:evaluate "/registry/enums[@type=\"bitmask\"]" gl.xml))
@@ -292,8 +273,6 @@
           (xpath:do-node-set (e (xpath:evaluate "enum" node))
             (let ((n (convert-enum-name (xpath:string-value
                                          (xpath:evaluate "@name" e))))
-                  #++(alias (convert-enum-name (xpath:string-value
-                                                (xpath:evaluate "@alias" e))))
                   (v (hex (xpath:string-value (xpath:evaluate "@value" e)))))
               ;; add an alias without the -bit suffix if any
               ;; (should we strip -bit before a vendor suffix also?
@@ -305,13 +284,7 @@
                                  "???")
                              :keyword)
                      v t))
-              #++(when alias
-                   (add alias v))
               (add n v nil)))))))
-  #++
-  (maphash (lambda (k v)
-             (format t "~s ->~%  ~s~%" k (alexandria:hash-table-alist v)))
-           bitfields)
 
   ;; extract enum values
   (xpath:do-node-set (node (xpath:evaluate "/registry/enums[not (@type) or (@type!=\"bitmask\")]" gl.xml))
@@ -331,29 +304,16 @@
           (xpath:do-node-set (e (xpath:evaluate "enum" node))
             (let ((n (convert-enum-name (xpath:string-value
                                          (xpath:evaluate "@name" e))))
-                  #++(alias (convert-enum-name (xpath:string-value
-                                                (xpath:evaluate "@alias" e))))
                   (v (hex (xpath:string-value (xpath:evaluate "@value" e)))))
-              #++(when alias
-                   (add alias v))
               (add n v)))))))
-  #++(maphash (lambda (k v)
-                (format t "~s ->~%  ~s~%" k (alexandria:hash-table-alist v)))
-              enums)
-
 
   ;; extract functions
   (xpath:do-node-set (node (xpath:evaluate "/registry/commands/command" gl.xml))
     (let* ((proto (xpath:first-node (xpath:evaluate "proto" node)))
            (name (sv "name" proto))
-           #++
-           (alias (xpath:map-node-set->list
-                   #'xpath:string-value (xpath:evaluate "alias/@name" node)))
            (ret (if (equalp (sv "@group" proto) "String")
                     "string"
-                    (get-type proto))
-                #++(or (sv "proto[/ptype and text()]" node)
-                       (sv "proto/text()" node)))
+                    (get-type proto)))
            (args (xpath:map-node-set->list
                   (lambda (p)
                     (list* :name (let ((n (sv "name" p)))
@@ -363,22 +323,12 @@
                              (when (and g (string/= g ""))
                                (list :group g)))))
                   (xpath:evaluate "param" node))))
-      #++(format t "~s ~s~%   (~{~s~^~%   ~})~% -> ~s~%"
-                 name ret args alias)
       (flet ((add (k v)
                (when (and (gethash k funcs)
                           (not (equalp v (gethash k funcs))))
                  (format t "duplicate func ~s =~%  ~s,~%  ~s?~%" k v (gethash k funcs)))
                (setf (gethash k funcs) v)))
-        #++
-        (loop for a in alias
-              unless (gethash a funcs)
-                do (add a (cons ret args)))
         (add name (cons ret args)))))
-  #++
-  (maphash (lambda (k v)
-             (format t "~s ->~%  ~s~%" k v))
-           funcs)
 
   ;; load special cases
   (with-open-file (special (merge-pathnames "special-cases.lisp" this-dir))
@@ -407,10 +357,6 @@
                 (setf (gethash (second x) funcs)
                       (cddr x))))))
 
-  #++(maphash (lambda (k v)
-                (format t "~s ->~%  ~s~%" k (alexandria:hash-table-alist v)))
-              enums)
-
   ;; figure out which APIs (GL,ES1,ES2) include which functions
   (let ((x 0))
     (flet ((add (node apis ext api-ver)
@@ -419,9 +365,6 @@
              ;; of doing a bunch of xpath to grab the children...
              (xpath:do-node-set (require (xpath:evaluate
                                           "./require[command]" node))
-               (let (#++(profile (sv "@profile" require))
-                     #++(req-api (sv "@comment" require))
-                     #++(req-comment (sv "@comment" require))))
                (xpath:do-node-set (command (xpath:evaluate "command"
                                                            require))
                  (let ((name (sv "@name" command)))
@@ -442,7 +385,6 @@
                                          :api-version))))))))
       (xpath:do-node-set (feature (xpath:evaluate "/registry/feature" gl.xml))
         (let ((api (sv "@api" feature))
-              #++(api-name (sv "@name" feature))
               (api-number (sv "@number" feature)))
           (add feature (intern (string-upcase api) :keyword) nil api-number)))
       (xpath:do-node-set (ext (xpath:evaluate "/registry/extensions/extension"
@@ -457,7 +399,6 @@
   ;; write files
   (when t
     (with-open-file (out enums-file :direction :output :if-exists :supersede)
-      ;;let ((out *standard-output*))
       (format out ";;; this file is automatically generated, do not edit~%")
       (format out "(in-package #:cl-opengl-bindings)~%~%")
       (loop for (name . hash) in (sort (alexandria:hash-table-alist bitfields)
@@ -501,7 +442,6 @@
             do (format t "~&writing functions to file ~s~%" path)
             do (with-open-file (out path :direction :output
                                          :if-exists :supersede)
-                 #+let ((out *standard-output*))
                  (format out ";;; this file is automatically generated, do not edit~%")
                  (format out ";;; generated from files with the following copyright:~%;;;~%")
                  (with-input-from-string (c copyright)
@@ -557,7 +497,6 @@
   ;; write package file
   (with-open-file (out binding-package-file :direction :output
                                             :if-exists :supersede)
-    #+let ((out *standard-output*))
     (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
 
     (format out ";;; generated file, do not edit~%")
