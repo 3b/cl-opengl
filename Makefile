@@ -10,7 +10,7 @@ bindings:
 # fixme: probably should grab xml file with svn instead of wget?
 specs:
 	cd spec && wget -N https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api/gl.xml
-	cd spec && svn info --xml https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api/ >> svn-info.xml
+	cd spec && svn info --xml https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api/ > svn-info.xml
 
 clean:
 	find . -name ".fasls" | xargs rm -rf
