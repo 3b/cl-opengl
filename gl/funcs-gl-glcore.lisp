@@ -26,8 +26,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:14:48Z
-;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
+;;; generated 2013-08-24T14:36:19Z
+;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
   (target enum)
@@ -1017,13 +1017,6 @@
   (basevertex int)
   (baseinstance uint))
 
-(defglextfun ("glGetInternalformati64v" get-internalformat-i64v) :void
-  (target enum)
-  (internalformat enum)
-  (pname enum)
-  (bufSize sizei)
-  (params (:pointer int64)))
-
 (defglextfun ("glGetActiveAtomicCounterBufferiv" get-active-atomic-counter-buffer-iv) :void
   (program uint)
   (bufferIndex uint)
@@ -1109,6 +1102,13 @@
   (target enum)
   (pname enum)
   (params (:pointer int)))
+
+(defglextfun ("glGetInternalformati64v" get-internalformat-i64v) :void
+  (target enum)
+  (internalformat enum)
+  (pname enum)
+  (bufSize sizei)
+  (params (:pointer int64)))
 
 (defglextfun ("glInvalidateTexSubImage" invalidate-tex-sub-image) :void
   (texture uint)

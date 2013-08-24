@@ -26,11 +26,11 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:14:48Z
-;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
+;;; generated 2013-08-24T14:36:19Z
+;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
-(defparameter *glext-version* 20130729)
-(defparameter *glext-last-updated* "2013-07-29T23:02:42.773972Z")
+(defparameter *glext-version* 20130823)
+(defparameter *glext-last-updated* "2013-08-23T22:13:48.757953Z")
 
 (defglfun ("glGetPointerv" get-pointer-v) :void
   (pname enum)

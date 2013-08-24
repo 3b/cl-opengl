@@ -26,8 +26,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:14:48Z
-;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
+;;; generated 2013-08-24T14:36:19Z
+;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
   (face enum)
@@ -5177,6 +5177,12 @@
   (offset intptr)
   (length sizeiptr))
 
+(defglextfun ("glNamedBufferStorageEXT" named-buffer-storage-ext) :void
+  (buffer uint)
+  (size sizeiptr)
+  (data (:pointer :void))
+  (flags bitfield))
+
 (defglextfun ("glClearNamedBufferDataEXT" clear-named-buffer-data-ext) :void
   (buffer uint)
   (internalformat enum)
@@ -5393,7 +5399,6 @@
 
 (defglextfun ("glTexturePageCommitmentEXT" texture-page-commitment-ext) :void
   (texture uint)
-  (target enum)
   (level int)
   (xoffset int)
   (yoffset int)
@@ -5402,6 +5407,11 @@
   (height sizei)
   (depth sizei)
   (resident boolean))
+
+(defglextfun ("glVertexArrayVertexAttribDivisorEXT" vertex-array-vertex-attrib-divisor-ext) :void
+  (vaobj uint)
+  (index uint)
+  (divisor uint))
 
 (defglextfun ("glColorMaskIndexedEXT" color-mask-indexed-ext) :void
   (index uint)

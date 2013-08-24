@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20130729 ( 2013-07-29T23:02:42.773972Z )
+;;; glext version 20130823 ( 2013-08-23T22:13:48.757953Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -103,23 +103,23 @@
   #:interleaved-arrays #:normal-pointer #:tex-coord-pointer
   #:vertex-pointer #:are-textures-resident #:prioritize-textures
   #:index-ub #:index-ubv #:pop-client-attrib #:push-client-attrib
-  #:blend-color #:blend-equation #:draw-range-elements
-  #:tex-image-3d #:tex-sub-image-3d #:copy-tex-sub-image-3d
-  #:active-texture #:sample-coverage #:compressed-tex-image-3d
-  #:compressed-tex-image-2d #:compressed-tex-image-1d
-  #:compressed-tex-sub-image-3d #:compressed-tex-sub-image-2d
-  #:compressed-tex-sub-image-1d #:get-compressed-tex-image
-  #:client-active-texture #:multi-tex-coord-1d #:multi-tex-coord-1dv
-  #:multi-tex-coord-1f #:multi-tex-coord-1fv #:multi-tex-coord-1i
-  #:multi-tex-coord-1iv #:multi-tex-coord-1s #:multi-tex-coord-1sv
-  #:multi-tex-coord-2d #:multi-tex-coord-2dv #:multi-tex-coord-2f
-  #:multi-tex-coord-2fv #:multi-tex-coord-2i #:multi-tex-coord-2iv
-  #:multi-tex-coord-2s #:multi-tex-coord-2sv #:multi-tex-coord-3d
-  #:multi-tex-coord-3dv #:multi-tex-coord-3f #:multi-tex-coord-3fv
-  #:multi-tex-coord-3i #:multi-tex-coord-3iv #:multi-tex-coord-3s
-  #:multi-tex-coord-3sv #:multi-tex-coord-4d #:multi-tex-coord-4dv
-  #:multi-tex-coord-4f #:multi-tex-coord-4fv #:multi-tex-coord-4i
-  #:multi-tex-coord-4iv #:multi-tex-coord-4s #:multi-tex-coord-4sv
+  #:draw-range-elements #:tex-image-3d #:tex-sub-image-3d
+  #:copy-tex-sub-image-3d #:active-texture #:sample-coverage
+  #:compressed-tex-image-3d #:compressed-tex-image-2d
+  #:compressed-tex-image-1d #:compressed-tex-sub-image-3d
+  #:compressed-tex-sub-image-2d #:compressed-tex-sub-image-1d
+  #:get-compressed-tex-image #:client-active-texture
+  #:multi-tex-coord-1d #:multi-tex-coord-1dv #:multi-tex-coord-1f
+  #:multi-tex-coord-1fv #:multi-tex-coord-1i #:multi-tex-coord-1iv
+  #:multi-tex-coord-1s #:multi-tex-coord-1sv #:multi-tex-coord-2d
+  #:multi-tex-coord-2dv #:multi-tex-coord-2f #:multi-tex-coord-2fv
+  #:multi-tex-coord-2i #:multi-tex-coord-2iv #:multi-tex-coord-2s
+  #:multi-tex-coord-2sv #:multi-tex-coord-3d #:multi-tex-coord-3dv
+  #:multi-tex-coord-3f #:multi-tex-coord-3fv #:multi-tex-coord-3i
+  #:multi-tex-coord-3iv #:multi-tex-coord-3s #:multi-tex-coord-3sv
+  #:multi-tex-coord-4d #:multi-tex-coord-4dv #:multi-tex-coord-4f
+  #:multi-tex-coord-4fv #:multi-tex-coord-4i #:multi-tex-coord-4iv
+  #:multi-tex-coord-4s #:multi-tex-coord-4sv
   #:load-transpose-matrix-f #:load-transpose-matrix-d
   #:mult-transpose-matrix-f #:mult-transpose-matrix-d
   #:blend-func-separate #:multi-draw-arrays #:multi-draw-elements
@@ -135,12 +135,13 @@
   #:window-pos-2dv #:window-pos-2f #:window-pos-2fv #:window-pos-2i
   #:window-pos-2iv #:window-pos-2s #:window-pos-2sv #:window-pos-3d
   #:window-pos-3dv #:window-pos-3f #:window-pos-3fv #:window-pos-3i
-  #:window-pos-3iv #:window-pos-3s #:window-pos-3sv #:gen-queries
-  #:delete-queries #:is-query #:begin-query #:end-query
-  #:get-query-iv #:get-query-object-iv #:get-query-object-uiv
-  #:bind-buffer #:delete-buffers #:gen-buffers #:is-buffer
-  #:buffer-data #:buffer-sub-data #:get-buffer-sub-data #:map-buffer
-  #:unmap-buffer #:get-buffer-parameter-iv #:get-buffer-pointer-v
+  #:window-pos-3iv #:window-pos-3s #:window-pos-3sv #:blend-color
+  #:blend-equation #:gen-queries #:delete-queries #:is-query
+  #:begin-query #:end-query #:get-query-iv #:get-query-object-iv
+  #:get-query-object-uiv #:bind-buffer #:delete-buffers
+  #:gen-buffers #:is-buffer #:buffer-data #:buffer-sub-data
+  #:get-buffer-sub-data #:map-buffer #:unmap-buffer
+  #:get-buffer-parameter-iv #:get-buffer-pointer-v
   #:blend-equation-separate #:draw-buffers #:stencil-op-separate
   #:stencil-func-separate #:stencil-mask-separate #:attach-shader
   #:bind-attrib-location #:compile-shader #:create-program
@@ -297,7 +298,7 @@
   #:draw-arrays-instanced-base-instance
   #:draw-elements-instanced-base-instance
   #:draw-elements-instanced-base-vertex-base-instance
-  #:get-internalformat-i64v #:get-active-atomic-counter-buffer-iv
+  #:get-internal-format-iv #:get-active-atomic-counter-buffer-iv
   #:bind-image-texture #:memory-barrier #:tex-storage-1d
   #:tex-storage-2d #:tex-storage-3d
   #:draw-transform-feedback-instanced
@@ -305,13 +306,13 @@
   #:clear-buffer-sub-data #:dispatch-compute
   #:dispatch-compute-indirect #:copy-image-sub-data
   #:framebuffer-parameter-i #:get-framebuffer-parameter-iv
-  #:invalidate-tex-sub-image #:invalidate-tex-image
-  #:invalidate-buffer-sub-data #:invalidate-buffer-data
-  #:invalidate-framebuffer #:invalidate-sub-framebuffer
-  #:multi-draw-arrays-indirect #:multi-draw-elements-indirect
-  #:get-program-interface-iv #:get-program-resource-index
-  #:get-program-resource-name #:get-program-resource-iv
-  #:get-program-resource-location
+  #:get-internalformat-i64v #:invalidate-tex-sub-image
+  #:invalidate-tex-image #:invalidate-buffer-sub-data
+  #:invalidate-buffer-data #:invalidate-framebuffer
+  #:invalidate-sub-framebuffer #:multi-draw-arrays-indirect
+  #:multi-draw-elements-indirect #:get-program-interface-iv
+  #:get-program-resource-index #:get-program-resource-name
+  #:get-program-resource-iv #:get-program-resource-location
   #:get-program-resource-location-index
   #:shader-storage-block-binding #:tex-buffer-range
   #:tex-storage-2d-multisample #:tex-storage-3d-multisample
@@ -336,11 +337,11 @@
   #:point-parameter-xv #:point-size-x #:polygon-offset-x #:rotate-x
   #:sample-coverage-x #:scale-x #:tex-env-x #:tex-env-xv
   #:tex-parameter-x #:tex-parameter-xv #:translate-x
-  #:get-internal-format-iv #:tbuffer-mask-3dfx
-  #:debug-message-enable-amd #:debug-message-insert-amd
-  #:debug-message-callback-amd #:get-debug-message-log-amd
-  #:blend-func-indexed-amd #:blend-func-separate-indexed-amd
-  #:blend-equation-indexed-amd #:blend-equation-separate-indexed-amd
+  #:tbuffer-mask-3dfx #:debug-message-enable-amd
+  #:debug-message-insert-amd #:debug-message-callback-amd
+  #:get-debug-message-log-amd #:blend-func-indexed-amd
+  #:blend-func-separate-indexed-amd #:blend-equation-indexed-amd
+  #:blend-equation-separate-indexed-amd
   #:vertex-attrib-parameter-i-amd #:multi-draw-arrays-indirect-amd
   #:multi-draw-elements-indirect-amd #:gen-names-amd
   #:delete-names-amd #:is-name-amd #:get-perf-monitor-groups-amd
@@ -718,7 +719,7 @@
   #:get-vertex-array-integer-v-ext #:get-vertex-array-pointer-v-ext
   #:get-vertex-array-integer-i-v-ext
   #:get-vertex-array-pointer-i-v-ext #:map-named-buffer-range-ext
-  #:flush-mapped-named-buffer-range-ext
+  #:flush-mapped-named-buffer-range-ext #:named-buffer-storage-ext
   #:clear-named-buffer-data-ext #:clear-named-buffer-sub-data-ext
   #:named-framebuffer-parameter-i-ext
   #:get-named-framebuffer-parameter-iv-ext #:program-uniform-1d-ext
@@ -743,7 +744,8 @@
   #:vertex-array-vertex-attrib-binding-ext
   #:vertex-array-vertex-binding-divisor-ext
   #:vertex-array-vertex-attrib-loffset-ext
-  #:texture-page-commitment-ext #:discard-framebuffer-ext
+  #:texture-page-commitment-ext
+  #:vertex-array-vertex-attrib-divisor-ext #:discard-framebuffer-ext
   #:gen-queries-ext #:delete-queries-ext #:is-query-ext
   #:begin-query-ext #:end-query-ext #:query-counter-ext
   #:get-query-iv-ext #:get-query-object-iv-ext
