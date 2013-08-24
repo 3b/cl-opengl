@@ -406,10 +406,15 @@
                      (setf (getf (gethash name function-apis nil)
                                  :order)
                            (incf x)))
-
                    (when api-ver
                      (push api-ver (getf (gethash name function-apis nil)
-                                         :api-version))))))))
+                                         :api-version))
+                     (when (and (member :gl apis)
+                                (or (string= api-ver "1.0")
+                                    (string= api-ver "1.1")))
+                       (setf (getf (gethash name function-apis nil)
+                                   :definer)
+                             *core-definer*))))))))
       (xpath:do-node-set (feature (xpath:evaluate "/registry/feature" gl.xml))
         (let ((api (sv "@api" feature))
               (api-number (sv "@number" feature)))
@@ -460,8 +465,9 @@
             for n = (name v)
             for f = (assoc n files :test 'string=)
             do (if f
-                   (push (list k (getf v :api-version)) (cdr f))
-                   (setf files (acons n (list (list k (getf v :api-version)))
+                   (push (list k (or (getf v :definer) *ext-definer*)) (cdr f))
+                   (setf files (acons n (list (list k (or (getf v :definer)
+                                                          *ext-definer*)))
                                       files))))
 
       (loop for (filename . file-funcs) in files
@@ -492,13 +498,10 @@
                    ;; ends up in 1 file common to all APIs
                    (format out "(defparameter *glext-version* ~a)~%" *glext-version*)
                    (format out "(defparameter *glext-last-updated* ~s)~%~%" *glext-last-updated*))
-                 (loop for (func (ver)) in (reverse file-funcs)
+                 (loop for (func definer) in (reverse file-funcs)
                        for (ret . args) = (gethash func funcs)
                        do (format out "(~a (~s ~(~a~)) ~a"
-                                  (if (and ver (or (string= ver "1.0")
-                                                   (string= ver "1.1")))
-                                      *core-definer*
-                                      *ext-definer*)
+                                  definer
                                   func
                                   (or (gethash func name-map)
                                       (mixedcaps->lcdash func))

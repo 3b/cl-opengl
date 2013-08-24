@@ -26,49 +26,49 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-07-30T19:14:12Z
+;;; generated 2013-08-24T14:14:49Z
 ;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
 
-(defglextfun ("glCullFace" cull-face) :void
+(defglfun ("glCullFace" cull-face) :void
   (mode enum))
 
-(defglextfun ("glFrontFace" front-face) :void
+(defglfun ("glFrontFace" front-face) :void
   (mode enum))
 
-(defglextfun ("glHint" hint) :void
+(defglfun ("glHint" hint) :void
   (target enum)
   (mode enum))
 
-(defglextfun ("glLineWidth" line-width) :void
+(defglfun ("glLineWidth" line-width) :void
   (width float))
 
-(defglextfun ("glScissor" scissor) :void
+(defglfun ("glScissor" scissor) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glTexParameterf" tex-parameter-f) :void
+(defglfun ("glTexParameterf" tex-parameter-f) :void
   (target enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glTexParameterfv" tex-parameter-fv) :void
+(defglfun ("glTexParameterfv" tex-parameter-fv) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glTexParameteri" tex-parameter-i) :void
+(defglfun ("glTexParameteri" tex-parameter-i) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glTexParameteriv" tex-parameter-iv) :void
+(defglfun ("glTexParameteriv" tex-parameter-iv) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glTexImage2D" tex-image-2d) :void
+(defglfun ("glTexImage2D" tex-image-2d) :void
   (target enum)
   (level int)
   (internalformat int)
@@ -79,62 +79,62 @@
   (type enum)
   (pixels (:pointer void)))
 
-(defglextfun ("glClear" clear) :void
+(defglfun ("glClear" clear) :void
   (mask ClearBufferMask))
 
-(defglextfun ("glClearColor" clear-color) :void
+(defglfun ("glClearColor" clear-color) :void
   (red float)
   (green float)
   (blue float)
   (alpha float))
 
-(defglextfun ("glClearStencil" clear-stencil) :void
+(defglfun ("glClearStencil" clear-stencil) :void
   (s int))
 
-(defglextfun ("glStencilMask" stencil-mask) :void
+(defglfun ("glStencilMask" stencil-mask) :void
   (mask uint))
 
-(defglextfun ("glColorMask" color-mask) :void
+(defglfun ("glColorMask" color-mask) :void
   (red boolean)
   (green boolean)
   (blue boolean)
   (alpha boolean))
 
-(defglextfun ("glDepthMask" depth-mask) :void
+(defglfun ("glDepthMask" depth-mask) :void
   (flag boolean))
 
-(defglextfun ("glDisable" disable) :void
+(defglfun ("glDisable" disable) :void
   (cap enum))
 
-(defglextfun ("glEnable" enable) :void
+(defglfun ("glEnable" enable) :void
   (cap enum))
 
-(defglextfun ("glFinish" finish) :void)
+(defglfun ("glFinish" finish) :void)
 
-(defglextfun ("glFlush" flush) :void)
+(defglfun ("glFlush" flush) :void)
 
-(defglextfun ("glBlendFunc" blend-func) :void
+(defglfun ("glBlendFunc" blend-func) :void
   (sfactor enum)
   (dfactor enum))
 
-(defglextfun ("glStencilFunc" stencil-func) :void
+(defglfun ("glStencilFunc" stencil-func) :void
   (func enum)
   (ref int)
   (mask uint))
 
-(defglextfun ("glStencilOp" stencil-op) :void
+(defglfun ("glStencilOp" stencil-op) :void
   (fail enum)
   (zfail enum)
   (zpass enum))
 
-(defglextfun ("glDepthFunc" depth-func) :void
+(defglfun ("glDepthFunc" depth-func) :void
   (func enum))
 
-(defglextfun ("glPixelStorei" pixel-store-i) :void
+(defglfun ("glPixelStorei" pixel-store-i) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glReadPixels" read-pixels) :void
+(defglfun ("glReadPixels" read-pixels) :void
   (x int)
   (y int)
   (width sizei)
@@ -143,58 +143,58 @@
   (type enum)
   (pixels (:pointer void)))
 
-(defglextfun ("glGetBooleanv" get-boolean-v) :void
+(defglfun ("glGetBooleanv" get-boolean-v) :void
   (pname enum)
   (params (:pointer boolean)))
 
-(defglextfun ("glGetError" get-error) enum)
+(defglfun ("glGetError" get-error) enum)
 
-(defglextfun ("glGetFloatv" get-float-v) :void
+(defglfun ("glGetFloatv" get-float-v) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetIntegerv" get-integer-v) :void
+(defglfun ("glGetIntegerv" get-integer-v) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetString" get-string) string
+(defglfun ("glGetString" get-string) string
   (name enum))
 
-(defglextfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
+(defglfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetTexParameteriv" get-tex-parameter-iv) :void
+(defglfun ("glGetTexParameteriv" get-tex-parameter-iv) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glIsEnabled" is-enabled) boolean
+(defglfun ("glIsEnabled" is-enabled) boolean
   (cap enum))
 
-(defglextfun ("glViewport" viewport) :void
+(defglfun ("glViewport" viewport) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glDrawArrays" draw-arrays) :void
+(defglfun ("glDrawArrays" draw-arrays) :void
   (mode enum)
   (first int)
   (count sizei))
 
-(defglextfun ("glDrawElements" draw-elements) :void
+(defglfun ("glDrawElements" draw-elements) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer void)))
 
-(defglextfun ("glPolygonOffset" polygon-offset) :void
+(defglfun ("glPolygonOffset" polygon-offset) :void
   (factor float)
   (units float))
 
-(defglextfun ("glCopyTexImage2D" copy-tex-image-2d) :void
+(defglfun ("glCopyTexImage2D" copy-tex-image-2d) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -204,7 +204,7 @@
   (height sizei)
   (border int))
 
-(defglextfun ("glCopyTexSubImage2D" copy-tex-sub-image-2d) :void
+(defglfun ("glCopyTexSubImage2D" copy-tex-sub-image-2d) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -214,7 +214,7 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glTexSubImage2D" tex-sub-image-2d) :void
+(defglfun ("glTexSubImage2D" tex-sub-image-2d) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -225,19 +225,19 @@
   (type enum)
   (pixels (:pointer void)))
 
-(defglextfun ("glBindTexture" bind-texture) :void
+(defglfun ("glBindTexture" bind-texture) :void
   (target enum)
   (texture uint))
 
-(defglextfun ("glDeleteTextures" delete-textures) :void
+(defglfun ("glDeleteTextures" delete-textures) :void
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glGenTextures" gen-textures) :void
+(defglfun ("glGenTextures" gen-textures) :void
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glIsTexture" is-texture) boolean
+(defglfun ("glIsTexture" is-texture) boolean
   (texture uint))
 
 (defglextfun ("glActiveTexture" active-texture) :void

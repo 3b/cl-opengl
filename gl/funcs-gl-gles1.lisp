@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-07-30T19:14:12Z
+;;; generated 2013-08-24T14:14:49Z
 ;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
 
 (defglfun ("glPointSize" point-size) :void
@@ -195,21 +195,21 @@
   (stride sizei)
   (pointer (:pointer void)))
 
-(defglfun ("glClientActiveTexture" client-active-texture) :void
+(defglextfun ("glClientActiveTexture" client-active-texture) :void
   (texture enum))
 
-(defglfun ("glMultiTexCoord4f" multi-tex-coord-4f) :void
+(defglextfun ("glMultiTexCoord4f" multi-tex-coord-4f) :void
   (target enum)
   (s float)
   (tee float)
   (r float)
   (q float))
 
-(defglfun ("glPointParameterf" point-parameter-f) :void
+(defglextfun ("glPointParameterf" point-parameter-f) :void
   (pname enum)
   (param float))
 
-(defglfun ("glPointParameterfv" point-parameter-fv) :void
+(defglextfun ("glPointParameterfv" point-parameter-fv) :void
   (pname enum)
   (params (:pointer float)))
 

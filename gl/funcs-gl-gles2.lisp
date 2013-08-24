@@ -26,10 +26,10 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-07-30T19:14:12Z
+;;; generated 2013-08-24T14:14:48Z
 ;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
 
-(defglextfun ("glReadBuffer" read-buffer) :void
+(defglfun ("glReadBuffer" read-buffer) :void
   (mode enum))
 
 (defglextfun ("glBlendColor" blend-color) :void

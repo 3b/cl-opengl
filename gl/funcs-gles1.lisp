@@ -26,14 +26,14 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-07-30T19:14:12Z
+;;; generated 2013-08-24T14:14:48Z
 ;;; from gl.xml @ svn rev 22553, 2013-07-29T23:02:42.773972Z
 
-(defglfun ("glClipPlanef" clip-plane-f) :void
+(defglextfun ("glClipPlanef" clip-plane-f) :void
   (p enum)
   (eqn (:pointer float)))
 
-(defglfun ("glFrustumf" frustum-f) :void
+(defglextfun ("glFrustumf" frustum-f) :void
   (l float)
   (r float)
   (b float)
@@ -41,11 +41,11 @@
   (n float)
   (f float))
 
-(defglfun ("glGetClipPlanef" get-clip-plane-f) :void
+(defglextfun ("glGetClipPlanef" get-clip-plane-f) :void
   (plane enum)
   (equation (:pointer float)))
 
-(defglfun ("glOrthof" ortho-f) :void
+(defglextfun ("glOrthof" ortho-f) :void
   (l float)
   (r float)
   (b float)
@@ -53,42 +53,42 @@
   (n float)
   (f float))
 
-(defglfun ("glAlphaFuncx" alpha-func-x) :void
+(defglextfun ("glAlphaFuncx" alpha-func-x) :void
   (func enum)
   (ref fixed))
 
-(defglfun ("glClearColorx" clear-color-x) :void
+(defglextfun ("glClearColorx" clear-color-x) :void
   (red fixed)
   (green fixed)
   (blue fixed)
   (alpha fixed))
 
-(defglfun ("glClearDepthx" clear-depth-x) :void
+(defglextfun ("glClearDepthx" clear-depth-x) :void
   (depth fixed))
 
-(defglfun ("glClipPlanex" clip-plane-x) :void
+(defglextfun ("glClipPlanex" clip-plane-x) :void
   (plane enum)
   (equation (:pointer fixed)))
 
-(defglfun ("glColor4x" color-4x) :void
+(defglextfun ("glColor4x" color-4x) :void
   (red fixed)
   (green fixed)
   (blue fixed)
   (alpha fixed))
 
-(defglfun ("glDepthRangex" depth-range-x) :void
+(defglextfun ("glDepthRangex" depth-range-x) :void
   (n fixed)
   (f fixed))
 
-(defglfun ("glFogx" fog-x) :void
+(defglextfun ("glFogx" fog-x) :void
   (pname enum)
   (param fixed))
 
-(defglfun ("glFogxv" fog-xv) :void
+(defglextfun ("glFogxv" fog-xv) :void
   (pname enum)
   (param (:pointer fixed)))
 
-(defglfun ("glFrustumx" frustum-x) :void
+(defglextfun ("glFrustumx" frustum-x) :void
   (l fixed)
   (r fixed)
   (b fixed)
@@ -96,84 +96,84 @@
   (n fixed)
   (f fixed))
 
-(defglfun ("glGetClipPlanex" get-clip-plane-x) :void
+(defglextfun ("glGetClipPlanex" get-clip-plane-x) :void
   (plane enum)
   (equation (:pointer fixed)))
 
-(defglfun ("glGetFixedv" get-fixed-v) :void
+(defglextfun ("glGetFixedv" get-fixed-v) :void
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glGetLightxv" get-light-xv) :void
+(defglextfun ("glGetLightxv" get-light-xv) :void
   (light enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glGetMaterialxv" get-material-xv) :void
+(defglextfun ("glGetMaterialxv" get-material-xv) :void
   (face enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glGetTexEnvxv" get-tex-env-xv) :void
+(defglextfun ("glGetTexEnvxv" get-tex-env-xv) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glGetTexParameterxv" get-tex-parameter-xv) :void
+(defglextfun ("glGetTexParameterxv" get-tex-parameter-xv) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glLightModelx" light-model-x) :void
+(defglextfun ("glLightModelx" light-model-x) :void
   (pname enum)
   (param fixed))
 
-(defglfun ("glLightModelxv" light-model-xv) :void
+(defglextfun ("glLightModelxv" light-model-xv) :void
   (pname enum)
   (param (:pointer fixed)))
 
-(defglfun ("glLightx" light-x) :void
+(defglextfun ("glLightx" light-x) :void
   (light enum)
   (pname enum)
   (param fixed))
 
-(defglfun ("glLightxv" light-xv) :void
+(defglextfun ("glLightxv" light-xv) :void
   (light enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glLineWidthx" line-width-x) :void
+(defglextfun ("glLineWidthx" line-width-x) :void
   (width fixed))
 
-(defglfun ("glLoadMatrixx" load-matrix-x) :void
+(defglextfun ("glLoadMatrixx" load-matrix-x) :void
   (m (:pointer fixed)))
 
-(defglfun ("glMaterialx" material-x) :void
+(defglextfun ("glMaterialx" material-x) :void
   (face enum)
   (pname enum)
   (param fixed))
 
-(defglfun ("glMaterialxv" material-xv) :void
+(defglextfun ("glMaterialxv" material-xv) :void
   (face enum)
   (pname enum)
   (param (:pointer fixed)))
 
-(defglfun ("glMultMatrixx" mult-matrix-x) :void
+(defglextfun ("glMultMatrixx" mult-matrix-x) :void
   (m (:pointer fixed)))
 
-(defglfun ("glMultiTexCoord4x" multi-tex-coord-4x) :void
+(defglextfun ("glMultiTexCoord4x" multi-tex-coord-4x) :void
   (texture enum)
   (s fixed)
   (tee fixed)
   (r fixed)
   (q fixed))
 
-(defglfun ("glNormal3x" normal-3x) :void
+(defglextfun ("glNormal3x" normal-3x) :void
   (nx fixed)
   (ny fixed)
   (nz fixed))
 
-(defglfun ("glOrthox" ortho-x) :void
+(defglextfun ("glOrthox" ortho-x) :void
   (l fixed)
   (r fixed)
   (b fixed)
@@ -181,57 +181,57 @@
   (n fixed)
   (f fixed))
 
-(defglfun ("glPointParameterx" point-parameter-x) :void
+(defglextfun ("glPointParameterx" point-parameter-x) :void
   (pname enum)
   (param fixed))
 
-(defglfun ("glPointParameterxv" point-parameter-xv) :void
+(defglextfun ("glPointParameterxv" point-parameter-xv) :void
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glPointSizex" point-size-x) :void
+(defglextfun ("glPointSizex" point-size-x) :void
   (size fixed))
 
-(defglfun ("glPolygonOffsetx" polygon-offset-x) :void
+(defglextfun ("glPolygonOffsetx" polygon-offset-x) :void
   (factor fixed)
   (units fixed))
 
-(defglfun ("glRotatex" rotate-x) :void
+(defglextfun ("glRotatex" rotate-x) :void
   (angle fixed)
   (x fixed)
   (y fixed)
   (z fixed))
 
-(defglfun ("glSampleCoveragex" sample-coverage-x) :void
+(defglextfun ("glSampleCoveragex" sample-coverage-x) :void
   (value clampx)
   (invert boolean))
 
-(defglfun ("glScalex" scale-x) :void
+(defglextfun ("glScalex" scale-x) :void
   (x fixed)
   (y fixed)
   (z fixed))
 
-(defglfun ("glTexEnvx" tex-env-x) :void
+(defglextfun ("glTexEnvx" tex-env-x) :void
   (target enum)
   (pname enum)
   (param fixed))
 
-(defglfun ("glTexEnvxv" tex-env-xv) :void
+(defglextfun ("glTexEnvxv" tex-env-xv) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glTexParameterx" tex-parameter-x) :void
+(defglextfun ("glTexParameterx" tex-parameter-x) :void
   (target enum)
   (pname enum)
   (param fixed))
 
-(defglfun ("glTexParameterxv" tex-parameter-xv) :void
+(defglextfun ("glTexParameterxv" tex-parameter-xv) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglfun ("glTranslatex" translate-x) :void
+(defglextfun ("glTranslatex" translate-x) :void
   (x fixed)
   (y fixed)
   (z fixed))
