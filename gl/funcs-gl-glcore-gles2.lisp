@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:36:19Z
+;;; generated 2013-08-25T10:55:36Z
 ;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglextfun ("glBlendColor" blend-color) :void

@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:36:19Z
+;;; generated 2013-08-25T10:55:36Z
 ;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
@@ -55,7 +55,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (basevertex int))
 
 (defglextfun ("glDrawRangeElementsBaseVertex" draw-range-elements-base-vertex) :void
@@ -64,14 +64,14 @@
   (end uint)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (basevertex int))
 
 (defglextfun ("glDrawElementsInstancedBaseVertex" draw-elements-instanced-base-vertex) :void
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void))
+  (indices offset-or-pointer)
   (instancecount sizei)
   (basevertex int))
 
@@ -334,12 +334,12 @@
 
 (defglextfun ("glDrawArraysIndirect" draw-arrays-indirect) :void
   (mode enum)
-  (indirect (:pointer void)))
+  (indirect offset-or-pointer))
 
 (defglextfun ("glDrawElementsIndirect" draw-elements-indirect) :void
   (mode enum)
   (type enum)
-  (indirect (:pointer void)))
+  (indirect offset-or-pointer))
 
 (defglextfun ("glUniform1d" uniform-1d) :void
   (location int)
@@ -934,7 +934,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glGetVertexAttribLdv" get-vertex-attrib-ldv) :void
   (index uint)
@@ -1454,7 +1454,7 @@
   (width sizei)
   (format enum)
   (type enum)
-  (table (:pointer void)))
+  (table offset-or-pointer))
 
 (defglextfun ("glColorTableParameterfv" color-table-parameter-fv) :void
   (target enum)
@@ -1477,7 +1477,7 @@
   (target enum)
   (format enum)
   (type enum)
-  (table (:pointer void)))
+  (table offset-or-pointer))
 
 (defglextfun ("glGetColorTableParameterfv" get-color-table-parameter-fv) :void
   (target enum)
@@ -1495,7 +1495,7 @@
   (count sizei)
   (format enum)
   (type enum)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glCopyColorSubTable" copy-color-sub-table) :void
   (target enum)
@@ -1510,7 +1510,7 @@
   (width sizei)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 (defglextfun ("glConvolutionFilter2D" convolution-filter-2d) :void
   (target enum)
@@ -1519,7 +1519,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 (defglextfun ("glConvolutionParameterf" convolution-parameter-f) :void
   (target enum)
@@ -1560,7 +1560,7 @@
   (target enum)
   (format enum)
   (type enum)
-  (image (:pointer void)))
+  (image offset-or-pointer))
 
 (defglextfun ("glGetConvolutionParameterfv" get-convolution-parameter-fv) :void
   (target enum)
@@ -1576,9 +1576,9 @@
   (target enum)
   (format enum)
   (type enum)
-  (row (:pointer void))
-  (column (:pointer void))
-  (span (:pointer void)))
+  (row offset-or-pointer)
+  (column offset-or-pointer)
+  (span offset-or-pointer))
 
 (defglextfun ("glSeparableFilter2D" separable-filter-2d) :void
   (target enum)
@@ -1587,15 +1587,15 @@
   (height sizei)
   (format enum)
   (type enum)
-  (row (:pointer void))
-  (column (:pointer void)))
+  (row offset-or-pointer)
+  (column offset-or-pointer))
 
 (defglextfun ("glGetHistogram" get-histogram) :void
   (target enum)
   (reset boolean)
   (format enum)
   (type enum)
-  (values (:pointer void)))
+  (values offset-or-pointer))
 
 (defglextfun ("glGetHistogramParameterfv" get-histogram-parameter-fv) :void
   (target enum)
@@ -1612,7 +1612,7 @@
   (reset boolean)
   (format enum)
   (type enum)
-  (values (:pointer void)))
+  (values offset-or-pointer))
 
 (defglextfun ("glGetMinmaxParameterfv" get-minmax-parameter-fv) :void
   (target enum)

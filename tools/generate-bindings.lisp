@@ -184,18 +184,22 @@
     ;; special cases
     ("GLenum" . "enum")))
 
-(defun translate-type-name (type)
+(defun translate-type-name (type &optional offset-or-pointer)
   (setf type (string-trim '(#\space #\tab) type))
   (cond
     ((or (not type) (string= type "")) (error "got empty type?"))
     ((cdr (assoc type *base-types* :test 'equal)))
     ((eql (mismatch type "const ") 6)
-     (translate-type-name (subseq type 6)))
+     (translate-type-name (subseq type 6) offset-or-pointer))
     ((string= "const" type :start2 (- (length type) 5))
-     (translate-type-name (subseq type 0 (- (length type) 5)) ))
+     (translate-type-name (subseq type 0 (- (length type) 5)) offset-or-pointer))
     ((string= "*" type :start2 (- (length type) 1))
-     (format nil "(:pointer ~a)"
-             (translate-type-name (subseq type 0 (- (length type) 1)))))
+     (if offset-or-pointer
+         "offset-or-pointer"
+         (format nil "(:pointer ~a)"
+                 (translate-type-name (subseq type 0 (- (length type) 1)) nil))))
+    (offset-or-pointer
+     (error "offset or pointer for non-pointer type? ~s~%" type))
     ((string= type "GL" :end1 2)
      (string-downcase
       ;; we split on caps and numbers after a lower case letter, but
@@ -210,6 +214,77 @@
      (mixedcaps->lcdash (subseq type 7)))
     (t
      (error "couldn't translate type name ~s?" type))))
+
+
+
+;;; some functions optionally use 'pointer' fields as offsets, and
+;;; passing offsets as pointers is apparently inefficient on some lisps,
+;;; so add special cases for those functions to allow passing integers
+;;; or pointers
+(defparameter *pointer-is-offset-functions*
+  ;; name . list of pointer/offset args (0-based)
+  `(("glVertexAttribPointer" 5)
+    ("glVertexAttribIPointer" 4)
+    ("glVertexAttribLPointer" 4)
+    ("glReadPixels" 6)
+    ("glTexImage1D" 7)
+    ("glTexImage2D" 8)
+    ("glTexImage3D" 9)
+    ("glGetTexImage" 4)
+    ("glTexSubImage1D" 6)
+    ("glTexSubImage2D" 8)
+    ("glTexSubImage3D" 10)
+    ("glCompressedTexImage1D" 6)
+    ("glCompressedTexImage2D" 7)
+    ("glCompressedTexImage3D" 8)
+    ("glCompressedTexSubImage1D" 6)
+    ("glCompressedTexSubImage2D" 8)
+    ("glCompressedTexSubImage3D" 10)
+    ("glGetCompressedTexImage" 2)
+    ("glDrawArraysIndirect" 1)
+    ("glDrawElementsIndirect" 2)
+    ("glMultiDrawArraysIndirect" 1)
+    ("glMultiDrawElementsIndirect" 2)
+    ("glDrawElements" 3)
+    ("glDrawRangeElements" 5)
+    ("glDrawElementsInstanced" 3)
+    ("glDrawElementsBaseVertex" 3)
+    ("glDrawRangeElementsBaseVertex" 5)
+    ("glDrawElementsInstancedBaseVertex" 3)
+    ;;MultiDrawElements  = real pointer to offsets
+    ;;MultiDrawElementsBaseVertex = real pointer to offsets
+
+    ;; old/deprecated stuff
+    ("glBitmap" 6)
+    ("glColorPointer" 3)
+    ("glColorSubTable" 5)
+    ("glColorTable" 5)
+    ("glConvolutionFilter1D" 5)
+    ("glConvolutionFilter2D" 6)
+    ("glDrawPixels" 4)
+    ("glEdgeFlagPointer" 1)
+    ("glFogCoordPointer" 2)
+    ("glGetColorTable" 3)
+    ("glGetConvolutionFilter" 3)
+    ("glGetHistogram" 4)
+    ("glGetMinmax" 4)
+    ("glGetPixelMapfv" 1)
+    ("glGetPixelMapuiv" 1)
+    ("glGetPixelMapusv" 1)
+    ("glGetPolygonStipple" 0)
+    ("glGetSeparableFilter" 3 4 5)
+    ("glIndexPointer" 2)
+    ("glNormalPointer" 2)
+    ("glPixelMapfv" 2)
+    ("glPixelMapuiv" 2)
+    ("glPixelMapusv" 2)
+    ("glPolygonStipple" 0)
+    ("glSecondaryColorPointer" 3)
+    ("glSeparableFilter2D" 6 7)
+    ("glTexCoordPointer" 3)
+    ("glVertexPointer" 3)
+    ;; todo: extensions?
+    ))
 
 
 
@@ -500,6 +575,9 @@
                    (format out "(defparameter *glext-last-updated* ~s)~%~%" *glext-last-updated*))
                  (loop for (func definer) in (reverse file-funcs)
                        for (ret . args) = (gethash func funcs)
+                       for offset-params
+                         = (cdr (assoc func *pointer-is-offset-functions*
+                                        :test 'string=))
                        do (format out "(~a (~s ~(~a~)) ~a"
                                   definer
                                   func
@@ -507,8 +585,10 @@
                                       (mixedcaps->lcdash func))
                                   (translate-type-name ret))
                           (loop for a in args
+                                for i from 0
                                 for group = (getf a :group)
                                 for type = (getf a :type)
+                                for offset-param = (member i offset-params)
                                 do (format out "~%  (~a ~a)"
                                            (getf a :name)
                                            (cond
@@ -520,7 +600,7 @@
                                                   (gethash type enums))
                                               type)
                                              (t
-                                              (translate-type-name type)))))
+                                              (translate-type-name type offset-param)))))
                           (format out ")~%~%"))))))
 
 

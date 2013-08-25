@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:36:19Z
+;;; generated 2013-08-25T10:55:36Z
 ;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglfun ("glCullFace" cull-face) :void
@@ -77,7 +77,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glClear" clear) :void
   (mask ClearBufferMask))
@@ -141,7 +141,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glGetBooleanv" get-boolean-v) :void
   (pname enum)
@@ -188,7 +188,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer void)))
+  (indices offset-or-pointer))
 
 (defglfun ("glPolygonOffset" polygon-offset) :void
   (factor float)
@@ -223,7 +223,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glBindTexture" bind-texture) :void
   (target enum)
@@ -255,7 +255,7 @@
   (height sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d) :void
   (target enum)
@@ -266,7 +266,7 @@
   (height sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glBindBuffer" bind-buffer) :void
   (target enum)

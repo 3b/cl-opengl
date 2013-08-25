@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2013-08-24T14:36:19Z
+;;; generated 2013-08-25T10:55:36Z
 ;;; from gl.xml @ svn rev 22836, 2013-08-23T22:13:48.757953Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
@@ -41,7 +41,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glDrawBuffer" draw-buffer) :void
   (mode enum))
@@ -62,7 +62,7 @@
   (level int)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glGetTexLevelParameterfv" get-tex-level-parameter-fv) :void
   (target enum)
@@ -114,7 +114,7 @@
   (yorig float)
   (xmove float)
   (ymove float)
-  (bitmap (:pointer ubyte)))
+  (bitmap offset-or-pointer))
 
 (defglfun ("glColor3b" color-3b) :void
   (red byte)
@@ -708,7 +708,7 @@
   (params (:pointer int)))
 
 (defglfun ("glPolygonStipple" polygon-stipple) :void
-  (mask (:pointer ubyte)))
+  (mask offset-or-pointer))
 
 (defglfun ("glTexGend" tex-gen-d) :void
   (coord enum)
@@ -912,17 +912,17 @@
 (defglfun ("glPixelMapfv" pixel-map-fv) :void
   (map enum)
   (mapsize sizei)
-  (values (:pointer float)))
+  (values offset-or-pointer))
 
 (defglfun ("glPixelMapuiv" pixel-map-uiv) :void
   (map enum)
   (mapsize sizei)
-  (values (:pointer uint)))
+  (values offset-or-pointer))
 
 (defglfun ("glPixelMapusv" pixel-map-usv) :void
   (map enum)
   (mapsize sizei)
-  (values (:pointer ushort)))
+  (values offset-or-pointer))
 
 (defglfun ("glCopyPixels" copy-pixels) :void
   (x int)
@@ -936,7 +936,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glGetClipPlane" get-clip-plane) :void
   (plane enum)
@@ -969,18 +969,18 @@
 
 (defglfun ("glGetPixelMapfv" get-pixel-map-fv) :void
   (map enum)
-  (values (:pointer float)))
+  (values offset-or-pointer))
 
 (defglfun ("glGetPixelMapuiv" get-pixel-map-uiv) :void
   (map enum)
-  (values (:pointer uint)))
+  (values offset-or-pointer))
 
 (defglfun ("glGetPixelMapusv" get-pixel-map-usv) :void
   (map enum)
-  (values (:pointer ushort)))
+  (values offset-or-pointer))
 
 (defglfun ("glGetPolygonStipple" get-polygon-stipple) :void
-  (mask (:pointer ubyte)))
+  (mask offset-or-pointer))
 
 (defglfun ("glGetTexGendv" get-tex-gen-dv) :void
   (coord enum)
@@ -1062,19 +1062,19 @@
   (width sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glArrayElement" array-element) :void
   (i int))
 
 (defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glIndexPointer" index-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glInterleavedArrays" interleaved-arrays) :void
   (format enum)
@@ -1109,7 +1109,7 @@
   (width sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d) :void
   (target enum)
@@ -1118,12 +1118,12 @@
   (width sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glGetCompressedTexImage" get-compressed-tex-image) :void
   (target enum)
   (level int)
-  (img (:pointer void)))
+  (img offset-or-pointer))
 
 (defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d) :void
   (target enum)
@@ -1318,7 +1318,7 @@
 (defglextfun ("glFogCoordPointer" fog-coord-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glSecondaryColor3b" secondary-color-3b) :void
   (red byte)
@@ -1388,7 +1388,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glWindowPos2d" window-pos-2d) :void
   (x double)
