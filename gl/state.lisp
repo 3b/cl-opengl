@@ -42,12 +42,18 @@
 ;;; known in this table, the number of return values must be specified
 ;;; explicitly in the call to GET-*.
 ;;;  size can be a keyword, in which case actual size is (get-integer size 1)
+;; (name type count &optional max)
+;; NAME is enum to query
+;; TYPE is things like :integer, :float, etc possibly with -i or /i suffix
+;;   to indicate indexed variants (-i is for indexed queries only, /i
+;;   for queries that can be used with or without an index)
+;; COUNT is number of values expected (returned as an array if more than 1)
+;; MAX is optional value or enum to query to determine highest valid
+;;   index for -i variants (not used currently, but useful fo dumping
+;;   current state for debugging, or possible future function to retrieve
+;;   all values for a -i query at once)
 (defparameter *query-enum-sizes*
-  ;; missing/mismatches compared to old data:
-  ;;:COMPRESSED-TEXTURE . 1  ---- doesn't exist?
-  ;;:MAX-VIEWPORT-DIMS . 1 ---- should be 2?
-  ;;:NUM-COMPRESSED-TEXTURE-FORMAT . 1 ---- typo, should be _formats ?
-  '(
+  '(;; 6.8 (table # from opengl 4.2 compat profile spec)
     (:current-color :float 4)
     (:current-secondary-color :float 4)
     (:current-index :integer 1)
@@ -62,6 +68,10 @@
     (:current-raster-texture-coords :float 4)
     (:current-raster-position-valid :boolean 1)
     (:edge-flag :boolean 1)
+    (:patch-vertices :integer 1)
+    (:patch-default-outer-level :float 4)
+    (:patch-default-inner-level :float 2)
+    ;; 6.9
     (:vertex-array :enable 1)
     (:vertex-array-size :integer 1)
     (:vertex-array-type :enum 1)
@@ -80,6 +90,7 @@
     (:color-array-type :enum 1)
     (:color-array-stride :integer 1)
     (:color-array-pointer :pointer 1)
+    ;; 6.10
     (:secondary-color-array :enable 1)
     (:secondary-color-array-size :integer 1)
     (:secondary-color-array-type :enum 1)
@@ -94,9 +105,19 @@
     (:texture-coord-array-type :enum 1)
     (:texture-coord-array-stride :integer 1)
     (:texture-coord-array-pointer :pointer 1)
+    ;; 6.11
+    (:vertex-attrib-array-enabled :vertex-attrib-boolean 1 :max-vertex-attribs)
+    (:vertex-attrib-array-size :vertex-attrib-integer 1 :max-vertex-attribs)
+    (:vertex-attrib-array-stride :vertex-attrib-integer 1 :max-vertex-attribs)
+    (:vertex-attrib-array-type :vertex-attrib-enum 1 :max-vertex-attribs)
+    (:vertex-attrib-array-normalized :vertex-attrib-boolean 1 :max-vertex-attribs)
+    (:vertex-attrib-array-integer :vertex-attrib-boolean 1 :max-vertex-attribs)
+    (:vertex-attrib-array-divisor :vertex-attrib-integer 1 :max-vertex-attribs)
+    (:vertex-attrib-array-pointer :vertex-attrib-pointer 1 :max-vertex-attribs)
     (:edge-flag-array :enable 1)
     (:edge-flag-array-stride :integer 1)
     (:edge-flag-array-pointer :pointer 1)
+    ;; 6.12
     (:vertex-array-buffer-binding :integer 1)
     (:normal-array-buffer-binding :integer 1)
     (:color-array-buffer-binding :integer 1)
@@ -106,9 +127,16 @@
     (:secondary-color-array-buffer-binding :integer 1)
     (:fog-coordinate-array-buffer-binding :integer 1)
     (:element-array-buffer-binding :integer 1)
-    (:vertex-array-binding :integer 1)
+    (:vertex-attrib-array-buffer-binding :vertex-attrib-integer 1)
+    ;; 6.13
     (:client-active-texture :enum 1)
     (:array-buffer-binding :integer 1)
+    (:draw-indirect-buffer-binding :integer 1)
+    (:vertex-array-binding :integer 1)
+    (:primitive-restart :enable 1)
+    (:primitive-restart-index :integer 1)
+    ;; 6.14
+    ;; 6.15
     (:color-matrix :float 16)
     (:transpose-color-matrix :float 16)
     (:modelview-matrix :float 16)
@@ -117,8 +145,8 @@
     (:transpose-projection-matrix :float 16)
     (:texture-matrix :float 16)
     (:transpose-texture-matrix :float 16)
-    (:viewport :integer 4)
-    (:depth-range :float 2)
+    (:viewport :float/i 4 :max-viewports)
+    (:depth-range :float/i 2 :max-viewports)
     (:color-matrix-stack-depth :integer 1)
     (:modelview-stack-depth :integer 1)
     (:projection-stack-depth :integer 1)
@@ -126,8 +154,27 @@
     (:matrix-mode :enum 1)
     (:normalize :enable 1)
     (:rescale-normal :enable 1)
+    (:clip-plane :clip-plane-i 4 :max-clip-planes)
+    (:clip-plane0 :clip-plane 4)
+    (:clip-plane1 :clip-plane 4)
+    (:clip-plane2 :clip-plane 4)
+    (:clip-plane3 :clip-plane 4)
+    (:clip-plane4 :clip-plane 4)
+    (:clip-plane5 :clip-plane 4)
+    (:clip-distance :clip-distance-i 1 :max-clip-distances)
+    (:clip-distance0 :enable 1)
+    (:clip-distance1 :enable 1)
+    (:clip-distance2 :enable 1)
+    (:clip-distance3 :enable 1)
+    (:clip-distance4 :enable 1)
+    (:clip-distance5 :enable 1)
+    (:clip-distance6 :enable 1)
+    (:clip-distance7 :enable 1)
+    (:depth-clamp :enable 1)
+    (:transform-feedback-binding :integer 1)
+    ;; 6.16
     (:fog-color :float 4)
-    (:fog-index :float 1 );integer?
+    (:fog-index :float 1)
     (:fog-density :float 1)
     (:fog-start :float 1)
     (:fog-end :float 1)
@@ -136,43 +183,113 @@
     (:fog-coordinate-source :enum 1)
     (:color-sum :enable 1)
     (:shade-model :enum 1)
-    (:clamp-vertex-color :enum 1 )
+    (:clamp-vertex-color :enum 1)
     (:clamp-fragment-color :enum 1)
     (:clamp-read-color :enum 1)
+    (:provoking-vertex :enum 1)
+    ;; 6.17
     (:lighting :enable 1)
     (:color-material :enable 1)
     (:color-material-parameter :enum 1)
     (:color-material-face :enum 1)
+    ;; :ambient, :diffuse, etc. getMaterialfv need param
     (:light-model-ambient :float 4)
     (:light-model-local-viewer :boolean 1)
     (:light-model-two-side :boolean 1)
     (:light-model-color-control :enum 1)
+    ;; 6.18
+    ;; :ambient, :diffuse, etc. getLightfv need param (and conflict
+    ;; with getMaterialfv)
+    (:light :light-enable-i 1 :max-lights)
+    (:light0 :enable 1)
+    (:light1 :enable 1)
+    (:light2 :enable 1)
+    (:light3 :enable 1)
+    (:light4 :enable 1)
+    (:light5 :enable 1)
+    (:light6 :enable 1)
+    (:light7 :enable 1)
+    ;; :color-indexes from getMaterialfv needs extra arg
+    ;; 6.19
+    (:rasterizer-discard :enable 1)
     (:point-size :float 1)
+    (:point-smooth :enable 1)
+    (:point-sprite :enable 1)
     (:point-size-min :float 1)
     (:point-size-max :float 1)
     (:point-fade-threshold-size :float 1)
     (:point-distance-attenuation :float 3)
     (:point-sprite-coord-origin :enum 1)
     (:line-width :float 1)
-    (:line-stipple-pattern :integer 1 )
+    (:line-smooth :enable 1)
+    (:line-stipple-pattern :integer 1)
     (:line-stipple-repeat :integer 1)
+    (:line-stipple :enable 1)
+    ;; 6.20
+    (:cull-face :enable 1)
     (:cull-face-mode :enum 1)
     (:front-face :enum 1)
+    (:polygon-smooth :enable 1)
     (:polygon-mode :enum 2)
     (:polygon-offset-factor :float 1)
     (:polygon-offset-units :float 1)
+    (:polygon-offset-point :enable 1)
+    (:polygon-offset-line :enable 1)
+    (:polygon-offset-fill :enable 1)
+    (:polygon-stipple :enable 1)
+    ;; 6.21
+    (:multisample :enable 1)
+    (:sample-alpha-to-coverage :enable 1)
+    (:sample-alpha-to-one :enable 1)
+    (:sample-coverage :enable 1)
     (:sample-coverage-value :float 1)
     (:sample-coverage-invert :boolean 1)
+    (:sample-shading :enable 1)
+    (:min-sample-shading-value :float 1)
+    (:sample-mask :enable 1)
+    (:sample-mask-value :integer-i 1 :max-sample-mask-words)
+    ;; 6.22
+    (:texture-1d :enable 1)
+    (:texture-2d :enable 1)
+    (:texture-3d :enable 1)
+    (:texture-cube-map :enable 1)
     (:texture-binding-1d :integer 1)
     (:texture-binding-2d :integer 1)
     (:texture-binding-3d :integer 1)
     (:texture-binding-1d-array :integer 1)
     (:texture-binding-2d-array :integer 1)
+    (:texture-binding-cube-map-array :integer 1)
+    (:texture-binding-rectangle :integer 1)
+    (:texture-binding-buffer :integer 1)
     (:texture-binding-cube-map :integer 1)
+    (:texture-binding-2d-multisample :integer 1)
+    (:texture-binding-2d-multisample-array :integer 1)
+    ;; 6.23
+    (:sampler-binding :integer 1)
+    ;; get-tex-image stuff needs extra args
+    ;; 6.24
+    ;; get-tex-parameter stuff needs extra args
+    ;; 6.25
+    ;; get-tex-level-parameter stuff needs extra args
+    ;; 6.26
+    ;; get-sampler-parameter stuff needs extra args
+    ;; 6.27
     (:active-texture :enum 1)
-    (:scissor-box :integer 4)
+    ;; get-tex-env stuff needs extra args
+    (:texture-gen-q :enable 1)
+    (:texture-gen-r :enable 1)
+    (:texture-gen-s :enable 1)
+    (:texture-gen-t :enable 1)
+    ;; get-tex-gen stuff needs extra args
+    ;; 6.28
+    ;; get-tex-env needs extra args
+    ;; 6.29
+    (:scissor-test :enable/i 1 :max-viewports)
+    (:scissor-box :integer/i 4 :max-viewports)
+    (:alpha-test :enable 1)
     (:alpha-test-func :enum 1)
     (:alpha-test-ref :integer 1)
+    (:stencil-test :enable 1)
     (:stencil-func :enum 1)
     (:stencil-value-mask :integer 1)
     (:stencil-ref :integer 1)
@@ -185,20 +302,27 @@
     (:stencil-back-fail :enum 1)
     (:stencil-back-pass-depth-fail :enum 1)
     (:stencil-back-pass-depth-pass :enum 1)
+    (:depth-test :enable 1)
     (:depth-func :enum 1)
-    (:blend-src :enum 1)
-    (:blend-src-rgb :enum 1)
-    (:blend-src-alpha :enum 1)
-    (:blend-dst :enum 1)
-    (:blend-dst-rgb :enum 1)
-    (:blend-dst-alpha :enum 1)
-    (:blend-equation :enum 1)
-    (:blend-equation :enum 1)
-    (:blend-equation-alpha :enum 1)
+    ;; 6.30
+    (:blend :enable/i 1 :max-draw-buffers)
+    ;; ? (:blend-src :enum 1)
+    (:blend-src-rgb :enum/i 1 :max-draw-buffers)
+    (:blend-src-alpha :enum/i 1 :max-draw-buffers)
+    ;; ? (:blend-dst :enum 1)
+    (:blend-dst-rgb :enum/i 1 :max-draw-buffers)
+    (:blend-dst-alpha :enum/i 1 :max-draw-buffers)
+    (:blend-equation-rgb :enum/i 1 :max-draw-buffers)
+    (:blend-equation-alpha :enum/i 1 :max-draw-buffers)
     (:blend-color :float 4)
+    (:framebuffer-srgb :enable 1)
+    (:dither :enable 1)
+    (:index-logic-op :enable 1)
+    (:color-logic-op :enable 1)
     (:logic-op-mode :enum 1)
+    ;; 6.31
     (:index-writemask :integer 1)
-    (:color-writemask :boolean 4 ) ;;get-boolean-i-v?
+    (:color-writemask :boolean/i 4 :max-draw-buffers)
     (:depth-writemask :boolean 1)
     (:stencil-writemask :integer 1)
     (:stencil-back-writemask :integer 1)
@@ -207,9 +331,11 @@
     (:depth-clear-value :float 1)
     (:stencil-clear-value :integer 1)
     (:accum-clear-value :float 4)
+    ;; 6.32
     (:draw-framebuffer-binding :integer 1)
     (:read-framebuffer-binding :integer 1)
-    (:draw-buffer   :enum 1)
+    ;; 6.33
+    (:draw-buffer   :draw-buffer/i 1 :max-draw-buffers)
     (:draw-buffer0  :enum 1)
     (:draw-buffer1  :enum 1)
     (:draw-buffer2  :enum 1)
@@ -227,7 +353,13 @@
     (:draw-buffer14 :enum 1)
     (:draw-buffer15 :enum 1)
     (:read-buffer   :enum 1)
+    ;; 6.34
+    ;; get-framebuffer-attachment-parameter-iv need extra args
+    ;; 6.35
     (:renderbuffer-binding :integer 1)
+    ;; 6.36
+    ;; get-renderbuffer-parameter-iv need extra args
+    ;; 6.37
     (:unpack-swap-bytes :boolean 1)
     (:unpack-lsb-first :boolean 1)
     (:unpack-image-height :integer 1)
@@ -236,6 +368,12 @@
     (:unpack-skip-rows :integer 1)
     (:unpack-skip-pixels :integer 1)
     (:unpack-alignment :integer 1)
+    (:unpack-compressed-block-width :integer 1)
+    (:unpack-compressed-block-height :integer 1)
+    (:unpack-compressed-block-depth :integer 1)
+    (:unpack-compressed-block-size :integer 1)
+    (:pixel-unpack-buffer-binding :integer 1)
+    ;; 6.38
     (:pack-swap-bytes :boolean 1)
     (:pack-lsb-first :boolean 1)
     (:pack-image-height :integer 1)
@@ -244,6 +382,10 @@
     (:pack-skip-rows :integer 1)
     (:pack-skip-pixels :integer 1)
     (:pack-alignment :integer 1)
+    (:pack-compressed-block-width :integer 1)
+    (:pack-compressed-block-height :integer 1)
+    (:pack-compressed-block-depth :integer 1)
+    (:pack-compressed-block-size :integer 1)
     (:pixel-pack-buffer-binding :integer 1)
     (:pixel-unpack-buffer-binding :integer 1)
     (:map-color :boolean 1)
@@ -260,6 +402,16 @@
     (:blue-bias :float 1)
     (:alpha-bias :float 1)
     (:depth-bias :float 1)
+    ;; 6.39
+    (:color-table :enable 1)
+    (:post-convolution-color-table :enable 1)
+    (:post-color-matrix-color-table :enable 1)
+    ;; get-color-table, get-color-table-parameter ...
+    ;; 6.40
+    (:convolution-1d :enable 1)
+    (:convolution-2d :enable 1)
+    (:separable-2d :enable 1)
+    ;; 6.41
     (:post-convolution-red-scale :float 1)
     (:post-convolution-green-scale :float 1)
     (:post-convolution-blue-scale :float 1)
@@ -276,6 +428,9 @@
     (:post-color-matrix-green-bias :float 1)
     (:post-color-matrix-blue-bias :float 1)
     (:post-color-matrix-alpha-bias :float 1)
+    (:histogram :enable 1)
+    ;; 6.42
+    (:minmax :enable 1)
     (:zoom-x :float 1)
     (:zoom-y :float 1)
     (:pixel-map-i-to-i-size :integer 1)
@@ -288,35 +443,78 @@
     (:pixel-map-g-to-g-size :integer 1)
     (:pixel-map-b-to-b-size :integer 1)
     (:pixel-map-a-to-a-size :integer 1)
-    (:map1-vertex-3 :boolean 1)
-    (:map1-vertex-4 :boolean 1)
-    (:map1-index :boolean 1)
-    (:map1-color-4 :boolean 1)
-    (:map1-normal :boolean 1)
-    (:map1-texture-coord-1 :boolean 1)
-    (:map1-texture-coord-2 :boolean 1)
-    (:map1-texture-coord-3 :boolean 1)
-    (:map1-texture-coord-4 :boolean 1)
-    (:map2-vertex-3 :boolean 1)
-    (:map2-vertex-4 :boolean 1)
-    (:map2-index :boolean 1)
-    (:map2-color-4 :boolean 1)
-    (:map2-normal :boolean 1)
-    (:map2-texture-coord-1 :boolean 1)
-    (:map2-texture-coord-2 :boolean 1)
-    (:map2-texture-coord-3 :boolean 1)
-    (:map2-texture-coord-4 :boolean 1)
+    ;; 6.43
+    (:map1-vertex-3 :enable 1)
+    (:map1-vertex-4 :enable 1)
+    (:map1-index :enable 1)
+    (:map1-color-4 :enable 1)
+    (:map1-normal :enable 1)
+    (:map1-texture-coord-1 :enable 1)
+    (:map1-texture-coord-2 :enable 1)
+    (:map1-texture-coord-3 :enable 1)
+    (:map1-texture-coord-4 :enable 1)
+    (:map2-vertex-3 :enable 1)
+    (:map2-vertex-4 :enable 1)
+    (:map2-index :enable 1)
+    (:map2-color-4 :enable 1)
+    (:map2-normal :enable 1)
+    (:map2-texture-coord-1 :enable 1)
+    (:map2-texture-coord-2 :enable 1)
+    (:map2-texture-coord-3 :enable 1)
+    (:map2-texture-coord-4 :enable 1)
     (:map1-grid-domain :float 2)
     (:map2-grid-domain :float 4)
     (:map1-grid-segments :float 1)
     (:map2-grid-segments :float 2)
+    (:auto-normal :enable 1)
+    ;; 6.44
+    ;; get-shader-iv, get-shader-info-log, get-shader-source, need extra args
+    ;; 6.45
+    ;; get-program-pipeline-iv get-program-pipeline-info-log need extra args
+    ;; 6,46
     (:current-program :integer 1)
-    (:transform-feedback-buffer-binding :integer-i 1)
-    (:transform-feedback-buffer-start :integer-i 1)
-    (:transform-feedback-buffer-size :integer-i 1)
-    (:max-transform-feedback-interleaved-components :integer 1)
-    (:max-transform-feedback-separate-attribs :integer 1)
-    (:max-transform-feedback-separate-components :integer 1)
+    (:program-pipeline-binding :integer 1)
+    ;; get-program-iv etc need extra args
+    ;; 6.47
+    ;; 6.48
+    ;; 6.49
+    (:uniform-buffer-binding :integer/i 1 :max-uniform-buffer-bindings)
+    (:uniform-buffer-start :integer64-i 1 :max-uniform-buffer-bindings)
+    (:uniform-buffer-size :integer64-i 1 :max-uniform-buffer-bindings)
+    ;; get-program, get-active-uniforms, get-active-uniform-block
+    ;; 6.50
+    ;; 6.51
+    ;; 6.52
+    ;; get-program-stage, get-active-subroutine-uniform,
+    ;; get-active-subroutine-name,
+    ;; 6.53
+    ;; get-active-atomic-counter-buffer-bindings, ...
+    ;; 6.54
+    (:vertex-program-two-side :enable 1)
+    (:current-vertex-attrib :vertex-attrib-float 4 :max-vertex-attribs)
+    (:program-point-size :enable 1)
+    ;; 6.55
+    ;; get-query-object
+    ;; 6.56
+    (:image-binding-name :integer-i 1 :max-image-units)
+    (:image-binding-level :integer-i 1 :max-image-units)
+    (:image-binding-layered :boolean-i 1 :max-image-units)
+    (:image-binding-layer :integer-i 1 :max-image-units)
+    (:image-binding-access :enum-i 1 :max-image-units)
+    (:image-binding-format :enum-i 1 :max-image-units)
+    ;; 6.57
+    (:transform-feedback-buffer-binding :integer/i 1 :max-transform-feedback-buffers)
+    (:transform-feedback-buffer-start :integer64-i 1 :max-transform-feedback-buffers)
+    (:transform-feedback-buffer-size :integer64-i 1 :max-transform-feedback-buffers)
+    (:transform-feedback-buffer-paused :boolean 1)
+    (:transform-feedback-buffer-active :boolean 1)
+    ;; 6.58
+    (:atomic-counter-buffer-binding :integer/i 1 :max-atomic-counter-buffer-bindings)
+    (:atomic-counter-buffer-start :integer64-i 1 :max-atomic-counter-buffer-bindings)
+    (:atomic-counter-buffer-size :integer64-i 1 :max-atomic-counter-buffer-bindings)
+    ;; 6.59
+    ;; get-sync
+    ;; 6.60
     (:perspective-correction-hint :enum 1)
     (:point-smooth-hint :enum 1)
     (:line-smooth-hint :enum 1)
@@ -325,7 +523,9 @@
     (:generate-mipmap-hint :enum 1)
     (:texture-compression-hint :enum 1)
     (:fragment-shader-derivative-hint :enum 1)
+    ;; 6.61
     (:max-lights :integer 1)
+    (:max-clip-distances :integer 1)
     (:max-clip-planes :integer 1)
     (:max-color-matrix-stack-depth :integer 1)
     (:max-modelview-stack-depth :integer 1)
@@ -338,30 +538,46 @@
     (:max-texture-lod-bias :float 1)
     (:max-cube-map-texture-size :integer 1)
     (:max-renderbuffer-size :integer 1)
+    ;; 6.62
     (:max-pixel-map-table :integer 1)
     (:max-name-stack-depth :integer 1)
     (:max-list-nesting :integer 1)
     (:max-eval-order :integer 1)
-    (:max-viewport-dims :integer 2)
+    (:max-viewport-dims :float 2)
+    (:max-viewports :integer 1)
+    (:viewport-subpixel-bits :integer 1)
+    (:viewport-bounds-range :float 2)
+    (:layer-provoking-vertex :enum 1)
+    (:viewport-index-provoking-vertex :enum 1)
     (:max-attrib-stack-depth :integer 1)
     (:max-client-attrib-stack-depth :integer 1)
     (:aliased-point-size-range :float 2)
     (:point-size-range :float 2)
     (:point-size-granularity :float 1)
-    (:smooth-point-size-range :float 2)
+    ;; ?
+    (:smooth-point-size-range :float 2) ;?
     (:smooth-point-size-granularity :float 1)
-    (:aliased-line-width-range :float 2)
     (:line-width-range :float 2)
     (:line-width-granularity :float 1)
+    ;; 6.63
+    (:aliased-line-width-range :float 2)
     (:smooth-line-width-range :float 2)
     (:smooth-line-width-granularity :float 1)
+    ;; get-convolution-parameter
     (:max-elements-indices :integer 1)
     (:max-elements-vertices :integer 1)
     (:compressed-texture-formats :enum :num-compressed-texture-formats)
     (:num-compressed-texture-formats :integer 1)
     (:max-texture-buffer-size :integer 1)
     (:max-rectangle-texture-size :integer 1)
-    (:extensions :string 1)
+    (:program-binary-formats :enum :num-program-binary-formats)
+    (:num-program-binary-formats :integer 1)
+    (:shader-binary-formats :enum :num-shader-binary-formats)
+    (:num-shader-binary-formats :integer 1)
+    (:shader-compiler :boolean 1)
+    (:min-map-buffer-alignment :integer 1)
+    ;; 6.64
+    (:extensions :extensions/i 1 :num-extensions)
     (:num-extensions :integer 1)
     (:major-version :integer 1)
     (:minor-version :integer 1)
@@ -370,27 +586,122 @@
     (:shading-language-version :string 1)
     (:vendor :string 1)
     (:version :string 1)
+    ;; ?
     (:max-texture-units :integer 1)
+    ;; 6.65
     (:max-vertex-attribs :integer 1)
     (:max-vertex-uniform-components :integer 1)
-    (:max-varying-components :integer 1)
-    (:max-combined-texture-image-units :integer 1)
+    (:max-vertex-uniform-vectors :integer 1)
+    (:max-vertex-uniform-blocks :integer 1)
+    (:max-vertex-output-components :integer 1)
     (:max-vertex-texture-image-units :integer 1)
-    (:max-texture-image-units :integer 1)
-    (:max-texture-coords :integer 1)
+    (:max-vertex-atomic-counter-buffers :integer 1)
+    (:max-vertex-atomic-counters :integer 1)
+    ;; 6.66
+    (:max-tess-gen-level :integer 1)
+    (:max-patch-vertices :integer 1)
+    (:max-tess-control-uniform-components :integer 1)
+    (:max-tess-evaluation-uniform-components :integer 1)
+    (:max-tess-control-texture-image-units :integer 1)
+    (:max-tess-evaluation-texture-image-units :integer 1)
+    (:max-tess-control-output-components :integer 1)
+    (:max-tess-patch-components :integer 1)
+    (:max-tess-control-total-output-components :integer 1)
+    (:max-tess-evaluation-output-components :integer 1)
+    (:max-tess-control-input-components :integer 1)
+    (:max-tess-evaluation-input-components :integer 1)
+    (:max-tess-control-uniform-blocks :integer 1)
+    (:max-tess-evaluation-uniform-blocks :integer 1)
+    (:max-tess-control-atomic-counter-buffers :integer 1)
+    (:max-tess-evaluation-atomic-counter-buffers :integer 1)
+    (:max-tess-control-atomic-counters :integer 1)
+    (:max-tess-evaluation-atomic-counters :integer 1)
+    ;; 6.67
+    (:max-geometry-uniform-components :integer 1)
+    (:max-geometry-uniform-blocks :integer 1)
+    (:max-geometry-input-components :integer 1)
+    (:max-geometry-output-components :integer 1)
+    (:max-geometry-output-vertices :integer 1)
+    (:max-geometry-total-output-components :integer 1)
+    (:max-geometry-texture-image-units :integer 1)
+    (:max-geometry-shader-invocations :integer 1)
+    (:max-vertex-streams :integer 1)
+    (:max-geometry-atomic-counter-buffers :integer 1)
+    (:max-geometry-atomic-counters :integer 1)
+    ;; 6.68
     (:max-fragment-uniform-components :integer 1)
+    (:max-fragment-uniform-vectors :integer 1)
+    (:max-fragment-uniform-blocks :integer 1)
+    (:max-fragment-input-components :integer 1)
+    (:max-texture-image-units :integer 1)
+    (:min-program-texture-gather-offset :integer 1)
+    (:max-program-texture-gather-offset :integer 1)
+    (:max-texture-units :integer 1)
+    (:max-texture-coords :integer 1)
+    (:max-fragment-atomic-counter-buffers :integer 1)
+    (:max-fragment-atomic-counters :integer 1)
+    ;; 6.69
     (:min-program-texel-offset :integer 1)
     (:max-program-texel-offset :integer 1)
+    (:max-uniform-buffer-bindings :integer 1)
+    (:max-uniform-block-size :integer 1)
+    (:uniform-buffer-offset-alignment :integer 1)
+    (:max-combined-uniform-blocks :integer 1)
+    (:max-varying-components :integer 1)
+    (:max-varying-vectors :integer 1)
+    (:max-combined-texture-image-units :integer 1)
+    (:max-subroutines :integer 1)
+    (:max-subroutine-uniform-locations :integer 1)
+    (:max-atomic-counter-buffer-bindings :integer 1)
+    (:max-atomic-counter-buffer-size :integer 1)
+    (:max-combined-atomic-counter-buffers :integer 1)
+    (:max-combined-atomic-counters :integer 1)
+    ;; 6.70
+    (:max-image-units :integer 1)
+    (:max-combined-image-units-and-fragment-outputs :integer 1)
+    (:max-image-samples :integer 1)
+    (:max-vertex-image-uniforms :integer 1)
+    (:max-tess-control-image-uniforms :integer 1)
+    (:max-tess-evaluation-image-uniforms :integer 1)
+    (:max-geometry-image-uniforms :integer 1)
+    (:max-fragment-image-uniforms :integer 1)
+    (:max-combined-image-uniforms :integer 1)
+    (:max-combined-vertex-uniform-components :integer 1)
+    (:max-combined-geometry-uniform-components :integer 1)
+    (:max-combined-tess-control-uniform-components :integer 1)
+    (:max-combined-tess-evaluation-uniform-components :integer 1)
+    (:max-combined-fragment-uniform-components :integer 1)
+    ;; 6.71
+    (:max-sample-mask-words :integer 1)
+    (:max-samples :integer 1)
+    (:max-color-texture-samples :integer 1)
+    (:max-depth-texture-samples :integer 1)
+    (:max-integer-samples :integer 1)
+    (:quads-follow-provoking-vertex-convention :boolean 1)
+    ;; (:query-counter-bits :... 1) ;; %gl:get-query-iv
+    (:max-server-wait-timeout :integer64 1)
+    (:min-fragment-interpolation-offset :float 1)
+    (:max-fragment-interpolation-offset :float 1)
+    (:fragment-interpolation-offset-bits :integer 1)
+    ;; 6.72
+    ;; get-internal-format-iv
+    ;; 6.73
+    (:max-transform-feedback-interleaved-components :integer 1)
+    (:max-transform-feedback-separate-attribs :integer 1)
+    (:max-transform-feedback-separate-components :integer 1)
+    (:max-transform-feedback-buffers :integer 1)
+    ;; 6.74
     (:aux-buffers :integer 1)
     (:max-draw-buffers :integer 1)
+    (:max-dual-source-draw-buffers :integer 1)
     (:rgba-mode :boolean 1)
     (:index-mode :boolean 1)
     (:doublebuffer :boolean 1)
     (:stereo :boolean 1)
     (:sample-buffers :integer 1)
     (:samples :integer 1)
+    (:sample-position :multisample-i 2 :samples)
     (:max-color-attachments :integer 1)
-    (:max-samples :integer 1)
     (:red-bits :integer 1)
     (:green-bits :integer 1)
     (:blue-bits :integer 1)
@@ -402,6 +713,9 @@
     (:accum-green-bits :integer 1)
     (:accum-blue-bits :integer 1)
     (:accum-alpha-bits :integer 1)
+    (:implementation-color-read-type :enum 1)
+    (:implementation-color-read-format :enum 1)
+    ;; 6.75
     (:list-base :integer 1)
     (:list-index :integer 1)
     (:list-mode :enum 1)
@@ -415,56 +729,43 @@
     (:feedback-buffer-size :integer 1)
     (:feedback-buffer-type :enum 1)
     (:error :error 1)
-    ;;
-    (:alpha-test :boolean 1)
-    (:auto-normal :boolean 1)
-    (:blend :boolean 1)
-    (:clip-plane0 :boolean 1)
-    (:clip-plane1 :boolean 1)
-    (:clip-plane2 :boolean 1)
-    (:clip-plane3 :boolean 1)
-    (:clip-plane4 :boolean 1)
-    (:clip-plane5 :boolean 1)
-    (:color-logic-op :boolean 1)
-    (:color-table :boolean 1)
-    (:convolution-1d :boolean 1)
-    (:convolution-2d :boolean 1)
-    (:cull-face :boolean 1)
-    (:depth-test :boolean 1)
-    (:dither :boolean 1)
-    (:histogram :boolean 1)
-    (:index-logic-op :boolean 1)
-    (:light0 :boolean 1)
-    (:light1 :boolean 1)
-    (:light2 :boolean 1)
-    (:light3 :boolean 1)
-    (:light4 :boolean 1)
-    (:light5 :boolean 1)
-    (:light6 :boolean 1)
-    (:light7 :boolean 1)
-    (:line-smooth :boolean 1)
-    (:line-stipple :boolean 1)
-    (:minmax :boolean 1)
-    (:point-smooth :boolean 1)
-    (:polygon-offset-fill :boolean 1)
-    (:polygon-offset-line :boolean 1)
-    (:polygon-offset-point :boolean 1)
-    (:polygon-smooth :boolean 1)
-    (:polygon-stipple :boolean 1)
-    (:post-color-matrix-color-table :boolean 1)
-    (:post-convolution-color-table :boolean 1)
-    (:scissor-test :boolean 1)
-    (:separable-2d :boolean 1)
-    (:stencil-test :boolean 1)
-    (:texture-1d :boolean 1)
-    (:texture-2d :boolean 1)
-    (:texture-3d :boolean 1)
-    (:texture-cube-map :boolean 1)
-    (:texture-gen-q :boolean 1)
-    (:texture-gen-r :boolean 1)
-    (:texture-gen-s :boolean 1)
-    (:texture-gen-t :boolean 1)
-    ))
+    ;; getQueryiv
+    (:copy-read-buffer :integer 1)
+    (:copy-write-buffer :integer 1)
+    (:texture-cube-map-seamless :enable 1)
+    ;; #15 ARB_vertex_blend has state, but is ancient, skipping for now...
+    ;; #26 ARB_vertex_program, also ancient...
+    ;; #39 ARB_color_buffer_float
+    (:rgba-float-mode-arb :boolean 1)
+    ;; #51 ARB_texture_buffer_object core in 3.1
+    (:texture-buffer-data-store-binding-arb :integer 1) ;; uses get-tex-level-parameter in core version
+    (:texture-buffer-format-arb :enum 1)
+    (:texture-buffer-arb :integer 1)
+    ;; #104 ARB_debug_output
+    ;; (probably requires a debug context to get support for extension)
+    (:debug-callback-function-arb :pointer 1)
+    (:debug-callback-user-param-arb :pointer 1)
+    (:debug-logged-messages-arb :integer 1)
+    (:debug-next-logged-message-length-arb :integer 1)
+    (:debug-output-synchronous-arb :enable 1)
+    (:max-debug-message-length-arb :integer 1)
+    (:max-debug-logged-messages-arb :integer 1)
+    ;; #105 ARB_robustness
+    (:reset-notification-strategy-arb :enum 1)
+    ;; 4.3 - table 23.61
+    (:max-compute-work-group-count :integer-i 3)
+    (:max-compute-work-group-size :integer-i 3)
+    ;; (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
+    (:max-compute-local-invocations :integer 1) ;; not documented?
+    (:max-compute-uniform-blocks :integer 1)
+    (:max-compute-texture-image-units :integer 1)
+    (:max-compute-atomic-counter-buffers :integer 1)
+    (:max-compute-atomic-counters :integer 1)
+    (:max-compute-shared-memory-size :integer 1)
+    (:max-compute-uniform-components :integer 1)
+    (:max-compute-image-uniforms :integer 1)
+    (:max-combined-compute-uniform-components :integer 1)
+    (:max-compute-shader-storage-blocks :integer 1)))
 
 ;;; Return the default array size for a state query enum.
 (defun query-enum-size (value)
@@ -493,9 +794,55 @@
 ;;; Define query functions for the basic types.
 (define-query-function get-boolean %gl:get-boolean-v %gl:boolean)
 (define-query-function get-integer %gl:get-integer-v %gl:int)
+(define-query-function get-integer-64 %gl:get-integer-64-v %gl:int64)
 (define-query-function get-float %gl:get-float-v %gl:float single-float)
 (define-query-function get-double %gl:get-double-v %gl:double double-float)
 (define-query-function get-pointer %gl:get-pointer-v :pointer)
+
+;;; Define an indexed query function NAME that calls the OpenGL
+;;; function FN, passing an array of foreign type TYPE.  The elements
+;;; of the foreign array are converted back to Lisp values by first
+;;; dereferencing the buffer.
+(defmacro define-indexed-query-function (name fn type &optional (lisp-type t))
+  `(defun ,name (value index &optional (count (query-enum-size value)))
+     (declare (fixnum count))
+     (with-foreign-object (buf ',type count)
+       (,fn value index buf)
+       (if (> count 1)
+           (let ((result (make-array count :element-type ',lisp-type)))
+             (dotimes (i count)
+               (setf (aref result i) (mem-aref buf ',type i)))
+             result)
+           (mem-ref buf ',type)))))
+
+;;; Define query functions for the basic types.
+;;; fixme: should these be named get-*-indexed instead of get-*-i?
+(define-indexed-query-function get-boolean-i %gl:get-boolean-i-v %gl:boolean)
+(define-indexed-query-function get-integer-i %gl:get-integer-i-v %gl:int)
+(define-indexed-query-function get-integer-64-i %gl:get-integer-64-i-v %gl:int64)
+(define-indexed-query-function get-float-i %gl:get-float-i-v %gl:float single-float)
+(define-indexed-query-function get-double-i %gl:get-double-i-v %gl:double double-float)
+
+(defmacro define-vertex-attrib-query-function (name fn type &optional (lisp-type t))
+  `(defun ,name (index pname &optional (count (query-enum-size pname)))
+     (declare (fixnum count))
+     (with-foreign-object (buf ',type count)
+       (,fn index pname buf)
+       (if (> count 1)
+           (let ((result (make-array count :element-type ',lisp-type)))
+             (dotimes (i count)
+               (setf (aref result i) (mem-aref buf ',type i)))
+             result)
+           (mem-ref buf ',type)))))
+
+(define-vertex-attrib-query-function get-vertex-attrib-boolean
+    %gl:get-vertex-attrib-iv %gl:boolean)
+(define-vertex-attrib-query-function get-vertex-attrib-integer
+    %gl:get-vertex-attrib-iv %gl:int)
+(define-vertex-attrib-query-function get-vertex-attrib-float
+    %gl:get-vertex-attrib-fv %gl:float single-float)
+(define-vertex-attrib-query-function get-vertex-attrib-pointer
+    %gl:get-vertex-attrib-pointer-v :pointer)
 
 (defun try-to-parse-enum (value)
   (or (foreign-enum-keyword '%gl:enum value :errorp nil)
@@ -510,47 +857,191 @@
         (map 'vector #'try-to-parse-enum result)
         (try-to-parse-enum result))))
 
+(defun get-enum-i (value index &optional (count (query-enum-size value)))
+  (let ((result (get-integer-i value index count)))
+    (if (vectorp result)
+        (map 'vector #'try-to-parse-enum result)
+        (try-to-parse-enum result))))
+
+(defun get-vertex-attrib-enum (index pname
+                               &optional (count (query-enum-size pname)))
+  (let ((result (get-vertex-attrib-integer index pname count)))
+    (if (vectorp result)
+        (map 'vector #'try-to-parse-enum result)
+        (try-to-parse-enum result))))
+
 
 (import-export %gl:get-string)
+(import-export %gl:get-string-i)
+
+(defun get-clip-plane (plane)
+  (with-foreign-object (buf '%gl:double 4)
+    (%gl:get-clip-plane plane buf)
+    (let ((result (make-array 4 :element-type 'double-float)))
+      (dotimes (i 4)
+        (setf (aref result i) (mem-aref buf '%gl:double i)))
+      result)))
+
+(defun get-multisample (pname index)
+  (with-foreign-object (buf '%gl:float 2)
+    (%gl:get-multisample-fv pname index buf)
+    (let ((result (make-array 2 :element-type 'single-float)))
+      (dotimes (i 2)
+        (setf (aref result i) (mem-aref buf '%gl:float i)))
+      result)))
+
 
 ;;; generic get that handles type and number of values for known enums
 ;;; fixme: better name?
-(defun get* (name)
-  (destructuring-bind (enum type size)
+(defun get* (name &optional (index 0 indexp))
+  (destructuring-bind (enum type size &optional max)
       (assoc name *query-enum-sizes*)
-    (declare (ignore enum))
+    (declare (ignore enum max))
     (when (keywordp size)
       (setf size (get-integer size 1)))
-    (ecase type
-      (:boolean (get-boolean name size))
-      (:integer (get-integer name size))
-      (:float (get-float name size))
-      ;(:integer-i (format nil " don't know how to get ~s, type~s~%" enum type))
-      (:enable (enabledp name))
-      (:enum (get-enum name size))
-      (:string (get-string name ))
-      (:pointer (get-pointer name size))
-      (:error (get-error)))))
+    (when (plusp size)
+      (ecase type
+        (:boolean (get-boolean name size))
+        (:integer (get-integer name size))
+        (:integer64 (get-integer-64 name size))
+        (:float (get-float name size))
+        (:enable (enabledp name))
+        (:enum (get-enum name size))
+        (:string (get-string name))
+        (:pointer (get-pointer name size))
+        (:error (get-error))
+        (:clip-plane (get-clip-plane name))
+        ;; queries that can be used indexed or unindexed
+        ;; (indexed version usually needs newer GL version, so
+        ;;  don't want to just call the indexed query with 0
+        ;;  when no index was provided)
+        (:integer/i (if indexp
+                        (get-integer-i name index size)
+                        (get-integer name size)))
+        (:integer64/i (if indexp
+                          (get-integer-64-i name index size)
+                          (get-integer-64 name size)))
+        (:float/i (if indexp
+                      (get-float-i name index size)
+                      (get-float name size)))
+        (:enable/i (if indexp
+                       (enabledp-i name index)
+                       (enabledp name)))
+        (:enum/i (if indexp
+                     (get-enum-i name index size)
+                     (get-enum name size)))
+        (:boolean/i (if indexp
+                        (get-boolean-i name index size)
+                        (get-boolean name size)))
+        (:extensions/i (if indexp
+                           (get-string-i name index)
+                           (get-string name)))
+        (:draw-buffer/i
+         (if indexp
+             (get-enum (+ (foreign-enum-value '%gl:enum :draw-buffer0) index)
+                       size)
+             (get-enum name size)))
+        ;; queries that require an index (but default to 0)
+        (:integer-i (get-integer-i name index size))
+        (:integer64-i (get-integer-64-i name index size))
+        (:enum-i (get-enum-i name index size))
+        (:boolean-i (get-boolean-i name index size))
+        (:string-i (get-string-i name index))
+        (:multisample-i (get-multisample name index))
+        (:vertex-attrib-integer (get-vertex-attrib-integer index name size))
+        (:vertex-attrib-enum (get-vertex-attrib-enum index name size))
+        (:vertex-attrib-boolean (get-vertex-attrib-boolean index name size))
+        (:vertex-attrib-pointer (get-vertex-attrib-pointer index name size))
+        (:vertex-attrib-float (get-vertex-attrib-float index name size))
+
+        ;; some fake 'indexed' queries for queries that usually use a set of
+        ;; :foo0 .. :fooN enums, which can also be used as :foo0 + N
+        (:clip-plane-i
+         (get-clip-plane (+ (foreign-enum-value '%gl:enum :clip-plane0)
+                            index)))
+        (:clip-distance-i
+         (enabledp (+ (foreign-enum-value '%gl:enum :clip-distance0) index))
+         size)
+        (:light-enable-i (enabledp (+ (foreign-enum-value '%gl:enum :light0)
+                                      index))
+                         size)))))
 
 ;;; compiler macro to open code values for enums known at compile time
-(define-compiler-macro get* (&whole form name)
+(define-compiler-macro get* (&whole form name &optional (index 0 indexp))
   (if (and (constantp name) (keywordp name)
            (assoc name *query-enum-sizes*))
-      (destructuring-bind (e type count)
+      (destructuring-bind (enum type size &optional max)
           (assoc name *query-enum-sizes*)
-        (declare (ignore e))
-        `(let ((size ,(if (keywordp count) `(get-integer ,count 1) count)))
+        (declare (ignore enum max))
+        `(let ((size ,(if (keywordp size) `(get-integer ,size 1) size)))
            (declare (ignorable size))
-           , (ecase type
-               (:boolean `(get-boolean ,name size))
-               (:integer `(get-integer ,name size))
-               (:float `(get-float ,name size))
-               ;;(:integer-i (format nil " don't know how to get ~s, type~s~%" enum type))
-               (:pointer `(get-pointer ,name size))
-               (:enum `(get-enum ,name size))
-               (:enable `(enabledp ,name))
-               (:string `(get-string ,name ))
-               (:error `(get-error)))))
+           ;; fixme: get rid of this duplicated code somehow?
+           ,(ecase type
+              (:boolean `(get-boolean ,name size))
+              (:integer `(get-integer ,name size))
+              (:integer64 `(get-integer-64 ,name size))
+              (:float `(get-float ,name size))
+              (:enable `(enabledp ,name))
+              (:enum `(get-enum ,name size))
+              (:string `(get-string ,name))
+              (:pointer `(get-pointer ,name size))
+              (:error `(get-error))
+              (:clip-plane `(get-clip-plane ,name))
+              ;; queries that can be used indexed or unindexed
+              ;; (indexed version usually needs newer GL version, so
+              ;;  don't want to just call the indexed query with 0
+              ;;  when no index was provided)
+              (:integer/i (if indexp
+                              `(get-integer-i name ,index size)
+                              `(get-integer ,name size)))
+              (:integer64/i (if indexp
+                                `(get-integer-64-i ,name ,index size)
+                                `(get-integer-64 ,name size)))
+              (:float/i (if indexp
+                            `(get-float-i ,name ,index size)
+                            `(get-float ,name size)))
+              (:enable/i (if indexp
+                             `(enabledp-i ,name ,index)
+                             `(enabledp ,name)))
+              (:enum/i (if indexp
+                           `(get-enum-i ,name ,index size)
+                           `(get-enum ,name size)))
+              (:boolean/i (if indexp
+                              `(get-boolean-i ,name ,index size)
+                              `(get-boolean ,name size)))
+              (:extensions/i (if indexp
+                                 `(get-string-i ,name ,index)
+                                 `(get-string ,name)))
+              (:draw-buffer/i
+               (if indexp
+                   `(get-enum `(+ ,(foreign-enum-value '%gl:enum :draw-buffer0) index)
+                              size)
+                   `(get-enum ,name size)))
+              ;; queries that require an index (but default to 0)
+              (:integer-i `(get-integer-i ,name ,index size))
+              (:integer64-i `(get-integer-64-i ,name ,index size))
+              (:enum-i `(get-enum-i ,name ,index size))
+              (:boolean-i `(get-boolean-i ,name ,index size))
+              (:string-i `(get-string-i ,name ,index))
+              (:multisample-i `(get-multisample ,name ,index))
+              (:vertex-attrib-integer `(get-vertex-attrib-integer ,index ,name size))
+              (:vertex-attrib-enum `(get-vertex-attrib-enum ,index ,name size))
+              (:vertex-attrib-boolean `(get-vertex-attrib-boolean ,index ,name size))
+              (:vertex-attrib-pointer `(get-vertex-attrib-pointer ,index ,name size))
+              (:vertex-attrib-float `(get-vertex-attrib-float ,index ,name size))
+
+              ;; some fake 'indexed' queries for queries that usually use a set of
+              ;; :foo0 .. :fooN enums, which can also be used as :foo0 + N
+              (:clip-plane-i
+               `(get-clip-plane (+ ,(foreign-enum-value '%gl:enum :clip-plane0)
+                                   ,index)))
+              (:clip-distance-i
+               `(enabledp (+ ,(foreign-enum-value '%gl:enum :clip-distance0)
+                             ,index))
+               size)
+              (:light-enable-i `(enabledp (+ ,(foreign-enum-value '%gl:enum :light0)
+                                             ,index))
+               size))))
       form))
 
 
@@ -589,6 +1080,9 @@
 ;; external
 (definline enabledp (cap)
   (%gl:is-enabled cap))
+
+(definline enabledp-i (cap index)
+  (%gl:is-enabled-i cap index))
 
 ;;; 6.1.11 Pointer and String Queries
 
@@ -833,6 +1327,8 @@ named GL extension
                          ((stringp x) `(extension-present-p ,x))
                          ((eq x :major-version) `(major-version))
                          ((eq x :minor-version) `(minor-version))
+                         ((eq x :gl-version) `(gl-version))
+                         ((eq x :glsl-version) `(glsl-version))
                          ((listp x) (build-tests x))
                          (t x)))
                      list)))

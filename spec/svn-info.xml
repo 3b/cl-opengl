@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+<entry
+   kind="dir"
+   path="api"
+   revision="22836">
+<url>https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api</url>
+<repository>
+<root>https://cvs.khronos.org/svn/repos</root>
+<uuid>e7fa87d3-cd2b-0410-9028-fcbf551c1848</uuid>
+</repository>
+<commit
+   revision="22836">
+<author>oddhack</author>
+<date>2013-08-23T22:13:48.757953Z</date>
+</commit>
+</entry>
+</info>

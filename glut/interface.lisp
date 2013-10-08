@@ -167,7 +167,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
   ;;                           (z :int)))
   (mouse-wheel      (window (button mouse-button) (pressed mouse-button-state)
                             (x :int) (y :int)))
-  (close            (window))
+  ;; (close            (window))
   (menu-destroy     (window)))
 
 ;;; These two functions should not be called directly and are called
@@ -244,6 +244,41 @@ Lexically binds CURRENT-WINDOW to the respective object."
         do (with-window win
              (idle win))))
 
+(defun %close (window)
+  (when (member :close (events window) :key #'event-name)
+    (close window))
+  (setf (aref *id->window* (id window)) nil)
+  (deletef *windows-with-idle-event* window)
+  #+darwin
+  (when (not (destroyed window))
+    (setf (destroyed window) t)
+    ;; Apple's GLUT doesn't actually close the window when its close
+    ;; button is pressed. So we ensure it's destroyed, otherwise it'll
+    ;; hang around indefinitely not listening to events.
+    (destroy-window (id window)))
+  (when (null *windows-with-idle-event*)
+    (unregister-callback (find-event-or-lose :idle)))
+  #+darwin
+  (progn
+    (when (emptyp (remove-if #'null *id->window*))
+      ;; We want to leave the glut event loop if all glut windows are
+      ;; closed, even when :action-continue-execution is set.
+      (leave-main-loop))
+    (ecase *window-close-action*
+      ;; :action-exit is probably unnecessary, as it should never be used.
+      (:action-exit
+       #+sbcl (sb-ext:quit)
+       #+ccl (ccl:quit)
+       #-(or sbcl ccl) (warn "Don't know how to quit."))
+      (:action-glutmainloop-returns
+       (leave-main-loop))
+      (:action-continue-execution
+       nil))))
+
+(define-glut-event close (window)
+  (when-current-window-exists
+    (%close current-window)))
+
 (defun find-applicable-events (window)
   (loop for event in *events*
         when (compute-applicable-methods
@@ -266,15 +301,18 @@ Lexically binds CURRENT-WINDOW to the respective object."
     (glut:reshape-window (width win) (height win))
     (glut:set-window-title (title win))
     (dolist (event (events win))
-      (register-callback event)))
+      (register-callback event))
+    ;; we always want to enable the CLOSE event since we need it for
+    ;; bookkeeping purposes.
+    (register-callback (find-event-or-lose :close)))
   (when (member :idle (events win) :key #'event-name)
     (push win *windows-with-idle-event*))
-  ;; save window in the *id->window* array
+  ;; save window in the *id->window* array.
   (when (<= (length *id->window*) (id win))
     (setq *id->window*
           (adjust-array *id->window* (1+ (id win)) :initial-element nil)))
   (setf (aref *id->window* (id win)) win)
-  ;; setup tick timer
+  ;; setup tick timer.
   (when (tick-interval win)
     (enable-tick win (tick-interval win)))
   (call-next-method))
@@ -291,7 +329,6 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (when (eq event-name :idle)
         (push window *windows-with-idle-event*)))))
 
-
 (defmethod disable-event ((window base-window) event-name)
   (if (eq event-name :display)
       (warn "GLUT would be upset if we set the DISPLAY callback to NULL. ~
@@ -299,7 +336,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (let ((event (find-event-or-lose event-name)))
         (when (find event (events window))
           ;; We don't actually disable the CLOSE event since we need it
-          ;; for bookkeeping. See the CLOSE methods below.
+          ;; for bookkeeping. See the CLOSE event definiton.
           (unless (or (eq event-name :idle)
                       (eq event-name :close))
             (with-window window
@@ -319,42 +356,11 @@ Lexically binds CURRENT-WINDOW to the respective object."
       ((game-mode current-window)
        (leave-game-mode))
       (t
-       (destroy-window (id current-window))
-       #+darwin
-       (progn
+       (when (not (destroyed current-window))
          (setf (destroyed current-window) t)
-         (close current-window))))))
-
-(defmethod close :around ((w base-window))
-  (when (member :close (events w) :key #'event-name)
-    (call-next-method))
-  (setf (aref *id->window* (id w)) nil)
-  (setq *windows-with-idle-event* (delete w *windows-with-idle-event*))
-  #+darwin
-  (when (not (destroyed w))
-    (setf (destroyed w) t)
-    (destroy-window (id w)))
-  (when (null *windows-with-idle-event*)
-    (unregister-callback (find-event-or-lose :idle)))
-  #+darwin
-  (progn
-    (when (= 0 (length (remove-if #'null *id->window*)))
-      ;; We want to leave the glut event loop if all glut windows are
-      ;; closed, even when :action-continue-execution is set.
-      (leave-main-loop))
-    (ecase *window-close-action*
-      ;; :action-exit is probably unnecessary, as it should never be used.
-      (:action-exit
-       #+sbcl (sb-ext:quit)
-       #+ccl (ccl:quit)
-       #-(or sbcl ccl) (warn "Don't know how to quit."))
-      (:action-glutmainloop-returns
-       (leave-main-loop))
-      (:action-continue-execution
-       nil))))
-
-(defmethod close ((w base-window))
-  (values))
+         (destroy-window (id current-window)))
+       #+darwin
+       (%close current-window)))))
 
 (defgeneric tick (window))
 

@@ -37,7 +37,9 @@
 ;;;
 
 (import-export %gl:is-renderbuffer-ext
-               %gl:bind-renderbuffer-ext)
+               %gl:bind-renderbuffer-ext
+               %gl:is-renderbuffer
+               %gl:bind-renderbuffer)
 
 (defun delete-renderbuffers (renderbuffers)
   (with-opengl-sequence (array '%gl:uint renderbuffers)

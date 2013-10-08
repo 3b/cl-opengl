@@ -28,22 +28,33 @@
 ;;; POSSIBILITY OF SUCH DAMAGE.
 
 (defsystem cl-opengl
+  :description "Common Lisp bindings to OpenGL."
   :depends-on (cffi alexandria)
   :components
   ((:module "gl"
+    :serial t
     :components
     ((:file "bindings-package")
-     (:file "constants" :depends-on ("bindings-package"))
-     (:file "library" :depends-on ("bindings-package"))
-     (:file "bindings" :depends-on ("bindings-package" "constants" "library"))
-     (:file "types" :depends-on ("bindings-package"))
-     (:file "funcs" :depends-on ("bindings" "constants" "library" "types"))
+     (:file "constants")
+     (:file "library")
+     (:file "bindings")
+     (:file "types")
+     (:file "funcs-gl-glcore-gles1-gles2")
+     (:file "funcs-gl-glcore-gles2")
+     (:file "funcs-gl-glcore")
+     (:file "funcs-gl-gles1-gles2")
+     (:file "funcs-gl-gles1")
+     (:file "funcs-gl-gles2")
+     (:file "funcs-gl")
+     (:file "funcs-gles1-gles2")
+     (:file "funcs-gles1")
+     (:file "funcs-gles2")
      ;; Lispifications.
-     (:file "package" :depends-on ("bindings-package"))
-     (:file "util" :depends-on ("constants" "types" "package"))
-     (:file "opengl" :depends-on ("funcs" "util"))
-     (:file "rasterization" :depends-on ("funcs" "util"))
-     (:file "framebuffer" :depends-on ("funcs" "util"))
-     (:file "special" :depends-on ("funcs" "util" "constants"))
-     (:file "state" :depends-on ("funcs" "util"))
-     (:file "extensions" :depends-on ("funcs" "util"))))))
+     (:file "package")
+     (:file "util")
+     (:file "opengl")
+     (:file "rasterization")
+     (:file "framebuffer")
+     (:file "special")
+     (:file "state")
+     (:file "extensions")))))

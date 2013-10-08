@@ -69,6 +69,9 @@ void main()
   ;; data to the array, and tell OpenGL that the buffers data comes
   ;; from this GL array. Like most OpenGL state objects, we bind the
   ;; buffer before we can make changes to its state.
+  (unless (gl::features-present-p (>= :glsl-version 3.3))
+    (glut:destroy-current-window)
+    (return-from glut:display-window nil))
   (let ((buffers (gl:gen-buffers 2)))
     (setf (vertex-buffer w) (elt buffers 0)
 	  (index-buffer w) (elt buffers 1)))
@@ -196,7 +199,7 @@ void main()
 (defmethod glut:keyboard ((w shader-vao-window) key x y)
   (declare (ignore x y))
   (case key
-    (#\Esc (glut:leave-main-loop))))
+    (#\Esc (glut:destroy-current-window))))
 
 ;; Cleanup.
 ;; Most of the objects we created have analogous deletion function.
@@ -206,15 +209,22 @@ void main()
   ;; shader isn't destroyed until after the program is
   ;; destroyed. Similarly, if the program is destroyed, the shaders
   ;; are detached.
-  (gl:delete-shader (vertex-shader w))
-  (gl:delete-shader (fragment-shader w))
-  (gl:delete-program (program w))
+  (when (slot-boundp w 'vs)
+   (gl:delete-shader (vertex-shader w)))
+  (when (slot-boundp w 'fs)
+    (gl:delete-shader (fragment-shader w)))
+  (when (slot-boundp w 'program)
+   (gl:delete-program (program w)))
 
-  (gl:delete-buffers (list (vertex-buffer w) (index-buffer w)))
-  (gl:delete-vertex-arrays (list (vertex-array w))))
+  (when (slot-boundp w 'vbuff)
+    (gl:delete-buffers (list (vertex-buffer w) (index-buffer w))))
+  (when (slot-boundp w 'va)
+   (gl:delete-vertex-arrays (list (vertex-array w)))))
 
 (defun shader-vao ()
   (let ((w (make-instance 'shader-vao-window)))
     (unwind-protect
-	 (glut:display-window w)
-      (glut:destroy-window (glut:id w)))))
+         (glut:display-window w)
+      (when (not (glut::destroyed w))
+         (setf (glut::destroyed w) t)
+         (glut:destroy-window (glut:id w))))))

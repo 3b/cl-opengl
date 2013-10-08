@@ -360,4 +360,9 @@
    #:generate-mipmap-ext
    #:with-pushed-matrix*
    #:uniformfv
-   ))
+   #:get-tex-parameter
+   #:get-tex-level-parameter
+   #:gen-framebuffers
+   #:delete-framebuffers
+   #:gen-renderbuffers
+   #:delete-renderbuffers))

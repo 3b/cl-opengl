@@ -44,20 +44,22 @@
                   (format s "OpenGL signalled ~A."
                           (opengl-error.error-code c))))))
 
-(let ((in-begin nil))
-  (defun set-in-begin (a) (setf in-begin a))
-  (defun check-error (&optional context)
-    (declare (optimize speed))
-    (unless in-begin
-      (let ((error-code (foreign-funcall ("glGetError" :library opengl)
-                                         :unsigned-int)))
-        (unless (zerop error-code)
-          (restart-case
-              (error 'opengl-error
-                     :error-code (cons error-code
-                                       (cffi:foreign-enum-keyword '%gl:enum error-code))
-                     :error-context context)
-            (continue () :report "Continue")))))))
+(defparameter *in-begin* nil)
+;; inlining lots of restart-case kills compilation times on SBCL, and doesn't
+;; seem to help performance much
+;; (declaim (inline check-error))
+(defun check-error (&optional context)
+  (declare (optimize speed))
+  (unless *in-begin*
+    (let ((error-code (foreign-funcall ("glGetError" :library opengl)
+                                       :unsigned-int)))
+      (unless (zerop error-code)
+        (restart-case
+            (error 'opengl-error
+                   :error-code (cons error-code
+                                     (cffi:foreign-enum-keyword '%gl:enum error-code))
+                   :error-context context)
+          (continue () :report "Continue"))))))
 
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body body)
@@ -74,13 +76,12 @@
            ,@(cond
               ((string= cname "glGetError") ())
               ((string= cname "glBegin")
-               `((set-in-begin t)))
+               `((setf *in-begin* t)))
               ((string= cname "glEnd")
-               `((set-in-begin nil)
+               `((setf *in-begin* nil)
                  (check-error ',lname)))
               (t
-               `((check-error ',lname)))))
-         )
+               `((check-error ',lname))))))
      #+cl-opengl-no-check-error
      (defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
@@ -99,14 +100,28 @@
 ;;; wglGetProcAddress(), etc.
 (defparameter *gl-get-proc-address* nil)
 
+;;; Fallback get-proc-address bindings which should work for common
+;;; configurations
+;;; TODO: Darwin
+#+linux
+(defcfun ("glXGetProcAddress" glx-get-proc-address) :pointer
+  (proc-name :string))
+#+win32
+(defcfun ("wglGetProcAddress" wgl-get-proc-address) :pointer
+  (proc-name :string))
+
 (defun gl-get-proc-address (name)
-  (funcall *gl-get-proc-address* name))
+  (funcall (or *gl-get-proc-address*
+               #+linux #'glx-get-proc-address
+               #+win32 #'wgl-get-proc-address)
+           name))
 
 (eval-when (:load-toplevel :execute)
   #+clisp (pushnew 'reset-gl-pointers custom:*fini-hooks*)
   #+sbcl (pushnew 'reset-gl-pointers sb-ext:*save-hooks*)
   #+cmu (pushnew 'reset-gl-pointers ext:*before-save-initializations*)
-  #-(or clisp sbcl cmu)
+  ;; ECL does not need this since it does not save images
+  #-(or clisp sbcl cmu ecl)
   (warn "Don't know how to setup a hook before saving cores on this Lisp."))
 
 ;;;; Bart's version of DEFGLEXTFUN.

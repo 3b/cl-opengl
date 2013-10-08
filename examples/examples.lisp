@@ -2,7 +2,8 @@
 
 (defpackage #:cl-glut-examples
   (:use #:cl)
-  (:export #:list-examples #:run-examples))
+  (:export #:list-examples #:run-examples
+           #:gl-info))
 
 (in-package #:cl-glut-examples)
 
