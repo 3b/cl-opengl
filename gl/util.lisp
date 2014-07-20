@@ -52,6 +52,7 @@
     (:unsigned-int-8-8-8-8 '%gl:uint)
     (:unsigned-int-8-8-8-8-rev '%gl:uint)
     (:unsigned-int-10-10-10-2 '%gl:uint)
+    (:unsigned-int-5-9-9-9-rev '%gl:uint)
     (:unsigned-int-2-10-10-10-rev '%gl:uint)))
 
 ;;; Converts a CFFI type to the appropriate GL enum.
