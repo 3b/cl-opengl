@@ -106,14 +106,14 @@
 #+linux
 (defcfun ("glXGetProcAddress" glx-get-proc-address) :pointer
   (proc-name :string))
-#+win32
+#+windows
 (defcfun ("wglGetProcAddress" wgl-get-proc-address) :pointer
   (proc-name :string))
 
 (defun gl-get-proc-address (name)
   (funcall (or *gl-get-proc-address*
                #+linux #'glx-get-proc-address
-               #+win32 #'wgl-get-proc-address)
+               #+windows #'wgl-get-proc-address)
            name))
 
 (eval-when (:load-toplevel :execute)
