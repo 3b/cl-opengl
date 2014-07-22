@@ -244,7 +244,14 @@
   :key-page-down
   :key-home
   :key-end
-  :key-insert)
+  :key-insert
+  ;; Modifiers keys
+  (:key-left-shift 112)
+  :key-right-shift
+  :key-left-ctrl
+  :key-right-ctrl
+  :key-left-alt
+  :key-right-alt)
 
 (defcenum visibility-state
   :not-visible
