@@ -681,6 +681,13 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
     (2 (%gl:uniform-2f location (aref a 0) (aref a 1)))
     (1 (%gl:uniform-1f location (aref a 0)))))
 
+(definline uniformiv (location a)
+  (case (length a)
+    (4 (%gl:uniform-4i location (aref a 0) (aref a 1) (aref a 2) (aref a 3)))
+    (3 (%gl:uniform-3i location (aref a 0) (aref a 1) (aref a 2)))
+    (2 (%gl:uniform-2i location (aref a 0) (aref a 1)))
+    (1 (%gl:uniform-1i location (aref a 0)))))
+
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))
   (check-type dim (integer 2 4))
@@ -700,6 +707,68 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
         (4 (%gl:uniform-matrix-4fv
             location matrix-count transpose array))))))
 
+(macrolet ((def (n % comp)
+             `(defun ,n (location matrices &optional (transpose t))
+                ,(format nil
+ "Upload a matrix or matrices to uniform LOCATION. MATRICES is a single
+matrix in a vector or array, or a vector of matrices in same formats.
+Tries to optimize case where matrices are (SIMPLE-ARRAY SINGLE-FLOAT (~s))."
+ comp)
+                (assert (or (typep (aref matrices 0) 'number)
+                            (typep (aref matrices 0) 'array)))
+                #+sbcl
+                (when (typep matrices '(simple-array single-float (,comp)))
+                  (sb-sys:with-pinned-objects (matrices)
+                    (return-from ,n
+                      (,% location 1 transpose
+                          (sb-sys:vector-sap matrices)))))
+                #+ccl
+                (when (typep matrices '(simple-array single-float (,comp)))
+                  ;; we need to be a bit more careful with CCL, since
+                  ;; CCL:WITH-POINTER-TO-IVECTOR inhibits GC,  so we
+                  ;; try to avoid signalling an error inside it
+                  (handler-case
+                      (ccl:with-pointer-to-ivector (p matrices)
+                        (return-from ,n
+                          (,% location 1 transpose p)))
+                    ;; resignal any errors outside the 'no GC' scope
+                    (error (e) (error e))))
+                (let* ((matrices (if (typep (aref matrices 0) 'vector)
+                                     matrices
+                                     (vector matrices)))
+                       (matrix-count (length matrices)))
+                  (with-foreign-object (array '%gl:float (* matrix-count ,comp))
+                    (loop for matrix across matrices
+                          for i from 0
+                          do (when (typep matrix '(simple-array single-float
+                                                   (,comp)))
+                               (loop for j below ,comp
+                                     do (setf (mem-aref array '%gl:float
+                                                        (+ j (* i ,comp)))
+                                              (row-major-aref matrix j)))
+                               (loop for j below ,comp
+                                     do (setf (mem-aref array '%gl:float
+                                                        (+ j (* i ,comp)))
+                                              (float (row-major-aref matrix j)
+                                                     1.0)))))
+                    (,% location matrix-count transpose array)))))
+           (d (&rest defs)
+             `(progn
+                ,@(loop for def in defs collect `(def ,@def)))))
+  (d (uniform-matrix-2fv %gl:uniform-matrix-2fv 4)
+     (uniform-matrix-2x3-fv %gl:uniform-matrix-2x3-fv 6)
+     (uniform-matrix-2x4-fv %gl:uniform-matrix-2x4-fv 8)
+
+     (uniform-matrix-3x2-fv %gl:uniform-matrix-3x2-fv 6)
+     (uniform-matrix-3fv %gl:uniform-matrix-3fv 9)
+     (uniform-matrix-3x4-fv %gl:uniform-matrix-3x4-fv 12)
+
+     (uniform-matrix-4x2-fv %gl:uniform-matrix-4x2-fv 8)
+     (uniform-matrix-4x3-fv %gl:uniform-matrix-4x3-fv 12)
+     (uniform-matrix-4fv %gl:uniform-matrix-4fv 16)
+     ))
+
 ;;; 2.15.4 Shader Execution
 
 (import-export %gl:validate-program)
+

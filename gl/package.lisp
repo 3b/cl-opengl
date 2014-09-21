@@ -365,4 +365,14 @@
    #:gen-framebuffers
    #:delete-framebuffers
    #:gen-renderbuffers
-   #:delete-renderbuffers))
+   #:delete-renderbuffers
+   #:uniform-matrix-2fv
+   #:uniform-matrix-2x3-fv
+   #:uniform-matrix-2x4-fv
+   #:uniform-matrix-3x2-fv
+   #:uniform-matrix-3fv
+   #:uniform-matrix-3x4-fv
+   #:uniform-matrix-4x2-fv
+   #:uniform-matrix-4x3-fv
+   #:uniform-matrix-4fv
+   #:uniformiv))
