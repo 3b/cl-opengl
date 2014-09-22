@@ -3,16 +3,20 @@
 <entry
    kind="dir"
    path="api"
-   revision="22836">
+   revision="28242">
 <url>https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api</url>
+<relative-url>^/ogl/trunk/doc/registry/public/api</relative-url>
 <repository>
 <root>https://cvs.khronos.org/svn/repos</root>
 <uuid>e7fa87d3-cd2b-0410-9028-fcbf551c1848</uuid>
 </repository>
 <commit
-   revision="22836">
+   revision="28221">
 <author>oddhack</author>
-<date>2013-08-23T22:13:48.757953Z</date>
+<date>2014-09-19T03:11:05.177262Z</date>
 </commit>
+<lock>
+<created>1970-01-01T00:00:00.000000Z</created>
+</lock>
 </entry>
 </info>
