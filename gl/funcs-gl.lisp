@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2014-09-22T00:21:29Z
+;;; generated 2014-09-28T21:05:19Z
 ;;; from gl.xml @ svn rev 28221, 2014-09-19T03:11:05.177262Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
@@ -41,7 +41,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer :void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glDrawBuffer" draw-buffer) :void
   (buf enum))
@@ -924,7 +924,7 @@
   (height sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer :void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glGetClipPlane" get-clip-plane) :void
   (plane enum)
@@ -1050,19 +1050,19 @@
   (width sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer :void)))
+  (pixels offset-or-pointer))
 
 (defglfun ("glArrayElement" array-element) :void
   (i int))
 
 (defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glIndexPointer" index-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glInterleavedArrays" interleaved-arrays) :void
   (format enum)
@@ -1097,7 +1097,7 @@
   (width sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer :void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d) :void
   (target enum)
@@ -1106,7 +1106,7 @@
   (width sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer :void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glGetCompressedTexImage" get-compressed-tex-image) :void
   (target enum)
@@ -1306,7 +1306,7 @@
 (defglextfun ("glFogCoordPointer" fog-coord-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glSecondaryColor3b" secondary-color-3b) :void
   (red byte)
@@ -1376,7 +1376,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glWindowPos2d" window-pos-2d) :void
   (x double)

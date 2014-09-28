@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2014-09-22T00:21:29Z
+;;; generated 2014-09-28T21:05:19Z
 ;;; from gl.xml @ svn rev 28221, 2014-09-19T03:11:05.177262Z
 
 (defglfun ("glReadBuffer" read-buffer) :void
@@ -50,7 +50,7 @@
   (end uint)
   (count sizei)
   (type enum)
-  (indices (:pointer :void)))
+  (indices offset-or-pointer))
 
 (defglextfun ("glTexImage3D" tex-image-3d) :void
   (target enum)
@@ -62,7 +62,7 @@
   (border int)
   (format enum)
   (type enum)
-  (pixels (:pointer :void)))
+  (pixels offset-or-pointer))
 
 (defglextfun ("glTexSubImage3D" tex-sub-image-3d) :void
   (target enum)
@@ -75,7 +75,7 @@
   (depth sizei)
   (format enum)
   (type enum)
-  (pixels (:pointer :void)))
+  (pixels offset-or-pointer))
 
 (defglextfun ("glCopyTexSubImage3D" copy-tex-sub-image-3d) :void
   (target enum)
@@ -97,7 +97,7 @@
   (depth sizei)
   (border int)
   (imageSize sizei)
-  (data (:pointer :void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glCompressedTexSubImage3D" compressed-tex-sub-image-3d) :void
   (target enum)
@@ -110,7 +110,7 @@
   (depth sizei)
   (format enum)
   (imageSize sizei)
-  (data (:pointer :void)))
+  (data offset-or-pointer))
 
 (defglextfun ("glBlendFuncSeparate" blend-func-separate) :void
   (sfactorRGB enum)
@@ -463,7 +463,7 @@
   (type enum)
   (normalized boolean)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glUniformMatrix2x3fv" uniform-matrix-2x3-fv) :void
   (location int)
@@ -548,7 +548,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
   (index uint)
@@ -668,7 +668,7 @@
   (mode enum)
   (count sizei)
   (type enum)
-  (indices (:pointer :void))
+  (indices offset-or-pointer)
   (instancecount sizei))
 
 (defglextfun ("glGetInteger64i_v" get-integer-64-i-v) :void

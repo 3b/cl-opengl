@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2014-09-22T00:21:29Z
+;;; generated 2014-09-28T21:05:19Z
 ;;; from gl.xml @ svn rev 28221, 2014-09-19T03:11:05.177262Z
 
 (defglextfun ("glBlendColor" blend-color) :void
@@ -284,12 +284,12 @@
 
 (defglextfun ("glDrawArraysIndirect" draw-arrays-indirect) :void
   (mode enum)
-  (indirect (:pointer :void)))
+  (indirect offset-or-pointer))
 
 (defglextfun ("glDrawElementsIndirect" draw-elements-indirect) :void
   (mode enum)
   (type enum)
-  (indirect (:pointer :void)))
+  (indirect offset-or-pointer))
 
 (defglextfun ("glBindTransformFeedback" bind-transform-feedback) :void
   (target enum)

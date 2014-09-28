@@ -180,7 +180,6 @@
     ("double"         . ":double")
     ("void"           . ":void")
     ("string"           . "string")
-    ("const void *" . "(:pointer :void)")
     ;; special cases
     ("GLenum" . "enum")))
 

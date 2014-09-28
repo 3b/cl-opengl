@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2014-09-22T00:21:29Z
+;;; generated 2014-09-28T21:05:19Z
 ;;; from gl.xml @ svn rev 28221, 2014-09-19T03:11:05.177262Z
 
 (defglfun ("glPointSize" point-size) :void
@@ -170,7 +170,7 @@
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glDisableClientState" disable-client-state) :void
   (array enum))
@@ -181,19 +181,19 @@
 (defglfun ("glNormalPointer" normal-pointer) :void
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glTexCoordPointer" tex-coord-pointer) :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglfun ("glVertexPointer" vertex-pointer) :void
   (size int)
   (type enum)
   (stride sizei)
-  (pointer (:pointer :void)))
+  (pointer offset-or-pointer))
 
 (defglextfun ("glClientActiveTexture" client-active-texture) :void
   (texture enum))
