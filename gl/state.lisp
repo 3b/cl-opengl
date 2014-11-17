@@ -526,12 +526,15 @@
     ;; 6.61
     (:max-lights :integer 1)
     (:max-clip-distances :integer 1)
+    (:max-cull-distances :integer 1)
+    (:max-combined-clip-and-cull-distances :integer 1)
     (:max-clip-planes :integer 1)
     (:max-color-matrix-stack-depth :integer 1)
     (:max-modelview-stack-depth :integer 1)
     (:max-projection-stack-depth :integer 1)
     (:max-texture-stack-depth :integer 1)
     (:subpixel-bits :integer 1)
+    (:primitive-restart-for-patches-supported :boolean 1)
     (:max-3d-texture-size :integer 1)
     (:max-texture-size :integer 1)
     (:max-array-texture-layers :integer 1)
@@ -566,6 +569,9 @@
     ;; get-convolution-parameter
     (:max-elements-indices :integer 1)
     (:max-elements-vertices :integer 1)
+    (:max-vertex-attrib-relative-offset :integer 1)
+    (:max-vertex-attrib-bindings :integer 1)
+    (:max-vertex-attrib-stride :integer 1)
     (:compressed-texture-formats :enum :num-compressed-texture-formats)
     (:num-compressed-texture-formats :integer 1)
     (:max-texture-buffer-size :integer 1)
@@ -576,6 +582,7 @@
     (:num-shader-binary-formats :integer 1)
     (:shader-compiler :boolean 1)
     (:min-map-buffer-alignment :integer 1)
+    (:texture-buffer-offset-alignment :integer 1)
     ;; 6.64
     (:extensions :extensions/i 1 :num-extensions)
     (:num-extensions :integer 1)
@@ -584,6 +591,7 @@
     (:context-flags :integer 1)
     (:renderer :string 1)
     (:shading-language-version :string 1)
+    (:num-shading-language-versions :integer 1)
     (:vendor :string 1)
     (:version :string 1)
     ;; ?
@@ -597,6 +605,7 @@
     (:max-vertex-texture-image-units :integer 1)
     (:max-vertex-atomic-counter-buffers :integer 1)
     (:max-vertex-atomic-counters :integer 1)
+    (:max-vertex-shader-storage-blocks :integer 1)
     ;; 6.66
     (:max-tess-gen-level :integer 1)
     (:max-patch-vertices :integer 1)
@@ -616,6 +625,8 @@
     (:max-tess-evaluation-atomic-counter-buffers :integer 1)
     (:max-tess-control-atomic-counters :integer 1)
     (:max-tess-evaluation-atomic-counters :integer 1)
+    (:max-tess-control-shader-storage-blocks :integer 1)
+    (:max-tess-evaluation-shader-storage-blocks :integer 1)
     ;; 6.67
     (:max-geometry-uniform-components :integer 1)
     (:max-geometry-uniform-blocks :integer 1)
@@ -628,6 +639,7 @@
     (:max-vertex-streams :integer 1)
     (:max-geometry-atomic-counter-buffers :integer 1)
     (:max-geometry-atomic-counters :integer 1)
+    (:max-geometry-shader-storage-blocks :integer 1)
     ;; 6.68
     (:max-fragment-uniform-components :integer 1)
     (:max-fragment-uniform-vectors :integer 1)
@@ -640,6 +652,7 @@
     (:max-texture-coords :integer 1)
     (:max-fragment-atomic-counter-buffers :integer 1)
     (:max-fragment-atomic-counters :integer 1)
+    (:max-fragment-shader-storage-blocks :integer 1)
     ;; 6.69
     (:min-program-texel-offset :integer 1)
     (:max-program-texel-offset :integer 1)
@@ -652,12 +665,18 @@
     (:max-combined-texture-image-units :integer 1)
     (:max-subroutines :integer 1)
     (:max-subroutine-uniform-locations :integer 1)
+    (:max-uniform-locations :integer 1)
     (:max-atomic-counter-buffer-bindings :integer 1)
     (:max-atomic-counter-buffer-size :integer 1)
     (:max-combined-atomic-counter-buffers :integer 1)
     (:max-combined-atomic-counters :integer 1)
+    (:max-shader-storage-buffer-bindings :integer 1)
+    (:max-shader-storage-block-size :integer64 1)
+    (:max-combined-shader-storage-blocks :integer 1)
+    (:shader-storage-buffer-offset-alignment :integer 1)
     ;; 6.70
     (:max-image-units :integer 1)
+    (:max-combined-shader-output-resources :integer 1)
     (:max-combined-image-units-and-fragment-outputs :integer 1)
     (:max-image-samples :integer 1)
     (:max-vertex-image-uniforms :integer 1)
@@ -752,10 +771,10 @@
     (:max-debug-logged-messages-arb :integer 1)
     ;; #105 ARB_robustness
     (:reset-notification-strategy-arb :enum 1)
-    ;; 4.3 - table 23.61
+    ;; 4.3 - table 23.61 / 4.5 - table 23.74
     (:max-compute-work-group-count :integer-i 3)
     (:max-compute-work-group-size :integer-i 3)
-    ;; (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
+    (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
     (:max-compute-local-invocations :integer 1) ;; not documented?
     (:max-compute-uniform-blocks :integer 1)
     (:max-compute-texture-image-units :integer 1)
@@ -765,7 +784,21 @@
     (:max-compute-uniform-components :integer 1)
     (:max-compute-image-uniforms :integer 1)
     (:max-combined-compute-uniform-components :integer 1)
-    (:max-compute-shader-storage-blocks :integer 1)))
+    (:max-compute-shader-storage-blocks :integer 1)
+    ;; 4.5 - table 23.80
+    (:max-debug-message-length :integer 1)
+    (:max-debug-logged-messages :integer 1)
+    (:max-debug-group-stack-depth :integer 1)
+    (:max-label-length :integer 1)
+    ;; 4.5 - table 23.81
+    (:max-framebuffer-width :integer 1)
+    (:max-framebuffer-height :integer 1)
+    (:max-framebuffer-layers :integer 1)
+    (:max-framebuffer-samples :integer 1)
+    ;; (:query-counter-bits :query ?) getQueryiv
+    
+
+    ))
 
 ;;; Return the default array size for a state query enum.
 (defun query-enum-size (value)
