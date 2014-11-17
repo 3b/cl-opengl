@@ -137,9 +137,12 @@
     (if (pointerp data)
         (%gl:tex-image-3d
          target level internal-size width height depth border format type data)
-        (with-pixel-array (array type data)
-          (%gl:tex-image-3d target level internal-size width
-                            height depth border format type array)))))
+        (if data
+            (with-pixel-array (array type data)
+              (%gl:tex-image-3d target level internal-size width
+                                height depth border format type array))
+            (%gl:tex-image-3d target level internal-size width height
+                              depth border format type (cffi:null-pointer))))))
 
 (defun tex-image-2d (target level internal-format width height border format
                      type data)
@@ -147,18 +150,24 @@
     (if (pointerp data)
         (%gl:tex-image-2d target level internal-size width height border format
                           type data)
-        (with-pixel-array (array type data)
-          (%gl:tex-image-2d target level internal-size width height border
-                            format type array)))))
+        (if data
+            (with-pixel-array (array type data)
+              (%gl:tex-image-2d target level internal-size width height border
+                                format type array))
+            (%gl:tex-image-2d target level internal-size width height border
+                              format type (cffi:null-pointer))))))
 
 (defun tex-image-1d (target level internal-format width border format type data)
   (let ((internal-size (internal-format->int internal-format)))
     (if (pointerp data)
         (%gl:tex-image-1d target level internal-size width border format
                           type data)
-        (with-pixel-array (array type data)
-          (%gl:tex-image-1d target level internal-size width border format
-                            type array)))))
+        (if data
+            (with-pixel-array (array type data)
+              (%gl:tex-image-1d target level internal-size width border format
+                                type array))
+              (%gl:tex-image-1d target level internal-size width border format
+                                type (cffi:null-pointer))))))
 
 ;;; 3.8.2 Alternate Texture Image Specification Commands
 
