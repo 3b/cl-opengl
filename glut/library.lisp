@@ -34,7 +34,7 @@
 
 (define-foreign-library glut
   (:darwin (:framework "GLUT"))
-  (:windows "freeglut.dll")
+  (:windows (:or "freeglut.dll" "libglut.dll" "libglut-0.dll"))
   (:unix (:or "libglut.so" "libglut.so.3")))
 
 (use-foreign-library glut)
