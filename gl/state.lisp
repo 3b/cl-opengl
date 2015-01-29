@@ -1285,16 +1285,18 @@ currently implemented for speed, so avoid in inner loops"
 (defun get-shader-info-log (shader)
   "Returns as a string the entire info log for SHADER"
   (let ((info-log-length (get-shader shader :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
-      (foreign-string-to-lisp info-log))))
+    (unless (zerop info-log-length)
+      (with-foreign-object (info-log '%gl:char info-log-length)
+        (%gl:get-shader-info-log shader info-log-length (null-pointer) info-log)
+        (foreign-string-to-lisp info-log)))))
 
 (defun get-program-info-log (program)
   "Returns as a string the entire info log for PROGRAM"
   (let ((info-log-length (get-program program :info-log-length)))
-    (with-foreign-object (info-log '%gl:char info-log-length)
-      (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
-      (foreign-string-to-lisp info-log))))
+    (unless (zerop info-log-length)
+      (with-foreign-object (info-log '%gl:char info-log-length)
+        (%gl:get-program-info-log program info-log-length (null-pointer) info-log)
+        (foreign-string-to-lisp info-log)))))
 
 (defun get-shader-source (shader)
   "Returns as a string the entire source of SHADER"
