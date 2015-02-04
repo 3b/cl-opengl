@@ -1306,9 +1306,11 @@ currently implemented for speed, so avoid in inner loops"
 (defun get-shader-source (shader)
   "Returns as a string the entire source of SHADER"
   (let ((source-length (get-shader shader :shader-source-length)))
-    (with-foreign-object (source '%gl:char source-length)
-      (%gl:get-shader-source shader source-length (null-pointer) source)
-      (foreign-string-to-lisp source))))
+    (if (zerop source-length)
+        ""
+        (with-foreign-object (source '%gl:char source-length)
+          (%gl:get-shader-source shader source-length (null-pointer) source)
+          (foreign-string-to-lisp source)))))
 
 ;;; 6.1.15 Saving and Restoring State
 
