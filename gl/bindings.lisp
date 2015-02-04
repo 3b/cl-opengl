@@ -113,7 +113,8 @@
 (defun gl-get-proc-address (name)
   (funcall (or *gl-get-proc-address*
                #+linux #'glx-get-proc-address
-               #+windows #'wgl-get-proc-address)
+               #+windows #'wgl-get-proc-address
+               #'cffi:foreign-symbol-pointer)
            name))
 
 (eval-when (:load-toplevel :execute)
