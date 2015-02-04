@@ -796,7 +796,8 @@
     (:max-framebuffer-layers :integer 1)
     (:max-framebuffer-samples :integer 1)
     ;; (:query-counter-bits :query ?) getQueryiv
-    
+    ;;
+    (:timestamp :integer64 1)
 
     ))
 
