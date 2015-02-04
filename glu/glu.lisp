@@ -254,47 +254,79 @@
 
 ;;;; 5. Polygon Tessellation
 
-;;; TODO: make an object for these too..
-
 ;;;; 5.1 The Tessellation Object
+(defctype tess-pointer :pointer)
 
-(defctype tesselator :pointer)
+(defcfun ("gluNewTess" glu-new-tess) tess-pointer)
 
-(defcfun ("gluNewTess" new-tess) tesselator)
-
-(defcfun ("gluDeleteTess" delete-tess) :void
-  (tess-obj tesselator))
+(defcfun ("gluDeleteTess" glu-delete-tess) :void
+  (tess-obj tess-pointer))
 
 ;;;; 5.2 Polygon Definition
 
-(defcfun ("gluTessBeginPolygon" tess-begin-polygon) :void
-  (tess tesselator)
+(defcfun ("gluTessBeginPolygon" glu-tess-begin-polygon) :void
+  (tess tess-pointer)
   (polygon-data :pointer))
 
-(defcfun ("gluTessBeginContour" tess-begin-contour) :void
-  (tess tesselator))
+(defcfun ("gluTessBeginContour" glu-tess-begin-contour) :void
+  (tess tess-pointer))
 
-(defcfun ("gluTessVertex" tess-vertex) :void
-  (tess tesselator)
+(defcfun ("gluTessVertex" glu-tess-vertex) :void
+  (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
+                        
+(defcfun ("gluTessEndContour" glu-tess-end-contour) :void
+  (tess tess-pointer))
 
-(defcfun ("gluTessEndContour" tess-end-contour) :void
-  (tess tesselator))
-
-(defcfun ("gluTessEndPolygon" tess-end-polygon) :void
-  (tess tesselator))
+(defcfun ("gluTessEndPolygon" glu-tess-end-polygon) :void
+  (tess tess-pointer))
 
 ;;;; 5.3 Callbacks
 
-;;; TODO
-;;(defcfun ("gluTessCallback" tess-callback) :void
-;;  )
+(defcenum (tessellation-type %gl:enum)
+  (:begin 100100)
+  :vertex
+  :end
+  :error
+  :edge-flag
+  :combine
+  :begin-data
+  :vertex-data
+  :end-data
+  :error-data
+  :edge-flag-data
+  :combine-data)
+
+(defcfun ("gluTessCallback" glu-tess-callback) :void
+  (tess tess-pointer) (type tessellation-type) (callback :pointer))
 
 ;;;; 5.4 Control Over Tessellation
+(defcenum (tess-property %gl:enum)
+  (:winding-rule 100140)
+  :boundary-only
+  :tolerance)
 
-;;(defcfun ("gluTessProperty" tess-property) :void
-;;  )
+(defcenum (tess-winding-rule %gl:double)
+  (:odd 100130)
+  :nonzero
+  :positive
+  :negative
+  :abs-geq-two)
+
+(defcfun ("gluTessProperty" %glu-tess-property) :void
+  (tess tess-pointer)
+  (which tess-property)
+  (value %gl:double))
+
+(defun glu-tess-property (tess which value)
+  (let ((cffi-value
+         (ecase which 
+           (:winding-rule (cffi:foreign-enum-value 'tess-winding-rule value))
+           (:boundary-only (cffi:foreign-enum-value '%gl:boolean value))
+           (:tolerance value))))
+    (%glu-tess-property tess which cffi-value)))
+                           
 
 ;;;; 5.7 Backwards Compatibility
 
@@ -343,7 +375,15 @@
   (quadric-object quadric-obj)
   (normals glu-normals))
 
-;; gluQuadricDrawStyle
+(defcenum draw-styles
+  (:point #x186AA)
+  :line
+  :fill 
+  :silhouette)
+
+(defcfun ("gluQuadricDrawStyle" quadric-draw-style) :void
+  (quadric-object quadric-obj)
+  (draw-style draw-styles))
 
 ;;;; 6.4 Quadrics Primitives
 
@@ -455,7 +495,14 @@
   :out-of-memory
   :incompatible-gl-version
   :invalid-operation
-  ;; plus NURBS, Quadrics and Tesselation errors?
+  ;;Tesselation errors
+  (:tess-missing-begin-polygon 100151)
+  (:tess-missing-begin-contour 100152)
+  (:tess-missing-end-polygon 100153)
+  (:tess-missing-end-contour 100154)
+  (:tess-coord-too-large 100155)
+  (:tess-need-combine-callback 100156)
+  ;; plus NURBS, Quadrics
   ;; probably not necessary
   )
 

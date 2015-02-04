@@ -42,6 +42,7 @@
     :components
     ((:file "package")
      (:file "library")
-     (:file "glu")))))
+     (:file "glu")
+     (:file "interface")))))
 
 ;; vim: ft=lisp et

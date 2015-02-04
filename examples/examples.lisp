@@ -10,7 +10,7 @@
 (defparameter +examples+
   '(("Redbook Examples"
      rb-double rb-hello #|rb-varray|# rb-lines rb-polys rb-cube rb-model
-     rb-clip rb-planet rb-robot rb-list rb-stroke rb-smooth rb-movelight)
+     rb-clip rb-planet rb-robot rb-list rb-stroke rb-smooth rb-movelight rb-tess rb-tess-wind rb-quadric rb-bezcurve)
     ("Mesa Demos"
      gears)
     ("SGI Samples")

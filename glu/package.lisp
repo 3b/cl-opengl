@@ -40,9 +40,14 @@
    #:quadric-texture
    #:quadric-orientation
    #:quadric-normals
+   #:quadric-draw-style
    #:new-quadric
+   #:delete-quadric
    #:quadric-normals
    #:sphere
+   #:cylinder
+   #:disk
+   #:partial-disk
    #:build-2d-mipmaps
    #:get-string
    #:check-extension
@@ -53,4 +58,27 @@
    #:pick-matrix
    #:project
    #:un-project
-   #:un-project4))
+   #:un-project4
+   ;; Tessellation
+   #:tessellator
+   #:tess-delete
+   ;; Tessellator methods
+   #:tess-begin-polygon
+   #:tess-begin-contour
+   #:tess-vertex
+   #:tess-end-contour
+   #:tess-end-polygon
+   #:tess-begin
+   #:tess-error
+   #:tess-end
+   #:tess-property
+   ;; Tessellator callbacks
+   #:begin-data-callback
+   #:edge-flag-data-callback
+   #:end-data-callback
+   #:vertex-data-callback
+   #:error-data-callback
+   #:combine-data-callback
+   ;; Tessellator macros
+   #:with-tess-polygon
+   #:with-tess-contour))
