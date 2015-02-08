@@ -103,7 +103,7 @@
 ;;; Fallback get-proc-address bindings which should work for common
 ;;; configurations
 ;;; TODO: Darwin
-#+linux
+#+(or linux freebsd)
 (defcfun ("glXGetProcAddress" glx-get-proc-address) :pointer
   (proc-name :string))
 #+windows
@@ -112,7 +112,7 @@
 
 (defun gl-get-proc-address (name)
   (funcall (or *gl-get-proc-address*
-               #+linux #'glx-get-proc-address
+               #+(or linux freebsd) #'glx-get-proc-address
                #+windows #'wgl-get-proc-address
                #'cffi:foreign-symbol-pointer)
            name))
