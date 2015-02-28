@@ -375,4 +375,6 @@
    #:uniform-matrix-4x2-fv
    #:uniform-matrix-4x3-fv
    #:uniform-matrix-4fv
-   #:uniformiv))
+   #:uniformiv
+   ;; ARB_* Extensions
+   #:get-uniform-block-index))
