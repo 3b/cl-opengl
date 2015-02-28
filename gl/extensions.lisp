@@ -102,3 +102,11 @@
     (:framebuffer )))
 
 (import-export %gl:generate-mipmap %gl:generate-mipmap-ext)
+
+;;;
+;;; ARB_uniform_buffer_object
+;;;
+
+(defun get-uniform-block-index (program uniformblockname)
+  (with-foreign-string (s uniformblockname)
+    (%gl:get-uniform-block-index program s)))
