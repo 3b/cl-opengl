@@ -303,7 +303,7 @@
           t))
   (defun sampler-parameter (sampler pname param)
     (body sampler
-          %gl:tex-parameter-i %gl:tex-parameter-f %gl:tex-parameter-fv)))
+          %gl:sampler-parameter-i %gl:sampler-parameter-f %gl:sampler-parameter-fv)))
 
 ;;; 3.8.12 Texture Objects
 
