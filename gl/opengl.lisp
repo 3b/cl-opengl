@@ -173,7 +173,9 @@
   (destructuring-bind (array-type &rest rest &key type components
                                   &allow-other-keys)
       clause
-    (let ((func-name (symbolicate-package "%GL" array-type "-POINTER"))
+    (let ((func-name (symbolicate-package (princ-to-string '%gl)
+                                          array-type
+                                          (princ-to-string '-pointer)))
           (gl-type (cffi-type-to-gl type))
           (address-expr `(inc-pointer ,psym ,offset))
           (size (length components)))
