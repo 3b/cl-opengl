@@ -145,17 +145,26 @@
                               depth border format type (cffi:null-pointer))))))
 
 (defun tex-image-2d (target level internal-format width height border format
-                     type data)
+                     type data &key raw)
+  ;; if RAW is true, assume DATA is an (UNSIGNED-BYTE 8) vector containing
+  ;; appropriately formatted data for specified TYPE
   (let ((internal-size (internal-format->int internal-format)))
-    (if (pointerp data)
-        (%gl:tex-image-2d target level internal-size width height border format
-                          type data)
-        (if data
-            (with-pixel-array (array type data)
-              (%gl:tex-image-2d target level internal-size width height border
-                                format type array))
-            (%gl:tex-image-2d target level internal-size width height border
-                              format type (cffi:null-pointer))))))
+    (cond
+      ((pointerp data)
+       (%gl:tex-image-2d target level internal-size width height border format
+                         type data))
+      ((and data raw)
+       (check-type data (simple-array (unsigned-byte 8) (*)))
+       (with-pixel-array (array :unsigned-byte data)
+         (%gl:tex-image-2d target level internal-size width height border
+                           format type array)))
+      (data
+       (with-pixel-array (array type data)
+         (%gl:tex-image-2d target level internal-size width height border
+                           format type array)))
+      (t
+       (%gl:tex-image-2d target level internal-size width height border
+                         format type (cffi:null-pointer))))))
 
 (defun tex-image-1d (target level internal-format width border format type data)
   (let ((internal-size (internal-format->int internal-format)))
