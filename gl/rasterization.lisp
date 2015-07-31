@@ -303,7 +303,7 @@
           t))
   (defun sampler-parameter (sampler pname param)
     (body sampler
-          %gl:tex-parameter-i %gl:tex-parameter-f %gl:tex-parameter-fv)))
+          %gl:sampler-parameter-i %gl:sampler-parameter-f %gl:sampler-parameter-fv)))
 
 ;;; 3.8.12 Texture Objects
 
@@ -319,6 +319,11 @@
     (loop for i below count
           collecting (mem-aref texture-array '%gl:uint i))))
 
+(defun gen-texture ()
+  (with-foreign-object (array '%gl:uint 1)
+    (%gl:gen-textures 1 array)
+    (mem-aref array '%gl:uint 0)))
+
 (import-export %gl:bind-sampler)
 
 (defun delete-sampler (samplers)
@@ -331,6 +336,10 @@
     (loop for i below count
           collecting (mem-aref sampler-array '%gl:uint i))))
 
+(defun gen-sampler ()
+  (with-foreign-object (array '%gl:uint 1)
+    (%gl:gen-samplers 1 array)
+    (mem-aref array '%gl:uint 0)))
 
 
 ;;; The following two functions look awkward to use, so we'll provide the two

@@ -78,6 +78,7 @@
    #:bind-buffer
    #:delete-buffers
    #:gen-buffers
+   #:gen-buffer
    #:buffer-data
    #:buffer-sub-data
    #:map-buffer
@@ -195,6 +196,8 @@
    #:bind-texture
    #:delete-textures
    #:gen-textures
+   #:gen-texture
+   #:tex-parameter
    #:are-textures-resident
    #:prioritize-textures
    #:texture-resident-p
@@ -342,6 +345,11 @@
    #:pop-attrib
    #:pop-client-attrib
    #:with-pushed-client-attrib
+   ;; Sampler
+   #:delete-samplers
+   #:gen-samplers
+   #:gen-sampler
+   #:sampler-parameter
    ;; Extensions
    #:is-renderbuffer-ext
    #:bind-renderbuffer-ext
