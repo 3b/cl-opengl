@@ -359,11 +359,11 @@ another buffer is bound within FORMS."
 
 (defmacro with-gl-mapped-buffer ((a target access type) &body body)
   "This is like WITH-MAPPED-BUFFER, but maps to a GL-ARRAY instead."
-  (with-unique-names (p)
-    `(with-mapped-buffer (,p ,target ,access)
-       (let ((,a (make-gl-array-from-pointer ,p ,type)))
-         (declare (dynamic-extent ,a))
-         ,@body))))
+  `(let ((,a (map-buffer-to-gl-array ,target ,access ,type)))
+     (declare (dynamic-extent ,a))
+     (unwind-protect
+          (progn ,@body)
+       (unmap-buffer ,target))))
 
 ;;;
 ;;; 2.10 Rectangles
