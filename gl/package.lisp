@@ -385,4 +385,6 @@
    #:uniform-matrix-4fv
    #:uniformiv
    ;; ARB_* Extensions
-   #:get-uniform-block-index))
+   #:get-uniform-block-index
+   #:gen-framebuffer
+   #:gen-renderbuffer))

@@ -51,6 +51,12 @@
     (loop for i below count
           collecting (mem-aref renderbuffer-array '%gl:uint i))))
 
+(defun gen-renderbuffer ()
+  (with-foreign-object (renderbuffer '%gl:uint 1)
+    (%gl:gen-renderbuffers 1 renderbuffer)
+    (mem-aref renderbuffer '%gl:uint 0)))
+
+
 (defun delete-renderbuffers-ext (renderbuffers)
   (with-opengl-sequence (array '%gl:uint renderbuffers)
     (%gl:delete-renderbuffers-ext (length renderbuffers) array)))
@@ -79,6 +85,11 @@
     (%gl:gen-framebuffers count framebuffer-array)
     (loop for i below count
           collecting (mem-aref framebuffer-array '%gl:uint i))))
+
+(defun gen-framebuffer ()
+  (with-foreign-object (framebuffer '%gl:uint 1)
+    (%gl:gen-framebuffers 1 framebuffer)
+    (mem-aref framebuffer '%gl:uint 0)))
 
 (defun delete-framebuffers-ext (framebuffers)
   (with-opengl-sequence (array '%gl:uint framebuffers)
