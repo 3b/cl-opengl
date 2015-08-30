@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20140919 ( 2014-09-19T03:11:05.177262Z )
+;;; glext version 20150810 ( 2015-08-10T07:01:11.860488Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -375,6 +375,8 @@
   #:get-vertex-array-iv #:get-vertex-array-indexed-iv
   #:get-vertex-array-indexed-64iv #:create-samplers
   #:create-program-pipelines #:create-queries
+  #:get-query-buffer-object-i64v #:get-query-buffer-object-iv
+  #:get-query-buffer-object-ui64v #:get-query-buffer-object-uiv
   #:memory-barrier-by-region #:get-texture-sub-image
   #:get-compressed-texture-sub-image #:get-graphics-reset-status
   #:getn-compressed-tex-image #:getn-tex-image #:getn-uniform-dv
@@ -394,7 +396,8 @@
   #:ortho-x #:point-parameter-x #:point-parameter-xv #:point-size-x
   #:polygon-offset-x #:rotate-x #:sample-coverage-x #:scale-x
   #:tex-env-x #:tex-env-xv #:tex-parameter-x #:tex-parameter-xv
-  #:translate-x #:tbuffer-mask-3dfx #:debug-message-enable-amd
+  #:translate-x #:blend-barrier #:primitive-bounding-box
+  #:tbuffer-mask-3dfx #:debug-message-enable-amd
   #:debug-message-insert-amd #:debug-message-callback-amd
   #:get-debug-message-log-amd #:blend-func-indexed-amd
   #:blend-func-separate-indexed-amd #:blend-equation-indexed-amd
@@ -450,8 +453,8 @@
   #:enable-vertex-attrib-apple #:disable-vertex-attrib-apple
   #:is-vertex-attrib-enabled-apple #:map-vertex-attrib-1d-apple
   #:map-vertex-attrib-1f-apple #:map-vertex-attrib-2d-apple
-  #:map-vertex-attrib-2f-apple #:get-texture-handle-arb
-  #:get-texture-sampler-handle-arb
+  #:map-vertex-attrib-2f-apple #:primitive-bounding-box-arb
+  #:get-texture-handle-arb #:get-texture-sampler-handle-arb
   #:make-texture-handle-resident-arb
   #:make-texture-handle-non-resident-arb #:get-image-handle-arb
   #:make-image-handle-resident-arb
@@ -480,8 +483,24 @@
   #:get-program-string-arb #:is-program-arb
   #:program-parameter-i-arb #:framebuffer-texture-arb
   #:framebuffer-texture-layer-arb #:framebuffer-texture-face-arb
-  #:color-table #:color-table-parameter-fv
-  #:color-table-parameter-iv #:copy-color-table #:get-color-table
+  #:uniform-1i64-arb #:uniform-2i64-arb #:uniform-3i64-arb
+  #:uniform-4i64-arb #:uniform-1i64v-arb #:uniform-2i64v-arb
+  #:uniform-3i64v-arb #:uniform-4i64v-arb #:uniform-1ui64-arb
+  #:uniform-2ui64-arb #:uniform-3ui64-arb #:uniform-4ui64-arb
+  #:uniform-1ui64v-arb #:uniform-2ui64v-arb #:uniform-3ui64v-arb
+  #:uniform-4ui64v-arb #:get-uniform-i64v-arb
+  #:get-uniform-ui64v-arb #:getn-uniform-i64v-arb
+  #:getn-uniform-ui64v-arb #:program-uniform-1i64-arb
+  #:program-uniform-2i64-arb #:program-uniform-3i64-arb
+  #:program-uniform-4i64-arb #:program-uniform-1i64v-arb
+  #:program-uniform-2i64v-arb #:program-uniform-3i64v-arb
+  #:program-uniform-4i64v-arb #:program-uniform-1ui64-arb
+  #:program-uniform-2ui64-arb #:program-uniform-3ui64-arb
+  #:program-uniform-4ui64-arb #:program-uniform-1ui64v-arb
+  #:program-uniform-2ui64v-arb #:program-uniform-3ui64v-arb
+  #:program-uniform-4ui64v-arb #:color-table
+  #:color-table-parameter-fv #:color-table-parameter-iv
+  #:copy-color-table #:get-color-table
   #:get-color-table-parameter-fv #:get-color-table-parameter-iv
   #:color-sub-table #:copy-color-sub-table #:convolution-filter-1d
   #:convolution-filter-2d #:convolution-parameter-f
@@ -518,18 +537,21 @@
   #:multi-tex-coord-4sv-arb #:gen-queries-arb #:delete-queries-arb
   #:is-query-arb #:begin-query-arb #:end-query-arb
   #:get-query-iv-arb #:get-query-object-iv-arb
-  #:get-query-object-uiv-arb #:point-parameter-f-arb
-  #:point-parameter-fv-arb #:get-graphics-reset-status-arb
-  #:getn-tex-image-arb #:readn-pixels-arb
-  #:getn-compressed-tex-image-arb #:getn-uniform-fv-arb
-  #:getn-uniform-iv-arb #:getn-uniform-uiv-arb #:getn-uniform-dv-arb
-  #:getn-map-dv-arb #:getn-map-fv-arb #:getn-map-iv-arb
-  #:getn-pixel-map-fv-arb #:getn-pixel-map-uiv-arb
+  #:get-query-object-uiv-arb #:max-shader-compiler-threads-arb
+  #:point-parameter-f-arb #:point-parameter-fv-arb
+  #:get-graphics-reset-status-arb #:getn-tex-image-arb
+  #:readn-pixels-arb #:getn-compressed-tex-image-arb
+  #:getn-uniform-fv-arb #:getn-uniform-iv-arb #:getn-uniform-uiv-arb
+  #:getn-uniform-dv-arb #:getn-map-dv-arb #:getn-map-fv-arb
+  #:getn-map-iv-arb #:getn-pixel-map-fv-arb #:getn-pixel-map-uiv-arb
   #:getn-pixel-map-usv-arb #:getn-polygon-stipple-arb
   #:getn-color-table-arb #:getn-convolution-filter-arb
   #:getn-separable-filter-arb #:getn-histogram-arb #:getn-minmax-arb
-  #:min-sample-shading-arb #:delete-object-arb #:get-handle-arb
-  #:detach-object-arb #:create-shader-object-arb #:shader-source-arb
+  #:framebuffer-sample-locations-fv-arb
+  #:named-framebuffer-sample-locations-fv-arb
+  #:evaluate-depth-values-arb #:min-sample-shading-arb
+  #:delete-object-arb #:get-handle-arb #:detach-object-arb
+  #:create-shader-object-arb #:shader-source-arb
   #:compile-shader-arb #:create-program-object-arb
   #:attach-object-arb #:link-program-arb #:use-program-object-arb
   #:validate-program-arb #:uniform-1f-arb #:uniform-2f-arb
@@ -633,10 +655,13 @@
   #:normal-stream-3fv-ati #:normal-stream-3d-ati
   #:normal-stream-3dv-ati #:client-active-vertex-stream-ati
   #:vertex-blend-env-i-ati #:vertex-blend-env-f-ati
+  #:draw-arrays-instanced-base-instance-ext
+  #:draw-elements-instanced-base-instance-ext
+  #:draw-elements-instanced-base-vertex-base-instance-ext
   #:uniform-buffer-ext #:get-uniform-buffer-size-ext
   #:get-uniform-offset-ext #:blend-color-ext
   #:blend-equation-separate-ext #:blend-func-separate-ext
-  #:blend-equation-ext #:color-sub-table-ext
+  #:blend-equation-ext #:buffer-storage-ext #:color-sub-table-ext
   #:copy-color-sub-table-ext #:lock-arrays-ext #:unlock-arrays-ext
   #:convolution-filter-1d-ext #:convolution-filter-2d-ext
   #:convolution-parameter-f-ext #:convolution-parameter-fv-ext
@@ -827,7 +852,10 @@
   #:color-mask-indexed-ext #:enable-i-ext #:disable-i-ext
   #:blend-equation-i-ext #:blend-equation-separate-i-ext
   #:blend-func-i-ext #:blend-func-separate-i-ext #:color-mask-i-ext
-  #:is-enabled-i-ext #:draw-arrays-instanced-ext
+  #:is-enabled-i-ext #:draw-elements-base-vertex-ext
+  #:draw-range-elements-base-vertex-ext
+  #:draw-elements-instanced-base-vertex-ext
+  #:multi-draw-elements-base-vertex-ext #:draw-arrays-instanced-ext
   #:draw-elements-instanced-ext #:draw-range-elements-ext
   #:fog-coord-f-ext #:fog-coord-fv-ext #:fog-coord-d-ext
   #:fog-coord-dv-ext #:fog-coord-pointer-ext #:blit-framebuffer-ext
@@ -855,10 +883,12 @@
   #:apply-texture-ext #:texture-light-ext #:texture-material-ext
   #:map-buffer-range-ext #:flush-mapped-buffer-range-ext
   #:multi-draw-arrays-ext #:multi-draw-elements-ext
-  #:sample-mask-ext #:sample-pattern-ext
-  #:framebuffer-texture-2d-multisample-ext #:read-buffer-indexed-ext
-  #:draw-buffers-indexed-ext #:get-integer-i-v-ext #:color-table-ext
-  #:get-color-table-ext #:get-color-table-parameter-iv-ext
+  #:multi-draw-arrays-indirect-ext
+  #:multi-draw-elements-indirect-ext #:sample-mask-ext
+  #:sample-pattern-ext #:framebuffer-texture-2d-multisample-ext
+  #:read-buffer-indexed-ext #:draw-buffers-indexed-ext
+  #:get-integer-i-v-ext #:color-table-ext #:get-color-table-ext
+  #:get-color-table-parameter-iv-ext
   #:get-color-table-parameter-fv-ext
   #:pixel-transform-parameter-i-ext
   #:pixel-transform-parameter-f-ext
@@ -868,36 +898,36 @@
   #:get-pixel-transform-parameter-fv-ext #:point-parameter-f-ext
   #:point-parameter-fv-ext #:polygon-offset-ext
   #:polygon-offset-clamp-ext #:primitive-bounding-box-ext
-  #:provoking-vertex-ext #:get-graphics-reset-status-ext
-  #:readn-pixels-ext #:getn-uniformfv-ext #:getn-uniformiv-ext
-  #:secondary-color-3b-ext #:secondary-color-3bv-ext
-  #:secondary-color-3d-ext #:secondary-color-3dv-ext
-  #:secondary-color-3f-ext #:secondary-color-3fv-ext
-  #:secondary-color-3i-ext #:secondary-color-3iv-ext
-  #:secondary-color-3s-ext #:secondary-color-3sv-ext
-  #:secondary-color-3ub-ext #:secondary-color-3ubv-ext
-  #:secondary-color-3ui-ext #:secondary-color-3uiv-ext
-  #:secondary-color-3us-ext #:secondary-color-3usv-ext
-  #:secondary-color-pointer-ext #:use-shader-program-ext
-  #:active-program-ext #:create-shader-program-ext
-  #:active-shader-program-ext #:bind-program-pipeline-ext
-  #:create-shader-programv-ext #:delete-program-pipelines-ext
-  #:gen-program-pipelines-ext #:get-program-pipeline-info-log-ext
-  #:get-program-pipeline-iv-ext #:is-program-pipeline-ext
-  #:use-program-stages-ext #:validate-program-pipeline-ext
-  #:bind-image-texture-ext #:memory-barrier-ext
-  #:stencil-clear-tag-ext #:active-stencil-face-ext
-  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext
-  #:patch-parameter-i-ext #:tex-image-3d-ext #:tex-sub-image-3d-ext
-  #:framebuffer-texture-layer-ext #:tex-parameter-iiv-ext
-  #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext
-  #:get-tex-parameter-iuiv-ext #:sampler-parameter-iiv-ext
-  #:sampler-parameter-iuiv-ext #:get-sampler-parameter-iiv-ext
-  #:get-sampler-parameter-iuiv-ext #:tex-buffer-ext
-  #:tex-buffer-range-ext #:clear-color-ii-ext #:clear-color-iui-ext
-  #:are-textures-resident-ext #:bind-texture-ext
-  #:delete-textures-ext #:gen-textures-ext #:is-texture-ext
-  #:prioritize-textures-ext #:texture-normal-ext
+  #:provoking-vertex-ext #:raster-samples-ext
+  #:get-graphics-reset-status-ext #:readn-pixels-ext
+  #:getn-uniformfv-ext #:getn-uniformiv-ext #:secondary-color-3b-ext
+  #:secondary-color-3bv-ext #:secondary-color-3d-ext
+  #:secondary-color-3dv-ext #:secondary-color-3f-ext
+  #:secondary-color-3fv-ext #:secondary-color-3i-ext
+  #:secondary-color-3iv-ext #:secondary-color-3s-ext
+  #:secondary-color-3sv-ext #:secondary-color-3ub-ext
+  #:secondary-color-3ubv-ext #:secondary-color-3ui-ext
+  #:secondary-color-3uiv-ext #:secondary-color-3us-ext
+  #:secondary-color-3usv-ext #:secondary-color-pointer-ext
+  #:use-shader-program-ext #:active-program-ext
+  #:create-shader-program-ext #:active-shader-program-ext
+  #:bind-program-pipeline-ext #:create-shader-programv-ext
+  #:delete-program-pipelines-ext #:gen-program-pipelines-ext
+  #:get-program-pipeline-info-log-ext #:get-program-pipeline-iv-ext
+  #:is-program-pipeline-ext #:use-program-stages-ext
+  #:validate-program-pipeline-ext #:bind-image-texture-ext
+  #:memory-barrier-ext #:stencil-clear-tag-ext
+  #:active-stencil-face-ext #:tex-sub-image-1d-ext
+  #:tex-sub-image-2d-ext #:patch-parameter-i-ext #:tex-image-3d-ext
+  #:tex-sub-image-3d-ext #:framebuffer-texture-layer-ext
+  #:tex-parameter-iiv-ext #:tex-parameter-iuiv-ext
+  #:get-tex-parameter-iiv-ext #:get-tex-parameter-iuiv-ext
+  #:sampler-parameter-iiv-ext #:sampler-parameter-iuiv-ext
+  #:get-sampler-parameter-iiv-ext #:get-sampler-parameter-iuiv-ext
+  #:tex-buffer-ext #:tex-buffer-range-ext #:clear-color-ii-ext
+  #:clear-color-iui-ext #:are-textures-resident-ext
+  #:bind-texture-ext #:delete-textures-ext #:gen-textures-ext
+  #:is-texture-ext #:prioritize-textures-ext #:texture-normal-ext
   #:tex-storage-1d-ext #:tex-storage-2d-ext #:tex-storage-3d-ext
   #:texture-view-ext #:begin-transform-feedback-ext
   #:end-transform-feedback-ext #:bind-buffer-range-ext
@@ -946,7 +976,8 @@
   #:tex-coord-pointer-list-ibm #:vertex-pointer-list-ibm
   #:renderbuffer-storage-multisample-img
   #:framebuffer-texture-2d-multisample-img #:clip-plane-f-img
-  #:clip-plane-x-img #:blend-func-separate-ingr #:sync-texture-intel
+  #:clip-plane-x-img #:blend-func-separate-ingr
+  #:apply-framebuffer-attachment-cmaa-intel #:sync-texture-intel
   #:unmap-texture-2d-intel #:map-texture-2d-intel
   #:vertex-pointer-v-intel #:normal-pointer-v-intel
   #:color-pointer-v-intel #:tex-coord-pointer-v-intel
@@ -984,8 +1015,16 @@
   #:uniform-handle-ui64v-nv #:program-uniform-handle-ui64-nv
   #:program-uniform-handle-ui64v-nv #:is-texture-handle-resident-nv
   #:is-image-handle-resident-nv #:blend-parameter-i-nv
-  #:blend-barrier-nv #:begin-conditional-render-nv
-  #:end-conditional-render-nv #:copy-buffer-sub-data-nv
+  #:blend-barrier-nv #:create-states-nv #:delete-states-nv
+  #:is-state-nv #:state-capture-nv #:get-command-header-nv
+  #:get-stage-index-nv #:draw-commands-nv #:draw-commands-address-nv
+  #:draw-commands-states-nv #:draw-commands-states-address-nv
+  #:create-command-lists-nv #:delete-command-lists-nv
+  #:is-command-list-nv #:list-draw-commands-states-client-nv
+  #:command-list-segments-nv #:compile-command-list-nv
+  #:call-command-list-nv #:begin-conditional-render-nv
+  #:end-conditional-render-nv #:subpixel-precision-bias-nv
+  #:conservative-raster-parameter-f-nv #:copy-buffer-sub-data-nv
   #:copy-image-sub-data-nv #:coverage-mask-nv
   #:coverage-operation-nv #:depth-range-d-nv #:clear-depth-d-nv
   #:depth-bounds-d-nv #:draw-buffers-nv #:draw-arrays-instanced-nv
@@ -997,12 +1036,13 @@
   #:eval-maps-nv #:get-multisample-fv-nv #:sample-mask-indexed-nv
   #:tex-renderbuffer-nv #:delete-fences-nv #:gen-fences-nv
   #:is-fence-nv #:test-fence-nv #:get-fence-iv-nv #:finish-fence-nv
-  #:set-fence-nv #:program-named-parameter-4f-nv
-  #:program-named-parameter-4fv-nv #:program-named-parameter-4d-nv
-  #:program-named-parameter-4dv-nv
+  #:set-fence-nv #:fragment-coverage-color-nv
+  #:program-named-parameter-4f-nv #:program-named-parameter-4fv-nv
+  #:program-named-parameter-4d-nv #:program-named-parameter-4dv-nv
   #:get-program-named-parameter-fv-nv
   #:get-program-named-parameter-dv-nv #:blit-framebuffer-nv
-  #:renderbuffer-storage-multisample-nv
+  #:coverage-modulation-table-nv #:get-coverage-modulation-table-nv
+  #:coverage-modulation-nv #:renderbuffer-storage-multisample-nv
   #:renderbuffer-storage-multisample-coverage-nv
   #:program-vertex-limit-nv #:framebuffer-texture-face-ext
   #:program-local-parameter-i4i-nv #:program-local-parameter-i4iv-nv
@@ -1037,13 +1077,14 @@
   #:vertex-attrib-4hv-nv #:vertex-attribs-1hv-nv
   #:vertex-attribs-2hv-nv #:vertex-attribs-3hv-nv
   #:vertex-attribs-4hv-nv #:vertex-attrib-divisor-nv
-  #:uniform-matrix-2x3-fv-nv #:uniform-matrix-3x2-fv-nv
-  #:uniform-matrix-2x4-fv-nv #:uniform-matrix-4x2-fv-nv
-  #:uniform-matrix-3x4-fv-nv #:uniform-matrix-4x3-fv-nv
-  #:gen-occlusion-queries-nv #:delete-occlusion-queries-nv
-  #:is-occlusion-query-nv #:begin-occlusion-query-nv
-  #:end-occlusion-query-nv #:get-occlusion-query-iv-nv
-  #:get-occlusion-query-uiv-nv #:program-buffer-parameters-fv-nv
+  #:get-internalformat-sample-iv-nv #:uniform-matrix-2x3-fv-nv
+  #:uniform-matrix-3x2-fv-nv #:uniform-matrix-2x4-fv-nv
+  #:uniform-matrix-4x2-fv-nv #:uniform-matrix-3x4-fv-nv
+  #:uniform-matrix-4x3-fv-nv #:gen-occlusion-queries-nv
+  #:delete-occlusion-queries-nv #:is-occlusion-query-nv
+  #:begin-occlusion-query-nv #:end-occlusion-query-nv
+  #:get-occlusion-query-iv-nv #:get-occlusion-query-uiv-nv
+  #:program-buffer-parameters-fv-nv
   #:program-buffer-parameters-iiv-nv
   #:program-buffer-parameters-iuiv-nv #:gen-paths-nv
   #:delete-paths-nv #:is-path-nv #:path-commands-nv #:path-coords-nv
@@ -1056,15 +1097,12 @@
   #:stencil-fill-path-nv #:stencil-stroke-path-nv
   #:stencil-fill-path-instanced-nv
   #:stencil-stroke-path-instanced-nv #:path-cover-depth-func-nv
-  #:path-color-gen-nv #:path-tex-gen-nv #:path-fog-gen-nv
   #:cover-fill-path-nv #:cover-stroke-path-nv
   #:cover-fill-path-instanced-nv #:cover-stroke-path-instanced-nv
   #:get-path-parameter-iv-nv #:get-path-parameter-fv-nv
   #:get-path-commands-nv #:get-path-coords-nv
   #:get-path-dash-array-nv #:get-path-metrics-nv
   #:get-path-metric-range-nv #:get-path-spacing-nv
-  #:get-path-color-gen-iv-nv #:get-path-color-gen-fv-nv
-  #:get-path-tex-gen-iv-nv #:get-path-tex-gen-fv-nv
   #:is-point-in-fill-path-nv #:is-point-in-stroke-path-nv
   #:get-path-length-nv #:point-along-path-nv #:matrix-load-3x2-f-nv
   #:matrix-load-3x3-f-nv #:matrix-load-transpose-3x3-f-nv
@@ -1076,8 +1114,11 @@
   #:path-glyph-index-range-nv #:path-glyph-index-array-nv
   #:path-memory-glyph-index-array-nv
   #:program-path-fragment-input-gen-nv #:get-program-resource-fv-nv
+  #:path-color-gen-nv #:path-tex-gen-nv #:path-fog-gen-nv
+  #:get-path-color-gen-iv-nv #:get-path-color-gen-fv-nv
+  #:get-path-tex-gen-iv-nv #:get-path-tex-gen-fv-nv
   #:pixel-data-range-nv #:flush-pixel-data-range-nv
-  #:point-parameter-i-nv #:point-parameter-iv-nv
+  #:point-parameter-i-nv #:point-parameter-iv-nv #:polygon-mode-nv
   #:present-frame-keyed-nv #:present-frame-dual-fill-nv
   #:get-video-iv-nv #:get-video-uiv-nv #:get-video-i64v-nv
   #:get-video-ui64v-nv #:primitive-restart-nv
@@ -1092,7 +1133,10 @@
   #:get-final-combiner-input-parameter-fv-nv
   #:get-final-combiner-input-parameter-iv-nv
   #:combiner-stage-parameter-fv-nv
-  #:get-combiner-stage-parameter-fv-nv #:make-buffer-resident-nv
+  #:get-combiner-stage-parameter-fv-nv
+  #:framebuffer-sample-locations-fv-nv
+  #:named-framebuffer-sample-locations-fv-nv
+  #:resolve-depth-values-nv #:make-buffer-resident-nv
   #:make-buffer-non-resident-nv #:is-buffer-resident-nv
   #:make-named-buffer-resident-nv
   #:make-named-buffer-non-resident-nv #:is-named-buffer-resident-nv
@@ -1186,7 +1230,11 @@
   #:get-video-capture-stream-fv-nv #:get-video-capture-stream-dv-nv
   #:video-capture-nv #:video-capture-stream-parameter-iv-nv
   #:video-capture-stream-parameter-fv-nv
-  #:video-capture-stream-parameter-dv-nv
+  #:video-capture-stream-parameter-dv-nv #:viewport-array-v-nv
+  #:viewport-indexed-f-nv #:viewport-indexed-fv-nv
+  #:scissor-array-v-nv #:scissor-indexed-nv #:scissor-indexed-v-nv
+  #:depth-range-array-fv-nv #:depth-range-indexed-f-nv
+  #:get-float-i-v-nv #:enable-i-nv #:disable-i-nv #:is-enabled-i-nv
   #:egl-image-target-texture-2d-oes
   #:egl-image-target-renderbuffer-storage-oes
   #:blend-equation-separate-oes #:blend-func-separate-oes
@@ -1198,28 +1246,35 @@
   #:tex-coord-2b-oes #:tex-coord-2bv-oes #:tex-coord-3b-oes
   #:tex-coord-3bv-oes #:tex-coord-4b-oes #:tex-coord-4bv-oes
   #:vertex-2b-oes #:vertex-2bv-oes #:vertex-3b-oes #:vertex-3bv-oes
-  #:vertex-4b-oes #:vertex-4bv-oes #:draw-tex-s-oes #:draw-tex-i-oes
-  #:draw-tex-x-oes #:draw-tex-sv-oes #:draw-tex-iv-oes
-  #:draw-tex-xv-oes #:draw-tex-f-oes #:draw-tex-fv-oes
-  #:alpha-func-x-oes #:clear-color-x-oes #:clear-depth-x-oes
-  #:clip-plane-x-oes #:color-4x-oes #:depth-range-x-oes #:fog-x-oes
-  #:fog-xv-oes #:frustum-x-oes #:get-clip-plane-x-oes
-  #:get-fixed-v-oes #:get-tex-env-xv-oes #:get-tex-parameter-xv-oes
-  #:light-model-x-oes #:light-model-xv-oes #:light-x-oes
-  #:light-xv-oes #:line-width-x-oes #:load-matrix-x-oes
-  #:material-x-oes #:material-xv-oes #:mult-matrix-x-oes
-  #:multi-tex-coord-4x-oes #:normal-3x-oes #:ortho-x-oes
-  #:point-parameter-xv-oes #:point-size-x-oes #:polygon-offset-x-oes
-  #:rotate-x-oes #:sample-coverage-oes #:scale-x-oes #:tex-env-x-oes
-  #:tex-env-xv-oes #:tex-parameter-x-oes #:tex-parameter-xv-oes
-  #:translate-x-oes #:get-light-xv-oes #:get-material-xv-oes
-  #:point-parameter-x-oes #:sample-coverage-x-oes #:accum-x-oes
-  #:bitmap-x-oes #:blend-color-x-oes #:clear-accum-x-oes
-  #:color-3x-oes #:color-3xv-oes #:color-4xv-oes
-  #:convolution-parameter-x-oes #:convolution-parameter-xv-oes
-  #:eval-coord-1x-oes #:eval-coord-1xv-oes #:eval-coord-2x-oes
-  #:eval-coord-2xv-oes #:feedback-buffer-x-oes
-  #:get-convolution-parameter-xv-oes
+  #:vertex-4b-oes #:vertex-4bv-oes #:copy-image-sub-data-oes
+  #:enable-i-oes #:disable-i-oes #:blend-equation-i-oes
+  #:blend-equation-separate-i-oes #:blend-func-i-oes
+  #:blend-func-separate-i-oes #:color-mask-i-oes #:is-enabled-i-oes
+  #:draw-elements-base-vertex-oes
+  #:draw-range-elements-base-vertex-oes
+  #:draw-elements-instanced-base-vertex-oes
+  #:multi-draw-elements-base-vertex-oes #:draw-tex-s-oes
+  #:draw-tex-i-oes #:draw-tex-x-oes #:draw-tex-sv-oes
+  #:draw-tex-iv-oes #:draw-tex-xv-oes #:draw-tex-f-oes
+  #:draw-tex-fv-oes #:alpha-func-x-oes #:clear-color-x-oes
+  #:clear-depth-x-oes #:clip-plane-x-oes #:color-4x-oes
+  #:depth-range-x-oes #:fog-x-oes #:fog-xv-oes #:frustum-x-oes
+  #:get-clip-plane-x-oes #:get-fixed-v-oes #:get-tex-env-xv-oes
+  #:get-tex-parameter-xv-oes #:light-model-x-oes
+  #:light-model-xv-oes #:light-x-oes #:light-xv-oes
+  #:line-width-x-oes #:load-matrix-x-oes #:material-x-oes
+  #:material-xv-oes #:mult-matrix-x-oes #:multi-tex-coord-4x-oes
+  #:normal-3x-oes #:ortho-x-oes #:point-parameter-xv-oes
+  #:point-size-x-oes #:polygon-offset-x-oes #:rotate-x-oes
+  #:scale-x-oes #:tex-env-x-oes #:tex-env-xv-oes
+  #:tex-parameter-x-oes #:tex-parameter-xv-oes #:translate-x-oes
+  #:get-light-xv-oes #:get-material-xv-oes #:point-parameter-x-oes
+  #:sample-coverage-x-oes #:accum-x-oes #:bitmap-x-oes
+  #:blend-color-x-oes #:clear-accum-x-oes #:color-3x-oes
+  #:color-3xv-oes #:color-4xv-oes #:convolution-parameter-x-oes
+  #:convolution-parameter-xv-oes #:eval-coord-1x-oes
+  #:eval-coord-1xv-oes #:eval-coord-2x-oes #:eval-coord-2xv-oes
+  #:feedback-buffer-x-oes #:get-convolution-parameter-xv-oes
   #:get-histogram-parameter-xv-oes #:get-light-x-oes
   #:get-map-xv-oes #:get-material-x-oes #:get-pixel-map-xv
   #:get-tex-gen-xv-oes #:get-tex-level-parameter-xv-oes
@@ -1247,22 +1302,30 @@
   #:check-framebuffer-status-oes #:framebuffer-renderbuffer-oes
   #:framebuffer-texture-2d-oes
   #:get-framebuffer-attachment-parameter-iv-oes
-  #:generate-mipmap-oes #:get-program-binary-oes
-  #:program-binary-oes #:map-buffer-oes #:unmap-buffer-oes
-  #:get-buffer-pointer-v-oes #:current-palette-matrix-oes
+  #:generate-mipmap-oes #:framebuffer-texture-oes
+  #:get-program-binary-oes #:program-binary-oes #:map-buffer-oes
+  #:unmap-buffer-oes #:get-buffer-pointer-v-oes
+  #:current-palette-matrix-oes
   #:load-palette-from-model-view-matrix-oes
   #:matrix-index-pointer-oes #:weight-pointer-oes
-  #:point-size-pointer-oes #:query-matrix-x-oes
-  #:min-sample-shading-oes #:clear-depth-f-oes #:clip-plane-f-oes
-  #:depth-range-f-oes #:frustum-f-oes #:get-clip-plane-f-oes
-  #:ortho-f-oes #:tex-image-3d-oes #:tex-sub-image-3d-oes
+  #:point-size-pointer-oes #:primitive-bounding-box-oes
+  #:query-matrix-x-oes #:min-sample-shading-oes #:clear-depth-f-oes
+  #:clip-plane-f-oes #:depth-range-f-oes #:frustum-f-oes
+  #:get-clip-plane-f-oes #:ortho-f-oes #:patch-parameter-i-oes
+  #:tex-image-3d-oes #:tex-sub-image-3d-oes
   #:copy-tex-sub-image-3d-oes #:compressed-tex-image-3d-oes
   #:compressed-tex-sub-image-3d-oes #:framebuffer-texture-3d-oes
-  #:tex-gen-f-oes #:tex-gen-fv-oes #:tex-gen-i-oes #:tex-gen-iv-oes
+  #:tex-parameter-iiv-oes #:tex-parameter-iuiv-oes
+  #:get-tex-parameter-iiv-oes #:get-tex-parameter-iuiv-oes
+  #:sampler-parameter-iiv-oes #:sampler-parameter-iuiv-oes
+  #:get-sampler-parameter-iiv-oes #:get-sampler-parameter-iuiv-oes
+  #:tex-buffer-oes #:tex-buffer-range-oes #:tex-gen-f-oes
+  #:tex-gen-fv-oes #:tex-gen-i-oes #:tex-gen-iv-oes
   #:get-tex-gen-fv-oes #:get-tex-gen-iv-oes
-  #:tex-storage-3d-multisample-oes #:bind-vertex-array-oes
-  #:delete-vertex-arrays-oes #:gen-vertex-arrays-oes
-  #:is-vertex-array-oes #:hint-pgi #:alpha-func-qcom
+  #:tex-storage-3d-multisample-oes #:texture-view-oes
+  #:bind-vertex-array-oes #:delete-vertex-arrays-oes
+  #:gen-vertex-arrays-oes #:is-vertex-array-oes
+  #:framebuffer-texture-multiview-ovr #:hint-pgi #:alpha-func-qcom
   #:get-driver-controls-qcom #:get-driver-control-string-qcom
   #:enable-driver-control-qcom #:disable-driver-control-qcom
   #:ext-get-textures-qcom #:ext-get-buffers-qcom
