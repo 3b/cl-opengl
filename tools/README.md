@@ -1,18 +1,18 @@
 To rebuild/update bindings:
 
-0. Download updated .spec file (optional):
-    in top-level cl-opengl dir
+0. Download updated .spec file (optional):  
+    In top-level cl-opengl dir  
     `make specs`
 
-1. Build bindings:
-    in top-level cl-opengl dir
+1. Build bindings:  
+    In top-level cl-opengl dir  
     `make bindings > /tmp/changed`
 
-2. Look at `/tmp/changed` file / `git diff` and see if any names need edited
-    mostly looking at function names or suspicious value changes in enums,
+2. Look at `/tmp/changed` file / `git diff` and see if any names need edited.  
+    Mostly looking at function names or suspicious value changes in enums,
     or if any argument types changed in a way that needs manual adjustment.
     
-    for example add `-` before `i64v` in
+    For example add `-` before `i64v` in
     ```
     (defglextfun ("glGetQueryBufferObjecti64v" get-query-buffer-objecti64v) :void
       (id uint)
@@ -30,7 +30,7 @@ To rebuild/update bindings:
     `i64v` and extension suffixes `ARB`,`EXT`,etc. Look at existing
     functions and try to match them if possible.
     
-    Also check for `duplicate enum` messages, and see
+    Also check for any new `duplicate enum` messages, and see
     `special-cases.lisp` for example of handling differences between
     GL and GLES.
 
