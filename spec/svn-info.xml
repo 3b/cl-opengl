@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <info>
 <entry
+   revision="31887"
    kind="dir"
-   path="api"
-   revision="28242">
+   path="api">
 <url>https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api</url>
 <relative-url>^/ogl/trunk/doc/registry/public/api</relative-url>
 <repository>
@@ -11,9 +11,9 @@
 <uuid>e7fa87d3-cd2b-0410-9028-fcbf551c1848</uuid>
 </repository>
 <commit
-   revision="28221">
+   revision="31811">
 <author>oddhack</author>
-<date>2014-09-19T03:11:05.177262Z</date>
+<date>2015-08-10T07:01:11.860488Z</date>
 </commit>
 <lock>
 <created>1970-01-01T00:00:00.000000Z</created>
