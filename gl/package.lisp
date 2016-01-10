@@ -387,4 +387,9 @@
    ;; ARB_* Extensions
    #:get-uniform-block-index
    #:gen-framebuffer
-   #:gen-renderbuffer))
+   #:gen-renderbuffer
+   #:create-buffers
+   #:create-buffer
+   #:named-buffer-storage
+   #:create-vertex-array
+   #:create-vertex-arrays))
