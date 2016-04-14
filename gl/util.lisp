@@ -60,7 +60,7 @@
     (:signed-char :byte)
     (:unsigned-char :unsigned-byte)
     ((:short :signed-short) :short)
-    (:unsigned-short :unsigned-short)
+    ((:ushort :unsigned-short) :unsigned-short)
     ((:int :signed-int) :int)
     (:unsigned-int :unsigned-int)
     (:float :float)
