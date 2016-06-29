@@ -58,12 +58,12 @@
 ;;; Converts a CFFI type to the appropriate GL enum.
 (defun cffi-type-to-gl (type)
   (ecase type
-    (:signed-char :byte)
-    (:unsigned-char :unsigned-byte)
+    ((:char :signed-char) :byte)
+    ((:uchar :unsigned-char) :unsigned-byte)
     ((:short :signed-short) :short)
-    (:unsigned-short :unsigned-short)
+    ((:ushort :unsigned-short) :unsigned-short)
     ((:int :signed-int) :int)
-    (:unsigned-int :unsigned-int)
+    ((:uint :unsigned-int) :unsigned-int)
     (:float :float)
     (:double :double)))
 
