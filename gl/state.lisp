@@ -35,6 +35,45 @@
 ;;; 6.1 Querying GL State
 ;;;
 
+;;; FIXME: Enable/Disable do not belong here, but I can't find the proper
+;;; place to put them. They appear the first time in 2.11.3, but that's
+;;; about normal transformations.
+
+;; external
+(defun enable (&rest caps)
+  (declare (dynamic-extent caps))
+  (dolist (cap caps)
+    (%gl:enable cap)))
+
+(define-compiler-macro enable (&rest caps)
+  `(progn
+     ,@(loop for cap in caps
+          for v = (when (keywordp cap)
+                    (foreign-enum-value '%gl:enum cap :errorp nil))
+          when v collect `(%gl:enable ,v)
+          else collect `(%gl:enable ,cap))))
+
+;; external
+(defun disable (&rest caps)
+  (declare (dynamic-extent caps))
+  (dolist (cap caps)
+    (%gl:disable cap)))
+
+(define-compiler-macro disable (&rest caps)
+  `(progn
+     ,@(loop for cap in caps
+          for v = (when (keywordp cap)
+                    (foreign-enum-value '%gl:enum cap :errorp nil))
+          when v collect `(%gl:disable ,v)
+          else collect `(%gl:disable ,cap))))
+
+;; external
+(definline enabledp (cap)
+  (%gl:is-enabled cap))
+
+(definline enabledp-i (cap index)
+  (%gl:is-enabled-i cap index))
+
 ;;; 6.1.1 Simple queries
 
 ;;; Association list mapping enums for known queries to the number and type of
@@ -1078,45 +1117,6 @@
                size))))
       form))
 
-
-;;; FIXME: Enable/Disable do not belong here, but I can't find the proper
-;;; place to put them. They appear the first time in 2.11.3, but that's
-;;; about normal transformations.
-
-;; external
-(defun enable (&rest caps)
-  (declare (dynamic-extent caps))
-  (dolist (cap caps)
-    (%gl:enable cap)))
-
-(define-compiler-macro enable (&rest caps)
-  `(progn
-     ,@(loop for cap in caps
-          for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
-          when v collect `(%gl:enable ,v)
-          else collect `(%gl:enable ,cap))))
-
-;; external
-(defun disable (&rest caps)
-  (declare (dynamic-extent caps))
-  (dolist (cap caps)
-    (%gl:disable cap)))
-
-(define-compiler-macro disable (&rest caps)
-  `(progn
-     ,@(loop for cap in caps
-          for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
-          when v collect `(%gl:disable ,v)
-          else collect `(%gl:disable ,cap))))
-
-;; external
-(definline enabledp (cap)
-  (%gl:is-enabled cap))
-
-(definline enabledp-i (cap index)
-  (%gl:is-enabled-i cap index))
 
 ;;; 6.1.11 Pointer and String Queries
 

@@ -107,6 +107,54 @@
                %gl:disable-vertex-attrib-array
                %gl:draw-arrays)
 
+(defstruct (gl-array (:copier nil))
+  "Pointer to C array with size and type information attached."
+  (pointer (null-pointer))
+  (size 0 :type unsigned-byte)
+  (type nil :type symbol))
+
+(defstruct (gl-vertex-array (:copier nil) (:include gl-array))
+  "Like GL-ARRAY, but with an aditional vertex array binder."
+  (binder #'identity :type function))
+
+(defun alloc-gl-array (type count)
+  (if (get type 'vertex-array-binder)
+      (make-gl-vertex-array
+       :pointer (foreign-alloc type :count count)
+       :size count :type type :binder (get type 'vertex-array-binder))
+      (make-gl-array :pointer (foreign-alloc type :count count)
+                     :size count :type type)))
+
+(declaim (inline make-gl-array-from-pointer))
+(defun make-gl-array-from-pointer (ptr type count)
+  "Same as ALLOC-GL-ARRAY but uses a supplied pointer instead of
+allocating new memory."
+  (let ((binder (find-vertex-array-binder type nil)))
+    (if binder
+        (make-gl-vertex-array :pointer ptr :size count
+                              :type type :binder binder)
+        (make-gl-array :pointer ptr :size count :type type))))
+
+(defun free-gl-array (array)
+  "Frees an array allocated by ALLOC-GL-ARRAY."
+  (foreign-free (gl-array-pointer array)))
+
+(defun make-null-gl-array (type)
+  "Returns a GL-ARRAY with a size of 0, a null pointer and of type TYPE."
+  (make-gl-array-from-pointer (null-pointer) type 0))
+
+;;; Returns a pointer to the OFFSET-th element in ARRAY.  I think this
+;;; is different from mem-aref for simple types.
+(declaim (inline gl-array-pointer-offset))
+(defun gl-array-pointer-offset (array offset)
+  (inc-pointer (gl-array-pointer array)
+               (* (foreign-type-size (gl-array-type array)) offset)))
+
+;;; Returns the number of bytes in the array.
+(declaim (inline gl-array-byte-size))
+(defun gl-array-byte-size (array)
+  (* (gl-array-size array) (foreign-type-size (gl-array-type array))))
+
 (definline draw-elements (mode array &key (count (gl-array-size array))
                                (offset 0))
   ;; fix count to whole array size?
@@ -244,53 +292,7 @@ type. The following parameters are supported:
 
 
 
-(defstruct (gl-array (:copier nil))
-  "Pointer to C array with size and type information attached."
-  (pointer (null-pointer))
-  (size 0 :type unsigned-byte)
-  (type nil :type symbol))
 
-(defstruct (gl-vertex-array (:copier nil) (:include gl-array))
-  "Like GL-ARRAY, but with an aditional vertex array binder."
-  (binder #'identity :type function))
-
-(defun alloc-gl-array (type count)
-  (if (get type 'vertex-array-binder)
-      (make-gl-vertex-array
-       :pointer (foreign-alloc type :count count)
-       :size count :type type :binder (get type 'vertex-array-binder))
-      (make-gl-array :pointer (foreign-alloc type :count count)
-                     :size count :type type)))
-
-(declaim (inline make-gl-array-from-pointer))
-(defun make-gl-array-from-pointer (ptr type count)
-  "Same as ALLOC-GL-ARRAY but uses a supplied pointer instead of
-allocating new memory."
-  (let ((binder (find-vertex-array-binder type nil)))
-    (if binder
-        (make-gl-vertex-array :pointer ptr :size count
-                              :type type :binder binder)
-        (make-gl-array :pointer ptr :size count :type type))))
-
-(defun free-gl-array (array)
-  "Frees an array allocated by ALLOC-GL-ARRAY."
-  (foreign-free (gl-array-pointer array)))
-
-(defun make-null-gl-array (type)
-  "Returns a GL-ARRAY with a size of 0, a null pointer and of type TYPE."
-  (make-gl-array-from-pointer (null-pointer) type 0))
-
-;;; Returns a pointer to the OFFSET-th element in ARRAY.  I think this
-;;; is different from mem-aref for simple types.
-(declaim (inline gl-array-pointer-offset))
-(defun gl-array-pointer-offset (array offset)
-  (inc-pointer (gl-array-pointer array)
-               (* (foreign-type-size (gl-array-type array)) offset)))
-
-;;; Returns the number of bytes in the array.
-(declaim (inline gl-array-byte-size))
-(defun gl-array-byte-size (array)
-  (* (gl-array-size array) (foreign-type-size (gl-array-type array))))
 
 (defun bind-gl-vertex-array (array &optional (offset 0))
   "Binds ARRAY starting at the OFFSET-th element."
