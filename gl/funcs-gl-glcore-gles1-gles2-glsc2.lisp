@@ -29,10 +29,10 @@
 ;;; generated 2016-09-19T06:54:48Z
 ;;; from gl.xml @ svn rev 33136, 2016-09-15T10:33:58.704922Z
 
-(defparameter *glext-version* 20160915)
-(defparameter *glext-last-updated* "2016-09-15T10:33:58.704922Z")
+(defglextfun ("glDepthRangef" depth-range-f) :void
+  (n float)
+  (f float))
 
-(defglfun ("glGetPointerv" get-pointer-v) :void
-  (pname enum)
-  (params (:pointer (:pointer :void))))
+(defglextfun ("glClearDepthf" clear-depth-f) :void
+  (d float))
 

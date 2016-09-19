@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20150810 ( 2015-08-10T07:01:11.860488Z )
+;;; glext version 20160915 ( 2016-09-15T10:33:58.704922Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -660,7 +660,11 @@
   #:draw-elements-instanced-base-vertex-base-instance-ext
   #:uniform-buffer-ext #:get-uniform-buffer-size-ext
   #:get-uniform-offset-ext #:blend-color-ext
-  #:blend-equation-separate-ext #:blend-func-separate-ext
+  #:blend-equation-separate-ext
+  #:bind-frag-data-location-indexed-ext
+  #:bind-frag-data-location-ext
+  #:get-program-resource-location-index-ext
+  #:get-frag-data-index-ext #:blend-func-separate-ext
   #:blend-equation-ext #:buffer-storage-ext #:color-sub-table-ext
   #:copy-color-sub-table-ext #:lock-arrays-ext #:unlock-arrays-ext
   #:convolution-filter-1d-ext #:convolution-filter-2d-ext
@@ -871,19 +875,18 @@
   #:generate-mipmap-ext #:framebuffer-texture-ext
   #:program-parameter-i-ext #:program-env-parameters-4fv-ext
   #:program-local-parameters-4fv-ext #:get-uniform-uiv-ext
-  #:bind-frag-data-location-ext #:get-frag-data-location-ext
-  #:uniform-1ui-ext #:uniform-2ui-ext #:uniform-3ui-ext
-  #:uniform-4ui-ext #:uniform-1uiv-ext #:uniform-2uiv-ext
-  #:uniform-3uiv-ext #:uniform-4uiv-ext #:get-histogram-ext
-  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext
-  #:get-minmax-ext #:get-minmax-parameter-fv-ext
-  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext
-  #:reset-histogram-ext #:reset-minmax-ext #:index-func-ext
-  #:index-material-ext #:vertex-attrib-divisor-ext
-  #:apply-texture-ext #:texture-light-ext #:texture-material-ext
-  #:map-buffer-range-ext #:flush-mapped-buffer-range-ext
-  #:multi-draw-arrays-ext #:multi-draw-elements-ext
-  #:multi-draw-arrays-indirect-ext
+  #:get-frag-data-location-ext #:uniform-1ui-ext #:uniform-2ui-ext
+  #:uniform-3ui-ext #:uniform-4ui-ext #:uniform-1uiv-ext
+  #:uniform-2uiv-ext #:uniform-3uiv-ext #:uniform-4uiv-ext
+  #:get-histogram-ext #:get-histogram-parameter-fv-ext
+  #:get-histogram-parameter-iv-ext #:get-minmax-ext
+  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext
+  #:histogram-ext #:minmax-ext #:reset-histogram-ext
+  #:reset-minmax-ext #:index-func-ext #:index-material-ext
+  #:vertex-attrib-divisor-ext #:apply-texture-ext
+  #:texture-light-ext #:texture-material-ext #:map-buffer-range-ext
+  #:flush-mapped-buffer-range-ext #:multi-draw-arrays-ext
+  #:multi-draw-elements-ext #:multi-draw-arrays-indirect-ext
   #:multi-draw-elements-indirect-ext #:sample-mask-ext
   #:sample-pattern-ext #:framebuffer-texture-2d-multisample-ext
   #:read-buffer-indexed-ext #:draw-buffers-indexed-ext
@@ -916,18 +919,21 @@
   #:get-program-pipeline-info-log-ext #:get-program-pipeline-iv-ext
   #:is-program-pipeline-ext #:use-program-stages-ext
   #:validate-program-pipeline-ext #:bind-image-texture-ext
-  #:memory-barrier-ext #:stencil-clear-tag-ext
-  #:active-stencil-face-ext #:tex-sub-image-1d-ext
-  #:tex-sub-image-2d-ext #:patch-parameter-i-ext #:tex-image-3d-ext
-  #:tex-sub-image-3d-ext #:framebuffer-texture-layer-ext
-  #:tex-parameter-iiv-ext #:tex-parameter-iuiv-ext
-  #:get-tex-parameter-iiv-ext #:get-tex-parameter-iuiv-ext
-  #:sampler-parameter-iiv-ext #:sampler-parameter-iuiv-ext
-  #:get-sampler-parameter-iiv-ext #:get-sampler-parameter-iuiv-ext
-  #:tex-buffer-ext #:tex-buffer-range-ext #:clear-color-ii-ext
-  #:clear-color-iui-ext #:are-textures-resident-ext
-  #:bind-texture-ext #:delete-textures-ext #:gen-textures-ext
-  #:is-texture-ext #:prioritize-textures-ext #:texture-normal-ext
+  #:memory-barrier-ext #:framebuffer-pixel-local-storage-size-ext
+  #:get-framebuffer-pixel-local-storage-size-ext
+  #:clear-pixel-local-storage-ui-ext #:tex-page-commitment-ext
+  #:stencil-clear-tag-ext #:active-stencil-face-ext
+  #:tex-sub-image-1d-ext #:tex-sub-image-2d-ext
+  #:patch-parameter-i-ext #:tex-image-3d-ext #:tex-sub-image-3d-ext
+  #:framebuffer-texture-layer-ext #:tex-parameter-iiv-ext
+  #:tex-parameter-iuiv-ext #:get-tex-parameter-iiv-ext
+  #:get-tex-parameter-iuiv-ext #:sampler-parameter-iiv-ext
+  #:sampler-parameter-iuiv-ext #:get-sampler-parameter-iiv-ext
+  #:get-sampler-parameter-iuiv-ext #:tex-buffer-ext
+  #:tex-buffer-range-ext #:clear-color-ii-ext #:clear-color-iui-ext
+  #:are-textures-resident-ext #:bind-texture-ext
+  #:delete-textures-ext #:gen-textures-ext #:is-texture-ext
+  #:prioritize-textures-ext #:texture-normal-ext
   #:tex-storage-1d-ext #:tex-storage-2d-ext #:tex-storage-3d-ext
   #:texture-view-ext #:begin-transform-feedback-ext
   #:end-transform-feedback-ext #:bind-buffer-range-ext
@@ -963,9 +969,10 @@
   #:get-local-constant-integer-v-ext
   #:get-local-constant-float-v-ext #:vertex-weight-f-ext
   #:vertex-weight-fv-ext #:vertex-weight-pointer-ext
-  #:import-sync-ext #:frame-terminator-gremedy
-  #:string-marker-gremedy #:image-transform-parameter-i-hp
-  #:image-transform-parameter-f-hp #:image-transform-parameter-iv-hp
+  #:window-rectangles-ext #:import-sync-ext
+  #:frame-terminator-gremedy #:string-marker-gremedy
+  #:image-transform-parameter-i-hp #:image-transform-parameter-f-hp
+  #:image-transform-parameter-iv-hp
   #:image-transform-parameter-fv-hp
   #:get-image-transform-parameter-iv-hp
   #:get-image-transform-parameter-fv-hp #:multi-mode-draw-arrays-ibm
@@ -974,6 +981,8 @@
   #:edge-flag-pointer-list-ibm #:fog-coord-pointer-list-ibm
   #:index-pointer-list-ibm #:normal-pointer-list-ibm
   #:tex-coord-pointer-list-ibm #:vertex-pointer-list-ibm
+  #:framebuffer-texture-2d-downsample-img
+  #:framebuffer-texture-layer-downsample-img
   #:renderbuffer-storage-multisample-img
   #:framebuffer-texture-2d-multisample-img #:clip-plane-f-img
   #:clip-plane-x-img #:blend-func-separate-ingr
@@ -1015,16 +1024,18 @@
   #:uniform-handle-ui64v-nv #:program-uniform-handle-ui64-nv
   #:program-uniform-handle-ui64v-nv #:is-texture-handle-resident-nv
   #:is-image-handle-resident-nv #:blend-parameter-i-nv
-  #:blend-barrier-nv #:create-states-nv #:delete-states-nv
-  #:is-state-nv #:state-capture-nv #:get-command-header-nv
-  #:get-stage-index-nv #:draw-commands-nv #:draw-commands-address-nv
+  #:blend-barrier-nv #:viewport-position-w-scale-nv
+  #:create-states-nv #:delete-states-nv #:is-state-nv
+  #:state-capture-nv #:get-command-header-nv #:get-stage-index-nv
+  #:draw-commands-nv #:draw-commands-address-nv
   #:draw-commands-states-nv #:draw-commands-states-address-nv
   #:create-command-lists-nv #:delete-command-lists-nv
   #:is-command-list-nv #:list-draw-commands-states-client-nv
   #:command-list-segments-nv #:compile-command-list-nv
   #:call-command-list-nv #:begin-conditional-render-nv
   #:end-conditional-render-nv #:subpixel-precision-bias-nv
-  #:conservative-raster-parameter-f-nv #:copy-buffer-sub-data-nv
+  #:conservative-raster-parameter-f-nv
+  #:conservative-raster-parameter-i-nv #:copy-buffer-sub-data-nv
   #:copy-image-sub-data-nv #:coverage-mask-nv
   #:coverage-operation-nv #:depth-range-d-nv #:clear-depth-d-nv
   #:depth-bounds-d-nv #:draw-buffers-nv #:draw-arrays-instanced-nv
@@ -1235,7 +1246,7 @@
   #:scissor-array-v-nv #:scissor-indexed-nv #:scissor-indexed-v-nv
   #:depth-range-array-fv-nv #:depth-range-indexed-f-nv
   #:get-float-i-v-nv #:enable-i-nv #:disable-i-nv #:is-enabled-i-nv
-  #:egl-image-target-texture-2d-oes
+  #:viewport-swizzle-nv #:egl-image-target-texture-2d-oes
   #:egl-image-target-renderbuffer-storage-oes
   #:blend-equation-separate-oes #:blend-func-separate-oes
   #:blend-equation-oes #:multi-tex-coord-1b-oes
@@ -1325,12 +1336,17 @@
   #:tex-storage-3d-multisample-oes #:texture-view-oes
   #:bind-vertex-array-oes #:delete-vertex-arrays-oes
   #:gen-vertex-arrays-oes #:is-vertex-array-oes
-  #:framebuffer-texture-multiview-ovr #:hint-pgi #:alpha-func-qcom
-  #:get-driver-controls-qcom #:get-driver-control-string-qcom
-  #:enable-driver-control-qcom #:disable-driver-control-qcom
-  #:ext-get-textures-qcom #:ext-get-buffers-qcom
-  #:ext-get-renderbuffers-qcom #:ext-get-framebuffers-qcom
-  #:ext-get-tex-level-parameter-iv-qcom
+  #:viewport-array-v-oes #:viewport-indexed-f-oes
+  #:viewport-indexed-fv-oes #:scissor-array-v-oes
+  #:scissor-indexed-oes #:scissor-indexed-v-oes
+  #:depth-range-array-fv-oes #:depth-range-indexed-f-oes
+  #:get-float-i-v-oes #:framebuffer-texture-multiview-ovr
+  #:framebuffer-texture-multisample-multiview-ovr #:hint-pgi
+  #:alpha-func-qcom #:get-driver-controls-qcom
+  #:get-driver-control-string-qcom #:enable-driver-control-qcom
+  #:disable-driver-control-qcom #:ext-get-textures-qcom
+  #:ext-get-buffers-qcom #:ext-get-renderbuffers-qcom
+  #:ext-get-framebuffers-qcom #:ext-get-tex-level-parameter-iv-qcom
   #:ext-tex-object-state-override-i-qcom
   #:ext-get-tex-sub-image-qcom #:ext-get-buffer-pointer-v-qcom
   #:ext-get-shaders-qcom #:ext-get-programs-qcom
