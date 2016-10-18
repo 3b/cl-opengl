@@ -668,18 +668,33 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
     (y (%gl:uniform-2f location (float x) (float y)))
     (x (%gl:uniform-1f location (float x)))))
 
-(define-compiler-macro uniformf (&whole form location x &optional y z w)
-  (declare (ignore form))
-  (flet ((float* (x)
-           (if (numberp x)
-               (float x 1f0)
-               `(float ,x 1f0))))
+(defun program-uniformf (program location x &optional y z w)
+  (cond
+    (w (%gl:program-uniform-4f program location (float x) (float y) (float z) (float w)))
+    (z (%gl:program-uniform-3f program location (float x) (float y) (float z)))
+    (y (%gl:program-uniform-2f program location (float x) (float y)))
+    (x (%gl:program-uniform-1f program location (float x)))))
+
+(flet ((float* (x)
+         (if (numberp x)
+             (float x 1f0)
+             `(float ,x 1f0))))
+  (define-compiler-macro uniformf (&whole form location x &optional y z w)
+    (declare (ignore form))
     (cond
       (w `(%gl:uniform-4f ,location ,(float* x) ,(float* y) ,(float* z) ,(float* w)))
       (z `(%gl:uniform-3f ,location ,(float* x) ,(float* y) ,(float* z)))
       (y `(%gl:uniform-2f ,location ,(float* x) ,(float* y)))
-      (x `(%gl:uniform-1f ,location ,(float* x))))))
+      (x `(%gl:uniform-1f ,location ,(float* x)))))
 
+  (define-compiler-macro program-uniformf (&whole form program location x &optional y z w)
+    (declare (ignore form))
+    (cond
+      (w `(%gl:program-uniform-4f ,program ,location ,(float* x) ,(float* y)
+                                  ,(float* z) ,(float* w)))
+      (z `(%gl:program-uniform-3f ,program ,location ,(float* x) ,(float* y) ,(float* z)))
+      (y `(%gl:program-uniform-2f ,program ,location ,(float* x) ,(float* y)))
+      (x `(%gl:program-uniform-1f ,program ,location ,(float* x))))))
 
 (definline uniformfv (location a)
   (case (length a)
@@ -695,17 +710,53 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
     (2 (%gl:uniform-2i location (aref a 0) (aref a 1)))
     (1 (%gl:uniform-1i location (aref a 0)))))
 
+(defun program-uniformi (program location x &optional y z w)
+  (cond
+    (w (%gl:program-uniform-4i program location x y z w))
+    (z (%gl:program-uniform-3i program location x y z))
+    (y (%gl:program-uniform-2i program location x y))
+    (x (%gl:program-uniform-1i program location x))))
+
+(define-compiler-macro program-uniformi (&whole form program location x &optional y z w)
+  (declare (ignore form))
+  (cond
+    (w `(%gl:program-uniform-4i ,program ,location ,x ,y ,z ,w))
+    (z `(%gl:program-uniform-3i ,program ,location ,x ,y ,z))
+    (y `(%gl:program-uniform-2i ,program ,location ,x ,y))
+    (x `(%gl:program-uniform-1i ,program ,location ,x))))
+
+(definline program-uniformfv (program location a)
+  (case (length a)
+    (4 (%gl:program-uniform-4f program location (aref a 0) (aref a 1) (aref a 2) (aref a 3)))
+    (3 (%gl:program-uniform-3f program location (aref a 0) (aref a 1) (aref a 2)))
+    (2 (%gl:program-uniform-2f program location (aref a 0) (aref a 1)))
+    (1 (%gl:program-uniform-1f program location (aref a 0)))))
+
+(definline program-uniformiv (program location a)
+  (case (length a)
+    (4 (%gl:program-uniform-4i program location (aref a 0) (aref a 1) (aref a 2) (aref a 3)))
+    (3 (%gl:program-uniform-3i program location (aref a 0) (aref a 1) (aref a 2)))
+    (2 (%gl:program-uniform-2i program location (aref a 0) (aref a 1)))
+    (1 (%gl:program-uniform-1i program location (aref a 0)))))
+
+(defmacro with-foreign-matrices ((var lisp-matrices dim) &body body)
+  (once-only ((matrices lisp-matrices) dim)
+    (with-unique-names (matrix-count matrix-size)
+      `(progn
+         (check-type ,dim (integer 2 4))
+         (let ((,matrix-count (length ,matrices))
+               (,matrix-size (* ,dim ,dim)))
+           (with-foreign-object (,var '%gl:float (* ,matrix-count ,matrix-size))
+             (dotimes (i ,matrix-count)
+               (let ((matrix (aref ,matrices i)))
+                 (dotimes (j ,matrix-size)
+                   (setf (mem-aref ,var '%gl:float (+ j (* i ,matrix-size)))
+                         (row-major-aref matrix j)))))
+             ,@body))))))
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))
-  (check-type dim (integer 2 4))
-  (let ((matrix-count (length matrices))
-        (matrix-size (* dim dim)))
-    (with-foreign-object (array '%gl:float (* matrix-count matrix-size))
-      (dotimes (i matrix-count)
-        (let ((matrix (aref matrices i)))
-          (dotimes (j matrix-size)
-            (setf (mem-aref array '%gl:float (+ j (* i matrix-size)))
-                  (row-major-aref matrix j)))))
+  (with-foreign-matrices (array matrices dim)
+    (let ((matrix-count (length matrices)))
       (case dim
         (2 (%gl:uniform-matrix-2fv
             location matrix-count transpose array))
@@ -714,67 +765,124 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
         (4 (%gl:uniform-matrix-4fv
             location matrix-count transpose array))))))
 
-(macrolet ((def (n % comp)
-             `(defun ,n (location matrices &optional (transpose t))
-                ,(format nil
- "Upload a matrix or matrices to uniform LOCATION. MATRICES is a single
+(defun program-uniform-matrix (program location dim matrices &optional (transpose t))
+  (with-foreign-matrices (array matrices dim)
+    (let ((matrix-count (length matrices)))
+      (case dim
+        (2 (%gl:program-uniform-matrix-2fv program
+            location matrix-count transpose array))
+        (3 (%gl:program-uniform-matrix-3fv program
+            location matrix-count transpose array))
+        (4 (%gl:program-uniform-matrix-4fv program
+            location matrix-count transpose array))))))
+
+(macrolet ((def (n % comp &optional (direct-p nil))
+             (flet ((args (rest) (append (when direct-p '(program)) rest)))
+               `(defun ,n ,(args '(location matrices &optional (transpose t)))
+                  ,(format nil
+                           "Upload a matrix or matrices to uniform LOCATION. MATRICES is a single
 matrix in a vector or array, or a vector of matrices in same formats.
 Tries to optimize case where matrices are (SIMPLE-ARRAY SINGLE-FLOAT (~s))."
- comp)
-                (assert (or (typep (aref matrices 0) 'number)
-                            (typep (aref matrices 0) 'array)))
-                #+sbcl
-                (when (typep matrices '(simple-array single-float (,comp)))
-                  (sb-sys:with-pinned-objects (matrices)
-                    (return-from ,n
-                      (,% location 1 transpose
-                          (sb-sys:vector-sap matrices)))))
-                #+ccl
-                (when (typep matrices '(simple-array single-float (,comp)))
-                  ;; we need to be a bit more careful with CCL, since
-                  ;; CCL:WITH-POINTER-TO-IVECTOR inhibits GC,  so we
-                  ;; try to avoid signalling an error inside it
-                  (handler-case
-                      (ccl:with-pointer-to-ivector (p matrices)
-                        (return-from ,n
-                          (,% location 1 transpose p)))
-                    ;; resignal any errors outside the 'no GC' scope
-                    (error (e) (error e))))
-                (let* ((matrices (if (typep (aref matrices 0) 'vector)
-                                     matrices
-                                     (vector matrices)))
-                       (matrix-count (length matrices)))
-                  (with-foreign-object (array '%gl:float (* matrix-count ,comp))
-                    (loop for matrix across matrices
-                          for i from 0
-                          do (if (typep matrix '(simple-array single-float
-                                                   (,comp)))
-                               (loop for j below ,comp
-                                     do (setf (mem-aref array '%gl:float
-                                                        (+ j (* i ,comp)))
-                                              (row-major-aref matrix j)))
-                               (loop for j below ,comp
-                                     do (setf (mem-aref array '%gl:float
-                                                        (+ j (* i ,comp)))
-                                              (float (row-major-aref matrix j)
-                                                     1.0)))))
-                    (,% location matrix-count transpose array)))))
-           (d (&rest defs)
-             `(progn
-                ,@(loop for def in defs collect `(def ,@def)))))
-  (d (uniform-matrix-2fv %gl:uniform-matrix-2fv 4)
-     (uniform-matrix-2x3-fv %gl:uniform-matrix-2x3-fv 6)
-     (uniform-matrix-2x4-fv %gl:uniform-matrix-2x4-fv 8)
+                           comp)
+                  (assert (or (typep (aref matrices 0) 'number)
+                              (typep (aref matrices 0) 'array)))
+                  #+sbcl
+                  (when (typep matrices '(simple-array single-float (,comp)))
+                    (sb-sys:with-pinned-objects (matrices)
+                      (return-from ,n
+                        (,% ,@(args '(location 1 transpose
+                                               (sb-sys:vector-sap matrices)))))))
+                  #+ccl
+                  (when (typep matrices '(simple-array single-float (,comp)))
+                    ;; we need to be a bit more careful with CCL, since
+                    ;; CCL:WITH-POINTER-TO-IVECTOR inhibits GC,  so we
+                    ;; try to avoid signalling an error inside it
+                    (handler-case
+                        (ccl:with-pointer-to-ivector (p matrices)
+                          (return-from ,n
+                            (,% ,@(args '(location 1 transpose p)))))
+                      ;; resignal any errors outside the 'no GC' scope
+                      (error (e) (error e))))
+                  (let* ((matrices (if (typep (aref matrices 0) 'vector)
+                                       matrices
+                                       (vector matrices)))
+                         (matrix-count (length matrices)))
+                    (with-foreign-object (array '%gl:float (* matrix-count ,comp))
+                      (loop for matrix across matrices
+                         for i from 0
+                         do (if (typep matrix '(simple-array single-float
+                                                (,comp)))
+                                (loop for j below ,comp
+                                   do (setf (mem-aref array '%gl:float
+                                                      (+ j (* i ,comp)))
+                                            (row-major-aref matrix j)))
+                                (loop for j below ,comp
+                                   do (setf (mem-aref array '%gl:float
+                                                      (+ j (* i ,comp)))
+                                            (float (row-major-aref matrix j)
+                                                   1.0)))))
+                      (,% ,@(args '(location matrix-count transpose array))))))))
+             (d (&rest defs)
+                `(progn
+                   ,@(loop for def in defs collect `(def ,@def)))))
+           (d (uniform-matrix-2fv %gl:uniform-matrix-2fv 4)
+             (uniform-matrix-2x3-fv %gl:uniform-matrix-2x3-fv 6)
+             (uniform-matrix-2x4-fv %gl:uniform-matrix-2x4-fv 8)
 
-     (uniform-matrix-3x2-fv %gl:uniform-matrix-3x2-fv 6)
-     (uniform-matrix-3fv %gl:uniform-matrix-3fv 9)
-     (uniform-matrix-3x4-fv %gl:uniform-matrix-3x4-fv 12)
+             (uniform-matrix-3x2-fv %gl:uniform-matrix-3x2-fv 6)
+             (uniform-matrix-3fv %gl:uniform-matrix-3fv 9)
+             (uniform-matrix-3x4-fv %gl:uniform-matrix-3x4-fv 12)
 
-     (uniform-matrix-4x2-fv %gl:uniform-matrix-4x2-fv 8)
-     (uniform-matrix-4x3-fv %gl:uniform-matrix-4x3-fv 12)
-     (uniform-matrix-4fv %gl:uniform-matrix-4fv 16)
-     ))
+             (uniform-matrix-4x2-fv %gl:uniform-matrix-4x2-fv 8)
+             (uniform-matrix-4x3-fv %gl:uniform-matrix-4x3-fv 12)
+             (uniform-matrix-4fv %gl:uniform-matrix-4fv 16)
+
+             (program-uniform-matrix-2fv %gl:program-uniform-matrix-2fv 4 t)
+             (program-uniform-matrix-2x3-fv %gl:program-uniform-matrix-2x3-fv 6 t)
+             (program-uniform-matrix-2x4-fv %gl:program-uniform-matrix-2x4-fv 8 t)
+
+             (program-uniform-matrix-3x2-fv %gl:program-uniform-matrix-3x2-fv 6 t)
+             (program-uniform-matrix-3fv %gl:program-uniform-matrix-3fv 9 t)
+             (program-uniform-matrix-3x4-fv %gl:program-uniform-matrix-3x4-fv 12 t)
+
+             (program-uniform-matrix-4x2-fv %gl:program-uniform-matrix-4x2-fv 8 t)
+             (program-uniform-matrix-4x3-fv %gl:program-uniform-matrix-4x3-fv 12 t)
+             (program-uniform-matrix-4fv %gl:program-uniform-matrix-4fv 16 t)))
+
 
 ;;; 2.15.4 Shader Execution
 
 (import-export %gl:validate-program)
+
+;;;
+;;; 4.1.2.11.4 Program Pipeline Objects
+;;;
+
+(defun gen-program-pipelines (count)
+  (with-foreign-object (pipeline-array '%gl:uint count)
+    (%gl:gen-program-pipelines count pipeline-array)
+    (loop for i below count
+       collecting (mem-aref pipeline-array '%gl:uint i))))
+
+(defun delete-program-pipelines (pipelines)
+  (with-opengl-sequence (array '%gl:uint pipelines)
+    (%gl:delete-program-pipelines (length pipelines) array)))
+
+(defun gen-program-pipeline ()
+  (with-foreign-object (array '%gl:uint 1)
+    (%gl:gen-program-pipelines 1 array)
+    (mem-aref array '%gl:uint 0)))
+
+(import-export %gl:bind-program-pipeline
+               %gl:active-shader-program)
+
+(defun use-program-stages (pipeline program &rest stages)
+  (%gl:use-program-stages pipeline
+                          (foreign-bitfield-value '%gl::UseProgramStageMask stages)
+                          program))
+
+(defun program-parameteri (program pname value)
+  (let ((parsed-value (ecase pname
+                 ((:program-separable :program-binary-retrievable-hint)
+                  (foreign-enum-value '%gl:enum (if value :true :false))))))
+    (%gl:program-parameter-i program pname parsed-value)))
