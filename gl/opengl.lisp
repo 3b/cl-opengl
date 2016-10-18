@@ -747,7 +747,7 @@ Tries to optimize case where matrices are (SIMPLE-ARRAY SINGLE-FLOAT (~s))."
                   (with-foreign-object (array '%gl:float (* matrix-count ,comp))
                     (loop for matrix across matrices
                           for i from 0
-                          do (when (typep matrix '(simple-array single-float
+                          do (if (typep matrix '(simple-array single-float
                                                    (,comp)))
                                (loop for j below ,comp
                                      do (setf (mem-aref array '%gl:float
