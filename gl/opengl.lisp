@@ -410,10 +410,13 @@ another buffer is bound within FORMS."
 (import-export %gl:matrix-mode)
 
 (defmacro with-foreign-matrix ((sym matrix) &body body)
-  `(with-foreign-object (,sym '%gl:float 16)
-     (dotimes (i 16)
-       (setf (mem-aref ,sym '%gl:float i) (row-major-aref ,matrix i)))
-     ,@body))
+  `(typecase ,matrix
+     #-clisp
+     ((simple-array single-float (*))
+      (with-pointer-to-vector-data (,sym ,matrix)
+        ,@body))
+     (t (dotimes (i 16)
+          (setf (mem-aref ,sym '%gl:float i) (row-major-aref ,matrix i))))))
 
 (defun load-matrix (matrix)
   (with-foreign-matrix (foreign-matrix matrix)
@@ -698,21 +701,33 @@ program PROGRAM as multiple values. 1: Size of attribute. 2: Type of attribute.
 
 (defun uniform-matrix (location dim matrices &optional (transpose t))
   (check-type dim (integer 2 4))
-  (let ((matrix-count (length matrices))
-        (matrix-size (* dim dim)))
-    (with-foreign-object (array '%gl:float (* matrix-count matrix-size))
-      (dotimes (i matrix-count)
-        (let ((matrix (aref matrices i)))
-          (dotimes (j matrix-size)
-            (setf (mem-aref array '%gl:float (+ j (* i matrix-size)))
-                  (row-major-aref matrix j)))))
-      (case dim
-        (2 (%gl:uniform-matrix-2fv
-            location matrix-count transpose array))
-        (3 (%gl:uniform-matrix-3fv
-            location matrix-count transpose array))
-        (4 (%gl:uniform-matrix-4fv
-            location matrix-count transpose array))))))
+  (typecase matrices
+    #-clisp
+    ((simple-array single-float (*))    ; Flattened arrays can be passed directly
+     (with-pointer-to-vector-data (ptr matrices)
+       (let ((matrix-count (/ (length matrices) (* dim dim))))
+         (case dim
+           (2 (%gl:uniform-matrix-2fv
+               location matrix-count transpose ptr))
+           (3 (%gl:uniform-matrix-3fv
+               location matrix-count transpose ptr))
+           (4 (%gl:uniform-matrix-4fv
+               location matrix-count transpose ptr))))))
+    (t (let ((matrix-count (length matrices))
+             (matrix-size (* dim dim)))
+         (with-foreign-object (array '%gl:float (* matrix-count matrix-size))
+           (dotimes (i matrix-count)
+             (let ((matrix (aref matrices i)))
+               (dotimes (j matrix-size)
+                 (setf (mem-aref array '%gl:float (+ j (* i matrix-size)))
+                       (row-major-aref matrix j)))))
+           (case dim
+             (2 (%gl:uniform-matrix-2fv
+                 location matrix-count transpose array))
+             (3 (%gl:uniform-matrix-3fv
+                 location matrix-count transpose array))
+             (4 (%gl:uniform-matrix-4fv
+                 location matrix-count transpose array))))))))
 
 (macrolet ((def (n % comp)
              `(defun ,n (location matrices &optional (transpose t))
