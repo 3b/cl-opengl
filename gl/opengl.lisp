@@ -167,8 +167,8 @@ allocating new memory."
 (definline draw-elements-instanced (mode array primcount &key
                                          (count (gl-array-size array))
                                          (offset 0))
-  "If drawing the elements of a bound IBO, the keyword argument
-COUNT must be specified to denote the number verticies that must be processed."
+  "When drawing using a bound IBO, the keyword argument COUNT must be
+specified to denote the number of verticies that must be processed."
   (%gl:draw-elements-instanced mode count
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)
