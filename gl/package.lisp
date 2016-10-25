@@ -61,6 +61,7 @@
    #:vertex-attrib
    ;; 2.8 Vertex Arrays
    #:draw-elements
+   #:draw-elements-instanced
    #:alloc-gl-array
    #:free-gl-array
    #:define-gl-array-format
