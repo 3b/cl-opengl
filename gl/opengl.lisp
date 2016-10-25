@@ -105,7 +105,8 @@
                %gl:client-active-texture
                %gl:enable-vertex-attrib-array
                %gl:disable-vertex-attrib-array
-               %gl:draw-arrays)
+               %gl:draw-arrays
+               %gl:draw-arrays-instanced)
 
 (defstruct (gl-array (:copier nil))
   "Pointer to C array with size and type information attached."
