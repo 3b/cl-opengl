@@ -168,7 +168,7 @@ allocating new memory."
                                          (count (gl-array-size array))
                                          (offset 0))
   "When drawing using a bound IBO, the keyword argument COUNT must be
-specified to denote the number of verticies that must be processed."
+specified to denote the number of vertices that must be processed."
   (%gl:draw-elements-instanced mode count
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)
