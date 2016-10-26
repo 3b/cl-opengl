@@ -392,4 +392,26 @@
    #:create-buffer
    #:named-buffer-storage
    #:create-vertex-array
-   #:create-vertex-arrays))
+   #:create-vertex-arrays
+   ;; Program pipelines
+   #:gen-program-pipelines
+   #:delete-program-pipelines
+   #:gen-program-pipeline
+   #:bind-program-pipeline
+   #:use-program-stages
+   #:active-shader-program
+   #:program-uniform-matrix-2fv
+   #:program-uniform-matrix-2x3-fv
+   #:program-uniform-matrix-2x4-fv
+   #:program-uniform-matrix-3x2-fv
+   #:program-uniform-matrix-3fv
+   #:program-uniform-matrix-3x4-fv
+   #:program-uniform-matrix-4x2-fv
+   #:program-uniform-matrix-4x3-fv
+   #:program-uniform-matrix-4fv
+   #:program-uniform-matrix
+   #:program-uniformiv
+   #:program-uniformfv
+   #:program-uniformf
+   #:program-uniformi
+   #:program-parameteri))

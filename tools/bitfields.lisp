@@ -72,6 +72,22 @@
    "MAP_INVALIDATE_RANGE_BIT"
    "MAP_WRITE_BIT"
    "MAP_READ_BIT"))
+
+
+ (:enum-type
+  "UseProgramStageMask"
+  :deprecated nil
+  :type :bitfield
+  :used-by
+  (("UseProgramStageMask" "UseProgramStages" "stages" 1))
+  :enums
+  ("VERTEX_SHADER_BIT"
+   "TESS_CONTROL_SHADER_BIT"
+   "TESS_EVALUATION_SHADER_BIT"
+   "GEOMETRY_SHADER_BIT"
+   "FRAGMENT_SHADER_BIT"
+   "COMPUTE_SHADER_BIT"
+   "ALL_SHADER_BITS"))
 )
 
 
