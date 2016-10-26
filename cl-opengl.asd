@@ -29,6 +29,7 @@
 
 (defsystem cl-opengl
   :description "Common Lisp bindings to OpenGL."
+  :license "BSD"
   :depends-on (cffi alexandria)
   :components
   ((:module "gl"
