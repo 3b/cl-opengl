@@ -105,7 +105,8 @@
                %gl:client-active-texture
                %gl:enable-vertex-attrib-array
                %gl:disable-vertex-attrib-array
-               %gl:draw-arrays)
+               %gl:draw-arrays
+               %gl:draw-arrays-instanced)
 
 (defstruct (gl-array (:copier nil))
   "Pointer to C array with size and type information attached."
@@ -162,6 +163,16 @@ allocating new memory."
   (%gl:draw-elements mode count
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)))
+
+(definline draw-elements-instanced (mode array primcount &key
+                                         (count (gl-array-size array))
+                                         (offset 0))
+  "When drawing using a bound IBO, the keyword argument COUNT must be
+specified to denote the number of vertices that must be processed."
+  (%gl:draw-elements-instanced mode count
+                     (cffi-type-to-gl (gl-array-type array))
+                     (gl-array-pointer-offset array offset)
+                     primcount))
 
 (import-export %gl:vertex-attrib-pointer
                %gl:vertex-attrib-ipointer)
