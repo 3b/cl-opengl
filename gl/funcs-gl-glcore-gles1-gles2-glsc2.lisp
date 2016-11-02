@@ -26,8 +26,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2016-09-19T06:54:48Z
-;;; from gl.xml @ svn rev 33136, 2016-09-15T10:33:58.704922Z
+;;; generated 2016-11-02T03:17:18Z
+;;; from gl.xml @ svn rev 33260, 2016-10-27T10:38:44.798295Z
 
 (defglextfun ("glDepthRangef" depth-range-f) :void
   (n float)

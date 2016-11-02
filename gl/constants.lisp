@@ -2292,6 +2292,7 @@
   (:framebuffer-incomplete-read-buffer #x8CDC)
   (:framebuffer-incomplete-read-buffer-ext #x8CDC)
   (:framebuffer-incomplete-read-buffer-oes #x8CDC)
+  (:framebuffer-incomplete-view-targets-ovr #x9633)
   (:framebuffer-oes #x8D40)
   (:framebuffer-programmable-sample-locations-arb #x9342)
   (:framebuffer-programmable-sample-locations-nv #x9342)

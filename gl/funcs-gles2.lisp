@@ -26,8 +26,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2016-09-19T06:54:48Z
-;;; from gl.xml @ svn rev 33136, 2016-09-15T10:33:58.704922Z
+;;; generated 2016-11-02T03:17:18Z
+;;; from gl.xml @ svn rev 33260, 2016-10-27T10:38:44.798295Z
 
 (defglextfun ("glBlendBarrier" blend-barrier) :void)
 
@@ -127,6 +127,26 @@
   (size sizeiptr)
   (data (:pointer :void))
   (flags bitfield))
+
+(defglextfun ("glClearTexImageEXT" clear-tex-image-ext) :void
+  (texture uint)
+  (level int)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
+
+(defglextfun ("glClearTexSubImageEXT" clear-tex-sub-image-ext) :void
+  (texture uint)
+  (level int)
+  (xoffset int)
+  (yoffset int)
+  (zoffset int)
+  (width sizei)
+  (height sizei)
+  (depth sizei)
+  (format enum)
+  (type enum)
+  (data (:pointer :void)))
 
 (defglextfun ("glCopyImageSubDataEXT" copy-image-sub-data-ext) :void
   (srcName uint)
@@ -258,6 +278,15 @@
   (primcount sizei)
   (basevertex (:pointer int)))
 
+(defglextfun ("glDrawTransformFeedbackEXT" draw-transform-feedback-ext) :void
+  (mode enum)
+  (id uint))
+
+(defglextfun ("glDrawTransformFeedbackInstancedEXT" draw-transform-feedback-instanced-ext) :void
+  (mode enum)
+  (id uint)
+  (instancecount sizei))
+
 (defglextfun ("glVertexAttribDivisorEXT" vertex-attrib-divisor-ext) :void
   (index uint)
   (divisor uint))
@@ -362,6 +391,33 @@
   (numlevels uint)
   (minlayer uint)
   (numlayers uint))
+
+(defglextfun ("glGetTextureHandleIMG" get-texture-handle-img) uint64
+  (texture uint))
+
+(defglextfun ("glGetTextureSamplerHandleIMG" get-texture-sampler-handle-img) uint64
+  (texture uint)
+  (sampler uint))
+
+(defglextfun ("glUniformHandleui64IMG" uniform-handleui64img) :void
+  (location int)
+  (value uint64))
+
+(defglextfun ("glUniformHandleui64vIMG" uniform-handleui64v-img) :void
+  (location int)
+  (count sizei)
+  (value (:pointer uint64)))
+
+(defglextfun ("glProgramUniformHandleui64IMG" program-uniform-handleui64img) :void
+  (program uint)
+  (location int)
+  (value uint64))
+
+(defglextfun ("glProgramUniformHandleui64vIMG" program-uniform-handleui64v-img) :void
+  (program uint)
+  (location int)
+  (count sizei)
+  (values (:pointer uint64)))
 
 (defglextfun ("glFramebufferTexture2DDownsampleIMG" framebuffer-texture-2d-downsample-img) :void
   (target enum)

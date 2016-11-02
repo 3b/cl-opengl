@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20160915 ( 2016-09-15T10:33:58.704922Z )
+;;; glext version 20161027 ( 2016-10-27T10:38:44.798295Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -665,7 +665,8 @@
   #:bind-frag-data-location-ext
   #:get-program-resource-location-index-ext
   #:get-frag-data-index-ext #:blend-func-separate-ext
-  #:blend-equation-ext #:buffer-storage-ext #:color-sub-table-ext
+  #:blend-equation-ext #:buffer-storage-ext #:clear-tex-image-ext
+  #:clear-tex-sub-image-ext #:color-sub-table-ext
   #:copy-color-sub-table-ext #:lock-arrays-ext #:unlock-arrays-ext
   #:convolution-filter-1d-ext #:convolution-filter-2d-ext
   #:convolution-parameter-f-ext #:convolution-parameter-fv-ext
@@ -861,8 +862,10 @@
   #:draw-elements-instanced-base-vertex-ext
   #:multi-draw-elements-base-vertex-ext #:draw-arrays-instanced-ext
   #:draw-elements-instanced-ext #:draw-range-elements-ext
-  #:fog-coord-f-ext #:fog-coord-fv-ext #:fog-coord-d-ext
-  #:fog-coord-dv-ext #:fog-coord-pointer-ext #:blit-framebuffer-ext
+  #:draw-transform-feedback-ext
+  #:draw-transform-feedback-instanced-ext #:fog-coord-f-ext
+  #:fog-coord-fv-ext #:fog-coord-d-ext #:fog-coord-dv-ext
+  #:fog-coord-pointer-ext #:blit-framebuffer-ext
   #:renderbuffer-storage-multisample-ext #:is-renderbuffer-ext
   #:bind-renderbuffer-ext #:delete-renderbuffers-ext
   #:gen-renderbuffers-ext #:renderbuffer-storage-ext
@@ -981,6 +984,9 @@
   #:edge-flag-pointer-list-ibm #:fog-coord-pointer-list-ibm
   #:index-pointer-list-ibm #:normal-pointer-list-ibm
   #:tex-coord-pointer-list-ibm #:vertex-pointer-list-ibm
+  #:get-texture-handle-img #:get-texture-sampler-handle-img
+  #:uniform-handleui64img #:uniform-handleui64v-img
+  #:program-uniform-handleui64img #:program-uniform-handleui64v-img
   #:framebuffer-texture-2d-downsample-img
   #:framebuffer-texture-layer-downsample-img
   #:renderbuffer-storage-multisample-img
