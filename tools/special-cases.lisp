@@ -32,3 +32,17 @@
        ;; so use a custom enum for it (see GetProgramPipelineExtPname above)
        (:NAME "pname" :TYPE "GetProgramPipelineExtPname")
        (:NAME "params" :TYPE "GLint"))
+
+(:func "glUseProgramStages"
+       "void"
+       (:NAME "pipeline" :TYPE "GLuint")
+       ;; spec.xml doesn't specify type
+       (:NAME "stages" :TYPE "UseProgramStageMask")
+       (:NAME "program" :TYPE "GLuint"))
+
+(:func "glUseProgramStagesEXT"
+       "void"
+       (:NAME "pipeline" :TYPE "GLuint")
+       ;; spec.xml doesn't specify type
+       (:NAME "stages" :TYPE "UseProgramStageMask")
+       (:NAME "program" :TYPE "GLuint"))

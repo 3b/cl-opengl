@@ -26,7 +26,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2016-09-19T06:54:48Z
+;;; generated 2016-11-02T03:12:33Z
 ;;; from gl.xml @ svn rev 33136, 2016-09-15T10:33:58.704922Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
@@ -343,7 +343,7 @@
 
 (defglextfun ("glUseProgramStages" use-program-stages) :void
   (pipeline uint)
-  (stages bitfield)
+  (stages UseProgramStageMask)
   (program uint))
 
 (defglextfun ("glActiveShaderProgram" active-shader-program) :void
