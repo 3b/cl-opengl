@@ -415,4 +415,6 @@
    #:program-uniformfv
    #:program-uniformf
    #:program-uniformi
-   #:program-parameteri))
+   #:program-parameteri
+   ;; tessellation
+   #:patch-parameter))

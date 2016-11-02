@@ -897,3 +897,18 @@ Tries to optimize case where matrices are (SIMPLE-ARRAY SINGLE-FLOAT (~s))."
                  ((:program-separable :program-binary-retrievable-hint)
                   (foreign-enum-value '%gl:enum (if value :true :false))))))
     (%gl:program-parameter-i program pname parsed-value)))
+
+;;;
+;;; 4.0.2.6  Primitives and vertices
+;;; 4.0.2.12 Tessellation
+;;;
+
+(defun patch-parameter (pname value)
+  (etypecase value
+    (sequence
+     (let ((len (length value)))
+       (with-foreign-object (a '%gl:float len)
+         (dotimes (i len)
+           (setf (mem-aref a '%gl:float i) (float (elt value i))))
+       (%gl:patch-parameter-fv pname a))))
+    (integer (%gl:patch-parameter-i pname value))))
