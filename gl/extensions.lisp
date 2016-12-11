@@ -67,7 +67,8 @@
     (loop for i below count
           collecting (mem-aref renderbuffer-array '%gl:uint i))))
 
-(import-export %gl:renderbuffer-storage %gl:renderbuffer-storage-ext)
+(import-export %gl:renderbuffer-storage %gl:renderbuffer-storage-ext
+               %gl:renderbuffer-storage-multisample %gl:renderbuffer-storage-multisample-ext)
 
 #+nil
 (defun get-renderbuffer-parameter-ext (target pname)
