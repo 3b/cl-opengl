@@ -288,10 +288,27 @@ Lexically binds CURRENT-WINDOW to the respective object."
 
 (defun enable-tick (window millis)
   (setf (tick-interval window) millis)
-  (timer-func millis (callback tick-timer-cb) (id window)))
+
+  (let ((tick-id *tick-timer-counter*))
+    (incf *tick-timer-counter*)
+    
+    ;; Update tick table
+    (setf *tick-timer-id->window-id*
+          (acons tick-id (id window) *tick-timer-id->window-id*))
+    
+
+    ;; Initiate the periodic callback
+    (timer-func millis (callback tick-timer-cb) tick-id)))
 
 (defun disable-tick (window)
-  (setf (tick-interval window) nil))
+  (setf (tick-interval window) nil)
+
+  ;; Remove all ticks registered to this window
+  (setf *tick-timer-id->window-id*
+        (remove-if (lambda (item)
+                     (equal (cdr item) (id window)))
+                   *tick-timer-id->window-id*)))
+
 
 (defmethod display-window :around ((win base-window))
   (unless (slot-boundp win 'events)
@@ -362,16 +379,30 @@ Lexically binds CURRENT-WINDOW to the respective object."
        #+darwin
        (%close current-window)))))
 
+
+(defvar *tick-timer-id->window-id*
+  nil
+  "Alist of translations from timer-id to window-id")
+
+(defvar *tick-timer-counter*
+  0)
+
+
 (defgeneric tick (window))
 
-(defcallback tick-timer-cb :void ((id :int))
-  (when (> (length *id->window*) id)
-    (let ((window (aref *id->window* id)))
-      (unless (null window)
-        (tick window)
-        (when (tick-interval window)
-          (timer-func (tick-interval window)
-                      (callback tick-timer-cb) id))))))
+(defcallback tick-timer-cb :void ((tick-id :int))
+  (let ((window-id (cdr (assoc tick-id *tick-timer-id->window-id*))))
+    (if (and window-id
+             (> (length *id->window*) window-id))
+        
+      (let ((window (aref *id->window* window-id)))
+        (unless (null window)
+          (tick window)
+          (when (tick-interval window)
+            (timer-func (tick-interval window)
+                        (callback tick-timer-cb) tick-id))))
+      
+      (format t "Canceled tick timer ~a (~a)~%" tick-id window-id))))
 
 ;;;; Top-level Windows
 
