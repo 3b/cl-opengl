@@ -1065,7 +1065,7 @@
               ;;  don't want to just call the indexed query with 0
               ;;  when no index was provided)
               (:integer/i (if indexp
-                              `(get-integer-i name ,index size)
+                              `(get-integer-i ,name ,index size)
                               `(get-integer ,name size)))
               (:integer64/i (if indexp
                                 `(get-integer-64-i ,name ,index size)
