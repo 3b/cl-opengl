@@ -417,4 +417,9 @@
    #:program-uniformi
    #:program-parameteri
    ;; tessellation
-   #:patch-parameter))
+   #:patch-parameter
+   #:create-texture
+   #:create-textures
+   #:texture-parameter
+   #:get-internal-format
+   #:delete-sampler))

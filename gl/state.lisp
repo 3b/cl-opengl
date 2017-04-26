@@ -968,6 +968,84 @@
         (setf (aref result i) (mem-aref buf '%gl:float i)))
       result)))
 
+(defun get-internal-format (target format pname)
+  ;; just always using 64bit query for now
+  (flet ((get1 (pn)
+           (cffi:with-foreign-object (p '%gl:int64)
+             (%gl:get-internal-format-i64v target format pn 8 p)
+             (cffi:mem-ref p '%gl:int64))))
+    (ecase pname
+      ;; int
+      ((:num-sample-counts
+        :internalformat-red-size :internalformat-green-size
+        :internalformat-blue-size :internalformat-alpha-size
+        :internalformat-depth-size :internalformat-stencil-size
+        :internalformat-shared-size
+        :max-width :max-height :max-layers
+        :max-combined-dimensions ;; 64bit
+        :image-texel-size :texture-compressed-block-width
+        :texture-compressed-block-height
+        :texture-compressed-block-size
+        :num-virtual-page-sizes-arb)
+       (get1 pname))
+      ;; counted
+      ((:samples)
+       (let ((s (get1 :num-sample-counts)))
+         (cffi:with-foreign-object (p '%gl:int64 s)
+           (%gl:get-internal-format-i64v target format pname (* s 8) p)
+           (loop for i below s
+                 collect (cffi:mem-aref p '%gl:int64 i)))))
+      ((:virtual-page-size-x-arb :virtual-page-size-y-arb
+        :virtual-page-size-z-arb)
+       (let ((s (get1 :num-virtual-page-sizes-arb)))
+         (cffi:with-foreign-object (p '%gl:int64 s)
+           (%gl:get-internal-format-i64v target format pname (* s 8) p)
+           (loop for i below s
+                 collect (cffi:mem-aref p '%gl:int64 i)))))
+      ;; enum
+      ((:internalformat-preferred :internalformat-red-type
+        :internalformat-green-type :internalformat-blue-type
+        :internalformat-alpha-type :internalformat-depth-type
+        :internalformat-stencil-type :read-pixels-format
+        :read-pixels-type :texture-image-format
+        :texture-image-type :get-texture-image-format
+        :get-texture-image-type :image-compatibility-class
+        :image-pixel-format :image-pixel-type
+        :image-format-compatibility-type :view-compatibility-class)
+       (try-to-parse-enum (get1 pname)))
+      ;; enum/generalized boolean
+      ;; (ex. :full-support/:caveat-support/:none, none to NIL)
+      ((:framebuffer-renderable :framebuffer-renderable-layered
+        :framebuffer-blend :read-pixels
+        :manual-generate-mipmap :color-encoding
+        :srgb-read :srgb-write
+        :vertex-texture :tess-control-texture
+        :tess-evaluation-texture :geometry-texture
+        :fragment-texture :compute-texture
+        :texture-shadow :texture-gather
+        :texture-gather-shadow :shader-image-load
+        :shader-image-store :shader-image-atomic
+        :simultaneous-texture-and-depth-test
+                                :simultaneous-texture-and-stencil-test
+        :simultaneous-texture-and-depth-write
+                                :simultaneous-texture-and-stencil-write
+        :clear-buffer :texture-view
+        :clear-texture :filter)
+       (let ((e (try-to-parse-enum (get1 pname))))
+         (if (eq e :none)
+             nil
+             e)))
+      ;; boolean
+      ((:internalformat-supported
+        :color-components :depth-components
+        :stencil-components :color-renderable
+        :depth-renderable :stencil-renderable
+        :mipmap :texture-compressed)
+       (let ((e (get1 pname)))
+         (ecase e
+           (1 t)
+           (0 nil)))))))
+
 
 ;;; generic get that handles type and number of values for known enums
 ;;; fixme: better name?
