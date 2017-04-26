@@ -51,6 +51,7 @@
   :init-window-height
   :init-display-mode
   :action-on-window-close
+  (:multisample 128)
   (:rendering-context #x01FD)
   :direct-rendering
   (:window-cursor #x007A))
