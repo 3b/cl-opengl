@@ -124,11 +124,11 @@
   ;; try to figure out a good size for ptrdiff_t
   (cond
     ((= (foreign-type-size :pointer)
-        (foreign-type-size :unsigned-long))
-     (defctype ptrdiff-t :unsigned-long ))
+        (foreign-type-size :long))
+     (defctype ptrdiff-t :long ))
     ((= (foreign-type-size :pointer)
-        (foreign-type-size :unsigned-long-long))
-     (defctype ptrdiff-t :unsigned-long-long))
+        (foreign-type-size :long-long))
+     (defctype ptrdiff-t :long-long))
     (t (error "not sure how big ptrdiff-t is on this platform"))))
 
 (defctype intptr ptrdiff-t)
