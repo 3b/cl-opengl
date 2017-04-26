@@ -306,7 +306,7 @@
   #:clear-buffer-sub-data #:dispatch-compute
   #:dispatch-compute-indirect #:copy-image-sub-data
   #:framebuffer-parameter-i #:get-framebuffer-parameter-iv
-  #:get-internalformat-i64v #:invalidate-tex-sub-image
+  #:get-internal-format-i64v #:invalidate-tex-sub-image
   #:invalidate-tex-image #:invalidate-buffer-sub-data
   #:invalidate-buffer-data #:invalidate-framebuffer
   #:invalidate-sub-framebuffer #:multi-draw-arrays-indirect
@@ -1094,7 +1094,7 @@
   #:vertex-attrib-4hv-nv #:vertex-attribs-1hv-nv
   #:vertex-attribs-2hv-nv #:vertex-attribs-3hv-nv
   #:vertex-attribs-4hv-nv #:vertex-attrib-divisor-nv
-  #:get-internalformat-sample-iv-nv #:uniform-matrix-2x3-fv-nv
+  #:get-internal-format-sample-iv-nv #:uniform-matrix-2x3-fv-nv
   #:uniform-matrix-3x2-fv-nv #:uniform-matrix-2x4-fv-nv
   #:uniform-matrix-4x2-fv-nv #:uniform-matrix-3x4-fv-nv
   #:uniform-matrix-4x3-fv-nv #:gen-occlusion-queries-nv
