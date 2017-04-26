@@ -120,10 +120,17 @@
 (defctype void :void)
 (defctype string :string)
 
-;;; XXX these will be broken on 64-bit systems that do not have 64-bit
-;;; longs, such as Win64.  Need to define this type in CFFI and it may
-;;; require some sort of grovelling or guessing.
-(defctype ptrdiff-t :unsigned-long)
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  ;; try to figure out a good size for ptrdiff_t
+  (cond
+    ((= (foreign-type-size :pointer)
+        (foreign-type-size :unsigned-long))
+     (defctype ptrdiff-t :unsigned-long ))
+    ((= (foreign-type-size :pointer)
+        (foreign-type-size :unsigned-long-long))
+     (defctype ptrdiff-t :unsigned-long-long))
+    (t (error "not sure how big ptrdiff-t is on this platform"))))
+
 (defctype intptr ptrdiff-t)
 (defctype intptr-arb ptrdiff-t)
 (defctype sizeiptr ptrdiff-t)
