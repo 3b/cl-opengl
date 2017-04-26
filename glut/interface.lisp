@@ -286,6 +286,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
               (cons window (loop repeat (event-arg-count event) collect t)))
         collect event))
 
+(defvar *tick-timer-id->window-id*
+  nil
+  "Alist of translations from timer-id to window-id")
+
+(defvar *tick-timer-counter*
+  0)
+
 (defun enable-tick (window millis)
   (setf (tick-interval window) millis)
 
@@ -378,14 +385,6 @@ Lexically binds CURRENT-WINDOW to the respective object."
          (destroy-window (id current-window)))
        #+darwin
        (%close current-window)))))
-
-
-(defvar *tick-timer-id->window-id*
-  nil
-  "Alist of translations from timer-id to window-id")
-
-(defvar *tick-timer-counter*
-  0)
 
 
 (defgeneric tick (window))
