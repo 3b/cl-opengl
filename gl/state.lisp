@@ -837,6 +837,11 @@
     ;; (:query-counter-bits :query ?) getQueryiv
     ;;
     (:timestamp :integer64 1)
+    ;; ARB_sparse_texture
+    (:max-sparse-texture-size-arb :integer 1)
+    (:max-sparse-3d-texture-size-arb :integer 1)
+    (:max-sparse-array-texture-layers-arb :integer 1)
+    (:sparse-texture-full-array-cube-mipmaps-arb :boolean 1)
 
     ))
 

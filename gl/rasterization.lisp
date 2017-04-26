@@ -298,15 +298,13 @@
                  (,f ,target pname param))
                 ;; tex only
                 ,@(when tex
-                    `(((:texture-base-level :texture-max-level)
+                    `(((:texture-base-level :texture-max-level
+                        :virtual-page-size-index-arb)
                        (,i ,target pname (truncate param)))
-                      (:generate-mipmap
+                      ((:generate-mipmap :texture-sparse-arb)
                        (,i ,target pname (if param 1 0)))
                       ((:texture-priority )
-                       (,f ,target pname param))))
-
-
-)))
+                       (,f ,target pname param)))))))
   (defun tex-parameter (target pname param)
     (body target %gl:tex-parameter-i %gl:tex-parameter-f %gl:tex-parameter-fv
           t))
