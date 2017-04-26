@@ -735,7 +735,7 @@
   (type enum)
   (data (:pointer :void)))
 
-(defglextfun ("glGetInternalformati64v" get-internalformat-i64v) :void
+(defglextfun ("glGetInternalformati64v" get-internal-format-i64v) :void
   (target enum)
   (internalformat enum)
   (pname enum)

@@ -1280,7 +1280,7 @@
 (defglextfun ("glCoverageModulationNV" coverage-modulation-nv) :void
   (components enum))
 
-(defglextfun ("glGetInternalformatSampleivNV" get-internalformat-sample-iv-nv) :void
+(defglextfun ("glGetInternalformatSampleivNV" get-internal-format-sample-iv-nv) :void
   (target enum)
   (internalformat enum)
   (samples sizei)
