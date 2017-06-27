@@ -453,7 +453,6 @@ another buffer is bound within FORMS."
 
 (import-export %gl:frustum
                %gl:ortho
-               %gl:active-texture
                %gl:load-identity
                %gl:push-matrix
                %gl:pop-matrix)
@@ -473,8 +472,6 @@ another buffer is bound within FORMS."
           (progn ,@body)
        (matrix-mode ,matrix)
        (pop-matrix))))
-
-(import-export %gl:active-texture)
 
 ;;;
 ;;; 2.11.4 Generating Texture Coordinates

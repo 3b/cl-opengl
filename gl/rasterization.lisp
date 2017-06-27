@@ -121,6 +121,15 @@
 ;;; 3.8 Texturing
 ;;;
 
+(defun active-texture (texture)
+  (typecase texture
+    ;; allow specifying a texture unit directly by # (0=:texture0,
+    ;; 1=:texture1,etc)
+    ((integer 0 #.(foreign-enum-value '%gl:enum :texture0))
+     (%gl:active-texture (+ texture
+                            #.(foreign-enum-value '%gl:enum :texture0))))
+    (t (%gl:active-texture texture))))
+
 ;;; 3.8.1 Texture image specification
 
 (defun internal-format->int (format)
