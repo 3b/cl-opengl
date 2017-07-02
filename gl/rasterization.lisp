@@ -125,7 +125,7 @@
   (typecase texture
     ;; allow specifying a texture unit directly by # (0=:texture0,
     ;; 1=:texture1,etc)
-    ((integer 0 #.(foreign-enum-value '%gl:enum :texture0))
+    ((integer 0 #.(1- (foreign-enum-value '%gl:enum :texture0)))
      (%gl:active-texture (+ texture
                             #.(foreign-enum-value '%gl:enum :texture0))))
     (t (%gl:active-texture texture))))
