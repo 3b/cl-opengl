@@ -334,6 +334,9 @@
   (with-opengl-sequence (array '%gl:uint textures)
     (%gl:delete-textures (length textures) array)))
 
+(defun delete-texture (texture)
+  (delete-textures (list texture)))
+
 (defun gen-textures (count)
   (with-foreign-object (texture-array '%gl:uint count)
     (%gl:gen-textures count texture-array)
@@ -375,6 +378,17 @@
   (with-foreign-object (array '%gl:uint 1)
     (%gl:gen-samplers 1 array)
     (mem-aref array '%gl:uint 0)))
+
+(defun create-samplers (count)
+  (with-foreign-object (samplers '%gl:uint count)
+    (%gl:create-samplers count samplers)
+    (loop for i below count
+          collecting (mem-aref samplers '%gl:uint i))))
+
+(defun create-sampler ()
+  (with-foreign-object (samplers '%gl:uint 1)
+    (%gl:create-samplers 1 samplers)
+    (mem-aref samplers '%gl:uint 0)))
 
 
 ;;; The following two functions look awkward to use, so we'll provide the two

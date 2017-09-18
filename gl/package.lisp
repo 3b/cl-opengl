@@ -422,4 +422,7 @@
    #:create-textures
    #:texture-parameter
    #:get-internal-format
-   #:delete-sampler))
+   #:delete-sampler
+   #:create-samplers
+   #:create-sampler
+   #:delete-texture))

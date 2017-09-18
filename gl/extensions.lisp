@@ -113,7 +113,7 @@
   (ecase pname
     (:framebuffer )))
 
-(import-export %gl:generate-mipmap %gl:generate-mipmap-ext)
+(import-export %gl:generate-mipmap %gl:generate-mipmap-ext %gl:generate-texture-mipmap)
 
 ;;;
 ;;; ARB_uniform_buffer_object
