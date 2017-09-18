@@ -310,6 +310,9 @@
                     `(((:texture-base-level :texture-max-level
                         :virtual-page-size-index-arb)
                        (,i ,target pname (truncate param)))
+                      ((:texture-swizzle-r :texture-swizzle-g
+                        :texture-swizzle-b :texture-swizzle-a)
+                       (,i ,target pname (foreign-enum-value '%gl:enum param)))
                       ((:generate-mipmap :texture-sparse-arb)
                        (,i ,target pname (if param 1 0)))
                       ((:texture-priority )
