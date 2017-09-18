@@ -76,12 +76,15 @@
        (copy :uint32 4)))))
 
 (defun named-buffer-storage (buffer data flags &key end)
-  ;; DATA should be either a foreign pointer (with END specified),
-  ;; NIL, or a typed CL vector of some scalar numerical type
+  ;; DATA should be either a foreign pointer (with END specified), NIL
+  ;; (with END specified), or a typed CL vector of some scalar
+  ;; numerical type
   (setf flags (cffi:foreign-bitfield-value
                ;; not quite right type,
                '%gl::mapbufferusagemask
                flags))
+  (unless data
+    (setf data (cffi:null-pointer)))
   (when (cffi:pointerp data)
     (%gl:named-buffer-storage buffer end data flags)
     (return-from named-buffer-storage nil))
