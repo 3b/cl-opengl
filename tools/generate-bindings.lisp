@@ -35,7 +35,8 @@
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (asdf:load-systems 'alexandria 'cl-ppcre 'split-sequence
-                     'cxml 'xpath 'cxml-stp))
+                     'cxml 'xpath 'cxml-stp
+                     'cl-json))
 
 (defvar *base-dir* (make-pathname :directory (pathname-directory
                                               (or *compile-file-pathname*
@@ -51,7 +52,7 @@
 ;; read from data files
 (defparameter *glext-version* nil)
 (defparameter *glext-last-updated* nil)
-(defparameter *glext-svn-version* nil)
+(defparameter *glext-git-sha* nil)
 
 ;; not sure if we should export all defined types or just specific types?
 (defparameter *exported-enums*
@@ -300,6 +301,11 @@
                 (xpath:string-value (xpath:evaluate ,x ,n)))))
        (unless (string= ,s "") ,s))))
 
+(defun json (json &rest path)
+  (loop for p in path
+        do (setf json (cdr (assoc p json))))
+  json)
+
 (defun get-type (node)
   (string-trim '(#\space #\tab #\newline #\return)
                (apply 'concatenate 'string (mapcar 'xpath:string-value (xpath:all-nodes (xpath:evaluate "text()|ptype" node))))))
@@ -335,14 +341,13 @@
   (assert (search "Copyright" copyright))
 
   ;; read version info
-  (let* ((svn-info (cxml:parse-file (merge-pathnames "svn-info.xml" spec-dir)
-                                    (cxml:make-whitespace-normalizer
-                                     (stp:make-builder))))
-         (date (sv "/info/entry/commit/date" svn-info))
-         (svn (sv "/info/entry/commit/@revision" svn-info)))
+  (let* ((github-info (json:decode-json-from-source
+                       (merge-pathnames "github-info.json" spec-dir)))
+         (date (json github-info :commit :author :date))
+         (sha (json github-info :sha)))
     (setf *glext-version* (subseq (remove #\- date) 0 8))
     (setf *glext-last-updated* date)
-    (setf *glext-svn-version* svn))
+    (setf *glext-git-sha* sha))
 
   ;; extract types
   (xpath:do-node-set (node (xpath:evaluate "/registry/types/type[name and not(apientry)]" gl.xml))
@@ -564,10 +569,10 @@
                          (cdddr (reverse (multiple-value-list
                                           (decode-universal-time
                                            (get-universal-time) 0)))))
-                 (format out ";;; from gl.xml @ svn rev ~a, ~a~%~%"
-                         *glext-svn-version* *glext-last-updated*)
+                 (format out ";;; from gl.xml @ git sha ~a, ~a~%~%"
+                         *glext-git-sha* *glext-last-updated*)
 
-                 (when (string= filename "funcs-gl-glcore-gles1-gles2.lisp")
+                 (when (string= filename "funcs-gl-glcore-gles1-gles2-glsc2.lisp")
                    ;; fixme: figure out a better way to make sure this
                    ;; ends up in 1 file common to all APIs
                    (format out "(defparameter *glext-version* ~a)~%" *glext-version*)

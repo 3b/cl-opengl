@@ -14,8 +14,8 @@ bindings:
 
 # fixme: probably should grab xml file with svn instead of wget?
 specs:
-	cd spec && wget -N https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api/gl.xml
-	cd spec && svn info --xml https://cvs.khronos.org/svn/repos/ogl/trunk/doc/registry/public/api/ > svn-info.xml
+	cd spec && wget -N https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml
+	cd spec && curl "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/heads/master" -o github-info.json
 
 clean:
 	find . -name ".fasls" | xargs rm -rf
