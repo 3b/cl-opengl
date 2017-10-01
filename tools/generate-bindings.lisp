@@ -596,9 +596,10 @@
                                 do (format out "~%  (~a ~a)"
                                            (getf a :name)
                                            (cond
+                                             ((position #\* type)
+                                              (translate-type-name type offset-param))
                                              ((or (gethash group bitfields)
                                                   (gethash group enums))
-                                              (assert (not (position #\* type)))
                                               group)
                                              ((or (gethash type bitfields)
                                                   (gethash type enums))
