@@ -508,7 +508,8 @@
         :texture-view-min-layer :texture-view-num-layers
         :texture-immutable-levels)
        (ints 1))
-      ((:texture-min-lod :texture-max-lod)
+      ((:texture-min-lod :texture-max-lod
+        :texture-max-anisotropy :texture-max-anisotropy-ext)
        (floats 1))
       ((:texture-border-color)
        (floats 4)))))

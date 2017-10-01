@@ -842,8 +842,9 @@
     (:max-sparse-3d-texture-size-arb :integer 1)
     (:max-sparse-array-texture-layers-arb :integer 1)
     (:sparse-texture-full-array-cube-mipmaps-arb :boolean 1)
-
-    ))
+    ;; ext_texture_filter_anisotropic / GL 4.6
+    (:max-texture-max-anisotropy-ext :float 1)
+    (:max-texture-max-anisotropy :float 1)))
 
 ;;; Return the default array size for a state query enum.
 (defun query-enum-size (value)
