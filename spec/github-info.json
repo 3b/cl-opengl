@@ -1,0 +1,53 @@
+{
+  "sha": "b98d0569601a61b5aa650106ac72c57fc61a1b06",
+  "commit": {
+    "author": {
+      "name": "Jon Leech",
+      "email": "oddhack@sonic.net",
+      "date": "2017-09-29T23:45:18Z"
+    },
+    "committer": {
+      "name": "Jon Leech",
+      "email": "oddhack@sonic.net",
+      "date": "2017-09-29T23:45:18Z"
+    },
+    "message": "Regenerate headers",
+    "tree": {
+      "sha": "5b459234d2b5e9dfaccc6e0337426c2fc1189547",
+      "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/git/trees/5b459234d2b5e9dfaccc6e0337426c2fc1189547"
+    },
+    "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/git/commits/b98d0569601a61b5aa650106ac72c57fc61a1b06",
+    "comment_count": 0
+  },
+  "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/b98d0569601a61b5aa650106ac72c57fc61a1b06",
+  "html_url": "https://github.com/KhronosGroup/OpenGL-Registry/commit/b98d0569601a61b5aa650106ac72c57fc61a1b06",
+  "comments_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/b98d0569601a61b5aa650106ac72c57fc61a1b06/comments",
+  "author": null,
+  "committer": null,
+  "parents": [
+    {
+      "sha": "eb71e7ec075090b120a5d073f235c04a23fd5940",
+      "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/eb71e7ec075090b120a5d073f235c04a23fd5940",
+      "html_url": "https://github.com/KhronosGroup/OpenGL-Registry/commit/eb71e7ec075090b120a5d073f235c04a23fd5940"
+    }
+  ],
+  "stats": {
+    "total": 7,
+    "additions": 6,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "7329ac7c3e38eed21937f34eafa5b59b62a4f9bd",
+      "filename": "api/GLES2/gl2ext.h",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 1,
+      "changes": 7,
+      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/b98d0569601a61b5aa650106ac72c57fc61a1b06/api/GLES2/gl2ext.h",
+      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/b98d0569601a61b5aa650106ac72c57fc61a1b06/api/GLES2/gl2ext.h",
+      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GLES2/gl2ext.h?ref=b98d0569601a61b5aa650106ac72c57fc61a1b06",
+      "patch": "@@ -38,7 +38,7 @@ extern \"C\" {\n #define GL_APIENTRYP GL_APIENTRY*\n #endif\n \n-/* Generated on date 20170926 */\n+/* Generated on date 20170929 */\n \n /* Generated C header for:\n  * API: gles2\n@@ -2097,6 +2097,11 @@ GL_APICALL void GL_APIENTRY glTexBufferRangeEXT (GLenum target, GLenum internalf\n #define GL_EXT_texture_format_BGRA8888 1\n #endif /* GL_EXT_texture_format_BGRA8888 */\n \n+#ifndef GL_EXT_texture_mirror_clamp_to_edge\n+#define GL_EXT_texture_mirror_clamp_to_edge 1\n+#define GL_MIRROR_CLAMP_TO_EDGE_EXT       0x8743\n+#endif /* GL_EXT_texture_mirror_clamp_to_edge */\n+\n #ifndef GL_EXT_texture_norm16\n #define GL_EXT_texture_norm16 1\n #define GL_R16_EXT                        0x822A"
+    }
+  ]
+}
