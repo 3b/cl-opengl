@@ -1,15 +1,5 @@
 ;;; override values from gl.xml
 
-(:bitfield "ClearBufferMask"
-           (:color-buffer #x4000)
-           (:color-buffer-bit #x4000)
-           (:accum-buffer #x200)
-           (:accum-buffer-bit #x200)
-           (:depth-buffer #x100)
-           (:depth-buffer-bit #x100)
-           (:stencil-buffer #x400)
-           (:stencil-buffer-bit #x400))
-
 (:enum "enum"
        ;; gl and gles have different values for GL_ACTIVE_PROGRAM_EXT
        ;; so force the GL value (see below for ES value)

@@ -325,7 +325,8 @@
                                  (stp:make-builder))))
        (copyright (xpath:string-value
                    (xpath:evaluate "/registry/comment" gl.xml)))
-       (bitfields  (make-hash-table :test 'equal))
+       (groups (make-hash-table :test 'equal))
+       (bitfields (make-hash-table :test 'equal))
        (enums (make-hash-table :test 'equal))
        (funcs (make-hash-table :test 'equal))
        (function-apis (make-hash-table :test 'equal))
@@ -359,6 +360,28 @@
                 name
                 (string-upcase (translate-type-name name))
                 (xpath:string-value (xpath:evaluate "text()" node))))))
+
+  ;; extract groups
+  (xpath:do-node-set (node (xpath:evaluate "/registry/groups/group" gl.xml))
+    (let ((name (xpath:string-value (xpath:evaluate "@name" node))))
+      (let ((groups (alexandria:ensure-gethash name groups
+                                               (make-hash-table :test 'equal))))
+        (flet ((add (k -bit)
+                 (setf (gethash k groups) (or -bit k))))
+          (xpath:do-node-set (e (xpath:evaluate "enum" node))
+            (let ((n (convert-enum-name (xpath:string-value
+                                         (xpath:evaluate "@name" e)))))
+              ;; add an alias without the -bit suffix if any
+              ;; (should we strip -bit before a vendor suffix also?
+              ;;  for example :2x-bit-ati -> :2x-ati?)
+              (when (cl-ppcre:scan "-BITS?$" (string n))
+                (add (intern (or (cl-ppcre:register-groups-bind (a)
+                                     ("(.*)-BITS?$" (string n))
+                                   a)
+                                 "???")
+                             :keyword)
+                     n))
+              (add n nil)))))))
 
   ;; extract bitfields
   (xpath:do-node-set (node (xpath:evaluate "/registry/enums[@type=\"bitmask\"]" gl.xml))
@@ -412,6 +435,42 @@
                                          (xpath:evaluate "@name" e))))
                   (v (hex (xpath:string-value (xpath:evaluate "@value" e)))))
               (add n v)))))))
+
+  ;; update values of bitfields with missing bits
+  (loop for gn in (alexandria:hash-table-keys groups)
+        for e = (gethash gn enums)
+        for b = (gethash gn bitfields)
+        for g = (gethash gn groups)
+        unless (or e b)
+          do (format t "group ~s defined without enum def?~%" gn)
+        when b
+          do (let ((n (alexandria:hash-table-keys b))
+                   (o (alexandria:hash-table-keys g)))
+               (unless (and (null (set-difference n o))
+                            (null (set-difference o n)))
+                 (format t "mismatch between group and bitfield definition: ~s~% +~s~% -~s)~%"
+                         gn
+                         (set-difference n o)
+                         (set-difference o n)))
+               (when (set-difference o n)
+                 (assert *all-enums-in-glenum*)
+                 (format t "fix ~s~%" n)
+                 (loop with ee = (gethash "enum" enums)
+                       for k in (alexandria:hash-table-keys g)
+                       for v = (or (gethash k ee)
+                                   (gethash (gethash k g) ee))
+                       unless (gethash k b)
+                         do (format t "  ~s -> ~s~%" k v)
+                            (setf (gethash k b) v)))))
+  (format t "check enums~%")
+  (loop for e in (alexandria:hash-table-keys enums)
+        unless (gethash e groups)
+          do (format t "enum ~s defined without group def?~%" e))
+  (format t "check bitfield~%")
+  (loop for b in (alexandria:hash-table-keys bitfields)
+        unless (gethash b groups)
+          do (format t "bitfield ~s defined without group def?~%" b))
+
 
   ;; extract functions
   (xpath:do-node-set (node (xpath:evaluate "/registry/commands/command" gl.xml))
