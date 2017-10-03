@@ -19,8 +19,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-01T10:27:06Z
-;;; from gl.xml @ git sha b98d0569601a61b5aa650106ac72c57fc61a1b06, 2017-09-29T23:45:18Z
+;;; generated 2017-10-03T15:25:20Z
+;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glBlendBarrier" blend-barrier) :void)
 
@@ -43,7 +43,7 @@
   (dstY0 int)
   (dstX1 int)
   (dstY1 int)
-  (mask bitfield)
+  (mask ClearBufferMask)
   (filter enum))
 
 (defglextfun ("glRenderbufferStorageMultisampleANGLE" renderbuffer-storage-multisample-angle) :void
@@ -119,7 +119,7 @@
   (target enum)
   (size sizeiptr)
   (data (:pointer :void))
-  (flags bitfield))
+  (flags MapBufferUsageMask))
 
 (defglextfun ("glClearTexImageEXT" clear-tex-image-ext) :void
   (texture uint)
@@ -473,7 +473,7 @@
   (dstY0 int)
   (dstX1 int)
   (dstY1 int)
-  (mask bitfield)
+  (mask ClearBufferMask)
   (filter enum))
 
 (defglextfun ("glRenderbufferStorageMultisampleNV" renderbuffer-storage-multisample-nv) :void

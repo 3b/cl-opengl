@@ -19,8 +19,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-01T10:27:06Z
-;;; from gl.xml @ git sha b98d0569601a61b5aa650106ac72c57fc61a1b06, 2017-09-29T23:45:18Z
+;;; generated 2017-10-03T15:25:20Z
+;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
   (face enum)
@@ -1900,7 +1900,7 @@
   (target enum)
   (id uint)
   (pname enum)
-  (param uint))
+  (param OcclusionQueryEventMaskAMD))
 
 (defglextfun ("glSetMultisamplefvAMD" set-multisample-fv-amd) :void
   (pname enum)
@@ -1914,7 +1914,7 @@
   (height sizei)
   (depth sizei)
   (layers sizei)
-  (flags bitfield))
+  (flags TextureStorageMaskAMD))
 
 (defglextfun ("glTextureStorageSparseAMD" texture-storage-sparse-amd) :void
   (texture uint)
@@ -1924,7 +1924,7 @@
   (height sizei)
   (depth sizei)
   (layers sizei)
-  (flags bitfield))
+  (flags TextureStorageMaskAMD))
 
 (defglextfun ("glStencilOpValueAMD" stencil-op-value-amd) :void
   (face enum)
@@ -4235,7 +4235,7 @@
   (format int))
 
 (defglextfun ("glMemoryBarrierEXT" memory-barrier-ext) :void
-  (barriers bitfield))
+  (barriers MemoryBarrierMask))
 
 (defglextfun ("glStencilClearTagEXT" stencil-clear-tag-ext) :void
   (stencilTagBits sizei)
@@ -5473,7 +5473,7 @@
   (dstY0 int)
   (dstX1 int)
   (dstY1 int)
-  (mask bitfield)
+  (mask ClearBufferMask)
   (filter enum))
 
 (defglextfun ("glMulticastFramebufferSampleLocationsfvNV" multicast-framebuffer-sample-locations-fv-nv) :void

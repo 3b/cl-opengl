@@ -19,8 +19,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-01T10:27:06Z
-;;; from gl.xml @ git sha b98d0569601a61b5aa650106ac72c57fc61a1b06, 2017-09-29T23:45:18Z
+;;; generated 2017-10-03T15:25:20Z
+;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
   (target enum)
@@ -83,7 +83,7 @@
   (target enum)
   (offset intptr)
   (length sizeiptr)
-  (access bitfield))
+  (access BufferAccessMask))
 
 (defglextfun ("glFlushMappedBufferRange" flush-mapped-buffer-range) :void
   (target enum)
@@ -182,7 +182,7 @@
 
 (defglextfun ("glClientWaitSync" client-wait-sync) enum
   (sync sync)
-  (flags bitfield)
+  (flags SyncObjectMask)
   (timeout uint64))
 
 (defglextfun ("glWaitSync" wait-sync) :void
@@ -606,7 +606,7 @@
   (format enum))
 
 (defglextfun ("glMemoryBarrier" memory-barrier) :void
-  (barriers bitfield))
+  (barriers MemoryBarrierMask))
 
 (defglextfun ("glTexStorage3D" tex-storage-3d) :void
   (target enum)
@@ -813,7 +813,7 @@
   (label (:pointer char)))
 
 (defglextfun ("glMemoryBarrierByRegion" memory-barrier-by-region) :void
-  (barriers bitfield))
+  (barriers MemoryBarrierMask))
 
 (defglextfun ("glGetnUniformuiv" getn-uniform-uiv) :void
   (program uint)
@@ -1717,7 +1717,7 @@
   (firstPathName uint)
   (fontTarget enum)
   (fontName (:pointer :void))
-  (fontStyle bitfield)
+  (fontStyle PathFontStyle)
   (numGlyphs sizei)
   (type enum)
   (charcodes (:pointer :void))
@@ -1729,7 +1729,7 @@
   (firstPathName uint)
   (fontTarget enum)
   (fontName (:pointer :void))
-  (fontStyle bitfield)
+  (fontStyle PathFontStyle)
   (firstGlyph uint)
   (numGlyphs sizei)
   (handleMissingGlyphs enum)
@@ -1874,7 +1874,7 @@
   (dashArray (:pointer float)))
 
 (defglextfun ("glGetPathMetricsNV" get-path-metrics-nv) :void
-  (metricQueryMask bitfield)
+  (metricQueryMask PathMetricMask)
   (numPaths sizei)
   (pathNameType enum)
   (paths (:pointer :void))
@@ -1883,7 +1883,7 @@
   (metrics (:pointer float)))
 
 (defglextfun ("glGetPathMetricRangeNV" get-path-metric-range-nv) :void
-  (metricQueryMask bitfield)
+  (metricQueryMask PathMetricMask)
   (firstPathName uint)
   (numPaths sizei)
   (stride sizei)
@@ -1987,7 +1987,7 @@
 (defglextfun ("glPathGlyphIndexRangeNV" path-glyph-index-range-nv) enum
   (fontTarget enum)
   (fontName (:pointer :void))
-  (fontStyle bitfield)
+  (fontStyle PathFontStyle)
   (pathParameterTemplate uint)
   (emScale float)
   (baseAndCount uint [2]))
@@ -1996,7 +1996,7 @@
   (firstPathName uint)
   (fontTarget enum)
   (fontName (:pointer :void))
-  (fontStyle bitfield)
+  (fontStyle PathFontStyle)
   (firstGlyphIndex uint)
   (numGlyphs sizei)
   (pathParameterTemplate uint)

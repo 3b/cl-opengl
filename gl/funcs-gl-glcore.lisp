@@ -19,8 +19,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-01T10:27:06Z
-;;; from gl.xml @ git sha b98d0569601a61b5aa650106ac72c57fc61a1b06, 2017-09-29T23:45:18Z
+;;; generated 2017-10-03T15:25:20Z
+;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
   (target enum)
@@ -800,7 +800,7 @@
   (target enum)
   (size sizeiptr)
   (data (:pointer :void))
-  (flags bitfield))
+  (flags MapBufferUsageMask))
 
 (defglextfun ("glClearTexImage" clear-tex-image) :void
   (texture uint)
@@ -903,7 +903,7 @@
   (buffer uint)
   (size sizeiptr)
   (data (:pointer :void))
-  (flags bitfield))
+  (flags MapBufferUsageMask))
 
 (defglextfun ("glNamedBufferData" named-buffer-data) :void
   (buffer uint)
@@ -948,7 +948,7 @@
   (buffer uint)
   (offset intptr)
   (length sizeiptr)
-  (access bitfield))
+  (access BufferAccessMask))
 
 (defglextfun ("glUnmapNamedBuffer" unmap-named-buffer) boolean
   (buffer uint))
@@ -1070,7 +1070,7 @@
   (dstY0 int)
   (dstX1 int)
   (dstY1 int)
-  (mask bitfield)
+  (mask ClearBufferMask)
   (filter enum))
 
 (defglextfun ("glCheckNamedFramebufferStatus" check-named-framebuffer-status) enum
@@ -3580,7 +3580,7 @@
   (buffer uint)
   (offset intptr)
   (length sizeiptr)
-  (access bitfield))
+  (access BufferAccessMask))
 
 (defglextfun ("glFlushMappedNamedBufferRangeEXT" flush-mapped-named-buffer-range-ext) :void
   (buffer uint)
@@ -3591,7 +3591,7 @@
   (buffer uint)
   (size sizeiptr)
   (data (:pointer :void))
-  (flags bitfield))
+  (flags MapBufferUsageMask))
 
 (defglextfun ("glClearNamedBufferDataEXT" clear-named-buffer-data-ext) :void
   (buffer uint)

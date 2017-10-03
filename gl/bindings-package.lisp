@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20170929 ( 2017-09-29T23:45:18Z )
+;;; glext version 20171003 ( 2017-10-03T15:09:09Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)

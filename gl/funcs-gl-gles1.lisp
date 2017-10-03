@@ -19,8 +19,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-01T10:27:06Z
-;;; from gl.xml @ git sha b98d0569601a61b5aa650106ac72c57fc61a1b06, 2017-09-29T23:45:18Z
+;;; generated 2017-10-03T15:25:20Z
+;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglfun ("glPointSize" point-size) :void
   (size float))
