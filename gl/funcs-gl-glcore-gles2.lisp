@@ -19,7 +19,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-04T14:51:09Z
+;;; generated 2017-10-04T20:14:06Z
 ;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void

@@ -611,8 +611,12 @@
   (:src2-rgb #x8582))
 
 (defcenum (shader-type :unsigned-int)
+  (:compute-shader #x91B9)
   (:fragment-shader #x8B30)
   (:fragment-shader-arb #x8B30)
+  (:geometry-shader #x8DD9)
+  (:tess-control-shader #x8E88)
+  (:tess-evaluation-shader #x8E87)
   (:vertex-shader #x8B31)
   (:vertex-shader-arb #x8B31))
 

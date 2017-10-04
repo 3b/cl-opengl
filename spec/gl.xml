@@ -2735,6 +2735,8 @@ typedef unsigned int GLhandleARB;
             <enum name="GL_TESS_EVALUATION_SHADER"/>
             <enum name="GL_GEOMETRY_SHADER"/>
             <enum name="GL_FRAGMENT_SHADER"/>
+            <enum name="GL_FRAGMENT_SHADER_ARB"/>
+            <enum name="GL_VERTEX_SHADER_ARB"/>
         </group>
 
         <group name="DebugSource">
@@ -7698,6 +7700,10 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8B30" name="GL_FRAGMENT_SHADER_ARB"/>
         <enum value="0x8B31" name="GL_VERTEX_SHADER"/>
         <enum value="0x8B31" name="GL_VERTEX_SHADER_ARB"/>
+        <enum value="0x8DD9" name="GL_GEOMETRY_SHADER"/>
+        <enum value="0x8E87" name="GL_TESS_EVALUATION_SHADER"/>
+        <enum value="0x8E88" name="GL_TESS_CONTROL_SHADER"/>
+        <enum value="0x91B9" name="GL_COMPUTE_SHADER"/>
             <unused start="0x8B32" end="0x8B3F" comment="For shader types"/>
     </enums>
 
@@ -12313,7 +12319,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLsizei</ptype> <name>width</name></param>
             <param group="CheckedInt32"><ptype>GLint</ptype> <name>border</name></param>
             <param><ptype>GLsizei</ptype> <name>imageSize</name></param>
-            <param group="CompressedTextureARB" len="imageSize">const void *<name>data</name></param>
+            <param group="CompressedTextureARB,OffsetOrPointer" len="imageSize">const void *<name>data</name></param>
             <glx type="render" opcode="214"/>
             <glx type="render" opcode="314" name="glCompressedTexImage1DPBO" comment="PBO protocol"/>
         </command>
@@ -18191,7 +18197,7 @@ typedef unsigned int GLhandleARB;
             <param group="CheckedInt32"><ptype>GLint</ptype> <name>level</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(target,level,format,type)">void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(target,level,format,type)">void *<name>pixels</name></param>
             <glx type="single" opcode="135"/>
             <glx type="render" opcode="344" name="glGetTexImagePBO" comment="PBO protocol"/>
         </command>
@@ -24977,7 +24983,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLsizei</ptype> <name>height</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width,height)">void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width,height)">void *<name>pixels</name></param>
             <glx type="single" opcode="111"/>
             <glx type="render" opcode="345" name="glReadPixelsPBO" comment="PBO protocol"/>
         </command>
@@ -27108,7 +27114,7 @@ typedef unsigned int GLhandleARB;
             <param group="CheckedInt32"><ptype>GLint</ptype> <name>border</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width)">const void *<name>pixels</name></param>
             <glx type="render" opcode="109"/>
             <glx type="render" opcode="328" name="glTexImage1DPBO" comment="PBO protocol"/>
         </command>
@@ -27122,7 +27128,7 @@ typedef unsigned int GLhandleARB;
             <param group="CheckedInt32"><ptype>GLint</ptype> <name>border</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width,height)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width,height)">const void *<name>pixels</name></param>
             <glx type="render" opcode="110"/>
             <glx type="render" opcode="329" name="glTexImage2DPBO" comment="PBO protocol"/>
         </command>
@@ -27156,7 +27162,7 @@ typedef unsigned int GLhandleARB;
             <param group="CheckedInt32"><ptype>GLint</ptype> <name>border</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width,height,depth)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width,height,depth)">const void *<name>pixels</name></param>
             <glx type="render" opcode="4114"/>
             <glx type="render" opcode="330" name="glTexImage3DPBO" comment="PBO protocol"/>
         </command>
@@ -27500,7 +27506,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLsizei</ptype> <name>width</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width)">const void *<name>pixels</name></param>
             <glx type="render" opcode="4099"/>
             <glx type="render" opcode="331" name="glTexSubImage1DPBO" comment="PBO protocol"/>
         </command>
@@ -27526,7 +27532,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLsizei</ptype> <name>height</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width,height)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width,height)">const void *<name>pixels</name></param>
             <glx type="render" opcode="4100"/>
             <glx type="render" opcode="332" name="glTexSubImage2DPBO" comment="PBO protocol"/>
         </command>
@@ -27556,7 +27562,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLsizei</ptype> <name>depth</name></param>
             <param group="PixelFormat"><ptype>GLenum</ptype> <name>format</name></param>
             <param group="PixelType"><ptype>GLenum</ptype> <name>type</name></param>
-            <param len="COMPSIZE(format,type,width,height,depth)">const void *<name>pixels</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(format,type,width,height,depth)">const void *<name>pixels</name></param>
             <glx type="render" opcode="4115"/>
             <glx type="render" opcode="333" name="glTexSubImage3DPBO" comment="PBO protocol"/>
         </command>
@@ -30798,7 +30804,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLint</ptype> <name>size</name></param>
             <param group="VertexAttribPointerType"><ptype>GLenum</ptype> <name>type</name></param>
             <param><ptype>GLsizei</ptype> <name>stride</name></param>
-            <param len="COMPSIZE(size,type,stride)">const void *<name>pointer</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(size,type,stride)">const void *<name>pointer</name></param>
         </command>
         <command>
             <proto>void <name>glVertexAttribIPointerEXT</name></proto>
@@ -31031,7 +31037,7 @@ typedef unsigned int GLhandleARB;
             <param><ptype>GLint</ptype> <name>size</name></param>
             <param group="VertexAttribPointerType"><ptype>GLenum</ptype> <name>type</name></param>
             <param><ptype>GLsizei</ptype> <name>stride</name></param>
-            <param len="size">const void *<name>pointer</name></param>
+            <param group="OffsetOrPointer" len="size">const void *<name>pointer</name></param>
         </command>
         <command>
             <proto>void <name>glVertexAttribLPointerEXT</name></proto>
@@ -31111,7 +31117,7 @@ typedef unsigned int GLhandleARB;
             <param group="VertexAttribPointerType"><ptype>GLenum</ptype> <name>type</name></param>
             <param group="Boolean"><ptype>GLboolean</ptype> <name>normalized</name></param>
             <param><ptype>GLsizei</ptype> <name>stride</name></param>
-            <param len="COMPSIZE(size,type,stride)">const void *<name>pointer</name></param>
+            <param group="OffsetOrPointer" len="COMPSIZE(size,type,stride)">const void *<name>pointer</name></param>
         </command>
         <command>
             <proto>void <name>glVertexAttribPointerARB</name></proto>
