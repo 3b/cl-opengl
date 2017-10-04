@@ -19,7 +19,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-03T15:25:20Z
+;;; generated 2017-10-04T14:51:09Z
 ;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
@@ -317,7 +317,7 @@
   (length sizei))
 
 (defglextfun ("glGetShaderPrecisionFormat" get-shader-precision-format) :void
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (precisiontype enum)
   (range (:pointer int))
   (precision (:pointer int)))
@@ -344,7 +344,7 @@
   (program uint))
 
 (defglextfun ("glCreateShaderProgramv" create-shader-program-v) uint
-  (type ShaderType)
+  (type shader-type)
   (count sizei)
   (strings (:pointer (:pointer char))))
 
@@ -1340,7 +1340,7 @@
   (program uint))
 
 (defglextfun ("glCreateShaderProgramEXT" create-shader-program-ext) uint
-  (type ShaderType)
+  (type shader-type)
   (string (:pointer char)))
 
 (defglextfun ("glActiveShaderProgramEXT" active-shader-program-ext) :void
@@ -1351,7 +1351,7 @@
   (pipeline uint))
 
 (defglextfun ("glCreateShaderProgramvEXT" create-shader-programv-ext) uint
-  (type ShaderType)
+  (type shader-type)
   (count sizei)
   (strings (:pointer (:pointer char))))
 
@@ -1371,7 +1371,7 @@
 
 (defglextfun ("glGetProgramPipelineivEXT" get-program-pipeline-iv-ext) :void
   (pipeline uint)
-  (pname GetProgramPipelineExtPname)
+  (pname get-program-pipeline-ext-pname)
   (params int))
 
 (defglextfun ("glIsProgramPipelineEXT" is-program-pipeline-ext) boolean

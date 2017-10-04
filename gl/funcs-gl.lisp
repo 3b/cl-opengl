@@ -19,7 +19,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-03T15:25:20Z
+;;; generated 2017-10-04T14:51:09Z
 ;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
@@ -2458,7 +2458,7 @@
   (attachedObj handle-arb))
 
 (defglextfun ("glCreateShaderObjectARB" create-shader-object-arb) handle-arb
-  (shaderType ShaderType))
+  (shaderType shader-type))
 
 (defglextfun ("glShaderSourceARB" shader-source-arb) :void
   (shaderObj handle-arb)

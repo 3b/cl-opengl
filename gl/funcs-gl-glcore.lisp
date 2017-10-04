@@ -19,7 +19,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-03T15:25:20Z
+;;; generated 2017-10-04T14:51:09Z
 ;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
@@ -375,24 +375,24 @@
 
 (defglextfun ("glGetSubroutineUniformLocation" get-subroutine-uniform-location) int
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (name (:pointer char)))
 
 (defglextfun ("glGetSubroutineIndex" get-subroutine-index) uint
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (name (:pointer char)))
 
 (defglextfun ("glGetActiveSubroutineUniformiv" get-active-subroutine-uniform-iv) :void
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (index uint)
   (pname enum)
   (values (:pointer int)))
 
 (defglextfun ("glGetActiveSubroutineUniformName" get-active-subroutine-uniform-name) :void
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (index uint)
   (bufsize sizei)
   (length (:pointer sizei))
@@ -400,25 +400,25 @@
 
 (defglextfun ("glGetActiveSubroutineName" get-active-subroutine-name) :void
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (index uint)
   (bufsize sizei)
   (length (:pointer sizei))
   (name (:pointer char)))
 
 (defglextfun ("glUniformSubroutinesuiv" uniform-subroutines-uiv) :void
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (count sizei)
   (indices (:pointer uint)))
 
 (defglextfun ("glGetUniformSubroutineuiv" get-uniform-subroutine-uiv) :void
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (location int)
   (params (:pointer uint)))
 
 (defglextfun ("glGetProgramStageiv" get-program-stage-iv) :void
   (program uint)
-  (shadertype ShaderType)
+  (shadertype shader-type)
   (pname enum)
   (values (:pointer int)))
 
@@ -3880,7 +3880,7 @@
   (size uint))
 
 (defglextfun ("glGetStageIndexNV" get-stage-index-nv) ushort
-  (shadertype ShaderType))
+  (shadertype shader-type))
 
 (defglextfun ("glDrawCommandsNV" draw-commands-nv) :void
   (primitiveMode enum)

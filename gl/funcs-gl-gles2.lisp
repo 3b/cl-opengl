@@ -19,7 +19,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2017-10-03T15:25:20Z
+;;; generated 2017-10-04T14:51:09Z
 ;;; from gl.xml @ git sha 2c8fa02871abd4102bd03d09d42645cce20c468f, 2017-10-03T15:09:09Z
 
 (defglfun ("glReadBuffer" read-buffer) :void
@@ -150,7 +150,7 @@
   (shader uint))
 
 (defglextfun ("glCreateShader" create-shader) uint
-  (type ShaderType))
+  (type shader-type))
 
 (defglextfun ("glDeleteProgram" delete-program) :void
   (program uint))
