@@ -580,7 +580,6 @@
                                           '< :key 'cdr)
                      do (format out "~%  (:~(~a~) #x~x)" k v))
                (format out ")~%~%"))
-
       (loop for (name . hash) in (sort (alexandria:hash-table-alist enums)
                                        'string< :key 'car)
             do (format out "(defcenum (~a :unsigned-int)"
@@ -657,12 +656,15 @@
                                            (cond
                                              ((position #\* type)
                                               (translate-type-name type offset-param))
-                                             ((or (gethash group bitfields)
-                                                  (gethash group enums))
-                                              group)
-                                             ((or (gethash type bitfields)
-                                                  (gethash type enums))
-                                              type)
+                                             ;; fixme: translate enum
+                                             ;; and bitfield names
+                                             ;; consistently
+                                             ((gethash group bitfields) group)
+                                             ((gethash group enums)
+                                              (mixedcaps->lcdash group))
+                                             ((gethash type bitfields) type)
+                                             ((gethash type enums)
+                                              (mixedcaps->lcdash type))
                                              (t
                                               (translate-type-name type offset-param)))))
                           (format out ")~%~%"))))))
