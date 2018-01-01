@@ -79,10 +79,11 @@
   ;; DATA should be either a foreign pointer (with END specified), NIL
   ;; (with END specified), or a typed CL vector of some scalar
   ;; numerical type
-  (setf flags (cffi:foreign-bitfield-value
-               ;; not quite right type,
-               '%gl::mapbufferusagemask
-               flags))
+  (unless (integerp flags)
+    (setf flags (cffi:foreign-bitfield-value
+                 ;; not quite right type,
+                 '%gl::mapbufferusagemask
+                 flags)))
   (unless data
     (setf data (cffi:null-pointer)))
   (when (cffi:pointerp data)
