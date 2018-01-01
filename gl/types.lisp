@@ -152,3 +152,10 @@
 ;; fixme: should these be here? better name if so?
 (defcstruct _cl_context) ; "struct _cl_context"
 (defcstruct _cl_event) ; "struct _cl_event"
+
+ ;; fixme: include full signature?
+(defctype debugproc (:pointer))
+(defctype debugproc-arb (:pointer))
+(defctype debugproc-amd (:pointer))
+(defctype debugprockhr (:pointer))
+
