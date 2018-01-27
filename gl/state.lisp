@@ -1396,6 +1396,13 @@ currently implemented for speed, so avoid in inner loops"
           (%gl:get-shader-source shader source-length (null-pointer) source)
           (foreign-string-to-lisp source)))))
 
+(defun get-program-resource-index (program interface name)
+  (cffi:with-foreign-string (s name)
+    (let ((i (%gl:get-program-resource-index program interface s)))
+      (if (eql i #.(cffi:foreign-enum-value '%gl:enum :invalid-index))
+          nil
+          i))))
+
 ;;; 6.1.15 Saving and Restoring State
 
 ;;not used anymore?

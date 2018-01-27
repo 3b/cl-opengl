@@ -425,4 +425,5 @@
    #:delete-sampler
    #:create-samplers
    #:create-sampler
-   #:delete-texture))
+   #:delete-texture
+   #:get-program-resource-index))
