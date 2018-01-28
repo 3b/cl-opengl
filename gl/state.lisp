@@ -1403,6 +1403,8 @@ currently implemented for speed, so avoid in inner loops"
           nil
           i))))
 
+(import-export %gl:shader-storage-block-binding)
+
 ;;; 6.1.15 Saving and Restoring State
 
 ;;not used anymore?
