@@ -426,4 +426,6 @@
    #:create-samplers
    #:create-sampler
    #:delete-texture
-   #:get-program-resource-index))
+   #:get-program-resource-index
+   #:get-texture-level-parameter
+   #:get-texture-parameter))
