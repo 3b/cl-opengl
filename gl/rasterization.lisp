@@ -305,6 +305,8 @@
                  (,i ,target pname (foreign-enum-value '%gl:enum param)))
                 (:texture-max-anisotropy-ext
                  (,f ,target pname param))
+                (:texture-cube-map-seamless
+                 (,i ,target pname (if param 1 0)))
                 ;; tex only
                 ,@(when tex
                     `(((:texture-base-level :texture-max-level
