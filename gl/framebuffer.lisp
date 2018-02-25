@@ -83,6 +83,34 @@ with them until the first time they are used by BEGIN-QUERY."
 	    do (setf (mem-aref id-array '%gl:uint (1- i)) id))
       (%gl:delete-queries count id-array))))
 
+(defmacro with-query ((target id) &body body)
+  (if (keywordp target)
+      #1=`(progn
+            (gl:begin-query ,target ,id)
+            (unwind-protect
+                 (progn
+                   ,@body)
+              (gl:end-query ,target)))
+      (alexandria:once-only (target)
+        #1#)))
+
+(defun get-query-object (id pname &optional buffer-offset)
+  (if buffer-offset ;; user must bind buffer to :QUERY-RESULT-BUFFER
+      (%gl:get-query-object-iv id pname (cffi:make-pointer buffer-offset))
+      ;; user should ensure no buffer is bound to :QUERY-RESULT-BUFFER
+      (ecase pname
+        (:query-result-available
+         (cffi:with-foreign-object (done '%gl:int)
+           (%gl:get-query-object-iv id :query-result-available done)
+           (not (zerop (cffi:mem-ref done '%gl:int)))))
+        ((:query-result :query-result-no-wait)
+         ;; -ui64v needs gl 3.3, possibly should add some option for
+         ;;  supporting older versions too?
+         (cffi:with-foreign-object (result '%gl:uint64)
+           ;; avoid returning garbage for -no-wait
+           (setf (cffi:mem-ref result '%gl:uint64) 0)
+           (%gl:get-query-object-ui64v id pname result)
+           (cffi:mem-ref result '%gl:uint64))))))
 
 ;;; 4.1.8 Blending
 

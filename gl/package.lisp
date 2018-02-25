@@ -428,4 +428,6 @@
    #:delete-texture
    #:get-program-resource-index
    #:get-texture-level-parameter
-   #:get-texture-parameter))
+   #:get-texture-parameter
+   #:with-query
+   #:get-query-object))
