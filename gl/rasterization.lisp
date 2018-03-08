@@ -473,36 +473,35 @@
 
 ;;; texture queries
 (macrolet ((with-getters ((f i &rest vars) &body body)
-             (print
-              `(macrolet ((floats (c)
-                            `(with-foreign-object (buf '%gl:float ,c)
-                               (,',f ,@',vars pname buf)
-                               ,(if (= c 1)
-                                    `(mem-aref buf '%gl:float 0)
-                                    `(loop for i below ,c
-                                           collect (mem-aref buf '%gl:float i)))))
-                          (ints (c)
-                            `(with-foreign-object (buf '%gl:int ,c)
-                               (,',i ,@',vars pname buf)
-                               ,(if (= c 1)
-                                    `(mem-aref buf '%gl:int 0)
-                                    `(loop for i below ,c
-                                           collect (mem-aref buf '%gl:int i)))))
-                          (enums (c)
-                            `(with-foreign-object (buf '%gl:enum ,c)
-                               (,',i ,@',vars pname buf)
-                               ,(if (= c 1)
-                                    `(mem-aref buf '%gl:enum 0)
-                                    `(loop for i below ,c
-                                           collect (mem-aref buf '%gl:enum i)))))
-                          (bool (c)
-                            `(with-foreign-object (buf '%gl:int ,c)
-                               (,',i ,@',vars pname buf)
-                               ,(if (= c 1)
-                                    `(not (zerop (mem-aref buf '%gl:int 0)))
-                                    `(loop for i below ,c
-                                           collect (not (zerop (mem-aref buf '%gl:int i))))))))
-                 ,@body))))
+             `(macrolet ((floats (c)
+                           `(with-foreign-object (buf '%gl:float ,c)
+                              (,',f ,@',vars pname buf)
+                              ,(if (= c 1)
+                                   `(mem-aref buf '%gl:float 0)
+                                   `(loop for i below ,c
+                                          collect (mem-aref buf '%gl:float i)))))
+                         (ints (c)
+                           `(with-foreign-object (buf '%gl:int ,c)
+                              (,',i ,@',vars pname buf)
+                              ,(if (= c 1)
+                                   `(mem-aref buf '%gl:int 0)
+                                   `(loop for i below ,c
+                                          collect (mem-aref buf '%gl:int i)))))
+                         (enums (c)
+                           `(with-foreign-object (buf '%gl:enum ,c)
+                              (,',i ,@',vars pname buf)
+                              ,(if (= c 1)
+                                   `(mem-aref buf '%gl:enum 0)
+                                   `(loop for i below ,c
+                                          collect (mem-aref buf '%gl:enum i)))))
+                         (bool (c)
+                           `(with-foreign-object (buf '%gl:int ,c)
+                              (,',i ,@',vars pname buf)
+                              ,(if (= c 1)
+                                   `(not (zerop (mem-aref buf '%gl:int 0)))
+                                   `(loop for i below ,c
+                                          collect (not (zerop (mem-aref buf '%gl:int i))))))))
+                ,@body)))
 
   (defun get-tex-parameter (target pname)
     (with-getters (%gl:get-tex-parameter-fv %gl:get-tex-parameter-iv target)
