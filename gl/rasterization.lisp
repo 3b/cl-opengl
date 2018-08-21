@@ -299,8 +299,6 @@
                  (,f ,target pname param))
                 ((:texture-lod-bias)
                  (,i ,target pname (truncate param)))
-                (:depth-texture-mode
-                 (,i ,target pname (foreign-enum-value '%gl:enum param)))
                 ((:texture-compare-mode :texture-compare-func)
                  (,i ,target pname (foreign-enum-value '%gl:enum param)))
                 (:texture-max-anisotropy-ext
@@ -317,6 +315,9 @@
                        (,i ,target pname (foreign-enum-value '%gl:enum param)))
                       ((:generate-mipmap :texture-sparse-arb)
                        (,i ,target pname (if param 1 0)))
+                      (:depth-texture-mode
+                       :depth-stencil-texture-mode
+                       (,i ,target pname (foreign-enum-value '%gl:enum param)))
                       ((:texture-priority )
                        (,f ,target pname param)))))))
   (defun tex-parameter (target pname param)
