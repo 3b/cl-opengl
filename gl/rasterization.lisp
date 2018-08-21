@@ -315,8 +315,8 @@
                        (,i ,target pname (foreign-enum-value '%gl:enum param)))
                       ((:generate-mipmap :texture-sparse-arb)
                        (,i ,target pname (if param 1 0)))
-                      (:depth-texture-mode
-                       :depth-stencil-texture-mode
+                      ((:depth-texture-mode
+                        :depth-stencil-texture-mode)
                        (,i ,target pname (foreign-enum-value '%gl:enum param)))
                       ((:texture-priority )
                        (,f ,target pname param)))))))
