@@ -1309,7 +1309,7 @@ currently implemented for speed, so avoid in inner loops"
 
 (defun get-shader (shader pname)
   (case pname
-    ((:delete-status :compile-status)
+    ((:delete-status :compile-status :completion-status-khr)
      ;; Return a boolean for these.
      (plusp (get-shader-aux shader pname :int)))
     (otherwise
@@ -1322,7 +1322,7 @@ currently implemented for speed, so avoid in inner loops"
 
 (defun get-program (program pname)
   (case pname
-    ((:delete-status :link-status :validate-status)
+    ((:delete-status :link-status :validate-status :completion-status-khr)
      ;; Return a boolean for these.
      (plusp (get-program-aux program pname :int)))
     (otherwise
