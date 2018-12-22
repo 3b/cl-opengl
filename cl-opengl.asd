@@ -64,3 +64,38 @@
      (:file "state")
      (:file "dsa")
      (:file "extensions")))))
+
+;;; load libGLESv2 instead of libGL, and only load es2 functioons
+(defsystem cl-opengl/es2
+  :description "Common Lisp bindings to OpenGLES2/3."
+  :license "BSD"
+  :depends-on (cffi alexandria)
+  :components
+  ((:module "gl"
+    :serial t
+    :components
+    ((:file "bindings-package")
+     (:file "constants")
+     (:file "library-glesv2")
+     (:file "bindings")
+     (:file "types")
+     (:file "funcs-gl-glcore-gles1-gles2-glsc2")
+     (:file "funcs-gl-glcore-gles1-gles2")
+     (:file "funcs-gl-glcore-gles2-glsc2")
+     (:file "funcs-gl-glcore-gles2")
+     (:file "funcs-gl-gles1-gles2-glsc2")
+     (:file "funcs-gl-gles1-gles2")
+     (:file "funcs-gl-gles2-glsc2")
+     (:file "funcs-gl-gles2")
+     (:file "funcs-gles1-gles2")
+     (:file "funcs-gles2")
+     ;; Lispifications.
+     (:file "package")
+     (:file "util")
+     (:file "opengl")
+     (:file "rasterization")
+     (:file "framebuffer")
+     (:file "special")
+     (:file "state")
+     (:file "dsa")
+     (:file "extensions")))))
