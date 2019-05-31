@@ -74,6 +74,7 @@
       :depends-on ("examples")
       :components
       ((:file "glut-teapot")
+       (:file "glut-menu")
        (:file "render-to-texture")
        (:file "opengl-array")
        (:file "shader-vao")
