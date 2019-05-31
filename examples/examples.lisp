@@ -16,6 +16,7 @@
     ("SGI Samples")
     ("Other Examples"
      glut-teapot
+     glut-menu
      render-to-texture
      misc-opengl-array
      shader-vao
