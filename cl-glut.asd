@@ -52,6 +52,7 @@
      (:file "fonts"     :depends-on ("library"))
      (:file "geometry"  :depends-on ("library"))
      (:file "interface"
-            :depends-on ("init" "main" "window" "library" "callbacks"))))))
+            :depends-on ("init" "main" "window" "library" "callbacks"))
+     (:file "menu-interface"  :depends-on ("interface" "menu"))))))
 
 ;; vim: ft=lisp et
