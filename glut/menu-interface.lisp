@@ -32,123 +32,134 @@
 
 (in-package #:cl-glut)
 
-(defparameter *menus* (make-hash-table))
-(defparameter *id->menu* (make-hash-table))
+;; (instance menu-name) -> id. EQL hash, so store cons in window
+;; (defvar *menus* (make-hash-table))
+;; id -> (instance menu-name)
+(defvar *id->menu* (make-hash-table))
+;; used while building submenus
 (defvar *sub-menus*)
 
-(defclass menu ()
-  ((name :initarg :name :reader name)
-   (items :initform :items :reader items)
-   (id->item :initform (make-hash-table) :reader id->item)
-   (windows :initform (make-hash-table) :reader windows)
-   (sub-menus :initform nil :accessor sub-menus)
-   (id :initform nil :accessor id)))
-
+;; user callback to handle menu clicks
+;;; 'menu' is name of mouse button, or keyword naming a submenu
 (defgeneric menu (window menu item))
+
+(defun id->menu-item (window menu-name item-id)
+  (let* ((m (gethash menu-name (%menu-ids window)))
+         (id->item (second m)))
+    (gethash item-id id->item)))
 
 (defcallback menu-callback :void ((item-id :int))
   (let* ((menu-id (get-menu))
          (menu (gethash menu-id *id->menu*))
          (window-id (get-window))
-         (window (aref *id->window* window-id)))
+         (window (aref *id->window* window-id))
+         (button (cadr menu)))
     (assert menu)
-    (menu window menu (gethash item-id (id->item menu)))))
+    (assert (eql (car menu) window))
+    (menu window button (id->menu-item window (second menu) item-id))))
 
-(defun ensure-menu-for-window (menu-name window)
-  (let* ((menu (gethash menu-name *menus*)))
-    (unless (id menu)
-      (setf (id menu) (create-menu (callback menu-callback)))
-      (setf (gethash (id menu) *id->menu*) menu)
-      (loop for (text key . rest) in (items menu)
+
+(defun canonicalize-menu-description (description)
+  (loop
+    for i in description
+    collect (etypecase i
+              ((cons (eql :menu))
+               (let* ((n (second i))
+                      (sub
+                        (list*
+                         (first i)
+                         (etypecase n
+                           (cons n)
+                           (string
+                            (list n
+                                  (intern (string-upcase n)
+                                          (find-package :keyword))))
+                           (symbol
+                            (list (symbol-name n) n)))
+                         (canonicalize-menu-description (cddr i)))))
+                 sub))
+              (cons
+               i)
+              (string (list i (intern (string-upcase i)
+                                      (find-package :keyword))))
+              (symbol (list (symbol-name i) i)))))
+
+(defun ensure-menu-for-window (menu-name window items)
+  (let* ((m (gethash menu-name (%menu-ids window))))
+;;; ideally this should be able to update menus in-place, but for
+;;; now just requiring all changes to destroy and recreate all
+;;; menus for window to change any of them
+    (when m
+      (error "can't modify menus yet"))
+    (unless m
+      (setf m (list (create-menu (callback menu-callback))
+                    (make-hash-table)
+                    items))
+      (setf (gethash menu-name (%menu-ids window)) m)
+      (setf (gethash (first m) *id->menu*)
+            (list window menu-name)))
+    (let ((menu-id (first m))
+          (item-hash (second m)))
+      (set-menu menu-id)
+      (loop for (text key . rest) in items
             do (cond
                  ((eql text :menu)
-                  (ensure-menu-for-window (second key) window)
-                  (set-menu (id menu))
+                  (ensure-menu-for-window (second key) window rest)
+                  (set-menu menu-id)
                   (add-sub-menu (first key)
-                                (id (gethash (second key) *menus*))))
-                 (t (let ((i (hash-table-count (id->item menu))))
-                      (setf (gethash i (id->item menu)) key)
-                      (add-menu-entry text i))))))
-    (setf (gethash window (windows menu)) window)))
+                                (first (gethash (second key)
+                                                (%menu-ids window)))))
+                 (t (let ((i (hash-table-count item-hash)))
+                      (setf (gethash i item-hash) key)
+                      (add-menu-entry text i))))))))
 
-(defun maybe-destroy-menu (menu-name window)
-  (let* ((menu (gethash menu-name *menus*)))
-    (when menu
-      (remhash window (windows menu))
-      (when (and (id menu)
-                 (zerop (hash-table-count (windows menu))))
-        (destroy-menu (shiftf (id menu) nil))
-        (loop for s in (sub-menus menu) do (maybe-destroy-menu s window))))))
+(defmethod create-window-menus ((window base-window))
+  (when (left-menu window)
+    (ensure-menu-for-window :left-button window (left-menu window))
+    (attach-menu :left-button))
+  (when (right-menu window)
+    (ensure-menu-for-window :right-button window (right-menu window))
+    (attach-menu :right-button))
+  (when (middle-menu window)
+    (ensure-menu-for-window :middle-button window (middle-menu window))
+    (attach-menu :middle-button)))
 
-(defun define-menu (name items)
-  ;; item is string, keyword or (string keyword)
-  (let ((sub-menus nil))
-    (setf items
-          (loop
-            for i in items
-            collect (etypecase i
-                      ((cons (eql :menu))
-                       (let* ((n (second i))
-                              (sub
-                                (list*
-                                 (first i)
-                                 (etypecase n
-                                   (cons n)
-                                   (string
-                                    (list n
-                                          (intern (string-upcase n)
-                                                  (find-package :keyword))))
-                                   (symbol
-                                    (list (symbol-name n) n)))
-                                 (cddr i))))
-                         (pushnew (second (second sub)) sub-menus)
-                         (define-menu (second (second sub))
-                             (cddr sub))
-                         sub))
-                      (cons
-                       i)
-                      (string (list i (intern (string-upcase i)
-                                              (find-package :keyword))))
-                      (symbol (list (symbol-name i) i)))))
-    (unless (gethash name *menus*)
-      (setf (gethash name *menus*)
-            (make-instance 'menu :name name)))
-    (let ((menu (gethash name *menus*)))
-      (setf (sub-menus menu) sub-menus)
-      (if (and (items menu) (id menu))
-          ;; can't redefine menus while in use
-          (assert (tree-equal items (items menu) :test 'equal))
-          (setf (slot-value menu 'items) items)))))
 
-(defmacro defmenu (name &body items)
-  `(define-menu ',name ',items))
+(defmethod destroy-window-menus ((window base-window))
+  (loop for k being the hash-keys of (%menu-ids window)
+          using (hash-value (id))
+        do (remhash k (%menu-ids window))
+           (when (member k '(:left-button :right-button :middle-button))
+             (detach-menu k))
+           (destroy-menu id)))
 
-(defclass menu-mixin ()
-  ((menus :initarg :menus :initform nil :reader menus)))
+(defmethod rebuild-window-menus ((window base-window) button)
+  (destroy-window-menus window)
+  (create-window-menus window))
 
-(defmethod display-window :before ((window menu-mixin))
-  (loop for menu in (menus window)
-        if (consp menu)
-          do (ensure-menu-for-window (first menu) window)
-             (set-menu (id (gethash (first menu) *menus*)))
-             (let ((b (second menu)))
-               (attach-menu (if (numberp b)
-                                b
-                                (foreign-enum-value 'mouse-button b))))
-        else do (ensure-menu-for-window menu window)))
+(defmethod (setf left-menu) :around (new (window base-window))
+  (let ((old (left-menu window))
+        (new (canonicalize-menu-description new)))
+    (setf (slot-value window 'left-menu) new)
+    (when (and (slot-boundp window 'id) (id window))
+      (unless (tree-equal old new :test 'equal)
+        (rebuild-window-menus window :left-button)))
+    new))
 
-(defmethod close :around ((window menu-mixin))
-  (loop for menu in (menus window)
-        if (consp menu)
-          do (set-window (id window))
-             (set-menu (id (gethash (first menu) *menus*)))
-             (let ((b (second menu)))
-               (detach-menu (if (numberp b)
-                                b
-                                (foreign-enum-value 'mouse-button b))))
-             (maybe-destroy-menu (first menu) window)
-        else do
-          (maybe-destroy-menu menu window))
-  (when (next-method-p) (call-next-method)))
+(defmethod (setf right-menu) :around (new (window base-window))
+  (let ((old (right-menu window))
+        (new (canonicalize-menu-description new)))
+    (setf (slot-value window 'right-menu) new)
+    (when (and (slot-boundp window 'id) (id window))
+      (unless (tree-equal old new :test 'equal)
+        (rebuild-window-menus window :right-button)))
+    new))
 
-(defmethod close ((window menu-mixin)))
+(defmethod (setf middle-menu) :around (new (window base-window))
+  (let ((old (middle-menu window))
+        (new (canonicalize-menu-description new)))
+    (setf (slot-value window 'middle-menu) new)
+    (when (and (slot-boundp window 'id) (id window))
+      (unless (tree-equal old new :test 'equal)
+        (rebuild-window-menus window :middle-button)))
+    new))
