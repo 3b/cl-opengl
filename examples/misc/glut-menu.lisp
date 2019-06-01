@@ -70,8 +70,7 @@
                        (id (eql :change-left)))
   (format t "~&clicked middle menu|change left!~%")
   (setf (glut::left-menu window)
-        (alexandria:shuffle (copy-seq (glut::left-menu window))))
-)
+        (alexandria:shuffle (copy-seq (glut::left-menu window)))))
 
 
 (defun glut-menu ()
