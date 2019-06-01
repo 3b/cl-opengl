@@ -75,14 +75,14 @@
                                   (intern (string-upcase n)
                                           (find-package :keyword))))
                            (symbol
-                            (list (symbol-name n) n)))
+                            (list (substitute #\space #\- (symbol-name n)) n)))
                          (canonicalize-menu-description (cddr i)))))
                  sub))
               (cons
                i)
               (string (list i (intern (string-upcase i)
                                       (find-package :keyword))))
-              (symbol (list (symbol-name i) i)))))
+              (symbol (list (substitute #\space #\- (symbol-name i)) i)))))
 
 (defun ensure-menu-for-window (menu-name window items)
   (let* ((m (gethash menu-name (%menu-ids window))))
