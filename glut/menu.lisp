@@ -66,7 +66,7 @@
   (item :int))
 
 (defcfun ("glutAttachMenu" attach-menu) :void
-  (button :int))
+  (button mouse-button))
 
 (defcfun ("glutDetachMenu" detach-menu) :void
-  (button :int))
+  (button mouse-button))

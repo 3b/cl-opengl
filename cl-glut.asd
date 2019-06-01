@@ -46,7 +46,7 @@
      (:file "main"      :depends-on ("library" "init"))
      (:file "window"    :depends-on ("library"))
      (:file "overlay"   :depends-on ("library"))
-     (:file "menu"      :depends-on ("library"))
+     (:file "menu"      :depends-on ("library" "callbacks"))
      (:file "callbacks" :depends-on ("library"))
      (:file "misc"      :depends-on ("library"))
      (:file "fonts"     :depends-on ("library"))
