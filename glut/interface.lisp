@@ -207,7 +207,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
    (tick-interval :accessor tick-interval :initarg :tick-interval)
    ;; When this slot unbound, DISPLAY-WINDOW calls
    ;; FIND-APPLICABLE-EVENTS to populate it.
-   (events :accessor events :initarg :events))
+   (events :accessor events :initarg :events)
+   ;; menu handling data
+   (left-menu :accessor left-menu :initarg :left-menu :initform nil)
+   (right-menu :accessor right-menu :initarg :right-menu :initform nil)
+   (middle-menu :accessor middle-menu :initarg :middle-menu :initform nil)
+   ;; menu-name-symbol -> (menu-id item-id-hash description)
+   (%menu-ids :reader %menu-ids :initform (make-hash-table)))
   (:default-initargs :pos-x -1 :pos-y -1 :height 300 :width 300
                      :title +default-title+ :tick-interval nil))
 
@@ -215,6 +221,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
     ((win base-window) &key name &allow-other-keys)
   (declare (ignore win name))
   (glut:init))
+
+(defmethod initialize-instance :after
+    ((win base-window) &key name &allow-other-keys)
+  (declare (ignore name))
+  (setf (left-menu win) (canonicalize-menu-description (left-menu win)))
+  (setf (right-menu win) (canonicalize-menu-description (right-menu win)))
+  (setf (middle-menu win) (canonicalize-menu-description (middle-menu win))))
 
 (defgeneric display-window (window)
   (:documentation
@@ -245,6 +258,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
              (idle win))))
 
 (defun %close (window)
+  (destroy-window-menus window)
   (when (member :close (events window) :key #'event-name)
     (close window))
   (setf (aref *id->window* (id window)) nil)
@@ -336,6 +350,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
     (setq *id->window*
           (adjust-array *id->window* (1+ (id win)) :initial-element nil)))
   (setf (aref *id->window* (id win)) win)
+  (create-window-menus win)
   ;; setup tick timer.
   (when (tick-interval win)
     (enable-tick win (tick-interval win)))

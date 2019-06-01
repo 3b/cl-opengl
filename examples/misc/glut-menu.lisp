@@ -3,20 +3,18 @@
 
 (in-package #:cl-glut-examples)
 
-(glut::defmenu glut-menu-exit
-  ("exit" :exit)
-  "foo!"
-  :bar
-  (:menu sub-menu
-         ("1" :one)
-         "2"
-         :3))
 
-(defclass glut-menu-window (glut:window glut::menu-mixin)
+(defclass glut-menu-window (glut:window)
   ()
   (:default-initargs :width 512 :height 512 :title "glut-menu.lisp"
                      :mode '(:single :rgb :depth)
-                     :menus '((glut-menu-exit :left-button))))
+                     :left-menu '("foo!"
+                                  :bar
+                                  :add-right-menu
+                                  (:menu sub-menu
+                                   ("1" :one)
+                                   "2"
+                                   :3))))
 
 (defmethod glut:display-window :before ((w glut-menu-window))
   (gl:clear-color 0 0 0 0)
@@ -55,13 +53,32 @@
     (glut:destroy-current-window)))
 
 (defmethod glut::menu ((window glut-menu-window) menu id)
-  (format t "got menu item ~s from menu ~s~%" menu id)
-  (when (eql id :exit)
-    (glut:destroy-current-window)))
+  (format t "~&got menu item ~s from menu ~s~%" menu id)
+  (case id
+    (:add-right-menu
+     (setf (glut::right-menu window)
+           '(("add menu to middle mouse button" :add-middle)
+             :exit)))
+    (:add-middle
+     (setf (glut::middle-menu window)
+           '(("change left menu" :change-left))))
+    (:exit
+     (glut:destroy-current-window))))
+
+;; different way of handling menu events, method per item
+(defmethod glut::menu ((window glut-menu-window) (menu (eql :middle-button))
+                       (id (eql :change-left)))
+  (format t "~&clicked middle menu|change left!~%")
+  (setf (glut::left-menu window)
+        (alexandria:shuffle (copy-seq (glut::left-menu window))))
+)
+
 
 (defun glut-menu ()
   (glut:display-window (make-instance 'glut-menu-window)))
 
+#++
+(ql:quickload 'cl-glut-examples)
 #++
 (glut-menu)
 #++
