@@ -117,12 +117,18 @@
 (defmethod create-window-menus ((window base-window))
   (when (left-menu window)
     (ensure-menu-for-window :left-button window (left-menu window))
+    (set-window (id window))
+    (set-menu (first (gethash :left-button (%menu-ids window))))
     (attach-menu :left-button))
   (when (right-menu window)
     (ensure-menu-for-window :right-button window (right-menu window))
+    (set-window (id window))
+    (set-menu (first (gethash :right-button (%menu-ids window))))
     (attach-menu :right-button))
   (when (middle-menu window)
     (ensure-menu-for-window :middle-button window (middle-menu window))
+    (set-window (id window))
+    (set-menu (first (gethash :middle-button (%menu-ids window))))
     (attach-menu :middle-button)))
 
 
