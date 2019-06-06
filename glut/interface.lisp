@@ -136,7 +136,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
      ,@(loop for (name args) in event-specs collect
              `(define-glut-event ,name ,args
                 (when-current-window-exists
-                 (,name current-window ,@(mapcar #'car (cdr args))))))))
+                  (with-simple-restart (continue "Skip processing this event")
+                   (,name current-window ,@(mapcar #'car (cdr args)))))))))
 
 (define-glut-events
   ;; (idle             (window))
