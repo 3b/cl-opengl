@@ -56,7 +56,8 @@
          (button (cadr menu)))
     (assert menu)
     (assert (eql (car menu) window))
-    (menu window button (id->menu-item window (second menu) item-id))))
+    (with-simple-restart (continue "Skip processing this event")
+      (menu window button (id->menu-item window (second menu) item-id)))))
 
 
 (defun canonicalize-menu-description (description)
