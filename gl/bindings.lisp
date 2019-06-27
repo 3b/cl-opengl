@@ -44,6 +44,12 @@
                   (format s "OpenGL signalled ~A."
                           (opengl-error.error-code c))))))
 
+(defmacro with-float-traps-maybe-masked (() &body body)
+  `(#-cl-opengl-no-masked-traps float-features:with-float-traps-masked
+    #-cl-opengl-no-masked-traps t
+    #+cl-opengl-no-masked-traps progn
+    ,@body))
+
 (defparameter *in-begin* nil)
 ;; inlining lots of restart-case kills compilation times on SBCL, and doesn't
 ;; seem to help performance much
@@ -66,24 +72,32 @@
   `(progn
      (declaim (inline ,lname))
      #-cl-opengl-no-check-error
-       (defun ,lname ,(mapcar #'first body)
-         (multiple-value-prog1
-             (foreign-funcall (,cname :library opengl)
-                              ,@(loop for i in body
-                                   collect (second i)
-                                   collect (first i))
-                              ,result-type)
-           ,@(cond
-              ((string= cname "glGetError") ())
-              ((string= cname "glBegin")
-               `((setf *in-begin* t)))
-              ((string= cname "glEnd")
-               `((setf *in-begin* nil)
-                 (check-error ',lname)))
-              (t
-               `((check-error ',lname))))))
+     (defun ,lname ,(mapcar #'first body)
+       (multiple-value-prog1
+           (with-float-traps-maybe-masked ()
+            (foreign-funcall (,cname :library opengl)
+                             ,@(loop for i in body
+                                     collect (second i)
+                                     collect (first i))
+                             ,result-type))
+         ,@(cond
+             ((string= cname "glGetError") ())
+             ((string= cname "glBegin")
+              `((setf *in-begin* t)))
+             ((string= cname "glEnd")
+              `((setf *in-begin* nil)
+                (check-error ',lname)))
+             (t
+              `((check-error ',lname))))))
      #+cl-opengl-no-check-error
-     (defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
+     (defun ,lname ,(mapcar #'first body)
+       (with-float-traps-maybe-masked ()
+        (foreign-funcall (,cname :library opengl)
+                         ,@(loop for i in body
+                                 collect (second i)
+                                 collect (first i))
+                         ,result-type)))
+     #++(defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
 ;;;; Extensions
 
@@ -173,13 +187,14 @@
     (compile lisp-name
              `(lambda ,arg-list
                 (multiple-value-prog1
-                    (foreign-funcall-pointer
-                     ,address
-                     (:library opengl)
-                     ,@(loop for i in body
-                          collect (second i)
-                          collect (first i))
-                     ,result-type)
+                    (with-float-traps-maybe-masked ()
+                      (foreign-funcall-pointer
+                       ,address
+                       (:library opengl)
+                       ,@(loop for i in body
+                               collect (second i)
+                               collect (first i))
+                       ,result-type))
                   #-cl-opengl-no-check-error
                   (check-error ',lisp-name))))
     (apply lisp-name args)))
