@@ -5,3 +5,19 @@ The examples/ directory contains a couple of examples using cl-glut,
 cl-opengl and cl-glu. Note, however, that you can use each of these
 independently. In particular, you can use a windowing toolkit other
 than (Free)GLUT, if you wish.
+
+
+build-time configuration:
+
+By default, cl-opengl checks for errors after GL calls where valid,
+and disables FP traps around ffi calls to match assumptions of C code
+in drivers.
+
+If these cause performance or other problems, they can be disabled by
+pushing :cl-opengl-no-check-error or :cl-opengl-no-masked-traps onto
+*features* before compiling cl-opengl (probably will need to clear
+.fasl caches or force a rebuild with asdf if cl-opengl has been loaded
+previously). When disabling the per-call masked fp traps in cl-opengl,
+you might need to do so yourself to run on some drivers. See
+with-float-traps-masked in the float-features library for a portable
+wrapper.

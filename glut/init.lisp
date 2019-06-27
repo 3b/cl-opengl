@@ -37,8 +37,7 @@
   (argv  :pointer)) ; char**
 
 (defmacro without-fp-traps (&body body)
-  #+(and sbcl (or x86 x86-64))
-  `(sb-int:with-float-traps-masked (:invalid :divide-by-zero)
+  `(float-features:with-float-traps-masked t
      ,@body)
   #-(and sbcl (or x86 x86-64))
   `(progn ,@body))
