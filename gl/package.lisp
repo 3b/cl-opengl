@@ -430,4 +430,5 @@
    #:get-texture-level-parameter
    #:get-texture-parameter
    #:with-query
-   #:get-query-object))
+   #:get-query-object
+   #:extension-list))

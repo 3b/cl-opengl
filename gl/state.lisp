@@ -1263,7 +1263,16 @@
   (nth-value 1 (parse-gl-version-string-values (get-string :shading-language-version))))
 
 
-
+;; external
+(defun extension-list ()
+  (let* ((extension-string (get-string :extensions)))
+    (loop for start = nil then (1+ end)
+          for end = -1 then (or (position #\space extension-string
+                                           :start start)
+                                 (length extension-string))
+          when (and start (/= start end))
+            collect (subseq extension-string start end)
+          while (< end (length extension-string)))))
 
 ;; external
 (defun gl3-extension-present-p (name)
