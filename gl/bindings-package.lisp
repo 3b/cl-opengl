@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20171003 ( 2017-10-03T15:09:09Z )
+;;; glext version 20191121 ( 2019-11-21T23:33:47Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -404,6 +404,8 @@
   #:debug-message-callback-amd #:get-debug-message-log-amd
   #:blend-func-indexed-amd #:blend-func-separate-indexed-amd
   #:blend-equation-indexed-amd #:blend-equation-separate-indexed-amd
+  #:renderbuffer-storage-multisample-advanced-amd
+  #:named-renderbuffer-storage-multisample-advanced-amd
   #:framebuffer-sample-positions-fv-amd
   #:named-framebuffer-sample-positions-fv-amd
   #:get-framebuffer-parameter-fv-amd
@@ -661,6 +663,8 @@
   #:normal-stream-3fv-ati #:normal-stream-3d-ati
   #:normal-stream-3dv-ati #:client-active-vertex-stream-ati
   #:vertex-blend-env-i-ati #:vertex-blend-env-f-ati
+  #:egl-image-target-tex-storage-ext
+  #:egl-image-target-texture-storage-ext
   #:draw-arrays-instanced-base-instance-ext
   #:draw-elements-instanced-base-instance-ext
   #:draw-elements-instanced-base-vertex-base-instance-ext
@@ -859,11 +863,12 @@
   #:begin-query-ext #:end-query-ext #:query-counter-ext
   #:get-query-iv-ext #:get-query-object-iv-ext
   #:get-query-object-uiv-ext #:get-query-object-i64v-ext
-  #:get-query-object-ui64v-ext #:draw-buffers-ext
-  #:color-mask-indexed-ext #:enable-i-ext #:disable-i-ext
-  #:blend-equation-i-ext #:blend-equation-separate-i-ext
-  #:blend-func-i-ext #:blend-func-separate-i-ext #:color-mask-i-ext
-  #:is-enabled-i-ext #:draw-elements-base-vertex-ext
+  #:get-query-object-ui64v-ext #:get-integer-64-v-ext
+  #:draw-buffers-ext #:color-mask-indexed-ext #:enable-i-ext
+  #:disable-i-ext #:blend-equation-i-ext
+  #:blend-equation-separate-i-ext #:blend-func-i-ext
+  #:blend-func-separate-i-ext #:color-mask-i-ext #:is-enabled-i-ext
+  #:draw-elements-base-vertex-ext
   #:draw-range-elements-base-vertex-ext
   #:draw-elements-instanced-base-vertex-ext
   #:multi-draw-elements-base-vertex-ext #:draw-arrays-instanced-ext
@@ -948,8 +953,9 @@
   #:delete-program-pipelines-ext #:gen-program-pipelines-ext
   #:get-program-pipeline-info-log-ext #:get-program-pipeline-iv-ext
   #:is-program-pipeline-ext #:use-program-stages-ext
-  #:validate-program-pipeline-ext #:bind-image-texture-ext
-  #:memory-barrier-ext #:framebuffer-pixel-local-storage-size-ext
+  #:validate-program-pipeline-ext #:framebuffer-fetch-barrier-ext
+  #:bind-image-texture-ext #:memory-barrier-ext
+  #:framebuffer-pixel-local-storage-size-ext
   #:get-framebuffer-pixel-local-storage-size-ext
   #:clear-pixel-local-storage-ui-ext #:tex-page-commitment-ext
   #:stencil-clear-tag-ext #:active-stencil-face-ext
@@ -1037,6 +1043,7 @@
   #:get-pointer-v-khr #:get-graphics-reset-status-khr
   #:readn-pixels-khr #:getn-uniform-fv-khr #:getn-uniform-iv-khr
   #:getn-uniform-uiv-khr #:max-shader-compiler-threads-khr
+  #:framebuffer-parameter-i-mesa #:get-framebuffer-parameter-iv-mesa
   #:resize-buffers-mesa #:window-pos-2d-mesa #:window-pos-2dv-mesa
   #:window-pos-2f-mesa #:window-pos-2fv-mesa #:window-pos-2i-mesa
   #:window-pos-2iv-mesa #:window-pos-2s-mesa #:window-pos-2sv-mesa
@@ -1135,14 +1142,26 @@
   #:multicast-get-query-object-iv-nv
   #:multicast-get-query-object-uiv-nv
   #:multicast-get-query-object-i64v-nv
-  #:multicast-get-query-object-ui64v-nv #:uniform-matrix-2x3-fv-nv
-  #:uniform-matrix-3x2-fv-nv #:uniform-matrix-2x4-fv-nv
-  #:uniform-matrix-4x2-fv-nv #:uniform-matrix-3x4-fv-nv
-  #:uniform-matrix-4x3-fv-nv #:gen-occlusion-queries-nv
-  #:delete-occlusion-queries-nv #:is-occlusion-query-nv
-  #:begin-occlusion-query-nv #:end-occlusion-query-nv
-  #:get-occlusion-query-iv-nv #:get-occlusion-query-uiv-nv
-  #:program-buffer-parameters-fv-nv
+  #:multicast-get-query-object-ui64v-nv #:upload-gpu-mask-nvx
+  #:multicast-viewport-array-v-nvx
+  #:multicast-viewport-position-w-scale-nvx
+  #:multicast-scissor-array-v-nvx #:async-copy-buffer-sub-data-nvx
+  #:async-copy-image-sub-data-nvx #:create-progress-fence-nvx
+  #:signal-semaphore-ui64-nvx #:wait-semaphore-ui64-nvx
+  #:client-wait-semaphore-ui64-nvx
+  #:get-memory-object-detached-resources-uiv-nv
+  #:reset-memory-object-parameter-nv #:tex-attach-memory-nv
+  #:buffer-attach-memory-nv #:texture-attach-memory-nv
+  #:named-buffer-attach-memory-nv #:draw-mesh-tasks-nv
+  #:draw-mesh-tasks-indirect-nv #:multi-draw-mesh-tasks-indirect-nv
+  #:multi-draw-mesh-tasks-indirect-count-nv
+  #:uniform-matrix-2x3-fv-nv #:uniform-matrix-3x2-fv-nv
+  #:uniform-matrix-2x4-fv-nv #:uniform-matrix-4x2-fv-nv
+  #:uniform-matrix-3x4-fv-nv #:uniform-matrix-4x3-fv-nv
+  #:gen-occlusion-queries-nv #:delete-occlusion-queries-nv
+  #:is-occlusion-query-nv #:begin-occlusion-query-nv
+  #:end-occlusion-query-nv #:get-occlusion-query-iv-nv
+  #:get-occlusion-query-uiv-nv #:program-buffer-parameters-fv-nv
   #:program-buffer-parameters-iiv-nv
   #:program-buffer-parameters-iuiv-nv #:gen-paths-nv
   #:delete-paths-nv #:is-path-nv #:path-commands-nv #:path-coords-nv
@@ -1196,14 +1215,20 @@
   #:get-combiner-stage-parameter-fv-nv
   #:framebuffer-sample-locations-fv-nv
   #:named-framebuffer-sample-locations-fv-nv
-  #:resolve-depth-values-nv #:make-buffer-resident-nv
+  #:resolve-depth-values-nv #:scissor-exclusive-nv
+  #:scissor-exclusive-array-v-nv #:make-buffer-resident-nv
   #:make-buffer-non-resident-nv #:is-buffer-resident-nv
   #:make-named-buffer-resident-nv
   #:make-named-buffer-non-resident-nv #:is-named-buffer-resident-nv
   #:get-buffer-parameter-ui64v-nv
   #:get-named-buffer-parameter-ui64v-nv #:get-integer-ui64v-nv
   #:uniform-ui64-nv #:uniform-ui64v-nv #:program-uniform-ui64-nv
-  #:program-uniform-ui64v-nv #:texture-barrier-nv
+  #:program-uniform-ui64v-nv #:bind-shading-rate-image-nv
+  #:get-shading-rate-image-palette-nv
+  #:get-shading-rate-sample-location-iv-nv
+  #:shading-rate-image-barrier-nv #:shading-rate-image-palette-nv
+  #:shading-rate-sample-order-nv
+  #:shading-rate-sample-order-custom-nv #:texture-barrier-nv
   #:tex-image-2d-multisample-coverage-nv
   #:tex-image-3d-multisample-coverage-nv
   #:texture-image-2d-multisample-nv
@@ -1225,34 +1250,35 @@
   #:vdpau-register-output-surface-nv #:vdpau-is-surface-nv
   #:vdpau-unregister-surface-nv #:vdpau-get-surface-iv-nv
   #:vdpau-surface-access-nv #:vdpau-map-surfaces-nv
-  #:vdpau-unmap-surfaces-nv #:flush-vertex-array-range-nv
-  #:vertex-array-range-nv #:vertex-attrib-l1i64-nv
-  #:vertex-attrib-l2i64-nv #:vertex-attrib-l3i64-nv
-  #:vertex-attrib-l4i64-nv #:vertex-attrib-l1i64v-nv
-  #:vertex-attrib-l2i64v-nv #:vertex-attrib-l3i64v-nv
-  #:vertex-attrib-l4i64v-nv #:vertex-attrib-l1ui64-nv
-  #:vertex-attrib-l2ui64-nv #:vertex-attrib-l3ui64-nv
-  #:vertex-attrib-l4ui64-nv #:vertex-attrib-l1ui64v-nv
-  #:vertex-attrib-l2ui64v-nv #:vertex-attrib-l3ui64v-nv
-  #:vertex-attrib-l4ui64v-nv #:get-vertex-attrib-li64v-nv
-  #:get-vertex-attrib-lui64v-nv #:vertex-attrib-l-format-nv
-  #:buffer-address-range-nv #:vertex-format-nv #:normal-format-nv
-  #:color-format-nv #:index-format-nv #:tex-coord-format-nv
-  #:edge-flag-format-nv #:secondary-color-format-nv
-  #:fog-coord-format-nv #:vertex-attrib-format-nv
-  #:vertex-attrib-i-format-nv #:get-integer-ui64i-v-nv
-  #:are-programs-resident-nv #:bind-program-nv #:delete-programs-nv
-  #:execute-program-nv #:gen-programs-nv
-  #:get-program-parameter-dv-nv #:get-program-parameter-fv-nv
-  #:get-program-iv-nv #:get-program-string-nv
-  #:get-track-matrix-iv-nv #:get-vertex-attrib-dv-nv
-  #:get-vertex-attrib-fv-nv #:get-vertex-attrib-iv-nv
-  #:get-vertex-attrib-pointer-v-nv #:is-program-nv #:load-program-nv
-  #:program-parameter-4d-nv #:program-parameter-4dv-nv
-  #:program-parameter-4f-nv #:program-parameter-4fv-nv
-  #:program-parameters-4dv-nv #:program-parameters-4fv-nv
-  #:request-resident-programs-nv #:track-matrix-nv
-  #:vertex-attrib-pointer-nv #:vertex-attrib-1d-nv
+  #:vdpau-unmap-surfaces-nv
+  #:vdpau-register-video-surface-with-picture-structure-nv
+  #:flush-vertex-array-range-nv #:vertex-array-range-nv
+  #:vertex-attrib-l1i64-nv #:vertex-attrib-l2i64-nv
+  #:vertex-attrib-l3i64-nv #:vertex-attrib-l4i64-nv
+  #:vertex-attrib-l1i64v-nv #:vertex-attrib-l2i64v-nv
+  #:vertex-attrib-l3i64v-nv #:vertex-attrib-l4i64v-nv
+  #:vertex-attrib-l1ui64-nv #:vertex-attrib-l2ui64-nv
+  #:vertex-attrib-l3ui64-nv #:vertex-attrib-l4ui64-nv
+  #:vertex-attrib-l1ui64v-nv #:vertex-attrib-l2ui64v-nv
+  #:vertex-attrib-l3ui64v-nv #:vertex-attrib-l4ui64v-nv
+  #:get-vertex-attrib-li64v-nv #:get-vertex-attrib-lui64v-nv
+  #:vertex-attrib-l-format-nv #:buffer-address-range-nv
+  #:vertex-format-nv #:normal-format-nv #:color-format-nv
+  #:index-format-nv #:tex-coord-format-nv #:edge-flag-format-nv
+  #:secondary-color-format-nv #:fog-coord-format-nv
+  #:vertex-attrib-format-nv #:vertex-attrib-i-format-nv
+  #:get-integer-ui64i-v-nv #:are-programs-resident-nv
+  #:bind-program-nv #:delete-programs-nv #:execute-program-nv
+  #:gen-programs-nv #:get-program-parameter-dv-nv
+  #:get-program-parameter-fv-nv #:get-program-iv-nv
+  #:get-program-string-nv #:get-track-matrix-iv-nv
+  #:get-vertex-attrib-dv-nv #:get-vertex-attrib-fv-nv
+  #:get-vertex-attrib-iv-nv #:get-vertex-attrib-pointer-v-nv
+  #:is-program-nv #:load-program-nv #:program-parameter-4d-nv
+  #:program-parameter-4dv-nv #:program-parameter-4f-nv
+  #:program-parameter-4fv-nv #:program-parameters-4dv-nv
+  #:program-parameters-4fv-nv #:request-resident-programs-nv
+  #:track-matrix-nv #:vertex-attrib-pointer-nv #:vertex-attrib-1d-nv
   #:vertex-attrib-1dv-nv #:vertex-attrib-1f-nv
   #:vertex-attrib-1fv-nv #:vertex-attrib-1s-nv
   #:vertex-attrib-1sv-nv #:vertex-attrib-2d-nv
@@ -1401,6 +1427,7 @@
   #:ext-is-program-binary-qcom #:ext-get-program-binary-source-qcom
   #:framebuffer-foveation-config-qcom
   #:framebuffer-foveation-parameters-qcom
+  #:texture-foveation-parameters-qcom
   #:framebuffer-fetch-barrier-qcom #:start-tiling-qcom
   #:end-tiling-qcom #:detail-tex-func-sgis
   #:get-detail-tex-func-sgis #:fog-func-sgis #:get-fog-func-sgis
