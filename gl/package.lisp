@@ -431,4 +431,20 @@
    #:get-texture-parameter
    #:with-query
    #:get-query-object
-   #:extension-list))
+   #:extension-list
+   #:clear-tex-sub-image
+   #:clear-tex-image
+   #:texture-sub-image-1d
+   #:texture-sub-image-2d
+   #:create-framebuffers
+   #:create-framebuffer
+   #:delete-framebuffer
+   #:clear-buffer-fv
+   #:clear-buffer-iv
+   #:clear-buffer-uiv
+   #:clear-named-framebuffer-fv
+   #:clear-named-framebuffer-iv
+   #:clear-named-framebuffer-uiv
+   #:create-renderbuffers
+   #:create-renderbuffer
+   #:delete-renderbuffer))

@@ -199,7 +199,8 @@ specified to denote the number of vertices that must be processed."
     (mem-aref array '%gl:uint 0)))
 
 (import-export %gl:map-buffer
-               %gl:unmap-buffer)
+               %gl:unmap-buffer
+               %gl:unmap-named-buffer)
 
 (define-get-function get-buffer-parameter (target pname)
   (%gl:get-buffer-parameter-iv :int int)
@@ -378,6 +379,8 @@ another buffer is bound within FORMS."
           (progn ,@body)
        (unmap-buffer ,target))))
 
+(import-export %gl:copy-buffer-sub-data)
+
 ;;;
 ;;; 2.10 Rectangles
 ;;;
@@ -405,6 +408,14 @@ another buffer is bound within FORMS."
     (mem-aref array '%gl:uint 0)))
 
 (import-export %gl:bind-vertex-array)
+
+;;; 10.3.2 Specifying Arrays for Generic Vertex Attributes
+(import-export %gl:vertex-attrib-format
+               %gl:vertex-attrib-i-format
+               %gl:vertex-attrib-l-format
+               %gl:vertex-array-attrib-format
+               %gl:vertex-array-attrib-i-format
+               %gl:vertex-array-attrib-l-format)
 
 
 ;;;
