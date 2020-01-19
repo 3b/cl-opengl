@@ -436,6 +436,7 @@
    #:clear-tex-image
    #:texture-sub-image-1d
    #:texture-sub-image-2d
+   #:texture-sub-image-3d
    #:create-framebuffers
    #:create-framebuffer
    #:delete-framebuffer
@@ -447,4 +448,5 @@
    #:clear-named-framebuffer-uiv
    #:create-renderbuffers
    #:create-renderbuffer
-   #:delete-renderbuffer))
+   #:delete-renderbuffer
+   #:bind-image-textures))
