@@ -214,8 +214,8 @@
   
   (glut:post-redisplay))
 
-(defvar origclick)
-(defvar origrot)
+(defvar origclick nil)
+(defvar origrot nil)
 
 (defmethod glut:mouse ((window mol-window) button state x y)
   (if (eq button :left-button)
@@ -225,9 +225,10 @@
       (setf origclick ()))))
 
 (defmethod glut:motion ((window mol-window) x y)
-  (setf view-rotx (+ (car origrot) (- y (cadr origclick))))
-  (setf view-roty (+ (cadr origrot) (- x (car origclick))))
-  (glut:post-redisplay))
+  (when (and origrot origclick)
+    (setf view-rotx (+ (car origrot) (- y (cadr origclick))))
+    (setf view-roty (+ (cadr origrot) (- x (car origclick))))
+    (glut:post-redisplay)))
 
 
 (defun random-interval (bot top)
