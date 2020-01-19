@@ -221,6 +221,32 @@
         (%gl:tex-sub-image-3d target level xoffset yoffset zoffset width
                               height depth format type array))))
 
+
+(defun texture-sub-image-1d (texture level xoffset width format type data)
+  (if (pointerp data)
+      (%gl:texture-sub-image-1d texture level xoffset width format type data)
+      (with-pixel-array (array type data)
+        (%gl:texture-sub-image-1d texture level xoffset width
+                                  format type array))))
+
+(defun texture-sub-image-2d (texture level xoffset yoffset width height
+                             format type data)
+  (if (pointerp data)
+      (%gl:texture-sub-image-2d texture level xoffset yoffset width height
+                                format type data)
+      (with-pixel-array (array type data)
+        (%gl:texture-sub-image-2d texture level xoffset yoffset width height
+                                  format type array))))
+
+(defun texture-sub-image-3d (texture level xoffset yoffset zoffset
+                             width height depth format type data)
+  (if (pointerp data)
+      (%gl:texture-sub-image-3d texture level xoffset yoffset zoffset
+                                width height depth format type data)
+      (with-pixel-array (array type data)
+        (%gl:texture-sub-image-3d texture level xoffset yoffset zoffset
+                                  width height depth format type array))))
+
 (import-export %gl:copy-tex-sub-image-1d
                %gl:copy-tex-sub-image-2d
                %gl:copy-tex-sub-image-3d)
@@ -334,7 +360,8 @@
 
 ;;; 3.8.12 Texture Objects
 
-(import-export %gl:bind-texture)
+(import-export %gl:bind-texture
+               %gl:bind-texture-unit)
 
 (defun delete-textures (textures)
   (with-opengl-sequence (array '%gl:uint textures)
@@ -600,3 +627,63 @@
 (defun bind-frag-data-location-ext (program color name)
   (with-foreign-string (s name)
     (%gl:bind-frag-data-location-ext program color s)))
+
+
+;;; 3.10.16 / 8.19 Immutable Format Texture Images
+
+(import-export %gl:tex-storage-1d
+               %gl:tex-storage-2d
+               %gl:tex-storage-3d
+               %gl:tex-storage-2d-multisample
+               %gl:tex-storage-3d-multisample
+               %gl:texture-storage-1d
+               %gl:texture-storage-2d
+               %gl:texture-storage-3d
+               %gl:texture-storage-2d-multisample
+               %gl:texture-storage-3d-multisample)
+
+;;; 8.18 Texture Views
+(import-export %gl:texture-view)
+
+;;; 8.20 Invalidating Texture Image Data
+(import-export %gl:invalidate-tex-sub-image
+               %gl:invalidate-tex-image)
+
+;;; 8.21 Clearing Texture Image Data
+(defun clear-tex-sub-image (texture level
+                                 x-offset y-offset z-offset
+                                 width height depth
+                                 format type
+                                 data)
+  (if (pointerp data)
+      (%gl:clear-tex-sub-image texture level x-offset y-offset z-offset
+                               width height depth format type data)
+      (if data
+          (with-pixel-array (array type data)
+            (%gl:clear-tex-sub-image texture level x-offset y-offset z-offset
+                              width height depth format type array))
+          (%gl:clear-tex-sub-image texture level x-offset y-offset z-offset
+                            width height depth format type
+                            (cffi:null-pointer)))))
+
+(defun clear-tex-image (texture level format type data)
+  (if (pointerp data)
+      (%gl:clear-tex-image texture level format type data)
+      (if data
+          (with-pixel-array (array type data)
+            (%gl:clear-tex-image texture level format type array))
+          (%gl:clear-tex-image texture level format type (cffi:null-pointer)))))
+
+
+;;; 8.26 Texture Image Loads and Stores
+(import-export %gl:bind-image-texture)
+
+(defun bind-image-textures (first textures)
+  (let ((count (length textures)))
+    (cffi:with-foreign-object (array '%gl:uint count)
+      (etypecase textures
+        (list (loop for i from 0 for tx in textures
+                    do (setf (cffi:mem-aref array '%gl:uint i) tx)))
+        (vector (loop for i from 0 for tx across textures
+                      do (setf (cffi:mem-aref array '%gl:uint i) tx))))
+      (%gl:bind-image-textures first count array))))

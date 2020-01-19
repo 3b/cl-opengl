@@ -161,6 +161,58 @@ with them until the first time they are used by BEGIN-QUERY."
                %gl:clear-stencil
                %gl:clear-accum)
 
+(macrolet ((defcbv (name %name named type cltype stencilp)
+             `(defun ,name (buffer ,@ (when named '(framebuffer))
+                            drawbuffer value)
+                (ecase buffer
+                  (:color
+                   (with-foreign-object (array ',type 4)
+                     (flet ((s (i v)
+                              (setf (cffi:mem-aref array ',type i)
+                                    (coerce v ',cltype))))
+                       ;; default to 0,0,0,1 if VALUE is short
+                       (s 0 0)
+                       (s 1 0)
+                       (s 2 0)
+                       (s 3 1)
+                       (etypecase value
+                         (list (loop for i from 0 below 4
+                                     for v in value
+                                     do (s i v)))
+                         (vector (loop for i from 0 below 4
+                                       for v across value
+                                       do (s i v)))))
+                     (,%name ,@(when named '(framebuffer))
+                             buffer drawbuffer array)))
+                  ((:depth ,@(when stencilp '(:stencil)))
+                   (with-foreign-object (array ',type 4)
+                     (flet ((s (i v)
+                              (setf (cffi:mem-aref array ',type i)
+                                    (coerce v ',cltype))))
+                       (s 0 0)
+                       (etypecase value
+                         (number (s 0 value))
+                         (list (loop for i from 0 for v in value do (s i v)))
+                         (vector (loop for i from 0 for v across value
+                                       do (s i v)))))
+                     (,%name ,@(when named '(framebuffer))
+                             buffer drawbuffer array))
+                   )))))
+  (defcbv clear-buffer-fv %gl:clear-buffer-fv nil
+    %gl:float single-float nil)
+  (defcbv clear-buffer-iv %gl:clear-buffer-iv nil
+    %gl:int (signed-byte 32) t)
+  (defcbv clear-buffer-uiv %gl:clear-buffer-uiv nil
+    %gl:uint (unsigned-byte 32) nil)
+  (defcbv clear-named-framebuffer-fv %gl:clear-named-framebuffer-fv t
+    %gl:float single-float nil)
+  (defcbv clear-named-framebuffer-iv %gl:clear-named-framebuffer-iv t
+    %gl:int (signed-byte 32) t)
+  (defcbv clear-named-framebuffer-uiv %gl:clear-named-framebuffer-uiv t
+    %gl:uint (unsigned-byte 32) nil))
+
+(import-export %gl:clear-buffer-fi
+               %gl:clear-named-framebuffer-fi)
 ;;; 4.2.4 The Accumulation Buffer
 
 (import-export %gl:accum)
@@ -191,4 +243,9 @@ with them until the first time they are used by BEGIN-QUERY."
 
 ;;; 4.3.3 Copying Pixels
 
-(import-export %gl:copy-pixels)
+(import-export %gl:copy-pixels
+               %gl:blit-framebuffer
+               %gl:blit-named-framebuffer)
+
+;;; 18.3.3 Copying Between Images
+(import-export %gl:copy-image-sub-data)

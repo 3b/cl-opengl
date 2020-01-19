@@ -45,6 +45,11 @@
   (with-opengl-sequence (array '%gl:uint renderbuffers)
     (%gl:delete-renderbuffers (length renderbuffers) array)))
 
+(defun delete-renderbuffer (renderbuffer)
+  (with-foreign-object (array '%gl:uint 0)
+    (setf (mem-aref array '%gl:uint 0) renderbuffer)
+    (%gl:delete-renderbuffers 1 array)))
+
 (defun gen-renderbuffers (count)
   (with-foreign-object (renderbuffer-array '%gl:uint count)
     (%gl:gen-renderbuffers count renderbuffer-array)
@@ -54,6 +59,17 @@
 (defun gen-renderbuffer ()
   (with-foreign-object (renderbuffer '%gl:uint 1)
     (%gl:gen-renderbuffers 1 renderbuffer)
+    (mem-aref renderbuffer '%gl:uint 0)))
+
+(defun create-renderbuffers (count)
+  (with-foreign-object (renderbuffer-array '%gl:uint count)
+    (%gl:create-renderbuffers count renderbuffer-array)
+    (loop for i below count
+          collecting (mem-aref renderbuffer-array '%gl:uint i))))
+
+(defun create-renderbuffer ()
+  (with-foreign-object (renderbuffer '%gl:uint 1)
+    (%gl:create-renderbuffers 1 renderbuffer)
     (mem-aref renderbuffer '%gl:uint 0)))
 
 
@@ -81,6 +97,11 @@
   (with-opengl-sequence (array '%gl:uint framebuffers)
     (%gl:delete-framebuffers (length framebuffers) array)))
 
+(defun delete-framebuffer (framebuffer)
+  (with-foreign-object (array '%gl:uint 1)
+    (setf (cffi:mem-aref array '%gl:uint 0) framebuffer)
+    (%gl:delete-framebuffers 1 array)))
+
 (defun gen-framebuffers (count)
   (with-foreign-object (framebuffer-array '%gl:uint count)
     (%gl:gen-framebuffers count framebuffer-array)
@@ -91,6 +112,18 @@
   (with-foreign-object (framebuffer '%gl:uint 1)
     (%gl:gen-framebuffers 1 framebuffer)
     (mem-aref framebuffer '%gl:uint 0)))
+
+(defun create-framebuffers (count)
+  (with-foreign-object (framebuffer-array '%gl:uint count)
+    (%gl:create-framebuffers count framebuffer-array)
+    (loop for i below count
+          collecting (mem-aref framebuffer-array '%gl:uint i))))
+
+(defun create-framebuffer ()
+  (with-foreign-object (framebuffer '%gl:uint 1)
+    (%gl:create-framebuffers 1 framebuffer)
+    (mem-aref framebuffer '%gl:uint 0)))
+
 
 (defun delete-framebuffers-ext (framebuffers)
   (with-opengl-sequence (array '%gl:uint framebuffers)
@@ -103,10 +136,14 @@
           collecting (mem-aref framebuffer-array '%gl:uint i))))
 
 (import-export %gl:check-framebuffer-status %gl:check-framebuffer-status-ext
+               %gl:check-named-framebuffer-status %gl:check-named-framebuffer-status-ext
                %gl:framebuffer-texture-1d %gl:framebuffer-texture-1d-ext
                %gl:framebuffer-texture-2d %gl:framebuffer-texture-2d-ext
                %gl:framebuffer-texture-3d %gl:framebuffer-texture-3d-ext
-               %gl:framebuffer-renderbuffer %gl:framebuffer-renderbuffer-ext)
+               %gl:framebuffer-renderbuffer %gl:framebuffer-renderbuffer-ext
+               %gl:named-framebuffer-texture %gl:named-framebuffer-texture-ext
+               %gl:framebuffer-texture-layer
+               %gl:named-framebuffer-texture-layer %gl:named-framebuffer-texture-layer-ext)
 
 #+nil
 (defun get-framebuffer-attachment-parameter-ext (target attachment pname)
