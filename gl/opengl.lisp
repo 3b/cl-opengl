@@ -164,6 +164,20 @@ allocating new memory."
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)))
 
+(definline draw-elements (mode array &key (count (gl-array-size array))
+                               (offset 0))
+  (%gl:draw-elements mode count
+                     (cffi-type-to-gl (gl-array-type array))
+                     (gl-array-pointer-offset array offset)))
+
+(definline draw-elements-base-vertex (mode array base-vertex &key
+                                           (count (gl-array-size array))
+                                           (offset 0))
+  (%gl:draw-elements-base-vertex mode count
+                                 (cffi-type-to-gl (gl-array-type array))
+                                 (gl-array-pointer-offset array offset)
+                                 base-vertex))
+
 (definline draw-elements-instanced (mode array primcount &key
                                          (count (gl-array-size array))
                                          (offset 0))
@@ -173,6 +187,17 @@ specified to denote the number of vertices that must be processed."
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)
                      primcount))
+
+(definline draw-elements-instanced-base-vertex
+    (mode array primcount base-vertex
+          &key
+          (count (gl-array-size array))
+          (offset 0))
+  (%gl:draw-elements-instanced-base-vertex mode count
+                                           (cffi-type-to-gl (gl-array-type array))
+                                           (gl-array-pointer-offset array offset)
+                                           primcount
+                                           base-vertex))
 
 (import-export %gl:vertex-attrib-pointer
                %gl:vertex-attrib-ipointer)
