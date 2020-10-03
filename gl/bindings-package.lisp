@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20191121 ( 2019-11-21T23:33:47Z )
+;;; glext version 20200929 ( 2020-09-29T11:45:14Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -614,13 +614,14 @@
   #:get-vertex-attrib-dv-arb #:get-vertex-attrib-fv-arb
   #:get-vertex-attrib-iv-arb #:get-vertex-attrib-pointer-v-arb
   #:bind-attrib-location-arb #:get-active-attrib-arb
-  #:get-attrib-location-arb #:window-pos-2d-arb #:window-pos-2dv-arb
-  #:window-pos-2f-arb #:window-pos-2fv-arb #:window-pos-2i-arb
-  #:window-pos-2iv-arb #:window-pos-2s-arb #:window-pos-2sv-arb
-  #:window-pos-3d-arb #:window-pos-3dv-arb #:window-pos-3f-arb
-  #:window-pos-3fv-arb #:window-pos-3i-arb #:window-pos-3iv-arb
-  #:window-pos-3s-arb #:window-pos-3sv-arb #:draw-buffers-ati
-  #:element-pointer-ati #:draw-element-array-ati
+  #:get-attrib-location-arb #:depth-range-array-dv-nv
+  #:depth-range-indexed-d-nv #:window-pos-2d-arb
+  #:window-pos-2dv-arb #:window-pos-2f-arb #:window-pos-2fv-arb
+  #:window-pos-2i-arb #:window-pos-2iv-arb #:window-pos-2s-arb
+  #:window-pos-2sv-arb #:window-pos-3d-arb #:window-pos-3dv-arb
+  #:window-pos-3f-arb #:window-pos-3fv-arb #:window-pos-3i-arb
+  #:window-pos-3iv-arb #:window-pos-3s-arb #:window-pos-3sv-arb
+  #:draw-buffers-ati #:element-pointer-ati #:draw-element-array-ati
   #:draw-range-element-array-ati #:tex-bump-parameter-iv-ati
   #:tex-bump-parameter-fv-ati #:get-tex-bump-parameter-iv-ati
   #:get-tex-bump-parameter-fv-ati #:gen-fragment-shaders-ati
@@ -971,10 +972,11 @@
   #:delete-textures-ext #:gen-textures-ext #:is-texture-ext
   #:prioritize-textures-ext #:texture-normal-ext
   #:tex-storage-1d-ext #:tex-storage-2d-ext #:tex-storage-3d-ext
-  #:texture-view-ext #:begin-transform-feedback-ext
-  #:end-transform-feedback-ext #:bind-buffer-range-ext
-  #:bind-buffer-offset-ext #:bind-buffer-base-ext
-  #:transform-feedback-varyings-ext
+  #:texture-view-ext #:create-semaphores-nv
+  #:semaphore-parameter-iv-nv #:get-semaphore-parameter-iv-nv
+  #:begin-transform-feedback-ext #:end-transform-feedback-ext
+  #:bind-buffer-range-ext #:bind-buffer-offset-ext
+  #:bind-buffer-base-ext #:transform-feedback-varyings-ext
   #:get-transform-feedback-varying-ext #:array-element-ext
   #:color-pointer-ext #:draw-arrays-ext #:edge-flag-pointer-ext
   #:get-pointer-v-ext #:index-pointer-ext #:normal-pointer-ext
@@ -1152,7 +1154,9 @@
   #:get-memory-object-detached-resources-uiv-nv
   #:reset-memory-object-parameter-nv #:tex-attach-memory-nv
   #:buffer-attach-memory-nv #:texture-attach-memory-nv
-  #:named-buffer-attach-memory-nv #:draw-mesh-tasks-nv
+  #:named-buffer-attach-memory-nv #:buffer-page-commitment-mem-nv
+  #:tex-page-commitment-mem-nv #:named-buffer-page-commitment-mem-nv
+  #:texture-page-commitment-mem-nv #:draw-mesh-tasks-nv
   #:draw-mesh-tasks-indirect-nv #:multi-draw-mesh-tasks-indirect-nv
   #:multi-draw-mesh-tasks-indirect-count-nv
   #:uniform-matrix-2x3-fv-nv #:uniform-matrix-3x2-fv-nv
@@ -1426,10 +1430,11 @@
   #:ext-get-shaders-qcom #:ext-get-programs-qcom
   #:ext-is-program-binary-qcom #:ext-get-program-binary-source-qcom
   #:framebuffer-foveation-config-qcom
-  #:framebuffer-foveation-parameters-qcom
+  #:framebuffer-foveation-parameters-qcom #:tex-estimate-motion-qcom
+  #:tex-estimate-motion-regions-qcom
   #:texture-foveation-parameters-qcom
-  #:framebuffer-fetch-barrier-qcom #:start-tiling-qcom
-  #:end-tiling-qcom #:detail-tex-func-sgis
+  #:framebuffer-fetch-barrier-qcom #:shading-rate-qcom
+  #:start-tiling-qcom #:end-tiling-qcom #:detail-tex-func-sgis
   #:get-detail-tex-func-sgis #:fog-func-sgis #:get-fog-func-sgis
   #:sample-mask-sgis #:sample-pattern-sgis
   #:pixel-tex-gen-parameter-i-sgis #:pixel-tex-gen-parameter-iv-sgis
