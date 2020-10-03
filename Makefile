@@ -7,15 +7,20 @@ note:
 
 # allow overriding location of sbcl, for example
 # CL="~/lisp/clbuild/clbuild --implementation sbcl lisp" make funcs
+# CL="sbcl --load ~/quicklisp/setup" make bindings
 CL ?= sbcl  --noinform --disable-debugger
 
 bindings:
 	@$(CL) --no-userinit --script "tools/generate-bindings.lisp"
 
+REPO="KhronosGroup/OpenGL-Registry"
+BRANCH=master
+#REPO=3b/OpenGL-Registry
+#BRANCH=fix-groups
 # fixme: probably should grab xml file with svn instead of wget?
 specs:
-	cd spec && wget -N https://raw.githubusercontent.com/KhronosGroup/OpenGL-Registry/master/xml/gl.xml
-	cd spec && curl "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/heads/master" -o github-info.json
+	cd spec && wget -N https://raw.githubusercontent.com/$(REPO)/$(BRANCH)/xml/gl.xml
+	cd spec && curl "https://api.github.com/repos/$(REPO)/commits/heads/$(BRANCH)" -o github-info.json
 
 clean:
 	find . -name ".fasls" | xargs rm -rf
