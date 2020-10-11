@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-03T16:20:47Z
-;;; from gl.xml @ git sha 9274192362a0ac6912fd27b0c8ff0559fc658e21, 2020-09-29T11:45:14Z
+;;; generated 2020-10-04T02:42:36Z
+;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
 
 (defglextfun ("glDrawRangeElements" draw-range-elements) :void
   (mode primitive-type)

@@ -1,23 +1,23 @@
 {
-  "sha": "9274192362a0ac6912fd27b0c8ff0559fc658e21",
-  "node_id": "MDY6Q29tbWl0NzYxMTA3MzU6OTI3NDE5MjM2MmEwYWM2OTEyZmQyN2IwYzhmZjA1NTlmYzY1OGUyMQ==",
+  "sha": "42574a322f9219376c605008ac4bc1aac90f7820",
+  "node_id": "MDY6Q29tbWl0MTA1NTA1Mzg0OjQyNTc0YTMyMmY5MjE5Mzc2YzYwNTAwOGFjNGJjMWFhYzkwZjc4MjA=",
   "commit": {
     "author": {
-      "name": "Jon Leech",
-      "email": "oddhack@sonic.net",
-      "date": "2020-09-29T11:45:14Z"
+      "name": "Bart Botta",
+      "email": "00003b@gmail.com",
+      "date": "2020-10-04T02:42:02Z"
     },
     "committer": {
-      "name": "Jon Leech",
-      "email": "oddhack@sonic.net",
-      "date": "2020-09-29T11:45:14Z"
+      "name": "Bart Botta",
+      "email": "00003b@gmail.com",
+      "date": "2020-10-04T02:42:02Z"
     },
-    "message": "Add XML and regenerate headers for GLX_EXT_get_drawable_type (#425)",
+    "message": "add group to MAX_TEXTURE_MAX_ANISOTROPY_EXT",
     "tree": {
-      "sha": "875350fc128d833570c617b2da811ce22c77b61d",
-      "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/git/trees/875350fc128d833570c617b2da811ce22c77b61d"
+      "sha": "2d3359269b0b4f2b673a6e6872264f8ca914c485",
+      "url": "https://api.github.com/repos/3b/OpenGL-Registry/git/trees/2d3359269b0b4f2b673a6e6872264f8ca914c485"
     },
-    "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/git/commits/9274192362a0ac6912fd27b0c8ff0559fc658e21",
+    "url": "https://api.github.com/repos/3b/OpenGL-Registry/git/commits/42574a322f9219376c605008ac4bc1aac90f7820",
     "comment_count": 0,
     "verification": {
       "verified": false,
@@ -26,133 +26,73 @@
       "payload": null
     }
   },
-  "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/9274192362a0ac6912fd27b0c8ff0559fc658e21",
-  "html_url": "https://github.com/KhronosGroup/OpenGL-Registry/commit/9274192362a0ac6912fd27b0c8ff0559fc658e21",
-  "comments_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/9274192362a0ac6912fd27b0c8ff0559fc658e21/comments",
+  "url": "https://api.github.com/repos/3b/OpenGL-Registry/commits/42574a322f9219376c605008ac4bc1aac90f7820",
+  "html_url": "https://github.com/3b/OpenGL-Registry/commit/42574a322f9219376c605008ac4bc1aac90f7820",
+  "comments_url": "https://api.github.com/repos/3b/OpenGL-Registry/commits/42574a322f9219376c605008ac4bc1aac90f7820/comments",
   "author": {
-    "login": "oddhack",
-    "id": 4693344,
-    "node_id": "MDQ6VXNlcjQ2OTMzNDQ=",
-    "avatar_url": "https://avatars1.githubusercontent.com/u/4693344?v=4",
+    "login": "3b",
+    "id": 75788,
+    "node_id": "MDQ6VXNlcjc1Nzg4",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/75788?v=4",
     "gravatar_id": "",
-    "url": "https://api.github.com/users/oddhack",
-    "html_url": "https://github.com/oddhack",
-    "followers_url": "https://api.github.com/users/oddhack/followers",
-    "following_url": "https://api.github.com/users/oddhack/following{/other_user}",
-    "gists_url": "https://api.github.com/users/oddhack/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/oddhack/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/oddhack/subscriptions",
-    "organizations_url": "https://api.github.com/users/oddhack/orgs",
-    "repos_url": "https://api.github.com/users/oddhack/repos",
-    "events_url": "https://api.github.com/users/oddhack/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/oddhack/received_events",
+    "url": "https://api.github.com/users/3b",
+    "html_url": "https://github.com/3b",
+    "followers_url": "https://api.github.com/users/3b/followers",
+    "following_url": "https://api.github.com/users/3b/following{/other_user}",
+    "gists_url": "https://api.github.com/users/3b/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/3b/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/3b/subscriptions",
+    "organizations_url": "https://api.github.com/users/3b/orgs",
+    "repos_url": "https://api.github.com/users/3b/repos",
+    "events_url": "https://api.github.com/users/3b/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/3b/received_events",
     "type": "User",
     "site_admin": false
   },
   "committer": {
-    "login": "oddhack",
-    "id": 4693344,
-    "node_id": "MDQ6VXNlcjQ2OTMzNDQ=",
-    "avatar_url": "https://avatars1.githubusercontent.com/u/4693344?v=4",
+    "login": "3b",
+    "id": 75788,
+    "node_id": "MDQ6VXNlcjc1Nzg4",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/75788?v=4",
     "gravatar_id": "",
-    "url": "https://api.github.com/users/oddhack",
-    "html_url": "https://github.com/oddhack",
-    "followers_url": "https://api.github.com/users/oddhack/followers",
-    "following_url": "https://api.github.com/users/oddhack/following{/other_user}",
-    "gists_url": "https://api.github.com/users/oddhack/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/oddhack/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/oddhack/subscriptions",
-    "organizations_url": "https://api.github.com/users/oddhack/orgs",
-    "repos_url": "https://api.github.com/users/oddhack/repos",
-    "events_url": "https://api.github.com/users/oddhack/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/oddhack/received_events",
+    "url": "https://api.github.com/users/3b",
+    "html_url": "https://github.com/3b",
+    "followers_url": "https://api.github.com/users/3b/followers",
+    "following_url": "https://api.github.com/users/3b/following{/other_user}",
+    "gists_url": "https://api.github.com/users/3b/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/3b/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/3b/subscriptions",
+    "organizations_url": "https://api.github.com/users/3b/orgs",
+    "repos_url": "https://api.github.com/users/3b/repos",
+    "events_url": "https://api.github.com/users/3b/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/3b/received_events",
     "type": "User",
     "site_admin": false
   },
   "parents": [
     {
-      "sha": "36823c82b780fd8e87d013430eb335b3353bdaf1",
-      "url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/commits/36823c82b780fd8e87d013430eb335b3353bdaf1",
-      "html_url": "https://github.com/KhronosGroup/OpenGL-Registry/commit/36823c82b780fd8e87d013430eb335b3353bdaf1"
+      "sha": "4f39063b572a55be5d81331bc6144e77209250d8",
+      "url": "https://api.github.com/repos/3b/OpenGL-Registry/commits/4f39063b572a55be5d81331bc6144e77209250d8",
+      "html_url": "https://github.com/3b/OpenGL-Registry/commit/4f39063b572a55be5d81331bc6144e77209250d8"
     }
   ],
   "stats": {
-    "total": 57,
-    "additions": 33,
-    "deletions": 24
+    "total": 2,
+    "additions": 1,
+    "deletions": 1
   },
   "files": [
     {
-      "sha": "d625420d5868a39a0afc11697d578c44015eaf41",
-      "filename": "api/GL/glcorearb.h",
+      "sha": "4b66bf2de38af0516489c67fdd0f78459726585d",
+      "filename": "xml/gl.xml",
       "status": "modified",
-      "additions": 2,
-      "deletions": 2,
-      "changes": 4,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glcorearb.h",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glcorearb.h",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GL/glcorearb.h?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -1876,7 +1876,7 @@ GLAPI void APIENTRY glGetQueryIndexediv (GLenum target, GLuint index, GLenum pna\n #define GL_VIEWPORT_INDEX_PROVOKING_VERTEX 0x825F\n #define GL_UNDEFINED_VERTEX               0x8260\n typedef void (APIENTRYP PFNGLRELEASESHADERCOMPILERPROC) (void);\n-typedef void (APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+typedef void (APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n typedef void (APIENTRYP PFNGLGETSHADERPRECISIONFORMATPROC) (GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);\n typedef void (APIENTRYP PFNGLDEPTHRANGEFPROC) (GLfloat n, GLfloat f);\n typedef void (APIENTRYP PFNGLCLEARDEPTHFPROC) (GLfloat d);\n@@ -1965,7 +1965,7 @@ typedef void (APIENTRYP PFNGLGETFLOATI_VPROC) (GLenum target, GLuint index, GLfl\n typedef void (APIENTRYP PFNGLGETDOUBLEI_VPROC) (GLenum target, GLuint index, GLdouble *data);\n #ifdef GL_GLEXT_PROTOTYPES\n GLAPI void APIENTRY glReleaseShaderCompiler (void);\n-GLAPI void APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+GLAPI void APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n GLAPI void APIENTRY glGetShaderPrecisionFormat (GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);\n GLAPI void APIENTRY glDepthRangef (GLfloat n, GLfloat f);\n GLAPI void APIENTRY glClearDepthf (GLfloat d);"
-    },
-    {
-      "sha": "20b7ae2ad640820ebfc7805e81e0d444b3d8dac0",
-      "filename": "api/GL/glext.h",
-      "status": "modified",
-      "additions": 15,
-      "deletions": 15,
-      "changes": 30,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glext.h",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glext.h",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GL/glext.h?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -32,7 +32,7 @@ extern \"C\" {\n #define GLAPI extern\n #endif\n \n-#define GL_GLEXT_VERSION 20200814\n+#define GL_GLEXT_VERSION 20200929\n \n #include <KHR/khrplatform.h>\n \n@@ -1824,7 +1824,7 @@ GLAPI void APIENTRY glGetQueryIndexediv (GLenum target, GLuint index, GLenum pna\n #define GL_VIEWPORT_INDEX_PROVOKING_VERTEX 0x825F\n #define GL_UNDEFINED_VERTEX               0x8260\n typedef void (APIENTRYP PFNGLRELEASESHADERCOMPILERPROC) (void);\n-typedef void (APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+typedef void (APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n typedef void (APIENTRYP PFNGLGETSHADERPRECISIONFORMATPROC) (GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);\n typedef void (APIENTRYP PFNGLDEPTHRANGEFPROC) (GLfloat n, GLfloat f);\n typedef void (APIENTRYP PFNGLCLEARDEPTHFPROC) (GLfloat d);\n@@ -1913,7 +1913,7 @@ typedef void (APIENTRYP PFNGLGETFLOATI_VPROC) (GLenum target, GLuint index, GLfl\n typedef void (APIENTRYP PFNGLGETDOUBLEI_VPROC) (GLenum target, GLuint index, GLdouble *data);\n #ifdef GL_GLEXT_PROTOTYPES\n GLAPI void APIENTRY glReleaseShaderCompiler (void);\n-GLAPI void APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+GLAPI void APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n GLAPI void APIENTRY glGetShaderPrecisionFormat (GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);\n GLAPI void APIENTRY glDepthRangef (GLfloat n, GLfloat f);\n GLAPI void APIENTRY glClearDepthf (GLfloat d);\n@@ -2562,6 +2562,18 @@ GLAPI void APIENTRY glBindVertexBuffers (GLuint first, GLsizei count, const GLui\n #define GL_LOSE_CONTEXT_ON_RESET          0x8252\n #define GL_NO_RESET_NOTIFICATION          0x8261\n #define GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT 0x00000004\n+#define GL_COLOR_TABLE                    0x80D0\n+#define GL_POST_CONVOLUTION_COLOR_TABLE   0x80D1\n+#define GL_POST_COLOR_MATRIX_COLOR_TABLE  0x80D2\n+#define GL_PROXY_COLOR_TABLE              0x80D3\n+#define GL_PROXY_POST_CONVOLUTION_COLOR_TABLE 0x80D4\n+#define GL_PROXY_POST_COLOR_MATRIX_COLOR_TABLE 0x80D5\n+#define GL_CONVOLUTION_1D                 0x8010\n+#define GL_CONVOLUTION_2D                 0x8011\n+#define GL_SEPARABLE_2D                   0x8012\n+#define GL_HISTOGRAM                      0x8024\n+#define GL_PROXY_HISTOGRAM                0x8025\n+#define GL_MINMAX                         0x802E\n #define GL_CONTEXT_RELEASE_BEHAVIOR       0x82FB\n #define GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH 0x82FC\n typedef void (APIENTRYP PFNGLCLIPCONTROLPROC) (GLenum origin, GLenum depth);\n@@ -3451,9 +3463,6 @@ typedef khronos_uint16_t GLhalfARB;\n \n #ifndef GL_ARB_imaging\n #define GL_ARB_imaging 1\n-#define GL_CONVOLUTION_1D                 0x8010\n-#define GL_CONVOLUTION_2D                 0x8011\n-#define GL_SEPARABLE_2D                   0x8012\n #define GL_CONVOLUTION_BORDER_MODE        0x8013\n #define GL_CONVOLUTION_FILTER_SCALE       0x8014\n #define GL_CONVOLUTION_FILTER_BIAS        0x8015\n@@ -3471,8 +3480,6 @@ typedef khronos_uint16_t GLhalfARB;\n #define GL_POST_CONVOLUTION_GREEN_BIAS    0x8021\n #define GL_POST_CONVOLUTION_BLUE_BIAS     0x8022\n #define GL_POST_CONVOLUTION_ALPHA_BIAS    0x8023\n-#define GL_HISTOGRAM                      0x8024\n-#define GL_PROXY_HISTOGRAM                0x8025\n #define GL_HISTOGRAM_WIDTH                0x8026\n #define GL_HISTOGRAM_FORMAT               0x8027\n #define GL_HISTOGRAM_RED_SIZE             0x8028\n@@ -3481,7 +3488,6 @@ typedef khronos_uint16_t GLhalfARB;\n #define GL_HISTOGRAM_ALPHA_SIZE           0x802B\n #define GL_HISTOGRAM_LUMINANCE_SIZE       0x802C\n #define GL_HISTOGRAM_SINK                 0x802D\n-#define GL_MINMAX                         0x802E\n #define GL_MINMAX_FORMAT                  0x802F\n #define GL_MINMAX_SINK                    0x8030\n #define GL_TABLE_TOO_LARGE                0x8031\n@@ -3496,12 +3502,6 @@ typedef khronos_uint16_t GLhalfARB;\n #define GL_POST_COLOR_MATRIX_GREEN_BIAS   0x80B9\n #define GL_POST_COLOR_MATRIX_BLUE_BIAS    0x80BA\n #define GL_POST_COLOR_MATRIX_ALPHA_BIAS   0x80BB\n-#define GL_COLOR_TABLE                    0x80D0\n-#define GL_POST_CONVOLUTION_COLOR_TABLE   0x80D1\n-#define GL_POST_COLOR_MATRIX_COLOR_TABLE  0x80D2\n-#define GL_PROXY_COLOR_TABLE              0x80D3\n-#define GL_PROXY_POST_CONVOLUTION_COLOR_TABLE 0x80D4\n-#define GL_PROXY_POST_COLOR_MATRIX_COLOR_TABLE 0x80D5\n #define GL_COLOR_TABLE_SCALE              0x80D6\n #define GL_COLOR_TABLE_BIAS               0x80D7\n #define GL_COLOR_TABLE_FORMAT             0x80D8"
-    },
-    {
-      "sha": "e397eed8cb8a99996647a6b59b934bda70bd2b54",
-      "filename": "api/GL/glxext.h",
-      "status": "modified",
-      "additions": 5,
+      "additions": 1,
       "deletions": 1,
-      "changes": 6,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glxext.h",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GL/glxext.h",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GL/glxext.h?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -15,7 +15,7 @@ extern \"C\" {\n **   https://github.com/KhronosGroup/OpenGL-Registry\n */\n \n-#define GLX_GLXEXT_VERSION 20200813\n+#define GLX_GLXEXT_VERSION 20200929\n \n /* Generated C header for:\n  * API: glx\n@@ -290,6 +290,10 @@ void glXBlitContextFramebufferAMD (GLXContext dstCtx, GLint srcX0, GLint srcY0,\n #define GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT  0x20B2\n #endif /* GLX_EXT_framebuffer_sRGB */\n \n+#ifndef GLX_EXT_get_drawable_type\n+#define GLX_EXT_get_drawable_type 1\n+#endif /* GLX_EXT_get_drawable_type */\n+\n #ifndef GLX_EXT_import_context\n #define GLX_EXT_import_context 1\n #define GLX_SHARE_CONTEXT_EXT             0x800A"
-    },
-    {
-      "sha": "fcb8084b471e02e4f0971e15ad155e118b451e37",
-      "filename": "api/GLES2/gl2.h",
-      "status": "modified",
-      "additions": 3,
-      "deletions": 3,
-      "changes": 6,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GLES2/gl2.h",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GLES2/gl2.h",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GLES2/gl2.h?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -25,7 +25,7 @@ extern \"C\" {\n #define GL_GLES_PROTOTYPES 1\n #endif\n \n-/* Generated on date 20200814 */\n+/* Generated on date 20200929 */\n \n /* Generated C header for:\n  * API: gles2\n@@ -458,7 +458,7 @@ typedef void (GL_APIENTRYP PFNGLRELEASESHADERCOMPILERPROC) (void);\n typedef void (GL_APIENTRYP PFNGLRENDERBUFFERSTORAGEPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);\n typedef void (GL_APIENTRYP PFNGLSAMPLECOVERAGEPROC) (GLfloat value, GLboolean invert);\n typedef void (GL_APIENTRYP PFNGLSCISSORPROC) (GLint x, GLint y, GLsizei width, GLsizei height);\n-typedef void (GL_APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+typedef void (GL_APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n typedef void (GL_APIENTRYP PFNGLSHADERSOURCEPROC) (GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length);\n typedef void (GL_APIENTRYP PFNGLSTENCILFUNCPROC) (GLenum func, GLint ref, GLuint mask);\n typedef void (GL_APIENTRYP PFNGLSTENCILFUNCSEPARATEPROC) (GLenum face, GLenum func, GLint ref, GLuint mask);\n@@ -601,7 +601,7 @@ GL_APICALL void GL_APIENTRY glReleaseShaderCompiler (void);\n GL_APICALL void GL_APIENTRY glRenderbufferStorage (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);\n GL_APICALL void GL_APIENTRY glSampleCoverage (GLfloat value, GLboolean invert);\n GL_APICALL void GL_APIENTRY glScissor (GLint x, GLint y, GLsizei width, GLsizei height);\n-GL_APICALL void GL_APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+GL_APICALL void GL_APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n GL_APICALL void GL_APIENTRY glShaderSource (GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length);\n GL_APICALL void GL_APIENTRY glStencilFunc (GLenum func, GLint ref, GLuint mask);\n GL_APICALL void GL_APIENTRY glStencilFuncSeparate (GLenum face, GLenum func, GLint ref, GLuint mask);"
-    },
-    {
-      "sha": "86728ffd5d2a27ceb2d83dc2df7acef3e3818316",
-      "filename": "api/GLES3/gl3.h",
-      "status": "modified",
-      "additions": 3,
-      "deletions": 3,
-      "changes": 6,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GLES3/gl3.h",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/api/GLES3/gl3.h",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/api/GLES3/gl3.h?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -25,7 +25,7 @@ extern \"C\" {\n #define GL_GLES_PROTOTYPES 1\n #endif\n \n-/* Generated on date 20200814 */\n+/* Generated on date 20200929 */\n \n /* Generated C header for:\n  * API: gles2\n@@ -458,7 +458,7 @@ typedef void (GL_APIENTRYP PFNGLRELEASESHADERCOMPILERPROC) (void);\n typedef void (GL_APIENTRYP PFNGLRENDERBUFFERSTORAGEPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);\n typedef void (GL_APIENTRYP PFNGLSAMPLECOVERAGEPROC) (GLfloat value, GLboolean invert);\n typedef void (GL_APIENTRYP PFNGLSCISSORPROC) (GLint x, GLint y, GLsizei width, GLsizei height);\n-typedef void (GL_APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+typedef void (GL_APIENTRYP PFNGLSHADERBINARYPROC) (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n typedef void (GL_APIENTRYP PFNGLSHADERSOURCEPROC) (GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length);\n typedef void (GL_APIENTRYP PFNGLSTENCILFUNCPROC) (GLenum func, GLint ref, GLuint mask);\n typedef void (GL_APIENTRYP PFNGLSTENCILFUNCSEPARATEPROC) (GLenum face, GLenum func, GLint ref, GLuint mask);\n@@ -601,7 +601,7 @@ GL_APICALL void GL_APIENTRY glReleaseShaderCompiler (void);\n GL_APICALL void GL_APIENTRY glRenderbufferStorage (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);\n GL_APICALL void GL_APIENTRY glSampleCoverage (GLfloat value, GLboolean invert);\n GL_APICALL void GL_APIENTRY glScissor (GLint x, GLint y, GLsizei width, GLsizei height);\n-GL_APICALL void GL_APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryformat, const void *binary, GLsizei length);\n+GL_APICALL void GL_APIENTRY glShaderBinary (GLsizei count, const GLuint *shaders, GLenum binaryFormat, const void *binary, GLsizei length);\n GL_APICALL void GL_APIENTRY glShaderSource (GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length);\n GL_APICALL void GL_APIENTRY glStencilFunc (GLenum func, GLint ref, GLuint mask);\n GL_APICALL void GL_APIENTRY glStencilFuncSeparate (GLenum face, GLenum func, GLint ref, GLuint mask);"
-    },
-    {
-      "sha": "698b7af09a10b8852dee7abf4e1ea0b57054aa0c",
-      "filename": "xml/glx.xml",
-      "status": "modified",
-      "additions": 5,
-      "deletions": 0,
-      "changes": 5,
-      "blob_url": "https://github.com/KhronosGroup/OpenGL-Registry/blob/9274192362a0ac6912fd27b0c8ff0559fc658e21/xml/glx.xml",
-      "raw_url": "https://github.com/KhronosGroup/OpenGL-Registry/raw/9274192362a0ac6912fd27b0c8ff0559fc658e21/xml/glx.xml",
-      "contents_url": "https://api.github.com/repos/KhronosGroup/OpenGL-Registry/contents/xml/glx.xml?ref=9274192362a0ac6912fd27b0c8ff0559fc658e21",
-      "patch": "@@ -1761,6 +1761,11 @@ typedef unsigned __int64 uint64_t;\n                 <enum name=\"GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT\"/>\n             </require>\n         </extension>\n+        <extension name=\"GLX_EXT_get_drawable_type\" supported=\"glx\">\n+            <require>\n+                <enum name=\"GLX_DRAWABLE_TYPE\"/>\n+            </require>\n+        </extension>\n         <extension name=\"GLX_EXT_import_context\" supported=\"glx\">\n             <require>\n                 <enum name=\"GLX_SHARE_CONTEXT_EXT\"/>"
+      "changes": 2,
+      "blob_url": "https://github.com/3b/OpenGL-Registry/blob/42574a322f9219376c605008ac4bc1aac90f7820/xml/gl.xml",
+      "raw_url": "https://github.com/3b/OpenGL-Registry/raw/42574a322f9219376c605008ac4bc1aac90f7820/xml/gl.xml",
+      "contents_url": "https://api.github.com/repos/3b/OpenGL-Registry/contents/xml/gl.xml?ref=42574a322f9219376c605008ac4bc1aac90f7820",
+      "patch": "@@ -7508,7 +7508,7 @@ typedef unsigned int GLhandleARB;\n         <enum value=\"0x84FE\" name=\"GL_TEXTURE_MAX_ANISOTROPY\" group=\"SamplerParameterF,GetTextureParameter\"/>\n         <enum value=\"0x84FE\" name=\"GL_TEXTURE_MAX_ANISOTROPY_EXT\" alias=\"GL_TEXTURE_MAX_ANISOTROPY\"/>\n         <enum value=\"0x84FF\" name=\"GL_MAX_TEXTURE_MAX_ANISOTROPY\" group=\"GetPName\"/>\n-        <enum value=\"0x84FF\" name=\"GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT\" alias=\"GL_MAX_TEXTURE_MAX_ANISOTROPY\"/>\n+        <enum value=\"0x84FF\" name=\"GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT\" alias=\"GL_MAX_TEXTURE_MAX_ANISOTROPY\" group=\"GetPName\"/>\n         <enum value=\"0x8500\" name=\"GL_TEXTURE_FILTER_CONTROL\"/>\n         <enum value=\"0x8500\" name=\"GL_TEXTURE_FILTER_CONTROL_EXT\"/>\n         <enum value=\"0x8501\" name=\"GL_TEXTURE_LOD_BIAS\" group=\"TextureParameterName,SamplerParameterF,GetTextureParameter\"/>"
     }
   ]
 }

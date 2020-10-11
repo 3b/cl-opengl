@@ -13,10 +13,10 @@ CL ?= sbcl  --noinform --disable-debugger
 bindings:
 	@$(CL) --no-userinit --script "tools/generate-bindings.lisp"
 
-REPO="KhronosGroup/OpenGL-Registry"
-BRANCH=master
-#REPO=3b/OpenGL-Registry
-#BRANCH=fix-groups
+#REPO="KhronosGroup/OpenGL-Registry"
+#BRANCH=master
+REPO=3b/OpenGL-Registry
+BRANCH=fix-groups2
 # fixme: probably should grab xml file with svn instead of wget?
 specs:
 	cd spec && wget -N https://raw.githubusercontent.com/$(REPO)/$(BRANCH)/xml/gl.xml

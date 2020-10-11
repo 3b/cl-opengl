@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20200929 ( 2020-09-29T11:45:14Z )
+;;; glext version 20201004 ( 2020-10-04T02:42:02Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)

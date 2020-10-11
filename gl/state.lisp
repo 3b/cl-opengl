@@ -829,7 +829,7 @@
     (:max-debug-logged-messages :integer 1)
     (:max-debug-group-stack-depth :integer 1)
     (:max-label-length :integer 1)
-    ;; 4.5 - table 23.81
+    ;; 4.5 - table 23.8
     (:max-framebuffer-width :integer 1)
     (:max-framebuffer-height :integer 1)
     (:max-framebuffer-layers :integer 1)
