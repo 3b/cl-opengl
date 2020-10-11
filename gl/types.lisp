@@ -159,3 +159,5 @@
 (defctype debugproc-amd (:pointer))
 (defctype debugprockhr (:pointer))
 
+;; make some old code continue to work
+(defctype mapbufferusagemask MapBufferAccessMask)
