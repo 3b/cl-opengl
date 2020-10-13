@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-04T02:42:36Z
-;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
+;;; generated 2020-10-13T02:36:23Z
+;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
 
 (defglfun ("glReadBuffer" read-buffer) :void
   (src read-buffer-mode))
@@ -313,12 +313,12 @@
 
 (defglextfun ("glGetVertexAttribIiv" get-vertex-attrib-iiv) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribIuiv" get-vertex-attrib-iuiv) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer uint)))
 
 (defglextfun ("glVertexAttribI4i" vertex-attrib-i4i) :void

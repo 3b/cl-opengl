@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-04T02:42:36Z
-;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
+;;; generated 2020-10-13T02:36:23Z
+;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
 
 (defglfun ("glPolygonMode" polygon-mode) :void
   (face material-face)
@@ -1435,7 +1435,7 @@
 
 (defglextfun ("glGetVertexAttribdv" get-vertex-attrib-dv) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer double)))
 
 (defglextfun ("glVertexAttrib1d" vertex-attrib-1d) :void
@@ -2976,22 +2976,22 @@
 
 (defglextfun ("glGetVertexAttribdvARB" get-vertex-attrib-dv-arb) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer double)))
 
 (defglextfun ("glGetVertexAttribfvARB" get-vertex-attrib-fv-arb) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer float)))
 
 (defglextfun ("glGetVertexAttribivARB" get-vertex-attrib-iv-arb) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribPointervARB" get-vertex-attrib-pointer-v-arb) :void
   (index uint)
-  (pname vertex-attrib-pointer-property-arb)
+  (pname get-vertex-attrib-pointer-pname)
   (pointer (:pointer (:pointer :void))))
 
 (defglextfun ("glBindAttribLocationARB" bind-attrib-location-arb) :void
@@ -4458,7 +4458,7 @@
 
 (defglextfun ("glGetVertexAttribLdvEXT" get-vertex-attrib-ldv-ext) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer double)))
 
 (defglextfun ("glBeginVertexShaderEXT" begin-vertex-shader-ext) :void)
@@ -5998,7 +5998,7 @@
   (residences (:pointer boolean)))
 
 (defglextfun ("glBindProgramNV" bind-program-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (id uint))
 
 (defglextfun ("glDeleteProgramsNV" delete-programs-nv) :void
@@ -6006,7 +6006,7 @@
   (programs (:pointer uint)))
 
 (defglextfun ("glExecuteProgramNV" execute-program-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target load-program-target-nv)
   (id uint)
   (params (:pointer float)))
 
@@ -6015,64 +6015,64 @@
   (programs (:pointer uint)))
 
 (defglextfun ("glGetProgramParameterdvNV" get-program-parameter-dv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-parameter-pname-nv)
   (params (:pointer double)))
 
 (defglextfun ("glGetProgramParameterfvNV" get-program-parameter-fv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-parameter-pname-nv)
   (params (:pointer float)))
 
 (defglextfun ("glGetProgramivNV" get-program-iv-nv) :void
   (id uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-pname-nv)
   (params (:pointer int)))
 
 (defglextfun ("glGetProgramStringNV" get-program-string-nv) :void
   (id uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-string-pname-nv)
   (program (:pointer ubyte)))
 
 (defglextfun ("glGetTrackMatrixivNV" get-track-matrix-iv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (address uint)
-  (pname vertex-attrib-enum-nv)
+  (pname vertex-program-get-track-matrix-pname-nv)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribdvNV" get-vertex-attrib-dv-nv) :void
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-attrib-pname-nv)
   (params (:pointer double)))
 
 (defglextfun ("glGetVertexAttribfvNV" get-vertex-attrib-fv-nv) :void
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-attrib-pname-nv)
   (params (:pointer float)))
 
 (defglextfun ("glGetVertexAttribivNV" get-vertex-attrib-iv-nv) :void
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname program-attrib-pname-nv)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribPointervNV" get-vertex-attrib-pointer-v-nv) :void
   (index uint)
-  (pname vertex-attrib-enum-nv)
+  (pname vertex-program-attrib-pointer-pname-nv)
   (pointer (:pointer (:pointer :void))))
 
 (defglextfun ("glIsProgramNV" is-program-nv) boolean
   (id uint))
 
 (defglextfun ("glLoadProgramNV" load-program-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target load-program-target-nv)
   (id uint)
   (len sizei)
   (program (:pointer ubyte)))
 
 (defglextfun ("glProgramParameter4dNV" program-parameter-4d-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (x double)
   (y double)
@@ -6080,12 +6080,12 @@
   (w double))
 
 (defglextfun ("glProgramParameter4dvNV" program-parameter-4dv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (v (:pointer double)))
 
 (defglextfun ("glProgramParameter4fNV" program-parameter-4f-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (x float)
   (y float)
@@ -6093,18 +6093,18 @@
   (w float))
 
 (defglextfun ("glProgramParameter4fvNV" program-parameter-4fv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (v (:pointer float)))
 
 (defglextfun ("glProgramParameters4dvNV" program-parameters-4dv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
 (defglextfun ("glProgramParameters4fvNV" program-parameters-4fv-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (index uint)
   (count sizei)
   (v (:pointer float)))
@@ -6114,15 +6114,15 @@
   (programs (:pointer uint)))
 
 (defglextfun ("glTrackMatrixNV" track-matrix-nv) :void
-  (target vertex-attrib-enum-nv)
+  (target program-target-nv)
   (address uint)
-  (matrix vertex-attrib-enum-nv)
-  (transform vertex-attrib-enum-nv))
+  (matrix vertex-program-track-matrix-matrix-nv)
+  (transform vertex-program-track-matrix-transform-nv))
 
 (defglextfun ("glVertexAttribPointerNV" vertex-attrib-pointer-nv) :void
   (index uint)
   (fsize int)
-  (type vertex-attrib-enum-nv)
+  (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
@@ -6417,12 +6417,12 @@
 
 (defglextfun ("glGetVertexAttribIivEXT" get-vertex-attrib-iiv-ext) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iuiv-ext) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer uint)))
 
 (defglextfun ("glBeginVideoCaptureNV" begin-video-capture-nv) :void

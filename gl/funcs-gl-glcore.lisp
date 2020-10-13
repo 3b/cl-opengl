@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-04T02:42:35Z
-;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
+;;; generated 2020-10-13T02:36:23Z
+;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
   (target framebuffer-target)
@@ -597,7 +597,7 @@
 
 (defglextfun ("glGetVertexAttribLdv" get-vertex-attrib-ldv) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer double)))
 
 (defglextfun ("glViewportArrayv" viewport-array-v) :void
@@ -1395,19 +1395,19 @@
 
 (defglextfun ("glGetVertexArrayiv" get-vertex-array-iv) :void
   (vaobj uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-pname)
   (param (:pointer int)))
 
 (defglextfun ("glGetVertexArrayIndexediv" get-vertex-array-indexed-iv) :void
   (vaobj uint)
   (index uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-indexed-pname)
   (param (:pointer int)))
 
 (defglextfun ("glGetVertexArrayIndexed64iv" get-vertex-array-indexed-64iv) :void
   (vaobj uint)
   (index uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-indexed-64pname)
   (param (:pointer int64)))
 
 (defglextfun ("glCreateSamplers" create-samplers) :void
@@ -1558,7 +1558,7 @@
 
 (defglextfun ("glGetVertexAttribLui64vARB" get-vertex-attrib-lui64v-arb) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer uint64-ext)))
 
 (defglextfun ("glCreateSyncFromCLeventARB" create-sync-from-cl-event-arb) sync
@@ -3456,24 +3456,24 @@
 
 (defglextfun ("glGetVertexArrayIntegervEXT" get-vertex-array-integer-v-ext) :void
   (vaobj uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-integer-pname-ext)
   (param (:pointer int)))
 
 (defglextfun ("glGetVertexArrayPointervEXT" get-vertex-array-pointer-v-ext) :void
   (vaobj uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-pointerv-pname-ext)
   (param (:pointer (:pointer :void))))
 
 (defglextfun ("glGetVertexArrayIntegeri_vEXT" get-vertex-array-integer-i-v-ext) :void
   (vaobj uint)
   (index uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-integeri-pname-ext)
   (param (:pointer int)))
 
 (defglextfun ("glGetVertexArrayPointeri_vEXT" get-vertex-array-pointer-i-v-ext) :void
   (vaobj uint)
   (index uint)
-  (pname vertex-array-pname)
+  (pname get-vertex-array-pointeri-pname-ext)
   (param (:pointer (:pointer :void))))
 
 (defglextfun ("glMapNamedBufferRangeEXT" map-named-buffer-range-ext) (:pointer :void)
@@ -3992,12 +3992,12 @@
 
 (defglextfun ("glGetVertexAttribLi64vNV" get-vertex-attrib-li64v-nv) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer int64-ext)))
 
 (defglextfun ("glGetVertexAttribLui64vNV" get-vertex-attrib-lui64v-nv) :void
   (index uint)
-  (pname vertex-attrib-enum)
+  (pname get-vertex-attrib-pname)
   (params (:pointer uint64-ext)))
 
 (defglextfun ("glVertexAttribLFormatNV" vertex-attrib-l-format-nv) :void

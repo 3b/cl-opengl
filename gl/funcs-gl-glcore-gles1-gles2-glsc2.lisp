@@ -6,11 +6,11 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-04T02:42:35Z
-;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
+;;; generated 2020-10-13T02:36:23Z
+;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
 
-(defparameter *glext-version* 20201004)
-(defparameter *glext-last-updated* "2020-10-04T02:42:02Z")
+(defparameter *glext-version* 20201013)
+(defparameter *glext-last-updated* "2020-10-13T02:28:36Z")
 
 (defglextfun ("glDepthRangef" depth-range-f) :void
   (n float)

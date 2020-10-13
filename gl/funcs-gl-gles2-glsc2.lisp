@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-04T02:42:36Z
-;;; from gl.xml @ git sha 42574a322f9219376c605008ac4bc1aac90f7820, 2020-10-04T02:42:02Z
+;;; generated 2020-10-13T02:36:23Z
+;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
 
 (defglextfun ("glDrawRangeElements" draw-range-elements) :void
   (mode primitive-type)
@@ -66,17 +66,17 @@
 
 (defglextfun ("glGetVertexAttribfv" get-vertex-attrib-fv) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer float)))
 
 (defglextfun ("glGetVertexAttribiv" get-vertex-attrib-iv) :void
   (index uint)
-  (pname vertex-attrib-property-arb)
+  (pname get-vertex-attrib-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetVertexAttribPointerv" get-vertex-attrib-pointer-v) :void
   (index uint)
-  (pname vertex-attrib-pointer-property-arb)
+  (pname get-vertex-attrib-pointer-pname)
   (pointer (:pointer (:pointer :void))))
 
 (defglextfun ("glUseProgram" use-program) :void
