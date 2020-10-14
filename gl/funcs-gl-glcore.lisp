@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-13T02:36:23Z
-;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
+;;; generated 2020-10-14T21:23:19Z
+;;; from gl.xml @ git sha f6ba13ab7e9c8713b449119630e6052602ae23f8, 2020-10-14T21:14:34Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
   (target framebuffer-target)
@@ -1071,7 +1071,7 @@
 
 (defglextfun ("glGetNamedFramebufferAttachmentParameteriv" get-named-framebuffer-attachment-parameter-iv) :void
   (framebuffer uint)
-  (attachment framebuffer-attachment)
+  (attachment get-framebuffer-attachment)
   (pname framebuffer-attachment-parameter-name)
   (params (:pointer int)))
 

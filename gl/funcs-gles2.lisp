@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-13T02:36:23Z
-;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
+;;; generated 2020-10-14T21:23:19Z
+;;; from gl.xml @ git sha f6ba13ab7e9c8713b449119630e6052602ae23f8, 2020-10-14T21:14:34Z
 
 (defglextfun ("glBlendBarrier" blend-barrier) :void)
 
@@ -345,22 +345,22 @@
 
 (defglextfun ("glSamplerParameterIivEXT" sampler-parameter-iiv-ext) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer int)))
 
 (defglextfun ("glSamplerParameterIuivEXT" sampler-parameter-iuiv-ext) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer uint)))
 
 (defglextfun ("glGetSamplerParameterIivEXT" get-sampler-parameter-iiv-ext) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetSamplerParameterIuivEXT" get-sampler-parameter-iuiv-ext) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer uint)))
 
 (defglextfun ("glTexBufferRangeEXT" tex-buffer-range-ext) :void
@@ -787,22 +787,22 @@
 
 (defglextfun ("glSamplerParameterIivOES" sampler-parameter-iiv-oes) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer int)))
 
 (defglextfun ("glSamplerParameterIuivOES" sampler-parameter-iuiv-oes) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer uint)))
 
 (defglextfun ("glGetSamplerParameterIivOES" get-sampler-parameter-iiv-oes) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetSamplerParameterIuivOES" get-sampler-parameter-iuiv-oes) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer uint)))
 
 (defglextfun ("glTexBufferOES" tex-buffer-oes) :void

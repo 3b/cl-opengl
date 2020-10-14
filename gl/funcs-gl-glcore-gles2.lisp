@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2020-10-13T02:36:23Z
-;;; from gl.xml @ git sha d580a9cd9c22452cb2ec3a7caf4a506fe0557b8d, 2020-10-13T02:28:36Z
+;;; generated 2020-10-14T21:23:19Z
+;;; from gl.xml @ git sha f6ba13ab7e9c8713b449119630e6052602ae23f8, 2020-10-14T21:14:34Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
   (target get-pname)
@@ -214,52 +214,52 @@
 
 (defglextfun ("glSamplerParameteri" sampler-parameter-i) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param int))
 
 (defglextfun ("glSamplerParameteriv" sampler-parameter-iv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer int)))
 
 (defglextfun ("glSamplerParameterf" sampler-parameter-f) :void
   (sampler uint)
-  (pname sampler-parameter-f)
+  (pname sampler-parameter-pname)
   (param float))
 
 (defglextfun ("glSamplerParameterfv" sampler-parameter-fv) :void
   (sampler uint)
-  (pname sampler-parameter-f)
+  (pname sampler-parameter-pname)
   (param (:pointer float)))
 
 (defglextfun ("glSamplerParameterIiv" sampler-parameter-iiv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer int)))
 
 (defglextfun ("glSamplerParameterIuiv" sampler-parameter-iuiv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (param (:pointer uint)))
 
 (defglextfun ("glGetSamplerParameteriv" get-sampler-parameter-iv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetSamplerParameterIiv" get-sampler-parameter-iiv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer int)))
 
 (defglextfun ("glGetSamplerParameterfv" get-sampler-parameter-fv) :void
   (sampler uint)
-  (pname sampler-parameter-f)
+  (pname sampler-parameter-pname)
   (params (:pointer float)))
 
 (defglextfun ("glGetSamplerParameterIuiv" get-sampler-parameter-iuiv) :void
   (sampler uint)
-  (pname sampler-parameter-i)
+  (pname sampler-parameter-pname)
   (params (:pointer uint)))
 
 (defglextfun ("glDrawArraysIndirect" draw-arrays-indirect) :void
@@ -635,7 +635,7 @@
 
 (defglextfun ("glGetFramebufferParameteriv" get-framebuffer-parameter-iv) :void
   (target framebuffer-target)
-  (pname framebuffer-attachment-parameter-name)
+  (pname get-framebuffer-parameter)
   (params (:pointer int)))
 
 (defglextfun ("glInvalidateFramebuffer" invalidate-framebuffer) :void

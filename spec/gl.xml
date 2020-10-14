@@ -3873,7 +3873,7 @@ typedef unsigned int GLhandleARB;
             <enum name="GL_UNIFORM_ATOMIC_COUNTER_BUFFER_INDEX"/>
         </group>
 
-        <group name="SamplerParameterI" comment="Deprecated, use the group attributes instead.">
+        <group name="SamplerParameterPName" comment="Deprecated, use the group attributes instead.">
             <enum name="GL_TEXTURE_WRAP_S"/>
             <enum name="GL_TEXTURE_WRAP_T"/>
             <enum name="GL_TEXTURE_WRAP_R"/>
@@ -3881,9 +3881,6 @@ typedef unsigned int GLhandleARB;
             <enum name="GL_TEXTURE_MAG_FILTER"/>
             <enum name="GL_TEXTURE_COMPARE_MODE"/>
             <enum name="GL_TEXTURE_COMPARE_FUNC"/>
-        </group>
-
-        <group name="SamplerParameterF" comment="Deprecated, use the group attributes instead.">
             <enum name="GL_TEXTURE_BORDER_COLOR"/>
             <enum name="GL_TEXTURE_MIN_LOD"/>
             <enum name="GL_TEXTURE_MAX_LOD"/>
@@ -5308,19 +5305,19 @@ typedef unsigned int GLhandleARB;
         <enum value="0x0308" name="GL_SRC_ALPHA_SATURATE" group="BlendingFactor"/>
         <enum value="0x0308" name="GL_SRC_ALPHA_SATURATE_EXT"/>
             <unused start="0x0309" end="0x03FF" comment="Unused for BlendingFactor"/>
-        <enum value="0x0400" name="GL_FRONT_LEFT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
-        <enum value="0x0401" name="GL_FRONT_RIGHT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
-        <enum value="0x0402" name="GL_BACK_LEFT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
-        <enum value="0x0403" name="GL_BACK_RIGHT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
+        <enum value="0x0400" name="GL_FRONT_LEFT" group="ColorBuffer,DrawBufferMode,ReadBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x0401" name="GL_FRONT_RIGHT" group="ColorBuffer,DrawBufferMode,ReadBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x0402" name="GL_BACK_LEFT" group="ColorBuffer,DrawBufferMode,ReadBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x0403" name="GL_BACK_RIGHT" group="ColorBuffer,DrawBufferMode,ReadBufferMode,GetFramebufferAttachment"/>
         <enum value="0x0404" name="GL_FRONT" group="ColorBuffer,ColorMaterialFace,CullFaceMode,DrawBufferMode,ReadBufferMode,StencilFaceDirection,MaterialFace"/>
         <enum value="0x0405" name="GL_BACK" group="ColorBuffer,ColorMaterialFace,CullFaceMode,DrawBufferMode,ReadBufferMode,StencilFaceDirection,MaterialFace"/>
         <enum value="0x0406" name="GL_LEFT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
         <enum value="0x0407" name="GL_RIGHT" group="ColorBuffer,DrawBufferMode,ReadBufferMode"/>
         <enum value="0x0408" name="GL_FRONT_AND_BACK" group="ColorBuffer,ColorMaterialFace,CullFaceMode,DrawBufferMode,StencilFaceDirection,MaterialFace"/>
-        <enum value="0x0409" name="GL_AUX0" group="ReadBufferMode,DrawBufferMode"/>
-        <enum value="0x040A" name="GL_AUX1" group="ReadBufferMode,DrawBufferMode"/>
-        <enum value="0x040B" name="GL_AUX2" group="ReadBufferMode,DrawBufferMode"/>
-        <enum value="0x040C" name="GL_AUX3" group="ReadBufferMode,DrawBufferMode"/>
+        <enum value="0x0409" name="GL_AUX0" group="ReadBufferMode,DrawBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x040A" name="GL_AUX1" group="ReadBufferMode,DrawBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x040B" name="GL_AUX2" group="ReadBufferMode,DrawBufferMode,GetFramebufferAttachment"/>
+        <enum value="0x040C" name="GL_AUX3" group="ReadBufferMode,DrawBufferMode,GetFramebufferAttachment"/>
             <unused start="0x040D" end="0x04FF" comment="Unused for DrawBufferMode"/>
         <enum value="0x0500" name="GL_INVALID_ENUM" group="ErrorCode"/>
         <enum value="0x0501" name="GL_INVALID_VALUE" group="ErrorCode"/>
@@ -5638,10 +5635,10 @@ typedef unsigned int GLhandleARB;
         <enum value="0x1001" name="GL_TEXTURE_HEIGHT" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x1003" name="GL_TEXTURE_INTERNAL_FORMAT" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x1003" name="GL_TEXTURE_COMPONENTS" group="TextureParameterName,GetTextureParameter"/>
-        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR" group="SamplerParameterF,GetTextureParameter,TextureParameterName"/>
-        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR_EXT"/>
+        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR_EXT" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
         <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR_NV" group="TextureParameterName,GetTextureParameter"/>
-        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR_OES"/>
+        <enum value="0x1004" name="GL_TEXTURE_BORDER_COLOR_OES" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
         <enum value="0x1005" name="GL_TEXTURE_BORDER" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x1006" name="GL_TEXTURE_TARGET" group="GetTextureParameter"/>
             <unused start="0x1007" end="0x10FF" comment="Unused for GetTextureParameter"/>
@@ -5723,9 +5720,9 @@ typedef unsigned int GLhandleARB;
             <unused start="0x1703" end="0x17FF" comment="Unused for MatrixMode"/>
         <enum value="0x1800" name="GL_COLOR" group="Buffer,PixelCopyType,InvalidateFramebufferAttachment,VertexProgramTrackMatrixMatrixNV"/>
         <enum value="0x1800" name="GL_COLOR_EXT" group="PixelCopyType"/>
-        <enum value="0x1801" name="GL_DEPTH" group="Buffer,PixelCopyType,InvalidateFramebufferAttachment"/>
+        <enum value="0x1801" name="GL_DEPTH" group="Buffer,PixelCopyType,InvalidateFramebufferAttachment,GetFramebufferAttachment"/>
         <enum value="0x1801" name="GL_DEPTH_EXT" group="PixelCopyType"/>
-        <enum value="0x1802" name="GL_STENCIL" group="Buffer,PixelCopyType,InvalidateFramebufferAttachment"/>
+        <enum value="0x1802" name="GL_STENCIL" group="Buffer,PixelCopyType,InvalidateFramebufferAttachment,GetFramebufferAttachment"/>
         <enum value="0x1802" name="GL_STENCIL_EXT" group="PixelCopyType"/>
             <unused start="0x1803" end="0x18FF" comment="Unused for PixelCopyType"/>
         <enum value="0x1900" name="GL_COLOR_INDEX" group="PixelFormat"/>
@@ -5803,10 +5800,10 @@ typedef unsigned int GLhandleARB;
         <enum value="0x2702" name="GL_NEAREST_MIPMAP_LINEAR" group="TextureMinFilter"/>
         <enum value="0x2703" name="GL_LINEAR_MIPMAP_LINEAR" group="TextureWrapMode,TextureMinFilter"/>
             <unused start="0x2704" end="0x27FF" comment="Unused for TextureMinFilter"/>
-        <enum value="0x2800" name="GL_TEXTURE_MAG_FILTER" group="SamplerParameterI,GetTextureParameter,TextureParameterName"/>
-        <enum value="0x2801" name="GL_TEXTURE_MIN_FILTER" group="SamplerParameterI,GetTextureParameter,TextureParameterName"/>
-        <enum value="0x2802" name="GL_TEXTURE_WRAP_S" group="SamplerParameterI,GetTextureParameter,TextureParameterName"/>
-        <enum value="0x2803" name="GL_TEXTURE_WRAP_T" group="SamplerParameterI,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x2800" name="GL_TEXTURE_MAG_FILTER" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x2801" name="GL_TEXTURE_MIN_FILTER" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x2802" name="GL_TEXTURE_WRAP_S" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x2803" name="GL_TEXTURE_WRAP_T" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
             <unused start="0x2804" end="0x28FF" comment="Unused for TextureParameterName"/>
         <enum value="0x2900" name="GL_CLAMP" group="TextureWrapMode"/>
         <enum value="0x2901" name="GL_REPEAT" group="TextureWrapMode"/>
@@ -6123,7 +6120,7 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8070" name="GL_PROXY_TEXTURE_3D_EXT" group="TextureTarget"/>
         <enum value="0x8071" name="GL_TEXTURE_DEPTH" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x8071" name="GL_TEXTURE_DEPTH_EXT" group="TextureParameterName,GetTextureParameter"/>
-        <enum value="0x8072" name="GL_TEXTURE_WRAP_R" group="SamplerParameterI,TextureParameterName,GetTextureParameter"/>
+        <enum value="0x8072" name="GL_TEXTURE_WRAP_R" group="SamplerParameterPName,TextureParameterName,GetTextureParameter"/>
         <enum value="0x8072" name="GL_TEXTURE_WRAP_R_EXT" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x8072" name="GL_TEXTURE_WRAP_R_OES" group="TextureParameterName"/>
         <enum value="0x8073" name="GL_MAX_3D_TEXTURE_SIZE" group="GetPName"/>
@@ -6422,9 +6419,9 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8137" name="GL_TEXTURE_WRAP_Q_SGIS" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x8138" name="GL_MAX_4D_TEXTURE_SIZE_SGIS" group="GetPName"/>
         <enum value="0x8139" name="GL_PIXEL_TEX_GEN_SGIX" group="GetPName,EnableCap"/>
-        <enum value="0x813A" name="GL_TEXTURE_MIN_LOD" group="SamplerParameterF,TextureParameterName,GetTextureParameter"/>
+        <enum value="0x813A" name="GL_TEXTURE_MIN_LOD" group="SamplerParameterPName,TextureParameterName,GetTextureParameter"/>
         <enum value="0x813A" name="GL_TEXTURE_MIN_LOD_SGIS" group="TextureParameterName,GetTextureParameter"/>
-        <enum value="0x813B" name="GL_TEXTURE_MAX_LOD" group="SamplerParameterF,TextureParameterName,GetTextureParameter"/>
+        <enum value="0x813B" name="GL_TEXTURE_MAX_LOD" group="SamplerParameterPName,TextureParameterName,GetTextureParameter"/>
         <enum value="0x813B" name="GL_TEXTURE_MAX_LOD_SGIS" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x813C" name="GL_TEXTURE_BASE_LEVEL" group="TextureParameterName,GetTextureParameter"/>
         <enum value="0x813C" name="GL_TEXTURE_BASE_LEVEL_SGIS" group="TextureParameterName,GetTextureParameter"/>
@@ -6674,7 +6671,7 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8218" name="GL_FRAMEBUFFER_DEFAULT"/>
         <enum value="0x8219" name="GL_FRAMEBUFFER_UNDEFINED" group="FramebufferStatus"/>
         <enum value="0x8219" name="GL_FRAMEBUFFER_UNDEFINED_OES"/>
-        <enum value="0x821A" name="GL_DEPTH_STENCIL_ATTACHMENT" group="InvalidateFramebufferAttachment"/>
+        <enum value="0x821A" name="GL_DEPTH_STENCIL_ATTACHMENT" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
         <enum value="0x821B" name="GL_MAJOR_VERSION" group="GetPName"/>
         <enum value="0x821C" name="GL_MINOR_VERSION" group="GetPName"/>
         <enum value="0x821D" name="GL_NUM_EXTENSIONS" group="GetPName"/>
@@ -7505,13 +7502,13 @@ typedef unsigned int GLhandleARB;
             <unused start="0x84FB" end="0x84FC" vendor="NV"/>
         <enum value="0x84FD" name="GL_MAX_TEXTURE_LOD_BIAS" group="GetPName"/>
         <enum value="0x84FD" name="GL_MAX_TEXTURE_LOD_BIAS_EXT"/>
-        <enum value="0x84FE" name="GL_TEXTURE_MAX_ANISOTROPY" group="SamplerParameterF,GetTextureParameter"/>
-        <enum value="0x84FE" name="GL_TEXTURE_MAX_ANISOTROPY_EXT" alias="GL_TEXTURE_MAX_ANISOTROPY"/>
+        <enum value="0x84FE" name="GL_TEXTURE_MAX_ANISOTROPY" group="SamplerParameterPName,GetTextureParameter"/>
+        <enum value="0x84FE" name="GL_TEXTURE_MAX_ANISOTROPY_EXT" alias="GL_TEXTURE_MAX_ANISOTROPY" group="SamplerParameterPName,GetTextureParameter"/>
         <enum value="0x84FF" name="GL_MAX_TEXTURE_MAX_ANISOTROPY" group="GetPName"/>
         <enum value="0x84FF" name="GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT" alias="GL_MAX_TEXTURE_MAX_ANISOTROPY" group="GetPName"/>
         <enum value="0x8500" name="GL_TEXTURE_FILTER_CONTROL"/>
         <enum value="0x8500" name="GL_TEXTURE_FILTER_CONTROL_EXT"/>
-        <enum value="0x8501" name="GL_TEXTURE_LOD_BIAS" group="TextureParameterName,SamplerParameterF,GetTextureParameter"/>
+        <enum value="0x8501" name="GL_TEXTURE_LOD_BIAS" group="TextureParameterName,SamplerParameterPName,GetTextureParameter"/>
         <enum value="0x8501" name="GL_TEXTURE_LOD_BIAS_EXT"/>
         <enum value="0x8502" name="GL_MODELVIEW1_STACK_DEPTH_EXT"/>
         <enum value="0x8503" name="GL_COMBINE4_NV"/>
@@ -8574,10 +8571,10 @@ typedef unsigned int GLhandleARB;
         <enum value="0x884A" name="GL_TEXTURE_DEPTH_SIZE_ARB"/>
         <enum value="0x884B" name="GL_DEPTH_TEXTURE_MODE" group="GetTextureParameter"/>
         <enum value="0x884B" name="GL_DEPTH_TEXTURE_MODE_ARB"/>
-        <enum value="0x884C" name="GL_TEXTURE_COMPARE_MODE" group="SamplerParameterI,TextureParameterName,GetTextureParameter"/>
+        <enum value="0x884C" name="GL_TEXTURE_COMPARE_MODE" group="SamplerParameterPName,TextureParameterName,GetTextureParameter"/>
         <enum value="0x884C" name="GL_TEXTURE_COMPARE_MODE_ARB"/>
         <enum value="0x884C" name="GL_TEXTURE_COMPARE_MODE_EXT"/>
-        <enum value="0x884D" name="GL_TEXTURE_COMPARE_FUNC" group="SamplerParameterI,TextureParameterName,GetTextureParameter"/>
+        <enum value="0x884D" name="GL_TEXTURE_COMPARE_FUNC" group="SamplerParameterPName,TextureParameterName,GetTextureParameter"/>
         <enum value="0x884D" name="GL_TEXTURE_COMPARE_FUNC_ARB"/>
         <enum value="0x884D" name="GL_TEXTURE_COMPARE_FUNC_EXT"/>
         <enum value="0x884E" name="GL_COMPARE_R_TO_TEXTURE" group="TextureCompareMode"/>
@@ -8585,7 +8582,7 @@ typedef unsigned int GLhandleARB;
         <enum value="0x884E" name="GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT"/>
         <enum value="0x884E" name="GL_COMPARE_REF_TO_TEXTURE" alias="GL_COMPARE_R_TO_TEXTURE" group="TextureCompareMode"/>
         <enum value="0x884E" name="GL_COMPARE_REF_TO_TEXTURE_EXT"/>
-        <enum value="0x884F" name="GL_TEXTURE_CUBE_MAP_SEAMLESS" group="EnableCap"/>
+        <enum value="0x884F" name="GL_TEXTURE_CUBE_MAP_SEAMLESS" group="EnableCap,SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
     </enums>
 
     <enums namespace="GL" start="0x8850" end="0x891F" vendor="NV">
@@ -9089,7 +9086,7 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8A45" name="GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER" group="UniformBlockPName"/>
         <enum value="0x8A46" name="GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER" group="UniformBlockPName"/>
             <unused start="0x8A47" vendor="APPLE"/>
-        <enum value="0x8A48" name="GL_TEXTURE_SRGB_DECODE_EXT"/>
+        <enum value="0x8A48" name="GL_TEXTURE_SRGB_DECODE_EXT" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
         <enum value="0x8A49" name="GL_DECODE_EXT"/>
         <enum value="0x8A4A" name="GL_SKIP_DECODE_EXT"/>
             <unused start="0x8A4B" end="0x8A4E" vendor="APPLE"/>
@@ -9620,78 +9617,78 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8CDF" name="GL_MAX_COLOR_ATTACHMENTS" group="GetPName"/>
         <enum value="0x8CDF" name="GL_MAX_COLOR_ATTACHMENTS_EXT"/>
         <enum value="0x8CDF" name="GL_MAX_COLOR_ATTACHMENTS_NV"/>
-        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0_OES" group="InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE1" name="GL_COLOR_ATTACHMENT1" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE1" name="GL_COLOR_ATTACHMENT1_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE0" name="GL_COLOR_ATTACHMENT0_OES" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
+        <enum value="0x8CE1" name="GL_COLOR_ATTACHMENT1" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE1" name="GL_COLOR_ATTACHMENT1_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE1" name="GL_COLOR_ATTACHMENT1_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE2" name="GL_COLOR_ATTACHMENT2" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE2" name="GL_COLOR_ATTACHMENT2_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE2" name="GL_COLOR_ATTACHMENT2" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE2" name="GL_COLOR_ATTACHMENT2_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE2" name="GL_COLOR_ATTACHMENT2_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE3" name="GL_COLOR_ATTACHMENT3" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE3" name="GL_COLOR_ATTACHMENT3_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE3" name="GL_COLOR_ATTACHMENT3" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE3" name="GL_COLOR_ATTACHMENT3_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE3" name="GL_COLOR_ATTACHMENT3_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE4" name="GL_COLOR_ATTACHMENT4" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE4" name="GL_COLOR_ATTACHMENT4_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE4" name="GL_COLOR_ATTACHMENT4" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE4" name="GL_COLOR_ATTACHMENT4_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE4" name="GL_COLOR_ATTACHMENT4_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE5" name="GL_COLOR_ATTACHMENT5" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE5" name="GL_COLOR_ATTACHMENT5_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE5" name="GL_COLOR_ATTACHMENT5" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE5" name="GL_COLOR_ATTACHMENT5_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE5" name="GL_COLOR_ATTACHMENT5_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE6" name="GL_COLOR_ATTACHMENT6" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE6" name="GL_COLOR_ATTACHMENT6_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE6" name="GL_COLOR_ATTACHMENT6" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE6" name="GL_COLOR_ATTACHMENT6_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE6" name="GL_COLOR_ATTACHMENT6_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE7" name="GL_COLOR_ATTACHMENT7" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE7" name="GL_COLOR_ATTACHMENT7_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE7" name="GL_COLOR_ATTACHMENT7" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE7" name="GL_COLOR_ATTACHMENT7_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE7" name="GL_COLOR_ATTACHMENT7_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE8" name="GL_COLOR_ATTACHMENT8" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE8" name="GL_COLOR_ATTACHMENT8_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE8" name="GL_COLOR_ATTACHMENT8" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE8" name="GL_COLOR_ATTACHMENT8_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE8" name="GL_COLOR_ATTACHMENT8_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CE9" name="GL_COLOR_ATTACHMENT9" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CE9" name="GL_COLOR_ATTACHMENT9_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE9" name="GL_COLOR_ATTACHMENT9" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CE9" name="GL_COLOR_ATTACHMENT9_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CE9" name="GL_COLOR_ATTACHMENT9_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CEA" name="GL_COLOR_ATTACHMENT10" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CEA" name="GL_COLOR_ATTACHMENT10_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEA" name="GL_COLOR_ATTACHMENT10" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEA" name="GL_COLOR_ATTACHMENT10_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CEA" name="GL_COLOR_ATTACHMENT10_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CEB" name="GL_COLOR_ATTACHMENT11" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CEB" name="GL_COLOR_ATTACHMENT11_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEB" name="GL_COLOR_ATTACHMENT11" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEB" name="GL_COLOR_ATTACHMENT11_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CEB" name="GL_COLOR_ATTACHMENT11_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CEC" name="GL_COLOR_ATTACHMENT12" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CEC" name="GL_COLOR_ATTACHMENT12_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEC" name="GL_COLOR_ATTACHMENT12" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEC" name="GL_COLOR_ATTACHMENT12_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CEC" name="GL_COLOR_ATTACHMENT12_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CED" name="GL_COLOR_ATTACHMENT13" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CED" name="GL_COLOR_ATTACHMENT13_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CED" name="GL_COLOR_ATTACHMENT13" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CED" name="GL_COLOR_ATTACHMENT13_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CED" name="GL_COLOR_ATTACHMENT13_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CEE" name="GL_COLOR_ATTACHMENT14" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CEE" name="GL_COLOR_ATTACHMENT14_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEE" name="GL_COLOR_ATTACHMENT14" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEE" name="GL_COLOR_ATTACHMENT14_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CEE" name="GL_COLOR_ATTACHMENT14_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CEF" name="GL_COLOR_ATTACHMENT15" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CEF" name="GL_COLOR_ATTACHMENT15_EXT" group="FramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEF" name="GL_COLOR_ATTACHMENT15" group="ColorBuffer,DrawBufferMode,ReadBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CEF" name="GL_COLOR_ATTACHMENT15_EXT" group="FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
         <enum value="0x8CEF" name="GL_COLOR_ATTACHMENT15_NV" group="InvalidateFramebufferAttachment,DrawBufferModeATI"/>
-        <enum value="0x8CF0" name="GL_COLOR_ATTACHMENT16" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF1" name="GL_COLOR_ATTACHMENT17" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF2" name="GL_COLOR_ATTACHMENT18" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF3" name="GL_COLOR_ATTACHMENT19" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF4" name="GL_COLOR_ATTACHMENT20" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF5" name="GL_COLOR_ATTACHMENT21" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF6" name="GL_COLOR_ATTACHMENT22" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF7" name="GL_COLOR_ATTACHMENT23" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF8" name="GL_COLOR_ATTACHMENT24" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CF9" name="GL_COLOR_ATTACHMENT25" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFA" name="GL_COLOR_ATTACHMENT26" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFB" name="GL_COLOR_ATTACHMENT27" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFC" name="GL_COLOR_ATTACHMENT28" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFD" name="GL_COLOR_ATTACHMENT29" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFE" name="GL_COLOR_ATTACHMENT30" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8CFF" name="GL_COLOR_ATTACHMENT31" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,InvalidateFramebufferAttachment"/>
-        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT" group="InvalidateFramebufferAttachment,FramebufferAttachment"/>
-        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT_EXT" group="InvalidateFramebufferAttachment,FramebufferAttachment"/>
-        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT_OES" group="InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF0" name="GL_COLOR_ATTACHMENT16" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF1" name="GL_COLOR_ATTACHMENT17" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF2" name="GL_COLOR_ATTACHMENT18" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF3" name="GL_COLOR_ATTACHMENT19" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF4" name="GL_COLOR_ATTACHMENT20" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF5" name="GL_COLOR_ATTACHMENT21" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF6" name="GL_COLOR_ATTACHMENT22" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF7" name="GL_COLOR_ATTACHMENT23" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF8" name="GL_COLOR_ATTACHMENT24" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CF9" name="GL_COLOR_ATTACHMENT25" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFA" name="GL_COLOR_ATTACHMENT26" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFB" name="GL_COLOR_ATTACHMENT27" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFC" name="GL_COLOR_ATTACHMENT28" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFD" name="GL_COLOR_ATTACHMENT29" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFE" name="GL_COLOR_ATTACHMENT30" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8CFF" name="GL_COLOR_ATTACHMENT31" group="ColorBuffer,DrawBufferMode,FramebufferAttachment,GetFramebufferAttachment,InvalidateFramebufferAttachment"/>
+        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
+        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT_EXT" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
+        <enum value="0x8D00" name="GL_DEPTH_ATTACHMENT_OES" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
             <unused start="0x8D01" end="0x8D1F" vendor="ARB" comment="For depth attachments 16-31"/>
-        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT" group="InvalidateFramebufferAttachment,FramebufferAttachment"/>
-        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT_EXT" group="InvalidateFramebufferAttachment,FramebufferAttachment"/>
-        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT_OES" group="InvalidateFramebufferAttachment"/>
+        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
+        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT_EXT" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
+        <enum value="0x8D20" name="GL_STENCIL_ATTACHMENT_OES" group="InvalidateFramebufferAttachment,FramebufferAttachment,GetFramebufferAttachment"/>
             <unused start="0x8D21" end="0x8D3F" vendor="ARB" comment="For stencil attachments 16-31"/>
         <enum value="0x8D40" name="GL_FRAMEBUFFER" group="ObjectIdentifier,FramebufferTarget,CheckFramebufferStatusTarget"/>
         <enum value="0x8D40" name="GL_FRAMEBUFFER_EXT" group="FramebufferTarget"/>
@@ -10329,7 +10326,7 @@ typedef unsigned int GLhandleARB;
         <enum value="0x8F67" name="GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_SIZE_EXT"/>
             <unused start="0x8F68" vendor="ARM"/>
         <enum value="0x8F69" name="GL_TEXTURE_ASTC_DECODE_PRECISION_EXT"/>
-        <enum value="0x8F6A" name="GL_TEXTURE_UNNORMALIZED_COORDINATES_ARM" group="SamplerParameterF,SamplerParameterI,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x8F6A" name="GL_TEXTURE_UNNORMALIZED_COORDINATES_ARM" group="SamplerParameterPName,SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
             <unused start="0x8F6B" end="0x8F6F" vendor="ARM"/>
     </enums>
 
@@ -11275,8 +11272,8 @@ typedef unsigned int GLhandleARB;
         <enum value="0x935F" name="GL_ZERO_TO_ONE_EXT" alias="GL_ZERO_TO_ONE"/>
             <unused start="0x9360" end="0x9364" vendor="NV"/>
         <enum value="0x9365" name="GL_CLEAR_TEXTURE" group="InternalFormatPName"/>
-        <enum value="0x9366" name="GL_TEXTURE_REDUCTION_MODE_ARB"/>
-        <enum value="0x9366" name="GL_TEXTURE_REDUCTION_MODE_EXT" alias="GL_TEXTURE_REDUCTION_MODE_ARB"/>
+        <enum value="0x9366" name="GL_TEXTURE_REDUCTION_MODE_ARB" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
+        <enum value="0x9366" name="GL_TEXTURE_REDUCTION_MODE_EXT" alias="GL_TEXTURE_REDUCTION_MODE_ARB" group="SamplerParameterPName,GetTextureParameter,TextureParameterName"/>
         <enum value="0x9367" name="GL_WEIGHTED_AVERAGE_ARB"/>
         <enum value="0x9367" name="GL_WEIGHTED_AVERAGE_EXT" alias="GL_WEIGHTED_AVERAGE_ARB"/>
         <enum value="0x9368" name="GL_FONT_GLYPHS_AVAILABLE_NV"/>
@@ -18205,7 +18202,7 @@ typedef unsigned int GLhandleARB;
         <command>
             <proto>void <name>glGetFramebufferAttachmentParameteriv</name></proto>
             <param group="FramebufferTarget"><ptype>GLenum</ptype> <name>target</name></param>
-            <param group="FramebufferAttachment"><ptype>GLenum</ptype> <name>attachment</name></param>
+            <param group="GetFramebufferAttachment"><ptype>GLenum</ptype> <name>attachment</name></param>
             <param group="FramebufferAttachmentParameterName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
             <glx type="vendor" opcode="1428"/>
@@ -18238,7 +18235,7 @@ typedef unsigned int GLhandleARB;
         <command>
             <proto>void <name>glGetFramebufferParameteriv</name></proto>
             <param group="FramebufferTarget"><ptype>GLenum</ptype> <name>target</name></param>
-            <param group="FramebufferAttachmentParameterName"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="GetFramebufferParameter"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
         </command>
         <command>
@@ -18845,7 +18842,7 @@ typedef unsigned int GLhandleARB;
         <command>
             <proto>void <name>glGetNamedFramebufferAttachmentParameteriv</name></proto>
             <param><ptype>GLuint</ptype> <name>framebuffer</name></param>
-            <param group="FramebufferAttachment"><ptype>GLenum</ptype> <name>attachment</name></param>
+            <param group="GetFramebufferAttachment"><ptype>GLenum</ptype> <name>attachment</name></param>
             <param group="FramebufferAttachmentParameterName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param><ptype>GLint</ptype> *<name>params</name></param>
         </command>
@@ -19667,53 +19664,53 @@ typedef unsigned int GLhandleARB;
         <command>
             <proto>void <name>glGetSamplerParameterIiv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterIivEXT</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
             <alias name="glGetSamplerParameterIiv"/>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterIivOES</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
             <alias name="glGetSamplerParameterIiv"/>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterIuiv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLuint</ptype> *<name>params</name></param>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterIuivEXT</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLuint</ptype> *<name>params</name></param>
             <alias name="glGetSamplerParameterIuiv"/>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterIuivOES</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLuint</ptype> *<name>params</name></param>
             <alias name="glGetSamplerParameterIuiv"/>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameterfv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterF"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLfloat</ptype> *<name>params</name></param>
         </command>
         <command>
             <proto>void <name>glGetSamplerParameteriv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)"><ptype>GLint</ptype> *<name>params</name></param>
         </command>
         <command>
@@ -27339,65 +27336,65 @@ typedef unsigned int GLhandleARB;
         <command>
             <proto>void <name>glSamplerParameterIiv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLint</ptype> *<name>param</name></param>
         </command>
         <command>
             <proto>void <name>glSamplerParameterIivEXT</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLint</ptype> *<name>param</name></param>
             <alias name="glSamplerParameterIiv"/>
         </command>
         <command>
             <proto>void <name>glSamplerParameterIivOES</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLint</ptype> *<name>param</name></param>
             <alias name="glSamplerParameterIiv"/>
         </command>
         <command>
             <proto>void <name>glSamplerParameterIuiv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLuint</ptype> *<name>param</name></param>
         </command>
         <command>
             <proto>void <name>glSamplerParameterIuivEXT</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLuint</ptype> *<name>param</name></param>
             <alias name="glSamplerParameterIuiv"/>
         </command>
         <command>
             <proto>void <name>glSamplerParameterIuivOES</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLuint</ptype> *<name>param</name></param>
             <alias name="glSamplerParameterIuiv"/>
         </command>
         <command>
             <proto>void <name>glSamplerParameterf</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterF"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param><ptype>GLfloat</ptype> <name>param</name></param>
         </command>
         <command>
             <proto>void <name>glSamplerParameterfv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterF"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLfloat</ptype> *<name>param</name></param>
         </command>
         <command>
             <proto>void <name>glSamplerParameteri</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param><ptype>GLint</ptype> <name>param</name></param>
         </command>
         <command>
             <proto>void <name>glSamplerParameteriv</name></proto>
             <param><ptype>GLuint</ptype> <name>sampler</name></param>
-            <param group="SamplerParameterI"><ptype>GLenum</ptype> <name>pname</name></param>
+            <param group="SamplerParameterPName"><ptype>GLenum</ptype> <name>pname</name></param>
             <param len="COMPSIZE(pname)">const <ptype>GLint</ptype> *<name>param</name></param>
         </command>
         <command>
