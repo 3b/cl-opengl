@@ -82,6 +82,7 @@
    #:gen-buffer
    #:buffer-data
    #:buffer-sub-data
+   #:buffer-storage
    #:map-buffer
    #:unmap-buffer
    ;; 2.10 Rectangles
