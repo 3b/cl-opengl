@@ -37,6 +37,7 @@
     :components
     ((:file "bindings-package")
      (:file "constants")
+     (:file "library-common")
      (:file "library")
      (:file "bindings")
      (:file "types")
@@ -76,6 +77,7 @@
     :components
     ((:file "bindings-package")
      (:file "constants")
+     (:file "library-common")
      (:file "library-glesv2")
      (:file "bindings")
      (:file "types")
