@@ -33,7 +33,16 @@
 ;;; automatic error checking, push something on *features*
 #-cl-opengl-no-check-error(pushnew :cl-opengl-checks-errors *features*)
 
-(define-condition opengl-error (simple-error)
+(define-condition cl-opengl-condition (condition)
+  ())
+
+(define-condition function-not-found (error cl-opengl-condition)
+  ((function :initarg :function :reader function-not-found.function))
+  (:report (lambda (c s)
+             (format s "Couldn't find function ~A"
+                     (function-not-found.function c)))))
+
+(define-condition opengl-error (simple-error cl-opengl-condition)
   ((error-code :initarg :error-code :reader opengl-error.error-code)
    (error-context :initform nil :initarg :error-context :reader opengl-error.error-context))
   (:report (lambda (c s)
@@ -41,8 +50,8 @@
                  (format s "OpenGL signalled ~A from ~A."
                          (opengl-error.error-code c)
                          (opengl-error.error-context c))
-                  (format s "OpenGL signalled ~A."
-                          (opengl-error.error-code c))))))
+                 (format s "OpenGL signalled ~A."
+                         (opengl-error.error-code c))))))
 
 (defmacro with-float-traps-maybe-masked (() &body body)
   `(#-cl-opengl-no-masked-traps float-features:with-float-traps-masked
@@ -183,7 +192,7 @@
   (let ((address (gl-get-proc-address foreign-name))
         (arg-list (mapcar #'first body)))
     (when (or (not (pointerp address)) (null-pointer-p address))
-      (error "Couldn't find function ~A" foreign-name))
+      (error 'function-not-found :function foreign-name))
     (compile lisp-name
              `(lambda ,arg-list
                 (multiple-value-prog1
