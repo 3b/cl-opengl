@@ -38,6 +38,9 @@
   (:export
    ;; 2.5 GL Errors
    #:get-error
+   #:cl-opengl-condition
+   #:function-not-found
+   #:function-not-found.function
    #:opengl-error
    #:opengl-error.error-code
    #:check-error
