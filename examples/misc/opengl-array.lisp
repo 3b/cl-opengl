@@ -8,7 +8,7 @@
 
 (defclass opengl-array-window (glut:window)
   ((vertex-array :accessor vertex-array
-                 :initform (gl:alloc-gl-array 'position-color 5))
+                 :initform (gl:alloc-gl-array '(:struct position-color) 5))
    (indices-array :accessor indices-array
                   :initform (gl:alloc-gl-array :unsigned-short 10)))
   (:default-initargs :title "opengl-array.lisp"))
