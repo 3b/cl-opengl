@@ -112,17 +112,22 @@
   "Pointer to C array with size and type information attached."
   (pointer (null-pointer))
   (size 0 :type unsigned-byte)
-  (type nil :type symbol))
+  (type nil :type (or symbol cons)))
 
 (defstruct (gl-vertex-array (:copier nil) (:include gl-array))
   "Like GL-ARRAY, but with an aditional vertex array binder."
   (binder #'identity :type function))
 
+(defun bare-type (type)
+  (if (and (consp type) (eq (car type) ':struct))
+      (cadr type)
+      type))
+
 (defun alloc-gl-array (type count)
-  (if (get type 'vertex-array-binder)
+  (if (get (bare-type type) 'vertex-array-binder)
       (make-gl-vertex-array
-       :pointer (foreign-alloc type :count count)
-       :size count :type type :binder (get type 'vertex-array-binder))
+       :pointer (foreign-alloc type :count count) :size count
+       :type type :binder (get (bare-type type) 'vertex-array-binder))
       (make-gl-array :pointer (foreign-alloc type :count count)
                      :size count :type type)))
 
@@ -130,7 +135,7 @@
 (defun make-gl-array-from-pointer (ptr type count)
   "Same as ALLOC-GL-ARRAY but uses a supplied pointer instead of
 allocating new memory."
-  (let ((binder (find-vertex-array-binder type nil)))
+  (let ((binder (find-vertex-array-binder (bare-type type) nil)))
     (if binder
         (make-gl-vertex-array :pointer ptr :size count
                               :type type :binder binder)
@@ -277,10 +282,11 @@ type. The following parameters are supported:
            (compile
             nil
             `(lambda (p)
-               ,,@(loop with stride = `(foreign-type-size ',name)
+               ,,@(loop with stride = `(foreign-type-size '(:struct ,name))
                         for c in clauses
                         for offset = `(foreign-slot-offset
-                                       ',name ',(caadr (member :components c)))
+                                       '(:struct ,name)
+                                       ',(caadr (member :components c)))
                         collect `(emit-gl-array-bind-clause
                                   ',c ,offset ,stride 'p)))))
      ',name))
@@ -328,7 +334,7 @@ outside WITH-GL-ARRAY."
 supplied and ARRAY is of a compound type the component named
 COMPONENT is returned."
   (if c-p
-      (foreign-slot-value (mem-aref (gl-array-pointer array)
+      (foreign-slot-value (mem-aptr (gl-array-pointer array)
                                     (gl-array-type array)
                                     index)
                           (gl-array-type array)
@@ -339,7 +345,7 @@ COMPONENT is returned."
 (defun (setf glaref) (value array index &optional (component nil c-p))
   "Sets the place (GLAREF ARRAY INDEX [COMPONENT]) to VALUE."
   (if c-p
-      (setf (foreign-slot-value (mem-aref (gl-array-pointer array)
+      (setf (foreign-slot-value (mem-aptr (gl-array-pointer array)
                                           (gl-array-type array)
                                           index)
                                 (gl-array-type array)
