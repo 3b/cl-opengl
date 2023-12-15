@@ -814,7 +814,7 @@
     (:max-compute-work-group-count :integer-i 3)
     (:max-compute-work-group-size :integer-i 3)
     (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
-    (:max-compute-local-invocations :integer 1) ;; not documented?
+    ;;(:max-compute-local-invocations :integer 1) ;; not documented?
     (:max-compute-uniform-blocks :integer 1)
     (:max-compute-texture-image-units :integer 1)
     (:max-compute-atomic-counter-buffers :integer 1)
