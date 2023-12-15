@@ -9,20 +9,44 @@
 
 (defparameter *gl-info-verbose* nil)
 
+(defun get-sparse-texture-page-sizes (target internal-format)
+  (let ((x (gl:get-internal-format target internal-format
+                                   :virtual-page-size-x-arb))
+        (y (gl:get-internal-format target internal-format
+                                   :virtual-page-size-y-arb))
+        (z (gl:get-internal-format target internal-format
+                                   :virtual-page-size-z-arb)))
+    (mapcar 'list x y z))
+  #++(let ((n (gl:get-internal-format target internal-format
+                                   :num-virtual-page-sizes-arb)))
+    (unless (zerop n)
+      (cffi:with-foreign-object (p :uint64 n)
+        (flet ((r (s)
+                 (%gl:get-internal-format-i64v target
+                                               (cffi:foreign-enum-value
+                                                '%gl:enum internal-format)
+                                               (cffi:foreign-enum-value
+                                                '%gl:enum s)
+                                               n p)
+                 (loop for i below n collect (cffi:mem-aref p :uint64 i))))
+          (list (r :virtual-page-size-x-arb)
+                (r :virtual-page-size-y-arb)
+                (r :virtual-page-size-z-arb)))))))
+
 (defmethod glut:display-window :before ((w gl-info-window))
   ;; todo: check for extensions/versions before some of these...
   (flet ((get* (x &optional (j 0 jp))
-            (multiple-value-bind (r e) (ignore-errors (if jp
-                                                          (gl:get* x j)
-                                                          (gl:get* x)))
-              (or e r))))
+           (multiple-value-bind (r e) (ignore-errors (if jp
+                                                         (gl:get* x j)
+                                                         (gl:get* x)))
+             (or e r))))
     (format t "GL version: ~a~%" (get* :version))
     (format t "GLSL version: ~a~%" (get* :shading-language-version))
     (format t "GL vendor: ~a~%" (get* :vendor))
     (format t "GL renderer: ~a~%" (get* :renderer))
     (format t "GL extensions: ~a~%" (get* :extensions))
 
-    (loop for i in '(:max-clip-planes ;
+    (loop for i in '(:max-clip-planes   ;
                      ;; 23.64 implementation dependent values
                      :max-clip-distances
                      :max-cull-distances
@@ -149,7 +173,7 @@
                      :max-texture-image-units
                      :min-program-texture-gather-offset
                      :max-program-texture-gather-offset
-                     :max-texture-units ;; compat
+                     :max-texture-units  ;; compat
                      :max-texture-coords ;; compat
                      :max-fragment-atomic-counter-buffers
                      :max-fragment-atomic-counters
@@ -253,9 +277,48 @@
         (format t "shading language versions:~%~{  ~s~%~}"
                 (loop for i below slv collect (gl:get-string-i :shading-language-version i)))))
     (format t "max anisotropy: ~s~%" (gl:get-float :max-texture-max-anisotropy-ext 1))
+    (when (gl:extension-present-p "GL_ARB_sparse_texture")
+      (format t "supported sparse texture formats:~%")
+      (loop for if in '(:R8 :RG8 :RGB8 :RGBA8
+                        :SRGB8 :SRGB8-ALPHA8
+                        :R8-SNORM :RG8-SNORM :RGB8-SNORM  :RGBA8-SNORM
+                        :R16 :RG16 :RGB16 :RGBA16
+                        :R16-SNORM :RG16-SNORM :RGB16-SNORM :RGBA16-SNORM
+                        :RGB4 :RGB10 :RGB12
+                        :RGBA2 :RGBA4 :RGBA12
+                        :R3-G3-B2 :RGB565 :RGB5-A1 :RGB10-A2 :RGB10-A2UI
+                        :R16F :RG16F :RGB16F :RGBA16F
+                        :R32F :RG32F :RGB32F :RGBA32F
+                        :R11F-G11F-B10F :RGB9-E5
+                        :R8I :RG8I :RGB8I :RGBA8I
+                        :R8UI :RG8UI :RGB8UI :RGBA8UI
+                        :R16I :RG16I :RGB16I :RGBA16I
+                        :R16UI :RG16UI :RGB16UI :RGBA16UI
+                        :R32I :RG32I :RGB32I :RGBA32I
+                        :R32UI :RG32UI :RGB32UI :RGBA32UI)
+            for s2 = (get-sparse-texture-page-sizes :texture-2d if)
+            for s3 = (get-sparse-texture-page-sizes :texture-3d if)
+            do (flet ((g (target e)
+                        (gl:get-internal-format target if e)))
+                 (when s2
+                   (format t " ~s 2d:~%" if)
+                   (loop for i in s2 do (format t "   ~s~%" i))
+                   (format t "  max dimensions ~sx~s (~s total)~%"
+                           (g :texture-2d :max-width)
+                           (g :texture-2d :max-height)
+                           (g :texture-2d :max-combined-dimensions)))
+                 (when s3
+                   (format t " ~s 3d:~%" if)
+                   (loop for i in s3 do (format t "   ~s~%" i))
+                   (format t "  max dimensions ~sx~sx~s (~s total)~%"
+                           (g :texture-3d :max-width)
+                           (g :texture-3d :max-height)
+                           (g :texture-3d :max-depth)
+                           (g :texture-3d :max-combined-dimensions))))))
     (when *gl-info-verbose*
       (format t "----~%")
-      (loop for (i nil nil m) in gl::*query-enum-sizes*
+      (loop with *print-array* = t
+            for (i nil nil m) in gl::*query-enum-sizes*
             do (format t "~s: ~a~%" i (get* i))
                (when m
                  (loop with max = (get* m)
@@ -273,4 +336,3 @@
 
 (defun gl-info (&key ((:verbose *gl-info-verbose*) nil))
   (glut:display-window (make-instance 'gl-info-window)))
-
