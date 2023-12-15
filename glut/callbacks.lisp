@@ -183,7 +183,9 @@
 (defbitfield modifiers
   (:active-shift 1)
   (:active-ctrl 2)
-  (:active-alt 4))
+  (:active-alt 4)
+  ;; freeglut extension
+  (:active-super 8))
 
 (defcenum mouse-button
   :left-button
@@ -256,7 +258,19 @@
   :key-left-ctrl
   :key-right-ctrl
   :key-left-alt
-  :key-right-alt)
+  :key-right-alt
+  ;; freeglut extensions
+  (:key-num-lock           #x006D)
+  (:key-begin              #x006E)
+  (:key-delete             #x006F)
+  (:key-shift-l            #x0070)
+  (:key-shift-r            #x0071)
+  (:key-ctrl-l             #x0072)
+  (:key-ctrl-r             #x0073)
+  (:key-alt-l              #x0074)
+  (:key-alt-r              #x0075)
+  (:key-super-l            #x0076)
+  (:key-super-r            #x0077))
 
 (defcenum visibility-state
   :not-visible
