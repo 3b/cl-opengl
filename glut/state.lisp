@@ -168,7 +168,20 @@
   :window-header-height                 ; freeglut ext
   :version                              ; freeglut ext
   #-darwin :rendering-context           ; freeglut ext
-  :direct-rendering)
+  :direct-rendering
+  ;; more freeglut extensions
+  (:init-major-version            #x0200)
+  (:init-minor-version            #x0201)
+  (:init-flags                    #x0202)
+  (:init-profile                  #x0203)
+  (:rendering-context             #x01fd)
+  (:direct-rendering              #x01fe)
+  (:full-screen                   #x01ff)
+  (:skip-stale-motion-events      #x0204)
+  (:geometry-visualize-normals    #x0205)
+  (:stroke-font-draw-join-dots    #x0206) ;; Draw dots between line segments of stroke fonts?
+  (:allow-negative-window-position #x0207) ;; GLUT doesn't allow negative window positions by default
+  (:window-srgb                   #x007D))
 
 (defcfun ("glutGet" get) :int
   (query get-param))

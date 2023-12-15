@@ -90,6 +90,17 @@
   (declare (dynamic-extent options))
   (%glutInitDisplayMode options))
 
+(defbitfield (init-context-flags :int)
+  (:debug 1)
+  (:forward-compatible 2))
+
+(defcfun ("glutInitContextFlags" %glutInitContextFlags) :void
+  (flags init-context-flags))
+
+(defun init-context-flags (&rest flags)
+  (declare (dynamic-extent flags))
+  (%glutInitContextFlags flags))
+
 ;;; useless?
 (defcfun ("glutInitDisplayString" init-display-string) :void
   (display-mode :string))
