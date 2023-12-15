@@ -982,7 +982,7 @@
         :internalformat-blue-size :internalformat-alpha-size
         :internalformat-depth-size :internalformat-stencil-size
         :internalformat-shared-size
-        :max-width :max-height :max-layers
+        :max-width :max-height :max-depth :max-layers
         :max-combined-dimensions ;; 64bit
         :image-texel-size :texture-compressed-block-width
         :texture-compressed-block-height
