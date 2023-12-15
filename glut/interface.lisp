@@ -144,6 +144,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (keyboard         (window (key ascii-to-char) (x :int) (y :int)))
   (special          (window (special-key special-keys) (x :int) (y :int)))
   (reshape          (window (width :int) (height :int)))
+  (window-position  (window (x :int) (y :int))) ;; renamed to avoid CL:POSITION
   (visibility       (window (state visibility-state)))
   (display          (window))
   (mouse            (window (button mouse-button) (state mouse-button-state)

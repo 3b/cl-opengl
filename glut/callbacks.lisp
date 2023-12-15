@@ -55,6 +55,11 @@
   ;; void (*func)(int width, int height)
   (callback-pointer :pointer))
 
+;; renamed to avoid CL:POSITION
+(defcfun ("glutPositionFunc" window-position-func) :void
+  ;; void (*func)(int x, int y)
+  (callback-pointer :pointer))
+
 (defcfun ("glutVisibilityFunc" visibility-func) :void
    ;; void (*func)(int state)
   (callback-pointer :pointer))
