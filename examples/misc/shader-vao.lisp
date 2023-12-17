@@ -224,9 +224,4 @@ void main()
    (gl:delete-vertex-arrays (list (vertex-array w)))))
 
 (defun shader-vao ()
-  (let ((w (make-instance 'shader-vao-window)))
-    (unwind-protect
-         (glut:display-window w)
-      (when (not (glut::destroyed w))
-         (setf (glut::destroyed w) t)
-         (glut:destroy-window (glut:id w))))))
+  (glut:display-window (make-instance 'shader-vao-window)))
