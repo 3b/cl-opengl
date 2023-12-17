@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T01:10:57Z
+;;; generated 2023-12-17T18:59:26Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglextfun ("glFramebufferTexture1D" framebuffer-texture-1d) :void
@@ -362,24 +362,24 @@
 
 (defglextfun ("glGetSubroutineUniformLocation" get-subroutine-uniform-location) int
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (name (:pointer char)))
 
 (defglextfun ("glGetSubroutineIndex" get-subroutine-index) uint
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (name (:pointer char)))
 
 (defglextfun ("glGetActiveSubroutineUniformiv" get-active-subroutine-uniform-iv) :void
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (index uint)
   (pname enum)
   (values (:pointer int)))
 
 (defglextfun ("glGetActiveSubroutineUniformName" get-active-subroutine-uniform-name) :void
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (index uint)
   (bufSize sizei)
   (length (:pointer sizei))
@@ -387,25 +387,25 @@
 
 (defglextfun ("glGetActiveSubroutineName" get-active-subroutine-name) :void
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (index uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (name (:pointer char)))
 
 (defglextfun ("glUniformSubroutinesuiv" uniform-subroutines-uiv) :void
-  (shadertype shader-type)
+  (shadertype enum)
   (count sizei)
   (indices (:pointer uint)))
 
 (defglextfun ("glGetUniformSubroutineuiv" get-uniform-subroutine-uiv) :void
-  (shadertype shader-type)
+  (shadertype enum)
   (location int)
   (params (:pointer uint)))
 
 (defglextfun ("glGetProgramStageiv" get-program-stage-iv) :void
   (program uint)
-  (shadertype shader-type)
+  (shadertype enum)
   (pname enum)
   (values (:pointer int)))
 
@@ -2517,25 +2517,25 @@
 (defglextfun ("glMultiTexEnvfEXT" multi-tex-env-f-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (param float))
 
 (defglextfun ("glMultiTexEnvfvEXT" multi-tex-env-fv-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer float)))
 
 (defglextfun ("glMultiTexEnviEXT" multi-tex-env-i-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (param int))
 
 (defglextfun ("glMultiTexEnvivEXT" multi-tex-env-iv-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer int)))
 
 (defglextfun ("glMultiTexGendEXT" multi-tex-gen-d-ext) :void
@@ -2577,13 +2577,13 @@
 (defglextfun ("glGetMultiTexEnvfvEXT" get-multi-tex-env-fv-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer float)))
 
 (defglextfun ("glGetMultiTexEnvivEXT" get-multi-tex-env-iv-ext) :void
   (texunit enum)
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer int)))
 
 (defglextfun ("glGetMultiTexGendvEXT" get-multi-tex-gen-dv-ext) :void
@@ -3771,11 +3771,11 @@
   (mode enum))
 
 (defglextfun ("glGetCommandHeaderNV" get-command-header-nv) uint
-  (tokenID command-opcodes-nv)
+  (tokenID enum)
   (size uint))
 
 (defglextfun ("glGetStageIndexNV" get-stage-index-nv) ushort
-  (shadertype shader-type))
+  (shadertype enum))
 
 (defglextfun ("glDrawCommandsNV" draw-commands-nv) :void
   (primitiveMode enum)

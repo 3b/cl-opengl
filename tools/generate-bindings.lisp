@@ -174,7 +174,7 @@
     ("char"           . ":char")
     ("signed char"    . ":char")
     ("unsigned char"  . ":unsigned-char")
-    ("ptrdiff_t"      . ":unsigned-long")
+    ("ptrdiff_t"      . "ptrdiff-t")
     ("short"          . ":short")
     ("unsigned short" . ":unsigned-short")
     ("float"          . ":float")
@@ -447,14 +447,14 @@
                    ))
           (unless group-list
             (let ((added nil))
-             (loop for a in (gethash value tmp)
-                   when (or (alexandria:starts-with-subseq
-                             (string a) (string name))
-                            (alexandria:starts-with-subseq
-                             (string name) (string a)))
-                     do (loop for group in (gethash a tmp)
-                              do (add* name group))
-                        (setf added t))
+              (loop for a in (gethash value tmp)
+                    when (or (alexandria:starts-with-subseq
+                              (string a) (string name))
+                             (alexandria:starts-with-subseq
+                              (string name) (string a)))
+                      do (loop for group in (gethash a tmp)
+                               do (add* name group))
+                         (setf added t))
               (unless added
                 (format t "??? got enum ~s without group? alias=~s?~%"
                         name (gethash value tmp)))))))))
@@ -806,8 +806,6 @@
                                              ;; fixme: translate enum
                                              ;; and bitfield names
                                              ;; consistently
-                                             ((gethash group enums)
-                                              (mixedcaps->lcdash group))
                                              ((and group
                                                    (string-equal type "GLenum"))
                                               ;; groups aren't
@@ -815,6 +813,8 @@
                                               ;; just always use enum
                                               #++ (mixedcaps->lcdash group)
                                               "enum")
+                                             ((gethash group enums)
+                                              (mixedcaps->lcdash group))
                                              ((and group
                                                    (string-equal type "GLbitfield"))
                                               group)

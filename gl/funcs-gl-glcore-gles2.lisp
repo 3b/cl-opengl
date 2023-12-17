@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T01:10:58Z
+;;; generated 2023-12-17T18:59:26Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v) :void
@@ -304,7 +304,7 @@
   (length sizei))
 
 (defglextfun ("glGetShaderPrecisionFormat" get-shader-precision-format) :void
-  (shadertype shader-type)
+  (shadertype enum)
   (precisiontype enum)
   (range (:pointer int))
   (precision (:pointer int)))
@@ -331,7 +331,7 @@
   (program uint))
 
 (defglextfun ("glCreateShaderProgramv" create-shader-program-v) uint
-  (type shader-type)
+  (type enum)
   (count sizei)
   (strings (:pointer (:pointer char))))
 
@@ -1378,7 +1378,7 @@
   (program uint))
 
 (defglextfun ("glCreateShaderProgramEXT" create-shader-program-ext) uint
-  (type shader-type)
+  (type enum)
   (string (:pointer char)))
 
 (defglextfun ("glActiveShaderProgramEXT" active-shader-program-ext) :void
@@ -1389,7 +1389,7 @@
   (pipeline uint))
 
 (defglextfun ("glCreateShaderProgramvEXT" create-shader-programv-ext) uint
-  (type shader-type)
+  (type enum)
   (count sizei)
   (strings (:pointer (:pointer char))))
 
