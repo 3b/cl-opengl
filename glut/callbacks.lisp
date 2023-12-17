@@ -300,7 +300,7 @@
   (:key-ctrl-r             #x0073)
   (:key-alt-l              #x0074)
   (:key-alt-r              #x0075)
-  (:key-super-l            #x0076)
+  (:key-super-l            #x0076) ;; also 'windows' keys
   (:key-super-r            #x0077))
 
 (defcenum visibility-state
