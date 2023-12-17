@@ -230,11 +230,27 @@ with them until the first time they are used by BEGIN-QUERY."
                  (:luminance-alpha 2)
                  ((:rgb :bgr) 3)
                  ((:rgba :bgra) 4)))
-       (size (* width height mult)))
-    (let ((vec (make-shareable-byte-vector size)))
-      (with-pointer-to-vector-data (ptr vec)
-        (%gl:read-pixels x y width height format type ptr)
-        vec))))
+         (size (* width height mult))
+         (real-type (symbolic-type->real-type type)))
+    (cond
+      ;; fast path for ub8 on lisps where w-p-t-v-d is known not to do
+      ;; 2 copies
+      #+(or allegro cmucl ecl lispworks mkcl openmcl sbcl scl)
+      ;; do 2 copies currently: abcl, clisp, mcl
+      ;; not fully implemented: clasp corman gcl
+      ((eql type :unsigned-byte)
+       (let ((vec (make-shareable-byte-vector size)))
+         (with-pointer-to-vector-data (ptr vec)
+           (%gl:read-pixels x y width height format type ptr)
+           vec)))
+      ;; manual copy for other cases
+      (t
+       (let ((result-data (make-sequence 'vector size)))
+         (with-foreign-object (array real-type size)
+           (%gl:read-pixels x y width height format type array)
+           (dotimes (i size result-data)
+             (setf (svref result-data i)
+                   (mem-aref array real-type i)))))))))
 
 (import-export %gl:read-buffer)
 
