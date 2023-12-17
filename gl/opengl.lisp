@@ -124,10 +124,9 @@
       type))
 
 (defun alloc-gl-array (type count)
-  (if (get (bare-type type) 'vertex-array-binder)
-      (make-gl-vertex-array
-       :pointer (foreign-alloc type :count count) :size count
-       :type type :binder (get (bare-type type) 'vertex-array-binder))
+  (if (get (bare-type type) 'vertex-array-allocate)
+      (funcall (get (bare-type type) 'vertex-array-allocate)
+               count)
       (make-gl-array :pointer (foreign-alloc type :count count)
                      :size count :type type)))
 
@@ -309,6 +308,14 @@ type. The following parameters are supported:
                                        ',(caadr (member :components c)))
                         collect `(emit-gl-array-bind-clause
                                   ',c ,offset ,stride 'p)))))
+     (setf (get ',name 'vertex-array-allocate)
+           (compile
+            nil
+            `(lambda (count)
+               (make-gl-vertex-array
+                :pointer (foreign-alloc '(:struct ,',name) :count count)
+                :size count :type '(:struct ,',name)
+                :binder (get ',',name 'vertex-array-binder)))))
      ',name))
 
 ;;; Returns the vertex array binder for SYMBOL-OR-FUNCTION.  This
