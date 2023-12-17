@@ -250,7 +250,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
             (progn
               (set-window (id ,window))
               ,@body)
-         (set-window ,current-id)))))
+         (unless (zerop ,current-id)
+           (set-window ,current-id))))))
 
 ;;; We do some extra stuff to provide an IDLE event per-window since
 ;;; GLUT's IDLE event is global.
@@ -260,6 +261,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
              (idle win))))
 
 (defun %close (window)
+  (when (tick-interval window)
+    (disable-tick window))
   (when (member :close (events window) :key #'event-name)
     (close window))
   (setf (aref *id->window* (id window)) nil)
@@ -413,7 +416,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
         
       (let ((window (aref *id->window* window-id)))
         (unless (null window)
-          (tick window)
+          (with-window window
+           (tick window))
           (when (tick-interval window)
             (timer-func (tick-interval window)
                         (callback tick-timer-cb) tick-id))))
