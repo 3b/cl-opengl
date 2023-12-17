@@ -162,8 +162,7 @@
 
 ;; some old definitions that were removed from spec, included only to
 ;; make old code that manually converted keywords to integers
-;; work. New code should use the new enums (or just %gl:enum, since
-;; the new enums tend to be incomplete anyway :/)
+;; work. New code should use the new bitfields.
 
 ;; use BufferStorageMask instead
 (defbitfield (MapBufferUsageMask :unsigned-int)
