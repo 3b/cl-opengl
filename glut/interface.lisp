@@ -317,11 +317,10 @@ Lexically binds CURRENT-WINDOW to the respective object."
 
   (let ((tick-id *tick-timer-counter*))
     (incf *tick-timer-counter*)
-    
+
     ;; Update tick table
     (setf *tick-timer-id->window-id*
           (acons tick-id (id window) *tick-timer-id->window-id*))
-    
 
     ;; Initiate the periodic callback
     (timer-func millis (callback tick-timer-cb) tick-id)))
@@ -413,7 +412,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (let ((window-id (cdr (assoc tick-id *tick-timer-id->window-id*))))
     (if (and window-id
              (> (length *id->window*) window-id))
-        
+
       (let ((window (aref *id->window* window-id)))
         (unless (null window)
           (with-window window
@@ -421,7 +420,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
           (when (tick-interval window)
             (timer-func (tick-interval window)
                         (callback tick-timer-cb) tick-id))))
-      
+
       (format t "Canceled tick timer ~a (~a)~%" tick-id window-id))))
 
 ;;;; Top-level Windows
