@@ -472,32 +472,25 @@
   (let (pname-value)
     (ecase target
       (:texture-filter-control
-       (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
-         (:texture-lod-bias (%gl:tex-env-f target pname-value value))))
-
+         (:texture-lod-bias (%gl:tex-env-f target pname value))))
       (:texture-env
-       (setf pname-value (foreign-enum-value '%gl:enum pname))
        (ecase pname
          (:texture-env-mode
-          (%gl:tex-env-i target pname-value
-                         (foreign-enum-value '%gl:enum value)))
+          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
          (:texture-env-color
           (with-foreign-object (p '%gl:float 4)
             (dotimes (i 4)
               (setf (mem-aref p '%gl:float i) (elt value i)))
-            (%gl:tex-env-fv target pname-value p)))
+            (%gl:tex-env-fv target pname p)))
          (:combine-rgb
-          (%gl:tex-env-i target pname-value
-                         (foreign-enum-value '%gl:enum value)))
+          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
          (:combine-alpha
-          (%gl:tex-env-i target pname-value
-                         (foreign-enum-value '%gl:enum value)))))
+          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))))
 
      (:point-sprite
-      (setf pname-value (foreign-enum-value '%gl:enum pname))
       (ecase pname
-        (:coord-replace (%gl:tex-env-i target pname-value (if value 1 0))))))))
+        (:coord-replace (%gl:tex-env-i target pname (if value 1 0))))))))
 
 ;;; texture queries
 (macrolet ((with-getters ((f i &rest vars) &body body)
