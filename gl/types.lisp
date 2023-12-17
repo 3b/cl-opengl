@@ -76,7 +76,7 @@
 
 (define-foreign-type offset-or-pointer ()
   ()
-  (:actual-type ptrdiff-t)
+  (:actual-type sizeiptr)
   (:simple-parser offset-or-pointer))
 
 (defmethod translate-to-foreign (value (type offset-or-pointer))
@@ -121,20 +121,21 @@
 (defctype string :string)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  ;; try to figure out a good size for ptrdiff_t
+  ;; try to figure out a good size for intptr/ptrdiff_t and sizeiptr
   (cond
     ((= (foreign-type-size :pointer)
         (foreign-type-size :long))
-     (defctype ptrdiff-t :long ))
+     (defctype ptrdiff-t :long)
+     (defctype sizeiptr :long))
     ((= (foreign-type-size :pointer)
         (foreign-type-size :long-long))
-     (defctype ptrdiff-t :long-long))
+     (defctype ptrdiff-t :long-long)
+     (defctype sizeiptr :long-long ))
     (t (error "not sure how big ptrdiff-t is on this platform"))))
 
 (defctype intptr ptrdiff-t)
 (defctype intptr-arb ptrdiff-t)
-(defctype sizeiptr ptrdiff-t)
-(defctype sizeiptr-arb ptrdiff-t)
+(defctype sizeiptr-arb sizeiptr)
 
 (defctype float ensure-float)
 (defctype clampf ensure-float)
