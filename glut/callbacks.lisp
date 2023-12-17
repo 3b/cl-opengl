@@ -32,6 +32,37 @@
 
 (in-package #:cl-glut)
 
+;; todo: make sure this actually works somewhat portably?
+;; and/or figure out if there is a 'correct' way to do it in cffi
+(defctype va-list :pointer)
+#+32-bit
+(defctype size-t :unsigned-long)
+#-32-bit
+(defctype size-t :unsigned-long-long)
+(defcfun "vsnprintf" :int
+  (buf (:pointer :char))
+  (n size-t)
+  (format (:pointer :char))
+  (arg va-list))
+
+(defcallback %glut-warn :void ((fmt (:pointer :char)) (ap va-list))
+  (let ((s (cffi:with-foreign-pointer-as-string (p 1024)
+             (vsnprintf p 1024 fmt ap))))
+    (warn "cl-glut: ~a" s)))
+
+(defcallback %glut-error :void ((fmt (:pointer :char)) (ap va-list))
+  (let ((s (cffi:with-foreign-pointer-as-string (p 1024)
+             (vsnprintf p 1024 fmt ap))))
+    (error "cl-glut: ~a" s)))
+
+;; freeglut extensions
+(defcfun ("glutInitErrorFunc" %init-error-func) :void (cb :pointer))
+(defcfun ("glutInitWarningFunc" %init-warn-func) :void (cb :pointer))
+;; possibly should error-func and warn-func here in case someone calls
+;; glut functions directly without calling init, but not bothering for
+;; now in case it causes problems when building on systems without X
+;; or whatever.
+
 ;;; Low-level functions (exported nevertheless)
 
 (defcfun ("glutTimerFunc" timer-func) :void

@@ -70,3 +70,27 @@
 
 (defcfun ("glutDetachMenu" detach-menu) :void
   (button mouse-button))
+
+(defvar *menu-active* nil)
+;;; todo: handle more deferred menu ops, use atomic queue or something
+;; currently we only defer destroy since that is somewhat easy to
+;; trigger by closing a window with a menu open. We also push onto
+;; this list and call them in list order, which would be wrong if
+;; order matters (for example when destroying and rebuilding), and
+;; might have problems with threads.
+(defvar *deferred-menu-ops* nil)
+
+(defcallback %menu-status-callback :void ((state menu-state)
+                                          (x :int) (y :int))
+  (format t "menu status ~s~%" state)
+  (setf *menu-active* (unless (eql state :menu-not-in-use)
+                        ;; might as well store something potentially
+                        ;; useful there for true
+                        (list x y)))
+  (unless *menu-active*
+    (loop while *deferred-menu-ops*
+          do (funcall (pop *deferred-menu-ops*)))))
+
+#++
+(defcallback %menu-state-callback :void ((state menu-state))
+  (setf *menu-active* (eql state :menu-in-use)))

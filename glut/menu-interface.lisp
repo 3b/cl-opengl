@@ -133,12 +133,21 @@
 
 
 (defmethod destroy-window-menus ((window base-window))
-  (loop for k being the hash-keys of (%menu-ids window)
-          using (hash-value (id))
-        do (remhash k (%menu-ids window))
-           (when (member k '(:left-button :right-button :middle-button))
-             (detach-menu k))
-           (destroy-menu id)))
+  (flet ((thunk ()
+           (with-window window
+             (loop for k being the hash-keys of (%menu-ids window)
+                     using (hash-value (id))
+                   do (remhash k (%menu-ids window))
+                      (remhash id *id->menu*)
+                      ;; don't bother detaching menus if window was
+                      ;; destroyed already
+                      (when-current-window-exists
+                        (when (member k '(:left-button :right-button :middle-button))
+                          (detach-menu k)))
+                      (destroy-menu id)))))
+    (if *menu-active*
+        (push #'thunk *deferred-menu-ops*)
+        (thunk))))
 
 (defmethod rebuild-window-menus ((window base-window) button)
   (destroy-window-menus window)

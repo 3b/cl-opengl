@@ -260,7 +260,6 @@ Lexically binds CURRENT-WINDOW to the respective object."
              (idle win))))
 
 (defun %close (window)
-  (destroy-window-menus window)
   (when (member :close (events window) :key #'event-name)
     (close window))
   (setf (aref *id->window* (id window)) nil)
@@ -289,7 +288,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (:action-glutmainloop-returns
        (leave-main-loop))
       (:action-continue-execution
-       nil))))
+       nil)))
+  (destroy-window-menus window))
 
 (define-glut-event close (window)
   (when-current-window-exists
