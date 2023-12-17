@@ -164,12 +164,6 @@ allocating new memory."
                      (cffi-type-to-gl (gl-array-type array))
                      (gl-array-pointer-offset array offset)))
 
-(definline draw-elements (mode array &key (count (gl-array-size array))
-                               (offset 0))
-  (%gl:draw-elements mode count
-                     (cffi-type-to-gl (gl-array-type array))
-                     (gl-array-pointer-offset array offset)))
-
 (definline draw-elements-base-vertex (mode array base-vertex &key
                                            (count (gl-array-size array))
                                            (offset 0))
