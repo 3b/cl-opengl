@@ -585,7 +585,7 @@
   (xpath:do-node-set (node (xpath:evaluate "/registry/commands/command" gl.xml))
     (let* ((proto (xpath:first-node (xpath:evaluate "proto" node)))
            (name (sv "name" proto))
-           (ret (if (equalp (sv "@group" proto) "String")
+           (ret (if (equalp (sv "@kind" proto) "String")
                     "string"
                     (get-type proto)))
            (args (xpath:map-node-set->list
@@ -810,7 +810,11 @@
                                               (mixedcaps->lcdash group))
                                              ((and group
                                                    (string-equal type "GLenum"))
-                                              (mixedcaps->lcdash group))
+                                              ;; groups aren't
+                                              ;; complete enough, so
+                                              ;; just always use enum
+                                              #++ (mixedcaps->lcdash group)
+                                              "enum")
                                              ((and group
                                                    (string-equal type "GLbitfield"))
                                               group)
