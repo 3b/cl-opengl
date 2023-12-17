@@ -167,8 +167,6 @@
   :window-border-width                  ; freeglut ext
   :window-header-height                 ; freeglut ext
   :version                              ; freeglut ext
-  #-darwin :rendering-context           ; freeglut ext
-  :direct-rendering
   ;; more freeglut extensions
   (:init-major-version            #x0200)
   (:init-minor-version            #x0201)
