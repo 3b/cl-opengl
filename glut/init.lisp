@@ -61,6 +61,12 @@
 
 (defun init (&optional (program-name (lisp-implementation-type)))
   (without-fp-traps
+    ;; try to capture errors/warnings if we are running on freeglut,
+    ;; and also avoid freeglut calling exit() on errors. (we set these
+    ;; in init to make sure they are set correctly after loading a
+    ;; core, call before glutInit)
+    (ignore-errors (%init-error-func (callback %glut-error)))
+    (ignore-errors (%init-warn-func (callback %glut-warn)))
     ;; freeglut will exit() if we try to call initGlut() when
     ;; things are already initialized.
     #-darwin
@@ -68,7 +74,10 @@
       (%init program-name))
     #+darwin
     (unless *glut-initialized-p*
-      (%init program-name)))
+      (%init program-name))
+    ;; we need to track menu state since it is illegal to modify menus
+    ;; when one is in use (needs to be called after glutInit)
+    (menu-status-func (callback %menu-status-callback)))
   (values))
 
 ;; We call init at load-time in order to ensure a usable glut as often
