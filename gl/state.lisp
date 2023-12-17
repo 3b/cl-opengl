@@ -49,7 +49,7 @@
   `(progn
      ,@(loop for cap in caps
           for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
+                    (foreign-enum-value '%gl:enum cap :errorp t))
           when v collect `(%gl:enable ,v)
           else collect `(%gl:enable ,cap))))
 
@@ -63,7 +63,7 @@
   `(progn
      ,@(loop for cap in caps
           for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
+                    (foreign-enum-value '%gl:enum cap :errorp t))
           when v collect `(%gl:disable ,v)
           else collect `(%gl:disable ,cap))))
 
