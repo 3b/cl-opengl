@@ -11,20 +11,6 @@
 ;; functions for Debug Output (from gl 4.3+ / KHR_Debug )
 (defvar *break-severities* '(:debug-severity-high))
 (defvar *synchronous* nil)
-(defmacro enum-case (value &body clauses)
-  (alexandria:once-only (value)
-    `(case (if (numberp ,value)
-               ,value
-               (cffi:foreign-enum-value '%gl:enum ,value))
-       ,@ (loop
-            for (k . body) in clauses
-            for ik = (delete-duplicates
-                      (loop
-                        for i in (alexandria:ensure-list k)
-                        collect (if (numberp k)
-                                    k
-                                    (cffi:foreign-enum-value '%gl:enum i))))
-            collect `(,ik ,@body)))))
 
 (defvar *ignore-ids* #())
 #++ (setf *ignore-ids* #(#x20071 #x20043))
