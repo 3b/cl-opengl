@@ -14,7 +14,7 @@ bindings:
 	@$(CL) --no-userinit --script "tools/generate-bindings.lisp"
 
 REPO="KhronosGroup/OpenGL-Registry"
-BRANCH=master
+BRANCH=main
 #REPO=3b/OpenGL-Registry
 #BRANCH=fix-groups
 # fixme: probably should grab xml file with svn instead of wget?
