@@ -379,7 +379,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (let ((event (find-event-or-lose event-name)))
         (when (find event (events window))
           ;; We don't actually disable the CLOSE event since we need it
-          ;; for bookkeeping. See the CLOSE event definiton.
+          ;; for bookkeeping. See the CLOSE event definition.
           (unless (or (eq event-name :idle)
                       (eq event-name :close))
             (with-window window
