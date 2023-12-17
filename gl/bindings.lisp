@@ -72,7 +72,8 @@
         (restart-case
             (error 'opengl-error
                    :error-code (cons error-code
-                                     (cffi:foreign-enum-keyword '%gl:enum error-code))
+                                     (cffi:foreign-enum-keyword '%gl:enum error-code
+                                                                :errorp nil))
                    :error-context context)
           (continue () :report "Continue"))))))
 
