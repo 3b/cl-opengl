@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T01:10:57Z
+;;; generated 2023-12-17T18:59:26Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglextfun ("glClipPlanef" clip-plane-f) :void
@@ -96,7 +96,7 @@
 
 (defglextfun ("glGetTexEnvxv" get-tex-env-xv) :void
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer fixed)))
 
 (defglextfun ("glGetTexParameterxv" get-tex-parameter-xv) :void
@@ -193,12 +193,12 @@
 
 (defglextfun ("glTexEnvx" tex-env-x) :void
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (param fixed))
 
 (defglextfun ("glTexEnvxv" tex-env-xv) :void
   (target enum)
-  (pname texture-env-parameter)
+  (pname enum)
   (params (:pointer fixed)))
 
 (defglextfun ("glTexParameterx" tex-parameter-x) :void

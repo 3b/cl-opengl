@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T01:10:58Z
+;;; generated 2023-12-17T18:59:26Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglfun ("glTexImage2D" tex-image-2d) :void
