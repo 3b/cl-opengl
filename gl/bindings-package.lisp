@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20191121 ( 2019-11-21T23:33:47Z )
+;;; glext version 20231206 ( 2023-12-06T16:19:18Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -614,12 +614,14 @@
   #:get-vertex-attrib-dv-arb #:get-vertex-attrib-fv-arb
   #:get-vertex-attrib-iv-arb #:get-vertex-attrib-pointer-v-arb
   #:bind-attrib-location-arb #:get-active-attrib-arb
-  #:get-attrib-location-arb #:window-pos-2d-arb #:window-pos-2dv-arb
-  #:window-pos-2f-arb #:window-pos-2fv-arb #:window-pos-2i-arb
-  #:window-pos-2iv-arb #:window-pos-2s-arb #:window-pos-2sv-arb
-  #:window-pos-3d-arb #:window-pos-3dv-arb #:window-pos-3f-arb
-  #:window-pos-3fv-arb #:window-pos-3i-arb #:window-pos-3iv-arb
-  #:window-pos-3s-arb #:window-pos-3sv-arb #:draw-buffers-ati
+  #:get-attrib-location-arb #:depth-range-array-dv-nv
+  #:depth-range-indexed-d-nv #:window-pos-2d-arb
+  #:window-pos-2dv-arb #:window-pos-2f-arb #:window-pos-2fv-arb
+  #:window-pos-2i-arb #:window-pos-2iv-arb #:window-pos-2s-arb
+  #:window-pos-2sv-arb #:window-pos-3d-arb #:window-pos-3dv-arb
+  #:window-pos-3f-arb #:window-pos-3fv-arb #:window-pos-3i-arb
+  #:window-pos-3iv-arb #:window-pos-3s-arb #:window-pos-3sv-arb
+  #:max-active-shader-cores-arm #:draw-buffers-ati
   #:element-pointer-ati #:draw-element-array-ati
   #:draw-range-element-array-ati #:tex-bump-parameter-iv-ati
   #:tex-bump-parameter-fv-ati #:get-tex-bump-parameter-iv-ati
@@ -877,7 +879,11 @@
   #:draw-transform-feedback-instanced-ext
   #:buffer-storage-external-ext #:named-buffer-storage-external-ext
   #:fog-coord-f-ext #:fog-coord-fv-ext #:fog-coord-d-ext
-  #:fog-coord-dv-ext #:fog-coord-pointer-ext #:blit-framebuffer-ext
+  #:fog-coord-dv-ext #:fog-coord-pointer-ext
+  #:get-fragment-shading-rates-ext #:shading-rate-ext
+  #:shading-rate-combiner-ops-ext #:framebuffer-shading-rate-ext
+  #:blit-framebuffer-ext #:blit-framebuffer-layers-ext
+  #:blit-framebuffer-layer-ext
   #:renderbuffer-storage-multisample-ext #:is-renderbuffer-ext
   #:bind-renderbuffer-ext #:delete-renderbuffers-ext
   #:gen-renderbuffers-ext #:renderbuffer-storage-ext
@@ -893,17 +899,28 @@
   #:get-frag-data-location-ext #:uniform-1ui-ext #:uniform-2ui-ext
   #:uniform-3ui-ext #:uniform-4ui-ext #:uniform-1uiv-ext
   #:uniform-2uiv-ext #:uniform-3uiv-ext #:uniform-4uiv-ext
-  #:get-histogram-ext #:get-histogram-parameter-fv-ext
-  #:get-histogram-parameter-iv-ext #:get-minmax-ext
-  #:get-minmax-parameter-fv-ext #:get-minmax-parameter-iv-ext
-  #:histogram-ext #:minmax-ext #:reset-histogram-ext
-  #:reset-minmax-ext #:index-func-ext #:index-material-ext
-  #:vertex-attrib-divisor-ext #:apply-texture-ext
-  #:texture-light-ext #:texture-material-ext #:map-buffer-range-ext
-  #:flush-mapped-buffer-range-ext #:get-unsigned-byte-v-ext
-  #:get-unsigned-byte-i-v-ext #:delete-memory-objects-ext
-  #:is-memory-object-ext #:create-memory-objects-ext
-  #:memory-object-parameter-iv-ext
+  #:vertex-attrib-i1i-ext #:vertex-attrib-i2i-ext
+  #:vertex-attrib-i3i-ext #:vertex-attrib-i4i-ext
+  #:vertex-attrib-i1ui-ext #:vertex-attrib-i2ui-ext
+  #:vertex-attrib-i3ui-ext #:vertex-attrib-i4ui-ext
+  #:vertex-attrib-i1iv-ext #:vertex-attrib-i2iv-ext
+  #:vertex-attrib-i3iv-ext #:vertex-attrib-i4iv-ext
+  #:vertex-attrib-i1uiv-ext #:vertex-attrib-i2uiv-ext
+  #:vertex-attrib-i3uiv-ext #:vertex-attrib-i4uiv-ext
+  #:vertex-attrib-i4bv-ext #:vertex-attrib-i4sv-ext
+  #:vertex-attrib-i4ubv-ext #:vertex-attrib-i4usv-ext
+  #:vertex-attrib-ipointer-ext #:get-vertex-attrib-iiv-ext
+  #:get-vertex-attrib-iuiv-ext #:get-histogram-ext
+  #:get-histogram-parameter-fv-ext #:get-histogram-parameter-iv-ext
+  #:get-minmax-ext #:get-minmax-parameter-fv-ext
+  #:get-minmax-parameter-iv-ext #:histogram-ext #:minmax-ext
+  #:reset-histogram-ext #:reset-minmax-ext #:index-func-ext
+  #:index-material-ext #:vertex-attrib-divisor-ext
+  #:apply-texture-ext #:texture-light-ext #:texture-material-ext
+  #:map-buffer-range-ext #:flush-mapped-buffer-range-ext
+  #:get-unsigned-byte-v-ext #:get-unsigned-byte-i-v-ext
+  #:delete-memory-objects-ext #:is-memory-object-ext
+  #:create-memory-objects-ext #:memory-object-parameter-iv-ext
   #:get-memory-object-parameter-iv-ext #:tex-storage-mem-2d-ext
   #:tex-storage-mem-2d-multisample-ext #:tex-storage-mem-3d-ext
   #:tex-storage-mem-3d-multisample-ext #:buffer-storage-mem-ext
@@ -971,10 +988,12 @@
   #:delete-textures-ext #:gen-textures-ext #:is-texture-ext
   #:prioritize-textures-ext #:texture-normal-ext
   #:tex-storage-1d-ext #:tex-storage-2d-ext #:tex-storage-3d-ext
-  #:texture-view-ext #:begin-transform-feedback-ext
-  #:end-transform-feedback-ext #:bind-buffer-range-ext
-  #:bind-buffer-offset-ext #:bind-buffer-base-ext
-  #:transform-feedback-varyings-ext
+  #:tex-storage-attribs-2d-ext #:tex-storage-attribs-3d-ext
+  #:texture-view-ext #:create-semaphores-nv
+  #:semaphore-parameter-iv-nv #:get-semaphore-parameter-iv-nv
+  #:begin-transform-feedback-ext #:end-transform-feedback-ext
+  #:bind-buffer-range-ext #:bind-buffer-offset-ext
+  #:bind-buffer-base-ext #:transform-feedback-varyings-ext
   #:get-transform-feedback-varying-ext #:array-element-ext
   #:color-pointer-ext #:draw-arrays-ext #:edge-flag-pointer-ext
   #:get-pointer-v-ext #:index-pointer-ext #:normal-pointer-ext
@@ -1125,17 +1144,18 @@
   #:multi-tex-coord-1hv-nv #:multi-tex-coord-2h-nv
   #:multi-tex-coord-2hv-nv #:multi-tex-coord-3h-nv
   #:multi-tex-coord-3hv-nv #:multi-tex-coord-4h-nv
-  #:multi-tex-coord-4hv-nv #:fog-coord-h-nv #:fog-coord-hv-nv
-  #:secondary-color-3h-nv #:secondary-color-3hv-nv
-  #:vertex-weight-h-nv #:vertex-weight-hv-nv #:vertex-attrib-1h-nv
+  #:multi-tex-coord-4hv-nv #:vertex-attrib-1h-nv
   #:vertex-attrib-1hv-nv #:vertex-attrib-2h-nv
   #:vertex-attrib-2hv-nv #:vertex-attrib-3h-nv
   #:vertex-attrib-3hv-nv #:vertex-attrib-4h-nv
   #:vertex-attrib-4hv-nv #:vertex-attribs-1hv-nv
   #:vertex-attribs-2hv-nv #:vertex-attribs-3hv-nv
-  #:vertex-attribs-4hv-nv #:vertex-attrib-divisor-nv
-  #:get-internal-format-sample-iv-nv #:render-gpu-mask-nv
-  #:multicast-buffer-sub-data-nv #:multicast-copy-buffer-sub-data-nv
+  #:vertex-attribs-4hv-nv #:fog-coord-h-nv #:fog-coord-hv-nv
+  #:secondary-color-3h-nv #:secondary-color-3hv-nv
+  #:vertex-weight-h-nv #:vertex-weight-hv-nv
+  #:vertex-attrib-divisor-nv #:get-internal-format-sample-iv-nv
+  #:render-gpu-mask-nv #:multicast-buffer-sub-data-nv
+  #:multicast-copy-buffer-sub-data-nv
   #:multicast-copy-image-sub-data-nv #:multicast-blit-framebuffer-nv
   #:multicast-framebuffer-sample-locations-fv-nv
   #:multicast-barrier-nv #:multicast-wait-sync-nv
@@ -1152,7 +1172,9 @@
   #:get-memory-object-detached-resources-uiv-nv
   #:reset-memory-object-parameter-nv #:tex-attach-memory-nv
   #:buffer-attach-memory-nv #:texture-attach-memory-nv
-  #:named-buffer-attach-memory-nv #:draw-mesh-tasks-nv
+  #:named-buffer-attach-memory-nv #:buffer-page-commitment-mem-nv
+  #:tex-page-commitment-mem-nv #:named-buffer-page-commitment-mem-nv
+  #:texture-page-commitment-mem-nv #:draw-mesh-tasks-nv
   #:draw-mesh-tasks-indirect-nv #:multi-draw-mesh-tasks-indirect-nv
   #:multi-draw-mesh-tasks-indirect-count-nv
   #:uniform-matrix-2x3-fv-nv #:uniform-matrix-3x2-fv-nv
@@ -1298,19 +1320,7 @@
   #:vertex-attribs-3fv-nv #:vertex-attribs-3sv-nv
   #:vertex-attribs-4dv-nv #:vertex-attribs-4fv-nv
   #:vertex-attribs-4sv-nv #:vertex-attribs-4ubv-nv
-  #:vertex-attrib-i1i-ext #:vertex-attrib-i2i-ext
-  #:vertex-attrib-i3i-ext #:vertex-attrib-i4i-ext
-  #:vertex-attrib-i1ui-ext #:vertex-attrib-i2ui-ext
-  #:vertex-attrib-i3ui-ext #:vertex-attrib-i4ui-ext
-  #:vertex-attrib-i1iv-ext #:vertex-attrib-i2iv-ext
-  #:vertex-attrib-i3iv-ext #:vertex-attrib-i4iv-ext
-  #:vertex-attrib-i1uiv-ext #:vertex-attrib-i2uiv-ext
-  #:vertex-attrib-i3uiv-ext #:vertex-attrib-i4uiv-ext
-  #:vertex-attrib-i4bv-ext #:vertex-attrib-i4sv-ext
-  #:vertex-attrib-i4ubv-ext #:vertex-attrib-i4usv-ext
-  #:vertex-attrib-ipointer-ext #:get-vertex-attrib-iiv-ext
-  #:get-vertex-attrib-iuiv-ext #:begin-video-capture-nv
-  #:bind-video-capture-stream-buffer-nv
+  #:begin-video-capture-nv #:bind-video-capture-stream-buffer-nv
   #:bind-video-capture-stream-texture-nv #:end-video-capture-nv
   #:get-video-capture-iv-nv #:get-video-capture-stream-iv-nv
   #:get-video-capture-stream-fv-nv #:get-video-capture-stream-dv-nv
@@ -1426,10 +1436,11 @@
   #:ext-get-shaders-qcom #:ext-get-programs-qcom
   #:ext-is-program-binary-qcom #:ext-get-program-binary-source-qcom
   #:framebuffer-foveation-config-qcom
-  #:framebuffer-foveation-parameters-qcom
+  #:framebuffer-foveation-parameters-qcom #:tex-estimate-motion-qcom
+  #:tex-estimate-motion-regions-qcom #:extrapolate-tex-2d-qcom
   #:texture-foveation-parameters-qcom
-  #:framebuffer-fetch-barrier-qcom #:start-tiling-qcom
-  #:end-tiling-qcom #:detail-tex-func-sgis
+  #:framebuffer-fetch-barrier-qcom #:shading-rate-qcom
+  #:start-tiling-qcom #:end-tiling-qcom #:detail-tex-func-sgis
   #:get-detail-tex-func-sgis #:fog-func-sgis #:get-fog-func-sgis
   #:sample-mask-sgis #:sample-pattern-sgis
   #:pixel-tex-gen-parameter-i-sgis #:pixel-tex-gen-parameter-iv-sgis
