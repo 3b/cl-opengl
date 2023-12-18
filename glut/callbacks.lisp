@@ -58,10 +58,13 @@
 ;; freeglut extensions
 (defcfun ("glutInitErrorFunc" %init-error-func) :void (cb :pointer))
 (defcfun ("glutInitWarningFunc" %init-warn-func) :void (cb :pointer))
-;; possibly should error-func and warn-func here in case someone calls
-;; glut functions directly without calling init, but not bothering for
-;; now in case it causes problems when building on systems without X
-;; or whatever.
+;; accidentally calling glut functions before init exits lisp, so
+;; attempting to set these at load time. Hopefully with ignore-errors
+;; it won't cause problems even in situations where the toplevel init
+;; caused problems.
+(ignore-errors (%init-error-func (callback %glut-error)))
+(ignore-errors (%init-warn-func (callback %glut-warn)))
+
 
 ;;; Low-level functions (exported nevertheless)
 
