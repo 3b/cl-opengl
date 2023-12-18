@@ -53,11 +53,24 @@
                  (format s "OpenGL signalled ~A."
                          (opengl-error.error-code c))))))
 
+(defvar *traps-already-masked* nil)
+
+(defmacro with-float-traps-masked (() &body body)
+  "Mask floating point traps in dynamic scope of BODY, and disable
+automatic per-call masking within that scope."
+  `(let ((*traps-already-masked* t))
+     (float-features:with-float-traps-masked t
+       ,@body)))
+
 (defmacro with-float-traps-maybe-masked (() &body body)
-  `(#-cl-opengl-no-masked-traps float-features:with-float-traps-masked
-    #-cl-opengl-no-masked-traps t
-    #+cl-opengl-no-masked-traps progn
-    ,@body))
+  #+cl-opengl-no-masked-traps
+  `(progn ,@body)
+  #-cl-opengl-no-masked-traps
+  `(if *traps-already-masked*
+       (progn
+         ,@body)
+       (float-features:with-float-traps-masked t
+         ,@body)))
 
 (defparameter *in-begin* nil)
 ;; inlining lots of restart-case kills compilation times on SBCL, and doesn't
