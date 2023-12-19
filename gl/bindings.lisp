@@ -219,13 +219,13 @@ not be used in those contexts."
           ,return-type)))))
 
 ;;;; Thomas's version of DEFGLEXTFUN.
-
+#++
 (defun reset-gl-pointers ()
   (do-external-symbols (sym (find-package '#:%gl))
     (let ((dummy (get sym 'proc-address-dummy)))
       (when dummy
         (setf (fdefinition sym) dummy)))))
-
+#++
 (defun generate-gl-function (foreign-name lisp-name result-type body &rest args)
   (let ((address (gl-get-proc-address foreign-name))
         (arg-list (mapcar #'first body)))
@@ -245,7 +245,7 @@ not be used in those contexts."
                   #-cl-opengl-no-check-error
                   (check-error ',lisp-name))))
     (apply lisp-name args)))
-
+#++
 (defmacro defglextfun ((foreign-name lisp-name) result-type &rest body)
   (let ((args-list (mapcar #'first body)))
     `(progn
@@ -255,3 +255,95 @@ not be used in those contexts."
                                ',body ,@args-list))
        (setf (get ',lisp-name 'proc-address-dummy) #',lisp-name)
        ',lisp-name)))
+
+;;;; yet another version of DEFGLEXTFUN
+
+(defun reset-gl-pointers ()
+  (replace *ext-thunks* *init-ext-thunks*))
+
+(defun missing-thunk (x)
+  (lambda (&rest r)
+    ;; should only see this if you didn't load all of the binding
+    ;; definition files, and tried to call a function from one of the
+    ;; missing files
+    (declare (ignore r))
+    (error "missing extension thunk ~d?" x)))
+
+;; some users used defglextfun in their own code, so keep old behavior
+;; around
+(defun generate-gl-function/old (foreign-name lisp-name result-type body
+                                 &rest args)
+  (let ((address (gl-get-proc-address foreign-name))
+        (arg-list (mapcar #'first body)))
+    (when (or (not (pointerp address)) (null-pointer-p address))
+      (error 'function-not-found :function foreign-name))
+    (compile lisp-name
+             `(lambda ,arg-list
+                (multiple-value-prog1
+                    (with-float-traps-maybe-masked ()
+                      (foreign-funcall-pointer
+                       ,address
+                       (:library opengl)
+                       ,@(loop for i in body
+                               collect (second i)
+                               collect (first i))
+                       ,result-type))
+                  #-cl-opengl-no-check-error
+                  (check-error ',lisp-name))))
+    (apply lisp-name args)))
+
+(defun generate-ext-thunk (index foreign-name lisp-name result-type args)
+  (let ((arg-list (mapcar #'first args)))
+    `(lambda (&rest r)
+       (let ((address (gl-get-proc-address ,foreign-name)))
+         (when (or (not (pointerp address)) (null-pointer-p address))
+           (error 'function-not-found :function ,foreign-name))
+         (setf (aref *ext-thunks* ,index)
+               (compile nil
+                        `(lambda ,',arg-list
+                           (multiple-value-prog1
+                               (with-float-traps-maybe-masked ()
+                                 (foreign-funcall-pointer
+                                  ,address
+                                  (:library opengl)
+                                  ,@',(loop for (name type) in args
+                                            collect type
+                                            collect name)
+                                  ,',result-type))
+                             #-cl-opengl-no-check-error
+                             (check-error ',',lisp-name)))))
+         (apply (aref *ext-thunks* ,index) r)))))
+
+(defun generate-gl-function/new (index foreign-name lisp-name result-type args)
+  (let ((args-list (mapcar #'first args)))
+    `(progn
+       ;; generate a thunk to look up the extension function pointer,
+       ;; and store it in the thunk init vector
+       (setf (aref *init-ext-thunks* ,index)
+             ,(generate-ext-thunk index foreign-name lisp-name
+                                  result-type args))
+       ;; and save it into the active thunk vector too, so we don't
+       ;; need a separate copy step after loading the bindings and
+       ;; so C-c C-c on definitions works as expected when running
+       (setf (aref *ext-thunks* ,index) (aref *init-ext-thunks* ,index))
+       ;; generate an inline function that calls the thunk
+       (declaim (inline ,lisp-name))
+       (defun ,lisp-name ,args-list
+         (funcall (aref *ext-thunks* ,index)
+                  ,@args-list)))))
+
+(defmacro defglextfun ((foreign-name lisp-name &optional index) result-type
+                       &rest body)
+  (if index
+      (generate-gl-function/new index foreign-name lisp-name result-type body)
+      ;; preserve old behavior for user code that calls it (user code
+      ;; can't be updated to use new version, since it relies on
+      ;; predefined fixed indices currently)
+      (let ((args-list (mapcar #'first body)))
+        `(progn
+           (declaim (notinline ,lisp-name))
+           (defun ,lisp-name ,args-list
+             (generate-gl-function ,foreign-name  ',lisp-name ',result-type
+                                   ',body ,@args-list))
+           (setf (get ',lisp-name 'proc-address-dummy) #',lisp-name)
+           ',lisp-name))))

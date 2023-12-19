@@ -6,14 +6,14 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
-(defglextfun ("glClipPlanef" clip-plane-f) :void
+(defglextfun ("glClipPlanef" clip-plane-f 208) :void
   (p enum)
   (eqn (:pointer float)))
 
-(defglextfun ("glFrustumf" frustum-f) :void
+(defglextfun ("glFrustumf" frustum-f 209) :void
   (l float)
   (r float)
   (b float)
@@ -21,11 +21,11 @@
   (n float)
   (f float))
 
-(defglextfun ("glGetClipPlanef" get-clip-plane-f) :void
+(defglextfun ("glGetClipPlanef" get-clip-plane-f 210) :void
   (plane enum)
   (equation (:pointer float)))
 
-(defglextfun ("glOrthof" ortho-f) :void
+(defglextfun ("glOrthof" ortho-f 211) :void
   (l float)
   (r float)
   (b float)
@@ -33,42 +33,42 @@
   (n float)
   (f float))
 
-(defglextfun ("glAlphaFuncx" alpha-func-x) :void
+(defglextfun ("glAlphaFuncx" alpha-func-x 212) :void
   (func enum)
   (ref fixed))
 
-(defglextfun ("glClearColorx" clear-color-x) :void
+(defglextfun ("glClearColorx" clear-color-x 213) :void
   (red fixed)
   (green fixed)
   (blue fixed)
   (alpha fixed))
 
-(defglextfun ("glClearDepthx" clear-depth-x) :void
+(defglextfun ("glClearDepthx" clear-depth-x 214) :void
   (depth fixed))
 
-(defglextfun ("glClipPlanex" clip-plane-x) :void
+(defglextfun ("glClipPlanex" clip-plane-x 215) :void
   (plane enum)
   (equation (:pointer fixed)))
 
-(defglextfun ("glColor4x" color-4x) :void
+(defglextfun ("glColor4x" color-4x 216) :void
   (red fixed)
   (green fixed)
   (blue fixed)
   (alpha fixed))
 
-(defglextfun ("glDepthRangex" depth-range-x) :void
+(defglextfun ("glDepthRangex" depth-range-x 217) :void
   (n fixed)
   (f fixed))
 
-(defglextfun ("glFogx" fog-x) :void
+(defglextfun ("glFogx" fog-x 218) :void
   (pname enum)
   (param fixed))
 
-(defglextfun ("glFogxv" fog-xv) :void
+(defglextfun ("glFogxv" fog-xv 219) :void
   (pname enum)
   (param (:pointer fixed)))
 
-(defglextfun ("glFrustumx" frustum-x) :void
+(defglextfun ("glFrustumx" frustum-x 220) :void
   (l fixed)
   (r fixed)
   (b fixed)
@@ -76,84 +76,84 @@
   (n fixed)
   (f fixed))
 
-(defglextfun ("glGetClipPlanex" get-clip-plane-x) :void
+(defglextfun ("glGetClipPlanex" get-clip-plane-x 221) :void
   (plane enum)
   (equation (:pointer fixed)))
 
-(defglextfun ("glGetFixedv" get-fixed-v) :void
+(defglextfun ("glGetFixedv" get-fixed-v 222) :void
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glGetLightxv" get-light-xv) :void
+(defglextfun ("glGetLightxv" get-light-xv 223) :void
   (light enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glGetMaterialxv" get-material-xv) :void
+(defglextfun ("glGetMaterialxv" get-material-xv 224) :void
   (face enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glGetTexEnvxv" get-tex-env-xv) :void
+(defglextfun ("glGetTexEnvxv" get-tex-env-xv 225) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glGetTexParameterxv" get-tex-parameter-xv) :void
+(defglextfun ("glGetTexParameterxv" get-tex-parameter-xv 226) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glLightModelx" light-model-x) :void
+(defglextfun ("glLightModelx" light-model-x 227) :void
   (pname enum)
   (param fixed))
 
-(defglextfun ("glLightModelxv" light-model-xv) :void
+(defglextfun ("glLightModelxv" light-model-xv 228) :void
   (pname enum)
   (param (:pointer fixed)))
 
-(defglextfun ("glLightx" light-x) :void
+(defglextfun ("glLightx" light-x 229) :void
   (light enum)
   (pname enum)
   (param fixed))
 
-(defglextfun ("glLightxv" light-xv) :void
+(defglextfun ("glLightxv" light-xv 230) :void
   (light enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glLineWidthx" line-width-x) :void
+(defglextfun ("glLineWidthx" line-width-x 231) :void
   (width fixed))
 
-(defglextfun ("glLoadMatrixx" load-matrix-x) :void
+(defglextfun ("glLoadMatrixx" load-matrix-x 232) :void
   (m (:pointer fixed)))
 
-(defglextfun ("glMaterialx" material-x) :void
+(defglextfun ("glMaterialx" material-x 233) :void
   (face enum)
   (pname enum)
   (param fixed))
 
-(defglextfun ("glMaterialxv" material-xv) :void
+(defglextfun ("glMaterialxv" material-xv 234) :void
   (face enum)
   (pname enum)
   (param (:pointer fixed)))
 
-(defglextfun ("glMultMatrixx" mult-matrix-x) :void
+(defglextfun ("glMultMatrixx" mult-matrix-x 235) :void
   (m (:pointer fixed)))
 
-(defglextfun ("glMultiTexCoord4x" multi-tex-coord-4x) :void
+(defglextfun ("glMultiTexCoord4x" multi-tex-coord-4x 236) :void
   (texture enum)
   (s fixed)
   (tee fixed)
   (r fixed)
   (q fixed))
 
-(defglextfun ("glNormal3x" normal-3x) :void
+(defglextfun ("glNormal3x" normal-3x 237) :void
   (nx fixed)
   (ny fixed)
   (nz fixed))
 
-(defglextfun ("glOrthox" ortho-x) :void
+(defglextfun ("glOrthox" ortho-x 238) :void
   (l fixed)
   (r fixed)
   (b fixed)
@@ -161,236 +161,236 @@
   (n fixed)
   (f fixed))
 
-(defglextfun ("glPointParameterx" point-parameter-x) :void
+(defglextfun ("glPointParameterx" point-parameter-x 239) :void
   (pname enum)
   (param fixed))
 
-(defglextfun ("glPointParameterxv" point-parameter-xv) :void
+(defglextfun ("glPointParameterxv" point-parameter-xv 240) :void
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glPointSizex" point-size-x) :void
+(defglextfun ("glPointSizex" point-size-x 241) :void
   (size fixed))
 
-(defglextfun ("glPolygonOffsetx" polygon-offset-x) :void
+(defglextfun ("glPolygonOffsetx" polygon-offset-x 242) :void
   (factor fixed)
   (units fixed))
 
-(defglextfun ("glRotatex" rotate-x) :void
+(defglextfun ("glRotatex" rotate-x 243) :void
   (angle fixed)
   (x fixed)
   (y fixed)
   (z fixed))
 
-(defglextfun ("glSampleCoveragex" sample-coverage-x) :void
+(defglextfun ("glSampleCoveragex" sample-coverage-x 244) :void
   (value clampx)
   (invert boolean))
 
-(defglextfun ("glScalex" scale-x) :void
+(defglextfun ("glScalex" scale-x 245) :void
   (x fixed)
   (y fixed)
   (z fixed))
 
-(defglextfun ("glTexEnvx" tex-env-x) :void
+(defglextfun ("glTexEnvx" tex-env-x 246) :void
   (target enum)
   (pname enum)
   (param fixed))
 
-(defglextfun ("glTexEnvxv" tex-env-xv) :void
+(defglextfun ("glTexEnvxv" tex-env-xv 247) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glTexParameterx" tex-parameter-x) :void
+(defglextfun ("glTexParameterx" tex-parameter-x 248) :void
   (target enum)
   (pname enum)
   (param fixed))
 
-(defglextfun ("glTexParameterxv" tex-parameter-xv) :void
+(defglextfun ("glTexParameterxv" tex-parameter-xv 249) :void
   (target enum)
   (pname enum)
   (params (:pointer fixed)))
 
-(defglextfun ("glTranslatex" translate-x) :void
+(defglextfun ("glTranslatex" translate-x 250) :void
   (x fixed)
   (y fixed)
   (z fixed))
 
-(defglextfun ("glClipPlanefIMG" clip-plane-f-img) :void
+(defglextfun ("glClipPlanefIMG" clip-plane-f-img 251) :void
   (p enum)
   (eqn (:pointer float)))
 
-(defglextfun ("glClipPlanexIMG" clip-plane-x-img) :void
+(defglextfun ("glClipPlanexIMG" clip-plane-x-img 252) :void
   (p enum)
   (eqn (:pointer fixed)))
 
-(defglextfun ("glBlendEquationSeparateOES" blend-equation-separate-oes) :void
+(defglextfun ("glBlendEquationSeparateOES" blend-equation-separate-oes 253) :void
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glBlendFuncSeparateOES" blend-func-separate-oes) :void
+(defglextfun ("glBlendFuncSeparateOES" blend-func-separate-oes 254) :void
   (srcRGB enum)
   (dstRGB enum)
   (srcAlpha enum)
   (dstAlpha enum))
 
-(defglextfun ("glBlendEquationOES" blend-equation-oes) :void
+(defglextfun ("glBlendEquationOES" blend-equation-oes 255) :void
   (mode enum))
 
-(defglextfun ("glDrawTexsOES" draw-tex-s-oes) :void
+(defglextfun ("glDrawTexsOES" draw-tex-s-oes 256) :void
   (x short)
   (y short)
   (z short)
   (width short)
   (height short))
 
-(defglextfun ("glDrawTexiOES" draw-tex-i-oes) :void
+(defglextfun ("glDrawTexiOES" draw-tex-i-oes 257) :void
   (x int)
   (y int)
   (z int)
   (width int)
   (height int))
 
-(defglextfun ("glDrawTexxOES" draw-tex-x-oes) :void
+(defglextfun ("glDrawTexxOES" draw-tex-x-oes 258) :void
   (x fixed)
   (y fixed)
   (z fixed)
   (width fixed)
   (height fixed))
 
-(defglextfun ("glDrawTexsvOES" draw-tex-sv-oes) :void
+(defglextfun ("glDrawTexsvOES" draw-tex-sv-oes 259) :void
   (coords (:pointer short)))
 
-(defglextfun ("glDrawTexivOES" draw-tex-iv-oes) :void
+(defglextfun ("glDrawTexivOES" draw-tex-iv-oes 260) :void
   (coords (:pointer int)))
 
-(defglextfun ("glDrawTexxvOES" draw-tex-xv-oes) :void
+(defglextfun ("glDrawTexxvOES" draw-tex-xv-oes 261) :void
   (coords (:pointer fixed)))
 
-(defglextfun ("glDrawTexfOES" draw-tex-f-oes) :void
+(defglextfun ("glDrawTexfOES" draw-tex-f-oes 262) :void
   (x float)
   (y float)
   (z float)
   (width float)
   (height float))
 
-(defglextfun ("glDrawTexfvOES" draw-tex-fv-oes) :void
+(defglextfun ("glDrawTexfvOES" draw-tex-fv-oes 263) :void
   (coords (:pointer float)))
 
-(defglextfun ("glIsRenderbufferOES" is-renderbuffer-oes) boolean
+(defglextfun ("glIsRenderbufferOES" is-renderbuffer-oes 264) boolean
   (renderbuffer uint))
 
-(defglextfun ("glBindRenderbufferOES" bind-renderbuffer-oes) :void
+(defglextfun ("glBindRenderbufferOES" bind-renderbuffer-oes 265) :void
   (target enum)
   (renderbuffer uint))
 
-(defglextfun ("glDeleteRenderbuffersOES" delete-renderbuffers-oes) :void
+(defglextfun ("glDeleteRenderbuffersOES" delete-renderbuffers-oes 266) :void
   (n sizei)
   (renderbuffers (:pointer uint)))
 
-(defglextfun ("glGenRenderbuffersOES" gen-renderbuffers-oes) :void
+(defglextfun ("glGenRenderbuffersOES" gen-renderbuffers-oes 267) :void
   (n sizei)
   (renderbuffers (:pointer uint)))
 
-(defglextfun ("glRenderbufferStorageOES" renderbuffer-storage-oes) :void
+(defglextfun ("glRenderbufferStorageOES" renderbuffer-storage-oes 268) :void
   (target enum)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glGetRenderbufferParameterivOES" get-renderbuffer-parameter-iv-oes) :void
+(defglextfun ("glGetRenderbufferParameterivOES" get-renderbuffer-parameter-iv-oes 269) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glIsFramebufferOES" is-framebuffer-oes) boolean
+(defglextfun ("glIsFramebufferOES" is-framebuffer-oes 270) boolean
   (framebuffer uint))
 
-(defglextfun ("glBindFramebufferOES" bind-framebuffer-oes) :void
+(defglextfun ("glBindFramebufferOES" bind-framebuffer-oes 271) :void
   (target enum)
   (framebuffer uint))
 
-(defglextfun ("glDeleteFramebuffersOES" delete-framebuffers-oes) :void
+(defglextfun ("glDeleteFramebuffersOES" delete-framebuffers-oes 272) :void
   (n sizei)
   (framebuffers (:pointer uint)))
 
-(defglextfun ("glGenFramebuffersOES" gen-framebuffers-oes) :void
+(defglextfun ("glGenFramebuffersOES" gen-framebuffers-oes 273) :void
   (n sizei)
   (framebuffers (:pointer uint)))
 
-(defglextfun ("glCheckFramebufferStatusOES" check-framebuffer-status-oes) enum
+(defglextfun ("glCheckFramebufferStatusOES" check-framebuffer-status-oes 274) enum
   (target enum))
 
-(defglextfun ("glFramebufferRenderbufferOES" framebuffer-renderbuffer-oes) :void
+(defglextfun ("glFramebufferRenderbufferOES" framebuffer-renderbuffer-oes 275) :void
   (target enum)
   (attachment enum)
   (renderbuffertarget enum)
   (renderbuffer uint))
 
-(defglextfun ("glFramebufferTexture2DOES" framebuffer-texture-2d-oes) :void
+(defglextfun ("glFramebufferTexture2DOES" framebuffer-texture-2d-oes 276) :void
   (target enum)
   (attachment enum)
   (textarget enum)
   (texture uint)
   (level int))
 
-(defglextfun ("glGetFramebufferAttachmentParameterivOES" get-framebuffer-attachment-parameter-iv-oes) :void
+(defglextfun ("glGetFramebufferAttachmentParameterivOES" get-framebuffer-attachment-parameter-iv-oes 277) :void
   (target enum)
   (attachment enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGenerateMipmapOES" generate-mipmap-oes) :void
+(defglextfun ("glGenerateMipmapOES" generate-mipmap-oes 278) :void
   (target enum))
 
-(defglextfun ("glCurrentPaletteMatrixOES" current-palette-matrix-oes) :void
+(defglextfun ("glCurrentPaletteMatrixOES" current-palette-matrix-oes 279) :void
   (matrixpaletteindex uint))
 
-(defglextfun ("glLoadPaletteFromModelViewMatrixOES" load-palette-from-model-view-matrix-oes) :void)
+(defglextfun ("glLoadPaletteFromModelViewMatrixOES" load-palette-from-model-view-matrix-oes 280) :void)
 
-(defglextfun ("glMatrixIndexPointerOES" matrix-index-pointer-oes) :void
+(defglextfun ("glMatrixIndexPointerOES" matrix-index-pointer-oes 281) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glWeightPointerOES" weight-pointer-oes) :void
+(defglextfun ("glWeightPointerOES" weight-pointer-oes 282) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glPointSizePointerOES" point-size-pointer-oes) :void
+(defglextfun ("glPointSizePointerOES" point-size-pointer-oes 283) :void
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glTexGenfOES" tex-gen-f-oes) :void
+(defglextfun ("glTexGenfOES" tex-gen-f-oes 284) :void
   (coord enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glTexGenfvOES" tex-gen-fv-oes) :void
+(defglextfun ("glTexGenfvOES" tex-gen-fv-oes 285) :void
   (coord enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glTexGeniOES" tex-gen-i-oes) :void
+(defglextfun ("glTexGeniOES" tex-gen-i-oes 286) :void
   (coord enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glTexGenivOES" tex-gen-iv-oes) :void
+(defglextfun ("glTexGenivOES" tex-gen-iv-oes 287) :void
   (coord enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetTexGenfvOES" get-tex-gen-fv-oes) :void
+(defglextfun ("glGetTexGenfvOES" get-tex-gen-fv-oes 288) :void
   (coord enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetTexGenivOES" get-tex-gen-iv-oes) :void
+(defglextfun ("glGetTexGenivOES" get-tex-gen-iv-oes 289) :void
   (coord enum)
   (pname enum)
   (params (:pointer int)))

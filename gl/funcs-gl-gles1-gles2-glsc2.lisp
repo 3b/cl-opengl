@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglfun ("glCullFace" cull-face) :void
@@ -167,14 +167,14 @@
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glActiveTexture" active-texture) :void
+(defglextfun ("glActiveTexture" active-texture 2950) :void
   (texture enum))
 
-(defglextfun ("glSampleCoverage" sample-coverage) :void
+(defglextfun ("glSampleCoverage" sample-coverage 2951) :void
   (value float)
   (invert boolean))
 
-(defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d) :void
+(defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d 2952) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -185,27 +185,27 @@
   (imageSize sizei)
   (data offset-or-pointer))
 
-(defglextfun ("glBindBuffer" bind-buffer) :void
+(defglextfun ("glBindBuffer" bind-buffer 2953) :void
   (target enum)
   (buffer uint))
 
-(defglextfun ("glGenBuffers" gen-buffers) :void
+(defglextfun ("glGenBuffers" gen-buffers 2954) :void
   (n sizei)
   (buffers (:pointer uint)))
 
-(defglextfun ("glBufferData" buffer-data) :void
+(defglextfun ("glBufferData" buffer-data 2955) :void
   (target enum)
   (size sizeiptr)
   (data (:pointer :void))
   (usage enum))
 
-(defglextfun ("glBufferSubData" buffer-sub-data) :void
+(defglextfun ("glBufferSubData" buffer-sub-data 2956) :void
   (target enum)
   (offset intptr)
   (size sizeiptr)
   (data (:pointer :void)))
 
-(defglextfun ("glGetBufferParameteriv" get-buffer-parameter-iv) :void
+(defglextfun ("glGetBufferParameteriv" get-buffer-parameter-iv 2957) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))

@@ -6,12 +6,12 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
-(defglextfun ("glBlendBarrier" blend-barrier) :void)
+(defglextfun ("glBlendBarrier" blend-barrier 47) :void)
 
-(defglextfun ("glPrimitiveBoundingBox" primitive-bounding-box) :void
+(defglextfun ("glPrimitiveBoundingBox" primitive-bounding-box 48) :void
   (minX float)
   (minY float)
   (minZ float)
@@ -21,7 +21,7 @@
   (maxZ float)
   (maxW float))
 
-(defglextfun ("glBlitFramebufferANGLE" blit-framebuffer-angle) :void
+(defglextfun ("glBlitFramebufferANGLE" blit-framebuffer-angle 49) :void
   (srcX0 int)
   (srcY0 int)
   (srcX1 int)
@@ -33,47 +33,47 @@
   (mask ClearBufferMask)
   (filter enum))
 
-(defglextfun ("glRenderbufferStorageMultisampleANGLE" renderbuffer-storage-multisample-angle) :void
+(defglextfun ("glRenderbufferStorageMultisampleANGLE" renderbuffer-storage-multisample-angle 50) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glDrawArraysInstancedANGLE" draw-arrays-instanced-angle) :void
+(defglextfun ("glDrawArraysInstancedANGLE" draw-arrays-instanced-angle 51) :void
   (mode enum)
   (first int)
   (count sizei)
   (primcount sizei))
 
-(defglextfun ("glDrawElementsInstancedANGLE" draw-elements-instanced-angle) :void
+(defglextfun ("glDrawElementsInstancedANGLE" draw-elements-instanced-angle 52) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer :void))
   (primcount sizei))
 
-(defglextfun ("glVertexAttribDivisorANGLE" vertex-attrib-divisor-angle) :void
+(defglextfun ("glVertexAttribDivisorANGLE" vertex-attrib-divisor-angle 53) :void
   (index uint)
   (divisor uint))
 
-(defglextfun ("glGetTranslatedShaderSourceANGLE" get-translated-shader-source-angle) :void
+(defglextfun ("glGetTranslatedShaderSourceANGLE" get-translated-shader-source-angle 54) :void
   (shader uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (source (:pointer char)))
 
-(defglextfun ("glMaxActiveShaderCoresARM" max-active-shader-cores-arm) :void
+(defglextfun ("glMaxActiveShaderCoresARM" max-active-shader-cores-arm 55) :void
   (count uint))
 
-(defglextfun ("glDrawArraysInstancedBaseInstanceEXT" draw-arrays-instanced-base-instance-ext) :void
+(defglextfun ("glDrawArraysInstancedBaseInstanceEXT" draw-arrays-instanced-base-instance-ext 56) :void
   (mode enum)
   (first int)
   (count sizei)
   (instancecount sizei)
   (baseinstance uint))
 
-(defglextfun ("glDrawElementsInstancedBaseInstanceEXT" draw-elements-instanced-base-instance-ext) :void
+(defglextfun ("glDrawElementsInstancedBaseInstanceEXT" draw-elements-instanced-base-instance-ext 57) :void
   (mode enum)
   (count sizei)
   (type enum)
@@ -81,7 +81,7 @@
   (instancecount sizei)
   (baseinstance uint))
 
-(defglextfun ("glDrawElementsInstancedBaseVertexBaseInstanceEXT" draw-elements-instanced-base-vertex-base-instance-ext) :void
+(defglextfun ("glDrawElementsInstancedBaseVertexBaseInstanceEXT" draw-elements-instanced-base-vertex-base-instance-ext 58) :void
   (mode enum)
   (count sizei)
   (type enum)
@@ -90,35 +90,35 @@
   (basevertex int)
   (baseinstance uint))
 
-(defglextfun ("glBindFragDataLocationIndexedEXT" bind-frag-data-location-indexed-ext) :void
+(defglextfun ("glBindFragDataLocationIndexedEXT" bind-frag-data-location-indexed-ext 59) :void
   (program uint)
   (colorNumber uint)
   (index uint)
   (name (:pointer char)))
 
-(defglextfun ("glGetProgramResourceLocationIndexEXT" get-program-resource-location-index-ext) int
+(defglextfun ("glGetProgramResourceLocationIndexEXT" get-program-resource-location-index-ext 60) int
   (program uint)
   (programInterface enum)
   (name (:pointer char)))
 
-(defglextfun ("glGetFragDataIndexEXT" get-frag-data-index-ext) int
+(defglextfun ("glGetFragDataIndexEXT" get-frag-data-index-ext 61) int
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glBufferStorageEXT" buffer-storage-ext) :void
+(defglextfun ("glBufferStorageEXT" buffer-storage-ext 62) :void
   (target enum)
   (size sizeiptr)
   (data (:pointer :void))
   (flags BufferStorageMask))
 
-(defglextfun ("glClearTexImageEXT" clear-tex-image-ext) :void
+(defglextfun ("glClearTexImageEXT" clear-tex-image-ext 63) :void
   (texture uint)
   (level int)
   (format enum)
   (type enum)
   (data (:pointer :void)))
 
-(defglextfun ("glClearTexSubImageEXT" clear-tex-sub-image-ext) :void
+(defglextfun ("glClearTexSubImageEXT" clear-tex-sub-image-ext 64) :void
   (texture uint)
   (level int)
   (xoffset int)
@@ -131,11 +131,11 @@
   (type enum)
   (data (:pointer :void)))
 
-(defglextfun ("glClipControlEXT" clip-control-ext) :void
+(defglextfun ("glClipControlEXT" clip-control-ext 65) :void
   (origin enum)
   (depth enum))
 
-(defglextfun ("glCopyImageSubDataEXT" copy-image-sub-data-ext) :void
+(defglextfun ("glCopyImageSubDataEXT" copy-image-sub-data-ext 66) :void
   (srcName uint)
   (srcTarget enum)
   (srcLevel int)
@@ -152,99 +152,99 @@
   (srcHeight sizei)
   (srcDepth sizei))
 
-(defglextfun ("glGenQueriesEXT" gen-queries-ext) :void
+(defglextfun ("glGenQueriesEXT" gen-queries-ext 67) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glDeleteQueriesEXT" delete-queries-ext) :void
+(defglextfun ("glDeleteQueriesEXT" delete-queries-ext 68) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glIsQueryEXT" is-query-ext) boolean
+(defglextfun ("glIsQueryEXT" is-query-ext 69) boolean
   (id uint))
 
-(defglextfun ("glBeginQueryEXT" begin-query-ext) :void
+(defglextfun ("glBeginQueryEXT" begin-query-ext 70) :void
   (target enum)
   (id uint))
 
-(defglextfun ("glEndQueryEXT" end-query-ext) :void
+(defglextfun ("glEndQueryEXT" end-query-ext 71) :void
   (target enum))
 
-(defglextfun ("glQueryCounterEXT" query-counter-ext) :void
+(defglextfun ("glQueryCounterEXT" query-counter-ext 72) :void
   (id uint)
   (target enum))
 
-(defglextfun ("glGetQueryivEXT" get-query-iv-ext) :void
+(defglextfun ("glGetQueryivEXT" get-query-iv-ext 73) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetQueryObjectivEXT" get-query-object-iv-ext) :void
+(defglextfun ("glGetQueryObjectivEXT" get-query-object-iv-ext 74) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetQueryObjectuivEXT" get-query-object-uiv-ext) :void
+(defglextfun ("glGetQueryObjectuivEXT" get-query-object-uiv-ext 75) :void
   (id uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glGetInteger64vEXT" get-integer-64-v-ext) :void
+(defglextfun ("glGetInteger64vEXT" get-integer-64-v-ext 76) :void
   (pname enum)
   (data (:pointer int64)))
 
-(defglextfun ("glDrawBuffersEXT" draw-buffers-ext) :void
+(defglextfun ("glDrawBuffersEXT" draw-buffers-ext 77) :void
   (n sizei)
   (bufs (:pointer enum)))
 
-(defglextfun ("glEnableiEXT" enable-i-ext) :void
+(defglextfun ("glEnableiEXT" enable-i-ext 78) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glDisableiEXT" disable-i-ext) :void
+(defglextfun ("glDisableiEXT" disable-i-ext 79) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glBlendEquationiEXT" blend-equation-i-ext) :void
+(defglextfun ("glBlendEquationiEXT" blend-equation-i-ext 80) :void
   (buf uint)
   (mode enum))
 
-(defglextfun ("glBlendEquationSeparateiEXT" blend-equation-separate-i-ext) :void
+(defglextfun ("glBlendEquationSeparateiEXT" blend-equation-separate-i-ext 81) :void
   (buf uint)
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glBlendFunciEXT" blend-func-i-ext) :void
+(defglextfun ("glBlendFunciEXT" blend-func-i-ext 82) :void
   (buf uint)
   (src enum)
   (dst enum))
 
-(defglextfun ("glBlendFuncSeparateiEXT" blend-func-separate-i-ext) :void
+(defglextfun ("glBlendFuncSeparateiEXT" blend-func-separate-i-ext 83) :void
   (buf uint)
   (srcRGB enum)
   (dstRGB enum)
   (srcAlpha enum)
   (dstAlpha enum))
 
-(defglextfun ("glColorMaskiEXT" color-mask-i-ext) :void
+(defglextfun ("glColorMaskiEXT" color-mask-i-ext 84) :void
   (index uint)
   (r boolean)
   (g boolean)
   (b boolean)
   (a boolean))
 
-(defglextfun ("glIsEnablediEXT" is-enabled-i-ext) boolean
+(defglextfun ("glIsEnablediEXT" is-enabled-i-ext 85) boolean
   (target enum)
   (index uint))
 
-(defglextfun ("glDrawElementsBaseVertexEXT" draw-elements-base-vertex-ext) :void
+(defglextfun ("glDrawElementsBaseVertexEXT" draw-elements-base-vertex-ext 86) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer :void))
   (basevertex int))
 
-(defglextfun ("glDrawRangeElementsBaseVertexEXT" draw-range-elements-base-vertex-ext) :void
+(defglextfun ("glDrawRangeElementsBaseVertexEXT" draw-range-elements-base-vertex-ext 87) :void
   (mode enum)
   (start uint)
   (end uint)
@@ -253,7 +253,7 @@
   (indices (:pointer :void))
   (basevertex int))
 
-(defglextfun ("glDrawElementsInstancedBaseVertexEXT" draw-elements-instanced-base-vertex-ext) :void
+(defglextfun ("glDrawElementsInstancedBaseVertexEXT" draw-elements-instanced-base-vertex-ext 88) :void
   (mode enum)
   (count sizei)
   (type enum)
@@ -261,7 +261,7 @@
   (instancecount sizei)
   (basevertex int))
 
-(defglextfun ("glMultiDrawElementsBaseVertexEXT" multi-draw-elements-base-vertex-ext) :void
+(defglextfun ("glMultiDrawElementsBaseVertexEXT" multi-draw-elements-base-vertex-ext 89) :void
   (mode enum)
   (count (:pointer sizei))
   (type enum)
@@ -269,29 +269,29 @@
   (drawcount sizei)
   (basevertex (:pointer int)))
 
-(defglextfun ("glDrawTransformFeedbackEXT" draw-transform-feedback-ext) :void
+(defglextfun ("glDrawTransformFeedbackEXT" draw-transform-feedback-ext 90) :void
   (mode enum)
   (id uint))
 
-(defglextfun ("glDrawTransformFeedbackInstancedEXT" draw-transform-feedback-instanced-ext) :void
+(defglextfun ("glDrawTransformFeedbackInstancedEXT" draw-transform-feedback-instanced-ext 91) :void
   (mode enum)
   (id uint)
   (instancecount sizei))
 
-(defglextfun ("glGetFragmentShadingRatesEXT" get-fragment-shading-rates-ext) :void
+(defglextfun ("glGetFragmentShadingRatesEXT" get-fragment-shading-rates-ext 92) :void
   (samples sizei)
   (maxCount sizei)
   (count (:pointer sizei))
   (shadingRates (:pointer enum)))
 
-(defglextfun ("glShadingRateEXT" shading-rate-ext) :void
+(defglextfun ("glShadingRateEXT" shading-rate-ext 93) :void
   (rate enum))
 
-(defglextfun ("glShadingRateCombinerOpsEXT" shading-rate-combiner-ops-ext) :void
+(defglextfun ("glShadingRateCombinerOpsEXT" shading-rate-combiner-ops-ext 94) :void
   (combinerOp0 enum)
   (combinerOp1 enum))
 
-(defglextfun ("glFramebufferShadingRateEXT" framebuffer-shading-rate-ext) :void
+(defglextfun ("glFramebufferShadingRateEXT" framebuffer-shading-rate-ext 95) :void
   (target enum)
   (attachment enum)
   (texture uint)
@@ -300,38 +300,38 @@
   (texelWidth sizei)
   (texelHeight sizei))
 
-(defglextfun ("glVertexAttribDivisorEXT" vertex-attrib-divisor-ext) :void
+(defglextfun ("glVertexAttribDivisorEXT" vertex-attrib-divisor-ext 96) :void
   (index uint)
   (divisor uint))
 
-(defglextfun ("glMultiDrawArraysIndirectEXT" multi-draw-arrays-indirect-ext) :void
+(defglextfun ("glMultiDrawArraysIndirectEXT" multi-draw-arrays-indirect-ext 97) :void
   (mode enum)
   (indirect (:pointer :void))
   (drawcount sizei)
   (stride sizei))
 
-(defglextfun ("glMultiDrawElementsIndirectEXT" multi-draw-elements-indirect-ext) :void
+(defglextfun ("glMultiDrawElementsIndirectEXT" multi-draw-elements-indirect-ext 98) :void
   (mode enum)
   (type enum)
   (indirect (:pointer :void))
   (drawcount sizei)
   (stride sizei))
 
-(defglextfun ("glReadBufferIndexedEXT" read-buffer-indexed-ext) :void
+(defglextfun ("glReadBufferIndexedEXT" read-buffer-indexed-ext 99) :void
   (src enum)
   (index int))
 
-(defglextfun ("glDrawBuffersIndexedEXT" draw-buffers-indexed-ext) :void
+(defglextfun ("glDrawBuffersIndexedEXT" draw-buffers-indexed-ext 100) :void
   (n int)
   (location (:pointer enum))
   (indices (:pointer int)))
 
-(defglextfun ("glGetIntegeri_vEXT" get-integer-i-v-ext) :void
+(defglextfun ("glGetIntegeri_vEXT" get-integer-i-v-ext 101) :void
   (target enum)
   (index uint)
   (data (:pointer int)))
 
-(defglextfun ("glPrimitiveBoundingBoxEXT" primitive-bounding-box-ext) :void
+(defglextfun ("glPrimitiveBoundingBoxEXT" primitive-bounding-box-ext 102) :void
   (minX float)
   (minY float)
   (minZ float)
@@ -341,19 +341,19 @@
   (maxZ float)
   (maxW float))
 
-(defglextfun ("glFramebufferPixelLocalStorageSizeEXT" framebuffer-pixel-local-storage-size-ext) :void
+(defglextfun ("glFramebufferPixelLocalStorageSizeEXT" framebuffer-pixel-local-storage-size-ext 103) :void
   (target uint)
   (size sizei))
 
-(defglextfun ("glGetFramebufferPixelLocalStorageSizeEXT" get-framebuffer-pixel-local-storage-size-ext) sizei
+(defglextfun ("glGetFramebufferPixelLocalStorageSizeEXT" get-framebuffer-pixel-local-storage-size-ext 104) sizei
   (target uint))
 
-(defglextfun ("glClearPixelLocalStorageuiEXT" clear-pixel-local-storage-ui-ext) :void
+(defglextfun ("glClearPixelLocalStorageuiEXT" clear-pixel-local-storage-ui-ext 105) :void
   (offset sizei)
   (n sizei)
   (values (:pointer uint)))
 
-(defglextfun ("glTexPageCommitmentEXT" tex-page-commitment-ext) :void
+(defglextfun ("glTexPageCommitmentEXT" tex-page-commitment-ext 106) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -364,38 +364,38 @@
   (depth sizei)
   (commit boolean))
 
-(defglextfun ("glPatchParameteriEXT" patch-parameter-i-ext) :void
+(defglextfun ("glPatchParameteriEXT" patch-parameter-i-ext 107) :void
   (pname enum)
   (value int))
 
-(defglextfun ("glSamplerParameterIivEXT" sampler-parameter-iiv-ext) :void
+(defglextfun ("glSamplerParameterIivEXT" sampler-parameter-iiv-ext 108) :void
   (sampler uint)
   (pname enum)
   (param (:pointer int)))
 
-(defglextfun ("glSamplerParameterIuivEXT" sampler-parameter-iuiv-ext) :void
+(defglextfun ("glSamplerParameterIuivEXT" sampler-parameter-iuiv-ext 109) :void
   (sampler uint)
   (pname enum)
   (param (:pointer uint)))
 
-(defglextfun ("glGetSamplerParameterIivEXT" get-sampler-parameter-iiv-ext) :void
+(defglextfun ("glGetSamplerParameterIivEXT" get-sampler-parameter-iiv-ext 110) :void
   (sampler uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetSamplerParameterIuivEXT" get-sampler-parameter-iuiv-ext) :void
+(defglextfun ("glGetSamplerParameterIuivEXT" get-sampler-parameter-iuiv-ext 111) :void
   (sampler uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glTexBufferRangeEXT" tex-buffer-range-ext) :void
+(defglextfun ("glTexBufferRangeEXT" tex-buffer-range-ext 112) :void
   (target enum)
   (internalformat enum)
   (buffer uint)
   (offset intptr)
   (size sizeiptr))
 
-(defglextfun ("glTexStorageAttribs2DEXT" tex-storage-attribs-2d-ext) :void
+(defglextfun ("glTexStorageAttribs2DEXT" tex-storage-attribs-2d-ext 113) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
@@ -403,7 +403,7 @@
   (height sizei)
   (attrib_list (:pointer int)))
 
-(defglextfun ("glTexStorageAttribs3DEXT" tex-storage-attribs-3d-ext) :void
+(defglextfun ("glTexStorageAttribs3DEXT" tex-storage-attribs-3d-ext 114) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
@@ -412,7 +412,7 @@
   (depth sizei)
   (attrib_list (:pointer int)))
 
-(defglextfun ("glTextureViewEXT" texture-view-ext) :void
+(defglextfun ("glTextureViewEXT" texture-view-ext 115) :void
   (texture uint)
   (target enum)
   (origtexture uint)
@@ -422,34 +422,34 @@
   (minlayer uint)
   (numlayers uint))
 
-(defglextfun ("glGetTextureHandleIMG" get-texture-handle-img) uint64
+(defglextfun ("glGetTextureHandleIMG" get-texture-handle-img 116) uint64
   (texture uint))
 
-(defglextfun ("glGetTextureSamplerHandleIMG" get-texture-sampler-handle-img) uint64
+(defglextfun ("glGetTextureSamplerHandleIMG" get-texture-sampler-handle-img 117) uint64
   (texture uint)
   (sampler uint))
 
-(defglextfun ("glUniformHandleui64IMG" uniform-handleui64img) :void
+(defglextfun ("glUniformHandleui64IMG" uniform-handleui64img 118) :void
   (location int)
   (value uint64))
 
-(defglextfun ("glUniformHandleui64vIMG" uniform-handleui64v-img) :void
+(defglextfun ("glUniformHandleui64vIMG" uniform-handleui64v-img 119) :void
   (location int)
   (count sizei)
   (value (:pointer uint64)))
 
-(defglextfun ("glProgramUniformHandleui64IMG" program-uniform-handleui64img) :void
+(defglextfun ("glProgramUniformHandleui64IMG" program-uniform-handleui64img 120) :void
   (program uint)
   (location int)
   (value uint64))
 
-(defglextfun ("glProgramUniformHandleui64vIMG" program-uniform-handleui64v-img) :void
+(defglextfun ("glProgramUniformHandleui64vIMG" program-uniform-handleui64v-img 121) :void
   (program uint)
   (location int)
   (count sizei)
   (values (:pointer uint64)))
 
-(defglextfun ("glFramebufferTexture2DDownsampleIMG" framebuffer-texture-2d-downsample-img) :void
+(defglextfun ("glFramebufferTexture2DDownsampleIMG" framebuffer-texture-2d-downsample-img 122) :void
   (target enum)
   (attachment enum)
   (textarget enum)
@@ -458,7 +458,7 @@
   (xscale int)
   (yscale int))
 
-(defglextfun ("glFramebufferTextureLayerDownsampleIMG" framebuffer-texture-layer-downsample-img) :void
+(defglextfun ("glFramebufferTextureLayerDownsampleIMG" framebuffer-texture-layer-downsample-img 123) :void
   (target enum)
   (attachment enum)
   (texture uint)
@@ -467,37 +467,37 @@
   (xscale int)
   (yscale int))
 
-(defglextfun ("glCopyBufferSubDataNV" copy-buffer-sub-data-nv) :void
+(defglextfun ("glCopyBufferSubDataNV" copy-buffer-sub-data-nv 124) :void
   (readTarget enum)
   (writeTarget enum)
   (readOffset intptr)
   (writeOffset intptr)
   (size sizeiptr))
 
-(defglextfun ("glCoverageMaskNV" coverage-mask-nv) :void
+(defglextfun ("glCoverageMaskNV" coverage-mask-nv 125) :void
   (mask boolean))
 
-(defglextfun ("glCoverageOperationNV" coverage-operation-nv) :void
+(defglextfun ("glCoverageOperationNV" coverage-operation-nv 126) :void
   (operation enum))
 
-(defglextfun ("glDrawBuffersNV" draw-buffers-nv) :void
+(defglextfun ("glDrawBuffersNV" draw-buffers-nv 127) :void
   (n sizei)
   (bufs (:pointer enum)))
 
-(defglextfun ("glDrawArraysInstancedNV" draw-arrays-instanced-nv) :void
+(defglextfun ("glDrawArraysInstancedNV" draw-arrays-instanced-nv 128) :void
   (mode enum)
   (first int)
   (count sizei)
   (primcount sizei))
 
-(defglextfun ("glDrawElementsInstancedNV" draw-elements-instanced-nv) :void
+(defglextfun ("glDrawElementsInstancedNV" draw-elements-instanced-nv 129) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer :void))
   (primcount sizei))
 
-(defglextfun ("glBlitFramebufferNV" blit-framebuffer-nv) :void
+(defglextfun ("glBlitFramebufferNV" blit-framebuffer-nv 130) :void
   (srcX0 int)
   (srcY0 int)
   (srcX1 int)
@@ -509,120 +509,120 @@
   (mask ClearBufferMask)
   (filter enum))
 
-(defglextfun ("glRenderbufferStorageMultisampleNV" renderbuffer-storage-multisample-nv) :void
+(defglextfun ("glRenderbufferStorageMultisampleNV" renderbuffer-storage-multisample-nv 131) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glVertexAttribDivisorNV" vertex-attrib-divisor-nv) :void
+(defglextfun ("glVertexAttribDivisorNV" vertex-attrib-divisor-nv 132) :void
   (index uint)
   (divisor uint))
 
-(defglextfun ("glUniformMatrix2x3fvNV" uniform-matrix-2x3-fv-nv) :void
+(defglextfun ("glUniformMatrix2x3fvNV" uniform-matrix-2x3-fv-nv 133) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix3x2fvNV" uniform-matrix-3x2-fv-nv) :void
+(defglextfun ("glUniformMatrix3x2fvNV" uniform-matrix-3x2-fv-nv 134) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix2x4fvNV" uniform-matrix-2x4-fv-nv) :void
+(defglextfun ("glUniformMatrix2x4fvNV" uniform-matrix-2x4-fv-nv 135) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix4x2fvNV" uniform-matrix-4x2-fv-nv) :void
+(defglextfun ("glUniformMatrix4x2fvNV" uniform-matrix-4x2-fv-nv 136) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix3x4fvNV" uniform-matrix-3x4-fv-nv) :void
+(defglextfun ("glUniformMatrix3x4fvNV" uniform-matrix-3x4-fv-nv 137) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix4x3fvNV" uniform-matrix-4x3-fv-nv) :void
+(defglextfun ("glUniformMatrix4x3fvNV" uniform-matrix-4x3-fv-nv 138) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glPolygonModeNV" polygon-mode-nv) :void
+(defglextfun ("glPolygonModeNV" polygon-mode-nv 139) :void
   (face enum)
   (mode enum))
 
-(defglextfun ("glReadBufferNV" read-buffer-nv) :void
+(defglextfun ("glReadBufferNV" read-buffer-nv 140) :void
   (mode enum))
 
-(defglextfun ("glViewportArrayvNV" viewport-array-v-nv) :void
+(defglextfun ("glViewportArrayvNV" viewport-array-v-nv 141) :void
   (first uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glViewportIndexedfNV" viewport-indexed-f-nv) :void
+(defglextfun ("glViewportIndexedfNV" viewport-indexed-f-nv 142) :void
   (index uint)
   (x float)
   (y float)
   (w float)
   (h float))
 
-(defglextfun ("glViewportIndexedfvNV" viewport-indexed-fv-nv) :void
+(defglextfun ("glViewportIndexedfvNV" viewport-indexed-fv-nv 143) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glScissorArrayvNV" scissor-array-v-nv) :void
+(defglextfun ("glScissorArrayvNV" scissor-array-v-nv 144) :void
   (first uint)
   (count sizei)
   (v (:pointer int)))
 
-(defglextfun ("glScissorIndexedNV" scissor-indexed-nv) :void
+(defglextfun ("glScissorIndexedNV" scissor-indexed-nv 145) :void
   (index uint)
   (left int)
   (bottom int)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glScissorIndexedvNV" scissor-indexed-v-nv) :void
+(defglextfun ("glScissorIndexedvNV" scissor-indexed-v-nv 146) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glDepthRangeArrayfvNV" depth-range-array-fv-nv) :void
+(defglextfun ("glDepthRangeArrayfvNV" depth-range-array-fv-nv 147) :void
   (first uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glDepthRangeIndexedfNV" depth-range-indexed-f-nv) :void
+(defglextfun ("glDepthRangeIndexedfNV" depth-range-indexed-f-nv 148) :void
   (index uint)
   (n float)
   (f float))
 
-(defglextfun ("glGetFloati_vNV" get-float-i-v-nv) :void
+(defglextfun ("glGetFloati_vNV" get-float-i-v-nv 149) :void
   (target enum)
   (index uint)
   (data (:pointer float)))
 
-(defglextfun ("glEnableiNV" enable-i-nv) :void
+(defglextfun ("glEnableiNV" enable-i-nv 150) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glDisableiNV" disable-i-nv) :void
+(defglextfun ("glDisableiNV" disable-i-nv 151) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glIsEnablediNV" is-enabled-i-nv) boolean
+(defglextfun ("glIsEnablediNV" is-enabled-i-nv 152) boolean
   (target enum)
   (index uint))
 
-(defglextfun ("glCopyImageSubDataOES" copy-image-sub-data-oes) :void
+(defglextfun ("glCopyImageSubDataOES" copy-image-sub-data-oes 153) :void
   (srcName uint)
   (srcTarget enum)
   (srcLevel int)
@@ -639,54 +639,54 @@
   (srcHeight sizei)
   (srcDepth sizei))
 
-(defglextfun ("glEnableiOES" enable-i-oes) :void
+(defglextfun ("glEnableiOES" enable-i-oes 154) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glDisableiOES" disable-i-oes) :void
+(defglextfun ("glDisableiOES" disable-i-oes 155) :void
   (target enum)
   (index uint))
 
-(defglextfun ("glBlendEquationiOES" blend-equation-i-oes) :void
+(defglextfun ("glBlendEquationiOES" blend-equation-i-oes 156) :void
   (buf uint)
   (mode enum))
 
-(defglextfun ("glBlendEquationSeparateiOES" blend-equation-separate-i-oes) :void
+(defglextfun ("glBlendEquationSeparateiOES" blend-equation-separate-i-oes 157) :void
   (buf uint)
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glBlendFunciOES" blend-func-i-oes) :void
+(defglextfun ("glBlendFunciOES" blend-func-i-oes 158) :void
   (buf uint)
   (src enum)
   (dst enum))
 
-(defglextfun ("glBlendFuncSeparateiOES" blend-func-separate-i-oes) :void
+(defglextfun ("glBlendFuncSeparateiOES" blend-func-separate-i-oes 159) :void
   (buf uint)
   (srcRGB enum)
   (dstRGB enum)
   (srcAlpha enum)
   (dstAlpha enum))
 
-(defglextfun ("glColorMaskiOES" color-mask-i-oes) :void
+(defglextfun ("glColorMaskiOES" color-mask-i-oes 160) :void
   (index uint)
   (r boolean)
   (g boolean)
   (b boolean)
   (a boolean))
 
-(defglextfun ("glIsEnablediOES" is-enabled-i-oes) boolean
+(defglextfun ("glIsEnablediOES" is-enabled-i-oes 161) boolean
   (target enum)
   (index uint))
 
-(defglextfun ("glDrawElementsBaseVertexOES" draw-elements-base-vertex-oes) :void
+(defglextfun ("glDrawElementsBaseVertexOES" draw-elements-base-vertex-oes 162) :void
   (mode enum)
   (count sizei)
   (type enum)
   (indices (:pointer :void))
   (basevertex int))
 
-(defglextfun ("glDrawRangeElementsBaseVertexOES" draw-range-elements-base-vertex-oes) :void
+(defglextfun ("glDrawRangeElementsBaseVertexOES" draw-range-elements-base-vertex-oes 163) :void
   (mode enum)
   (start uint)
   (end uint)
@@ -695,7 +695,7 @@
   (indices (:pointer :void))
   (basevertex int))
 
-(defglextfun ("glDrawElementsInstancedBaseVertexOES" draw-elements-instanced-base-vertex-oes) :void
+(defglextfun ("glDrawElementsInstancedBaseVertexOES" draw-elements-instanced-base-vertex-oes 164) :void
   (mode enum)
   (count sizei)
   (type enum)
@@ -703,26 +703,26 @@
   (instancecount sizei)
   (basevertex int))
 
-(defglextfun ("glFramebufferTextureOES" framebuffer-texture-oes) :void
+(defglextfun ("glFramebufferTextureOES" framebuffer-texture-oes 165) :void
   (target enum)
   (attachment enum)
   (texture uint)
   (level int))
 
-(defglextfun ("glGetProgramBinaryOES" get-program-binary-oes) :void
+(defglextfun ("glGetProgramBinaryOES" get-program-binary-oes 166) :void
   (program uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (binaryFormat (:pointer enum))
   (binary (:pointer :void)))
 
-(defglextfun ("glProgramBinaryOES" program-binary-oes) :void
+(defglextfun ("glProgramBinaryOES" program-binary-oes 167) :void
   (program uint)
   (binaryFormat enum)
   (binary (:pointer :void))
   (length int))
 
-(defglextfun ("glPrimitiveBoundingBoxOES" primitive-bounding-box-oes) :void
+(defglextfun ("glPrimitiveBoundingBoxOES" primitive-bounding-box-oes 168) :void
   (minX float)
   (minY float)
   (minZ float)
@@ -732,14 +732,14 @@
   (maxZ float)
   (maxW float))
 
-(defglextfun ("glMinSampleShadingOES" min-sample-shading-oes) :void
+(defglextfun ("glMinSampleShadingOES" min-sample-shading-oes 169) :void
   (value float))
 
-(defglextfun ("glPatchParameteriOES" patch-parameter-i-oes) :void
+(defglextfun ("glPatchParameteriOES" patch-parameter-i-oes 170) :void
   (pname enum)
   (value int))
 
-(defglextfun ("glTexImage3DOES" tex-image-3d-oes) :void
+(defglextfun ("glTexImage3DOES" tex-image-3d-oes 171) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -751,7 +751,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTexSubImage3DOES" tex-sub-image-3d-oes) :void
+(defglextfun ("glTexSubImage3DOES" tex-sub-image-3d-oes 172) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -764,7 +764,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glCopyTexSubImage3DOES" copy-tex-sub-image-3d-oes) :void
+(defglextfun ("glCopyTexSubImage3DOES" copy-tex-sub-image-3d-oes 173) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -775,7 +775,7 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glCompressedTexImage3DOES" compressed-tex-image-3d-oes) :void
+(defglextfun ("glCompressedTexImage3DOES" compressed-tex-image-3d-oes 174) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -786,7 +786,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexSubImage3DOES" compressed-tex-sub-image-3d-oes) :void
+(defglextfun ("glCompressedTexSubImage3DOES" compressed-tex-sub-image-3d-oes 175) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -799,7 +799,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glFramebufferTexture3DOES" framebuffer-texture-3d-oes) :void
+(defglextfun ("glFramebufferTexture3DOES" framebuffer-texture-3d-oes 176) :void
   (target enum)
   (attachment enum)
   (textarget enum)
@@ -807,59 +807,59 @@
   (level int)
   (zoffset int))
 
-(defglextfun ("glTexParameterIivOES" tex-parameter-iiv-oes) :void
+(defglextfun ("glTexParameterIivOES" tex-parameter-iiv-oes 177) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glTexParameterIuivOES" tex-parameter-iuiv-oes) :void
+(defglextfun ("glTexParameterIuivOES" tex-parameter-iuiv-oes 178) :void
   (target enum)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glGetTexParameterIivOES" get-tex-parameter-iiv-oes) :void
+(defglextfun ("glGetTexParameterIivOES" get-tex-parameter-iiv-oes 179) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetTexParameterIuivOES" get-tex-parameter-iuiv-oes) :void
+(defglextfun ("glGetTexParameterIuivOES" get-tex-parameter-iuiv-oes 180) :void
   (target enum)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glSamplerParameterIivOES" sampler-parameter-iiv-oes) :void
+(defglextfun ("glSamplerParameterIivOES" sampler-parameter-iiv-oes 181) :void
   (sampler uint)
   (pname enum)
   (param (:pointer int)))
 
-(defglextfun ("glSamplerParameterIuivOES" sampler-parameter-iuiv-oes) :void
+(defglextfun ("glSamplerParameterIuivOES" sampler-parameter-iuiv-oes 182) :void
   (sampler uint)
   (pname enum)
   (param (:pointer uint)))
 
-(defglextfun ("glGetSamplerParameterIivOES" get-sampler-parameter-iiv-oes) :void
+(defglextfun ("glGetSamplerParameterIivOES" get-sampler-parameter-iiv-oes 183) :void
   (sampler uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetSamplerParameterIuivOES" get-sampler-parameter-iuiv-oes) :void
+(defglextfun ("glGetSamplerParameterIuivOES" get-sampler-parameter-iuiv-oes 184) :void
   (sampler uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glTexBufferOES" tex-buffer-oes) :void
+(defglextfun ("glTexBufferOES" tex-buffer-oes 185) :void
   (target enum)
   (internalformat enum)
   (buffer uint))
 
-(defglextfun ("glTexBufferRangeOES" tex-buffer-range-oes) :void
+(defglextfun ("glTexBufferRangeOES" tex-buffer-range-oes 186) :void
   (target enum)
   (internalformat enum)
   (buffer uint)
   (offset intptr)
   (size sizeiptr))
 
-(defglextfun ("glTexStorage3DMultisampleOES" tex-storage-3d-multisample-oes) :void
+(defglextfun ("glTexStorage3DMultisampleOES" tex-storage-3d-multisample-oes 187) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
@@ -868,7 +868,7 @@
   (depth sizei)
   (fixedsamplelocations boolean))
 
-(defglextfun ("glTextureViewOES" texture-view-oes) :void
+(defglextfun ("glTextureViewOES" texture-view-oes 188) :void
   (texture uint)
   (target enum)
   (origtexture uint)
@@ -878,54 +878,54 @@
   (minlayer uint)
   (numlayers uint))
 
-(defglextfun ("glViewportArrayvOES" viewport-array-v-oes) :void
+(defglextfun ("glViewportArrayvOES" viewport-array-v-oes 189) :void
   (first uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glViewportIndexedfOES" viewport-indexed-f-oes) :void
+(defglextfun ("glViewportIndexedfOES" viewport-indexed-f-oes 190) :void
   (index uint)
   (x float)
   (y float)
   (w float)
   (h float))
 
-(defglextfun ("glViewportIndexedfvOES" viewport-indexed-fv-oes) :void
+(defglextfun ("glViewportIndexedfvOES" viewport-indexed-fv-oes 191) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glScissorArrayvOES" scissor-array-v-oes) :void
+(defglextfun ("glScissorArrayvOES" scissor-array-v-oes 192) :void
   (first uint)
   (count sizei)
   (v (:pointer int)))
 
-(defglextfun ("glScissorIndexedOES" scissor-indexed-oes) :void
+(defglextfun ("glScissorIndexedOES" scissor-indexed-oes 193) :void
   (index uint)
   (left int)
   (bottom int)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glScissorIndexedvOES" scissor-indexed-v-oes) :void
+(defglextfun ("glScissorIndexedvOES" scissor-indexed-v-oes 194) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glDepthRangeArrayfvOES" depth-range-array-fv-oes) :void
+(defglextfun ("glDepthRangeArrayfvOES" depth-range-array-fv-oes 195) :void
   (first uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glDepthRangeIndexedfOES" depth-range-indexed-f-oes) :void
+(defglextfun ("glDepthRangeIndexedfOES" depth-range-indexed-f-oes 196) :void
   (index uint)
   (n float)
   (f float))
 
-(defglextfun ("glGetFloati_vOES" get-float-i-v-oes) :void
+(defglextfun ("glGetFloati_vOES" get-float-i-v-oes 197) :void
   (target enum)
   (index uint)
   (data (:pointer float)))
 
-(defglextfun ("glFramebufferTextureMultisampleMultiviewOVR" framebuffer-texture-multisample-multiview-ovr) :void
+(defglextfun ("glFramebufferTextureMultisampleMultiviewOVR" framebuffer-texture-multisample-multiview-ovr 198) :void
   (target enum)
   (attachment enum)
   (texture uint)
@@ -934,18 +934,18 @@
   (baseViewIndex int)
   (numViews sizei))
 
-(defglextfun ("glAlphaFuncQCOM" alpha-func-qcom) :void
+(defglextfun ("glAlphaFuncQCOM" alpha-func-qcom 199) :void
   (func enum)
   (ref clampf))
 
-(defglextfun ("glFramebufferFoveationConfigQCOM" framebuffer-foveation-config-qcom) :void
+(defglextfun ("glFramebufferFoveationConfigQCOM" framebuffer-foveation-config-qcom 200) :void
   (framebuffer uint)
   (numLayers uint)
   (focalPointsPerLayer uint)
   (requestedFeatures uint)
   (providedFeatures (:pointer uint)))
 
-(defglextfun ("glFramebufferFoveationParametersQCOM" framebuffer-foveation-parameters-qcom) :void
+(defglextfun ("glFramebufferFoveationParametersQCOM" framebuffer-foveation-parameters-qcom 201) :void
   (framebuffer uint)
   (layer uint)
   (focalPoint uint)
@@ -955,24 +955,24 @@
   (gainY float)
   (foveaArea float))
 
-(defglextfun ("glTexEstimateMotionQCOM" tex-estimate-motion-qcom) :void
+(defglextfun ("glTexEstimateMotionQCOM" tex-estimate-motion-qcom 202) :void
   (ref uint)
   (target uint)
   (output uint))
 
-(defglextfun ("glTexEstimateMotionRegionsQCOM" tex-estimate-motion-regions-qcom) :void
+(defglextfun ("glTexEstimateMotionRegionsQCOM" tex-estimate-motion-regions-qcom 203) :void
   (ref uint)
   (target uint)
   (output uint)
   (mask uint))
 
-(defglextfun ("glExtrapolateTex2DQCOM" extrapolate-tex-2d-qcom) :void
+(defglextfun ("glExtrapolateTex2DQCOM" extrapolate-tex-2d-qcom 204) :void
   (src1 uint)
   (src2 uint)
   (output uint)
   (scaleFactor float))
 
-(defglextfun ("glTextureFoveationParametersQCOM" texture-foveation-parameters-qcom) :void
+(defglextfun ("glTextureFoveationParametersQCOM" texture-foveation-parameters-qcom 205) :void
   (texture uint)
   (layer uint)
   (focalPoint uint)
@@ -982,8 +982,8 @@
   (gainY float)
   (foveaArea float))
 
-(defglextfun ("glFramebufferFetchBarrierQCOM" framebuffer-fetch-barrier-qcom) :void)
+(defglextfun ("glFramebufferFetchBarrierQCOM" framebuffer-fetch-barrier-qcom 206) :void)
 
-(defglextfun ("glShadingRateQCOM" shading-rate-qcom) :void
+(defglextfun ("glShadingRateQCOM" shading-rate-qcom 207) :void
   (rate enum))
 
