@@ -73,22 +73,46 @@ automatic per-call masking within that scope."
          ,@body)))
 
 (defparameter *in-begin* nil)
-;; inlining lots of restart-case kills compilation times on SBCL, and doesn't
-;; seem to help performance much
-;; (declaim (inline check-error))
+;; inlining lots of restart-case kills compilation times on SBCL, and
+;; doesn't seem to help performance much. Inlining just the *in-begin*
+;; check seems to be 10-20% faster when not checking errors, so just
+;; inlining that.
+(declaim (inline check-error))
+
 (defun check-error (&optional context)
   (declare (optimize speed))
   (unless *in-begin*
-    (let ((error-code (foreign-funcall ("glGetError" :library opengl)
-                                       :unsigned-int)))
-      (unless (zerop error-code)
-        (restart-case
-            (error 'opengl-error
-                   :error-code (cons error-code
-                                     (cffi:foreign-enum-keyword '%gl:enum error-code
-                                                                :errorp nil))
-                   :error-context context)
-          (continue () :report "Continue"))))))
+    (%check-error context)))
+
+(defun %check-error (&optional context)
+  (declare (optimize speed))
+  (let ((error-code (foreign-funcall ("glGetError" :library opengl)
+                                     :unsigned-int)))
+    (unless (zerop error-code)
+      (restart-case
+          (error 'opengl-error
+                 :error-code (cons error-code
+                                   (cffi:foreign-enum-keyword '%gl:enum error-code
+                                                              :errorp nil))
+                 :error-context context)
+        (continue () :report "Continue")))))
+
+;; allow deferring automatic error check within a block of code.
+(defmacro with-deferred-errors ((name &key force) &body body)
+  "Defer automatic glGetError check until end of dynamic scope of BODY,
+reporting NAME (not evaluated) as the source of any errors detected.
+Nested calls will defer check until end of outermost scope. If
+FORCE (evaluated) is not NIL, automatic error checks will be forced on
+instead to allow easier localization of errors when debugging instead
+of removing the form completely.
+
+Note that BEGIN/END/WITH-PRIMITIVES already defer checks because
+glGetError is not allowed within a glBegin/glEnd pair, so this should
+not be used in those contexts."
+  `(multiple-value-prog1
+       (let ((*in-begin* (not ,force)))
+         ,@body)
+     (check-error ',name)))
 
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body body)
