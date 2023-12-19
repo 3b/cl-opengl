@@ -2222,6 +2222,13 @@
   (:vertex-array-pointer #x808E)
   (:vertex-array-pointer-ext #x808E))
 
+(defcenum (get-program-pipeline-ext-pname :unsigned-int)
+  (:active-program-ext #x8259)
+  (:fragment-shader #x8B30)
+  (:info-log-length #x8B84)
+  (:validate-status #x8B83)
+  (:vertex-shader #x8B31))
+
 (defcenum (get-tex-bump-parameter-ati :unsigned-int)
   (:bump-num-tex-units-ati #x8777)
   (:bump-rot-matrix-ati #x8775)
@@ -4543,7 +4550,7 @@
   (:swizzle-str-ati #x8976)
   (:swizzle-str-dr-ati #x8978))
 
-(defcenum (sync-behavior-flags :unsigned-int)
+(defbitfield (SyncBehaviorFlags :unsigned-int)
   (:none #x0))
 
 (defcenum (sync-condition :unsigned-int)
