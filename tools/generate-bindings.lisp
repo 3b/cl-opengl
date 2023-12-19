@@ -182,7 +182,8 @@
     ("void"           . ":void")
     ("string"           . "string")
     ;; special cases
-    ("GLenum" . "enum")))
+    ("GLenum" . "enum")
+    ("GLsizeiptr" . "sizeiptr")))
 
 (defun translate-type-name (type &optional offset-or-pointer)
   (setf type (string-trim '(#\space #\tab) type))
@@ -627,7 +628,10 @@
                       for (k v) in (cddr x)
                       when (and (consp v) (eq (car v) :import))
                         do (setf v (gethash k (gethash (second v) enums v)))
-                      do (setf (gethash k hash) v)))
+                      do (setf (gethash k hash) v))
+                (unless (equalp (second x) "enum")
+                  (setf (gethash (second x) groups)
+                        (gethash (second x) enums))))
                (:func
                 (setf (gethash (second x) funcs)
                       (cddr x))))))
@@ -680,7 +684,7 @@
   (let ((%enums (gethash "enum" enums)))
     (loop for (name . hash) in (alexandria:hash-table-alist groups)
           do (loop for k in (alexandria:hash-table-values hash)
-                   unless (gethash k %enums)
+                   unless (or (gethash k %enums) (numberp k))
                      do (format t "-- unknown enum ~s in group ~s~%" k name)
                         (break "-- unknown enum ~s in group ~s~%" k name))))
 
@@ -696,7 +700,10 @@
                                   (sort (alexandria:hash-table-alist groups)
                                         'string< :key 'car)
                                   (list (cons "enum" (gethash "enum" enums))))
-            when (or (gethash name bitfields))
+            when (or (gethash name bitfields)
+                     ;; used as a bitfield, but no group def so we
+                     ;; don't recognize it as such, hard code it
+                     (equalp name "SyncBehaviorFlags"))
               do ;; existing bitfields are named without #\-, so keep them that
                  ;; way in case anyone used them directly...
                  (format out "(defbitfield (~a :unsigned-int)" name)

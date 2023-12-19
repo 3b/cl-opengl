@@ -149,6 +149,7 @@
 (defctype uint64-ext :uint64)
 (defctype sync (:pointer)) ;; struct __GLsync *
 (defctype vdpau-surface-nv intptr)
+(defctype egl-client-buffer-ext (:pointer))
 
 ;; fixme: should these be here? better name if so?
 (defcstruct _cl_context) ; "struct _cl_context"
@@ -159,6 +160,7 @@
 (defctype debugproc-arb (:pointer))
 (defctype debugproc-amd (:pointer))
 (defctype debugprockhr (:pointer))
+(defctype vulkanproc-nv (:pointer))
 
 ;; some old definitions that were removed from spec, included only to
 ;; make old code that manually converted keywords to integers
@@ -227,4 +229,3 @@
   (:map-coherent #x80)
   (:map-coherent-bit #x80)
   (:map-coherent-bit-ext #x80))
-

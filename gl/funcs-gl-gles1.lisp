@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T01:30:42Z
+;;; generated 2023-12-19T22:38:41Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglfun ("glPointSize" point-size) :void
