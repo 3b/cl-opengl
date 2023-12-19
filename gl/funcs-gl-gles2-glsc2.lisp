@@ -6,10 +6,10 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
-(defglextfun ("glDrawRangeElements" draw-range-elements) :void
+(defglextfun ("glDrawRangeElements" draw-range-elements 1372) :void
   (mode enum)
   (start uint)
   (end uint)
@@ -17,212 +17,212 @@
   (type enum)
   (indices offset-or-pointer))
 
-(defglextfun ("glBlendFuncSeparate" blend-func-separate) :void
+(defglextfun ("glBlendFuncSeparate" blend-func-separate 1373) :void
   (sfactorRGB enum)
   (dfactorRGB enum)
   (sfactorAlpha enum)
   (dfactorAlpha enum))
 
-(defglextfun ("glBlendEquationSeparate" blend-equation-separate) :void
+(defglextfun ("glBlendEquationSeparate" blend-equation-separate 1374) :void
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glStencilOpSeparate" stencil-op-separate) :void
+(defglextfun ("glStencilOpSeparate" stencil-op-separate 1375) :void
   (face enum)
   (sfail enum)
   (dpfail enum)
   (dppass enum))
 
-(defglextfun ("glStencilFuncSeparate" stencil-func-separate) :void
+(defglextfun ("glStencilFuncSeparate" stencil-func-separate 1376) :void
   (face enum)
   (func enum)
   (ref int)
   (mask uint))
 
-(defglextfun ("glStencilMaskSeparate" stencil-mask-separate) :void
+(defglextfun ("glStencilMaskSeparate" stencil-mask-separate 1377) :void
   (face enum)
   (mask uint))
 
-(defglextfun ("glCreateProgram" create-program) uint)
+(defglextfun ("glCreateProgram" create-program 1378) uint)
 
-(defglextfun ("glDisableVertexAttribArray" disable-vertex-attrib-array) :void
+(defglextfun ("glDisableVertexAttribArray" disable-vertex-attrib-array 1379) :void
   (index uint))
 
-(defglextfun ("glEnableVertexAttribArray" enable-vertex-attrib-array) :void
+(defglextfun ("glEnableVertexAttribArray" enable-vertex-attrib-array 1380) :void
   (index uint))
 
-(defglextfun ("glGetAttribLocation" get-attrib-location) int
+(defglextfun ("glGetAttribLocation" get-attrib-location 1381) int
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glGetProgramiv" get-program-iv) :void
+(defglextfun ("glGetProgramiv" get-program-iv 1382) :void
   (program uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetUniformLocation" get-uniform-location) int
+(defglextfun ("glGetUniformLocation" get-uniform-location 1383) int
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glGetVertexAttribfv" get-vertex-attrib-fv) :void
+(defglextfun ("glGetVertexAttribfv" get-vertex-attrib-fv 1384) :void
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVertexAttribiv" get-vertex-attrib-iv) :void
+(defglextfun ("glGetVertexAttribiv" get-vertex-attrib-iv 1385) :void
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVertexAttribPointerv" get-vertex-attrib-pointer-v) :void
+(defglextfun ("glGetVertexAttribPointerv" get-vertex-attrib-pointer-v 1386) :void
   (index uint)
   (pname enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glUseProgram" use-program) :void
+(defglextfun ("glUseProgram" use-program 1387) :void
   (program uint))
 
-(defglextfun ("glUniform1f" uniform-1f) :void
+(defglextfun ("glUniform1f" uniform-1f 1388) :void
   (location int)
   (v0 float))
 
-(defglextfun ("glUniform2f" uniform-2f) :void
+(defglextfun ("glUniform2f" uniform-2f 1389) :void
   (location int)
   (v0 float)
   (v1 float))
 
-(defglextfun ("glUniform3f" uniform-3f) :void
+(defglextfun ("glUniform3f" uniform-3f 1390) :void
   (location int)
   (v0 float)
   (v1 float)
   (v2 float))
 
-(defglextfun ("glUniform4f" uniform-4f) :void
+(defglextfun ("glUniform4f" uniform-4f 1391) :void
   (location int)
   (v0 float)
   (v1 float)
   (v2 float)
   (v3 float))
 
-(defglextfun ("glUniform1i" uniform-1i) :void
+(defglextfun ("glUniform1i" uniform-1i 1392) :void
   (location int)
   (v0 int))
 
-(defglextfun ("glUniform2i" uniform-2i) :void
+(defglextfun ("glUniform2i" uniform-2i 1393) :void
   (location int)
   (v0 int)
   (v1 int))
 
-(defglextfun ("glUniform3i" uniform-3i) :void
+(defglextfun ("glUniform3i" uniform-3i 1394) :void
   (location int)
   (v0 int)
   (v1 int)
   (v2 int))
 
-(defglextfun ("glUniform4i" uniform-4i) :void
+(defglextfun ("glUniform4i" uniform-4i 1395) :void
   (location int)
   (v0 int)
   (v1 int)
   (v2 int)
   (v3 int))
 
-(defglextfun ("glUniform1fv" uniform-1fv) :void
+(defglextfun ("glUniform1fv" uniform-1fv 1396) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform2fv" uniform-2fv) :void
+(defglextfun ("glUniform2fv" uniform-2fv 1397) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform3fv" uniform-3fv) :void
+(defglextfun ("glUniform3fv" uniform-3fv 1398) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform4fv" uniform-4fv) :void
+(defglextfun ("glUniform4fv" uniform-4fv 1399) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform1iv" uniform-1iv) :void
+(defglextfun ("glUniform1iv" uniform-1iv 1400) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform2iv" uniform-2iv) :void
+(defglextfun ("glUniform2iv" uniform-2iv 1401) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform3iv" uniform-3iv) :void
+(defglextfun ("glUniform3iv" uniform-3iv 1402) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform4iv" uniform-4iv) :void
+(defglextfun ("glUniform4iv" uniform-4iv 1403) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniformMatrix2fv" uniform-matrix-2fv) :void
+(defglextfun ("glUniformMatrix2fv" uniform-matrix-2fv 1404) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix3fv" uniform-matrix-3fv) :void
+(defglextfun ("glUniformMatrix3fv" uniform-matrix-3fv 1405) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix4fv" uniform-matrix-4fv) :void
+(defglextfun ("glUniformMatrix4fv" uniform-matrix-4fv 1406) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glVertexAttrib1f" vertex-attrib-1f) :void
+(defglextfun ("glVertexAttrib1f" vertex-attrib-1f 1407) :void
   (index uint)
   (x float))
 
-(defglextfun ("glVertexAttrib1fv" vertex-attrib-1fv) :void
+(defglextfun ("glVertexAttrib1fv" vertex-attrib-1fv 1408) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib2f" vertex-attrib-2f) :void
+(defglextfun ("glVertexAttrib2f" vertex-attrib-2f 1409) :void
   (index uint)
   (x float)
   (y float))
 
-(defglextfun ("glVertexAttrib2fv" vertex-attrib-2fv) :void
+(defglextfun ("glVertexAttrib2fv" vertex-attrib-2fv 1410) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib3f" vertex-attrib-3f) :void
+(defglextfun ("glVertexAttrib3f" vertex-attrib-3f 1411) :void
   (index uint)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glVertexAttrib3fv" vertex-attrib-3fv) :void
+(defglextfun ("glVertexAttrib3fv" vertex-attrib-3fv 1412) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib4f" vertex-attrib-4f) :void
+(defglextfun ("glVertexAttrib4f" vertex-attrib-4f 1413) :void
   (index uint)
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglextfun ("glVertexAttrib4fv" vertex-attrib-4fv) :void
+(defglextfun ("glVertexAttrib4fv" vertex-attrib-4fv 1414) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttribPointer" vertex-attrib-pointer) :void
+(defglextfun ("glVertexAttribPointer" vertex-attrib-pointer 1415) :void
   (index uint)
   (size int)
   (type enum)

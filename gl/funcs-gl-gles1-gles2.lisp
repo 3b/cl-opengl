@@ -6,7 +6,7 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
 (defglfun ("glTexImage2D" tex-image-2d) :void
@@ -62,7 +62,7 @@
 (defglfun ("glIsTexture" is-texture) boolean
   (texture uint))
 
-(defglextfun ("glCompressedTexImage2D" compressed-tex-image-2d) :void
+(defglextfun ("glCompressedTexImage2D" compressed-tex-image-2d 1585) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -72,59 +72,59 @@
   (imageSize sizei)
   (data offset-or-pointer))
 
-(defglextfun ("glDeleteBuffers" delete-buffers) :void
+(defglextfun ("glDeleteBuffers" delete-buffers 1586) :void
   (n sizei)
   (buffers (:pointer uint)))
 
-(defglextfun ("glIsBuffer" is-buffer) boolean
+(defglextfun ("glIsBuffer" is-buffer 1587) boolean
   (buffer uint))
 
-(defglextfun ("glBlendEquationEXT" blend-equation-ext) :void
+(defglextfun ("glBlendEquationEXT" blend-equation-ext 1588) :void
   (mode enum))
 
-(defglextfun ("glRenderbufferStorageMultisampleEXT" renderbuffer-storage-multisample-ext) :void
+(defglextfun ("glRenderbufferStorageMultisampleEXT" renderbuffer-storage-multisample-ext 1589) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glMultiDrawArraysEXT" multi-draw-arrays-ext) :void
+(defglextfun ("glMultiDrawArraysEXT" multi-draw-arrays-ext 1590) :void
   (mode enum)
   (first (:pointer int))
   (count (:pointer sizei))
   (primcount sizei))
 
-(defglextfun ("glMultiDrawElementsEXT" multi-draw-elements-ext) :void
+(defglextfun ("glMultiDrawElementsEXT" multi-draw-elements-ext 1591) :void
   (mode enum)
   (count (:pointer sizei))
   (type enum)
   (indices (:pointer (:pointer :void)))
   (primcount sizei))
 
-(defglextfun ("glDeleteFencesNV" delete-fences-nv) :void
+(defglextfun ("glDeleteFencesNV" delete-fences-nv 1592) :void
   (n sizei)
   (fences (:pointer uint)))
 
-(defglextfun ("glGenFencesNV" gen-fences-nv) :void
+(defglextfun ("glGenFencesNV" gen-fences-nv 1593) :void
   (n sizei)
   (fences (:pointer uint)))
 
-(defglextfun ("glIsFenceNV" is-fence-nv) boolean
+(defglextfun ("glIsFenceNV" is-fence-nv 1594) boolean
   (fence uint))
 
-(defglextfun ("glTestFenceNV" test-fence-nv) boolean
+(defglextfun ("glTestFenceNV" test-fence-nv 1595) boolean
   (fence uint))
 
-(defglextfun ("glGetFenceivNV" get-fence-iv-nv) :void
+(defglextfun ("glGetFenceivNV" get-fence-iv-nv 1596) :void
   (fence uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFinishFenceNV" finish-fence-nv) :void
+(defglextfun ("glFinishFenceNV" finish-fence-nv 1597) :void
   (fence uint))
 
-(defglextfun ("glSetFenceNV" set-fence-nv) :void
+(defglextfun ("glSetFenceNV" set-fence-nv 1598) :void
   (fence uint)
   (condition enum))
 

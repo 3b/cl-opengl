@@ -6,72 +6,72 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-17T18:59:26Z
+;;; generated 2023-12-19T01:30:42Z
 ;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
 
-(defglextfun ("glCopyTextureLevelsAPPLE" copy-texture-levels-apple) :void
+(defglextfun ("glCopyTextureLevelsAPPLE" copy-texture-levels-apple 0) :void
   (destinationTexture uint)
   (sourceTexture uint)
   (sourceBaseLevel int)
   (sourceLevelCount sizei))
 
-(defglextfun ("glRenderbufferStorageMultisampleAPPLE" renderbuffer-storage-multisample-apple) :void
+(defglextfun ("glRenderbufferStorageMultisampleAPPLE" renderbuffer-storage-multisample-apple 1) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glResolveMultisampleFramebufferAPPLE" resolve-multisample-framebuffer-apple) :void)
+(defglextfun ("glResolveMultisampleFramebufferAPPLE" resolve-multisample-framebuffer-apple 2) :void)
 
-(defglextfun ("glFenceSyncAPPLE" fence-sync-apple) sync
+(defglextfun ("glFenceSyncAPPLE" fence-sync-apple 3) sync
   (condition enum)
   (flags SyncBehaviorFlags))
 
-(defglextfun ("glIsSyncAPPLE" is-sync-apple) boolean
+(defglextfun ("glIsSyncAPPLE" is-sync-apple 4) boolean
   (sync sync))
 
-(defglextfun ("glDeleteSyncAPPLE" delete-sync-apple) :void
+(defglextfun ("glDeleteSyncAPPLE" delete-sync-apple 5) :void
   (sync sync))
 
-(defglextfun ("glClientWaitSyncAPPLE" client-wait-sync-apple) enum
+(defglextfun ("glClientWaitSyncAPPLE" client-wait-sync-apple 6) enum
   (sync sync)
   (flags SyncObjectMask)
   (timeout uint64))
 
-(defglextfun ("glWaitSyncAPPLE" wait-sync-apple) :void
+(defglextfun ("glWaitSyncAPPLE" wait-sync-apple 7) :void
   (sync sync)
   (flags SyncBehaviorFlags)
   (timeout uint64))
 
-(defglextfun ("glGetInteger64vAPPLE" get-integer-64-v-apple) :void
+(defglextfun ("glGetInteger64vAPPLE" get-integer-64-v-apple 8) :void
   (pname enum)
   (params (:pointer int64)))
 
-(defglextfun ("glGetSyncivAPPLE" get-sync-iv-apple) :void
+(defglextfun ("glGetSyncivAPPLE" get-sync-iv-apple 9) :void
   (sync sync)
   (pname enum)
   (count sizei)
   (length (:pointer sizei))
   (values (:pointer int)))
 
-(defglextfun ("glDiscardFramebufferEXT" discard-framebuffer-ext) :void
+(defglextfun ("glDiscardFramebufferEXT" discard-framebuffer-ext 10) :void
   (target enum)
   (numAttachments sizei)
   (attachments (:pointer enum)))
 
-(defglextfun ("glMapBufferRangeEXT" map-buffer-range-ext) (:pointer :void)
+(defglextfun ("glMapBufferRangeEXT" map-buffer-range-ext 11) (:pointer :void)
   (target enum)
   (offset intptr)
   (length sizeiptr)
   (access MapBufferAccessMask))
 
-(defglextfun ("glFlushMappedBufferRangeEXT" flush-mapped-buffer-range-ext) :void
+(defglextfun ("glFlushMappedBufferRangeEXT" flush-mapped-buffer-range-ext 12) :void
   (target enum)
   (offset intptr)
   (length sizeiptr))
 
-(defglextfun ("glFramebufferTexture2DMultisampleEXT" framebuffer-texture-2d-multisample-ext) :void
+(defglextfun ("glFramebufferTexture2DMultisampleEXT" framebuffer-texture-2d-multisample-ext 13) :void
   (target enum)
   (attachment enum)
   (textarget enum)
@@ -79,9 +79,9 @@
   (level int)
   (samples sizei))
 
-(defglextfun ("glGetGraphicsResetStatusEXT" get-graphics-reset-status-ext) enum)
+(defglextfun ("glGetGraphicsResetStatusEXT" get-graphics-reset-status-ext 14) enum)
 
-(defglextfun ("glReadnPixelsEXT" readn-pixels-ext) :void
+(defglextfun ("glReadnPixelsEXT" readn-pixels-ext 15) :void
   (x int)
   (y int)
   (width sizei)
@@ -91,26 +91,26 @@
   (bufSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glGetnUniformfvEXT" getn-uniformfv-ext) :void
+(defglextfun ("glGetnUniformfvEXT" getn-uniformfv-ext 16) :void
   (program uint)
   (location int)
   (bufSize sizei)
   (params (:pointer float)))
 
-(defglextfun ("glGetnUniformivEXT" getn-uniformiv-ext) :void
+(defglextfun ("glGetnUniformivEXT" getn-uniformiv-ext 17) :void
   (program uint)
   (location int)
   (bufSize sizei)
   (params (:pointer int)))
 
-(defglextfun ("glRenderbufferStorageMultisampleIMG" renderbuffer-storage-multisample-img) :void
+(defglextfun ("glRenderbufferStorageMultisampleIMG" renderbuffer-storage-multisample-img 18) :void
   (target enum)
   (samples sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glFramebufferTexture2DMultisampleIMG" framebuffer-texture-2d-multisample-img) :void
+(defglextfun ("glFramebufferTexture2DMultisampleIMG" framebuffer-texture-2d-multisample-img 19) :void
   (target enum)
   (attachment enum)
   (textarget enum)
@@ -118,90 +118,90 @@
   (level int)
   (samples sizei))
 
-(defglextfun ("glEGLImageTargetTexture2DOES" egl-image-target-texture-2d-oes) :void
+(defglextfun ("glEGLImageTargetTexture2DOES" egl-image-target-texture-2d-oes 20) :void
   (target enum)
   (image egl-image-oes))
 
-(defglextfun ("glEGLImageTargetRenderbufferStorageOES" egl-image-target-renderbuffer-storage-oes) :void
+(defglextfun ("glEGLImageTargetRenderbufferStorageOES" egl-image-target-renderbuffer-storage-oes 21) :void
   (target enum)
   (image egl-image-oes))
 
-(defglextfun ("glMapBufferOES" map-buffer-oes) (:pointer :void)
+(defglextfun ("glMapBufferOES" map-buffer-oes 22) (:pointer :void)
   (target enum)
   (access enum))
 
-(defglextfun ("glUnmapBufferOES" unmap-buffer-oes) boolean
+(defglextfun ("glUnmapBufferOES" unmap-buffer-oes 23) boolean
   (target enum))
 
-(defglextfun ("glGetBufferPointervOES" get-buffer-pointer-v-oes) :void
+(defglextfun ("glGetBufferPointervOES" get-buffer-pointer-v-oes 24) :void
   (target enum)
   (pname enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glBindVertexArrayOES" bind-vertex-array-oes) :void
+(defglextfun ("glBindVertexArrayOES" bind-vertex-array-oes 25) :void
   (array uint))
 
-(defglextfun ("glDeleteVertexArraysOES" delete-vertex-arrays-oes) :void
+(defglextfun ("glDeleteVertexArraysOES" delete-vertex-arrays-oes 26) :void
   (n sizei)
   (arrays (:pointer uint)))
 
-(defglextfun ("glGenVertexArraysOES" gen-vertex-arrays-oes) :void
+(defglextfun ("glGenVertexArraysOES" gen-vertex-arrays-oes 27) :void
   (n sizei)
   (arrays (:pointer uint)))
 
-(defglextfun ("glIsVertexArrayOES" is-vertex-array-oes) boolean
+(defglextfun ("glIsVertexArrayOES" is-vertex-array-oes 28) boolean
   (array uint))
 
-(defglextfun ("glGetDriverControlsQCOM" get-driver-controls-qcom) :void
+(defglextfun ("glGetDriverControlsQCOM" get-driver-controls-qcom 29) :void
   (num (:pointer int))
   (size sizei)
   (driverControls (:pointer uint)))
 
-(defglextfun ("glGetDriverControlStringQCOM" get-driver-control-string-qcom) :void
+(defglextfun ("glGetDriverControlStringQCOM" get-driver-control-string-qcom 30) :void
   (driverControl uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (driverControlString (:pointer char)))
 
-(defglextfun ("glEnableDriverControlQCOM" enable-driver-control-qcom) :void
+(defglextfun ("glEnableDriverControlQCOM" enable-driver-control-qcom 31) :void
   (driverControl uint))
 
-(defglextfun ("glDisableDriverControlQCOM" disable-driver-control-qcom) :void
+(defglextfun ("glDisableDriverControlQCOM" disable-driver-control-qcom 32) :void
   (driverControl uint))
 
-(defglextfun ("glExtGetTexturesQCOM" ext-get-textures-qcom) :void
+(defglextfun ("glExtGetTexturesQCOM" ext-get-textures-qcom 33) :void
   (textures (:pointer uint))
   (maxTextures int)
   (numTextures (:pointer int)))
 
-(defglextfun ("glExtGetBuffersQCOM" ext-get-buffers-qcom) :void
+(defglextfun ("glExtGetBuffersQCOM" ext-get-buffers-qcom 34) :void
   (buffers (:pointer uint))
   (maxBuffers int)
   (numBuffers (:pointer int)))
 
-(defglextfun ("glExtGetRenderbuffersQCOM" ext-get-renderbuffers-qcom) :void
+(defglextfun ("glExtGetRenderbuffersQCOM" ext-get-renderbuffers-qcom 35) :void
   (renderbuffers (:pointer uint))
   (maxRenderbuffers int)
   (numRenderbuffers (:pointer int)))
 
-(defglextfun ("glExtGetFramebuffersQCOM" ext-get-framebuffers-qcom) :void
+(defglextfun ("glExtGetFramebuffersQCOM" ext-get-framebuffers-qcom 36) :void
   (framebuffers (:pointer uint))
   (maxFramebuffers int)
   (numFramebuffers (:pointer int)))
 
-(defglextfun ("glExtGetTexLevelParameterivQCOM" ext-get-tex-level-parameter-iv-qcom) :void
+(defglextfun ("glExtGetTexLevelParameterivQCOM" ext-get-tex-level-parameter-iv-qcom 37) :void
   (texture uint)
   (face enum)
   (level int)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glExtTexObjectStateOverrideiQCOM" ext-tex-object-state-override-i-qcom) :void
+(defglextfun ("glExtTexObjectStateOverrideiQCOM" ext-tex-object-state-override-i-qcom 38) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glExtGetTexSubImageQCOM" ext-get-tex-sub-image-qcom) :void
+(defglextfun ("glExtGetTexSubImageQCOM" ext-get-tex-sub-image-qcom 39) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -214,36 +214,36 @@
   (type enum)
   (texels (:pointer :void)))
 
-(defglextfun ("glExtGetBufferPointervQCOM" ext-get-buffer-pointer-v-qcom) :void
+(defglextfun ("glExtGetBufferPointervQCOM" ext-get-buffer-pointer-v-qcom 40) :void
   (target enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glExtGetShadersQCOM" ext-get-shaders-qcom) :void
+(defglextfun ("glExtGetShadersQCOM" ext-get-shaders-qcom 41) :void
   (shaders (:pointer uint))
   (maxShaders int)
   (numShaders (:pointer int)))
 
-(defglextfun ("glExtGetProgramsQCOM" ext-get-programs-qcom) :void
+(defglextfun ("glExtGetProgramsQCOM" ext-get-programs-qcom 42) :void
   (programs (:pointer uint))
   (maxPrograms int)
   (numPrograms (:pointer int)))
 
-(defglextfun ("glExtIsProgramBinaryQCOM" ext-is-program-binary-qcom) boolean
+(defglextfun ("glExtIsProgramBinaryQCOM" ext-is-program-binary-qcom 43) boolean
   (program uint))
 
-(defglextfun ("glExtGetProgramBinarySourceQCOM" ext-get-program-binary-source-qcom) :void
+(defglextfun ("glExtGetProgramBinarySourceQCOM" ext-get-program-binary-source-qcom 44) :void
   (program uint)
   (shadertype enum)
   (source (:pointer char))
   (length (:pointer int)))
 
-(defglextfun ("glStartTilingQCOM" start-tiling-qcom) :void
+(defglextfun ("glStartTilingQCOM" start-tiling-qcom 45) :void
   (x uint)
   (y uint)
   (width uint)
   (height uint)
   (preserveMask BufferBitQCOM))
 
-(defglextfun ("glEndTilingQCOM" end-tiling-qcom) :void
+(defglextfun ("glEndTilingQCOM" end-tiling-qcom 46) :void
   (preserveMask BufferBitQCOM))
 

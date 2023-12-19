@@ -318,6 +318,7 @@
        (spec-dir (merge-pathnames relative-spec this-dir))
        (binding-package-file (merge-pathnames "bindings-package.lisp" gl-dir))
        (enums-file (merge-pathnames "constants.lisp" gl-dir))
+       (thunk-file (merge-pathnames "thunks.lisp" gl-dir))
        (name-map (read-name-map gl-dir))
        (types (read-known-types gl-dir))
        (gl.xml (cxml:parse-file (merge-pathnames "gl.xml" spec-dir)
@@ -736,7 +737,8 @@
                         do (format out "~%  (:~(~a~) #x~x)" k v))
                   (format out ")~%~%"))))
 
-  (let ((files nil))
+  (let ((files nil)
+        (ext-index 0))
     (flet ((name (v)
              (format nil "funcs~{~^-~(~a~)~}.lisp"
                      (sort (delete-duplicates
@@ -787,11 +789,15 @@
                        for offset-params
                          = (cdr (assoc func *pointer-is-offset-functions*
                                        :test 'string=))
-                       do (format out "(~a (~s ~(~a~)) ~a"
+                       do (format out "(~a (~s ~(~a~)~@[ ~a~]) ~a"
                                   definer
                                   func
                                   (or (gethash func name-map)
                                       (mixedcaps->lcdash func))
+                                  (when (eql definer *ext-definer*)
+                                    (prog1
+                                        ext-index
+                                      (incf ext-index)))
                                   (translate-type-name ret))
                           (loop for a in args
                                 for i from 0
@@ -823,7 +829,48 @@
                                               (mixedcaps->lcdash type))
                                              (t
                                               (translate-type-name type offset-param)))))
-                          (format out ")~%~%"))))))
+                          (format out ")~%~%")))))
+
+    ;; write extension thunk vector
+    (let ((ext-funs (make-array 1000 :fill-pointer 0 :adjustable t)))
+      ;; rather than try to save the info needed to build these while
+      ;; writing the defglextfun forms, just read those back in
+      #++(loop for (filename) in files
+            for path = (merge-pathnames filename gl-dir)
+            do (with-open-file (in path :direction :input)
+                 (loop for form = (read in nil in)
+                       until (eql form in)
+                       when (typep form '(cons (eql defglextfun)))
+                         do (vector-push-extend form ext-funs))))
+
+      ;; make sure they are in the order we assigned while writing
+      ;; other files. (todo: decide if there is some better ordering?)
+      #++
+      (setf ext-funs (sort ext-funs '< :key (lambda (a)
+                                              (third (second a)))))
+      #++
+      (break "ext-funs~% ~s" ext-funs)
+
+      (with-open-file (out thunk-file :direction :output
+                                      :if-exists :supersede)
+        (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
+        (format out ";;; generated file, do not edit~%")
+        (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
+                *glext-last-updated*)
+        (format out "~%(in-package #:cl-opengl-bindings)~%~%")
+        (format out "(declaim (type (simple-array function (~a)) *init-ext-thunks* *ext-thunks*))~%"
+                (1+ ext-index))
+        (format out ";; vector of thunks used to load extension functions, initialized by~%;; defglextfun while loading bindings.~%")
+        (format out "(defvar *init-ext-thunks* (make-array ~a
+                                      :element-type :function
+                                      :initial-contents (loop for i below ~a
+                                                              collect (missing-thunk i))))~%"
+                (1+ ext-index) (1+ ext-index))
+        (format out ";; vector of thunks used to call extension functions, initialized to copy~%;; of *init-ext-thunks* and modified as functions are used.~%")
+        (format out "(defvar *ext-thunks* (copy-seq *init-ext-thunks*))~%")
+
+        ))
+    )
 
 
   ;; write package file
