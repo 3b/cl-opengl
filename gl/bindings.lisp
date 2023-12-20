@@ -294,43 +294,90 @@ not be used in those contexts."
 
 (defun generate-ext-thunk (index foreign-name lisp-name result-type args)
   (let ((arg-list (mapcar #'first args)))
-    `(lambda (&rest r)
-       (let ((address (gl-get-proc-address ,foreign-name)))
-         (when (or (not (pointerp address)) (null-pointer-p address))
-           (error 'function-not-found :function ,foreign-name))
-         (setf (aref *ext-thunks* ,index)
-               (compile nil
-                        `(lambda ,',arg-list
-                           (multiple-value-prog1
-                               (with-float-traps-maybe-masked ()
-                                 (foreign-funcall-pointer
-                                  ,address
-                                  (:library opengl)
-                                  ,@',(loop for (name type) in args
-                                            collect type
-                                            collect name)
-                                  ,',result-type))
-                             #-cl-opengl-no-check-error
-                             (check-error ',',lisp-name)))))
-         (apply (aref *ext-thunks* ,index) r)))))
+    (flet ((decl (arg)
+             (destructuring-bind (name type) arg
+               (case type
+                 ((float clampf) `(type single-float ,name))
+                 ((double clampd) `(type single-float ,name))
+                 ((char char-arb byte)
+                  `(declare (type (signed-byte 8) ,name)))
+                 ((ubyte)
+                  `(declare (type (unsigned-byte 8) ,name)))
+                 ((short)
+                  `(declare (type (signed-byte 16) ,name)))
+                 ((ushort half half-arb half-nv)
+                  `(declare (type (unsigned-byte 16) ,name)))
+                 ((int sizei clampx fixed)
+                  `(declare (type (unsigned-byte 32) ,name)))
+                 ((handle-arb uint)
+                  `(declare (type (unsigned-byte 32) ,name)))
+                 ((int64 int64-ext)
+                  `(declare (type (signed-byte 64) ,name)))
+                 ((uint64 uint64-ext)
+                  `(declare (type (unsigned-byte 64) ,name)))
+                 ((sync
+                   debugproc debugproc-arb debugproc-amd debugprockhr
+                   egl-image-oes)
+                  `(declare (type foreign-pointer ,name))))))
+           ;; use a simpler type if wrapper already translated it
+           (replace-type (type)
+             (case type
+               (offset-or-pointer 'sizeiptr)
+               (t type))))
+      `(lambda (&rest r)
+         (let ((address (gl-get-proc-address ,foreign-name)))
+           (declare (type sb-sys:system-area-pointer address))
+           (when (or (not (pointerp address)) (null-pointer-p address))
+             (error 'function-not-found :function ,foreign-name))
+           (setf (aref *ext-thunks* ,index)
+                 (lambda ,arg-list
+                   (declare (optimize speed)
+                            ,@(remove nil
+                                      (mapcar #'decl
+                                              args)))
+                   (multiple-value-prog1
+                       (with-float-traps-maybe-masked ()
+                         (foreign-funcall-pointer
+                          address
+                          (:library opengl)
+                          ,@(loop for (name type) in args
+                                  collect (replace-type type)
+                                  collect name)
+                          ,result-type))
+                     #-cl-opengl-no-check-error
+                     (check-error ',lisp-name))))
+           (apply (aref *ext-thunks* ,index) r))))))
 
 (defun generate-gl-function/new (index foreign-name lisp-name result-type args)
   (let ((args-list (mapcar #'first args)))
-    `(progn
-       ;; generate a thunk to look up the extension function pointer,
-       ;; and store it in the thunk init vector
-       (setf (aref *init-ext-thunks* ,index)
-             ,(generate-ext-thunk index foreign-name lisp-name
-                                  result-type args))
-       ;; and save it into the active thunk vector too, so we don't
-       ;; need a separate copy step after loading the bindings and
-       ;; so C-c C-c on definitions works as expected when running
-       (setf (aref *ext-thunks* ,index) (aref *init-ext-thunks* ,index))
-       ;; generate an inline function that calls the thunk
-       (declaim (inline ,lisp-name))
-       (defun ,lisp-name ,args-list
-         (funcall (aref *ext-thunks* ,index)
-                  ,@args-list)))))
+    (flet ((maybe-cast (arg)
+             ;; todo: possibly should add type checks as well for
+             ;; remaining types?
+             (destructuring-bind (name type) arg
+               (case type
+                 ((int sizei) `(truncate ,name))
+                 ((float clampf) `(coerce ,name 'single-float))
+                 ((double clampd) `(coerce ,name 'double-float))
+                 ((offset-or-pointer) `(if (pointerp ,name)
+                                           (pointer-address ,name)
+                                           ,name))
+                 (t name)))))
+      `(progn
+         ;; generate a thunk and store it in the thunk init vector
+         (setf (aref *init-ext-thunks* ,index)
+               ,(generate-ext-thunk index foreign-name lisp-name
+                                    result-type args))
+         ;; and save it into the active thunk vector too, so we don't
+         ;; need a separate copy step after loading the bindings and
+         ;; so C-c C-c on definitions works as expected when running
+         (setf (aref *ext-thunks* ,index) (aref *init-ext-thunks* ,index))
+         ;; generate an inline function that does type translations
+         ;; and calls the thunk
+         (declaim (inline ,lisp-name))
+         (defun ,lisp-name ,args-list
+           (funcall (aref *ext-thunks* ,index)
+                    ,@ (loop for arg in args
+                             collect (maybe-cast arg))))))))
 
 (defmacro defglextfun ((foreign-name lisp-name &optional index) result-type
                        &rest body)
