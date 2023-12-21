@@ -8,7 +8,7 @@
 ;; vector of thunks used to load extension functions, initialized by
 ;; defglextfun while loading bindings.
 (defvar *init-ext-thunks* (make-array 2959
-                                      :element-type :function
+                                      :element-type 'function
                                       :initial-contents (loop for i below 2959
                                                               collect (missing-thunk i))))
 ;; vector of thunks used to call extension functions, initialized to copy
