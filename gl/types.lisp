@@ -111,7 +111,7 @@
 (defctype ushort :uint16)
 
 (defctype int ensure-integer) ;; gl.xml = :int, spec = :int32
-(defctype uint :unsigned-integer) ;; spec = :uint32
+(defctype uint :unsigned-int) ;; spec = :uint32
 (defctype clampx :int32)
 (defctype sizei ensure-integer) ;; gl.xml = :int, spec = :uint32?
 
@@ -132,7 +132,6 @@
 
 
 ;; enum is 'unsigned int', spec = 32
-
 
 (defctype int64 :int64)
 (defctype uint64 :uint64)
