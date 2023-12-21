@@ -114,36 +114,52 @@ not be used in those contexts."
          ,@body)
      (check-error ',name)))
 
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defparameter +compiler-macro-types+ '(enum boolean)))
+
+(defun %defglfun-body (cname lname result-type body)
+  ;; split out actual generation of body so we can call it from a
+  ;; compiler macro
+  #-cl-opengl-no-check-error
+  `(multiple-value-prog1
+       (with-float-traps-maybe-masked ()
+         (foreign-funcall (,cname :library opengl)
+                          ,@(loop for i in body
+                                  collect (second i)
+                                  collect (first i))
+                          ,result-type))
+     ,@(cond
+         ((string= cname "glGetError") ())
+         ((string= cname "glBegin")
+          `((setf *in-begin* t)))
+         ((string= cname "glEnd")
+          `((setf *in-begin* nil)
+            (check-error ',lname)))
+         (t
+          `((check-error ',lname)))))
+  #+cl-opengl-no-check-error
+  (with-float-traps-maybe-masked ()
+    (foreign-funcall (,cname :library opengl)
+                     ,@(loop for i in body
+                             collect (second i)
+                             collect (first i))
+                     ,result-type)))
+
 ;;; Helper macro to define a GL API function and declare it inline.
-(defmacro defglfun ((cname lname) result-type &body body)
+(defmacro defglfun ((cname lname) result-type &body args)
   `(progn
      (declaim (inline ,lname))
-     #-cl-opengl-no-check-error
-     (defun ,lname ,(mapcar #'first body)
-       (multiple-value-prog1
-           (with-float-traps-maybe-masked ()
-            (foreign-funcall (,cname :library opengl)
-                             ,@(loop for i in body
-                                     collect (second i)
-                                     collect (first i))
-                             ,result-type))
-         ,@(cond
-             ((string= cname "glGetError") ())
-             ((string= cname "glBegin")
-              `((setf *in-begin* t)))
-             ((string= cname "glEnd")
-              `((setf *in-begin* nil)
-                (check-error ',lname)))
-             (t
-              `((check-error ',lname))))))
-     #+cl-opengl-no-check-error
-     (defun ,lname ,(mapcar #'first body)
-       (with-float-traps-maybe-masked ()
-        (foreign-funcall (,cname :library opengl)
-                         ,@(loop for i in body
-                                 collect (second i)
-                                 collect (first i))
-                         ,result-type)))
+     ;; optionally generate a compiler macro to translate enums,
+     ;; bitfields, etc
+     ,@(when (loop for (nil type) in args
+                     thereis (member type +compiler-macro-types+))
+         `((define-compiler-macro ,lname ,(mapcar 'first args)
+             (%defglfun-body ',cname ',lname ',result-type
+                             (list ,@(loop for (name type) in args
+                                           collect `(list ,name ',type)))))))
+
+     (defun ,lname ,(mapcar #'first args)
+       ,(%defglfun-body cname lname result-type args))
      #++(defcfun (,cname ,lname :library opengl) ,result-type ,@body)))
 
 ;;;; Extensions
@@ -257,6 +273,31 @@ not be used in those contexts."
        ',lisp-name)))
 
 ;;;; yet another version of DEFGLEXTFUN
+;;; general idea:
+;;    assign indices to extension functions at wrapper generation time
+;;
+;;    store a vector of functions, with an index for each ext function
+;;
+;;    default function (set at load time or when resetting pointers):
+;;
+;;       look up function pointer, and if found replace itself in
+;;       vector with a function to call the function pointer. Assume
+;;       arguments are correct type, so the code for the foreign call
+;;       can be optimized. Generate functions for specific foreign
+;;       function signatures and share between all ext functions to
+;;       reduce space a bit, using closures for the parts that vary
+;;       per function, and so we can avoid runtime compilation.
+;;
+;;    Actual named function for each extension function is inlined,
+;;    and just does some type translation to match types of the
+;;    generated functions in the vector, then calls the function from
+;;    the vector.
+;;
+;;    Compiler macros are generated for functions taking certain
+;;    argument types (also for non-ext functions) to allow for
+;;    compiler macros translating cffi types at compile
+;;    time. (Possibly could share compiler macro functions between
+;;    functions with similar argument types, but not implemented yet.)
 
 (defun reset-gl-pointers ()
   (replace *ext-thunks* *init-ext-thunks*))
@@ -292,92 +333,199 @@ not be used in those contexts."
                   (check-error ',lisp-name))))
     (apply lisp-name args)))
 
-(defun generate-ext-thunk (index foreign-name lisp-name result-type args)
-  (let ((arg-list (mapcar #'first args)))
+;; this should be reset every time it is LOADed to make sure .fasl
+;; files are correct even if compiled multiple times without
+;; restarting image
+(defparameter *thunk-generators* (make-hash-table :test 'equalp))
+
+(defun make-thunk-generator (return-type args)
+  (let ((args (loop for i from 0
+                    for (ffi-type lisp-type) in args
+                    collect (list (alexandria:format-symbol nil
+                                                            "~:@(arg~a/~a~)"
+                                                            i ffi-type)
+                                  ffi-type lisp-type))))
     (flet ((decl (arg)
+             `(type ,(third arg) ,(first arg))))
+      `(lambda (foreign-name lisp-name index)
+         (lambda (&rest r)
+           (let ((address (gl-get-proc-address foreign-name)))
+             (declare (type foreign-pointer address))
+             (when (or (not (pointerp address)) (null-pointer-p address))
+               (error 'function-not-found :function foreign-name))
+             (setf (aref *ext-thunks* index)
+                   (lambda ,(mapcar #'first args)
+                     (declare (optimize speed)
+                              ,@(remove nil
+                                        (mapcar #'decl args)))
+                     (multiple-value-prog1
+                         (with-float-traps-maybe-masked ()
+                           (foreign-funcall-pointer
+                            address
+                            (:library opengl)
+                            ,@(loop for (name type) in args
+                                    collect type
+                                    collect name)
+                            ,return-type))
+                       #-cl-opengl-no-check-error
+                       (check-error lisp-name))))
+             (apply (aref *ext-thunks* index) r)))))))
+
+(defun canonicalize-types (args)
+  ;; for a list of (name type), return a list of (ffi-type cl-type)
+  ;; describing the types used by the function that actually calls the
+  ;; pointer. Try to avoid returning different names for the same
+  ;; foreign type, so we don't generate multiple functions if we don't
+  ;; need to.
+  (labels ((signed-type (ftype)
+             `(signed-byte ,(* 8 (foreign-type-size ftype))))
+           (unsigned-type (ftype)
+             `(unsigned-byte ,(* 8 (foreign-type-size ftype))))
+           (ctype (ctype)
+             ;; fixme: any exported way to do this?
+             (cffi::canonicalize-foreign-type ctype))
+           (canonicalize (arg)
              (destructuring-bind (name type) arg
-               (case type
-                 ((float clampf) `(type single-float ,name))
-                 ((double clampd) `(type single-float ,name))
-                 ((char char-arb byte)
-                  `(declare (type (signed-byte 8) ,name)))
-                 ((ubyte)
-                  `(declare (type (unsigned-byte 8) ,name)))
-                 ((short)
-                  `(declare (type (signed-byte 16) ,name)))
-                 ((ushort half half-arb half-nv)
-                  `(declare (type (unsigned-byte 16) ,name)))
-                 ((int sizei clampx fixed)
-                  `(declare (type (unsigned-byte 32) ,name)))
-                 ((handle-arb uint)
-                  `(declare (type (unsigned-byte 32) ,name)))
-                 ((int64 int64-ext)
-                  `(declare (type (signed-byte 64) ,name)))
-                 ((uint64 uint64-ext)
-                  `(declare (type (unsigned-byte 64) ,name)))
-                 ((sync
-                   debugproc debugproc-arb debugproc-amd debugprockhr
-                   egl-image-oes)
-                  `(declare (type foreign-pointer ,name))))))
-           ;; use a simpler type if wrapper already translated it
-           (replace-type (type)
-             (case type
-               (offset-or-pointer 'sizeiptr)
-               (t type))))
-      `(lambda (&rest r)
-         (let ((address (gl-get-proc-address ,foreign-name)))
-           (declare (type sb-sys:system-area-pointer address))
-           (when (or (not (pointerp address)) (null-pointer-p address))
-             (error 'function-not-found :function ,foreign-name))
-           (setf (aref *ext-thunks* ,index)
-                 (lambda ,arg-list
-                   (declare (optimize speed)
-                            ,@(remove nil
-                                      (mapcar #'decl
-                                              args)))
-                   (multiple-value-prog1
-                       (with-float-traps-maybe-masked ()
-                         (foreign-funcall-pointer
-                          address
-                          (:library opengl)
-                          ,@(loop for (name type) in args
-                                  collect (replace-type type)
-                                  collect name)
-                          ,result-type))
-                     #-cl-opengl-no-check-error
-                     (check-error ',lisp-name))))
-           (apply (aref *ext-thunks* ,index) r))))))
+               (declare (ignore name))
+               (cond
+                 ((typep type '(cons (eql :pointer)))
+                  `(,(ctype 'sizeiptr) ,(unsigned-type :pointer))
+                  ;; but we don't translate it in wrappers yet
+                  `(:pointer (or foreign-pointer
+                                 ,(unsigned-type :pointer))))
+                 ;; boolean seems to be a bitfield, so handle before
+                 ;; checking that
+                 ((eql type 'boolean)
+                  `(,(ctype :unsigned-char) bit))
+                 ;; is there a better way to detect foreign bitfield
+                 ;; names?
+                 ((ignore-errors (cffi:convert-to-foreign () type))
+                  ;; spec says exactly 32 bits, gl.xml says unsigned int
+                  `(,(ctype :unsigned-int) (unsigned-byte 32))
+                  ;; but not translated yet
+                  `(,type list))
+                 (t
+                  (ecase type
+                    ;; no translation (type/range check at most)
+                    ((char char-arb)
+                     ;; spec says exactly 8 bits, but gl.xml uses char
+                     `(,(ctype :char) (signed-byte 8)))
+                    ((byte)
+                     `(,(ctype :int8) (signed-byte 8)))
+                    ((ubyte)
+                     `(,(ctype :uint8) (unsigned-byte 8)))
+                    ((short)
+                     `(,(ctype :int16) (signed-byte 16)))
+                    ((ushort half half-arb half-nv)
+                     `(,(ctype :uint16) (unsigned-byte 16)))
+                    ((clampx fixed)
+                     `(,(ctype :int32) (signed-byte 32)))
+                    ((uint)
+                     ;; spec says exactly 32 bit, but gl.xml uses unsigned int
+                     `(,(ctype :unsigned-int) (unsigned-byte 32)))
+                    ((handle-arb)
+                     #+darwin ;; pointer on apple
+                     `(:pointer (or foreign-pointer (unsigned-byte 64)))
+                     #-darwin ;; unsigned int elsewhere
+                     `(,(ctype :unsigned-int) ,(unsigned-type :unsigned-int)))
+                    ((int64 int64-ext)
+                     `(,(ctype :int64) (signed-byte 64)))
+                    ((uint64 uint64-ext)
+                     `(,(ctype :uint64) (unsigned-byte 64)))
+                    ((ptrdiff-t intptr intptr-arb)
+                     `(,(ctype :ptrdiff) ,(signed-type :pointer)))
+                    ((sizeiptr sizeiptr-arb)
+                     `(,(ctype :intptr) ,(unsigned-type :pointer)))
+                    ;; coerce or otherwise translate
+                    ((enum) ;; -> :uint32
+                     ;; spec says exactly 32 bits, gl.xml says unsigned int
+                     `(,(ctype :unsigned-int) (unsigned-byte 32)))
+                    ((bitfield) ;; -> uint32
+                     ;; spec says exactly 32 bits, gl.xml says unsigned int
+                     `(,(ctype :unsigned-int) (unsigned-byte 32)))
+                    ((int) ;; ensure-integer -> :int
+                     ;; spec says exactly 32 bit, but gl.xml uses int
+                     `(,(ctype :int) (signed-byte 32)))
+                    ((sizei) ;; ensure-integer -> :int
+                     ;; spec says exactly 32 bits, unsigned, but gl.xml uses int
+                     `(,(ctype :int) (unsigned-byte 31)))
+                    ((float clampf) ;; ensure-float -> :float
+                     '(:float single-float))
+                    ((double clampd) ;; ensure-double -> :double
+                     '(:double double-float)) ;; -> sizeiptr -> :long/:long-long
+                    ((offset-or-pointer)
+                     ;; translated by wrappers
+                     `(,(ctype 'sizeiptr) ,(unsigned-type :pointer)))
+                    ((sync
+                      debugproc debugproc-arb debugproc-amd debugprockhr
+                      egl-image-oes egl-client-buffer-ext)
+                     `(,(ctype 'sizeiptr) ,(unsigned-type :pointer))
+                     ;; but we don't translate it in wrappers yet
+                     `(:pointer (or foreign-pointer
+                                    ,(unsigned-type :pointer))))
+                    ;; special-case enums
+                    ((get-program-pipeline-ext-pname)
+                     `(,(ctype :unsigned-int) (unsigned-byte 32))
+                     ;; not translated by wrappers yet
+                     '(get-program-pipeline-ext-pname keyword))
+                    ;; not sure why this shows up?
+                    ((triangle-list-sun VDPAU-SURFACE-NV)
+                     `(,(ctype :unsigned-int) (unsigned-byte 32))
+                     ;; not translated by wrappers yet
+                     `(,type keyword))))))))
+    (mapcar #'canonicalize args)))
+
+(defun maybe-cast-arg (arg)
+  ;; todo: possibly should add type checks as well for
+  ;; remaining types?
+  (destructuring-bind (name type) arg
+    (case type
+      ((int sizei) `(truncate ,name))
+      ((float clampf) `(coerce ,name 'single-float))
+      ((double clampd) `(coerce ,name 'double-float))
+      ((offset-or-pointer) `(if (pointerp ,name)
+                                (pointer-address ,name)
+                                ,name))
+      ((boolean)
+       `(convert-to-foreign ,name 'boolean))
+      ((enum)
+       `(if (numberp ,name)
+            ,name
+            (convert-to-foreign ,name 'enum)))
+      (t name))))
 
 (defun generate-gl-function/new (index foreign-name lisp-name result-type args)
-  (let ((args-list (mapcar #'first args)))
-    (flet ((maybe-cast (arg)
-             ;; todo: possibly should add type checks as well for
-             ;; remaining types?
-             (destructuring-bind (name type) arg
-               (case type
-                 ((int sizei) `(truncate ,name))
-                 ((float clampf) `(coerce ,name 'single-float))
-                 ((double clampd) `(coerce ,name 'double-float))
-                 ((offset-or-pointer) `(if (pointerp ,name)
-                                           (pointer-address ,name)
-                                           ,name))
-                 (t name)))))
-      `(progn
-         ;; generate a thunk and store it in the thunk init vector
-         (setf (aref *init-ext-thunks* ,index)
-               ,(generate-ext-thunk index foreign-name lisp-name
-                                    result-type args))
-         ;; and save it into the active thunk vector too, so we don't
-         ;; need a separate copy step after loading the bindings and
-         ;; so C-c C-c on definitions works as expected when running
-         (setf (aref *ext-thunks* ,index) (aref *init-ext-thunks* ,index))
-         ;; generate an inline function that does type translations
-         ;; and calls the thunk
-         (declaim (inline ,lisp-name))
-         (defun ,lisp-name ,args-list
-           (funcall (aref *ext-thunks* ,index)
-                    ,@ (loop for arg in args
-                             collect (maybe-cast arg))))))))
+  (let* ((arg-types (canonicalize-types args))
+         (sig (cons result-type (mapcar 'first arg-types))))
+    `(progn
+       ,@(unless (gethash sig *thunk-generators*)
+           `((eval-when (:compile-toplevel :load-toplevel :execute)
+               (setf (gethash ',sig *thunk-generators*)
+                     ,(make-thunk-generator result-type arg-types)))))
+       ;; generate a thunk and store it in the thunk init vector
+       (setf (aref *init-ext-thunks* ,index)
+             (funcall (gethash ',sig *thunk-generators*)
+                      ,foreign-name ',lisp-name ,index))
+       ;; and save it into the active thunk vector too, so we don't
+       ;; need a separate copy step after loading the bindings and
+       ;; so C-c C-c on definitions works as expected when running
+       (setf (aref *ext-thunks* ,index) (aref *init-ext-thunks* ,index))
+       ;; optionally generate a compiler macro to translate enums,
+       ;; bitfields, etc
+       ,@(when (loop for (nil type) in args
+                       thereis (member type +compiler-macro-types+))
+           `((define-compiler-macro ,lisp-name ,(mapcar 'first args)
+               `(funcall (aref *ext-thunks* ,',index)
+                         ,,@(loop for (name type) in args
+                                  collect `(maybe-cast-arg
+                                            (list ,name ',type)))))))
+       ;; generate an inline function that does type translations
+       ;; and calls the thunk
+       (declaim (inline ,lisp-name))
+       (defun ,lisp-name ,(mapcar #'first args)
+         (funcall (aref *ext-thunks* ,index)
+                  ,@ (loop for arg in args
+                           collect (maybe-cast-arg arg)))))))
 
 (defmacro defglextfun ((foreign-name lisp-name &optional index) result-type
                        &rest body)
