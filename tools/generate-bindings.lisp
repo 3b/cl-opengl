@@ -869,7 +869,7 @@
                 (1+ ext-index))
         (format out ";; vector of thunks used to load extension functions, initialized by~%;; defglextfun while loading bindings.~%")
         (format out "(defvar *init-ext-thunks* (make-array ~a
-                                      :element-type :function
+                                      :element-type 'function
                                       :initial-contents (loop for i below ~a
                                                               collect (missing-thunk i))))~%"
                 (1+ ext-index) (1+ ext-index))
