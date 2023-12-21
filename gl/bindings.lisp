@@ -403,7 +403,7 @@ not be used in those contexts."
                   ;; spec says exactly 32 bits, gl.xml says unsigned int
                   `(,(ctype :unsigned-int) (unsigned-byte 32))
                   ;; but not translated yet
-                  `(,type list))
+                  `(,type (or list (unsigned-byte 32))))
                  (t
                   (ecase type
                     ;; no translation (type/range check at most)
@@ -467,12 +467,13 @@ not be used in those contexts."
                     ((get-program-pipeline-ext-pname)
                      `(,(ctype :unsigned-int) (unsigned-byte 32))
                      ;; not translated by wrappers yet
-                     '(get-program-pipeline-ext-pname keyword))
+                     '(get-program-pipeline-ext-pname
+                       (or (unsigned-byte 32) keyword)))
                     ;; not sure why this shows up?
                     ((triangle-list-sun VDPAU-SURFACE-NV)
                      `(,(ctype :unsigned-int) (unsigned-byte 32))
                      ;; not translated by wrappers yet
-                     `(,type keyword))))))))
+                     `(,type (or (unsigned-byte 32) keyword)))))))))
     (mapcar #'canonicalize args)))
 
 (defun maybe-cast-arg (arg)
