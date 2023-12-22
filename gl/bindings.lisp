@@ -300,6 +300,8 @@ not be used in those contexts."
 ;;    functions with similar argument types, but not implemented yet.)
 
 (defun reset-gl-pointers ()
+  ;; these don't exist yet, declare special so it uses the correct bindings
+  (declare (special *ext-thunks* *init-ext-thunks*))
   (replace *ext-thunks* *init-ext-thunks*))
 
 (defun missing-thunk (x)
