@@ -358,6 +358,8 @@ not be used in those contexts."
              (setf (aref *ext-thunks* index)
                    (lambda ,(mapcar #'first args)
                      (declare (optimize speed)
+                              #+sbcl (sb-ext:muffle-conditions
+                                      sb-ext:compiler-note)
                               ,@(remove nil
                                         (mapcar #'decl args)))
                      (multiple-value-prog1
