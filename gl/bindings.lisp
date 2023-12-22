@@ -118,6 +118,7 @@ not be used in those contexts."
   (defparameter +compiler-macro-types+ '(enum boolean)))
 
 (defun %defglfun-body (cname lname result-type body)
+  (declare (ignorable lname))
   ;; split out actual generation of body so we can call it from a
   ;; compiler macro
   #-cl-opengl-no-check-error
@@ -138,12 +139,12 @@ not be used in those contexts."
          (t
           `((check-error ',lname)))))
   #+cl-opengl-no-check-error
-  (with-float-traps-maybe-masked ()
-    (foreign-funcall (,cname :library opengl)
-                     ,@(loop for i in body
-                             collect (second i)
-                             collect (first i))
-                     ,result-type)))
+  `(with-float-traps-maybe-masked ()
+     (foreign-funcall (,cname :library opengl)
+                      ,@(loop for i in body
+                              collect (second i)
+                              collect (first i))
+                      ,result-type)))
 
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body args)
@@ -350,6 +351,7 @@ not be used in those contexts."
     (flet ((decl (arg)
              `(type ,(third arg) ,(first arg))))
       `(lambda (foreign-name lisp-name index)
+         (declare (ignorable lisp-name))
          (lambda (&rest r)
            (let ((address (gl-get-proc-address foreign-name)))
              (declare (type foreign-pointer address))
