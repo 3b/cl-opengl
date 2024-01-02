@@ -21,7 +21,7 @@
        ;; one of the possible enums has different values in gl and gles,
        ;; so use a custom enum for it (see GetProgramPipelineExtPname above)
        (:NAME "pname" :TYPE "GetProgramPipelineExtPname")
-       (:NAME "params" :TYPE "GLint"))
+       (:NAME "params" :TYPE "GLint *"))
 
 (:func "glUseProgramStages"
        "void"

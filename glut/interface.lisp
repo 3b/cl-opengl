@@ -136,13 +136,15 @@ Lexically binds CURRENT-WINDOW to the respective object."
      ,@(loop for (name args) in event-specs collect
              `(define-glut-event ,name ,args
                 (when-current-window-exists
-                 (,name current-window ,@(mapcar #'car (cdr args))))))))
+                  (with-simple-restart (continue "Skip processing this event")
+                   (,name current-window ,@(mapcar #'car (cdr args)))))))))
 
 (define-glut-events
   ;; (idle             (window))
   (keyboard         (window (key ascii-to-char) (x :int) (y :int)))
   (special          (window (special-key special-keys) (x :int) (y :int)))
   (reshape          (window (width :int) (height :int)))
+  (window-position  (window (x :int) (y :int))) ;; renamed to avoid CL:POSITION
   (visibility       (window (state visibility-state)))
   (display          (window))
   (mouse            (window (button mouse-button) (state mouse-button-state)
@@ -207,7 +209,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
    (tick-interval :accessor tick-interval :initarg :tick-interval)
    ;; When this slot unbound, DISPLAY-WINDOW calls
    ;; FIND-APPLICABLE-EVENTS to populate it.
-   (events :accessor events :initarg :events))
+   (events :accessor events :initarg :events)
+   ;; menu handling data
+   (left-menu :accessor left-menu :initarg :left-menu :initform nil)
+   (right-menu :accessor right-menu :initarg :right-menu :initform nil)
+   (middle-menu :accessor middle-menu :initarg :middle-menu :initform nil)
+   ;; menu-name-symbol -> (menu-id item-id-hash description)
+   (%menu-ids :reader %menu-ids :initform (make-hash-table)))
   (:default-initargs :pos-x -1 :pos-y -1 :height 300 :width 300
                      :title +default-title+ :tick-interval nil))
 
@@ -215,6 +223,13 @@ Lexically binds CURRENT-WINDOW to the respective object."
     ((win base-window) &key name &allow-other-keys)
   (declare (ignore win name))
   (glut:init))
+
+(defmethod initialize-instance :after
+    ((win base-window) &key name &allow-other-keys)
+  (declare (ignore name))
+  (setf (left-menu win) (canonicalize-menu-description (left-menu win)))
+  (setf (right-menu win) (canonicalize-menu-description (right-menu win)))
+  (setf (middle-menu win) (canonicalize-menu-description (middle-menu win))))
 
 (defgeneric display-window (window)
   (:documentation
@@ -235,7 +250,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
             (progn
               (set-window (id ,window))
               ,@body)
-         (set-window ,current-id)))))
+         (unless (zerop ,current-id)
+           (set-window ,current-id))))))
 
 ;;; We do some extra stuff to provide an IDLE event per-window since
 ;;; GLUT's IDLE event is global.
@@ -245,6 +261,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
              (idle win))))
 
 (defun %close (window)
+  (when (tick-interval window)
+    (disable-tick window))
   (when (member :close (events window) :key #'event-name)
     (close window))
   (setf (aref *id->window* (id window)) nil)
@@ -273,7 +291,8 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (:action-glutmainloop-returns
        (leave-main-loop))
       (:action-continue-execution
-       nil))))
+       nil)))
+  (destroy-window-menus window))
 
 (define-glut-event close (window)
   (when-current-window-exists
@@ -298,11 +317,10 @@ Lexically binds CURRENT-WINDOW to the respective object."
 
   (let ((tick-id *tick-timer-counter*))
     (incf *tick-timer-counter*)
-    
+
     ;; Update tick table
     (setf *tick-timer-id->window-id*
           (acons tick-id (id window) *tick-timer-id->window-id*))
-    
 
     ;; Initiate the periodic callback
     (timer-func millis (callback tick-timer-cb) tick-id)))
@@ -336,6 +354,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
     (setq *id->window*
           (adjust-array *id->window* (1+ (id win)) :initial-element nil)))
   (setf (aref *id->window* (id win)) win)
+  (create-window-menus win)
   ;; setup tick timer.
   (when (tick-interval win)
     (enable-tick win (tick-interval win)))
@@ -360,7 +379,7 @@ Lexically binds CURRENT-WINDOW to the respective object."
       (let ((event (find-event-or-lose event-name)))
         (when (find event (events window))
           ;; We don't actually disable the CLOSE event since we need it
-          ;; for bookkeeping. See the CLOSE event definiton.
+          ;; for bookkeeping. See the CLOSE event definition.
           (unless (or (eq event-name :idle)
                       (eq event-name :close))
             (with-window window
@@ -393,14 +412,15 @@ Lexically binds CURRENT-WINDOW to the respective object."
   (let ((window-id (cdr (assoc tick-id *tick-timer-id->window-id*))))
     (if (and window-id
              (> (length *id->window*) window-id))
-        
+
       (let ((window (aref *id->window* window-id)))
         (unless (null window)
-          (tick window)
+          (with-window window
+           (tick window))
           (when (tick-interval window)
             (timer-func (tick-interval window)
                         (callback tick-timer-cb) tick-id))))
-      
+
       (format t "Canceled tick timer ~a (~a)~%" tick-id window-id))))
 
 ;;;; Top-level Windows

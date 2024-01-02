@@ -25,8 +25,7 @@
   (close-foreign-library 'opengl))
 
 (define-foreign-library opengl
-  (t (:default "libGLESv2")))
+  (t (:or (:default "libGLESv3") (:default "libGLESv2"))))
 
-(use-foreign-library opengl)
-
-
+(unless (member :cl-opengl-no-preload *features*)
+  (use-foreign-library opengl))

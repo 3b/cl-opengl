@@ -38,6 +38,9 @@
   (:export
    ;; 2.5 GL Errors
    #:get-error
+   #:cl-opengl-condition
+   #:function-not-found
+   #:function-not-found.function
    #:opengl-error
    #:opengl-error.error-code
    #:check-error
@@ -61,7 +64,9 @@
    #:vertex-attrib
    ;; 2.8 Vertex Arrays
    #:draw-elements
+   #:draw-elements-base-vertex
    #:draw-elements-instanced
+   #:draw-elements-instanced-base-vertex
    #:alloc-gl-array
    #:free-gl-array
    #:define-gl-array-format
@@ -82,6 +87,7 @@
    #:gen-buffer
    #:buffer-data
    #:buffer-sub-data
+   #:buffer-storage
    #:map-buffer
    #:unmap-buffer
    ;; 2.10 Rectangles
@@ -431,4 +437,22 @@
    #:get-texture-parameter
    #:with-query
    #:get-query-object
-   #:extension-list))
+   #:extension-list
+   #:clear-tex-sub-image
+   #:clear-tex-image
+   #:texture-sub-image-1d
+   #:texture-sub-image-2d
+   #:texture-sub-image-3d
+   #:create-framebuffers
+   #:create-framebuffer
+   #:delete-framebuffer
+   #:clear-buffer-fv
+   #:clear-buffer-iv
+   #:clear-buffer-uiv
+   #:clear-named-framebuffer-fv
+   #:clear-named-framebuffer-iv
+   #:clear-named-framebuffer-uiv
+   #:create-renderbuffers
+   #:create-renderbuffer
+   #:delete-renderbuffer
+   #:bind-image-textures))

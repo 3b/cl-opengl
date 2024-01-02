@@ -32,6 +32,40 @@
 
 (in-package #:cl-glut)
 
+;; todo: make sure this actually works somewhat portably?
+;; and/or figure out if there is a 'correct' way to do it in cffi
+(defctype va-list :pointer)
+#+32-bit
+(defctype size-t :unsigned-long)
+#-32-bit
+(defctype size-t :unsigned-long-long)
+(defcfun "vsnprintf" :int
+  (buf (:pointer :char))
+  (n size-t)
+  (format (:pointer :char))
+  (arg va-list))
+
+(defcallback %glut-warn :void ((fmt (:pointer :char)) (ap va-list))
+  (let ((s (cffi:with-foreign-pointer-as-string (p 1024)
+             (vsnprintf p 1024 fmt ap))))
+    (warn "cl-glut: ~a" s)))
+
+(defcallback %glut-error :void ((fmt (:pointer :char)) (ap va-list))
+  (let ((s (cffi:with-foreign-pointer-as-string (p 1024)
+             (vsnprintf p 1024 fmt ap))))
+    (error "cl-glut: ~a" s)))
+
+;; freeglut extensions
+(defcfun ("glutInitErrorFunc" %init-error-func) :void (cb :pointer))
+(defcfun ("glutInitWarningFunc" %init-warn-func) :void (cb :pointer))
+;; accidentally calling glut functions before init exits lisp, so
+;; attempting to set these at load time. Hopefully with ignore-errors
+;; it won't cause problems even in situations where the toplevel init
+;; caused problems.
+(ignore-errors (%init-error-func (callback %glut-error)))
+(ignore-errors (%init-warn-func (callback %glut-warn)))
+
+
 ;;; Low-level functions (exported nevertheless)
 
 (defcfun ("glutTimerFunc" timer-func) :void
@@ -53,6 +87,11 @@
 
 (defcfun ("glutReshapeFunc" reshape-func) :void
   ;; void (*func)(int width, int height)
+  (callback-pointer :pointer))
+
+;; renamed to avoid CL:POSITION
+(defcfun ("glutPositionFunc" window-position-func) :void
+  ;; void (*func)(int x, int y)
   (callback-pointer :pointer))
 
 (defcfun ("glutVisibilityFunc" visibility-func) :void
@@ -178,7 +217,9 @@
 (defbitfield modifiers
   (:active-shift 1)
   (:active-ctrl 2)
-  (:active-alt 4))
+  (:active-alt 4)
+  ;; freeglut extension
+  (:active-super 8))
 
 (defcenum mouse-button
   :left-button
@@ -251,7 +292,19 @@
   :key-left-ctrl
   :key-right-ctrl
   :key-left-alt
-  :key-right-alt)
+  :key-right-alt
+  ;; freeglut extensions
+  (:key-num-lock           #x006D)
+  (:key-begin              #x006E)
+  (:key-delete             #x006F)
+  (:key-shift-l            #x0070)
+  (:key-shift-r            #x0071)
+  (:key-ctrl-l             #x0072)
+  (:key-ctrl-r             #x0073)
+  (:key-alt-l              #x0074)
+  (:key-alt-r              #x0075)
+  (:key-super-l            #x0076) ;; also 'windows' keys
+  (:key-super-r            #x0077))
 
 (defcenum visibility-state
   :not-visible

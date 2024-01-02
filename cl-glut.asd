@@ -42,16 +42,17 @@
     ((:file "package")
      (:file "library"   :depends-on ("package"))
      (:file "state"     :depends-on ("library"))
-     (:file "init"      :depends-on ("library" "state"))
+     (:file "callbacks" :depends-on ("library"))
+     (:file "menu"      :depends-on ("library" "callbacks"))
+     (:file "init"      :depends-on ("library" "state" "callbacks" "menu"))
      (:file "main"      :depends-on ("library" "init"))
      (:file "window"    :depends-on ("library"))
      (:file "overlay"   :depends-on ("library"))
-     (:file "menu"      :depends-on ("library"))
-     (:file "callbacks" :depends-on ("library"))
      (:file "misc"      :depends-on ("library"))
      (:file "fonts"     :depends-on ("library"))
      (:file "geometry"  :depends-on ("library"))
      (:file "interface"
-            :depends-on ("init" "main" "window" "library" "callbacks"))))))
+            :depends-on ("init" "main" "window" "library" "callbacks"))
+     (:file "menu-interface"  :depends-on ("interface" "menu"))))))
 
 ;; vim: ft=lisp et

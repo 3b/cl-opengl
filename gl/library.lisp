@@ -37,4 +37,6 @@
   (:windows "opengl32.dll" :convention :stdcall)
   (:unix (:or "libGL.so.4" "libGL.so.3" "libGL.so.2" "libGL.so.1" "libGL.so")))
 
-(use-foreign-library opengl)
+
+(unless (member :cl-opengl-no-preload *features*)
+  (use-foreign-library opengl))

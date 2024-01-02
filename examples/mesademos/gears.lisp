@@ -125,6 +125,14 @@
   (:default-initargs :title "Gears" :mode '(:double :rgb :depth)))
 
 (defmethod glut:display-window :before ((window gears-window))
+  #+windows
+  (let ((p (glut:get-proc-address "wglSwapIntervalEXT")))
+    (unless (cffi:null-pointer-p p)
+      (cffi:foreign-funcall-pointer p () :int 1 :int)))
+  #+unix
+  (let ((p (glut:get-proc-address "glxSwapIntervalEXT")))
+    (unless (cffi:null-pointer-p p)
+      (cffi:foreign-funcall-pointer p () :int 1 :int)))
   (with-slots (gear1 gear2 gear3) window
     (gl:light :light0 :position #(5.0 5.0 10.0 0.0))
     (gl:enable :cull-face :lighting :light0 :depth-test)
@@ -222,4 +230,4 @@
     (t (glut:disable-event w :idle))))
 
 (defun gears ()
-  (glut:display-window (make-instance 'gears-window)))
+  (glut:display-window (make-instance 'gears-window  :width 640 :height 480)))

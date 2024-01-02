@@ -49,7 +49,7 @@
   `(progn
      ,@(loop for cap in caps
           for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
+                    (foreign-enum-value '%gl:enum cap :errorp t))
           when v collect `(%gl:enable ,v)
           else collect `(%gl:enable ,cap))))
 
@@ -63,7 +63,7 @@
   `(progn
      ,@(loop for cap in caps
           for v = (when (keywordp cap)
-                    (foreign-enum-value '%gl:enum cap :errorp nil))
+                    (foreign-enum-value '%gl:enum cap :errorp t))
           when v collect `(%gl:disable ,v)
           else collect `(%gl:disable ,cap))))
 
@@ -814,7 +814,7 @@
     (:max-compute-work-group-count :integer-i 3)
     (:max-compute-work-group-size :integer-i 3)
     (:max-compute-work-group-invocations :integer 1) ;; not in .spec files?
-    (:max-compute-local-invocations :integer 1) ;; not documented?
+    ;;(:max-compute-local-invocations :integer 1) ;; not documented?
     (:max-compute-uniform-blocks :integer 1)
     (:max-compute-texture-image-units :integer 1)
     (:max-compute-atomic-counter-buffers :integer 1)
@@ -982,7 +982,7 @@
         :internalformat-blue-size :internalformat-alpha-size
         :internalformat-depth-size :internalformat-stencil-size
         :internalformat-shared-size
-        :max-width :max-height :max-layers
+        :max-width :max-height :max-depth :max-layers
         :max-combined-dimensions ;; 64bit
         :image-texel-size :texture-compressed-block-width
         :texture-compressed-block-height

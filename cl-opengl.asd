@@ -37,8 +37,10 @@
     :components
     ((:file "bindings-package")
      (:file "constants")
+     (:file "library-common")
      (:file "library")
      (:file "bindings")
+     (:file "thunks")
      (:file "types")
      (:file "funcs-gl-glcore-gles1-gles2-glsc2")
      (:file "funcs-gl-glcore-gles1-gles2")
@@ -76,8 +78,10 @@
     :components
     ((:file "bindings-package")
      (:file "constants")
+     (:file "library-common")
      (:file "library-glesv2")
      (:file "bindings")
+     (:file "thunks")
      (:file "types")
      (:file "funcs-gl-glcore-gles1-gles2-glsc2")
      (:file "funcs-gl-glcore-gles1-gles2")

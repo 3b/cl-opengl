@@ -174,7 +174,7 @@
     ("char"           . ":char")
     ("signed char"    . ":char")
     ("unsigned char"  . ":unsigned-char")
-    ("ptrdiff_t"      . ":unsigned-long")
+    ("ptrdiff_t"      . "ptrdiff-t")
     ("short"          . ":short")
     ("unsigned short" . ":unsigned-short")
     ("float"          . ":float")
@@ -182,7 +182,8 @@
     ("void"           . ":void")
     ("string"           . "string")
     ;; special cases
-    ("GLenum" . "enum")))
+    ("GLenum" . "enum")
+    ("GLsizeiptr" . "sizeiptr")))
 
 (defun translate-type-name (type &optional offset-or-pointer)
   (setf type (string-trim '(#\space #\tab) type))
@@ -318,6 +319,7 @@
        (spec-dir (merge-pathnames relative-spec this-dir))
        (binding-package-file (merge-pathnames "bindings-package.lisp" gl-dir))
        (enums-file (merge-pathnames "constants.lisp" gl-dir))
+       (thunk-file (merge-pathnames "thunks.lisp" gl-dir))
        (name-map (read-name-map gl-dir))
        (types (read-known-types gl-dir))
        (gl.xml (cxml:parse-file (merge-pathnames "gl.xml" spec-dir)
@@ -361,7 +363,8 @@
                 (string-upcase (translate-type-name name))
                 (xpath:string-value (xpath:evaluate "text()" node))))))
 
-  ;; extract groups
+  ;; extract groups / old style
+  #++
   (xpath:do-node-set (node (xpath:evaluate "/registry/groups/group" gl.xml))
     (let ((name (xpath:string-value (xpath:evaluate "@name" node))))
       (let ((groups (alexandria:ensure-gethash name groups
@@ -382,6 +385,81 @@
                              :keyword)
                      n))
               (add n nil)))))))
+
+  ;; extract groups / new style
+  (let ((tmp (make-hash-table)))
+    (xpath:do-node-set (node (xpath:evaluate "/registry/enums/enum" gl.xml))
+      (let ((name (convert-enum-name
+                   (xpath:string-value (xpath:evaluate "@name" node))))
+            (value (hex (xpath:string-value (xpath:evaluate "@value" node))))
+            (group-list (split-sequence:split-sequence
+                         #\,
+                         (xpath:string-value (xpath:evaluate "@group" node))
+                         :remove-empty-subseqs t)))
+        (labels ((add (k -bit group)
+                   (let ((gh (alexandria:ensure-gethash
+                              group groups
+                              (make-hash-table :test 'equal))))
+                     (pushnew group (gethash name tmp) :test 'string=)
+                     (setf (gethash k gh) (or -bit k))))
+                 (add* (name group)
+                   (pushnew name (gethash value tmp))
+                   ;; add an alias without the -bit suffix if any
+                   ;; (should we strip -bit before a vendor suffix also?
+                   ;;  for example :2x-bit-ati -> :2x-ati?)
+                   (when (cl-ppcre:scan "-BITS?$" (string name))
+                     (add (intern (or (cl-ppcre:register-groups-bind (a)
+                                          ("(.*)-BITS?$" (string name))
+                                        a)
+                                      "???")
+                                  :keyword)
+                          name group))
+                   (add name nil group)))
+          (when group-list
+            (loop for group in group-list
+                  do (add* name group))))))
+    ;; 2nd pass for aliases
+    #++
+    (xpath:do-node-set (node (xpath:evaluate "/registry/enums/enum" gl.xml))
+      (let ((name (convert-enum-name
+                   (xpath:string-value (xpath:evaluate "@name" node))))
+            (value (hex (xpath:string-value (xpath:evaluate "@value" node))))
+            (group-list (split-sequence:split-sequence
+                         #\,
+                         (xpath:string-value (xpath:evaluate "@group" node))
+                         :remove-empty-subseqs t)))
+        (labels ((add (k -bit group)
+                   (let ((gh (alexandria:ensure-gethash
+                              group groups
+                              (make-hash-table :test 'equal))))
+                     (setf (gethash k gh) (or -bit k))))
+                 (add* (name group)
+                   ;; add an alias without the -bit suffix if any
+                   ;; (should we strip -bit before a vendor suffix also?
+                   ;;  for example :2x-bit-ati -> :2x-ati?)
+                   (when (cl-ppcre:scan "-BITS?$" (string name))
+                     (add (intern (or (cl-ppcre:register-groups-bind (a)
+                                          ("(.*)-BITS?$" (string name))
+                                        a)
+                                      "???")
+                                  :keyword)
+                          name group))
+                   #++(format t "add alias ~s -> ~s~%" name group)
+                   (add name nil group)
+                   ))
+          (unless group-list
+            (let ((added nil))
+              (loop for a in (gethash value tmp)
+                    when (or (alexandria:starts-with-subseq
+                              (string a) (string name))
+                             (alexandria:starts-with-subseq
+                              (string name) (string a)))
+                      do (loop for group in (gethash a tmp)
+                               do (add* name group))
+                         (setf added t))
+              (unless added
+                (format t "??? got enum ~s without group? alias=~s?~%"
+                        name (gethash value tmp)))))))))
 
   ;; extract bitfields
   (xpath:do-node-set (node (xpath:evaluate "/registry/enums[@type=\"bitmask\"]" gl.xml))
@@ -441,20 +519,24 @@
         for e = (gethash gn enums)
         for b = (gethash gn bitfields)
         for g = (gethash gn groups)
-        unless (or e b)
-          do (format t "group ~s defined without enum def?~%" gn)
+        ;; this is normal now...
+        ;;unless (or e b)
+        ;;  do (format t "group ~s defined without enum def?~%" gn)
         when b
           do (let ((n (alexandria:hash-table-keys b))
                    (o (alexandria:hash-table-keys g)))
-               (unless (and (null (set-difference n o))
-                            (null (set-difference o n)))
-                 (format t "mismatch between group and bitfield definition: ~s~% +~s~% -~s)~%"
-                         gn
-                         (set-difference n o)
-                         (set-difference o n)))
-               (when (set-difference o n)
+               (unless (string= gn "FfdMaskSGIX")
+                 (unless (and (null (set-difference n o))
+                              (null (set-difference o n)))
+                   (format t "mismatch between group and bitfield definition: ~s~%~
+                            ~@[ bitfield adds (bad):~s~%~]~@[ group adds (ok):~s~%~]"
+                           gn
+                           (set-difference n o)
+                           (set-difference o n))))
+               (when (set-difference n o)
                  (assert *all-enums-in-glenum*)
-                 (format t "fix ~s~%" n)
+                 (unless (string= gn "FfdMaskSGIX")
+                   (format t "fix ~s~%" n))
                  (loop with ee = (gethash "enum" enums)
                        for k in (alexandria:hash-table-keys g)
                        for v = (or (gethash k ee)
@@ -462,6 +544,35 @@
                        unless (gethash k b)
                          do (format t "  ~s -> ~s~%" k v)
                             (setf (gethash k b) v)))))
+
+  ;; update values of enums with missing bits
+  (loop for gn in (alexandria:hash-table-keys groups)
+        for e = (gethash gn enums)
+        for b = (gethash gn bitfields)
+        for g = (gethash gn groups)
+        when (or e (not b))
+          do (let ((n (when e (alexandria:hash-table-keys e)))
+                   (o (alexandria:hash-table-keys g)))
+               (when e
+                 (unless (and (null (set-difference n o))
+                              (null (set-difference o n)))
+                   (format t "mismatch between group and enum definition: ~s~%~
+                            ~@[ enum adds (bad):~s~%~]~@[ group adds (ok):~s~%~]"
+                           gn
+                           (set-difference n o)
+                           (set-difference o n))))
+               (when (set-difference n o)
+                 (assert *all-enums-in-glenum*)
+                 #++(format t "fix ~s~%" n)
+                 (loop with ee = (gethash "enum" enums)
+                       for k in (alexandria:hash-table-keys g)
+                       for v = (or (gethash k ee)
+                                   (gethash (gethash k g) ee))
+                       unless (gethash k e)
+                         do (format t "  ~s -> ~s~%" k v)
+                            (setf (gethash k e) v)))))
+
+
   (format t "check enums~%")
   (loop for e in (alexandria:hash-table-keys enums)
         unless (gethash e groups)
@@ -476,7 +587,7 @@
   (xpath:do-node-set (node (xpath:evaluate "/registry/commands/command" gl.xml))
     (let* ((proto (xpath:first-node (xpath:evaluate "proto" node)))
            (name (sv "name" proto))
-           (ret (if (equalp (sv "@group" proto) "String")
+           (ret (if (equalp (sv "@kind" proto) "String")
                     "string"
                     (get-type proto)))
            (args (xpath:map-node-set->list
@@ -517,7 +628,10 @@
                       for (k v) in (cddr x)
                       when (and (consp v) (eq (car v) :import))
                         do (setf v (gethash k (gethash (second v) enums v)))
-                      do (setf (gethash k hash) v)))
+                      do (setf (gethash k hash) v))
+                (unless (equalp (second x) "enum")
+                  (setf (gethash (second x) groups)
+                        (gethash (second x) enums))))
                (:func
                 (setf (gethash (second x) funcs)
                       (cddr x))))))
@@ -566,30 +680,72 @@
              (sv "@name" ext)
              nil))))
 
+  ;; check for unknown enums in groups
+  (let ((%enums (gethash "enum" enums)))
+    (loop for (name . hash) in (alexandria:hash-table-alist groups)
+          do (loop for k in (alexandria:hash-table-values hash)
+                   unless (or (gethash k %enums) (numberp k))
+                     do (format t "-- unknown enum ~s in group ~s~%" k name)
+                        (break "-- unknown enum ~s in group ~s~%" k name))))
+
+
+
   ;; write files
   (when t
     (with-open-file (out enums-file :direction :output :if-exists :supersede)
       (format out ";;; this file is automatically generated, do not edit~%")
       (format out "(in-package #:cl-opengl-bindings)~%~%")
-      (loop for (name . hash) in (sort (alexandria:hash-table-alist bitfields)
-                                       'string< :key 'car)
-            do ;; existing bitfields are named without #\-, so keep them that
-               ;; way in case anyone used them directly...
-               (format out "(defbitfield (~a :unsigned-int)" name)
-               (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
-                                          '< :key 'cdr)
-                     do (format out "~%  (:~(~a~) #x~x)" k v))
-               (format out ")~%~%"))
-      (loop for (name . hash) in (sort (alexandria:hash-table-alist enums)
-                                       'string< :key 'car)
-            do (format out "(defcenum (~a :unsigned-int)"
-                       (mixedcaps->lcdash name))
-               (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
+      (loop with %enums = (gethash "enum" enums)
+            for (name . hash) in (append
+                                  (sort (alexandria:hash-table-alist groups)
+                                        'string< :key 'car)
+                                  (list (cons "enum" (gethash "enum" enums))))
+            when (or (gethash name bitfields)
+                     ;; used as a bitfield, but no group def so we
+                     ;; don't recognize it as such, hard code it
+                     (equalp name "SyncBehaviorFlags"))
+              do ;; existing bitfields are named without #\-, so keep them that
+                 ;; way in case anyone used them directly...
+                 (format out "(defbitfield (~a :unsigned-int)" name)
+                 (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
+                                            '<
+                                            :key (lambda (a)
+                                                   (gethash (cdr a) %enums)))
+                       do (format out "~%  (:~(~a~) #x~x)"
+                                  k (gethash v %enums v)))
+                 (format out ")~%~%")
+            else
+              do (format out "(defcenum (~a :unsigned-int)"
+                         (mixedcaps->lcdash name))
+                 (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
+                                            'string<
+                                            :key 'car
+                                            #++(lambda (a)
+                                                 (gethash (cdr a) %enums
+                                                          (cdr a))))
+                       do (format out "~%  (:~(~a~) #x~x)"
+                                  k (gethash v %enums v)))
+                 (format out ")~%~%"))
+      #++(loop for (name . hash) in (sort (alexandria:hash-table-alist bitfields)
                                           'string< :key 'car)
-                     do (format out "~%  (:~(~a~) #x~x)" k v))
-               (format out ")~%~%"))))
+               do ;; existing bitfields are named without #\-, so keep them that
+                  ;; way in case anyone used them directly...
+                  (format out "(defbitfield (~a :unsigned-int)" name)
+                  (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
+                                             '< :key 'cdr)
+                        do (format out "~%  (:~(~a~) #x~x)" k v))
+                  (format out ")~%~%"))
+      #++(loop for (name . hash) in (sort (alexandria:hash-table-alist enums)
+                                          'string< :key 'car)
+               do (format out "(defcenum (~a :unsigned-int)"
+                          (mixedcaps->lcdash name))
+                  (loop for (k . v) in (sort (alexandria:hash-table-alist hash)
+                                             'string< :key 'car)
+                        do (format out "~%  (:~(~a~) #x~x)" k v))
+                  (format out ")~%~%"))))
 
-  (let ((files nil))
+  (let ((files nil)
+        (ext-index 0))
     (flet ((name (v)
              (format nil "funcs~{~^-~(~a~)~}.lisp"
                      (sort (delete-duplicates
@@ -639,12 +795,16 @@
                        for (ret . args) = (gethash func funcs)
                        for offset-params
                          = (cdr (assoc func *pointer-is-offset-functions*
-                                        :test 'string=))
-                       do (format out "(~a (~s ~(~a~)) ~a"
+                                       :test 'string=))
+                       do (format out "(~a (~s ~(~a~)~@[ ~a~]) ~a"
                                   definer
                                   func
                                   (or (gethash func name-map)
                                       (mixedcaps->lcdash func))
+                                  (when (eql definer *ext-definer*)
+                                    (prog1
+                                        ext-index
+                                      (incf ext-index)))
                                   (translate-type-name ret))
                           (loop for a in args
                                 for i from 0
@@ -659,15 +819,65 @@
                                              ;; fixme: translate enum
                                              ;; and bitfield names
                                              ;; consistently
-                                             ((gethash group bitfields) group)
+                                             ((and group
+                                                   (string-equal type "GLenum"))
+                                              ;; groups aren't
+                                              ;; complete enough, so
+                                              ;; just always use enum
+                                              #++ (mixedcaps->lcdash group)
+                                              "enum")
                                              ((gethash group enums)
                                               (mixedcaps->lcdash group))
+                                             ((and group
+                                                   (string-equal type "GLbitfield"))
+                                              group)
                                              ((gethash type bitfields) type)
                                              ((gethash type enums)
                                               (mixedcaps->lcdash type))
                                              (t
                                               (translate-type-name type offset-param)))))
-                          (format out ")~%~%"))))))
+                          (format out ")~%~%")))))
+
+    ;; write extension thunk vector
+    (let ((ext-funs (make-array 1000 :fill-pointer 0 :adjustable t)))
+      ;; rather than try to save the info needed to build these while
+      ;; writing the defglextfun forms, just read those back in
+      #++(loop for (filename) in files
+            for path = (merge-pathnames filename gl-dir)
+            do (with-open-file (in path :direction :input)
+                 (loop for form = (read in nil in)
+                       until (eql form in)
+                       when (typep form '(cons (eql defglextfun)))
+                         do (vector-push-extend form ext-funs))))
+
+      ;; make sure they are in the order we assigned while writing
+      ;; other files. (todo: decide if there is some better ordering?)
+      #++
+      (setf ext-funs (sort ext-funs '< :key (lambda (a)
+                                              (third (second a)))))
+      #++
+      (break "ext-funs~% ~s" ext-funs)
+
+      (with-open-file (out thunk-file :direction :output
+                                      :if-exists :supersede)
+        (format t "~&;; Writing ~A.~%" (namestring binding-package-file))
+        (format out ";;; generated file, do not edit~%")
+        (format out ";;; glext version ~a ( ~a )~%~%" *glext-version*
+                *glext-last-updated*)
+        (format out "~%(in-package #:cl-opengl-bindings)~%~%")
+        (format out "(declaim (type (simple-array function (~a)) *init-ext-thunks* *ext-thunks*))~%"
+                (1+ ext-index))
+        (format out ";; vector of thunks used to load extension functions, initialized by~%;; defglextfun while loading bindings.~%")
+        (format out "(defvar *init-ext-thunks* (make-array ~a
+                                      :element-type 'function
+                                      :initial-contents (loop for i below ~a
+                                                              collect (missing-thunk i))))~%"
+                (1+ ext-index) (1+ ext-index))
+        (format out ";; vector of thunks used to call extension functions, initialized to copy~%;; of *init-ext-thunks* and modified as functions are used.~%")
+        (format out "(defvar *ext-thunks* (copy-seq *init-ext-thunks*))~%")
+
+        ))
+    )
 
 
   ;; write package file
@@ -725,7 +935,8 @@
       (format t "checking for removed enums/bitfields:~%")
       (loop for k being the hash-keys of old-enums using (hash-value v)
             unless (gethash k new-enums)
-              do (format t "removed ~a ~s~%" (eb v) k))
+              do (format t "removed ~a ~s~%" (eb v) k)
+            #++(break "removed ~a ~s~%" (eb v) k))
       (format t "checking for new or modified enums/bitfields:~%")
       (loop for k1 being the hash-keys of new-enums using (hash-value new-form)
             for old-form = (gethash k1 old-enums nil)
@@ -748,10 +959,10 @@
                         for (old-value) = (gethash name h)
                         when (not old-value)
                           do  (format t "~a ~s: added ~s = #x~x~%"
-                                     (eb new-form) k name value)
+                                      (eb new-form) k name value)
                         else when (/= value old-value)
-                        do  (format t "~a ~s: ~s value changed from #x~x to #x~x~%"
-                                     (eb new-form) k name old-value value))))))
+                               do  (format t "~a ~s: ~s value changed from #x~x to #x~x~%"
+                                           (eb new-form) k name old-value value))))))
 
     (format t "checking for removed bindings:~%")
     (loop for k being the hash-keys of old-bindings
@@ -773,7 +984,7 @@
 
 
 
-)
+    )
 
   (force-output)
   nil)

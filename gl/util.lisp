@@ -218,3 +218,18 @@ producing a symbol in the current package."
                (if (numberp b) b (cffi:foreign-enum-value '%gl:enum b))
                `(if (numberp ,b) ,b (cffi:foreign-enum-value '%gl:enum ,b))))
       whole))
+
+(defmacro enum-case (value &body clauses)
+  (alexandria:once-only (value)
+    `(case (if (numberp ,value)
+               ,value
+               (cffi:foreign-enum-value '%gl:enum ,value))
+       ,@ (loop
+            for (k . body) in clauses
+            for ik = (delete-duplicates
+                      (loop
+                        for i in (alexandria:ensure-list k)
+                        collect (if (numberp k)
+                                    k
+                                    (cffi:foreign-enum-value '%gl:enum i))))
+            collect `(,ik ,@body)))))
