@@ -700,6 +700,7 @@
     (:uniform-buffer-offset-alignment :integer 1)
     (:max-combined-uniform-blocks :integer 1)
     (:max-varying-components :integer 1)
+    (:max-varying-floats :integer 1) ;; deprecated, use :max-varying-components
     (:max-varying-vectors :integer 1)
     (:max-combined-texture-image-units :integer 1)
     (:max-subroutines :integer 1)
