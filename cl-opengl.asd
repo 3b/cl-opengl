@@ -30,6 +30,10 @@
 (defsystem cl-opengl
   :description "Common Lisp bindings to OpenGL."
   :license "BSD"
+  :homepage "https://cl-opengl.common-lisp.dev/"
+  :source-control (:git "https://github.com/3b/cl-opengl.git")
+  :bug-tracker "https://github.com/3b/cl-opengl/issues"
+  :maintainer "Bart Botta <00003b at gmail.com>"
   :depends-on (cffi alexandria float-features)
   :components
   ((:module "gl"
