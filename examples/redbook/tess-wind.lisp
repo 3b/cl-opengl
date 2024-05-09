@@ -26,7 +26,7 @@
 (defmethod glut:display ((window tess-wind-window))
   (gl:clear :color-buffer)
   (gl:color 1 1 1)
-  (gl:with-pushed-matrix 
+  (gl:with-pushed-matrix
     (gl:call-list (wind-list window))
     (gl:translate 0 500 0)
     (gl:call-list (1+ (wind-list window)))
@@ -74,29 +74,29 @@
 
 (defun make-new-lists (window)
   (let ((tobj (make-instance 'winding-tessellator))
-	(rects '((50 50 0) (300 50 0) 
+	(rects '((50 50 0) (300 50 0)
 		 (300 300 0) (50 300 0)
-		 (100 100 0) (250 100 0) 
+		 (100 100 0) (250 100 0)
 		 (250 250 0) (100 250 0)
-		 (150 150 0) (200 150 0) 
+		 (150 150 0) (200 150 0)
 		 (200 200 0) (150 200 0)))
 	(spiral '((400 250 0) (400 50 0)
-		  (50 50 0) (50 400 0) 
-		  (350 400 0) (350 100 0) 
-		  (100 100 0) (100 350 0) 
-		  (300 350 0) (300 150 0) 
-		  (150 150 0) (150 300 0) 
-		  (250 300 0) (250 200 0) 
+		  (50 50 0) (50 400 0)
+		  (350 400 0) (350 100 0)
+		  (100 100 0) (100 350 0)
+		  (300 350 0) (300 150 0)
+		  (150 150 0) (150 300 0)
+		  (250 300 0) (250 200 0)
 		  (200 200 0) (200 250 0)))
-	(quad1 '((50 150 0) (350 150 0) 
+	(quad1 '((50 150 0) (350 150 0)
 		 (350 200 0) (50 200 0)))
 	(quad2 '((100 100 0) (300 100 0)
 		 (300 350 0) (100 350 0)))
 	(tri '((200 50 0) (250 300 0)
 	       (150 300 0))))
- 
+
     (glu:tess-property tobj :winding-rule (current-winding window))
-    
+
     (gl:with-new-list ((wind-list window) :compile)
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
@@ -108,7 +108,7 @@
         (glu:with-tess-contour tobj
           (loop for i from 8 below 12
              do (glu:tess-vertex tobj (nth i rects)(nth i rects))))))
-      
+
     (gl:with-new-list ((1+ (wind-list window)) :compile)
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
@@ -120,13 +120,13 @@
         (glu:with-tess-contour tobj
           (loop for i from 11 downto 8
              do (glu:tess-vertex tobj (nth i rects)(nth i rects))))))
-    
+
     (gl:with-new-list ((+ 2 (wind-list window)) :compile)
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj
           (loop for coords in spiral
              do (glu:tess-vertex tobj coords coords)))))
-    
+
     (gl:with-new-list ((+ 3 (wind-list window)) :compile)
       (glu:with-tess-polygon (tobj)
         (glu:with-tess-contour tobj

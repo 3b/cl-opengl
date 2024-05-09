@@ -295,7 +295,7 @@
   (tess tess-pointer)
   (coords :pointer) ; GLdouble coords[3]
   (vertex-data :pointer))
-                        
+
 (defcfun ("gluTessEndContour" glu-tess-end-contour) :void
   (tess tess-pointer))
 
@@ -341,12 +341,12 @@
 
 (defun glu-tess-property (tess which value)
   (let ((cffi-value
-         (ecase which 
+         (ecase which
            (:winding-rule (cffi:foreign-enum-value 'tess-winding-rule value))
            (:boundary-only (translate-glu-boolean value))
            (:tolerance value))))
     (%glu-tess-property tess which cffi-value)))
-                           
+
 
 ;;;; 5.7 Backwards Compatibility
 
@@ -378,7 +378,7 @@
   (quadric-object quadric-obj)
   (texture-coords glu-boolean))
 
-(defcenum glu-orientation 
+(defcenum glu-orientation
   (:outside #x186B4)
   (:inside #x186B5))
 
@@ -398,7 +398,7 @@
 (defcenum draw-styles
   (:point #x186AA)
   :line
-  :fill 
+  :fill
   :silhouette)
 
 (defcfun ("gluQuadricDrawStyle" quadric-draw-style) :void
