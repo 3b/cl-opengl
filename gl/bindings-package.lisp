@@ -16,6 +16,7 @@
    #:ClearBufferMask
    #:ClientAttribMask
    #:BufferAccessMask
+   #:with-float-traps-masked
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb
