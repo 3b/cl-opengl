@@ -455,4 +455,9 @@
    #:create-renderbuffers
    #:create-renderbuffer
    #:delete-renderbuffer
-   #:bind-image-textures))
+   #:bind-image-textures
+   ;; extra constants
+   #:+all-pixels-amd+
+   #:+invalid-index+
+   #:+timeout-ignored+
+   #:+timeout-ignored-apple+))

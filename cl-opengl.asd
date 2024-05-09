@@ -62,6 +62,7 @@
      (:file "funcs-gles2")
      ;; Lispifications.
      (:file "package")
+     (:file "special-constants")
      (:file "util")
      (:file "opengl")
      (:file "rasterization")
