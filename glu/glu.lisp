@@ -38,6 +38,26 @@
   (:version 100800)
   :extensions)
 
+;; %gl:boolean turned into a cffi (:boolean :unsigned-char) at some
+;; point, so define a type here to preserve old behavior of accepting
+;; :TRUE AND :false, and make it work with T/NIL as well
+(define-foreign-type glu-boolean ()
+  ()
+  (:actual-type :unsigned-int))
+
+(define-parse-method glu-boolean ()
+  (make-instance 'glu-boolean))
+
+(defun translate-glu-boolean (object)
+  (ecase object
+    ;; make old code work
+    (:true 1) (:false 0)
+    ;; allow CL BOOLEAN
+    (t 1) ((nil) 0)))
+
+(defmethod translate-to-foreign (object (type glu-boolean))
+  (translate-glu-boolean object))
+
 ;;; Some GLU functions return an integer error code indicating success
 ;;; or failure.  When the error code is zero, we can use glGetError to
 ;;; obtain the actual error that occurred.  This type adds a
@@ -323,7 +343,7 @@
   (let ((cffi-value
          (ecase which 
            (:winding-rule (cffi:foreign-enum-value 'tess-winding-rule value))
-           (:boundary-only (cffi:foreign-enum-value '%gl:boolean value))
+           (:boundary-only (translate-glu-boolean value))
            (:tolerance value))))
     (%glu-tess-property tess which cffi-value)))
                            
@@ -356,7 +376,7 @@
 
 (defcfun ("gluQuadricTexture" quadric-texture) :void
   (quadric-object quadric-obj)
-  (texture-coords %gl:boolean))
+  (texture-coords glu-boolean))
 
 (defcenum glu-orientation 
   (:outside #x186B4)
