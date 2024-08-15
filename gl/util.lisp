@@ -229,7 +229,7 @@ producing a symbol in the current package."
             for ik = (delete-duplicates
                       (loop
                         for i in (alexandria:ensure-list k)
-                        collect (if (numberp k)
+                        collect (if (or (numberp k) (member k '(t otherwise)))
                                     k
                                     (cffi:foreign-enum-value '%gl:enum i))))
             collect `(,ik ,@body)))))
