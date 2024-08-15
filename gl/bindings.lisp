@@ -545,7 +545,7 @@ not be used in those contexts."
         `(progn
            (declaim (notinline ,lisp-name))
            (defun ,lisp-name ,args-list
-             (generate-gl-function ,foreign-name  ',lisp-name ',result-type
-                                   ',body ,@args-list))
+             (generate-gl-function/old ,foreign-name  ',lisp-name ',result-type
+                                       ',body ,@args-list))
            (setf (get ',lisp-name 'proc-address-dummy) #',lisp-name)
            ',lisp-name))))
