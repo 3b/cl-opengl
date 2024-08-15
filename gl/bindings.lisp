@@ -148,6 +148,9 @@ not be used in those contexts."
 
 ;;; Helper macro to define a GL API function and declare it inline.
 (defmacro defglfun ((cname lname) result-type &body args)
+  #+nx
+  `(defglextfun (,cname ,lname) ,result-type ,@args)
+  #-nx
   `(progn
      (declaim (inline ,lname))
      ;; optionally generate a compiler macro to translate enums,
