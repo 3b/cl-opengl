@@ -371,6 +371,7 @@
     (:stencil-clear-value :integer 1)
     (:accum-clear-value :float 4)
     ;; 6.32
+    (:framebuffer-binding :integer 1) ;; same as :draw-framebuffer-binding
     (:draw-framebuffer-binding :integer 1)
     (:read-framebuffer-binding :integer 1)
     ;; 6.33
