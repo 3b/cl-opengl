@@ -34,9 +34,10 @@
 (require :asdf)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (asdf:load-systems 'alexandria 'cl-ppcre 'split-sequence
-                     'cxml 'xpath 'cxml-stp
-                     'cl-json))
+  (let ((asdf:*compile-file-warnings-behaviour* :ignore))
+   (asdf:load-systems 'alexandria 'cl-ppcre 'split-sequence
+                      'cxml 'xpath 'cxml-stp
+                      'cl-json)))
 
 (defvar *base-dir* (make-pathname :directory (pathname-directory
                                               (or *compile-file-pathname*
@@ -801,7 +802,7 @@
                                   func
                                   (or (gethash func name-map)
                                       (mixedcaps->lcdash func))
-                                  (when (eql definer *ext-definer*)
+                                  (progn ;when (eql definer *ext-definer*)
                                     (prog1
                                         ext-index
                                       (incf ext-index)))
@@ -839,7 +840,7 @@
                           (format out ")~%~%")))))
 
     ;; write extension thunk vector
-    (let ((ext-funs (make-array 1000 :fill-pointer 0 :adjustable t)))
+    (let (#++(ext-funs (make-array 1000 :fill-pointer 0 :adjustable t)))
       ;; rather than try to save the info needed to build these while
       ;; writing the defglextfun forms, just read those back in
       #++(loop for (filename) in files
@@ -899,6 +900,7 @@
     (format out "   #:*gl-get-proc-address*~%")
     (format out "   #:opengl-error~%")
     (format out "   #:check-error~%")
+    (format out "   #:with-float-traps-masked~%")
     ;; enums/bitfields
     (format out "   #:enum~%")
     (loop for i in (if *export-types-by-hand*
@@ -974,7 +976,9 @@
           for (old-file old-form) = (gethash k old-bindings nil)
           do (cond
                ((not old-file)
-                (format t "+~a ~{~s -> ~s~}~%" new-file (second new-form)))
+                (format t "+~a ~s -> ~s~%" new-file
+                        (first (second new-form))
+                        (second (second new-form))))
                ((not (equal new-file old-file))
                 (format t "binding ~s moves from ~s to ~s~%"
                         k old-file new-file))

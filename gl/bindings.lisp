@@ -147,9 +147,10 @@ not be used in those contexts."
                       ,result-type)))
 
 ;;; Helper macro to define a GL API function and declare it inline.
-(defmacro defglfun ((cname lname) result-type &body args)
+(defmacro defglfun ((cname lname &optional index) result-type &body args)
+  (declare (ignorable index))
   #+nx
-  `(defglextfun (,cname ,lname) ,result-type ,@args)
+  `(defglextfun (,cname ,lname ,index) ,result-type ,@args)
   #-nx
   `(progn
      (declaim (inline ,lname))
