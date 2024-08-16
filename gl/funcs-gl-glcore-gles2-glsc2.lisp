@@ -6,98 +6,98 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T22:38:41Z
-;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
+;;; generated 2024-08-16T20:46:56Z
+;;; from gl.xml @ git sha 4f845dc97972c72cad684cc22c7bf96e6d5319a6, 2024-08-15T14:04:09Z
 
-(defglextfun ("glBlendColor" blend-color 1353) :void
+(defglextfun ("glBlendColor" blend-color 1354) :void
   (red float)
   (green float)
   (blue float)
   (alpha float))
 
-(defglextfun ("glBlendEquation" blend-equation 1354) :void
+(defglextfun ("glBlendEquation" blend-equation 1355) :void
   (mode enum))
 
-(defglextfun ("glBindRenderbuffer" bind-renderbuffer 1355) :void
+(defglextfun ("glBindRenderbuffer" bind-renderbuffer 1356) :void
   (target enum)
   (renderbuffer uint))
 
-(defglextfun ("glGenRenderbuffers" gen-renderbuffers 1356) :void
+(defglextfun ("glGenRenderbuffers" gen-renderbuffers 1357) :void
   (n sizei)
   (renderbuffers (:pointer uint)))
 
-(defglextfun ("glRenderbufferStorage" renderbuffer-storage 1357) :void
+(defglextfun ("glRenderbufferStorage" renderbuffer-storage 1358) :void
   (target enum)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glGetRenderbufferParameteriv" get-renderbuffer-parameter-iv 1358) :void
+(defglextfun ("glGetRenderbufferParameteriv" get-renderbuffer-parameter-iv 1359) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glBindFramebuffer" bind-framebuffer 1359) :void
+(defglextfun ("glBindFramebuffer" bind-framebuffer 1360) :void
   (target enum)
   (framebuffer uint))
 
-(defglextfun ("glGenFramebuffers" gen-framebuffers 1360) :void
+(defglextfun ("glGenFramebuffers" gen-framebuffers 1361) :void
   (n sizei)
   (framebuffers (:pointer uint)))
 
-(defglextfun ("glCheckFramebufferStatus" check-framebuffer-status 1361) enum
+(defglextfun ("glCheckFramebufferStatus" check-framebuffer-status 1362) enum
   (target enum))
 
-(defglextfun ("glFramebufferTexture2D" framebuffer-texture-2d 1362) :void
+(defglextfun ("glFramebufferTexture2D" framebuffer-texture-2d 1363) :void
   (target enum)
   (attachment enum)
   (textarget enum)
   (texture uint)
   (level int))
 
-(defglextfun ("glFramebufferRenderbuffer" framebuffer-renderbuffer 1363) :void
+(defglextfun ("glFramebufferRenderbuffer" framebuffer-renderbuffer 1364) :void
   (target enum)
   (attachment enum)
   (renderbuffertarget enum)
   (renderbuffer uint))
 
-(defglextfun ("glGetFramebufferAttachmentParameteriv" get-framebuffer-attachment-parameter-iv 1364) :void
+(defglextfun ("glGetFramebufferAttachmentParameteriv" get-framebuffer-attachment-parameter-iv 1365) :void
   (target enum)
   (attachment enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGenerateMipmap" generate-mipmap 1365) :void
+(defglextfun ("glGenerateMipmap" generate-mipmap 1366) :void
   (target enum))
 
-(defglextfun ("glProgramBinary" program-binary 1366) :void
+(defglextfun ("glProgramBinary" program-binary 1367) :void
   (program uint)
   (binaryFormat enum)
   (binary (:pointer :void))
   (length sizei))
 
-(defglextfun ("glTexStorage2D" tex-storage-2d 1367) :void
+(defglextfun ("glTexStorage2D" tex-storage-2d 1368) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glGetGraphicsResetStatus" get-graphics-reset-status 1368) enum)
+(defglextfun ("glGetGraphicsResetStatus" get-graphics-reset-status 1369) enum)
 
-(defglextfun ("glGetnUniformfv" getn-uniform-fv 1369) :void
+(defglextfun ("glGetnUniformfv" getn-uniform-fv 1370) :void
   (program uint)
   (location int)
   (bufSize sizei)
   (params (:pointer float)))
 
-(defglextfun ("glGetnUniformiv" getn-uniform-iv 1370) :void
+(defglextfun ("glGetnUniformiv" getn-uniform-iv 1371) :void
   (program uint)
   (location int)
   (bufSize sizei)
   (params (:pointer int)))
 
-(defglextfun ("glReadnPixels" readn-pixels 1371) :void
+(defglextfun ("glReadnPixels" readn-pixels 1372) :void
   (x int)
   (y int)
   (width sizei)

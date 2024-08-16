@@ -6,14 +6,14 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T22:38:41Z
-;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
+;;; generated 2024-08-16T20:46:56Z
+;;; from gl.xml @ git sha 4f845dc97972c72cad684cc22c7bf96e6d5319a6, 2024-08-15T14:04:09Z
 
-(defglfun ("glPolygonMode" polygon-mode) :void
+(defglfun ("glPolygonMode" polygon-mode 1611) :void
   (face enum)
   (mode enum))
 
-(defglfun ("glTexImage1D" tex-image-1d) :void
+(defglfun ("glTexImage1D" tex-image-1d 1612) :void
   (target enum)
   (level int)
   (internalformat int)
@@ -23,59 +23,59 @@
   (type enum)
   (pixels offset-or-pointer))
 
-(defglfun ("glDrawBuffer" draw-buffer) :void
+(defglfun ("glDrawBuffer" draw-buffer 1613) :void
   (buf enum))
 
-(defglfun ("glClearDepth" clear-depth) :void
+(defglfun ("glClearDepth" clear-depth 1614) :void
   (depth double))
 
-(defglfun ("glPixelStoref" pixel-store-f) :void
+(defglfun ("glPixelStoref" pixel-store-f 1615) :void
   (pname enum)
   (param float))
 
-(defglfun ("glGetDoublev" get-double-v) :void
+(defglfun ("glGetDoublev" get-double-v 1616) :void
   (pname enum)
   (data (:pointer double)))
 
-(defglfun ("glGetTexImage" get-tex-image) :void
+(defglfun ("glGetTexImage" get-tex-image 1617) :void
   (target enum)
   (level int)
   (format enum)
   (type enum)
   (pixels offset-or-pointer))
 
-(defglfun ("glDepthRange" depth-range) :void
+(defglfun ("glDepthRange" depth-range 1618) :void
   (n double)
   (f double))
 
-(defglfun ("glNewList" new-list) :void
+(defglfun ("glNewList" new-list 1619) :void
   (list uint)
   (mode enum))
 
-(defglfun ("glEndList" end-list) :void)
+(defglfun ("glEndList" end-list 1620) :void)
 
-(defglfun ("glCallList" call-list) :void
+(defglfun ("glCallList" call-list 1621) :void
   (list uint))
 
-(defglfun ("glCallLists" call-lists) :void
+(defglfun ("glCallLists" call-lists 1622) :void
   (n sizei)
   (type enum)
   (lists (:pointer :void)))
 
-(defglfun ("glDeleteLists" delete-lists) :void
+(defglfun ("glDeleteLists" delete-lists 1623) :void
   (list uint)
   (range sizei))
 
-(defglfun ("glGenLists" gen-lists) uint
+(defglfun ("glGenLists" gen-lists 1624) uint
   (range sizei))
 
-(defglfun ("glListBase" list-base) :void
+(defglfun ("glListBase" list-base 1625) :void
   (base uint))
 
-(defglfun ("glBegin" begin) :void
+(defglfun ("glBegin" begin 1626) :void
   (mode enum))
 
-(defglfun ("glBitmap" bitmap) :void
+(defglfun ("glBitmap" bitmap 1627) :void
   (width sizei)
   (height sizei)
   (xorig float)
@@ -84,677 +84,677 @@
   (ymove float)
   (bitmap offset-or-pointer))
 
-(defglfun ("glColor3b" color-3b) :void
+(defglfun ("glColor3b" color-3b 1628) :void
   (red byte)
   (green byte)
   (blue byte))
 
-(defglfun ("glColor3bv" color-3bv) :void
+(defglfun ("glColor3bv" color-3bv 1629) :void
   (v (:pointer byte)))
 
-(defglfun ("glColor3d" color-3d) :void
+(defglfun ("glColor3d" color-3d 1630) :void
   (red double)
   (green double)
   (blue double))
 
-(defglfun ("glColor3dv" color-3dv) :void
+(defglfun ("glColor3dv" color-3dv 1631) :void
   (v (:pointer double)))
 
-(defglfun ("glColor3f" color-3f) :void
+(defglfun ("glColor3f" color-3f 1632) :void
   (red float)
   (green float)
   (blue float))
 
-(defglfun ("glColor3fv" color-3fv) :void
+(defglfun ("glColor3fv" color-3fv 1633) :void
   (v (:pointer float)))
 
-(defglfun ("glColor3i" color-3i) :void
+(defglfun ("glColor3i" color-3i 1634) :void
   (red int)
   (green int)
   (blue int))
 
-(defglfun ("glColor3iv" color-3iv) :void
+(defglfun ("glColor3iv" color-3iv 1635) :void
   (v (:pointer int)))
 
-(defglfun ("glColor3s" color-3s) :void
+(defglfun ("glColor3s" color-3s 1636) :void
   (red short)
   (green short)
   (blue short))
 
-(defglfun ("glColor3sv" color-3sv) :void
+(defglfun ("glColor3sv" color-3sv 1637) :void
   (v (:pointer short)))
 
-(defglfun ("glColor3ub" color-3ub) :void
+(defglfun ("glColor3ub" color-3ub 1638) :void
   (red ubyte)
   (green ubyte)
   (blue ubyte))
 
-(defglfun ("glColor3ubv" color-3ubv) :void
+(defglfun ("glColor3ubv" color-3ubv 1639) :void
   (v (:pointer ubyte)))
 
-(defglfun ("glColor3ui" color-3ui) :void
+(defglfun ("glColor3ui" color-3ui 1640) :void
   (red uint)
   (green uint)
   (blue uint))
 
-(defglfun ("glColor3uiv" color-3uiv) :void
+(defglfun ("glColor3uiv" color-3uiv 1641) :void
   (v (:pointer uint)))
 
-(defglfun ("glColor3us" color-3us) :void
+(defglfun ("glColor3us" color-3us 1642) :void
   (red ushort)
   (green ushort)
   (blue ushort))
 
-(defglfun ("glColor3usv" color-3usv) :void
+(defglfun ("glColor3usv" color-3usv 1643) :void
   (v (:pointer ushort)))
 
-(defglfun ("glColor4b" color-4b) :void
+(defglfun ("glColor4b" color-4b 1644) :void
   (red byte)
   (green byte)
   (blue byte)
   (alpha byte))
 
-(defglfun ("glColor4bv" color-4bv) :void
+(defglfun ("glColor4bv" color-4bv 1645) :void
   (v (:pointer byte)))
 
-(defglfun ("glColor4d" color-4d) :void
+(defglfun ("glColor4d" color-4d 1646) :void
   (red double)
   (green double)
   (blue double)
   (alpha double))
 
-(defglfun ("glColor4dv" color-4dv) :void
+(defglfun ("glColor4dv" color-4dv 1647) :void
   (v (:pointer double)))
 
-(defglfun ("glColor4fv" color-4fv) :void
+(defglfun ("glColor4fv" color-4fv 1648) :void
   (v (:pointer float)))
 
-(defglfun ("glColor4i" color-4i) :void
+(defglfun ("glColor4i" color-4i 1649) :void
   (red int)
   (green int)
   (blue int)
   (alpha int))
 
-(defglfun ("glColor4iv" color-4iv) :void
+(defglfun ("glColor4iv" color-4iv 1650) :void
   (v (:pointer int)))
 
-(defglfun ("glColor4s" color-4s) :void
+(defglfun ("glColor4s" color-4s 1651) :void
   (red short)
   (green short)
   (blue short)
   (alpha short))
 
-(defglfun ("glColor4sv" color-4sv) :void
+(defglfun ("glColor4sv" color-4sv 1652) :void
   (v (:pointer short)))
 
-(defglfun ("glColor4ubv" color-4ubv) :void
+(defglfun ("glColor4ubv" color-4ubv 1653) :void
   (v (:pointer ubyte)))
 
-(defglfun ("glColor4ui" color-4ui) :void
+(defglfun ("glColor4ui" color-4ui 1654) :void
   (red uint)
   (green uint)
   (blue uint)
   (alpha uint))
 
-(defglfun ("glColor4uiv" color-4uiv) :void
+(defglfun ("glColor4uiv" color-4uiv 1655) :void
   (v (:pointer uint)))
 
-(defglfun ("glColor4us" color-4us) :void
+(defglfun ("glColor4us" color-4us 1656) :void
   (red ushort)
   (green ushort)
   (blue ushort)
   (alpha ushort))
 
-(defglfun ("glColor4usv" color-4usv) :void
+(defglfun ("glColor4usv" color-4usv 1657) :void
   (v (:pointer ushort)))
 
-(defglfun ("glEdgeFlag" edge-flag) :void
+(defglfun ("glEdgeFlag" edge-flag 1658) :void
   (flag boolean))
 
-(defglfun ("glEdgeFlagv" edge-flag-v) :void
+(defglfun ("glEdgeFlagv" edge-flag-v 1659) :void
   (flag (:pointer boolean)))
 
-(defglfun ("glEnd" end) :void)
+(defglfun ("glEnd" end 1660) :void)
 
-(defglfun ("glIndexd" index-d) :void
+(defglfun ("glIndexd" index-d 1661) :void
   (c double))
 
-(defglfun ("glIndexdv" index-dv) :void
+(defglfun ("glIndexdv" index-dv 1662) :void
   (c (:pointer double)))
 
-(defglfun ("glIndexf" index-f) :void
+(defglfun ("glIndexf" index-f 1663) :void
   (c float))
 
-(defglfun ("glIndexfv" index-fv) :void
+(defglfun ("glIndexfv" index-fv 1664) :void
   (c (:pointer float)))
 
-(defglfun ("glIndexi" index-i) :void
+(defglfun ("glIndexi" index-i 1665) :void
   (c int))
 
-(defglfun ("glIndexiv" index-iv) :void
+(defglfun ("glIndexiv" index-iv 1666) :void
   (c (:pointer int)))
 
-(defglfun ("glIndexs" index-s) :void
+(defglfun ("glIndexs" index-s 1667) :void
   (c short))
 
-(defglfun ("glIndexsv" index-sv) :void
+(defglfun ("glIndexsv" index-sv 1668) :void
   (c (:pointer short)))
 
-(defglfun ("glNormal3b" normal-3b) :void
+(defglfun ("glNormal3b" normal-3b 1669) :void
   (nx byte)
   (ny byte)
   (nz byte))
 
-(defglfun ("glNormal3bv" normal-3bv) :void
+(defglfun ("glNormal3bv" normal-3bv 1670) :void
   (v (:pointer byte)))
 
-(defglfun ("glNormal3d" normal-3d) :void
+(defglfun ("glNormal3d" normal-3d 1671) :void
   (nx double)
   (ny double)
   (nz double))
 
-(defglfun ("glNormal3dv" normal-3dv) :void
+(defglfun ("glNormal3dv" normal-3dv 1672) :void
   (v (:pointer double)))
 
-(defglfun ("glNormal3fv" normal-3fv) :void
+(defglfun ("glNormal3fv" normal-3fv 1673) :void
   (v (:pointer float)))
 
-(defglfun ("glNormal3i" normal-3i) :void
+(defglfun ("glNormal3i" normal-3i 1674) :void
   (nx int)
   (ny int)
   (nz int))
 
-(defglfun ("glNormal3iv" normal-3iv) :void
+(defglfun ("glNormal3iv" normal-3iv 1675) :void
   (v (:pointer int)))
 
-(defglfun ("glNormal3s" normal-3s) :void
+(defglfun ("glNormal3s" normal-3s 1676) :void
   (nx short)
   (ny short)
   (nz short))
 
-(defglfun ("glNormal3sv" normal-3sv) :void
+(defglfun ("glNormal3sv" normal-3sv 1677) :void
   (v (:pointer short)))
 
-(defglfun ("glRasterPos2d" raster-pos-2d) :void
+(defglfun ("glRasterPos2d" raster-pos-2d 1678) :void
   (x double)
   (y double))
 
-(defglfun ("glRasterPos2dv" raster-pos-2dv) :void
+(defglfun ("glRasterPos2dv" raster-pos-2dv 1679) :void
   (v (:pointer double)))
 
-(defglfun ("glRasterPos2f" raster-pos-2f) :void
+(defglfun ("glRasterPos2f" raster-pos-2f 1680) :void
   (x float)
   (y float))
 
-(defglfun ("glRasterPos2fv" raster-pos-2fv) :void
+(defglfun ("glRasterPos2fv" raster-pos-2fv 1681) :void
   (v (:pointer float)))
 
-(defglfun ("glRasterPos2i" raster-pos-2i) :void
+(defglfun ("glRasterPos2i" raster-pos-2i 1682) :void
   (x int)
   (y int))
 
-(defglfun ("glRasterPos2iv" raster-pos-2iv) :void
+(defglfun ("glRasterPos2iv" raster-pos-2iv 1683) :void
   (v (:pointer int)))
 
-(defglfun ("glRasterPos2s" raster-pos-2s) :void
+(defglfun ("glRasterPos2s" raster-pos-2s 1684) :void
   (x short)
   (y short))
 
-(defglfun ("glRasterPos2sv" raster-pos-2sv) :void
+(defglfun ("glRasterPos2sv" raster-pos-2sv 1685) :void
   (v (:pointer short)))
 
-(defglfun ("glRasterPos3d" raster-pos-3d) :void
+(defglfun ("glRasterPos3d" raster-pos-3d 1686) :void
   (x double)
   (y double)
   (z double))
 
-(defglfun ("glRasterPos3dv" raster-pos-3dv) :void
+(defglfun ("glRasterPos3dv" raster-pos-3dv 1687) :void
   (v (:pointer double)))
 
-(defglfun ("glRasterPos3f" raster-pos-3f) :void
+(defglfun ("glRasterPos3f" raster-pos-3f 1688) :void
   (x float)
   (y float)
   (z float))
 
-(defglfun ("glRasterPos3fv" raster-pos-3fv) :void
+(defglfun ("glRasterPos3fv" raster-pos-3fv 1689) :void
   (v (:pointer float)))
 
-(defglfun ("glRasterPos3i" raster-pos-3i) :void
+(defglfun ("glRasterPos3i" raster-pos-3i 1690) :void
   (x int)
   (y int)
   (z int))
 
-(defglfun ("glRasterPos3iv" raster-pos-3iv) :void
+(defglfun ("glRasterPos3iv" raster-pos-3iv 1691) :void
   (v (:pointer int)))
 
-(defglfun ("glRasterPos3s" raster-pos-3s) :void
+(defglfun ("glRasterPos3s" raster-pos-3s 1692) :void
   (x short)
   (y short)
   (z short))
 
-(defglfun ("glRasterPos3sv" raster-pos-3sv) :void
+(defglfun ("glRasterPos3sv" raster-pos-3sv 1693) :void
   (v (:pointer short)))
 
-(defglfun ("glRasterPos4d" raster-pos-4d) :void
+(defglfun ("glRasterPos4d" raster-pos-4d 1694) :void
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglfun ("glRasterPos4dv" raster-pos-4dv) :void
+(defglfun ("glRasterPos4dv" raster-pos-4dv 1695) :void
   (v (:pointer double)))
 
-(defglfun ("glRasterPos4f" raster-pos-4f) :void
+(defglfun ("glRasterPos4f" raster-pos-4f 1696) :void
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglfun ("glRasterPos4fv" raster-pos-4fv) :void
+(defglfun ("glRasterPos4fv" raster-pos-4fv 1697) :void
   (v (:pointer float)))
 
-(defglfun ("glRasterPos4i" raster-pos-4i) :void
+(defglfun ("glRasterPos4i" raster-pos-4i 1698) :void
   (x int)
   (y int)
   (z int)
   (w int))
 
-(defglfun ("glRasterPos4iv" raster-pos-4iv) :void
+(defglfun ("glRasterPos4iv" raster-pos-4iv 1699) :void
   (v (:pointer int)))
 
-(defglfun ("glRasterPos4s" raster-pos-4s) :void
+(defglfun ("glRasterPos4s" raster-pos-4s 1700) :void
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglfun ("glRasterPos4sv" raster-pos-4sv) :void
+(defglfun ("glRasterPos4sv" raster-pos-4sv 1701) :void
   (v (:pointer short)))
 
-(defglfun ("glRectd" rect-d) :void
+(defglfun ("glRectd" rect-d 1702) :void
   (x1 double)
   (y1 double)
   (x2 double)
   (y2 double))
 
-(defglfun ("glRectdv" rect-dv) :void
+(defglfun ("glRectdv" rect-dv 1703) :void
   (v1 (:pointer double))
   (v2 (:pointer double)))
 
-(defglfun ("glRectf" rect-f) :void
+(defglfun ("glRectf" rect-f 1704) :void
   (x1 float)
   (y1 float)
   (x2 float)
   (y2 float))
 
-(defglfun ("glRectfv" rect-fv) :void
+(defglfun ("glRectfv" rect-fv 1705) :void
   (v1 (:pointer float))
   (v2 (:pointer float)))
 
-(defglfun ("glRecti" rect-i) :void
+(defglfun ("glRecti" rect-i 1706) :void
   (x1 int)
   (y1 int)
   (x2 int)
   (y2 int))
 
-(defglfun ("glRectiv" rect-iv) :void
+(defglfun ("glRectiv" rect-iv 1707) :void
   (v1 (:pointer int))
   (v2 (:pointer int)))
 
-(defglfun ("glRects" rect-s) :void
+(defglfun ("glRects" rect-s 1708) :void
   (x1 short)
   (y1 short)
   (x2 short)
   (y2 short))
 
-(defglfun ("glRectsv" rect-sv) :void
+(defglfun ("glRectsv" rect-sv 1709) :void
   (v1 (:pointer short))
   (v2 (:pointer short)))
 
-(defglfun ("glTexCoord1d" tex-coord-1d) :void
+(defglfun ("glTexCoord1d" tex-coord-1d 1710) :void
   (s double))
 
-(defglfun ("glTexCoord1dv" tex-coord-1dv) :void
+(defglfun ("glTexCoord1dv" tex-coord-1dv 1711) :void
   (v (:pointer double)))
 
-(defglfun ("glTexCoord1f" tex-coord-1f) :void
+(defglfun ("glTexCoord1f" tex-coord-1f 1712) :void
   (s float))
 
-(defglfun ("glTexCoord1fv" tex-coord-1fv) :void
+(defglfun ("glTexCoord1fv" tex-coord-1fv 1713) :void
   (v (:pointer float)))
 
-(defglfun ("glTexCoord1i" tex-coord-1i) :void
+(defglfun ("glTexCoord1i" tex-coord-1i 1714) :void
   (s int))
 
-(defglfun ("glTexCoord1iv" tex-coord-1iv) :void
+(defglfun ("glTexCoord1iv" tex-coord-1iv 1715) :void
   (v (:pointer int)))
 
-(defglfun ("glTexCoord1s" tex-coord-1s) :void
+(defglfun ("glTexCoord1s" tex-coord-1s 1716) :void
   (s short))
 
-(defglfun ("glTexCoord1sv" tex-coord-1sv) :void
+(defglfun ("glTexCoord1sv" tex-coord-1sv 1717) :void
   (v (:pointer short)))
 
-(defglfun ("glTexCoord2d" tex-coord-2d) :void
+(defglfun ("glTexCoord2d" tex-coord-2d 1718) :void
   (s double)
   (tee double))
 
-(defglfun ("glTexCoord2dv" tex-coord-2dv) :void
+(defglfun ("glTexCoord2dv" tex-coord-2dv 1719) :void
   (v (:pointer double)))
 
-(defglfun ("glTexCoord2f" tex-coord-2f) :void
+(defglfun ("glTexCoord2f" tex-coord-2f 1720) :void
   (s float)
   (tee float))
 
-(defglfun ("glTexCoord2fv" tex-coord-2fv) :void
+(defglfun ("glTexCoord2fv" tex-coord-2fv 1721) :void
   (v (:pointer float)))
 
-(defglfun ("glTexCoord2i" tex-coord-2i) :void
+(defglfun ("glTexCoord2i" tex-coord-2i 1722) :void
   (s int)
   (tee int))
 
-(defglfun ("glTexCoord2iv" tex-coord-2iv) :void
+(defglfun ("glTexCoord2iv" tex-coord-2iv 1723) :void
   (v (:pointer int)))
 
-(defglfun ("glTexCoord2s" tex-coord-2s) :void
+(defglfun ("glTexCoord2s" tex-coord-2s 1724) :void
   (s short)
   (tee short))
 
-(defglfun ("glTexCoord2sv" tex-coord-2sv) :void
+(defglfun ("glTexCoord2sv" tex-coord-2sv 1725) :void
   (v (:pointer short)))
 
-(defglfun ("glTexCoord3d" tex-coord-3d) :void
+(defglfun ("glTexCoord3d" tex-coord-3d 1726) :void
   (s double)
   (tee double)
   (r double))
 
-(defglfun ("glTexCoord3dv" tex-coord-3dv) :void
+(defglfun ("glTexCoord3dv" tex-coord-3dv 1727) :void
   (v (:pointer double)))
 
-(defglfun ("glTexCoord3f" tex-coord-3f) :void
+(defglfun ("glTexCoord3f" tex-coord-3f 1728) :void
   (s float)
   (tee float)
   (r float))
 
-(defglfun ("glTexCoord3fv" tex-coord-3fv) :void
+(defglfun ("glTexCoord3fv" tex-coord-3fv 1729) :void
   (v (:pointer float)))
 
-(defglfun ("glTexCoord3i" tex-coord-3i) :void
+(defglfun ("glTexCoord3i" tex-coord-3i 1730) :void
   (s int)
   (tee int)
   (r int))
 
-(defglfun ("glTexCoord3iv" tex-coord-3iv) :void
+(defglfun ("glTexCoord3iv" tex-coord-3iv 1731) :void
   (v (:pointer int)))
 
-(defglfun ("glTexCoord3s" tex-coord-3s) :void
+(defglfun ("glTexCoord3s" tex-coord-3s 1732) :void
   (s short)
   (tee short)
   (r short))
 
-(defglfun ("glTexCoord3sv" tex-coord-3sv) :void
+(defglfun ("glTexCoord3sv" tex-coord-3sv 1733) :void
   (v (:pointer short)))
 
-(defglfun ("glTexCoord4d" tex-coord-4d) :void
+(defglfun ("glTexCoord4d" tex-coord-4d 1734) :void
   (s double)
   (tee double)
   (r double)
   (q double))
 
-(defglfun ("glTexCoord4dv" tex-coord-4dv) :void
+(defglfun ("glTexCoord4dv" tex-coord-4dv 1735) :void
   (v (:pointer double)))
 
-(defglfun ("glTexCoord4f" tex-coord-4f) :void
+(defglfun ("glTexCoord4f" tex-coord-4f 1736) :void
   (s float)
   (tee float)
   (r float)
   (q float))
 
-(defglfun ("glTexCoord4fv" tex-coord-4fv) :void
+(defglfun ("glTexCoord4fv" tex-coord-4fv 1737) :void
   (v (:pointer float)))
 
-(defglfun ("glTexCoord4i" tex-coord-4i) :void
+(defglfun ("glTexCoord4i" tex-coord-4i 1738) :void
   (s int)
   (tee int)
   (r int)
   (q int))
 
-(defglfun ("glTexCoord4iv" tex-coord-4iv) :void
+(defglfun ("glTexCoord4iv" tex-coord-4iv 1739) :void
   (v (:pointer int)))
 
-(defglfun ("glTexCoord4s" tex-coord-4s) :void
+(defglfun ("glTexCoord4s" tex-coord-4s 1740) :void
   (s short)
   (tee short)
   (r short)
   (q short))
 
-(defglfun ("glTexCoord4sv" tex-coord-4sv) :void
+(defglfun ("glTexCoord4sv" tex-coord-4sv 1741) :void
   (v (:pointer short)))
 
-(defglfun ("glVertex2d" vertex-2d) :void
+(defglfun ("glVertex2d" vertex-2d 1742) :void
   (x double)
   (y double))
 
-(defglfun ("glVertex2dv" vertex-2dv) :void
+(defglfun ("glVertex2dv" vertex-2dv 1743) :void
   (v (:pointer double)))
 
-(defglfun ("glVertex2f" vertex-2f) :void
+(defglfun ("glVertex2f" vertex-2f 1744) :void
   (x float)
   (y float))
 
-(defglfun ("glVertex2fv" vertex-2fv) :void
+(defglfun ("glVertex2fv" vertex-2fv 1745) :void
   (v (:pointer float)))
 
-(defglfun ("glVertex2i" vertex-2i) :void
+(defglfun ("glVertex2i" vertex-2i 1746) :void
   (x int)
   (y int))
 
-(defglfun ("glVertex2iv" vertex-2iv) :void
+(defglfun ("glVertex2iv" vertex-2iv 1747) :void
   (v (:pointer int)))
 
-(defglfun ("glVertex2s" vertex-2s) :void
+(defglfun ("glVertex2s" vertex-2s 1748) :void
   (x short)
   (y short))
 
-(defglfun ("glVertex2sv" vertex-2sv) :void
+(defglfun ("glVertex2sv" vertex-2sv 1749) :void
   (v (:pointer short)))
 
-(defglfun ("glVertex3d" vertex-3d) :void
+(defglfun ("glVertex3d" vertex-3d 1750) :void
   (x double)
   (y double)
   (z double))
 
-(defglfun ("glVertex3dv" vertex-3dv) :void
+(defglfun ("glVertex3dv" vertex-3dv 1751) :void
   (v (:pointer double)))
 
-(defglfun ("glVertex3f" vertex-3f) :void
+(defglfun ("glVertex3f" vertex-3f 1752) :void
   (x float)
   (y float)
   (z float))
 
-(defglfun ("glVertex3fv" vertex-3fv) :void
+(defglfun ("glVertex3fv" vertex-3fv 1753) :void
   (v (:pointer float)))
 
-(defglfun ("glVertex3i" vertex-3i) :void
+(defglfun ("glVertex3i" vertex-3i 1754) :void
   (x int)
   (y int)
   (z int))
 
-(defglfun ("glVertex3iv" vertex-3iv) :void
+(defglfun ("glVertex3iv" vertex-3iv 1755) :void
   (v (:pointer int)))
 
-(defglfun ("glVertex3s" vertex-3s) :void
+(defglfun ("glVertex3s" vertex-3s 1756) :void
   (x short)
   (y short)
   (z short))
 
-(defglfun ("glVertex3sv" vertex-3sv) :void
+(defglfun ("glVertex3sv" vertex-3sv 1757) :void
   (v (:pointer short)))
 
-(defglfun ("glVertex4d" vertex-4d) :void
+(defglfun ("glVertex4d" vertex-4d 1758) :void
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglfun ("glVertex4dv" vertex-4dv) :void
+(defglfun ("glVertex4dv" vertex-4dv 1759) :void
   (v (:pointer double)))
 
-(defglfun ("glVertex4f" vertex-4f) :void
+(defglfun ("glVertex4f" vertex-4f 1760) :void
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglfun ("glVertex4fv" vertex-4fv) :void
+(defglfun ("glVertex4fv" vertex-4fv 1761) :void
   (v (:pointer float)))
 
-(defglfun ("glVertex4i" vertex-4i) :void
+(defglfun ("glVertex4i" vertex-4i 1762) :void
   (x int)
   (y int)
   (z int)
   (w int))
 
-(defglfun ("glVertex4iv" vertex-4iv) :void
+(defglfun ("glVertex4iv" vertex-4iv 1763) :void
   (v (:pointer int)))
 
-(defglfun ("glVertex4s" vertex-4s) :void
+(defglfun ("glVertex4s" vertex-4s 1764) :void
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglfun ("glVertex4sv" vertex-4sv) :void
+(defglfun ("glVertex4sv" vertex-4sv 1765) :void
   (v (:pointer short)))
 
-(defglfun ("glClipPlane" clip-plane) :void
+(defglfun ("glClipPlane" clip-plane 1766) :void
   (plane enum)
   (equation (:pointer double)))
 
-(defglfun ("glColorMaterial" color-material) :void
+(defglfun ("glColorMaterial" color-material 1767) :void
   (face enum)
   (mode enum))
 
-(defglfun ("glFogi" fog-i) :void
+(defglfun ("glFogi" fog-i 1768) :void
   (pname enum)
   (param int))
 
-(defglfun ("glFogiv" fog-iv) :void
+(defglfun ("glFogiv" fog-iv 1769) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glLighti" light-i) :void
+(defglfun ("glLighti" light-i 1770) :void
   (light enum)
   (pname enum)
   (param int))
 
-(defglfun ("glLightiv" light-iv) :void
+(defglfun ("glLightiv" light-iv 1771) :void
   (light enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glLightModeli" light-model-i) :void
+(defglfun ("glLightModeli" light-model-i 1772) :void
   (pname enum)
   (param int))
 
-(defglfun ("glLightModeliv" light-model-iv) :void
+(defglfun ("glLightModeliv" light-model-iv 1773) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glLineStipple" line-stipple) :void
+(defglfun ("glLineStipple" line-stipple 1774) :void
   (factor int)
   (pattern ushort))
 
-(defglfun ("glMateriali" material-i) :void
+(defglfun ("glMateriali" material-i 1775) :void
   (face enum)
   (pname enum)
   (param int))
 
-(defglfun ("glMaterialiv" material-iv) :void
+(defglfun ("glMaterialiv" material-iv 1776) :void
   (face enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glPolygonStipple" polygon-stipple) :void
+(defglfun ("glPolygonStipple" polygon-stipple 1777) :void
   (mask offset-or-pointer))
 
-(defglfun ("glTexGend" tex-gen-d) :void
+(defglfun ("glTexGend" tex-gen-d 1778) :void
   (coord enum)
   (pname enum)
   (param double))
 
-(defglfun ("glTexGendv" tex-gen-dv) :void
+(defglfun ("glTexGendv" tex-gen-dv 1779) :void
   (coord enum)
   (pname enum)
   (params (:pointer double)))
 
-(defglfun ("glTexGenf" tex-gen-f) :void
+(defglfun ("glTexGenf" tex-gen-f 1780) :void
   (coord enum)
   (pname enum)
   (param float))
 
-(defglfun ("glTexGenfv" tex-gen-fv) :void
+(defglfun ("glTexGenfv" tex-gen-fv 1781) :void
   (coord enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglfun ("glTexGeni" tex-gen-i) :void
+(defglfun ("glTexGeni" tex-gen-i 1782) :void
   (coord enum)
   (pname enum)
   (param int))
 
-(defglfun ("glTexGeniv" tex-gen-iv) :void
+(defglfun ("glTexGeniv" tex-gen-iv 1783) :void
   (coord enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glFeedbackBuffer" feedback-buffer) :void
+(defglfun ("glFeedbackBuffer" feedback-buffer 1784) :void
   (size sizei)
   (type enum)
   (buffer (:pointer float)))
 
-(defglfun ("glSelectBuffer" select-buffer) :void
+(defglfun ("glSelectBuffer" select-buffer 1785) :void
   (size sizei)
   (buffer (:pointer uint)))
 
-(defglfun ("glRenderMode" render-mode) int
+(defglfun ("glRenderMode" render-mode 1786) int
   (mode enum))
 
-(defglfun ("glInitNames" init-names) :void)
+(defglfun ("glInitNames" init-names 1787) :void)
 
-(defglfun ("glLoadName" load-name) :void
+(defglfun ("glLoadName" load-name 1788) :void
   (name uint))
 
-(defglfun ("glPassThrough" pass-through) :void
+(defglfun ("glPassThrough" pass-through 1789) :void
   (token float))
 
-(defglfun ("glPopName" pop-name) :void)
+(defglfun ("glPopName" pop-name 1790) :void)
 
-(defglfun ("glPushName" push-name) :void
+(defglfun ("glPushName" push-name 1791) :void
   (name uint))
 
-(defglfun ("glClearAccum" clear-accum) :void
+(defglfun ("glClearAccum" clear-accum 1792) :void
   (red float)
   (green float)
   (blue float)
   (alpha float))
 
-(defglfun ("glClearIndex" clear-index) :void
+(defglfun ("glClearIndex" clear-index 1793) :void
   (c float))
 
-(defglfun ("glIndexMask" index-mask) :void
+(defglfun ("glIndexMask" index-mask 1794) :void
   (mask uint))
 
-(defglfun ("glAccum" accum) :void
+(defglfun ("glAccum" accum 1795) :void
   (op enum)
   (value float))
 
-(defglfun ("glPopAttrib" pop-attrib) :void)
+(defglfun ("glPopAttrib" pop-attrib 1796) :void)
 
-(defglfun ("glPushAttrib" push-attrib) :void
+(defglfun ("glPushAttrib" push-attrib 1797) :void
   (mask AttribMask))
 
-(defglfun ("glMap1d" map-1d) :void
+(defglfun ("glMap1d" map-1d 1798) :void
   (target enum)
   (u1 double)
   (u2 double)
@@ -762,7 +762,7 @@
   (order int)
   (points (:pointer double)))
 
-(defglfun ("glMap1f" map-1f) :void
+(defglfun ("glMap1f" map-1f 1799) :void
   (target enum)
   (u1 float)
   (u2 float)
@@ -770,7 +770,7 @@
   (order int)
   (points (:pointer float)))
 
-(defglfun ("glMap2d" map-2d) :void
+(defglfun ("glMap2d" map-2d 1800) :void
   (target enum)
   (u1 double)
   (u2 double)
@@ -782,7 +782,7 @@
   (vorder int)
   (points (:pointer double)))
 
-(defglfun ("glMap2f" map-2f) :void
+(defglfun ("glMap2f" map-2f 1801) :void
   (target enum)
   (u1 float)
   (u2 float)
@@ -794,17 +794,17 @@
   (vorder int)
   (points (:pointer float)))
 
-(defglfun ("glMapGrid1d" map-grid-1d) :void
+(defglfun ("glMapGrid1d" map-grid-1d 1802) :void
   (un int)
   (u1 double)
   (u2 double))
 
-(defglfun ("glMapGrid1f" map-grid-1f) :void
+(defglfun ("glMapGrid1f" map-grid-1f 1803) :void
   (un int)
   (u1 float)
   (u2 float))
 
-(defglfun ("glMapGrid2d" map-grid-2d) :void
+(defglfun ("glMapGrid2d" map-grid-2d 1804) :void
   (un int)
   (u1 double)
   (u2 double)
@@ -812,7 +812,7 @@
   (v1 double)
   (v2 double))
 
-(defglfun ("glMapGrid2f" map-grid-2f) :void
+(defglfun ("glMapGrid2f" map-grid-2f 1805) :void
   (un int)
   (u1 float)
   (u2 float)
@@ -820,155 +820,155 @@
   (v1 float)
   (v2 float))
 
-(defglfun ("glEvalCoord1d" eval-coord-1d) :void
+(defglfun ("glEvalCoord1d" eval-coord-1d 1806) :void
   (u double))
 
-(defglfun ("glEvalCoord1dv" eval-coord-1dv) :void
+(defglfun ("glEvalCoord1dv" eval-coord-1dv 1807) :void
   (u (:pointer double)))
 
-(defglfun ("glEvalCoord1f" eval-coord-1f) :void
+(defglfun ("glEvalCoord1f" eval-coord-1f 1808) :void
   (u float))
 
-(defglfun ("glEvalCoord1fv" eval-coord-1fv) :void
+(defglfun ("glEvalCoord1fv" eval-coord-1fv 1809) :void
   (u (:pointer float)))
 
-(defglfun ("glEvalCoord2d" eval-coord-2d) :void
+(defglfun ("glEvalCoord2d" eval-coord-2d 1810) :void
   (u double)
   (v double))
 
-(defglfun ("glEvalCoord2dv" eval-coord-2dv) :void
+(defglfun ("glEvalCoord2dv" eval-coord-2dv 1811) :void
   (u (:pointer double)))
 
-(defglfun ("glEvalCoord2f" eval-coord-2f) :void
+(defglfun ("glEvalCoord2f" eval-coord-2f 1812) :void
   (u float)
   (v float))
 
-(defglfun ("glEvalCoord2fv" eval-coord-2fv) :void
+(defglfun ("glEvalCoord2fv" eval-coord-2fv 1813) :void
   (u (:pointer float)))
 
-(defglfun ("glEvalMesh1" eval-mesh-1) :void
+(defglfun ("glEvalMesh1" eval-mesh-1 1814) :void
   (mode enum)
   (i1 int)
   (i2 int))
 
-(defglfun ("glEvalPoint1" eval-point-1) :void
+(defglfun ("glEvalPoint1" eval-point-1 1815) :void
   (i int))
 
-(defglfun ("glEvalMesh2" eval-mesh-2) :void
+(defglfun ("glEvalMesh2" eval-mesh-2 1816) :void
   (mode enum)
   (i1 int)
   (i2 int)
   (j1 int)
   (j2 int))
 
-(defglfun ("glEvalPoint2" eval-point-2) :void
+(defglfun ("glEvalPoint2" eval-point-2 1817) :void
   (i int)
   (j int))
 
-(defglfun ("glPixelZoom" pixel-zoom) :void
+(defglfun ("glPixelZoom" pixel-zoom 1818) :void
   (xfactor float)
   (yfactor float))
 
-(defglfun ("glPixelTransferf" pixel-transfer-f) :void
+(defglfun ("glPixelTransferf" pixel-transfer-f 1819) :void
   (pname enum)
   (param float))
 
-(defglfun ("glPixelTransferi" pixel-transfer-i) :void
+(defglfun ("glPixelTransferi" pixel-transfer-i 1820) :void
   (pname enum)
   (param int))
 
-(defglfun ("glPixelMapfv" pixel-map-fv) :void
+(defglfun ("glPixelMapfv" pixel-map-fv 1821) :void
   (map enum)
   (mapsize sizei)
   (values offset-or-pointer))
 
-(defglfun ("glPixelMapuiv" pixel-map-uiv) :void
+(defglfun ("glPixelMapuiv" pixel-map-uiv 1822) :void
   (map enum)
   (mapsize sizei)
   (values offset-or-pointer))
 
-(defglfun ("glPixelMapusv" pixel-map-usv) :void
+(defglfun ("glPixelMapusv" pixel-map-usv 1823) :void
   (map enum)
   (mapsize sizei)
   (values offset-or-pointer))
 
-(defglfun ("glCopyPixels" copy-pixels) :void
+(defglfun ("glCopyPixels" copy-pixels 1824) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei)
   (type enum))
 
-(defglfun ("glDrawPixels" draw-pixels) :void
+(defglfun ("glDrawPixels" draw-pixels 1825) :void
   (width sizei)
   (height sizei)
   (format enum)
   (type enum)
   (pixels offset-or-pointer))
 
-(defglfun ("glGetClipPlane" get-clip-plane) :void
+(defglfun ("glGetClipPlane" get-clip-plane 1826) :void
   (plane enum)
   (equation (:pointer double)))
 
-(defglfun ("glGetLightiv" get-light-iv) :void
+(defglfun ("glGetLightiv" get-light-iv 1827) :void
   (light enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glGetMapdv" get-map-dv) :void
+(defglfun ("glGetMapdv" get-map-dv 1828) :void
   (target enum)
   (query enum)
   (v (:pointer double)))
 
-(defglfun ("glGetMapfv" get-map-fv) :void
+(defglfun ("glGetMapfv" get-map-fv 1829) :void
   (target enum)
   (query enum)
   (v (:pointer float)))
 
-(defglfun ("glGetMapiv" get-map-iv) :void
+(defglfun ("glGetMapiv" get-map-iv 1830) :void
   (target enum)
   (query enum)
   (v (:pointer int)))
 
-(defglfun ("glGetMaterialiv" get-material-iv) :void
+(defglfun ("glGetMaterialiv" get-material-iv 1831) :void
   (face enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glGetPixelMapfv" get-pixel-map-fv) :void
+(defglfun ("glGetPixelMapfv" get-pixel-map-fv 1832) :void
   (map enum)
   (values offset-or-pointer))
 
-(defglfun ("glGetPixelMapuiv" get-pixel-map-uiv) :void
+(defglfun ("glGetPixelMapuiv" get-pixel-map-uiv 1833) :void
   (map enum)
   (values offset-or-pointer))
 
-(defglfun ("glGetPixelMapusv" get-pixel-map-usv) :void
+(defglfun ("glGetPixelMapusv" get-pixel-map-usv 1834) :void
   (map enum)
   (values offset-or-pointer))
 
-(defglfun ("glGetPolygonStipple" get-polygon-stipple) :void
+(defglfun ("glGetPolygonStipple" get-polygon-stipple 1835) :void
   (mask offset-or-pointer))
 
-(defglfun ("glGetTexGendv" get-tex-gen-dv) :void
+(defglfun ("glGetTexGendv" get-tex-gen-dv 1836) :void
   (coord enum)
   (pname enum)
   (params (:pointer double)))
 
-(defglfun ("glGetTexGenfv" get-tex-gen-fv) :void
+(defglfun ("glGetTexGenfv" get-tex-gen-fv 1837) :void
   (coord enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglfun ("glGetTexGeniv" get-tex-gen-iv) :void
+(defglfun ("glGetTexGeniv" get-tex-gen-iv 1838) :void
   (coord enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glIsList" is-list) boolean
+(defglfun ("glIsList" is-list 1839) boolean
   (list uint))
 
-(defglfun ("glFrustum" frustum) :void
+(defglfun ("glFrustum" frustum 1840) :void
   (left double)
   (right double)
   (bottom double)
@@ -976,13 +976,13 @@
   (zNear double)
   (zFar double))
 
-(defglfun ("glLoadMatrixd" load-matrix-d) :void
+(defglfun ("glLoadMatrixd" load-matrix-d 1841) :void
   (m (:pointer double)))
 
-(defglfun ("glMultMatrixd" mult-matrix-d) :void
+(defglfun ("glMultMatrixd" mult-matrix-d 1842) :void
   (m (:pointer double)))
 
-(defglfun ("glOrtho" ortho) :void
+(defglfun ("glOrtho" ortho 1843) :void
   (left double)
   (right double)
   (bottom double)
@@ -990,23 +990,23 @@
   (zNear double)
   (zFar double))
 
-(defglfun ("glRotated" rotate-d) :void
+(defglfun ("glRotated" rotate-d 1844) :void
   (angle double)
   (x double)
   (y double)
   (z double))
 
-(defglfun ("glScaled" scale-d) :void
+(defglfun ("glScaled" scale-d 1845) :void
   (x double)
   (y double)
   (z double))
 
-(defglfun ("glTranslated" translate-d) :void
+(defglfun ("glTranslated" translate-d 1846) :void
   (x double)
   (y double)
   (z double))
 
-(defglfun ("glCopyTexImage1D" copy-tex-image-1d) :void
+(defglfun ("glCopyTexImage1D" copy-tex-image-1d 1847) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -1015,7 +1015,7 @@
   (width sizei)
   (border int))
 
-(defglfun ("glCopyTexSubImage1D" copy-tex-sub-image-1d) :void
+(defglfun ("glCopyTexSubImage1D" copy-tex-sub-image-1d 1848) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -1023,7 +1023,7 @@
   (y int)
   (width sizei))
 
-(defglfun ("glTexSubImage1D" tex-sub-image-1d) :void
+(defglfun ("glTexSubImage1D" tex-sub-image-1d 1849) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -1032,45 +1032,45 @@
   (type enum)
   (pixels offset-or-pointer))
 
-(defglfun ("glArrayElement" array-element) :void
+(defglfun ("glArrayElement" array-element 1850) :void
   (i int))
 
-(defglfun ("glEdgeFlagPointer" edge-flag-pointer) :void
+(defglfun ("glEdgeFlagPointer" edge-flag-pointer 1851) :void
   (stride sizei)
   (pointer offset-or-pointer))
 
-(defglfun ("glIndexPointer" index-pointer) :void
+(defglfun ("glIndexPointer" index-pointer 1852) :void
   (type enum)
   (stride sizei)
   (pointer offset-or-pointer))
 
-(defglfun ("glInterleavedArrays" interleaved-arrays) :void
+(defglfun ("glInterleavedArrays" interleaved-arrays 1853) :void
   (format enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglfun ("glAreTexturesResident" are-textures-resident) boolean
+(defglfun ("glAreTexturesResident" are-textures-resident 1854) boolean
   (n sizei)
   (textures (:pointer uint))
   (residences (:pointer boolean)))
 
-(defglfun ("glPrioritizeTextures" prioritize-textures) :void
+(defglfun ("glPrioritizeTextures" prioritize-textures 1855) :void
   (n sizei)
   (textures (:pointer uint))
   (priorities (:pointer float)))
 
-(defglfun ("glIndexub" index-ub) :void
+(defglfun ("glIndexub" index-ub 1856) :void
   (c ubyte))
 
-(defglfun ("glIndexubv" index-ubv) :void
+(defglfun ("glIndexubv" index-ubv 1857) :void
   (c (:pointer ubyte)))
 
-(defglfun ("glPopClientAttrib" pop-client-attrib) :void)
+(defglfun ("glPopClientAttrib" pop-client-attrib 1858) :void)
 
-(defglfun ("glPushClientAttrib" push-client-attrib) :void
+(defglfun ("glPushClientAttrib" push-client-attrib 1859) :void
   (mask ClientAttribMask))
 
-(defglextfun ("glCompressedTexImage1D" compressed-tex-image-1d 1599) :void
+(defglextfun ("glCompressedTexImage1D" compressed-tex-image-1d 1860) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -1079,7 +1079,7 @@
   (imageSize sizei)
   (data offset-or-pointer))
 
-(defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d 1600) :void
+(defglextfun ("glCompressedTexSubImage1D" compressed-tex-sub-image-1d 1861) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -1088,578 +1088,578 @@
   (imageSize sizei)
   (data offset-or-pointer))
 
-(defglextfun ("glGetCompressedTexImage" get-compressed-tex-image 1601) :void
+(defglextfun ("glGetCompressedTexImage" get-compressed-tex-image 1862) :void
   (target enum)
   (level int)
   (img offset-or-pointer))
 
-(defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d 1602) :void
+(defglextfun ("glMultiTexCoord1d" multi-tex-coord-1d 1863) :void
   (target enum)
   (s double))
 
-(defglextfun ("glMultiTexCoord1dv" multi-tex-coord-1dv 1603) :void
+(defglextfun ("glMultiTexCoord1dv" multi-tex-coord-1dv 1864) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord1f" multi-tex-coord-1f 1604) :void
+(defglextfun ("glMultiTexCoord1f" multi-tex-coord-1f 1865) :void
   (target enum)
   (s float))
 
-(defglextfun ("glMultiTexCoord1fv" multi-tex-coord-1fv 1605) :void
+(defglextfun ("glMultiTexCoord1fv" multi-tex-coord-1fv 1866) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord1i" multi-tex-coord-1i 1606) :void
+(defglextfun ("glMultiTexCoord1i" multi-tex-coord-1i 1867) :void
   (target enum)
   (s int))
 
-(defglextfun ("glMultiTexCoord1iv" multi-tex-coord-1iv 1607) :void
+(defglextfun ("glMultiTexCoord1iv" multi-tex-coord-1iv 1868) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord1s" multi-tex-coord-1s 1608) :void
+(defglextfun ("glMultiTexCoord1s" multi-tex-coord-1s 1869) :void
   (target enum)
   (s short))
 
-(defglextfun ("glMultiTexCoord1sv" multi-tex-coord-1sv 1609) :void
+(defglextfun ("glMultiTexCoord1sv" multi-tex-coord-1sv 1870) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord2d" multi-tex-coord-2d 1610) :void
+(defglextfun ("glMultiTexCoord2d" multi-tex-coord-2d 1871) :void
   (target enum)
   (s double)
   (tee double))
 
-(defglextfun ("glMultiTexCoord2dv" multi-tex-coord-2dv 1611) :void
+(defglextfun ("glMultiTexCoord2dv" multi-tex-coord-2dv 1872) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord2f" multi-tex-coord-2f 1612) :void
+(defglextfun ("glMultiTexCoord2f" multi-tex-coord-2f 1873) :void
   (target enum)
   (s float)
   (tee float))
 
-(defglextfun ("glMultiTexCoord2fv" multi-tex-coord-2fv 1613) :void
+(defglextfun ("glMultiTexCoord2fv" multi-tex-coord-2fv 1874) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord2i" multi-tex-coord-2i 1614) :void
+(defglextfun ("glMultiTexCoord2i" multi-tex-coord-2i 1875) :void
   (target enum)
   (s int)
   (tee int))
 
-(defglextfun ("glMultiTexCoord2iv" multi-tex-coord-2iv 1615) :void
+(defglextfun ("glMultiTexCoord2iv" multi-tex-coord-2iv 1876) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord2s" multi-tex-coord-2s 1616) :void
+(defglextfun ("glMultiTexCoord2s" multi-tex-coord-2s 1877) :void
   (target enum)
   (s short)
   (tee short))
 
-(defglextfun ("glMultiTexCoord2sv" multi-tex-coord-2sv 1617) :void
+(defglextfun ("glMultiTexCoord2sv" multi-tex-coord-2sv 1878) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord3d" multi-tex-coord-3d 1618) :void
+(defglextfun ("glMultiTexCoord3d" multi-tex-coord-3d 1879) :void
   (target enum)
   (s double)
   (tee double)
   (r double))
 
-(defglextfun ("glMultiTexCoord3dv" multi-tex-coord-3dv 1619) :void
+(defglextfun ("glMultiTexCoord3dv" multi-tex-coord-3dv 1880) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord3f" multi-tex-coord-3f 1620) :void
+(defglextfun ("glMultiTexCoord3f" multi-tex-coord-3f 1881) :void
   (target enum)
   (s float)
   (tee float)
   (r float))
 
-(defglextfun ("glMultiTexCoord3fv" multi-tex-coord-3fv 1621) :void
+(defglextfun ("glMultiTexCoord3fv" multi-tex-coord-3fv 1882) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord3i" multi-tex-coord-3i 1622) :void
+(defglextfun ("glMultiTexCoord3i" multi-tex-coord-3i 1883) :void
   (target enum)
   (s int)
   (tee int)
   (r int))
 
-(defglextfun ("glMultiTexCoord3iv" multi-tex-coord-3iv 1623) :void
+(defglextfun ("glMultiTexCoord3iv" multi-tex-coord-3iv 1884) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord3s" multi-tex-coord-3s 1624) :void
+(defglextfun ("glMultiTexCoord3s" multi-tex-coord-3s 1885) :void
   (target enum)
   (s short)
   (tee short)
   (r short))
 
-(defglextfun ("glMultiTexCoord3sv" multi-tex-coord-3sv 1625) :void
+(defglextfun ("glMultiTexCoord3sv" multi-tex-coord-3sv 1886) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord4d" multi-tex-coord-4d 1626) :void
+(defglextfun ("glMultiTexCoord4d" multi-tex-coord-4d 1887) :void
   (target enum)
   (s double)
   (tee double)
   (r double)
   (q double))
 
-(defglextfun ("glMultiTexCoord4dv" multi-tex-coord-4dv 1627) :void
+(defglextfun ("glMultiTexCoord4dv" multi-tex-coord-4dv 1888) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord4fv" multi-tex-coord-4fv 1628) :void
+(defglextfun ("glMultiTexCoord4fv" multi-tex-coord-4fv 1889) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord4i" multi-tex-coord-4i 1629) :void
+(defglextfun ("glMultiTexCoord4i" multi-tex-coord-4i 1890) :void
   (target enum)
   (s int)
   (tee int)
   (r int)
   (q int))
 
-(defglextfun ("glMultiTexCoord4iv" multi-tex-coord-4iv 1630) :void
+(defglextfun ("glMultiTexCoord4iv" multi-tex-coord-4iv 1891) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord4s" multi-tex-coord-4s 1631) :void
+(defglextfun ("glMultiTexCoord4s" multi-tex-coord-4s 1892) :void
   (target enum)
   (s short)
   (tee short)
   (r short)
   (q short))
 
-(defglextfun ("glMultiTexCoord4sv" multi-tex-coord-4sv 1632) :void
+(defglextfun ("glMultiTexCoord4sv" multi-tex-coord-4sv 1893) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glLoadTransposeMatrixf" load-transpose-matrix-f 1633) :void
+(defglextfun ("glLoadTransposeMatrixf" load-transpose-matrix-f 1894) :void
   (m (:pointer float)))
 
-(defglextfun ("glLoadTransposeMatrixd" load-transpose-matrix-d 1634) :void
+(defglextfun ("glLoadTransposeMatrixd" load-transpose-matrix-d 1895) :void
   (m (:pointer double)))
 
-(defglextfun ("glMultTransposeMatrixf" mult-transpose-matrix-f 1635) :void
+(defglextfun ("glMultTransposeMatrixf" mult-transpose-matrix-f 1896) :void
   (m (:pointer float)))
 
-(defglextfun ("glMultTransposeMatrixd" mult-transpose-matrix-d 1636) :void
+(defglextfun ("glMultTransposeMatrixd" mult-transpose-matrix-d 1897) :void
   (m (:pointer double)))
 
-(defglextfun ("glMultiDrawArrays" multi-draw-arrays 1637) :void
+(defglextfun ("glMultiDrawArrays" multi-draw-arrays 1898) :void
   (mode enum)
   (first (:pointer int))
   (count (:pointer sizei))
   (drawcount sizei))
 
-(defglextfun ("glMultiDrawElements" multi-draw-elements 1638) :void
+(defglextfun ("glMultiDrawElements" multi-draw-elements 1899) :void
   (mode enum)
   (count (:pointer sizei))
   (type enum)
   (indices (:pointer (:pointer :void)))
   (drawcount sizei))
 
-(defglextfun ("glPointParameteri" point-parameter-i 1639) :void
+(defglextfun ("glPointParameteri" point-parameter-i 1900) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glPointParameteriv" point-parameter-iv 1640) :void
+(defglextfun ("glPointParameteriv" point-parameter-iv 1901) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFogCoordf" fog-coord-f 1641) :void
+(defglextfun ("glFogCoordf" fog-coord-f 1902) :void
   (coord float))
 
-(defglextfun ("glFogCoordfv" fog-coord-fv 1642) :void
+(defglextfun ("glFogCoordfv" fog-coord-fv 1903) :void
   (coord (:pointer float)))
 
-(defglextfun ("glFogCoordd" fog-coord-d 1643) :void
+(defglextfun ("glFogCoordd" fog-coord-d 1904) :void
   (coord double))
 
-(defglextfun ("glFogCoorddv" fog-coord-dv 1644) :void
+(defglextfun ("glFogCoorddv" fog-coord-dv 1905) :void
   (coord (:pointer double)))
 
-(defglextfun ("glFogCoordPointer" fog-coord-pointer 1645) :void
+(defglextfun ("glFogCoordPointer" fog-coord-pointer 1906) :void
   (type enum)
   (stride sizei)
   (pointer offset-or-pointer))
 
-(defglextfun ("glSecondaryColor3b" secondary-color-3b 1646) :void
+(defglextfun ("glSecondaryColor3b" secondary-color-3b 1907) :void
   (red byte)
   (green byte)
   (blue byte))
 
-(defglextfun ("glSecondaryColor3bv" secondary-color-3bv 1647) :void
+(defglextfun ("glSecondaryColor3bv" secondary-color-3bv 1908) :void
   (v (:pointer byte)))
 
-(defglextfun ("glSecondaryColor3d" secondary-color-3d 1648) :void
+(defglextfun ("glSecondaryColor3d" secondary-color-3d 1909) :void
   (red double)
   (green double)
   (blue double))
 
-(defglextfun ("glSecondaryColor3dv" secondary-color-3dv 1649) :void
+(defglextfun ("glSecondaryColor3dv" secondary-color-3dv 1910) :void
   (v (:pointer double)))
 
-(defglextfun ("glSecondaryColor3f" secondary-color-3f 1650) :void
+(defglextfun ("glSecondaryColor3f" secondary-color-3f 1911) :void
   (red float)
   (green float)
   (blue float))
 
-(defglextfun ("glSecondaryColor3fv" secondary-color-3fv 1651) :void
+(defglextfun ("glSecondaryColor3fv" secondary-color-3fv 1912) :void
   (v (:pointer float)))
 
-(defglextfun ("glSecondaryColor3i" secondary-color-3i 1652) :void
+(defglextfun ("glSecondaryColor3i" secondary-color-3i 1913) :void
   (red int)
   (green int)
   (blue int))
 
-(defglextfun ("glSecondaryColor3iv" secondary-color-3iv 1653) :void
+(defglextfun ("glSecondaryColor3iv" secondary-color-3iv 1914) :void
   (v (:pointer int)))
 
-(defglextfun ("glSecondaryColor3s" secondary-color-3s 1654) :void
+(defglextfun ("glSecondaryColor3s" secondary-color-3s 1915) :void
   (red short)
   (green short)
   (blue short))
 
-(defglextfun ("glSecondaryColor3sv" secondary-color-3sv 1655) :void
+(defglextfun ("glSecondaryColor3sv" secondary-color-3sv 1916) :void
   (v (:pointer short)))
 
-(defglextfun ("glSecondaryColor3ub" secondary-color-3ub 1656) :void
+(defglextfun ("glSecondaryColor3ub" secondary-color-3ub 1917) :void
   (red ubyte)
   (green ubyte)
   (blue ubyte))
 
-(defglextfun ("glSecondaryColor3ubv" secondary-color-3ubv 1657) :void
+(defglextfun ("glSecondaryColor3ubv" secondary-color-3ubv 1918) :void
   (v (:pointer ubyte)))
 
-(defglextfun ("glSecondaryColor3ui" secondary-color-3ui 1658) :void
+(defglextfun ("glSecondaryColor3ui" secondary-color-3ui 1919) :void
   (red uint)
   (green uint)
   (blue uint))
 
-(defglextfun ("glSecondaryColor3uiv" secondary-color-3uiv 1659) :void
+(defglextfun ("glSecondaryColor3uiv" secondary-color-3uiv 1920) :void
   (v (:pointer uint)))
 
-(defglextfun ("glSecondaryColor3us" secondary-color-3us 1660) :void
+(defglextfun ("glSecondaryColor3us" secondary-color-3us 1921) :void
   (red ushort)
   (green ushort)
   (blue ushort))
 
-(defglextfun ("glSecondaryColor3usv" secondary-color-3usv 1661) :void
+(defglextfun ("glSecondaryColor3usv" secondary-color-3usv 1922) :void
   (v (:pointer ushort)))
 
-(defglextfun ("glSecondaryColorPointer" secondary-color-pointer 1662) :void
+(defglextfun ("glSecondaryColorPointer" secondary-color-pointer 1923) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer offset-or-pointer))
 
-(defglextfun ("glWindowPos2d" window-pos-2d 1663) :void
+(defglextfun ("glWindowPos2d" window-pos-2d 1924) :void
   (x double)
   (y double))
 
-(defglextfun ("glWindowPos2dv" window-pos-2dv 1664) :void
+(defglextfun ("glWindowPos2dv" window-pos-2dv 1925) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos2f" window-pos-2f 1665) :void
+(defglextfun ("glWindowPos2f" window-pos-2f 1926) :void
   (x float)
   (y float))
 
-(defglextfun ("glWindowPos2fv" window-pos-2fv 1666) :void
+(defglextfun ("glWindowPos2fv" window-pos-2fv 1927) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos2i" window-pos-2i 1667) :void
+(defglextfun ("glWindowPos2i" window-pos-2i 1928) :void
   (x int)
   (y int))
 
-(defglextfun ("glWindowPos2iv" window-pos-2iv 1668) :void
+(defglextfun ("glWindowPos2iv" window-pos-2iv 1929) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos2s" window-pos-2s 1669) :void
+(defglextfun ("glWindowPos2s" window-pos-2s 1930) :void
   (x short)
   (y short))
 
-(defglextfun ("glWindowPos2sv" window-pos-2sv 1670) :void
+(defglextfun ("glWindowPos2sv" window-pos-2sv 1931) :void
   (v (:pointer short)))
 
-(defglextfun ("glWindowPos3d" window-pos-3d 1671) :void
+(defglextfun ("glWindowPos3d" window-pos-3d 1932) :void
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glWindowPos3dv" window-pos-3dv 1672) :void
+(defglextfun ("glWindowPos3dv" window-pos-3dv 1933) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos3f" window-pos-3f 1673) :void
+(defglextfun ("glWindowPos3f" window-pos-3f 1934) :void
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glWindowPos3fv" window-pos-3fv 1674) :void
+(defglextfun ("glWindowPos3fv" window-pos-3fv 1935) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos3i" window-pos-3i 1675) :void
+(defglextfun ("glWindowPos3i" window-pos-3i 1936) :void
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glWindowPos3iv" window-pos-3iv 1676) :void
+(defglextfun ("glWindowPos3iv" window-pos-3iv 1937) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos3s" window-pos-3s 1677) :void
+(defglextfun ("glWindowPos3s" window-pos-3s 1938) :void
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glWindowPos3sv" window-pos-3sv 1678) :void
+(defglextfun ("glWindowPos3sv" window-pos-3sv 1939) :void
   (v (:pointer short)))
 
-(defglextfun ("glGetQueryObjectiv" get-query-object-iv 1679) :void
+(defglextfun ("glGetQueryObjectiv" get-query-object-iv 1940) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetBufferSubData" get-buffer-sub-data 1680) :void
+(defglextfun ("glGetBufferSubData" get-buffer-sub-data 1941) :void
   (target enum)
   (offset intptr)
   (size sizeiptr)
   (data (:pointer :void)))
 
-(defglextfun ("glMapBuffer" map-buffer 1681) (:pointer :void)
+(defglextfun ("glMapBuffer" map-buffer 1942) (:pointer :void)
   (target enum)
   (access enum))
 
-(defglextfun ("glGetVertexAttribdv" get-vertex-attrib-dv 1682) :void
+(defglextfun ("glGetVertexAttribdv" get-vertex-attrib-dv 1943) :void
   (index uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glVertexAttrib1d" vertex-attrib-1d 1683) :void
+(defglextfun ("glVertexAttrib1d" vertex-attrib-1d 1944) :void
   (index uint)
   (x double))
 
-(defglextfun ("glVertexAttrib1dv" vertex-attrib-1dv 1684) :void
+(defglextfun ("glVertexAttrib1dv" vertex-attrib-1dv 1945) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib1s" vertex-attrib-1s 1685) :void
+(defglextfun ("glVertexAttrib1s" vertex-attrib-1s 1946) :void
   (index uint)
   (x short))
 
-(defglextfun ("glVertexAttrib1sv" vertex-attrib-1sv 1686) :void
+(defglextfun ("glVertexAttrib1sv" vertex-attrib-1sv 1947) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib2d" vertex-attrib-2d 1687) :void
+(defglextfun ("glVertexAttrib2d" vertex-attrib-2d 1948) :void
   (index uint)
   (x double)
   (y double))
 
-(defglextfun ("glVertexAttrib2dv" vertex-attrib-2dv 1688) :void
+(defglextfun ("glVertexAttrib2dv" vertex-attrib-2dv 1949) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib2s" vertex-attrib-2s 1689) :void
+(defglextfun ("glVertexAttrib2s" vertex-attrib-2s 1950) :void
   (index uint)
   (x short)
   (y short))
 
-(defglextfun ("glVertexAttrib2sv" vertex-attrib-2sv 1690) :void
+(defglextfun ("glVertexAttrib2sv" vertex-attrib-2sv 1951) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib3d" vertex-attrib-3d 1691) :void
+(defglextfun ("glVertexAttrib3d" vertex-attrib-3d 1952) :void
   (index uint)
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glVertexAttrib3dv" vertex-attrib-3dv 1692) :void
+(defglextfun ("glVertexAttrib3dv" vertex-attrib-3dv 1953) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib3s" vertex-attrib-3s 1693) :void
+(defglextfun ("glVertexAttrib3s" vertex-attrib-3s 1954) :void
   (index uint)
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glVertexAttrib3sv" vertex-attrib-3sv 1694) :void
+(defglextfun ("glVertexAttrib3sv" vertex-attrib-3sv 1955) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4Nbv" vertex-attrib-4nbv 1695) :void
+(defglextfun ("glVertexAttrib4Nbv" vertex-attrib-4nbv 1956) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttrib4Niv" vertex-attrib-4niv 1696) :void
+(defglextfun ("glVertexAttrib4Niv" vertex-attrib-4niv 1957) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttrib4Nsv" vertex-attrib-4nsv 1697) :void
+(defglextfun ("glVertexAttrib4Nsv" vertex-attrib-4nsv 1958) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4Nub" vertex-attrib-4nub 1698) :void
+(defglextfun ("glVertexAttrib4Nub" vertex-attrib-4nub 1959) :void
   (index uint)
   (x ubyte)
   (y ubyte)
   (z ubyte)
   (w ubyte))
 
-(defglextfun ("glVertexAttrib4Nubv" vertex-attrib-4nubv 1699) :void
+(defglextfun ("glVertexAttrib4Nubv" vertex-attrib-4nubv 1960) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttrib4Nuiv" vertex-attrib-4nuiv 1700) :void
+(defglextfun ("glVertexAttrib4Nuiv" vertex-attrib-4nuiv 1961) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttrib4Nusv" vertex-attrib-4nusv 1701) :void
+(defglextfun ("glVertexAttrib4Nusv" vertex-attrib-4nusv 1962) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glVertexAttrib4bv" vertex-attrib-4bv 1702) :void
+(defglextfun ("glVertexAttrib4bv" vertex-attrib-4bv 1963) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttrib4d" vertex-attrib-4d 1703) :void
+(defglextfun ("glVertexAttrib4d" vertex-attrib-4d 1964) :void
   (index uint)
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glVertexAttrib4dv" vertex-attrib-4dv 1704) :void
+(defglextfun ("glVertexAttrib4dv" vertex-attrib-4dv 1965) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib4iv" vertex-attrib-4iv 1705) :void
+(defglextfun ("glVertexAttrib4iv" vertex-attrib-4iv 1966) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttrib4s" vertex-attrib-4s 1706) :void
+(defglextfun ("glVertexAttrib4s" vertex-attrib-4s 1967) :void
   (index uint)
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglextfun ("glVertexAttrib4sv" vertex-attrib-4sv 1707) :void
+(defglextfun ("glVertexAttrib4sv" vertex-attrib-4sv 1968) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4ubv" vertex-attrib-4ubv 1708) :void
+(defglextfun ("glVertexAttrib4ubv" vertex-attrib-4ubv 1969) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttrib4uiv" vertex-attrib-4uiv 1709) :void
+(defglextfun ("glVertexAttrib4uiv" vertex-attrib-4uiv 1970) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttrib4usv" vertex-attrib-4usv 1710) :void
+(defglextfun ("glVertexAttrib4usv" vertex-attrib-4usv 1971) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glClampColor" clamp-color 1711) :void
+(defglextfun ("glClampColor" clamp-color 1972) :void
   (target enum)
   (clamp enum))
 
-(defglextfun ("glBeginConditionalRender" begin-conditional-render 1712) :void
+(defglextfun ("glBeginConditionalRender" begin-conditional-render 1973) :void
   (id uint)
   (mode enum))
 
-(defglextfun ("glEndConditionalRender" end-conditional-render 1713) :void)
+(defglextfun ("glEndConditionalRender" end-conditional-render 1974) :void)
 
-(defglextfun ("glVertexAttribI1i" vertex-attrib-i1i 1714) :void
+(defglextfun ("glVertexAttribI1i" vertex-attrib-i1i 1975) :void
   (index uint)
   (x int))
 
-(defglextfun ("glVertexAttribI2i" vertex-attrib-i2i 1715) :void
+(defglextfun ("glVertexAttribI2i" vertex-attrib-i2i 1976) :void
   (index uint)
   (x int)
   (y int))
 
-(defglextfun ("glVertexAttribI3i" vertex-attrib-i3i 1716) :void
+(defglextfun ("glVertexAttribI3i" vertex-attrib-i3i 1977) :void
   (index uint)
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glVertexAttribI1ui" vertex-attrib-i1ui 1717) :void
+(defglextfun ("glVertexAttribI1ui" vertex-attrib-i1ui 1978) :void
   (index uint)
   (x uint))
 
-(defglextfun ("glVertexAttribI2ui" vertex-attrib-i2ui 1718) :void
+(defglextfun ("glVertexAttribI2ui" vertex-attrib-i2ui 1979) :void
   (index uint)
   (x uint)
   (y uint))
 
-(defglextfun ("glVertexAttribI3ui" vertex-attrib-i3ui 1719) :void
+(defglextfun ("glVertexAttribI3ui" vertex-attrib-i3ui 1980) :void
   (index uint)
   (x uint)
   (y uint)
   (z uint))
 
-(defglextfun ("glVertexAttribI1iv" vertex-attrib-i1iv 1720) :void
+(defglextfun ("glVertexAttribI1iv" vertex-attrib-i1iv 1981) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI2iv" vertex-attrib-i2iv 1721) :void
+(defglextfun ("glVertexAttribI2iv" vertex-attrib-i2iv 1982) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI3iv" vertex-attrib-i3iv 1722) :void
+(defglextfun ("glVertexAttribI3iv" vertex-attrib-i3iv 1983) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI1uiv" vertex-attrib-i1uiv 1723) :void
+(defglextfun ("glVertexAttribI1uiv" vertex-attrib-i1uiv 1984) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI2uiv" vertex-attrib-i2uiv 1724) :void
+(defglextfun ("glVertexAttribI2uiv" vertex-attrib-i2uiv 1985) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI3uiv" vertex-attrib-i3uiv 1725) :void
+(defglextfun ("glVertexAttribI3uiv" vertex-attrib-i3uiv 1986) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI4bv" vertex-attrib-i4bv 1726) :void
+(defglextfun ("glVertexAttribI4bv" vertex-attrib-i4bv 1987) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttribI4sv" vertex-attrib-i4sv 1727) :void
+(defglextfun ("glVertexAttribI4sv" vertex-attrib-i4sv 1988) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribI4ubv" vertex-attrib-i4ubv 1728) :void
+(defglextfun ("glVertexAttribI4ubv" vertex-attrib-i4ubv 1989) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttribI4usv" vertex-attrib-i4usv 1729) :void
+(defglextfun ("glVertexAttribI4usv" vertex-attrib-i4usv 1990) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glBindFragDataLocation" bind-frag-data-location 1730) :void
+(defglextfun ("glBindFragDataLocation" bind-frag-data-location 1991) :void
   (program uint)
   (color uint)
   (name (:pointer char)))
 
-(defglextfun ("glPrimitiveRestartIndex" primitive-restart-index 1731) :void
+(defglextfun ("glPrimitiveRestartIndex" primitive-restart-index 1992) :void
   (index uint))
 
-(defglextfun ("glGetnCompressedTexImage" getn-compressed-tex-image 1732) :void
+(defglextfun ("glGetnCompressedTexImage" getn-compressed-tex-image 1993) :void
   (target enum)
   (lod int)
   (bufSize sizei)
   (pixels (:pointer :void)))
 
-(defglextfun ("glGetnTexImage" getn-tex-image 1733) :void
+(defglextfun ("glGetnTexImage" getn-tex-image 1994) :void
   (target enum)
   (level int)
   (format enum)
@@ -1667,64 +1667,64 @@
   (bufSize sizei)
   (pixels (:pointer :void)))
 
-(defglextfun ("glGetnUniformdv" getn-uniform-dv 1734) :void
+(defglextfun ("glGetnUniformdv" getn-uniform-dv 1995) :void
   (program uint)
   (location int)
   (bufSize sizei)
   (params (:pointer double)))
 
-(defglextfun ("glGetnMapdv" getn-map-dv 1735) :void
+(defglextfun ("glGetnMapdv" getn-map-dv 1996) :void
   (target enum)
   (query enum)
   (bufSize sizei)
   (v (:pointer double)))
 
-(defglextfun ("glGetnMapfv" getn-map-fv 1736) :void
+(defglextfun ("glGetnMapfv" getn-map-fv 1997) :void
   (target enum)
   (query enum)
   (bufSize sizei)
   (v (:pointer float)))
 
-(defglextfun ("glGetnMapiv" getn-map-iv 1737) :void
+(defglextfun ("glGetnMapiv" getn-map-iv 1998) :void
   (target enum)
   (query enum)
   (bufSize sizei)
   (v (:pointer int)))
 
-(defglextfun ("glGetnPixelMapfv" getn-pixel-map-fv 1738) :void
+(defglextfun ("glGetnPixelMapfv" getn-pixel-map-fv 1999) :void
   (map enum)
   (bufSize sizei)
   (values (:pointer float)))
 
-(defglextfun ("glGetnPixelMapuiv" getn-pixel-map-uiv 1739) :void
+(defglextfun ("glGetnPixelMapuiv" getn-pixel-map-uiv 2000) :void
   (map enum)
   (bufSize sizei)
   (values (:pointer uint)))
 
-(defglextfun ("glGetnPixelMapusv" getn-pixel-map-usv 1740) :void
+(defglextfun ("glGetnPixelMapusv" getn-pixel-map-usv 2001) :void
   (map enum)
   (bufSize sizei)
   (values (:pointer ushort)))
 
-(defglextfun ("glGetnPolygonStipple" getn-polygon-stipple 1741) :void
+(defglextfun ("glGetnPolygonStipple" getn-polygon-stipple 2002) :void
   (bufSize sizei)
   (pattern (:pointer ubyte)))
 
-(defglextfun ("glGetnColorTable" getn-color-table 1742) :void
+(defglextfun ("glGetnColorTable" getn-color-table 2003) :void
   (target enum)
   (format enum)
   (type enum)
   (bufSize sizei)
   (table (:pointer :void)))
 
-(defglextfun ("glGetnConvolutionFilter" getn-convolution-filter 1743) :void
+(defglextfun ("glGetnConvolutionFilter" getn-convolution-filter 2004) :void
   (target enum)
   (format enum)
   (type enum)
   (bufSize sizei)
   (image (:pointer :void)))
 
-(defglextfun ("glGetnSeparableFilter" getn-separable-filter 1744) :void
+(defglextfun ("glGetnSeparableFilter" getn-separable-filter 2005) :void
   (target enum)
   (format enum)
   (type enum)
@@ -1734,7 +1734,7 @@
   (column (:pointer :void))
   (span (:pointer :void)))
 
-(defglextfun ("glGetnHistogram" getn-histogram 1745) :void
+(defglextfun ("glGetnHistogram" getn-histogram 2006) :void
   (target enum)
   (reset boolean)
   (format enum)
@@ -1742,7 +1742,7 @@
   (bufSize sizei)
   (values (:pointer :void)))
 
-(defglextfun ("glGetnMinmax" getn-minmax 1746) :void
+(defglextfun ("glGetnMinmax" getn-minmax 2007) :void
   (target enum)
   (reset boolean)
   (format enum)
@@ -1750,21 +1750,21 @@
   (bufSize sizei)
   (values (:pointer :void)))
 
-(defglextfun ("glSpecializeShader" specialize-shader 1747) :void
+(defglextfun ("glSpecializeShader" specialize-shader 2008) :void
   (shader uint)
   (pEntryPoint (:pointer char))
   (numSpecializationConstants uint)
   (pConstantIndex (:pointer uint))
   (pConstantValue (:pointer uint)))
 
-(defglextfun ("glMultiDrawArraysIndirectCount" multi-draw-arrays-indirect-count 1748) :void
+(defglextfun ("glMultiDrawArraysIndirectCount" multi-draw-arrays-indirect-count 2009) :void
   (mode enum)
   (indirect (:pointer :void))
   (drawcount intptr)
   (maxdrawcount sizei)
   (stride sizei))
 
-(defglextfun ("glMultiDrawElementsIndirectCount" multi-draw-elements-indirect-count 1749) :void
+(defglextfun ("glMultiDrawElementsIndirectCount" multi-draw-elements-indirect-count 2010) :void
   (mode enum)
   (type enum)
   (indirect (:pointer :void))
@@ -1772,28 +1772,28 @@
   (maxdrawcount sizei)
   (stride sizei))
 
-(defglextfun ("glTbufferMask3DFX" tbuffer-mask-3dfx 1750) :void
+(defglextfun ("glTbufferMask3DFX" tbuffer-mask-3dfx 2011) :void
   (mask uint))
 
-(defglextfun ("glDebugMessageEnableAMD" debug-message-enable-amd 1751) :void
+(defglextfun ("glDebugMessageEnableAMD" debug-message-enable-amd 2012) :void
   (category enum)
   (severity enum)
   (count sizei)
   (ids (:pointer uint))
   (enabled boolean))
 
-(defglextfun ("glDebugMessageInsertAMD" debug-message-insert-amd 1752) :void
+(defglextfun ("glDebugMessageInsertAMD" debug-message-insert-amd 2013) :void
   (category enum)
   (severity enum)
   (id uint)
   (length sizei)
   (buf (:pointer char)))
 
-(defglextfun ("glDebugMessageCallbackAMD" debug-message-callback-amd 1753) :void
+(defglextfun ("glDebugMessageCallbackAMD" debug-message-callback-amd 2014) :void
   (callback debugproc-amd)
   (userParam (:pointer :void)))
 
-(defglextfun ("glGetDebugMessageLogAMD" get-debug-message-log-amd 1754) uint
+(defglextfun ("glGetDebugMessageLogAMD" get-debug-message-log-amd 2015) uint
   (count uint)
   (bufSize sizei)
   (categories (:pointer enum))
@@ -1802,40 +1802,40 @@
   (lengths (:pointer sizei))
   (message (:pointer char)))
 
-(defglextfun ("glBlendFuncIndexedAMD" blend-func-indexed-amd 1755) :void
+(defglextfun ("glBlendFuncIndexedAMD" blend-func-indexed-amd 2016) :void
   (buf uint)
   (src enum)
   (dst enum))
 
-(defglextfun ("glBlendFuncSeparateIndexedAMD" blend-func-separate-indexed-amd 1756) :void
+(defglextfun ("glBlendFuncSeparateIndexedAMD" blend-func-separate-indexed-amd 2017) :void
   (buf uint)
   (srcRGB enum)
   (dstRGB enum)
   (srcAlpha enum)
   (dstAlpha enum))
 
-(defglextfun ("glBlendEquationIndexedAMD" blend-equation-indexed-amd 1757) :void
+(defglextfun ("glBlendEquationIndexedAMD" blend-equation-indexed-amd 2018) :void
   (buf uint)
   (mode enum))
 
-(defglextfun ("glBlendEquationSeparateIndexedAMD" blend-equation-separate-indexed-amd 1758) :void
+(defglextfun ("glBlendEquationSeparateIndexedAMD" blend-equation-separate-indexed-amd 2019) :void
   (buf uint)
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glFramebufferSamplePositionsfvAMD" framebuffer-sample-positions-fv-amd 1759) :void
+(defglextfun ("glFramebufferSamplePositionsfvAMD" framebuffer-sample-positions-fv-amd 2020) :void
   (target enum)
   (numsamples uint)
   (pixelindex uint)
   (values (:pointer float)))
 
-(defglextfun ("glNamedFramebufferSamplePositionsfvAMD" named-framebuffer-sample-positions-fv-amd 1760) :void
+(defglextfun ("glNamedFramebufferSamplePositionsfvAMD" named-framebuffer-sample-positions-fv-amd 2021) :void
   (framebuffer uint)
   (numsamples uint)
   (pixelindex uint)
   (values (:pointer float)))
 
-(defglextfun ("glGetFramebufferParameterfvAMD" get-framebuffer-parameter-fv-amd 1761) :void
+(defglextfun ("glGetFramebufferParameterfvAMD" get-framebuffer-parameter-fv-amd 2022) :void
   (target enum)
   (pname enum)
   (numsamples uint)
@@ -1843,7 +1843,7 @@
   (size sizei)
   (values (:pointer float)))
 
-(defglextfun ("glGetNamedFramebufferParameterfvAMD" get-named-framebuffer-parameter-fv-amd 1762) :void
+(defglextfun ("glGetNamedFramebufferParameterfvAMD" get-named-framebuffer-parameter-fv-amd 2023) :void
   (framebuffer uint)
   (pname enum)
   (numsamples uint)
@@ -1851,50 +1851,50 @@
   (size sizei)
   (values (:pointer float)))
 
-(defglextfun ("glVertexAttribParameteriAMD" vertex-attrib-parameter-i-amd 1763) :void
+(defglextfun ("glVertexAttribParameteriAMD" vertex-attrib-parameter-i-amd 2024) :void
   (index uint)
   (pname enum)
   (param int))
 
-(defglextfun ("glMultiDrawArraysIndirectAMD" multi-draw-arrays-indirect-amd 1764) :void
+(defglextfun ("glMultiDrawArraysIndirectAMD" multi-draw-arrays-indirect-amd 2025) :void
   (mode enum)
   (indirect (:pointer :void))
   (primcount sizei)
   (stride sizei))
 
-(defglextfun ("glMultiDrawElementsIndirectAMD" multi-draw-elements-indirect-amd 1765) :void
+(defglextfun ("glMultiDrawElementsIndirectAMD" multi-draw-elements-indirect-amd 2026) :void
   (mode enum)
   (type enum)
   (indirect (:pointer :void))
   (primcount sizei)
   (stride sizei))
 
-(defglextfun ("glGenNamesAMD" gen-names-amd 1766) :void
+(defglextfun ("glGenNamesAMD" gen-names-amd 2027) :void
   (identifier enum)
   (num uint)
   (names (:pointer uint)))
 
-(defglextfun ("glDeleteNamesAMD" delete-names-amd 1767) :void
+(defglextfun ("glDeleteNamesAMD" delete-names-amd 2028) :void
   (identifier enum)
   (num uint)
   (names (:pointer uint)))
 
-(defglextfun ("glIsNameAMD" is-name-amd 1768) boolean
+(defglextfun ("glIsNameAMD" is-name-amd 2029) boolean
   (identifier enum)
   (name uint))
 
-(defglextfun ("glQueryObjectParameteruiAMD" query-object-parameter-ui-amd 1769) :void
+(defglextfun ("glQueryObjectParameteruiAMD" query-object-parameter-ui-amd 2030) :void
   (target enum)
   (id uint)
   (pname enum)
   (param uint))
 
-(defglextfun ("glSetMultisamplefvAMD" set-multisample-fv-amd 1770) :void
+(defglextfun ("glSetMultisamplefvAMD" set-multisample-fv-amd 2031) :void
   (pname enum)
   (index uint)
   (val (:pointer float)))
 
-(defglextfun ("glTexStorageSparseAMD" tex-storage-sparse-amd 1771) :void
+(defglextfun ("glTexStorageSparseAMD" tex-storage-sparse-amd 2032) :void
   (target enum)
   (internalFormat enum)
   (width sizei)
@@ -1903,7 +1903,7 @@
   (layers sizei)
   (flags TextureStorageMaskAMD))
 
-(defglextfun ("glTextureStorageSparseAMD" texture-storage-sparse-amd 1772) :void
+(defglextfun ("glTextureStorageSparseAMD" texture-storage-sparse-amd 2033) :void
   (texture uint)
   (target enum)
   (internalFormat enum)
@@ -1913,39 +1913,39 @@
   (layers sizei)
   (flags TextureStorageMaskAMD))
 
-(defglextfun ("glStencilOpValueAMD" stencil-op-value-amd 1773) :void
+(defglextfun ("glStencilOpValueAMD" stencil-op-value-amd 2034) :void
   (face enum)
   (value uint))
 
-(defglextfun ("glTessellationFactorAMD" tessellation-factor-amd 1774) :void
+(defglextfun ("glTessellationFactorAMD" tessellation-factor-amd 2035) :void
   (factor float))
 
-(defglextfun ("glTessellationModeAMD" tessellation-mode-amd 1775) :void
+(defglextfun ("glTessellationModeAMD" tessellation-mode-amd 2036) :void
   (mode enum))
 
-(defglextfun ("glElementPointerAPPLE" element-pointer-apple 1776) :void
+(defglextfun ("glElementPointerAPPLE" element-pointer-apple 2037) :void
   (type enum)
   (pointer (:pointer :void)))
 
-(defglextfun ("glDrawElementArrayAPPLE" draw-element-array-apple 1777) :void
+(defglextfun ("glDrawElementArrayAPPLE" draw-element-array-apple 2038) :void
   (mode enum)
   (first int)
   (count sizei))
 
-(defglextfun ("glDrawRangeElementArrayAPPLE" draw-range-element-array-apple 1778) :void
+(defglextfun ("glDrawRangeElementArrayAPPLE" draw-range-element-array-apple 2039) :void
   (mode enum)
   (start uint)
   (end uint)
   (first int)
   (count sizei))
 
-(defglextfun ("glMultiDrawElementArrayAPPLE" multi-draw-element-array-apple 1779) :void
+(defglextfun ("glMultiDrawElementArrayAPPLE" multi-draw-element-array-apple 2040) :void
   (mode enum)
   (first (:pointer int))
   (count (:pointer sizei))
   (primcount sizei))
 
-(defglextfun ("glMultiDrawRangeElementArrayAPPLE" multi-draw-range-element-array-apple 1780) :void
+(defglextfun ("glMultiDrawRangeElementArrayAPPLE" multi-draw-range-element-array-apple 2041) :void
   (mode enum)
   (start uint)
   (end uint)
@@ -1953,109 +1953,109 @@
   (count (:pointer sizei))
   (primcount sizei))
 
-(defglextfun ("glGenFencesAPPLE" gen-fences-apple 1781) :void
+(defglextfun ("glGenFencesAPPLE" gen-fences-apple 2042) :void
   (n sizei)
   (fences (:pointer uint)))
 
-(defglextfun ("glDeleteFencesAPPLE" delete-fences-apple 1782) :void
+(defglextfun ("glDeleteFencesAPPLE" delete-fences-apple 2043) :void
   (n sizei)
   (fences (:pointer uint)))
 
-(defglextfun ("glSetFenceAPPLE" set-fence-apple 1783) :void
+(defglextfun ("glSetFenceAPPLE" set-fence-apple 2044) :void
   (fence uint))
 
-(defglextfun ("glIsFenceAPPLE" is-fence-apple 1784) boolean
+(defglextfun ("glIsFenceAPPLE" is-fence-apple 2045) boolean
   (fence uint))
 
-(defglextfun ("glTestFenceAPPLE" test-fence-apple 1785) boolean
+(defglextfun ("glTestFenceAPPLE" test-fence-apple 2046) boolean
   (fence uint))
 
-(defglextfun ("glFinishFenceAPPLE" finish-fence-apple 1786) :void
+(defglextfun ("glFinishFenceAPPLE" finish-fence-apple 2047) :void
   (fence uint))
 
-(defglextfun ("glTestObjectAPPLE" test-object-apple 1787) boolean
+(defglextfun ("glTestObjectAPPLE" test-object-apple 2048) boolean
   (object enum)
   (name uint))
 
-(defglextfun ("glFinishObjectAPPLE" finish-object-apple 1788) :void
+(defglextfun ("glFinishObjectAPPLE" finish-object-apple 2049) :void
   (object enum)
   (name int))
 
-(defglextfun ("glBufferParameteriAPPLE" buffer-parameter-i-apple 1789) :void
+(defglextfun ("glBufferParameteriAPPLE" buffer-parameter-i-apple 2050) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glFlushMappedBufferRangeAPPLE" flush-mapped-buffer-range-apple 1790) :void
+(defglextfun ("glFlushMappedBufferRangeAPPLE" flush-mapped-buffer-range-apple 2051) :void
   (target enum)
   (offset intptr)
   (size sizeiptr))
 
-(defglextfun ("glObjectPurgeableAPPLE" object-purgeable-apple 1791) enum
+(defglextfun ("glObjectPurgeableAPPLE" object-purgeable-apple 2052) enum
   (objectType enum)
   (name uint)
   (option enum))
 
-(defglextfun ("glObjectUnpurgeableAPPLE" object-unpurgeable-apple 1792) enum
+(defglextfun ("glObjectUnpurgeableAPPLE" object-unpurgeable-apple 2053) enum
   (objectType enum)
   (name uint)
   (option enum))
 
-(defglextfun ("glGetObjectParameterivAPPLE" get-object-parameter-iv-apple 1793) :void
+(defglextfun ("glGetObjectParameterivAPPLE" get-object-parameter-iv-apple 2054) :void
   (objectType enum)
   (name uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glTextureRangeAPPLE" texture-range-apple 1794) :void
+(defglextfun ("glTextureRangeAPPLE" texture-range-apple 2055) :void
   (target enum)
   (length sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glGetTexParameterPointervAPPLE" get-tex-parameter-pointer-v-apple 1795) :void
+(defglextfun ("glGetTexParameterPointervAPPLE" get-tex-parameter-pointer-v-apple 2056) :void
   (target enum)
   (pname enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glBindVertexArrayAPPLE" bind-vertex-array-apple 1796) :void
+(defglextfun ("glBindVertexArrayAPPLE" bind-vertex-array-apple 2057) :void
   (array uint))
 
-(defglextfun ("glDeleteVertexArraysAPPLE" delete-vertex-arrays-apple 1797) :void
+(defglextfun ("glDeleteVertexArraysAPPLE" delete-vertex-arrays-apple 2058) :void
   (n sizei)
   (arrays (:pointer uint)))
 
-(defglextfun ("glGenVertexArraysAPPLE" gen-vertex-arrays-apple 1798) :void
+(defglextfun ("glGenVertexArraysAPPLE" gen-vertex-arrays-apple 2059) :void
   (n sizei)
   (arrays (:pointer uint)))
 
-(defglextfun ("glIsVertexArrayAPPLE" is-vertex-array-apple 1799) boolean
+(defglextfun ("glIsVertexArrayAPPLE" is-vertex-array-apple 2060) boolean
   (array uint))
 
-(defglextfun ("glVertexArrayRangeAPPLE" vertex-array-range-apple 1800) :void
+(defglextfun ("glVertexArrayRangeAPPLE" vertex-array-range-apple 2061) :void
   (length sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glFlushVertexArrayRangeAPPLE" flush-vertex-array-range-apple 1801) :void
+(defglextfun ("glFlushVertexArrayRangeAPPLE" flush-vertex-array-range-apple 2062) :void
   (length sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glVertexArrayParameteriAPPLE" vertex-array-parameter-i-apple 1802) :void
+(defglextfun ("glVertexArrayParameteriAPPLE" vertex-array-parameter-i-apple 2063) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glEnableVertexAttribAPPLE" enable-vertex-attrib-apple 1803) :void
+(defglextfun ("glEnableVertexAttribAPPLE" enable-vertex-attrib-apple 2064) :void
   (index uint)
   (pname enum))
 
-(defglextfun ("glDisableVertexAttribAPPLE" disable-vertex-attrib-apple 1804) :void
+(defglextfun ("glDisableVertexAttribAPPLE" disable-vertex-attrib-apple 2065) :void
   (index uint)
   (pname enum))
 
-(defglextfun ("glIsVertexAttribEnabledAPPLE" is-vertex-attrib-enabled-apple 1805) boolean
+(defglextfun ("glIsVertexAttribEnabledAPPLE" is-vertex-attrib-enabled-apple 2066) boolean
   (index uint)
   (pname enum))
 
-(defglextfun ("glMapVertexAttrib1dAPPLE" map-vertex-attrib-1d-apple 1806) :void
+(defglextfun ("glMapVertexAttrib1dAPPLE" map-vertex-attrib-1d-apple 2067) :void
   (index uint)
   (size uint)
   (u1 double)
@@ -2064,7 +2064,7 @@
   (order int)
   (points (:pointer double)))
 
-(defglextfun ("glMapVertexAttrib1fAPPLE" map-vertex-attrib-1f-apple 1807) :void
+(defglextfun ("glMapVertexAttrib1fAPPLE" map-vertex-attrib-1f-apple 2068) :void
   (index uint)
   (size uint)
   (u1 float)
@@ -2073,7 +2073,7 @@
   (order int)
   (points (:pointer float)))
 
-(defglextfun ("glMapVertexAttrib2dAPPLE" map-vertex-attrib-2d-apple 1808) :void
+(defglextfun ("glMapVertexAttrib2dAPPLE" map-vertex-attrib-2d-apple 2069) :void
   (index uint)
   (size uint)
   (u1 double)
@@ -2086,7 +2086,7 @@
   (vorder int)
   (points (:pointer double)))
 
-(defglextfun ("glMapVertexAttrib2fAPPLE" map-vertex-attrib-2f-apple 1809) :void
+(defglextfun ("glMapVertexAttrib2fAPPLE" map-vertex-attrib-2f-apple 2070) :void
   (index uint)
   (size uint)
   (u1 float)
@@ -2099,33 +2099,33 @@
   (vorder int)
   (points (:pointer float)))
 
-(defglextfun ("glClampColorARB" clamp-color-arb 1810) :void
+(defglextfun ("glClampColorARB" clamp-color-arb 2071) :void
   (target enum)
   (clamp enum))
 
-(defglextfun ("glDrawBuffersARB" draw-buffers-arb 1811) :void
+(defglextfun ("glDrawBuffersARB" draw-buffers-arb 2072) :void
   (n sizei)
   (bufs (:pointer enum)))
 
-(defglextfun ("glProgramStringARB" program-string-arb 1812) :void
+(defglextfun ("glProgramStringARB" program-string-arb 2073) :void
   (target enum)
   (format enum)
   (len sizei)
   (string (:pointer :void)))
 
-(defglextfun ("glBindProgramARB" bind-program-arb 1813) :void
+(defglextfun ("glBindProgramARB" bind-program-arb 2074) :void
   (target enum)
   (program uint))
 
-(defglextfun ("glDeleteProgramsARB" delete-programs-arb 1814) :void
+(defglextfun ("glDeleteProgramsARB" delete-programs-arb 2075) :void
   (n sizei)
   (programs (:pointer uint)))
 
-(defglextfun ("glGenProgramsARB" gen-programs-arb 1815) :void
+(defglextfun ("glGenProgramsARB" gen-programs-arb 2076) :void
   (n sizei)
   (programs (:pointer uint)))
 
-(defglextfun ("glProgramEnvParameter4dARB" program-env-parameter-4d-arb 1816) :void
+(defglextfun ("glProgramEnvParameter4dARB" program-env-parameter-4d-arb 2077) :void
   (target enum)
   (index uint)
   (x double)
@@ -2133,12 +2133,12 @@
   (z double)
   (w double))
 
-(defglextfun ("glProgramEnvParameter4dvARB" program-env-parameter-4dv-arb 1817) :void
+(defglextfun ("glProgramEnvParameter4dvARB" program-env-parameter-4dv-arb 2078) :void
   (target enum)
   (index uint)
   (params (:pointer double)))
 
-(defglextfun ("glProgramEnvParameter4fARB" program-env-parameter-4f-arb 1818) :void
+(defglextfun ("glProgramEnvParameter4fARB" program-env-parameter-4f-arb 2079) :void
   (target enum)
   (index uint)
   (x float)
@@ -2146,12 +2146,12 @@
   (z float)
   (w float))
 
-(defglextfun ("glProgramEnvParameter4fvARB" program-env-parameter-4fv-arb 1819) :void
+(defglextfun ("glProgramEnvParameter4fvARB" program-env-parameter-4fv-arb 2080) :void
   (target enum)
   (index uint)
   (params (:pointer float)))
 
-(defglextfun ("glProgramLocalParameter4dARB" program-local-parameter-4d-arb 1820) :void
+(defglextfun ("glProgramLocalParameter4dARB" program-local-parameter-4d-arb 2081) :void
   (target enum)
   (index uint)
   (x double)
@@ -2159,12 +2159,12 @@
   (z double)
   (w double))
 
-(defglextfun ("glProgramLocalParameter4dvARB" program-local-parameter-4dv-arb 1821) :void
+(defglextfun ("glProgramLocalParameter4dvARB" program-local-parameter-4dv-arb 2082) :void
   (target enum)
   (index uint)
   (params (:pointer double)))
 
-(defglextfun ("glProgramLocalParameter4fARB" program-local-parameter-4f-arb 1822) :void
+(defglextfun ("glProgramLocalParameter4fARB" program-local-parameter-4f-arb 2083) :void
   (target enum)
   (index uint)
   (x float)
@@ -2172,434 +2172,434 @@
   (z float)
   (w float))
 
-(defglextfun ("glProgramLocalParameter4fvARB" program-local-parameter-4fv-arb 1823) :void
+(defglextfun ("glProgramLocalParameter4fvARB" program-local-parameter-4fv-arb 2084) :void
   (target enum)
   (index uint)
   (params (:pointer float)))
 
-(defglextfun ("glGetProgramEnvParameterdvARB" get-program-env-parameter-dv-arb 1824) :void
+(defglextfun ("glGetProgramEnvParameterdvARB" get-program-env-parameter-dv-arb 2085) :void
   (target enum)
   (index uint)
   (params (:pointer double)))
 
-(defglextfun ("glGetProgramEnvParameterfvARB" get-program-env-parameter-fv-arb 1825) :void
+(defglextfun ("glGetProgramEnvParameterfvARB" get-program-env-parameter-fv-arb 2086) :void
   (target enum)
   (index uint)
   (params (:pointer float)))
 
-(defglextfun ("glGetProgramLocalParameterdvARB" get-program-local-parameter-dv-arb 1826) :void
+(defglextfun ("glGetProgramLocalParameterdvARB" get-program-local-parameter-dv-arb 2087) :void
   (target enum)
   (index uint)
   (params (:pointer double)))
 
-(defglextfun ("glGetProgramLocalParameterfvARB" get-program-local-parameter-fv-arb 1827) :void
+(defglextfun ("glGetProgramLocalParameterfvARB" get-program-local-parameter-fv-arb 2088) :void
   (target enum)
   (index uint)
   (params (:pointer float)))
 
-(defglextfun ("glGetProgramivARB" get-program-iv-arb 1828) :void
+(defglextfun ("glGetProgramivARB" get-program-iv-arb 2089) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetProgramStringARB" get-program-string-arb 1829) :void
+(defglextfun ("glGetProgramStringARB" get-program-string-arb 2090) :void
   (target enum)
   (pname enum)
   (string (:pointer :void)))
 
-(defglextfun ("glIsProgramARB" is-program-arb 1830) boolean
+(defglextfun ("glIsProgramARB" is-program-arb 2091) boolean
   (program uint))
 
-(defglextfun ("glCurrentPaletteMatrixARB" current-palette-matrix-arb 1831) :void
+(defglextfun ("glCurrentPaletteMatrixARB" current-palette-matrix-arb 2092) :void
   (index int))
 
-(defglextfun ("glMatrixIndexubvARB" matrix-index-ubv-arb 1832) :void
+(defglextfun ("glMatrixIndexubvARB" matrix-index-ubv-arb 2093) :void
   (size int)
   (indices (:pointer ubyte)))
 
-(defglextfun ("glMatrixIndexusvARB" matrix-index-usv-arb 1833) :void
+(defglextfun ("glMatrixIndexusvARB" matrix-index-usv-arb 2094) :void
   (size int)
   (indices (:pointer ushort)))
 
-(defglextfun ("glMatrixIndexuivARB" matrix-index-uiv-arb 1834) :void
+(defglextfun ("glMatrixIndexuivARB" matrix-index-uiv-arb 2095) :void
   (size int)
   (indices (:pointer uint)))
 
-(defglextfun ("glMatrixIndexPointerARB" matrix-index-pointer-arb 1835) :void
+(defglextfun ("glMatrixIndexPointerARB" matrix-index-pointer-arb 2096) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glSampleCoverageARB" sample-coverage-arb 1836) :void
+(defglextfun ("glSampleCoverageARB" sample-coverage-arb 2097) :void
   (value float)
   (invert boolean))
 
-(defglextfun ("glActiveTextureARB" active-texture-arb 1837) :void
+(defglextfun ("glActiveTextureARB" active-texture-arb 2098) :void
   (texture enum))
 
-(defglextfun ("glClientActiveTextureARB" client-active-texture-arb 1838) :void
+(defglextfun ("glClientActiveTextureARB" client-active-texture-arb 2099) :void
   (texture enum))
 
-(defglextfun ("glMultiTexCoord1dARB" multi-tex-coord-1d-arb 1839) :void
+(defglextfun ("glMultiTexCoord1dARB" multi-tex-coord-1d-arb 2100) :void
   (target enum)
   (s double))
 
-(defglextfun ("glMultiTexCoord1dvARB" multi-tex-coord-1dv-arb 1840) :void
+(defglextfun ("glMultiTexCoord1dvARB" multi-tex-coord-1dv-arb 2101) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord1fARB" multi-tex-coord-1f-arb 1841) :void
+(defglextfun ("glMultiTexCoord1fARB" multi-tex-coord-1f-arb 2102) :void
   (target enum)
   (s float))
 
-(defglextfun ("glMultiTexCoord1fvARB" multi-tex-coord-1fv-arb 1842) :void
+(defglextfun ("glMultiTexCoord1fvARB" multi-tex-coord-1fv-arb 2103) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord1iARB" multi-tex-coord-1i-arb 1843) :void
+(defglextfun ("glMultiTexCoord1iARB" multi-tex-coord-1i-arb 2104) :void
   (target enum)
   (s int))
 
-(defglextfun ("glMultiTexCoord1ivARB" multi-tex-coord-1iv-arb 1844) :void
+(defglextfun ("glMultiTexCoord1ivARB" multi-tex-coord-1iv-arb 2105) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord1sARB" multi-tex-coord-1s-arb 1845) :void
+(defglextfun ("glMultiTexCoord1sARB" multi-tex-coord-1s-arb 2106) :void
   (target enum)
   (s short))
 
-(defglextfun ("glMultiTexCoord1svARB" multi-tex-coord-1sv-arb 1846) :void
+(defglextfun ("glMultiTexCoord1svARB" multi-tex-coord-1sv-arb 2107) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord2dARB" multi-tex-coord-2d-arb 1847) :void
+(defglextfun ("glMultiTexCoord2dARB" multi-tex-coord-2d-arb 2108) :void
   (target enum)
   (s double)
   (tee double))
 
-(defglextfun ("glMultiTexCoord2dvARB" multi-tex-coord-2dv-arb 1848) :void
+(defglextfun ("glMultiTexCoord2dvARB" multi-tex-coord-2dv-arb 2109) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord2fARB" multi-tex-coord-2f-arb 1849) :void
+(defglextfun ("glMultiTexCoord2fARB" multi-tex-coord-2f-arb 2110) :void
   (target enum)
   (s float)
   (tee float))
 
-(defglextfun ("glMultiTexCoord2fvARB" multi-tex-coord-2fv-arb 1850) :void
+(defglextfun ("glMultiTexCoord2fvARB" multi-tex-coord-2fv-arb 2111) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord2iARB" multi-tex-coord-2i-arb 1851) :void
+(defglextfun ("glMultiTexCoord2iARB" multi-tex-coord-2i-arb 2112) :void
   (target enum)
   (s int)
   (tee int))
 
-(defglextfun ("glMultiTexCoord2ivARB" multi-tex-coord-2iv-arb 1852) :void
+(defglextfun ("glMultiTexCoord2ivARB" multi-tex-coord-2iv-arb 2113) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord2sARB" multi-tex-coord-2s-arb 1853) :void
+(defglextfun ("glMultiTexCoord2sARB" multi-tex-coord-2s-arb 2114) :void
   (target enum)
   (s short)
   (tee short))
 
-(defglextfun ("glMultiTexCoord2svARB" multi-tex-coord-2sv-arb 1854) :void
+(defglextfun ("glMultiTexCoord2svARB" multi-tex-coord-2sv-arb 2115) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord3dARB" multi-tex-coord-3d-arb 1855) :void
+(defglextfun ("glMultiTexCoord3dARB" multi-tex-coord-3d-arb 2116) :void
   (target enum)
   (s double)
   (tee double)
   (r double))
 
-(defglextfun ("glMultiTexCoord3dvARB" multi-tex-coord-3dv-arb 1856) :void
+(defglextfun ("glMultiTexCoord3dvARB" multi-tex-coord-3dv-arb 2117) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord3fARB" multi-tex-coord-3f-arb 1857) :void
+(defglextfun ("glMultiTexCoord3fARB" multi-tex-coord-3f-arb 2118) :void
   (target enum)
   (s float)
   (tee float)
   (r float))
 
-(defglextfun ("glMultiTexCoord3fvARB" multi-tex-coord-3fv-arb 1858) :void
+(defglextfun ("glMultiTexCoord3fvARB" multi-tex-coord-3fv-arb 2119) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord3iARB" multi-tex-coord-3i-arb 1859) :void
+(defglextfun ("glMultiTexCoord3iARB" multi-tex-coord-3i-arb 2120) :void
   (target enum)
   (s int)
   (tee int)
   (r int))
 
-(defglextfun ("glMultiTexCoord3ivARB" multi-tex-coord-3iv-arb 1860) :void
+(defglextfun ("glMultiTexCoord3ivARB" multi-tex-coord-3iv-arb 2121) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord3sARB" multi-tex-coord-3s-arb 1861) :void
+(defglextfun ("glMultiTexCoord3sARB" multi-tex-coord-3s-arb 2122) :void
   (target enum)
   (s short)
   (tee short)
   (r short))
 
-(defglextfun ("glMultiTexCoord3svARB" multi-tex-coord-3sv-arb 1862) :void
+(defglextfun ("glMultiTexCoord3svARB" multi-tex-coord-3sv-arb 2123) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glMultiTexCoord4dARB" multi-tex-coord-4d-arb 1863) :void
+(defglextfun ("glMultiTexCoord4dARB" multi-tex-coord-4d-arb 2124) :void
   (target enum)
   (s double)
   (tee double)
   (r double)
   (q double))
 
-(defglextfun ("glMultiTexCoord4dvARB" multi-tex-coord-4dv-arb 1864) :void
+(defglextfun ("glMultiTexCoord4dvARB" multi-tex-coord-4dv-arb 2125) :void
   (target enum)
   (v (:pointer double)))
 
-(defglextfun ("glMultiTexCoord4fARB" multi-tex-coord-4f-arb 1865) :void
+(defglextfun ("glMultiTexCoord4fARB" multi-tex-coord-4f-arb 2126) :void
   (target enum)
   (s float)
   (tee float)
   (r float)
   (q float))
 
-(defglextfun ("glMultiTexCoord4fvARB" multi-tex-coord-4fv-arb 1866) :void
+(defglextfun ("glMultiTexCoord4fvARB" multi-tex-coord-4fv-arb 2127) :void
   (target enum)
   (v (:pointer float)))
 
-(defglextfun ("glMultiTexCoord4iARB" multi-tex-coord-4i-arb 1867) :void
+(defglextfun ("glMultiTexCoord4iARB" multi-tex-coord-4i-arb 2128) :void
   (target enum)
   (s int)
   (tee int)
   (r int)
   (q int))
 
-(defglextfun ("glMultiTexCoord4ivARB" multi-tex-coord-4iv-arb 1868) :void
+(defglextfun ("glMultiTexCoord4ivARB" multi-tex-coord-4iv-arb 2129) :void
   (target enum)
   (v (:pointer int)))
 
-(defglextfun ("glMultiTexCoord4sARB" multi-tex-coord-4s-arb 1869) :void
+(defglextfun ("glMultiTexCoord4sARB" multi-tex-coord-4s-arb 2130) :void
   (target enum)
   (s short)
   (tee short)
   (r short)
   (q short))
 
-(defglextfun ("glMultiTexCoord4svARB" multi-tex-coord-4sv-arb 1870) :void
+(defglextfun ("glMultiTexCoord4svARB" multi-tex-coord-4sv-arb 2131) :void
   (target enum)
   (v (:pointer short)))
 
-(defglextfun ("glGenQueriesARB" gen-queries-arb 1871) :void
+(defglextfun ("glGenQueriesARB" gen-queries-arb 2132) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glDeleteQueriesARB" delete-queries-arb 1872) :void
+(defglextfun ("glDeleteQueriesARB" delete-queries-arb 2133) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glIsQueryARB" is-query-arb 1873) boolean
+(defglextfun ("glIsQueryARB" is-query-arb 2134) boolean
   (id uint))
 
-(defglextfun ("glBeginQueryARB" begin-query-arb 1874) :void
+(defglextfun ("glBeginQueryARB" begin-query-arb 2135) :void
   (target enum)
   (id uint))
 
-(defglextfun ("glEndQueryARB" end-query-arb 1875) :void
+(defglextfun ("glEndQueryARB" end-query-arb 2136) :void
   (target enum))
 
-(defglextfun ("glGetQueryivARB" get-query-iv-arb 1876) :void
+(defglextfun ("glGetQueryivARB" get-query-iv-arb 2137) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetQueryObjectivARB" get-query-object-iv-arb 1877) :void
+(defglextfun ("glGetQueryObjectivARB" get-query-object-iv-arb 2138) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetQueryObjectuivARB" get-query-object-uiv-arb 1878) :void
+(defglextfun ("glGetQueryObjectuivARB" get-query-object-uiv-arb 2139) :void
   (id uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glPointParameterfARB" point-parameter-f-arb 1879) :void
+(defglextfun ("glPointParameterfARB" point-parameter-f-arb 2140) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glPointParameterfvARB" point-parameter-fv-arb 1880) :void
+(defglextfun ("glPointParameterfvARB" point-parameter-fv-arb 2141) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glDeleteObjectARB" delete-object-arb 1881) :void
+(defglextfun ("glDeleteObjectARB" delete-object-arb 2142) :void
   (obj handle-arb))
 
-(defglextfun ("glGetHandleARB" get-handle-arb 1882) handle-arb
+(defglextfun ("glGetHandleARB" get-handle-arb 2143) handle-arb
   (pname enum))
 
-(defglextfun ("glDetachObjectARB" detach-object-arb 1883) :void
+(defglextfun ("glDetachObjectARB" detach-object-arb 2144) :void
   (containerObj handle-arb)
   (attachedObj handle-arb))
 
-(defglextfun ("glCreateShaderObjectARB" create-shader-object-arb 1884) handle-arb
+(defglextfun ("glCreateShaderObjectARB" create-shader-object-arb 2145) handle-arb
   (shaderType enum))
 
-(defglextfun ("glShaderSourceARB" shader-source-arb 1885) :void
+(defglextfun ("glShaderSourceARB" shader-source-arb 2146) :void
   (shaderObj handle-arb)
   (count sizei)
   (string (:pointer (:pointer char-arb)))
   (length (:pointer int)))
 
-(defglextfun ("glCompileShaderARB" compile-shader-arb 1886) :void
+(defglextfun ("glCompileShaderARB" compile-shader-arb 2147) :void
   (shaderObj handle-arb))
 
-(defglextfun ("glCreateProgramObjectARB" create-program-object-arb 1887) handle-arb)
+(defglextfun ("glCreateProgramObjectARB" create-program-object-arb 2148) handle-arb)
 
-(defglextfun ("glAttachObjectARB" attach-object-arb 1888) :void
+(defglextfun ("glAttachObjectARB" attach-object-arb 2149) :void
   (containerObj handle-arb)
   (obj handle-arb))
 
-(defglextfun ("glLinkProgramARB" link-program-arb 1889) :void
+(defglextfun ("glLinkProgramARB" link-program-arb 2150) :void
   (programObj handle-arb))
 
-(defglextfun ("glUseProgramObjectARB" use-program-object-arb 1890) :void
+(defglextfun ("glUseProgramObjectARB" use-program-object-arb 2151) :void
   (programObj handle-arb))
 
-(defglextfun ("glValidateProgramARB" validate-program-arb 1891) :void
+(defglextfun ("glValidateProgramARB" validate-program-arb 2152) :void
   (programObj handle-arb))
 
-(defglextfun ("glUniform1fARB" uniform-1f-arb 1892) :void
+(defglextfun ("glUniform1fARB" uniform-1f-arb 2153) :void
   (location int)
   (v0 float))
 
-(defglextfun ("glUniform2fARB" uniform-2f-arb 1893) :void
+(defglextfun ("glUniform2fARB" uniform-2f-arb 2154) :void
   (location int)
   (v0 float)
   (v1 float))
 
-(defglextfun ("glUniform3fARB" uniform-3f-arb 1894) :void
+(defglextfun ("glUniform3fARB" uniform-3f-arb 2155) :void
   (location int)
   (v0 float)
   (v1 float)
   (v2 float))
 
-(defglextfun ("glUniform4fARB" uniform-4f-arb 1895) :void
+(defglextfun ("glUniform4fARB" uniform-4f-arb 2156) :void
   (location int)
   (v0 float)
   (v1 float)
   (v2 float)
   (v3 float))
 
-(defglextfun ("glUniform1iARB" uniform-1i-arb 1896) :void
+(defglextfun ("glUniform1iARB" uniform-1i-arb 2157) :void
   (location int)
   (v0 int))
 
-(defglextfun ("glUniform2iARB" uniform-2i-arb 1897) :void
+(defglextfun ("glUniform2iARB" uniform-2i-arb 2158) :void
   (location int)
   (v0 int)
   (v1 int))
 
-(defglextfun ("glUniform3iARB" uniform-3i-arb 1898) :void
+(defglextfun ("glUniform3iARB" uniform-3i-arb 2159) :void
   (location int)
   (v0 int)
   (v1 int)
   (v2 int))
 
-(defglextfun ("glUniform4iARB" uniform-4i-arb 1899) :void
+(defglextfun ("glUniform4iARB" uniform-4i-arb 2160) :void
   (location int)
   (v0 int)
   (v1 int)
   (v2 int)
   (v3 int))
 
-(defglextfun ("glUniform1fvARB" uniform-1fv-arb 1900) :void
+(defglextfun ("glUniform1fvARB" uniform-1fv-arb 2161) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform2fvARB" uniform-2fv-arb 1901) :void
+(defglextfun ("glUniform2fvARB" uniform-2fv-arb 2162) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform3fvARB" uniform-3fv-arb 1902) :void
+(defglextfun ("glUniform3fvARB" uniform-3fv-arb 2163) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform4fvARB" uniform-4fv-arb 1903) :void
+(defglextfun ("glUniform4fvARB" uniform-4fv-arb 2164) :void
   (location int)
   (count sizei)
   (value (:pointer float)))
 
-(defglextfun ("glUniform1ivARB" uniform-1iv-arb 1904) :void
+(defglextfun ("glUniform1ivARB" uniform-1iv-arb 2165) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform2ivARB" uniform-2iv-arb 1905) :void
+(defglextfun ("glUniform2ivARB" uniform-2iv-arb 2166) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform3ivARB" uniform-3iv-arb 1906) :void
+(defglextfun ("glUniform3ivARB" uniform-3iv-arb 2167) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniform4ivARB" uniform-4iv-arb 1907) :void
+(defglextfun ("glUniform4ivARB" uniform-4iv-arb 2168) :void
   (location int)
   (count sizei)
   (value (:pointer int)))
 
-(defglextfun ("glUniformMatrix2fvARB" uniform-matrix-2fv-arb 1908) :void
+(defglextfun ("glUniformMatrix2fvARB" uniform-matrix-2fv-arb 2169) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix3fvARB" uniform-matrix-3fv-arb 1909) :void
+(defglextfun ("glUniformMatrix3fvARB" uniform-matrix-3fv-arb 2170) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glUniformMatrix4fvARB" uniform-matrix-4fv-arb 1910) :void
+(defglextfun ("glUniformMatrix4fvARB" uniform-matrix-4fv-arb 2171) :void
   (location int)
   (count sizei)
   (transpose boolean)
   (value (:pointer float)))
 
-(defglextfun ("glGetObjectParameterfvARB" get-object-parameter-fv-arb 1911) :void
+(defglextfun ("glGetObjectParameterfvARB" get-object-parameter-fv-arb 2172) :void
   (obj handle-arb)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetObjectParameterivARB" get-object-parameter-iv-arb 1912) :void
+(defglextfun ("glGetObjectParameterivARB" get-object-parameter-iv-arb 2173) :void
   (obj handle-arb)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetInfoLogARB" get-info-log-arb 1913) :void
+(defglextfun ("glGetInfoLogARB" get-info-log-arb 2174) :void
   (obj handle-arb)
   (maxLength sizei)
   (length (:pointer sizei))
   (infoLog (:pointer char-arb)))
 
-(defglextfun ("glGetAttachedObjectsARB" get-attached-objects-arb 1914) :void
+(defglextfun ("glGetAttachedObjectsARB" get-attached-objects-arb 2175) :void
   (containerObj handle-arb)
   (maxCount sizei)
   (count (:pointer sizei))
   (obj (:pointer handle-arb)))
 
-(defglextfun ("glGetUniformLocationARB" get-uniform-location-arb 1915) int
+(defglextfun ("glGetUniformLocationARB" get-uniform-location-arb 2176) int
   (programObj handle-arb)
   (name (:pointer char-arb)))
 
-(defglextfun ("glGetActiveUniformARB" get-active-uniform-arb 1916) :void
+(defglextfun ("glGetActiveUniformARB" get-active-uniform-arb 2177) :void
   (programObj handle-arb)
   (index uint)
   (maxLength sizei)
@@ -2608,23 +2608,23 @@
   (type (:pointer enum))
   (name (:pointer char-arb)))
 
-(defglextfun ("glGetUniformfvARB" get-uniform-fv-arb 1917) :void
+(defglextfun ("glGetUniformfvARB" get-uniform-fv-arb 2178) :void
   (programObj handle-arb)
   (location int)
   (params (:pointer float)))
 
-(defglextfun ("glGetUniformivARB" get-uniform-iv-arb 1918) :void
+(defglextfun ("glGetUniformivARB" get-uniform-iv-arb 2179) :void
   (programObj handle-arb)
   (location int)
   (params (:pointer int)))
 
-(defglextfun ("glGetShaderSourceARB" get-shader-source-arb 1919) :void
+(defglextfun ("glGetShaderSourceARB" get-shader-source-arb 2180) :void
   (obj handle-arb)
   (maxLength sizei)
   (length (:pointer sizei))
   (source (:pointer char-arb)))
 
-(defglextfun ("glCompressedTexImage3DARB" compressed-tex-image-3d-arb 1920) :void
+(defglextfun ("glCompressedTexImage3DARB" compressed-tex-image-3d-arb 2181) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -2635,7 +2635,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexImage2DARB" compressed-tex-image-2d-arb 1921) :void
+(defglextfun ("glCompressedTexImage2DARB" compressed-tex-image-2d-arb 2182) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -2645,7 +2645,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexImage1DARB" compressed-tex-image-1d-arb 1922) :void
+(defglextfun ("glCompressedTexImage1DARB" compressed-tex-image-1d-arb 2183) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -2654,7 +2654,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexSubImage3DARB" compressed-tex-sub-image-3d-arb 1923) :void
+(defglextfun ("glCompressedTexSubImage3DARB" compressed-tex-sub-image-3d-arb 2184) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -2667,7 +2667,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexSubImage2DARB" compressed-tex-sub-image-2d-arb 1924) :void
+(defglextfun ("glCompressedTexSubImage2DARB" compressed-tex-sub-image-2d-arb 2185) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -2678,7 +2678,7 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glCompressedTexSubImage1DARB" compressed-tex-sub-image-1d-arb 1925) :void
+(defglextfun ("glCompressedTexSubImage1DARB" compressed-tex-sub-image-1d-arb 2186) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -2687,280 +2687,280 @@
   (imageSize sizei)
   (data (:pointer :void)))
 
-(defglextfun ("glGetCompressedTexImageARB" get-compressed-tex-image-arb 1926) :void
+(defglextfun ("glGetCompressedTexImageARB" get-compressed-tex-image-arb 2187) :void
   (target enum)
   (level int)
   (img (:pointer :void)))
 
-(defglextfun ("glLoadTransposeMatrixfARB" load-transpose-matrix-f-arb 1927) :void
+(defglextfun ("glLoadTransposeMatrixfARB" load-transpose-matrix-f-arb 2188) :void
   (m (:pointer float)))
 
-(defglextfun ("glLoadTransposeMatrixdARB" load-transpose-matrix-d-arb 1928) :void
+(defglextfun ("glLoadTransposeMatrixdARB" load-transpose-matrix-d-arb 2189) :void
   (m (:pointer double)))
 
-(defglextfun ("glMultTransposeMatrixfARB" mult-transpose-matrix-f-arb 1929) :void
+(defglextfun ("glMultTransposeMatrixfARB" mult-transpose-matrix-f-arb 2190) :void
   (m (:pointer float)))
 
-(defglextfun ("glMultTransposeMatrixdARB" mult-transpose-matrix-d-arb 1930) :void
+(defglextfun ("glMultTransposeMatrixdARB" mult-transpose-matrix-d-arb 2191) :void
   (m (:pointer double)))
 
-(defglextfun ("glWeightbvARB" weight-bv-arb 1931) :void
+(defglextfun ("glWeightbvARB" weight-bv-arb 2192) :void
   (size int)
   (weights (:pointer byte)))
 
-(defglextfun ("glWeightsvARB" weight-sv-arb 1932) :void
+(defglextfun ("glWeightsvARB" weight-sv-arb 2193) :void
   (size int)
   (weights (:pointer short)))
 
-(defglextfun ("glWeightivARB" weight-iv-arb 1933) :void
+(defglextfun ("glWeightivARB" weight-iv-arb 2194) :void
   (size int)
   (weights (:pointer int)))
 
-(defglextfun ("glWeightfvARB" weight-fv-arb 1934) :void
+(defglextfun ("glWeightfvARB" weight-fv-arb 2195) :void
   (size int)
   (weights (:pointer float)))
 
-(defglextfun ("glWeightdvARB" weight-dv-arb 1935) :void
+(defglextfun ("glWeightdvARB" weight-dv-arb 2196) :void
   (size int)
   (weights (:pointer double)))
 
-(defglextfun ("glWeightubvARB" weight-ubv-arb 1936) :void
+(defglextfun ("glWeightubvARB" weight-ubv-arb 2197) :void
   (size int)
   (weights (:pointer ubyte)))
 
-(defglextfun ("glWeightusvARB" weight-usv-arb 1937) :void
+(defglextfun ("glWeightusvARB" weight-usv-arb 2198) :void
   (size int)
   (weights (:pointer ushort)))
 
-(defglextfun ("glWeightuivARB" weight-uiv-arb 1938) :void
+(defglextfun ("glWeightuivARB" weight-uiv-arb 2199) :void
   (size int)
   (weights (:pointer uint)))
 
-(defglextfun ("glWeightPointerARB" weight-pointer-arb 1939) :void
+(defglextfun ("glWeightPointerARB" weight-pointer-arb 2200) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glVertexBlendARB" vertex-blend-arb 1940) :void
+(defglextfun ("glVertexBlendARB" vertex-blend-arb 2201) :void
   (count int))
 
-(defglextfun ("glBindBufferARB" bind-buffer-arb 1941) :void
+(defglextfun ("glBindBufferARB" bind-buffer-arb 2202) :void
   (target enum)
   (buffer uint))
 
-(defglextfun ("glDeleteBuffersARB" delete-buffers-arb 1942) :void
+(defglextfun ("glDeleteBuffersARB" delete-buffers-arb 2203) :void
   (n sizei)
   (buffers (:pointer uint)))
 
-(defglextfun ("glGenBuffersARB" gen-buffers-arb 1943) :void
+(defglextfun ("glGenBuffersARB" gen-buffers-arb 2204) :void
   (n sizei)
   (buffers (:pointer uint)))
 
-(defglextfun ("glIsBufferARB" is-buffer-arb 1944) boolean
+(defglextfun ("glIsBufferARB" is-buffer-arb 2205) boolean
   (buffer uint))
 
-(defglextfun ("glBufferDataARB" buffer-data-arb 1945) :void
+(defglextfun ("glBufferDataARB" buffer-data-arb 2206) :void
   (target enum)
   (size sizeiptr-arb)
   (data (:pointer :void))
   (usage enum))
 
-(defglextfun ("glBufferSubDataARB" buffer-sub-data-arb 1946) :void
+(defglextfun ("glBufferSubDataARB" buffer-sub-data-arb 2207) :void
   (target enum)
   (offset intptr-arb)
   (size sizeiptr-arb)
   (data (:pointer :void)))
 
-(defglextfun ("glGetBufferSubDataARB" get-buffer-sub-data-arb 1947) :void
+(defglextfun ("glGetBufferSubDataARB" get-buffer-sub-data-arb 2208) :void
   (target enum)
   (offset intptr-arb)
   (size sizeiptr-arb)
   (data (:pointer :void)))
 
-(defglextfun ("glMapBufferARB" map-buffer-arb 1948) (:pointer :void)
+(defglextfun ("glMapBufferARB" map-buffer-arb 2209) (:pointer :void)
   (target enum)
   (access enum))
 
-(defglextfun ("glUnmapBufferARB" unmap-buffer-arb 1949) boolean
+(defglextfun ("glUnmapBufferARB" unmap-buffer-arb 2210) boolean
   (target enum))
 
-(defglextfun ("glGetBufferParameterivARB" get-buffer-parameter-iv-arb 1950) :void
+(defglextfun ("glGetBufferParameterivARB" get-buffer-parameter-iv-arb 2211) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetBufferPointervARB" get-buffer-pointer-v-arb 1951) :void
+(defglextfun ("glGetBufferPointervARB" get-buffer-pointer-v-arb 2212) :void
   (target enum)
   (pname enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glVertexAttrib1dARB" vertex-attrib-1d-arb 1952) :void
+(defglextfun ("glVertexAttrib1dARB" vertex-attrib-1d-arb 2213) :void
   (index uint)
   (x double))
 
-(defglextfun ("glVertexAttrib1dvARB" vertex-attrib-1dv-arb 1953) :void
+(defglextfun ("glVertexAttrib1dvARB" vertex-attrib-1dv-arb 2214) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib1fARB" vertex-attrib-1f-arb 1954) :void
+(defglextfun ("glVertexAttrib1fARB" vertex-attrib-1f-arb 2215) :void
   (index uint)
   (x float))
 
-(defglextfun ("glVertexAttrib1fvARB" vertex-attrib-1fv-arb 1955) :void
+(defglextfun ("glVertexAttrib1fvARB" vertex-attrib-1fv-arb 2216) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib1sARB" vertex-attrib-1s-arb 1956) :void
+(defglextfun ("glVertexAttrib1sARB" vertex-attrib-1s-arb 2217) :void
   (index uint)
   (x short))
 
-(defglextfun ("glVertexAttrib1svARB" vertex-attrib-1sv-arb 1957) :void
+(defglextfun ("glVertexAttrib1svARB" vertex-attrib-1sv-arb 2218) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib2dARB" vertex-attrib-2d-arb 1958) :void
+(defglextfun ("glVertexAttrib2dARB" vertex-attrib-2d-arb 2219) :void
   (index uint)
   (x double)
   (y double))
 
-(defglextfun ("glVertexAttrib2dvARB" vertex-attrib-2dv-arb 1959) :void
+(defglextfun ("glVertexAttrib2dvARB" vertex-attrib-2dv-arb 2220) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib2fARB" vertex-attrib-2f-arb 1960) :void
+(defglextfun ("glVertexAttrib2fARB" vertex-attrib-2f-arb 2221) :void
   (index uint)
   (x float)
   (y float))
 
-(defglextfun ("glVertexAttrib2fvARB" vertex-attrib-2fv-arb 1961) :void
+(defglextfun ("glVertexAttrib2fvARB" vertex-attrib-2fv-arb 2222) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib2sARB" vertex-attrib-2s-arb 1962) :void
+(defglextfun ("glVertexAttrib2sARB" vertex-attrib-2s-arb 2223) :void
   (index uint)
   (x short)
   (y short))
 
-(defglextfun ("glVertexAttrib2svARB" vertex-attrib-2sv-arb 1963) :void
+(defglextfun ("glVertexAttrib2svARB" vertex-attrib-2sv-arb 2224) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib3dARB" vertex-attrib-3d-arb 1964) :void
+(defglextfun ("glVertexAttrib3dARB" vertex-attrib-3d-arb 2225) :void
   (index uint)
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glVertexAttrib3dvARB" vertex-attrib-3dv-arb 1965) :void
+(defglextfun ("glVertexAttrib3dvARB" vertex-attrib-3dv-arb 2226) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib3fARB" vertex-attrib-3f-arb 1966) :void
+(defglextfun ("glVertexAttrib3fARB" vertex-attrib-3f-arb 2227) :void
   (index uint)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glVertexAttrib3fvARB" vertex-attrib-3fv-arb 1967) :void
+(defglextfun ("glVertexAttrib3fvARB" vertex-attrib-3fv-arb 2228) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib3sARB" vertex-attrib-3s-arb 1968) :void
+(defglextfun ("glVertexAttrib3sARB" vertex-attrib-3s-arb 2229) :void
   (index uint)
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glVertexAttrib3svARB" vertex-attrib-3sv-arb 1969) :void
+(defglextfun ("glVertexAttrib3svARB" vertex-attrib-3sv-arb 2230) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4NbvARB" vertex-attrib-4nbv-arb 1970) :void
+(defglextfun ("glVertexAttrib4NbvARB" vertex-attrib-4nbv-arb 2231) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttrib4NivARB" vertex-attrib-4niv-arb 1971) :void
+(defglextfun ("glVertexAttrib4NivARB" vertex-attrib-4niv-arb 2232) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttrib4NsvARB" vertex-attrib-4nsv-arb 1972) :void
+(defglextfun ("glVertexAttrib4NsvARB" vertex-attrib-4nsv-arb 2233) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4NubARB" vertex-attrib-4nub-arb 1973) :void
+(defglextfun ("glVertexAttrib4NubARB" vertex-attrib-4nub-arb 2234) :void
   (index uint)
   (x ubyte)
   (y ubyte)
   (z ubyte)
   (w ubyte))
 
-(defglextfun ("glVertexAttrib4NubvARB" vertex-attrib-4nubv-arb 1974) :void
+(defglextfun ("glVertexAttrib4NubvARB" vertex-attrib-4nubv-arb 2235) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttrib4NuivARB" vertex-attrib-4nuiv-arb 1975) :void
+(defglextfun ("glVertexAttrib4NuivARB" vertex-attrib-4nuiv-arb 2236) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttrib4NusvARB" vertex-attrib-4nusv-arb 1976) :void
+(defglextfun ("glVertexAttrib4NusvARB" vertex-attrib-4nusv-arb 2237) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glVertexAttrib4bvARB" vertex-attrib-4bv-arb 1977) :void
+(defglextfun ("glVertexAttrib4bvARB" vertex-attrib-4bv-arb 2238) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttrib4dARB" vertex-attrib-4d-arb 1978) :void
+(defglextfun ("glVertexAttrib4dARB" vertex-attrib-4d-arb 2239) :void
   (index uint)
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glVertexAttrib4dvARB" vertex-attrib-4dv-arb 1979) :void
+(defglextfun ("glVertexAttrib4dvARB" vertex-attrib-4dv-arb 2240) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib4fARB" vertex-attrib-4f-arb 1980) :void
+(defglextfun ("glVertexAttrib4fARB" vertex-attrib-4f-arb 2241) :void
   (index uint)
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglextfun ("glVertexAttrib4fvARB" vertex-attrib-4fv-arb 1981) :void
+(defglextfun ("glVertexAttrib4fvARB" vertex-attrib-4fv-arb 2242) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib4ivARB" vertex-attrib-4iv-arb 1982) :void
+(defglextfun ("glVertexAttrib4ivARB" vertex-attrib-4iv-arb 2243) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttrib4sARB" vertex-attrib-4s-arb 1983) :void
+(defglextfun ("glVertexAttrib4sARB" vertex-attrib-4s-arb 2244) :void
   (index uint)
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglextfun ("glVertexAttrib4svARB" vertex-attrib-4sv-arb 1984) :void
+(defglextfun ("glVertexAttrib4svARB" vertex-attrib-4sv-arb 2245) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4ubvARB" vertex-attrib-4ubv-arb 1985) :void
+(defglextfun ("glVertexAttrib4ubvARB" vertex-attrib-4ubv-arb 2246) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttrib4uivARB" vertex-attrib-4uiv-arb 1986) :void
+(defglextfun ("glVertexAttrib4uivARB" vertex-attrib-4uiv-arb 2247) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttrib4usvARB" vertex-attrib-4usv-arb 1987) :void
+(defglextfun ("glVertexAttrib4usvARB" vertex-attrib-4usv-arb 2248) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glVertexAttribPointerARB" vertex-attrib-pointer-arb 1988) :void
+(defglextfun ("glVertexAttribPointerARB" vertex-attrib-pointer-arb 2249) :void
   (index uint)
   (size int)
   (type enum)
@@ -2968,38 +2968,38 @@
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glEnableVertexAttribArrayARB" enable-vertex-attrib-array-arb 1989) :void
+(defglextfun ("glEnableVertexAttribArrayARB" enable-vertex-attrib-array-arb 2250) :void
   (index uint))
 
-(defglextfun ("glDisableVertexAttribArrayARB" disable-vertex-attrib-array-arb 1990) :void
+(defglextfun ("glDisableVertexAttribArrayARB" disable-vertex-attrib-array-arb 2251) :void
   (index uint))
 
-(defglextfun ("glGetVertexAttribdvARB" get-vertex-attrib-dv-arb 1991) :void
+(defglextfun ("glGetVertexAttribdvARB" get-vertex-attrib-dv-arb 2252) :void
   (index uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glGetVertexAttribfvARB" get-vertex-attrib-fv-arb 1992) :void
+(defglextfun ("glGetVertexAttribfvARB" get-vertex-attrib-fv-arb 2253) :void
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVertexAttribivARB" get-vertex-attrib-iv-arb 1993) :void
+(defglextfun ("glGetVertexAttribivARB" get-vertex-attrib-iv-arb 2254) :void
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVertexAttribPointervARB" get-vertex-attrib-pointer-v-arb 1994) :void
+(defglextfun ("glGetVertexAttribPointervARB" get-vertex-attrib-pointer-v-arb 2255) :void
   (index uint)
   (pname enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glBindAttribLocationARB" bind-attrib-location-arb 1995) :void
+(defglextfun ("glBindAttribLocationARB" bind-attrib-location-arb 2256) :void
   (programObj handle-arb)
   (index uint)
   (name (:pointer char-arb)))
 
-(defglextfun ("glGetActiveAttribARB" get-active-attrib-arb 1996) :void
+(defglextfun ("glGetActiveAttribARB" get-active-attrib-arb 2257) :void
   (programObj handle-arb)
   (index uint)
   (maxLength sizei)
@@ -3008,128 +3008,128 @@
   (type (:pointer enum))
   (name (:pointer char-arb)))
 
-(defglextfun ("glGetAttribLocationARB" get-attrib-location-arb 1997) int
+(defglextfun ("glGetAttribLocationARB" get-attrib-location-arb 2258) int
   (programObj handle-arb)
   (name (:pointer char-arb)))
 
-(defglextfun ("glWindowPos2dARB" window-pos-2d-arb 1998) :void
+(defglextfun ("glWindowPos2dARB" window-pos-2d-arb 2259) :void
   (x double)
   (y double))
 
-(defglextfun ("glWindowPos2dvARB" window-pos-2dv-arb 1999) :void
+(defglextfun ("glWindowPos2dvARB" window-pos-2dv-arb 2260) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos2fARB" window-pos-2f-arb 2000) :void
+(defglextfun ("glWindowPos2fARB" window-pos-2f-arb 2261) :void
   (x float)
   (y float))
 
-(defglextfun ("glWindowPos2fvARB" window-pos-2fv-arb 2001) :void
+(defglextfun ("glWindowPos2fvARB" window-pos-2fv-arb 2262) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos2iARB" window-pos-2i-arb 2002) :void
+(defglextfun ("glWindowPos2iARB" window-pos-2i-arb 2263) :void
   (x int)
   (y int))
 
-(defglextfun ("glWindowPos2ivARB" window-pos-2iv-arb 2003) :void
+(defglextfun ("glWindowPos2ivARB" window-pos-2iv-arb 2264) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos2sARB" window-pos-2s-arb 2004) :void
+(defglextfun ("glWindowPos2sARB" window-pos-2s-arb 2265) :void
   (x short)
   (y short))
 
-(defglextfun ("glWindowPos2svARB" window-pos-2sv-arb 2005) :void
+(defglextfun ("glWindowPos2svARB" window-pos-2sv-arb 2266) :void
   (v (:pointer short)))
 
-(defglextfun ("glWindowPos3dARB" window-pos-3d-arb 2006) :void
+(defglextfun ("glWindowPos3dARB" window-pos-3d-arb 2267) :void
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glWindowPos3dvARB" window-pos-3dv-arb 2007) :void
+(defglextfun ("glWindowPos3dvARB" window-pos-3dv-arb 2268) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos3fARB" window-pos-3f-arb 2008) :void
+(defglextfun ("glWindowPos3fARB" window-pos-3f-arb 2269) :void
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glWindowPos3fvARB" window-pos-3fv-arb 2009) :void
+(defglextfun ("glWindowPos3fvARB" window-pos-3fv-arb 2270) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos3iARB" window-pos-3i-arb 2010) :void
+(defglextfun ("glWindowPos3iARB" window-pos-3i-arb 2271) :void
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glWindowPos3ivARB" window-pos-3iv-arb 2011) :void
+(defglextfun ("glWindowPos3ivARB" window-pos-3iv-arb 2272) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos3sARB" window-pos-3s-arb 2012) :void
+(defglextfun ("glWindowPos3sARB" window-pos-3s-arb 2273) :void
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glWindowPos3svARB" window-pos-3sv-arb 2013) :void
+(defglextfun ("glWindowPos3svARB" window-pos-3sv-arb 2274) :void
   (v (:pointer short)))
 
-(defglextfun ("glDrawBuffersATI" draw-buffers-ati 2014) :void
+(defglextfun ("glDrawBuffersATI" draw-buffers-ati 2275) :void
   (n sizei)
   (bufs (:pointer enum)))
 
-(defglextfun ("glElementPointerATI" element-pointer-ati 2015) :void
+(defglextfun ("glElementPointerATI" element-pointer-ati 2276) :void
   (type enum)
   (pointer (:pointer :void)))
 
-(defglextfun ("glDrawElementArrayATI" draw-element-array-ati 2016) :void
+(defglextfun ("glDrawElementArrayATI" draw-element-array-ati 2277) :void
   (mode enum)
   (count sizei))
 
-(defglextfun ("glDrawRangeElementArrayATI" draw-range-element-array-ati 2017) :void
+(defglextfun ("glDrawRangeElementArrayATI" draw-range-element-array-ati 2278) :void
   (mode enum)
   (start uint)
   (end uint)
   (count sizei))
 
-(defglextfun ("glTexBumpParameterivATI" tex-bump-parameter-iv-ati 2018) :void
+(defglextfun ("glTexBumpParameterivATI" tex-bump-parameter-iv-ati 2279) :void
   (pname enum)
   (param (:pointer int)))
 
-(defglextfun ("glTexBumpParameterfvATI" tex-bump-parameter-fv-ati 2019) :void
+(defglextfun ("glTexBumpParameterfvATI" tex-bump-parameter-fv-ati 2280) :void
   (pname enum)
   (param (:pointer float)))
 
-(defglextfun ("glGetTexBumpParameterivATI" get-tex-bump-parameter-iv-ati 2020) :void
+(defglextfun ("glGetTexBumpParameterivATI" get-tex-bump-parameter-iv-ati 2281) :void
   (pname enum)
   (param (:pointer int)))
 
-(defglextfun ("glGetTexBumpParameterfvATI" get-tex-bump-parameter-fv-ati 2021) :void
+(defglextfun ("glGetTexBumpParameterfvATI" get-tex-bump-parameter-fv-ati 2282) :void
   (pname enum)
   (param (:pointer float)))
 
-(defglextfun ("glGenFragmentShadersATI" gen-fragment-shaders-ati 2022) uint
+(defglextfun ("glGenFragmentShadersATI" gen-fragment-shaders-ati 2283) uint
   (range uint))
 
-(defglextfun ("glBindFragmentShaderATI" bind-fragment-shader-ati 2023) :void
+(defglextfun ("glBindFragmentShaderATI" bind-fragment-shader-ati 2284) :void
   (id uint))
 
-(defglextfun ("glDeleteFragmentShaderATI" delete-fragment-shader-ati 2024) :void
+(defglextfun ("glDeleteFragmentShaderATI" delete-fragment-shader-ati 2285) :void
   (id uint))
 
-(defglextfun ("glBeginFragmentShaderATI" begin-fragment-shader-ati 2025) :void)
+(defglextfun ("glBeginFragmentShaderATI" begin-fragment-shader-ati 2286) :void)
 
-(defglextfun ("glEndFragmentShaderATI" end-fragment-shader-ati 2026) :void)
+(defglextfun ("glEndFragmentShaderATI" end-fragment-shader-ati 2287) :void)
 
-(defglextfun ("glPassTexCoordATI" pass-tex-coord-ati 2027) :void
+(defglextfun ("glPassTexCoordATI" pass-tex-coord-ati 2288) :void
   (dst uint)
   (coord uint)
   (swizzle enum))
 
-(defglextfun ("glSampleMapATI" sample-map-ati 2028) :void
+(defglextfun ("glSampleMapATI" sample-map-ati 2289) :void
   (dst uint)
   (interp uint)
   (swizzle enum))
 
-(defglextfun ("glColorFragmentOp1ATI" color-fragment-op-1-ati 2029) :void
+(defglextfun ("glColorFragmentOp1ATI" color-fragment-op-1-ati 2290) :void
   (op enum)
   (dst uint)
   (dstMask uint)
@@ -3138,7 +3138,7 @@
   (arg1Rep uint)
   (arg1Mod uint))
 
-(defglextfun ("glColorFragmentOp2ATI" color-fragment-op-2-ati 2030) :void
+(defglextfun ("glColorFragmentOp2ATI" color-fragment-op-2-ati 2291) :void
   (op enum)
   (dst uint)
   (dstMask uint)
@@ -3150,7 +3150,7 @@
   (arg2Rep uint)
   (arg2Mod uint))
 
-(defglextfun ("glColorFragmentOp3ATI" color-fragment-op-3-ati 2031) :void
+(defglextfun ("glColorFragmentOp3ATI" color-fragment-op-3-ati 2292) :void
   (op enum)
   (dst uint)
   (dstMask uint)
@@ -3165,7 +3165,7 @@
   (arg3Rep uint)
   (arg3Mod uint))
 
-(defglextfun ("glAlphaFragmentOp1ATI" alpha-fragment-op-1-ati 2032) :void
+(defglextfun ("glAlphaFragmentOp1ATI" alpha-fragment-op-1-ati 2293) :void
   (op enum)
   (dst uint)
   (dstMod uint)
@@ -3173,7 +3173,7 @@
   (arg1Rep uint)
   (arg1Mod uint))
 
-(defglextfun ("glAlphaFragmentOp2ATI" alpha-fragment-op-2-ati 2033) :void
+(defglextfun ("glAlphaFragmentOp2ATI" alpha-fragment-op-2-ati 2294) :void
   (op enum)
   (dst uint)
   (dstMod uint)
@@ -3184,7 +3184,7 @@
   (arg2Rep uint)
   (arg2Mod uint))
 
-(defglextfun ("glAlphaFragmentOp3ATI" alpha-fragment-op-3-ati 2034) :void
+(defglextfun ("glAlphaFragmentOp3ATI" alpha-fragment-op-3-ati 2295) :void
   (op enum)
   (dst uint)
   (dstMod uint)
@@ -3198,65 +3198,65 @@
   (arg3Rep uint)
   (arg3Mod uint))
 
-(defglextfun ("glSetFragmentShaderConstantATI" set-fragment-shader-constant-ati 2035) :void
+(defglextfun ("glSetFragmentShaderConstantATI" set-fragment-shader-constant-ati 2296) :void
   (dst uint)
   (value (:pointer float)))
 
-(defglextfun ("glMapObjectBufferATI" map-object-buffer-ati 2036) (:pointer :void)
+(defglextfun ("glMapObjectBufferATI" map-object-buffer-ati 2297) (:pointer :void)
   (buffer uint))
 
-(defglextfun ("glUnmapObjectBufferATI" unmap-object-buffer-ati 2037) :void
+(defglextfun ("glUnmapObjectBufferATI" unmap-object-buffer-ati 2298) :void
   (buffer uint))
 
-(defglextfun ("glPNTrianglesiATI" pntriangles-i-ati 2038) :void
+(defglextfun ("glPNTrianglesiATI" pntriangles-i-ati 2299) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glPNTrianglesfATI" pntriangles-f-ati 2039) :void
+(defglextfun ("glPNTrianglesfATI" pntriangles-f-ati 2300) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glStencilOpSeparateATI" stencil-op-separate-ati 2040) :void
+(defglextfun ("glStencilOpSeparateATI" stencil-op-separate-ati 2301) :void
   (face enum)
   (sfail enum)
   (dpfail enum)
   (dppass enum))
 
-(defglextfun ("glStencilFuncSeparateATI" stencil-func-separate-ati 2041) :void
+(defglextfun ("glStencilFuncSeparateATI" stencil-func-separate-ati 2302) :void
   (frontfunc enum)
   (backfunc enum)
   (ref int)
   (mask uint))
 
-(defglextfun ("glNewObjectBufferATI" new-object-buffer-ati 2042) uint
+(defglextfun ("glNewObjectBufferATI" new-object-buffer-ati 2303) uint
   (size sizei)
   (pointer (:pointer :void))
   (usage enum))
 
-(defglextfun ("glIsObjectBufferATI" is-object-buffer-ati 2043) boolean
+(defglextfun ("glIsObjectBufferATI" is-object-buffer-ati 2304) boolean
   (buffer uint))
 
-(defglextfun ("glUpdateObjectBufferATI" update-object-buffer-ati 2044) :void
+(defglextfun ("glUpdateObjectBufferATI" update-object-buffer-ati 2305) :void
   (buffer uint)
   (offset uint)
   (size sizei)
   (pointer (:pointer :void))
   (preserve enum))
 
-(defglextfun ("glGetObjectBufferfvATI" get-object-buffer-fv-ati 2045) :void
+(defglextfun ("glGetObjectBufferfvATI" get-object-buffer-fv-ati 2306) :void
   (buffer uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetObjectBufferivATI" get-object-buffer-iv-ati 2046) :void
+(defglextfun ("glGetObjectBufferivATI" get-object-buffer-iv-ati 2307) :void
   (buffer uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFreeObjectBufferATI" free-object-buffer-ati 2047) :void
+(defglextfun ("glFreeObjectBufferATI" free-object-buffer-ati 2308) :void
   (buffer uint))
 
-(defglextfun ("glArrayObjectATI" array-object-ati 2048) :void
+(defglextfun ("glArrayObjectATI" array-object-ati 2309) :void
   (array enum)
   (size int)
   (type enum)
@@ -3264,34 +3264,34 @@
   (buffer uint)
   (offset uint))
 
-(defglextfun ("glGetArrayObjectfvATI" get-array-object-fv-ati 2049) :void
+(defglextfun ("glGetArrayObjectfvATI" get-array-object-fv-ati 2310) :void
   (array enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetArrayObjectivATI" get-array-object-iv-ati 2050) :void
+(defglextfun ("glGetArrayObjectivATI" get-array-object-iv-ati 2311) :void
   (array enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glVariantArrayObjectATI" variant-array-object-ati 2051) :void
+(defglextfun ("glVariantArrayObjectATI" variant-array-object-ati 2312) :void
   (id uint)
   (type enum)
   (stride sizei)
   (buffer uint)
   (offset uint))
 
-(defglextfun ("glGetVariantArrayObjectfvATI" get-variant-array-object-fv-ati 2052) :void
+(defglextfun ("glGetVariantArrayObjectfvATI" get-variant-array-object-fv-ati 2313) :void
   (id uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVariantArrayObjectivATI" get-variant-array-object-iv-ati 2053) :void
+(defglextfun ("glGetVariantArrayObjectivATI" get-variant-array-object-iv-ati 2314) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glVertexAttribArrayObjectATI" vertex-attrib-array-object-ati 2054) :void
+(defglextfun ("glVertexAttribArrayObjectATI" vertex-attrib-array-object-ati 2315) :void
   (index uint)
   (size int)
   (type enum)
@@ -3300,259 +3300,259 @@
   (buffer uint)
   (offset uint))
 
-(defglextfun ("glGetVertexAttribArrayObjectfvATI" get-vertex-attrib-array-object-fv-ati 2055) :void
+(defglextfun ("glGetVertexAttribArrayObjectfvATI" get-vertex-attrib-array-object-fv-ati 2316) :void
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVertexAttribArrayObjectivATI" get-vertex-attrib-array-object-iv-ati 2056) :void
+(defglextfun ("glGetVertexAttribArrayObjectivATI" get-vertex-attrib-array-object-iv-ati 2317) :void
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glVertexStream1sATI" vertex-stream-1s-ati 2057) :void
+(defglextfun ("glVertexStream1sATI" vertex-stream-1s-ati 2318) :void
   (stream enum)
   (x short))
 
-(defglextfun ("glVertexStream1svATI" vertex-stream-1sv-ati 2058) :void
+(defglextfun ("glVertexStream1svATI" vertex-stream-1sv-ati 2319) :void
   (stream enum)
   (coords (:pointer short)))
 
-(defglextfun ("glVertexStream1iATI" vertex-stream-1i-ati 2059) :void
+(defglextfun ("glVertexStream1iATI" vertex-stream-1i-ati 2320) :void
   (stream enum)
   (x int))
 
-(defglextfun ("glVertexStream1ivATI" vertex-stream-1iv-ati 2060) :void
+(defglextfun ("glVertexStream1ivATI" vertex-stream-1iv-ati 2321) :void
   (stream enum)
   (coords (:pointer int)))
 
-(defglextfun ("glVertexStream1fATI" vertex-stream-1f-ati 2061) :void
+(defglextfun ("glVertexStream1fATI" vertex-stream-1f-ati 2322) :void
   (stream enum)
   (x float))
 
-(defglextfun ("glVertexStream1fvATI" vertex-stream-1fv-ati 2062) :void
+(defglextfun ("glVertexStream1fvATI" vertex-stream-1fv-ati 2323) :void
   (stream enum)
   (coords (:pointer float)))
 
-(defglextfun ("glVertexStream1dATI" vertex-stream-1d-ati 2063) :void
+(defglextfun ("glVertexStream1dATI" vertex-stream-1d-ati 2324) :void
   (stream enum)
   (x double))
 
-(defglextfun ("glVertexStream1dvATI" vertex-stream-1dv-ati 2064) :void
+(defglextfun ("glVertexStream1dvATI" vertex-stream-1dv-ati 2325) :void
   (stream enum)
   (coords (:pointer double)))
 
-(defglextfun ("glVertexStream2sATI" vertex-stream-2s-ati 2065) :void
+(defglextfun ("glVertexStream2sATI" vertex-stream-2s-ati 2326) :void
   (stream enum)
   (x short)
   (y short))
 
-(defglextfun ("glVertexStream2svATI" vertex-stream-2sv-ati 2066) :void
+(defglextfun ("glVertexStream2svATI" vertex-stream-2sv-ati 2327) :void
   (stream enum)
   (coords (:pointer short)))
 
-(defglextfun ("glVertexStream2iATI" vertex-stream-2i-ati 2067) :void
+(defglextfun ("glVertexStream2iATI" vertex-stream-2i-ati 2328) :void
   (stream enum)
   (x int)
   (y int))
 
-(defglextfun ("glVertexStream2ivATI" vertex-stream-2iv-ati 2068) :void
+(defglextfun ("glVertexStream2ivATI" vertex-stream-2iv-ati 2329) :void
   (stream enum)
   (coords (:pointer int)))
 
-(defglextfun ("glVertexStream2fATI" vertex-stream-2f-ati 2069) :void
+(defglextfun ("glVertexStream2fATI" vertex-stream-2f-ati 2330) :void
   (stream enum)
   (x float)
   (y float))
 
-(defglextfun ("glVertexStream2fvATI" vertex-stream-2fv-ati 2070) :void
+(defglextfun ("glVertexStream2fvATI" vertex-stream-2fv-ati 2331) :void
   (stream enum)
   (coords (:pointer float)))
 
-(defglextfun ("glVertexStream2dATI" vertex-stream-2d-ati 2071) :void
+(defglextfun ("glVertexStream2dATI" vertex-stream-2d-ati 2332) :void
   (stream enum)
   (x double)
   (y double))
 
-(defglextfun ("glVertexStream2dvATI" vertex-stream-2dv-ati 2072) :void
+(defglextfun ("glVertexStream2dvATI" vertex-stream-2dv-ati 2333) :void
   (stream enum)
   (coords (:pointer double)))
 
-(defglextfun ("glVertexStream3sATI" vertex-stream-3s-ati 2073) :void
+(defglextfun ("glVertexStream3sATI" vertex-stream-3s-ati 2334) :void
   (stream enum)
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glVertexStream3svATI" vertex-stream-3sv-ati 2074) :void
+(defglextfun ("glVertexStream3svATI" vertex-stream-3sv-ati 2335) :void
   (stream enum)
   (coords (:pointer short)))
 
-(defglextfun ("glVertexStream3iATI" vertex-stream-3i-ati 2075) :void
+(defglextfun ("glVertexStream3iATI" vertex-stream-3i-ati 2336) :void
   (stream enum)
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glVertexStream3ivATI" vertex-stream-3iv-ati 2076) :void
+(defglextfun ("glVertexStream3ivATI" vertex-stream-3iv-ati 2337) :void
   (stream enum)
   (coords (:pointer int)))
 
-(defglextfun ("glVertexStream3fATI" vertex-stream-3f-ati 2077) :void
+(defglextfun ("glVertexStream3fATI" vertex-stream-3f-ati 2338) :void
   (stream enum)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glVertexStream3fvATI" vertex-stream-3fv-ati 2078) :void
+(defglextfun ("glVertexStream3fvATI" vertex-stream-3fv-ati 2339) :void
   (stream enum)
   (coords (:pointer float)))
 
-(defglextfun ("glVertexStream3dATI" vertex-stream-3d-ati 2079) :void
+(defglextfun ("glVertexStream3dATI" vertex-stream-3d-ati 2340) :void
   (stream enum)
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glVertexStream3dvATI" vertex-stream-3dv-ati 2080) :void
+(defglextfun ("glVertexStream3dvATI" vertex-stream-3dv-ati 2341) :void
   (stream enum)
   (coords (:pointer double)))
 
-(defglextfun ("glVertexStream4sATI" vertex-stream-4s-ati 2081) :void
+(defglextfun ("glVertexStream4sATI" vertex-stream-4s-ati 2342) :void
   (stream enum)
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglextfun ("glVertexStream4svATI" vertex-stream-4sv-ati 2082) :void
+(defglextfun ("glVertexStream4svATI" vertex-stream-4sv-ati 2343) :void
   (stream enum)
   (coords (:pointer short)))
 
-(defglextfun ("glVertexStream4iATI" vertex-stream-4i-ati 2083) :void
+(defglextfun ("glVertexStream4iATI" vertex-stream-4i-ati 2344) :void
   (stream enum)
   (x int)
   (y int)
   (z int)
   (w int))
 
-(defglextfun ("glVertexStream4ivATI" vertex-stream-4iv-ati 2084) :void
+(defglextfun ("glVertexStream4ivATI" vertex-stream-4iv-ati 2345) :void
   (stream enum)
   (coords (:pointer int)))
 
-(defglextfun ("glVertexStream4fATI" vertex-stream-4f-ati 2085) :void
+(defglextfun ("glVertexStream4fATI" vertex-stream-4f-ati 2346) :void
   (stream enum)
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglextfun ("glVertexStream4fvATI" vertex-stream-4fv-ati 2086) :void
+(defglextfun ("glVertexStream4fvATI" vertex-stream-4fv-ati 2347) :void
   (stream enum)
   (coords (:pointer float)))
 
-(defglextfun ("glVertexStream4dATI" vertex-stream-4d-ati 2087) :void
+(defglextfun ("glVertexStream4dATI" vertex-stream-4d-ati 2348) :void
   (stream enum)
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glVertexStream4dvATI" vertex-stream-4dv-ati 2088) :void
+(defglextfun ("glVertexStream4dvATI" vertex-stream-4dv-ati 2349) :void
   (stream enum)
   (coords (:pointer double)))
 
-(defglextfun ("glNormalStream3bATI" normal-stream-3b-ati 2089) :void
+(defglextfun ("glNormalStream3bATI" normal-stream-3b-ati 2350) :void
   (stream enum)
   (nx byte)
   (ny byte)
   (nz byte))
 
-(defglextfun ("glNormalStream3bvATI" normal-stream-3bv-ati 2090) :void
+(defglextfun ("glNormalStream3bvATI" normal-stream-3bv-ati 2351) :void
   (stream enum)
   (coords (:pointer byte)))
 
-(defglextfun ("glNormalStream3sATI" normal-stream-3s-ati 2091) :void
+(defglextfun ("glNormalStream3sATI" normal-stream-3s-ati 2352) :void
   (stream enum)
   (nx short)
   (ny short)
   (nz short))
 
-(defglextfun ("glNormalStream3svATI" normal-stream-3sv-ati 2092) :void
+(defglextfun ("glNormalStream3svATI" normal-stream-3sv-ati 2353) :void
   (stream enum)
   (coords (:pointer short)))
 
-(defglextfun ("glNormalStream3iATI" normal-stream-3i-ati 2093) :void
+(defglextfun ("glNormalStream3iATI" normal-stream-3i-ati 2354) :void
   (stream enum)
   (nx int)
   (ny int)
   (nz int))
 
-(defglextfun ("glNormalStream3ivATI" normal-stream-3iv-ati 2094) :void
+(defglextfun ("glNormalStream3ivATI" normal-stream-3iv-ati 2355) :void
   (stream enum)
   (coords (:pointer int)))
 
-(defglextfun ("glNormalStream3fATI" normal-stream-3f-ati 2095) :void
+(defglextfun ("glNormalStream3fATI" normal-stream-3f-ati 2356) :void
   (stream enum)
   (nx float)
   (ny float)
   (nz float))
 
-(defglextfun ("glNormalStream3fvATI" normal-stream-3fv-ati 2096) :void
+(defglextfun ("glNormalStream3fvATI" normal-stream-3fv-ati 2357) :void
   (stream enum)
   (coords (:pointer float)))
 
-(defglextfun ("glNormalStream3dATI" normal-stream-3d-ati 2097) :void
+(defglextfun ("glNormalStream3dATI" normal-stream-3d-ati 2358) :void
   (stream enum)
   (nx double)
   (ny double)
   (nz double))
 
-(defglextfun ("glNormalStream3dvATI" normal-stream-3dv-ati 2098) :void
+(defglextfun ("glNormalStream3dvATI" normal-stream-3dv-ati 2359) :void
   (stream enum)
   (coords (:pointer double)))
 
-(defglextfun ("glClientActiveVertexStreamATI" client-active-vertex-stream-ati 2099) :void
+(defglextfun ("glClientActiveVertexStreamATI" client-active-vertex-stream-ati 2360) :void
   (stream enum))
 
-(defglextfun ("glVertexBlendEnviATI" vertex-blend-env-i-ati 2100) :void
+(defglextfun ("glVertexBlendEnviATI" vertex-blend-env-i-ati 2361) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glVertexBlendEnvfATI" vertex-blend-env-f-ati 2101) :void
+(defglextfun ("glVertexBlendEnvfATI" vertex-blend-env-f-ati 2362) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glUniformBufferEXT" uniform-buffer-ext 2102) :void
+(defglextfun ("glUniformBufferEXT" uniform-buffer-ext 2363) :void
   (program uint)
   (location int)
   (buffer uint))
 
-(defglextfun ("glGetUniformBufferSizeEXT" get-uniform-buffer-size-ext 2103) int
+(defglextfun ("glGetUniformBufferSizeEXT" get-uniform-buffer-size-ext 2364) int
   (program uint)
   (location int))
 
-(defglextfun ("glGetUniformOffsetEXT" get-uniform-offset-ext 2104) intptr
+(defglextfun ("glGetUniformOffsetEXT" get-uniform-offset-ext 2365) intptr
   (program uint)
   (location int))
 
-(defglextfun ("glBlendColorEXT" blend-color-ext 2105) :void
+(defglextfun ("glBlendColorEXT" blend-color-ext 2366) :void
   (red float)
   (green float)
   (blue float)
   (alpha float))
 
-(defglextfun ("glBlendEquationSeparateEXT" blend-equation-separate-ext 2106) :void
+(defglextfun ("glBlendEquationSeparateEXT" blend-equation-separate-ext 2367) :void
   (modeRGB enum)
   (modeAlpha enum))
 
-(defglextfun ("glBlendFuncSeparateEXT" blend-func-separate-ext 2107) :void
+(defglextfun ("glBlendFuncSeparateEXT" blend-func-separate-ext 2368) :void
   (sfactorRGB enum)
   (dfactorRGB enum)
   (sfactorAlpha enum)
   (dfactorAlpha enum))
 
-(defglextfun ("glColorSubTableEXT" color-sub-table-ext 2108) :void
+(defglextfun ("glColorSubTableEXT" color-sub-table-ext 2369) :void
   (target enum)
   (start sizei)
   (count sizei)
@@ -3560,20 +3560,20 @@
   (type enum)
   (data (:pointer :void)))
 
-(defglextfun ("glCopyColorSubTableEXT" copy-color-sub-table-ext 2109) :void
+(defglextfun ("glCopyColorSubTableEXT" copy-color-sub-table-ext 2370) :void
   (target enum)
   (start sizei)
   (x int)
   (y int)
   (width sizei))
 
-(defglextfun ("glLockArraysEXT" lock-arrays-ext 2110) :void
+(defglextfun ("glLockArraysEXT" lock-arrays-ext 2371) :void
   (first int)
   (count sizei))
 
-(defglextfun ("glUnlockArraysEXT" unlock-arrays-ext 2111) :void)
+(defglextfun ("glUnlockArraysEXT" unlock-arrays-ext 2372) :void)
 
-(defglextfun ("glConvolutionFilter1DEXT" convolution-filter-1d-ext 2112) :void
+(defglextfun ("glConvolutionFilter1DEXT" convolution-filter-1d-ext 2373) :void
   (target enum)
   (internalformat enum)
   (width sizei)
@@ -3581,7 +3581,7 @@
   (type enum)
   (image (:pointer :void)))
 
-(defglextfun ("glConvolutionFilter2DEXT" convolution-filter-2d-ext 2113) :void
+(defglextfun ("glConvolutionFilter2DEXT" convolution-filter-2d-ext 2374) :void
   (target enum)
   (internalformat enum)
   (width sizei)
@@ -3590,34 +3590,34 @@
   (type enum)
   (image (:pointer :void)))
 
-(defglextfun ("glConvolutionParameterfEXT" convolution-parameter-f-ext 2114) :void
+(defglextfun ("glConvolutionParameterfEXT" convolution-parameter-f-ext 2375) :void
   (target enum)
   (pname enum)
   (params float))
 
-(defglextfun ("glConvolutionParameterfvEXT" convolution-parameter-fv-ext 2115) :void
+(defglextfun ("glConvolutionParameterfvEXT" convolution-parameter-fv-ext 2376) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glConvolutionParameteriEXT" convolution-parameter-i-ext 2116) :void
+(defglextfun ("glConvolutionParameteriEXT" convolution-parameter-i-ext 2377) :void
   (target enum)
   (pname enum)
   (params int))
 
-(defglextfun ("glConvolutionParameterivEXT" convolution-parameter-iv-ext 2117) :void
+(defglextfun ("glConvolutionParameterivEXT" convolution-parameter-iv-ext 2378) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glCopyConvolutionFilter1DEXT" copy-convolution-filter-1d-ext 2118) :void
+(defglextfun ("glCopyConvolutionFilter1DEXT" copy-convolution-filter-1d-ext 2379) :void
   (target enum)
   (internalformat enum)
   (x int)
   (y int)
   (width sizei))
 
-(defglextfun ("glCopyConvolutionFilter2DEXT" copy-convolution-filter-2d-ext 2119) :void
+(defglextfun ("glCopyConvolutionFilter2DEXT" copy-convolution-filter-2d-ext 2380) :void
   (target enum)
   (internalformat enum)
   (x int)
@@ -3625,23 +3625,23 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glGetConvolutionFilterEXT" get-convolution-filter-ext 2120) :void
+(defglextfun ("glGetConvolutionFilterEXT" get-convolution-filter-ext 2381) :void
   (target enum)
   (format enum)
   (type enum)
   (image (:pointer :void)))
 
-(defglextfun ("glGetConvolutionParameterfvEXT" get-convolution-parameter-fv-ext 2121) :void
+(defglextfun ("glGetConvolutionParameterfvEXT" get-convolution-parameter-fv-ext 2382) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetConvolutionParameterivEXT" get-convolution-parameter-iv-ext 2122) :void
+(defglextfun ("glGetConvolutionParameterivEXT" get-convolution-parameter-iv-ext 2383) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetSeparableFilterEXT" get-separable-filter-ext 2123) :void
+(defglextfun ("glGetSeparableFilterEXT" get-separable-filter-ext 2384) :void
   (target enum)
   (format enum)
   (type enum)
@@ -3649,7 +3649,7 @@
   (column (:pointer :void))
   (span (:pointer :void)))
 
-(defglextfun ("glSeparableFilter2DEXT" separable-filter-2d-ext 2124) :void
+(defglextfun ("glSeparableFilter2DEXT" separable-filter-2d-ext 2385) :void
   (target enum)
   (internalformat enum)
   (width sizei)
@@ -3659,97 +3659,97 @@
   (row (:pointer :void))
   (column (:pointer :void)))
 
-(defglextfun ("glTangent3bEXT" tangent-3b-ext 2125) :void
+(defglextfun ("glTangent3bEXT" tangent-3b-ext 2386) :void
   (tx byte)
   (ty byte)
   (tz byte))
 
-(defglextfun ("glTangent3bvEXT" tangent-3bv-ext 2126) :void
+(defglextfun ("glTangent3bvEXT" tangent-3bv-ext 2387) :void
   (v (:pointer byte)))
 
-(defglextfun ("glTangent3dEXT" tangent-3d-ext 2127) :void
+(defglextfun ("glTangent3dEXT" tangent-3d-ext 2388) :void
   (tx double)
   (ty double)
   (tz double))
 
-(defglextfun ("glTangent3dvEXT" tangent-3dv-ext 2128) :void
+(defglextfun ("glTangent3dvEXT" tangent-3dv-ext 2389) :void
   (v (:pointer double)))
 
-(defglextfun ("glTangent3fEXT" tangent-3f-ext 2129) :void
+(defglextfun ("glTangent3fEXT" tangent-3f-ext 2390) :void
   (tx float)
   (ty float)
   (tz float))
 
-(defglextfun ("glTangent3fvEXT" tangent-3fv-ext 2130) :void
+(defglextfun ("glTangent3fvEXT" tangent-3fv-ext 2391) :void
   (v (:pointer float)))
 
-(defglextfun ("glTangent3iEXT" tangent-3i-ext 2131) :void
+(defglextfun ("glTangent3iEXT" tangent-3i-ext 2392) :void
   (tx int)
   (ty int)
   (tz int))
 
-(defglextfun ("glTangent3ivEXT" tangent-3iv-ext 2132) :void
+(defglextfun ("glTangent3ivEXT" tangent-3iv-ext 2393) :void
   (v (:pointer int)))
 
-(defglextfun ("glTangent3sEXT" tangent-3s-ext 2133) :void
+(defglextfun ("glTangent3sEXT" tangent-3s-ext 2394) :void
   (tx short)
   (ty short)
   (tz short))
 
-(defglextfun ("glTangent3svEXT" tangent-3sv-ext 2134) :void
+(defglextfun ("glTangent3svEXT" tangent-3sv-ext 2395) :void
   (v (:pointer short)))
 
-(defglextfun ("glBinormal3bEXT" binormal-3b-ext 2135) :void
+(defglextfun ("glBinormal3bEXT" binormal-3b-ext 2396) :void
   (bx byte)
   (by byte)
   (bz byte))
 
-(defglextfun ("glBinormal3bvEXT" binormal-3bv-ext 2136) :void
+(defglextfun ("glBinormal3bvEXT" binormal-3bv-ext 2397) :void
   (v (:pointer byte)))
 
-(defglextfun ("glBinormal3dEXT" binormal-3d-ext 2137) :void
+(defglextfun ("glBinormal3dEXT" binormal-3d-ext 2398) :void
   (bx double)
   (by double)
   (bz double))
 
-(defglextfun ("glBinormal3dvEXT" binormal-3dv-ext 2138) :void
+(defglextfun ("glBinormal3dvEXT" binormal-3dv-ext 2399) :void
   (v (:pointer double)))
 
-(defglextfun ("glBinormal3fEXT" binormal-3f-ext 2139) :void
+(defglextfun ("glBinormal3fEXT" binormal-3f-ext 2400) :void
   (bx float)
   (by float)
   (bz float))
 
-(defglextfun ("glBinormal3fvEXT" binormal-3fv-ext 2140) :void
+(defglextfun ("glBinormal3fvEXT" binormal-3fv-ext 2401) :void
   (v (:pointer float)))
 
-(defglextfun ("glBinormal3iEXT" binormal-3i-ext 2141) :void
+(defglextfun ("glBinormal3iEXT" binormal-3i-ext 2402) :void
   (bx int)
   (by int)
   (bz int))
 
-(defglextfun ("glBinormal3ivEXT" binormal-3iv-ext 2142) :void
+(defglextfun ("glBinormal3ivEXT" binormal-3iv-ext 2403) :void
   (v (:pointer int)))
 
-(defglextfun ("glBinormal3sEXT" binormal-3s-ext 2143) :void
+(defglextfun ("glBinormal3sEXT" binormal-3s-ext 2404) :void
   (bx short)
   (by short)
   (bz short))
 
-(defglextfun ("glBinormal3svEXT" binormal-3sv-ext 2144) :void
+(defglextfun ("glBinormal3svEXT" binormal-3sv-ext 2405) :void
   (v (:pointer short)))
 
-(defglextfun ("glTangentPointerEXT" tangent-pointer-ext 2145) :void
+(defglextfun ("glTangentPointerEXT" tangent-pointer-ext 2406) :void
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glBinormalPointerEXT" binormal-pointer-ext 2146) :void
+(defglextfun ("glBinormalPointerEXT" binormal-pointer-ext 2407) :void
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glCopyTexImage1DEXT" copy-tex-image-1d-ext 2147) :void
+(defglextfun ("glCopyTexImage1DEXT" copy-tex-image-1d-ext 2408) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -3758,7 +3758,7 @@
   (width sizei)
   (border int))
 
-(defglextfun ("glCopyTexImage2DEXT" copy-tex-image-2d-ext 2148) :void
+(defglextfun ("glCopyTexImage2DEXT" copy-tex-image-2d-ext 2409) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -3768,7 +3768,7 @@
   (height sizei)
   (border int))
 
-(defglextfun ("glCopyTexSubImage1DEXT" copy-tex-sub-image-1d-ext 2149) :void
+(defglextfun ("glCopyTexSubImage1DEXT" copy-tex-sub-image-1d-ext 2410) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -3776,7 +3776,7 @@
   (y int)
   (width sizei))
 
-(defglextfun ("glCopyTexSubImage2DEXT" copy-tex-sub-image-2d-ext 2150) :void
+(defglextfun ("glCopyTexSubImage2DEXT" copy-tex-sub-image-2d-ext 2411) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -3786,7 +3786,7 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glCopyTexSubImage3DEXT" copy-tex-sub-image-3d-ext 2151) :void
+(defglextfun ("glCopyTexSubImage3DEXT" copy-tex-sub-image-3d-ext 2412) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -3797,26 +3797,26 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glCullParameterdvEXT" cull-parameter-dv-ext 2152) :void
+(defglextfun ("glCullParameterdvEXT" cull-parameter-dv-ext 2413) :void
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glCullParameterfvEXT" cull-parameter-fv-ext 2153) :void
+(defglextfun ("glCullParameterfvEXT" cull-parameter-fv-ext 2414) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glDepthBoundsEXT" depth-bounds-ext 2154) :void
+(defglextfun ("glDepthBoundsEXT" depth-bounds-ext 2415) :void
   (zmin clampd)
   (zmax clampd))
 
-(defglextfun ("glColorMaskIndexedEXT" color-mask-indexed-ext 2155) :void
+(defglextfun ("glColorMaskIndexedEXT" color-mask-indexed-ext 2416) :void
   (index uint)
   (r boolean)
   (g boolean)
   (b boolean)
   (a boolean))
 
-(defglextfun ("glDrawRangeElementsEXT" draw-range-elements-ext 2156) :void
+(defglextfun ("glDrawRangeElementsEXT" draw-range-elements-ext 2417) :void
   (mode enum)
   (start uint)
   (end uint)
@@ -3824,24 +3824,24 @@
   (type enum)
   (indices (:pointer :void)))
 
-(defglextfun ("glFogCoordfEXT" fog-coord-f-ext 2157) :void
+(defglextfun ("glFogCoordfEXT" fog-coord-f-ext 2418) :void
   (coord float))
 
-(defglextfun ("glFogCoordfvEXT" fog-coord-fv-ext 2158) :void
+(defglextfun ("glFogCoordfvEXT" fog-coord-fv-ext 2419) :void
   (coord (:pointer float)))
 
-(defglextfun ("glFogCoorddEXT" fog-coord-d-ext 2159) :void
+(defglextfun ("glFogCoorddEXT" fog-coord-d-ext 2420) :void
   (coord double))
 
-(defglextfun ("glFogCoorddvEXT" fog-coord-dv-ext 2160) :void
+(defglextfun ("glFogCoorddvEXT" fog-coord-dv-ext 2421) :void
   (coord (:pointer double)))
 
-(defglextfun ("glFogCoordPointerEXT" fog-coord-pointer-ext 2161) :void
+(defglextfun ("glFogCoordPointerEXT" fog-coord-pointer-ext 2422) :void
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glBlitFramebufferEXT" blit-framebuffer-ext 2162) :void
+(defglextfun ("glBlitFramebufferEXT" blit-framebuffer-ext 2423) :void
   (srcX0 int)
   (srcY0 int)
   (srcX1 int)
@@ -3853,65 +3853,65 @@
   (mask ClearBufferMask)
   (filter enum))
 
-(defglextfun ("glIsRenderbufferEXT" is-renderbuffer-ext 2163) boolean
+(defglextfun ("glIsRenderbufferEXT" is-renderbuffer-ext 2424) boolean
   (renderbuffer uint))
 
-(defglextfun ("glBindRenderbufferEXT" bind-renderbuffer-ext 2164) :void
+(defglextfun ("glBindRenderbufferEXT" bind-renderbuffer-ext 2425) :void
   (target enum)
   (renderbuffer uint))
 
-(defglextfun ("glDeleteRenderbuffersEXT" delete-renderbuffers-ext 2165) :void
+(defglextfun ("glDeleteRenderbuffersEXT" delete-renderbuffers-ext 2426) :void
   (n sizei)
   (renderbuffers (:pointer uint)))
 
-(defglextfun ("glGenRenderbuffersEXT" gen-renderbuffers-ext 2166) :void
+(defglextfun ("glGenRenderbuffersEXT" gen-renderbuffers-ext 2427) :void
   (n sizei)
   (renderbuffers (:pointer uint)))
 
-(defglextfun ("glRenderbufferStorageEXT" renderbuffer-storage-ext 2167) :void
+(defglextfun ("glRenderbufferStorageEXT" renderbuffer-storage-ext 2428) :void
   (target enum)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glGetRenderbufferParameterivEXT" get-renderbuffer-parameter-iv-ext 2168) :void
+(defglextfun ("glGetRenderbufferParameterivEXT" get-renderbuffer-parameter-iv-ext 2429) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glIsFramebufferEXT" is-framebuffer-ext 2169) boolean
+(defglextfun ("glIsFramebufferEXT" is-framebuffer-ext 2430) boolean
   (framebuffer uint))
 
-(defglextfun ("glBindFramebufferEXT" bind-framebuffer-ext 2170) :void
+(defglextfun ("glBindFramebufferEXT" bind-framebuffer-ext 2431) :void
   (target enum)
   (framebuffer uint))
 
-(defglextfun ("glDeleteFramebuffersEXT" delete-framebuffers-ext 2171) :void
+(defglextfun ("glDeleteFramebuffersEXT" delete-framebuffers-ext 2432) :void
   (n sizei)
   (framebuffers (:pointer uint)))
 
-(defglextfun ("glGenFramebuffersEXT" gen-framebuffers-ext 2172) :void
+(defglextfun ("glGenFramebuffersEXT" gen-framebuffers-ext 2433) :void
   (n sizei)
   (framebuffers (:pointer uint)))
 
-(defglextfun ("glCheckFramebufferStatusEXT" check-framebuffer-status-ext 2173) enum
+(defglextfun ("glCheckFramebufferStatusEXT" check-framebuffer-status-ext 2434) enum
   (target enum))
 
-(defglextfun ("glFramebufferTexture1DEXT" framebuffer-texture-1d-ext 2174) :void
+(defglextfun ("glFramebufferTexture1DEXT" framebuffer-texture-1d-ext 2435) :void
   (target enum)
   (attachment enum)
   (textarget enum)
   (texture uint)
   (level int))
 
-(defglextfun ("glFramebufferTexture2DEXT" framebuffer-texture-2d-ext 2175) :void
+(defglextfun ("glFramebufferTexture2DEXT" framebuffer-texture-2d-ext 2436) :void
   (target enum)
   (attachment enum)
   (textarget enum)
   (texture uint)
   (level int))
 
-(defglextfun ("glFramebufferTexture3DEXT" framebuffer-texture-3d-ext 2176) :void
+(defglextfun ("glFramebufferTexture3DEXT" framebuffer-texture-3d-ext 2437) :void
   (target enum)
   (attachment enum)
   (textarget enum)
@@ -3919,270 +3919,270 @@
   (level int)
   (zoffset int))
 
-(defglextfun ("glFramebufferRenderbufferEXT" framebuffer-renderbuffer-ext 2177) :void
+(defglextfun ("glFramebufferRenderbufferEXT" framebuffer-renderbuffer-ext 2438) :void
   (target enum)
   (attachment enum)
   (renderbuffertarget enum)
   (renderbuffer uint))
 
-(defglextfun ("glGetFramebufferAttachmentParameterivEXT" get-framebuffer-attachment-parameter-iv-ext 2178) :void
+(defglextfun ("glGetFramebufferAttachmentParameterivEXT" get-framebuffer-attachment-parameter-iv-ext 2439) :void
   (target enum)
   (attachment enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGenerateMipmapEXT" generate-mipmap-ext 2179) :void
+(defglextfun ("glGenerateMipmapEXT" generate-mipmap-ext 2440) :void
   (target enum))
 
-(defglextfun ("glProgramEnvParameters4fvEXT" program-env-parameters-4fv-ext 2180) :void
+(defglextfun ("glProgramEnvParameters4fvEXT" program-env-parameters-4fv-ext 2441) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer float)))
 
-(defglextfun ("glProgramLocalParameters4fvEXT" program-local-parameters-4fv-ext 2181) :void
+(defglextfun ("glProgramLocalParameters4fvEXT" program-local-parameters-4fv-ext 2442) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer float)))
 
-(defglextfun ("glGetUniformuivEXT" get-uniform-uiv-ext 2182) :void
+(defglextfun ("glGetUniformuivEXT" get-uniform-uiv-ext 2443) :void
   (program uint)
   (location int)
   (params (:pointer uint)))
 
-(defglextfun ("glGetFragDataLocationEXT" get-frag-data-location-ext 2183) int
+(defglextfun ("glGetFragDataLocationEXT" get-frag-data-location-ext 2444) int
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glUniform1uiEXT" uniform-1ui-ext 2184) :void
+(defglextfun ("glUniform1uiEXT" uniform-1ui-ext 2445) :void
   (location int)
   (v0 uint))
 
-(defglextfun ("glUniform2uiEXT" uniform-2ui-ext 2185) :void
+(defglextfun ("glUniform2uiEXT" uniform-2ui-ext 2446) :void
   (location int)
   (v0 uint)
   (v1 uint))
 
-(defglextfun ("glUniform3uiEXT" uniform-3ui-ext 2186) :void
+(defglextfun ("glUniform3uiEXT" uniform-3ui-ext 2447) :void
   (location int)
   (v0 uint)
   (v1 uint)
   (v2 uint))
 
-(defglextfun ("glUniform4uiEXT" uniform-4ui-ext 2187) :void
+(defglextfun ("glUniform4uiEXT" uniform-4ui-ext 2448) :void
   (location int)
   (v0 uint)
   (v1 uint)
   (v2 uint)
   (v3 uint))
 
-(defglextfun ("glUniform1uivEXT" uniform-1uiv-ext 2188) :void
+(defglextfun ("glUniform1uivEXT" uniform-1uiv-ext 2449) :void
   (location int)
   (count sizei)
   (value (:pointer uint)))
 
-(defglextfun ("glUniform2uivEXT" uniform-2uiv-ext 2189) :void
+(defglextfun ("glUniform2uivEXT" uniform-2uiv-ext 2450) :void
   (location int)
   (count sizei)
   (value (:pointer uint)))
 
-(defglextfun ("glUniform3uivEXT" uniform-3uiv-ext 2190) :void
+(defglextfun ("glUniform3uivEXT" uniform-3uiv-ext 2451) :void
   (location int)
   (count sizei)
   (value (:pointer uint)))
 
-(defglextfun ("glUniform4uivEXT" uniform-4uiv-ext 2191) :void
+(defglextfun ("glUniform4uivEXT" uniform-4uiv-ext 2452) :void
   (location int)
   (count sizei)
   (value (:pointer uint)))
 
-(defglextfun ("glVertexAttribI1iEXT" vertex-attrib-i1i-ext 2192) :void
+(defglextfun ("glVertexAttribI1iEXT" vertex-attrib-i1i-ext 2453) :void
   (index uint)
   (x int))
 
-(defglextfun ("glVertexAttribI2iEXT" vertex-attrib-i2i-ext 2193) :void
+(defglextfun ("glVertexAttribI2iEXT" vertex-attrib-i2i-ext 2454) :void
   (index uint)
   (x int)
   (y int))
 
-(defglextfun ("glVertexAttribI3iEXT" vertex-attrib-i3i-ext 2194) :void
+(defglextfun ("glVertexAttribI3iEXT" vertex-attrib-i3i-ext 2455) :void
   (index uint)
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glVertexAttribI4iEXT" vertex-attrib-i4i-ext 2195) :void
+(defglextfun ("glVertexAttribI4iEXT" vertex-attrib-i4i-ext 2456) :void
   (index uint)
   (x int)
   (y int)
   (z int)
   (w int))
 
-(defglextfun ("glVertexAttribI1uiEXT" vertex-attrib-i1ui-ext 2196) :void
+(defglextfun ("glVertexAttribI1uiEXT" vertex-attrib-i1ui-ext 2457) :void
   (index uint)
   (x uint))
 
-(defglextfun ("glVertexAttribI2uiEXT" vertex-attrib-i2ui-ext 2197) :void
+(defglextfun ("glVertexAttribI2uiEXT" vertex-attrib-i2ui-ext 2458) :void
   (index uint)
   (x uint)
   (y uint))
 
-(defglextfun ("glVertexAttribI3uiEXT" vertex-attrib-i3ui-ext 2198) :void
+(defglextfun ("glVertexAttribI3uiEXT" vertex-attrib-i3ui-ext 2459) :void
   (index uint)
   (x uint)
   (y uint)
   (z uint))
 
-(defglextfun ("glVertexAttribI4uiEXT" vertex-attrib-i4ui-ext 2199) :void
+(defglextfun ("glVertexAttribI4uiEXT" vertex-attrib-i4ui-ext 2460) :void
   (index uint)
   (x uint)
   (y uint)
   (z uint)
   (w uint))
 
-(defglextfun ("glVertexAttribI1ivEXT" vertex-attrib-i1iv-ext 2200) :void
+(defglextfun ("glVertexAttribI1ivEXT" vertex-attrib-i1iv-ext 2461) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI2ivEXT" vertex-attrib-i2iv-ext 2201) :void
+(defglextfun ("glVertexAttribI2ivEXT" vertex-attrib-i2iv-ext 2462) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI3ivEXT" vertex-attrib-i3iv-ext 2202) :void
+(defglextfun ("glVertexAttribI3ivEXT" vertex-attrib-i3iv-ext 2463) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI4ivEXT" vertex-attrib-i4iv-ext 2203) :void
+(defglextfun ("glVertexAttribI4ivEXT" vertex-attrib-i4iv-ext 2464) :void
   (index uint)
   (v (:pointer int)))
 
-(defglextfun ("glVertexAttribI1uivEXT" vertex-attrib-i1uiv-ext 2204) :void
+(defglextfun ("glVertexAttribI1uivEXT" vertex-attrib-i1uiv-ext 2465) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI2uivEXT" vertex-attrib-i2uiv-ext 2205) :void
+(defglextfun ("glVertexAttribI2uivEXT" vertex-attrib-i2uiv-ext 2466) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI3uivEXT" vertex-attrib-i3uiv-ext 2206) :void
+(defglextfun ("glVertexAttribI3uivEXT" vertex-attrib-i3uiv-ext 2467) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI4uivEXT" vertex-attrib-i4uiv-ext 2207) :void
+(defglextfun ("glVertexAttribI4uivEXT" vertex-attrib-i4uiv-ext 2468) :void
   (index uint)
   (v (:pointer uint)))
 
-(defglextfun ("glVertexAttribI4bvEXT" vertex-attrib-i4bv-ext 2208) :void
+(defglextfun ("glVertexAttribI4bvEXT" vertex-attrib-i4bv-ext 2469) :void
   (index uint)
   (v (:pointer byte)))
 
-(defglextfun ("glVertexAttribI4svEXT" vertex-attrib-i4sv-ext 2209) :void
+(defglextfun ("glVertexAttribI4svEXT" vertex-attrib-i4sv-ext 2470) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribI4ubvEXT" vertex-attrib-i4ubv-ext 2210) :void
+(defglextfun ("glVertexAttribI4ubvEXT" vertex-attrib-i4ubv-ext 2471) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttribI4usvEXT" vertex-attrib-i4usv-ext 2211) :void
+(defglextfun ("glVertexAttribI4usvEXT" vertex-attrib-i4usv-ext 2472) :void
   (index uint)
   (v (:pointer ushort)))
 
-(defglextfun ("glVertexAttribIPointerEXT" vertex-attrib-ipointer-ext 2212) :void
+(defglextfun ("glVertexAttribIPointerEXT" vertex-attrib-ipointer-ext 2473) :void
   (index uint)
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glGetVertexAttribIivEXT" get-vertex-attrib-iiv-ext 2213) :void
+(defglextfun ("glGetVertexAttribIivEXT" get-vertex-attrib-iiv-ext 2474) :void
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iuiv-ext 2214) :void
+(defglextfun ("glGetVertexAttribIuivEXT" get-vertex-attrib-iuiv-ext 2475) :void
   (index uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glGetHistogramEXT" get-histogram-ext 2215) :void
+(defglextfun ("glGetHistogramEXT" get-histogram-ext 2476) :void
   (target enum)
   (reset boolean)
   (format enum)
   (type enum)
   (values (:pointer :void)))
 
-(defglextfun ("glGetHistogramParameterfvEXT" get-histogram-parameter-fv-ext 2216) :void
+(defglextfun ("glGetHistogramParameterfvEXT" get-histogram-parameter-fv-ext 2477) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetHistogramParameterivEXT" get-histogram-parameter-iv-ext 2217) :void
+(defglextfun ("glGetHistogramParameterivEXT" get-histogram-parameter-iv-ext 2478) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetMinmaxEXT" get-minmax-ext 2218) :void
+(defglextfun ("glGetMinmaxEXT" get-minmax-ext 2479) :void
   (target enum)
   (reset boolean)
   (format enum)
   (type enum)
   (values (:pointer :void)))
 
-(defglextfun ("glGetMinmaxParameterfvEXT" get-minmax-parameter-fv-ext 2219) :void
+(defglextfun ("glGetMinmaxParameterfvEXT" get-minmax-parameter-fv-ext 2480) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetMinmaxParameterivEXT" get-minmax-parameter-iv-ext 2220) :void
+(defglextfun ("glGetMinmaxParameterivEXT" get-minmax-parameter-iv-ext 2481) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glHistogramEXT" histogram-ext 2221) :void
+(defglextfun ("glHistogramEXT" histogram-ext 2482) :void
   (target enum)
   (width sizei)
   (internalformat enum)
   (sink boolean))
 
-(defglextfun ("glMinmaxEXT" minmax-ext 2222) :void
+(defglextfun ("glMinmaxEXT" minmax-ext 2483) :void
   (target enum)
   (internalformat enum)
   (sink boolean))
 
-(defglextfun ("glResetHistogramEXT" reset-histogram-ext 2223) :void
+(defglextfun ("glResetHistogramEXT" reset-histogram-ext 2484) :void
   (target enum))
 
-(defglextfun ("glResetMinmaxEXT" reset-minmax-ext 2224) :void
+(defglextfun ("glResetMinmaxEXT" reset-minmax-ext 2485) :void
   (target enum))
 
-(defglextfun ("glIndexFuncEXT" index-func-ext 2225) :void
+(defglextfun ("glIndexFuncEXT" index-func-ext 2486) :void
   (func enum)
   (ref clampf))
 
-(defglextfun ("glIndexMaterialEXT" index-material-ext 2226) :void
+(defglextfun ("glIndexMaterialEXT" index-material-ext 2487) :void
   (face enum)
   (mode enum))
 
-(defglextfun ("glApplyTextureEXT" apply-texture-ext 2227) :void
+(defglextfun ("glApplyTextureEXT" apply-texture-ext 2488) :void
   (mode enum))
 
-(defglextfun ("glTextureLightEXT" texture-light-ext 2228) :void
+(defglextfun ("glTextureLightEXT" texture-light-ext 2489) :void
   (pname enum))
 
-(defglextfun ("glTextureMaterialEXT" texture-material-ext 2229) :void
+(defglextfun ("glTextureMaterialEXT" texture-material-ext 2490) :void
   (face enum)
   (mode enum))
 
-(defglextfun ("glSampleMaskEXT" sample-mask-ext 2230) :void
+(defglextfun ("glSampleMaskEXT" sample-mask-ext 2491) :void
   (value clampf)
   (invert boolean))
 
-(defglextfun ("glSamplePatternEXT" sample-pattern-ext 2231) :void
+(defglextfun ("glSamplePatternEXT" sample-pattern-ext 2492) :void
   (pattern enum))
 
-(defglextfun ("glColorTableEXT" color-table-ext 2232) :void
+(defglextfun ("glColorTableEXT" color-table-ext 2493) :void
   (target enum)
   (internalFormat enum)
   (width sizei)
@@ -4190,138 +4190,138 @@
   (type enum)
   (table (:pointer :void)))
 
-(defglextfun ("glGetColorTableEXT" get-color-table-ext 2233) :void
+(defglextfun ("glGetColorTableEXT" get-color-table-ext 2494) :void
   (target enum)
   (format enum)
   (type enum)
   (data (:pointer :void)))
 
-(defglextfun ("glGetColorTableParameterivEXT" get-color-table-parameter-iv-ext 2234) :void
+(defglextfun ("glGetColorTableParameterivEXT" get-color-table-parameter-iv-ext 2495) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetColorTableParameterfvEXT" get-color-table-parameter-fv-ext 2235) :void
+(defglextfun ("glGetColorTableParameterfvEXT" get-color-table-parameter-fv-ext 2496) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glPixelTransformParameteriEXT" pixel-transform-parameter-i-ext 2236) :void
+(defglextfun ("glPixelTransformParameteriEXT" pixel-transform-parameter-i-ext 2497) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glPixelTransformParameterfEXT" pixel-transform-parameter-f-ext 2237) :void
+(defglextfun ("glPixelTransformParameterfEXT" pixel-transform-parameter-f-ext 2498) :void
   (target enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glPixelTransformParameterivEXT" pixel-transform-parameter-iv-ext 2238) :void
+(defglextfun ("glPixelTransformParameterivEXT" pixel-transform-parameter-iv-ext 2499) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glPixelTransformParameterfvEXT" pixel-transform-parameter-fv-ext 2239) :void
+(defglextfun ("glPixelTransformParameterfvEXT" pixel-transform-parameter-fv-ext 2500) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetPixelTransformParameterivEXT" get-pixel-transform-parameter-iv-ext 2240) :void
+(defglextfun ("glGetPixelTransformParameterivEXT" get-pixel-transform-parameter-iv-ext 2501) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetPixelTransformParameterfvEXT" get-pixel-transform-parameter-fv-ext 2241) :void
+(defglextfun ("glGetPixelTransformParameterfvEXT" get-pixel-transform-parameter-fv-ext 2502) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glPointParameterfEXT" point-parameter-f-ext 2242) :void
+(defglextfun ("glPointParameterfEXT" point-parameter-f-ext 2503) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glPointParameterfvEXT" point-parameter-fv-ext 2243) :void
+(defglextfun ("glPointParameterfvEXT" point-parameter-fv-ext 2504) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glPolygonOffsetEXT" polygon-offset-ext 2244) :void
+(defglextfun ("glPolygonOffsetEXT" polygon-offset-ext 2505) :void
   (factor float)
   (bias float))
 
-(defglextfun ("glProvokingVertexEXT" provoking-vertex-ext 2245) :void
+(defglextfun ("glProvokingVertexEXT" provoking-vertex-ext 2506) :void
   (mode enum))
 
-(defglextfun ("glSecondaryColor3bEXT" secondary-color-3b-ext 2246) :void
+(defglextfun ("glSecondaryColor3bEXT" secondary-color-3b-ext 2507) :void
   (red byte)
   (green byte)
   (blue byte))
 
-(defglextfun ("glSecondaryColor3bvEXT" secondary-color-3bv-ext 2247) :void
+(defglextfun ("glSecondaryColor3bvEXT" secondary-color-3bv-ext 2508) :void
   (v (:pointer byte)))
 
-(defglextfun ("glSecondaryColor3dEXT" secondary-color-3d-ext 2248) :void
+(defglextfun ("glSecondaryColor3dEXT" secondary-color-3d-ext 2509) :void
   (red double)
   (green double)
   (blue double))
 
-(defglextfun ("glSecondaryColor3dvEXT" secondary-color-3dv-ext 2249) :void
+(defglextfun ("glSecondaryColor3dvEXT" secondary-color-3dv-ext 2510) :void
   (v (:pointer double)))
 
-(defglextfun ("glSecondaryColor3fEXT" secondary-color-3f-ext 2250) :void
+(defglextfun ("glSecondaryColor3fEXT" secondary-color-3f-ext 2511) :void
   (red float)
   (green float)
   (blue float))
 
-(defglextfun ("glSecondaryColor3fvEXT" secondary-color-3fv-ext 2251) :void
+(defglextfun ("glSecondaryColor3fvEXT" secondary-color-3fv-ext 2512) :void
   (v (:pointer float)))
 
-(defglextfun ("glSecondaryColor3iEXT" secondary-color-3i-ext 2252) :void
+(defglextfun ("glSecondaryColor3iEXT" secondary-color-3i-ext 2513) :void
   (red int)
   (green int)
   (blue int))
 
-(defglextfun ("glSecondaryColor3ivEXT" secondary-color-3iv-ext 2253) :void
+(defglextfun ("glSecondaryColor3ivEXT" secondary-color-3iv-ext 2514) :void
   (v (:pointer int)))
 
-(defglextfun ("glSecondaryColor3sEXT" secondary-color-3s-ext 2254) :void
+(defglextfun ("glSecondaryColor3sEXT" secondary-color-3s-ext 2515) :void
   (red short)
   (green short)
   (blue short))
 
-(defglextfun ("glSecondaryColor3svEXT" secondary-color-3sv-ext 2255) :void
+(defglextfun ("glSecondaryColor3svEXT" secondary-color-3sv-ext 2516) :void
   (v (:pointer short)))
 
-(defglextfun ("glSecondaryColor3ubEXT" secondary-color-3ub-ext 2256) :void
+(defglextfun ("glSecondaryColor3ubEXT" secondary-color-3ub-ext 2517) :void
   (red ubyte)
   (green ubyte)
   (blue ubyte))
 
-(defglextfun ("glSecondaryColor3ubvEXT" secondary-color-3ubv-ext 2257) :void
+(defglextfun ("glSecondaryColor3ubvEXT" secondary-color-3ubv-ext 2518) :void
   (v (:pointer ubyte)))
 
-(defglextfun ("glSecondaryColor3uiEXT" secondary-color-3ui-ext 2258) :void
+(defglextfun ("glSecondaryColor3uiEXT" secondary-color-3ui-ext 2519) :void
   (red uint)
   (green uint)
   (blue uint))
 
-(defglextfun ("glSecondaryColor3uivEXT" secondary-color-3uiv-ext 2259) :void
+(defglextfun ("glSecondaryColor3uivEXT" secondary-color-3uiv-ext 2520) :void
   (v (:pointer uint)))
 
-(defglextfun ("glSecondaryColor3usEXT" secondary-color-3us-ext 2260) :void
+(defglextfun ("glSecondaryColor3usEXT" secondary-color-3us-ext 2521) :void
   (red ushort)
   (green ushort)
   (blue ushort))
 
-(defglextfun ("glSecondaryColor3usvEXT" secondary-color-3usv-ext 2261) :void
+(defglextfun ("glSecondaryColor3usvEXT" secondary-color-3usv-ext 2522) :void
   (v (:pointer ushort)))
 
-(defglextfun ("glSecondaryColorPointerEXT" secondary-color-pointer-ext 2262) :void
+(defglextfun ("glSecondaryColorPointerEXT" secondary-color-pointer-ext 2523) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glBindImageTextureEXT" bind-image-texture-ext 2263) :void
+(defglextfun ("glBindImageTextureEXT" bind-image-texture-ext 2524) :void
   (index uint)
   (texture uint)
   (level int)
@@ -4330,17 +4330,17 @@
   (access enum)
   (format int))
 
-(defglextfun ("glMemoryBarrierEXT" memory-barrier-ext 2264) :void
+(defglextfun ("glMemoryBarrierEXT" memory-barrier-ext 2525) :void
   (barriers MemoryBarrierMask))
 
-(defglextfun ("glStencilClearTagEXT" stencil-clear-tag-ext 2265) :void
+(defglextfun ("glStencilClearTagEXT" stencil-clear-tag-ext 2526) :void
   (stencilTagBits sizei)
   (stencilClearTag uint))
 
-(defglextfun ("glActiveStencilFaceEXT" active-stencil-face-ext 2266) :void
+(defglextfun ("glActiveStencilFaceEXT" active-stencil-face-ext 2527) :void
   (face enum))
 
-(defglextfun ("glTexSubImage1DEXT" tex-sub-image-1d-ext 2267) :void
+(defglextfun ("glTexSubImage1DEXT" tex-sub-image-1d-ext 2528) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -4349,7 +4349,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTexSubImage2DEXT" tex-sub-image-2d-ext 2268) :void
+(defglextfun ("glTexSubImage2DEXT" tex-sub-image-2d-ext 2529) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -4360,7 +4360,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTexImage3DEXT" tex-image-3d-ext 2269) :void
+(defglextfun ("glTexImage3DEXT" tex-image-3d-ext 2530) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -4372,7 +4372,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTexSubImage3DEXT" tex-sub-image-3d-ext 2270) :void
+(defglextfun ("glTexSubImage3DEXT" tex-sub-image-3d-ext 2531) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -4385,83 +4385,83 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glFramebufferTextureLayerEXT" framebuffer-texture-layer-ext 2271) :void
+(defglextfun ("glFramebufferTextureLayerEXT" framebuffer-texture-layer-ext 2532) :void
   (target enum)
   (attachment enum)
   (texture uint)
   (level int)
   (layer int))
 
-(defglextfun ("glClearColorIiEXT" clear-color-ii-ext 2272) :void
+(defglextfun ("glClearColorIiEXT" clear-color-ii-ext 2533) :void
   (red int)
   (green int)
   (blue int)
   (alpha int))
 
-(defglextfun ("glClearColorIuiEXT" clear-color-iui-ext 2273) :void
+(defglextfun ("glClearColorIuiEXT" clear-color-iui-ext 2534) :void
   (red uint)
   (green uint)
   (blue uint)
   (alpha uint))
 
-(defglextfun ("glAreTexturesResidentEXT" are-textures-resident-ext 2274) boolean
+(defglextfun ("glAreTexturesResidentEXT" are-textures-resident-ext 2535) boolean
   (n sizei)
   (textures (:pointer uint))
   (residences (:pointer boolean)))
 
-(defglextfun ("glBindTextureEXT" bind-texture-ext 2275) :void
+(defglextfun ("glBindTextureEXT" bind-texture-ext 2536) :void
   (target enum)
   (texture uint))
 
-(defglextfun ("glDeleteTexturesEXT" delete-textures-ext 2276) :void
+(defglextfun ("glDeleteTexturesEXT" delete-textures-ext 2537) :void
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glGenTexturesEXT" gen-textures-ext 2277) :void
+(defglextfun ("glGenTexturesEXT" gen-textures-ext 2538) :void
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glIsTextureEXT" is-texture-ext 2278) boolean
+(defglextfun ("glIsTextureEXT" is-texture-ext 2539) boolean
   (texture uint))
 
-(defglextfun ("glPrioritizeTexturesEXT" prioritize-textures-ext 2279) :void
+(defglextfun ("glPrioritizeTexturesEXT" prioritize-textures-ext 2540) :void
   (n sizei)
   (textures (:pointer uint))
   (priorities (:pointer clampf)))
 
-(defglextfun ("glTextureNormalEXT" texture-normal-ext 2280) :void
+(defglextfun ("glTextureNormalEXT" texture-normal-ext 2541) :void
   (mode enum))
 
-(defglextfun ("glBeginTransformFeedbackEXT" begin-transform-feedback-ext 2281) :void
+(defglextfun ("glBeginTransformFeedbackEXT" begin-transform-feedback-ext 2542) :void
   (primitiveMode enum))
 
-(defglextfun ("glEndTransformFeedbackEXT" end-transform-feedback-ext 2282) :void)
+(defglextfun ("glEndTransformFeedbackEXT" end-transform-feedback-ext 2543) :void)
 
-(defglextfun ("glBindBufferRangeEXT" bind-buffer-range-ext 2283) :void
+(defglextfun ("glBindBufferRangeEXT" bind-buffer-range-ext 2544) :void
   (target enum)
   (index uint)
   (buffer uint)
   (offset intptr)
   (size sizeiptr))
 
-(defglextfun ("glBindBufferOffsetEXT" bind-buffer-offset-ext 2284) :void
+(defglextfun ("glBindBufferOffsetEXT" bind-buffer-offset-ext 2545) :void
   (target enum)
   (index uint)
   (buffer uint)
   (offset intptr))
 
-(defglextfun ("glBindBufferBaseEXT" bind-buffer-base-ext 2285) :void
+(defglextfun ("glBindBufferBaseEXT" bind-buffer-base-ext 2546) :void
   (target enum)
   (index uint)
   (buffer uint))
 
-(defglextfun ("glTransformFeedbackVaryingsEXT" transform-feedback-varyings-ext 2286) :void
+(defglextfun ("glTransformFeedbackVaryingsEXT" transform-feedback-varyings-ext 2547) :void
   (program uint)
   (count sizei)
   (varyings (:pointer (:pointer char)))
   (bufferMode enum))
 
-(defglextfun ("glGetTransformFeedbackVaryingEXT" get-transform-feedback-varying-ext 2287) :void
+(defglextfun ("glGetTransformFeedbackVaryingEXT" get-transform-feedback-varying-ext 2548) :void
   (program uint)
   (index uint)
   (bufSize sizei)
@@ -4470,138 +4470,138 @@
   (type (:pointer enum))
   (name (:pointer char)))
 
-(defglextfun ("glArrayElementEXT" array-element-ext 2288) :void
+(defglextfun ("glArrayElementEXT" array-element-ext 2549) :void
   (i int))
 
-(defglextfun ("glColorPointerEXT" color-pointer-ext 2289) :void
+(defglextfun ("glColorPointerEXT" color-pointer-ext 2550) :void
   (size int)
   (type enum)
   (stride sizei)
   (count sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glDrawArraysEXT" draw-arrays-ext 2290) :void
+(defglextfun ("glDrawArraysEXT" draw-arrays-ext 2551) :void
   (mode enum)
   (first int)
   (count sizei))
 
-(defglextfun ("glEdgeFlagPointerEXT" edge-flag-pointer-ext 2291) :void
+(defglextfun ("glEdgeFlagPointerEXT" edge-flag-pointer-ext 2552) :void
   (stride sizei)
   (count sizei)
   (pointer (:pointer boolean)))
 
-(defglextfun ("glGetPointervEXT" get-pointer-v-ext 2292) :void
+(defglextfun ("glGetPointervEXT" get-pointer-v-ext 2553) :void
   (pname enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glIndexPointerEXT" index-pointer-ext 2293) :void
+(defglextfun ("glIndexPointerEXT" index-pointer-ext 2554) :void
   (type enum)
   (stride sizei)
   (count sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glNormalPointerEXT" normal-pointer-ext 2294) :void
+(defglextfun ("glNormalPointerEXT" normal-pointer-ext 2555) :void
   (type enum)
   (stride sizei)
   (count sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glTexCoordPointerEXT" tex-coord-pointer-ext 2295) :void
+(defglextfun ("glTexCoordPointerEXT" tex-coord-pointer-ext 2556) :void
   (size int)
   (type enum)
   (stride sizei)
   (count sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glVertexPointerEXT" vertex-pointer-ext 2296) :void
+(defglextfun ("glVertexPointerEXT" vertex-pointer-ext 2557) :void
   (size int)
   (type enum)
   (stride sizei)
   (count sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glVertexAttribL1dEXT" vertex-attrib-l1d-ext 2297) :void
+(defglextfun ("glVertexAttribL1dEXT" vertex-attrib-l1d-ext 2558) :void
   (index uint)
   (x double))
 
-(defglextfun ("glVertexAttribL2dEXT" vertex-attrib-l2d-ext 2298) :void
+(defglextfun ("glVertexAttribL2dEXT" vertex-attrib-l2d-ext 2559) :void
   (index uint)
   (x double)
   (y double))
 
-(defglextfun ("glVertexAttribL3dEXT" vertex-attrib-l3d-ext 2299) :void
+(defglextfun ("glVertexAttribL3dEXT" vertex-attrib-l3d-ext 2560) :void
   (index uint)
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glVertexAttribL4dEXT" vertex-attrib-l4d-ext 2300) :void
+(defglextfun ("glVertexAttribL4dEXT" vertex-attrib-l4d-ext 2561) :void
   (index uint)
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glVertexAttribL1dvEXT" vertex-attrib-l1dv-ext 2301) :void
+(defglextfun ("glVertexAttribL1dvEXT" vertex-attrib-l1dv-ext 2562) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribL2dvEXT" vertex-attrib-l2dv-ext 2302) :void
+(defglextfun ("glVertexAttribL2dvEXT" vertex-attrib-l2dv-ext 2563) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribL3dvEXT" vertex-attrib-l3dv-ext 2303) :void
+(defglextfun ("glVertexAttribL3dvEXT" vertex-attrib-l3dv-ext 2564) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribL4dvEXT" vertex-attrib-l4dv-ext 2304) :void
+(defglextfun ("glVertexAttribL4dvEXT" vertex-attrib-l4dv-ext 2565) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribLPointerEXT" vertex-attrib-lpointer-ext 2305) :void
+(defglextfun ("glVertexAttribLPointerEXT" vertex-attrib-lpointer-ext 2566) :void
   (index uint)
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glGetVertexAttribLdvEXT" get-vertex-attrib-ldv-ext 2306) :void
+(defglextfun ("glGetVertexAttribLdvEXT" get-vertex-attrib-ldv-ext 2567) :void
   (index uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glBeginVertexShaderEXT" begin-vertex-shader-ext 2307) :void)
+(defglextfun ("glBeginVertexShaderEXT" begin-vertex-shader-ext 2568) :void)
 
-(defglextfun ("glEndVertexShaderEXT" end-vertex-shader-ext 2308) :void)
+(defglextfun ("glEndVertexShaderEXT" end-vertex-shader-ext 2569) :void)
 
-(defglextfun ("glBindVertexShaderEXT" bind-vertex-shader-ext 2309) :void
+(defglextfun ("glBindVertexShaderEXT" bind-vertex-shader-ext 2570) :void
   (id uint))
 
-(defglextfun ("glGenVertexShadersEXT" gen-vertex-shaders-ext 2310) uint
+(defglextfun ("glGenVertexShadersEXT" gen-vertex-shaders-ext 2571) uint
   (range uint))
 
-(defglextfun ("glDeleteVertexShaderEXT" delete-vertex-shader-ext 2311) :void
+(defglextfun ("glDeleteVertexShaderEXT" delete-vertex-shader-ext 2572) :void
   (id uint))
 
-(defglextfun ("glShaderOp1EXT" shader-op-1-ext 2312) :void
+(defglextfun ("glShaderOp1EXT" shader-op-1-ext 2573) :void
   (op enum)
   (res uint)
   (arg1 uint))
 
-(defglextfun ("glShaderOp2EXT" shader-op-2-ext 2313) :void
+(defglextfun ("glShaderOp2EXT" shader-op-2-ext 2574) :void
   (op enum)
   (res uint)
   (arg1 uint)
   (arg2 uint))
 
-(defglextfun ("glShaderOp3EXT" shader-op-3-ext 2314) :void
+(defglextfun ("glShaderOp3EXT" shader-op-3-ext 2575) :void
   (op enum)
   (res uint)
   (arg1 uint)
   (arg2 uint)
   (arg3 uint))
 
-(defglextfun ("glSwizzleEXT" swizzle-ext 2315) :void
+(defglextfun ("glSwizzleEXT" swizzle-ext 2576) :void
   (res uint)
   (in uint)
   (outX enum)
@@ -4609,7 +4609,7 @@
   (outZ enum)
   (outW enum))
 
-(defglextfun ("glWriteMaskEXT" write-mask-ext 2316) :void
+(defglextfun ("glWriteMaskEXT" write-mask-ext 2577) :void
   (res uint)
   (in uint)
   (outX enum)
@@ -4617,211 +4617,211 @@
   (outZ enum)
   (outW enum))
 
-(defglextfun ("glInsertComponentEXT" insert-component-ext 2317) :void
+(defglextfun ("glInsertComponentEXT" insert-component-ext 2578) :void
   (res uint)
   (src uint)
   (num uint))
 
-(defglextfun ("glExtractComponentEXT" extract-component-ext 2318) :void
+(defglextfun ("glExtractComponentEXT" extract-component-ext 2579) :void
   (res uint)
   (src uint)
   (num uint))
 
-(defglextfun ("glGenSymbolsEXT" gen-symbols-ext 2319) uint
+(defglextfun ("glGenSymbolsEXT" gen-symbols-ext 2580) uint
   (datatype enum)
   (storagetype enum)
   (range enum)
   (components uint))
 
-(defglextfun ("glSetInvariantEXT" set-invariant-ext 2320) :void
+(defglextfun ("glSetInvariantEXT" set-invariant-ext 2581) :void
   (id uint)
   (type enum)
   (addr (:pointer :void)))
 
-(defglextfun ("glSetLocalConstantEXT" set-local-constant-ext 2321) :void
+(defglextfun ("glSetLocalConstantEXT" set-local-constant-ext 2582) :void
   (id uint)
   (type enum)
   (addr (:pointer :void)))
 
-(defglextfun ("glVariantbvEXT" variant-bv-ext 2322) :void
+(defglextfun ("glVariantbvEXT" variant-bv-ext 2583) :void
   (id uint)
   (addr (:pointer byte)))
 
-(defglextfun ("glVariantsvEXT" variant-sv-ext 2323) :void
+(defglextfun ("glVariantsvEXT" variant-sv-ext 2584) :void
   (id uint)
   (addr (:pointer short)))
 
-(defglextfun ("glVariantivEXT" variant-iv-ext 2324) :void
+(defglextfun ("glVariantivEXT" variant-iv-ext 2585) :void
   (id uint)
   (addr (:pointer int)))
 
-(defglextfun ("glVariantfvEXT" variant-fv-ext 2325) :void
+(defglextfun ("glVariantfvEXT" variant-fv-ext 2586) :void
   (id uint)
   (addr (:pointer float)))
 
-(defglextfun ("glVariantdvEXT" variant-dv-ext 2326) :void
+(defglextfun ("glVariantdvEXT" variant-dv-ext 2587) :void
   (id uint)
   (addr (:pointer double)))
 
-(defglextfun ("glVariantubvEXT" variant-ubv-ext 2327) :void
+(defglextfun ("glVariantubvEXT" variant-ubv-ext 2588) :void
   (id uint)
   (addr (:pointer ubyte)))
 
-(defglextfun ("glVariantusvEXT" variant-usv-ext 2328) :void
+(defglextfun ("glVariantusvEXT" variant-usv-ext 2589) :void
   (id uint)
   (addr (:pointer ushort)))
 
-(defglextfun ("glVariantuivEXT" variant-uiv-ext 2329) :void
+(defglextfun ("glVariantuivEXT" variant-uiv-ext 2590) :void
   (id uint)
   (addr (:pointer uint)))
 
-(defglextfun ("glVariantPointerEXT" variant-pointer-ext 2330) :void
+(defglextfun ("glVariantPointerEXT" variant-pointer-ext 2591) :void
   (id uint)
   (type enum)
   (stride uint)
   (addr (:pointer :void)))
 
-(defglextfun ("glEnableVariantClientStateEXT" enable-variant-client-state-ext 2331) :void
+(defglextfun ("glEnableVariantClientStateEXT" enable-variant-client-state-ext 2592) :void
   (id uint))
 
-(defglextfun ("glDisableVariantClientStateEXT" disable-variant-client-state-ext 2332) :void
+(defglextfun ("glDisableVariantClientStateEXT" disable-variant-client-state-ext 2593) :void
   (id uint))
 
-(defglextfun ("glBindLightParameterEXT" bind-light-parameter-ext 2333) uint
+(defglextfun ("glBindLightParameterEXT" bind-light-parameter-ext 2594) uint
   (light enum)
   (value enum))
 
-(defglextfun ("glBindMaterialParameterEXT" bind-material-parameter-ext 2334) uint
+(defglextfun ("glBindMaterialParameterEXT" bind-material-parameter-ext 2595) uint
   (face enum)
   (value enum))
 
-(defglextfun ("glBindTexGenParameterEXT" bind-tex-gen-parameter-ext 2335) uint
+(defglextfun ("glBindTexGenParameterEXT" bind-tex-gen-parameter-ext 2596) uint
   (unit enum)
   (coord enum)
   (value enum))
 
-(defglextfun ("glBindTextureUnitParameterEXT" bind-texture-unit-parameter-ext 2336) uint
+(defglextfun ("glBindTextureUnitParameterEXT" bind-texture-unit-parameter-ext 2597) uint
   (unit enum)
   (value enum))
 
-(defglextfun ("glBindParameterEXT" bind-parameter-ext 2337) uint
+(defglextfun ("glBindParameterEXT" bind-parameter-ext 2598) uint
   (value enum))
 
-(defglextfun ("glIsVariantEnabledEXT" is-variant-enabled-ext 2338) boolean
+(defglextfun ("glIsVariantEnabledEXT" is-variant-enabled-ext 2599) boolean
   (id uint)
   (cap enum))
 
-(defglextfun ("glGetVariantBooleanvEXT" get-variant-boolean-v-ext 2339) :void
+(defglextfun ("glGetVariantBooleanvEXT" get-variant-boolean-v-ext 2600) :void
   (id uint)
   (value enum)
   (data (:pointer boolean)))
 
-(defglextfun ("glGetVariantIntegervEXT" get-variant-integer-v-ext 2340) :void
+(defglextfun ("glGetVariantIntegervEXT" get-variant-integer-v-ext 2601) :void
   (id uint)
   (value enum)
   (data (:pointer int)))
 
-(defglextfun ("glGetVariantFloatvEXT" get-variant-float-v-ext 2341) :void
+(defglextfun ("glGetVariantFloatvEXT" get-variant-float-v-ext 2602) :void
   (id uint)
   (value enum)
   (data (:pointer float)))
 
-(defglextfun ("glGetVariantPointervEXT" get-variant-pointer-v-ext 2342) :void
+(defglextfun ("glGetVariantPointervEXT" get-variant-pointer-v-ext 2603) :void
   (id uint)
   (value enum)
   (data (:pointer (:pointer :void))))
 
-(defglextfun ("glGetInvariantBooleanvEXT" get-invariant-boolean-v-ext 2343) :void
+(defglextfun ("glGetInvariantBooleanvEXT" get-invariant-boolean-v-ext 2604) :void
   (id uint)
   (value enum)
   (data (:pointer boolean)))
 
-(defglextfun ("glGetInvariantIntegervEXT" get-invariant-integer-v-ext 2344) :void
+(defglextfun ("glGetInvariantIntegervEXT" get-invariant-integer-v-ext 2605) :void
   (id uint)
   (value enum)
   (data (:pointer int)))
 
-(defglextfun ("glGetInvariantFloatvEXT" get-invariant-float-v-ext 2345) :void
+(defglextfun ("glGetInvariantFloatvEXT" get-invariant-float-v-ext 2606) :void
   (id uint)
   (value enum)
   (data (:pointer float)))
 
-(defglextfun ("glGetLocalConstantBooleanvEXT" get-local-constant-boolean-v-ext 2346) :void
+(defglextfun ("glGetLocalConstantBooleanvEXT" get-local-constant-boolean-v-ext 2607) :void
   (id uint)
   (value enum)
   (data (:pointer boolean)))
 
-(defglextfun ("glGetLocalConstantIntegervEXT" get-local-constant-integer-v-ext 2347) :void
+(defglextfun ("glGetLocalConstantIntegervEXT" get-local-constant-integer-v-ext 2608) :void
   (id uint)
   (value enum)
   (data (:pointer int)))
 
-(defglextfun ("glGetLocalConstantFloatvEXT" get-local-constant-float-v-ext 2348) :void
+(defglextfun ("glGetLocalConstantFloatvEXT" get-local-constant-float-v-ext 2609) :void
   (id uint)
   (value enum)
   (data (:pointer float)))
 
-(defglextfun ("glVertexWeightfEXT" vertex-weight-f-ext 2349) :void
+(defglextfun ("glVertexWeightfEXT" vertex-weight-f-ext 2610) :void
   (weight float))
 
-(defglextfun ("glVertexWeightfvEXT" vertex-weight-fv-ext 2350) :void
+(defglextfun ("glVertexWeightfvEXT" vertex-weight-fv-ext 2611) :void
   (weight (:pointer float)))
 
-(defglextfun ("glVertexWeightPointerEXT" vertex-weight-pointer-ext 2351) :void
+(defglextfun ("glVertexWeightPointerEXT" vertex-weight-pointer-ext 2612) :void
   (size int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glImportSyncEXT" import-sync-ext 2352) sync
+(defglextfun ("glImportSyncEXT" import-sync-ext 2613) sync
   (external_sync_type enum)
   (external_sync intptr)
   (flags bitfield))
 
-(defglextfun ("glFrameTerminatorGREMEDY" frame-terminator-gremedy 2353) :void)
+(defglextfun ("glFrameTerminatorGREMEDY" frame-terminator-gremedy 2614) :void)
 
-(defglextfun ("glStringMarkerGREMEDY" string-marker-gremedy 2354) :void
+(defglextfun ("glStringMarkerGREMEDY" string-marker-gremedy 2615) :void
   (len sizei)
   (string (:pointer :void)))
 
-(defglextfun ("glImageTransformParameteriHP" image-transform-parameter-i-hp 2355) :void
+(defglextfun ("glImageTransformParameteriHP" image-transform-parameter-i-hp 2616) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glImageTransformParameterfHP" image-transform-parameter-f-hp 2356) :void
+(defglextfun ("glImageTransformParameterfHP" image-transform-parameter-f-hp 2617) :void
   (target enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glImageTransformParameterivHP" image-transform-parameter-iv-hp 2357) :void
+(defglextfun ("glImageTransformParameterivHP" image-transform-parameter-iv-hp 2618) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glImageTransformParameterfvHP" image-transform-parameter-fv-hp 2358) :void
+(defglextfun ("glImageTransformParameterfvHP" image-transform-parameter-fv-hp 2619) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetImageTransformParameterivHP" get-image-transform-parameter-iv-hp 2359) :void
+(defglextfun ("glGetImageTransformParameterivHP" get-image-transform-parameter-iv-hp 2620) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetImageTransformParameterfvHP" get-image-transform-parameter-fv-hp 2360) :void
+(defglextfun ("glGetImageTransformParameterfvHP" get-image-transform-parameter-fv-hp 2621) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glMultiModeDrawArraysIBM" multi-mode-draw-arrays-ibm 2361) :void
+(defglextfun ("glMultiModeDrawArraysIBM" multi-mode-draw-arrays-ibm 2622) :void
   (mode (:pointer enum))
   (first (:pointer int))
   (count (:pointer sizei))
   (primcount sizei)
   (modestride int))
 
-(defglextfun ("glMultiModeDrawElementsIBM" multi-mode-draw-elements-ibm 2362) :void
+(defglextfun ("glMultiModeDrawElementsIBM" multi-mode-draw-elements-ibm 2623) :void
   (mode (:pointer enum))
   (count (:pointer sizei))
   (type enum)
@@ -4829,210 +4829,210 @@
   (primcount sizei)
   (modestride int))
 
-(defglextfun ("glFlushStaticDataIBM" flush-static-data-ibm 2363) :void
+(defglextfun ("glFlushStaticDataIBM" flush-static-data-ibm 2624) :void
   (target enum))
 
-(defglextfun ("glColorPointerListIBM" color-pointer-list-ibm 2364) :void
+(defglextfun ("glColorPointerListIBM" color-pointer-list-ibm 2625) :void
   (size int)
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glSecondaryColorPointerListIBM" secondary-color-pointer-list-ibm 2365) :void
+(defglextfun ("glSecondaryColorPointerListIBM" secondary-color-pointer-list-ibm 2626) :void
   (size int)
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glEdgeFlagPointerListIBM" edge-flag-pointer-list-ibm 2366) :void
+(defglextfun ("glEdgeFlagPointerListIBM" edge-flag-pointer-list-ibm 2627) :void
   (stride int)
   (pointer (:pointer (:pointer boolean)))
   (ptrstride int))
 
-(defglextfun ("glFogCoordPointerListIBM" fog-coord-pointer-list-ibm 2367) :void
+(defglextfun ("glFogCoordPointerListIBM" fog-coord-pointer-list-ibm 2628) :void
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glIndexPointerListIBM" index-pointer-list-ibm 2368) :void
+(defglextfun ("glIndexPointerListIBM" index-pointer-list-ibm 2629) :void
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glNormalPointerListIBM" normal-pointer-list-ibm 2369) :void
+(defglextfun ("glNormalPointerListIBM" normal-pointer-list-ibm 2630) :void
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glTexCoordPointerListIBM" tex-coord-pointer-list-ibm 2370) :void
+(defglextfun ("glTexCoordPointerListIBM" tex-coord-pointer-list-ibm 2631) :void
   (size int)
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glVertexPointerListIBM" vertex-pointer-list-ibm 2371) :void
+(defglextfun ("glVertexPointerListIBM" vertex-pointer-list-ibm 2632) :void
   (size int)
   (type enum)
   (stride int)
   (pointer (:pointer (:pointer :void)))
   (ptrstride int))
 
-(defglextfun ("glBlendFuncSeparateINGR" blend-func-separate-ingr 2372) :void
+(defglextfun ("glBlendFuncSeparateINGR" blend-func-separate-ingr 2633) :void
   (sfactorRGB enum)
   (dfactorRGB enum)
   (sfactorAlpha enum)
   (dfactorAlpha enum))
 
-(defglextfun ("glSyncTextureINTEL" sync-texture-intel 2373) :void
+(defglextfun ("glSyncTextureINTEL" sync-texture-intel 2634) :void
   (texture uint))
 
-(defglextfun ("glUnmapTexture2DINTEL" unmap-texture-2d-intel 2374) :void
+(defglextfun ("glUnmapTexture2DINTEL" unmap-texture-2d-intel 2635) :void
   (texture uint)
   (level int))
 
-(defglextfun ("glMapTexture2DINTEL" map-texture-2d-intel 2375) (:pointer :void)
+(defglextfun ("glMapTexture2DINTEL" map-texture-2d-intel 2636) (:pointer :void)
   (texture uint)
   (level int)
   (access bitfield)
   (stride (:pointer int))
   (layout (:pointer enum)))
 
-(defglextfun ("glVertexPointervINTEL" vertex-pointer-v-intel 2376) :void
+(defglextfun ("glVertexPointervINTEL" vertex-pointer-v-intel 2637) :void
   (size int)
   (type enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glNormalPointervINTEL" normal-pointer-v-intel 2377) :void
+(defglextfun ("glNormalPointervINTEL" normal-pointer-v-intel 2638) :void
   (type enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glColorPointervINTEL" color-pointer-v-intel 2378) :void
+(defglextfun ("glColorPointervINTEL" color-pointer-v-intel 2639) :void
   (size int)
   (type enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glTexCoordPointervINTEL" tex-coord-pointer-v-intel 2379) :void
+(defglextfun ("glTexCoordPointervINTEL" tex-coord-pointer-v-intel 2640) :void
   (size int)
   (type enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glResizeBuffersMESA" resize-buffers-mesa 2380) :void)
+(defglextfun ("glResizeBuffersMESA" resize-buffers-mesa 2641) :void)
 
-(defglextfun ("glWindowPos2dMESA" window-pos-2d-mesa 2381) :void
+(defglextfun ("glWindowPos2dMESA" window-pos-2d-mesa 2642) :void
   (x double)
   (y double))
 
-(defglextfun ("glWindowPos2dvMESA" window-pos-2dv-mesa 2382) :void
+(defglextfun ("glWindowPos2dvMESA" window-pos-2dv-mesa 2643) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos2fMESA" window-pos-2f-mesa 2383) :void
+(defglextfun ("glWindowPos2fMESA" window-pos-2f-mesa 2644) :void
   (x float)
   (y float))
 
-(defglextfun ("glWindowPos2fvMESA" window-pos-2fv-mesa 2384) :void
+(defglextfun ("glWindowPos2fvMESA" window-pos-2fv-mesa 2645) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos2iMESA" window-pos-2i-mesa 2385) :void
+(defglextfun ("glWindowPos2iMESA" window-pos-2i-mesa 2646) :void
   (x int)
   (y int))
 
-(defglextfun ("glWindowPos2ivMESA" window-pos-2iv-mesa 2386) :void
+(defglextfun ("glWindowPos2ivMESA" window-pos-2iv-mesa 2647) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos2sMESA" window-pos-2s-mesa 2387) :void
+(defglextfun ("glWindowPos2sMESA" window-pos-2s-mesa 2648) :void
   (x short)
   (y short))
 
-(defglextfun ("glWindowPos2svMESA" window-pos-2sv-mesa 2388) :void
+(defglextfun ("glWindowPos2svMESA" window-pos-2sv-mesa 2649) :void
   (v (:pointer short)))
 
-(defglextfun ("glWindowPos3dMESA" window-pos-3d-mesa 2389) :void
+(defglextfun ("glWindowPos3dMESA" window-pos-3d-mesa 2650) :void
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glWindowPos3dvMESA" window-pos-3dv-mesa 2390) :void
+(defglextfun ("glWindowPos3dvMESA" window-pos-3dv-mesa 2651) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos3fMESA" window-pos-3f-mesa 2391) :void
+(defglextfun ("glWindowPos3fMESA" window-pos-3f-mesa 2652) :void
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glWindowPos3fvMESA" window-pos-3fv-mesa 2392) :void
+(defglextfun ("glWindowPos3fvMESA" window-pos-3fv-mesa 2653) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos3iMESA" window-pos-3i-mesa 2393) :void
+(defglextfun ("glWindowPos3iMESA" window-pos-3i-mesa 2654) :void
   (x int)
   (y int)
   (z int))
 
-(defglextfun ("glWindowPos3ivMESA" window-pos-3iv-mesa 2394) :void
+(defglextfun ("glWindowPos3ivMESA" window-pos-3iv-mesa 2655) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos3sMESA" window-pos-3s-mesa 2395) :void
+(defglextfun ("glWindowPos3sMESA" window-pos-3s-mesa 2656) :void
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glWindowPos3svMESA" window-pos-3sv-mesa 2396) :void
+(defglextfun ("glWindowPos3svMESA" window-pos-3sv-mesa 2657) :void
   (v (:pointer short)))
 
-(defglextfun ("glWindowPos4dMESA" window-pos-4d-mesa 2397) :void
+(defglextfun ("glWindowPos4dMESA" window-pos-4d-mesa 2658) :void
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glWindowPos4dvMESA" window-pos-4dv-mesa 2398) :void
+(defglextfun ("glWindowPos4dvMESA" window-pos-4dv-mesa 2659) :void
   (v (:pointer double)))
 
-(defglextfun ("glWindowPos4fMESA" window-pos-4f-mesa 2399) :void
+(defglextfun ("glWindowPos4fMESA" window-pos-4f-mesa 2660) :void
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglextfun ("glWindowPos4fvMESA" window-pos-4fv-mesa 2400) :void
+(defglextfun ("glWindowPos4fvMESA" window-pos-4fv-mesa 2661) :void
   (v (:pointer float)))
 
-(defglextfun ("glWindowPos4iMESA" window-pos-4i-mesa 2401) :void
+(defglextfun ("glWindowPos4iMESA" window-pos-4i-mesa 2662) :void
   (x int)
   (y int)
   (z int)
   (w int))
 
-(defglextfun ("glWindowPos4ivMESA" window-pos-4iv-mesa 2402) :void
+(defglextfun ("glWindowPos4ivMESA" window-pos-4iv-mesa 2663) :void
   (v (:pointer int)))
 
-(defglextfun ("glWindowPos4sMESA" window-pos-4s-mesa 2403) :void
+(defglextfun ("glWindowPos4sMESA" window-pos-4s-mesa 2664) :void
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglextfun ("glWindowPos4svMESA" window-pos-4sv-mesa 2404) :void
+(defglextfun ("glWindowPos4svMESA" window-pos-4sv-mesa 2665) :void
   (v (:pointer short)))
 
-(defglextfun ("glBeginConditionalRenderNVX" begin-conditional-render-nvx 2405) :void
+(defglextfun ("glBeginConditionalRenderNVX" begin-conditional-render-nvx 2666) :void
   (id uint))
 
-(defglextfun ("glEndConditionalRenderNVX" end-conditional-render-nvx 2406) :void)
+(defglextfun ("glEndConditionalRenderNVX" end-conditional-render-nvx 2667) :void)
 
-(defglextfun ("glLGPUNamedBufferSubDataNVX" lgpu-named-buffer-sub-data-nvx 2407) :void
+(defglextfun ("glLGPUNamedBufferSubDataNVX" lgpu-named-buffer-sub-data-nvx 2668) :void
   (gpuMask bitfield)
   (buffer uint)
   (offset intptr)
   (size sizeiptr)
   (data (:pointer :void)))
 
-(defglextfun ("glLGPUCopyImageSubDataNVX" lgpu-copy-image-sub-data-nvx 2408) :void
+(defglextfun ("glLGPUCopyImageSubDataNVX" lgpu-copy-image-sub-data-nvx 2669) :void
   (sourceGpu uint)
   (destinationGpuMask bitfield)
   (srcName uint)
@@ -5051,12 +5051,12 @@
   (height sizei)
   (depth sizei))
 
-(defglextfun ("glLGPUInterlockNVX" lgpu-interlock-nvx 2409) :void)
+(defglextfun ("glLGPUInterlockNVX" lgpu-interlock-nvx 2670) :void)
 
-(defglextfun ("glAlphaToCoverageDitherControlNV" alpha-to-coverage-dither-control-nv 2410) :void
+(defglextfun ("glAlphaToCoverageDitherControlNV" alpha-to-coverage-dither-control-nv 2671) :void
   (mode enum))
 
-(defglextfun ("glCopyImageSubDataNV" copy-image-sub-data-nv 2411) :void
+(defglextfun ("glCopyImageSubDataNV" copy-image-sub-data-nv 2672) :void
   (srcName uint)
   (srcTarget enum)
   (srcLevel int)
@@ -5073,7 +5073,7 @@
   (height sizei)
   (depth sizei))
 
-(defglextfun ("glDrawTextureNV" draw-texture-nv 2412) :void
+(defglextfun ("glDrawTextureNV" draw-texture-nv 2673) :void
   (texture uint)
   (sampler uint)
   (x0 float)
@@ -5086,7 +5086,7 @@
   (s1 float)
   (t1 float))
 
-(defglextfun ("glMapControlPointsNV" map-control-points-nv 2413) :void
+(defglextfun ("glMapControlPointsNV" map-control-points-nv 2674) :void
   (target enum)
   (index uint)
   (type enum)
@@ -5097,17 +5097,17 @@
   (packed boolean)
   (points (:pointer :void)))
 
-(defglextfun ("glMapParameterivNV" map-parameter-iv-nv 2414) :void
+(defglextfun ("glMapParameterivNV" map-parameter-iv-nv 2675) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glMapParameterfvNV" map-parameter-fv-nv 2415) :void
+(defglextfun ("glMapParameterfvNV" map-parameter-fv-nv 2676) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetMapControlPointsNV" get-map-control-points-nv 2416) :void
+(defglextfun ("glGetMapControlPointsNV" get-map-control-points-nv 2677) :void
   (target enum)
   (index uint)
   (type enum)
@@ -5116,46 +5116,46 @@
   (packed boolean)
   (points (:pointer :void)))
 
-(defglextfun ("glGetMapParameterivNV" get-map-parameter-iv-nv 2417) :void
+(defglextfun ("glGetMapParameterivNV" get-map-parameter-iv-nv 2678) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetMapParameterfvNV" get-map-parameter-fv-nv 2418) :void
+(defglextfun ("glGetMapParameterfvNV" get-map-parameter-fv-nv 2679) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetMapAttribParameterivNV" get-map-attrib-parameter-iv-nv 2419) :void
+(defglextfun ("glGetMapAttribParameterivNV" get-map-attrib-parameter-iv-nv 2680) :void
   (target enum)
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetMapAttribParameterfvNV" get-map-attrib-parameter-fv-nv 2420) :void
+(defglextfun ("glGetMapAttribParameterfvNV" get-map-attrib-parameter-fv-nv 2681) :void
   (target enum)
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glEvalMapsNV" eval-maps-nv 2421) :void
+(defglextfun ("glEvalMapsNV" eval-maps-nv 2682) :void
   (target enum)
   (mode enum))
 
-(defglextfun ("glGetMultisamplefvNV" get-multisample-fv-nv 2422) :void
+(defglextfun ("glGetMultisamplefvNV" get-multisample-fv-nv 2683) :void
   (pname enum)
   (index uint)
   (val (:pointer float)))
 
-(defglextfun ("glSampleMaskIndexedNV" sample-mask-indexed-nv 2423) :void
+(defglextfun ("glSampleMaskIndexedNV" sample-mask-indexed-nv 2684) :void
   (index uint)
   (mask bitfield))
 
-(defglextfun ("glTexRenderbufferNV" tex-renderbuffer-nv 2424) :void
+(defglextfun ("glTexRenderbufferNV" tex-renderbuffer-nv 2685) :void
   (target enum)
   (renderbuffer uint))
 
-(defglextfun ("glProgramNamedParameter4fNV" program-named-parameter-4f-nv 2425) :void
+(defglextfun ("glProgramNamedParameter4fNV" program-named-parameter-4f-nv 2686) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
@@ -5164,13 +5164,13 @@
   (z float)
   (w float))
 
-(defglextfun ("glProgramNamedParameter4fvNV" program-named-parameter-4fv-nv 2426) :void
+(defglextfun ("glProgramNamedParameter4fvNV" program-named-parameter-4fv-nv 2687) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
   (v (:pointer float)))
 
-(defglextfun ("glProgramNamedParameter4dNV" program-named-parameter-4d-nv 2427) :void
+(defglextfun ("glProgramNamedParameter4dNV" program-named-parameter-4d-nv 2688) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
@@ -5179,36 +5179,36 @@
   (z double)
   (w double))
 
-(defglextfun ("glProgramNamedParameter4dvNV" program-named-parameter-4dv-nv 2428) :void
+(defglextfun ("glProgramNamedParameter4dvNV" program-named-parameter-4dv-nv 2689) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
   (v (:pointer double)))
 
-(defglextfun ("glGetProgramNamedParameterfvNV" get-program-named-parameter-fv-nv 2429) :void
+(defglextfun ("glGetProgramNamedParameterfvNV" get-program-named-parameter-fv-nv 2690) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
   (params (:pointer float)))
 
-(defglextfun ("glGetProgramNamedParameterdvNV" get-program-named-parameter-dv-nv 2430) :void
+(defglextfun ("glGetProgramNamedParameterdvNV" get-program-named-parameter-dv-nv 2691) :void
   (id uint)
   (len sizei)
   (name (:pointer ubyte))
   (params (:pointer double)))
 
-(defglextfun ("glProgramVertexLimitNV" program-vertex-limit-nv 2431) :void
+(defglextfun ("glProgramVertexLimitNV" program-vertex-limit-nv 2692) :void
   (target enum)
   (limit int))
 
-(defglextfun ("glFramebufferTextureFaceEXT" framebuffer-texture-face-ext 2432) :void
+(defglextfun ("glFramebufferTextureFaceEXT" framebuffer-texture-face-ext 2693) :void
   (target enum)
   (attachment enum)
   (texture uint)
   (level int)
   (face enum))
 
-(defglextfun ("glProgramLocalParameterI4iNV" program-local-parameter-i4i-nv 2433) :void
+(defglextfun ("glProgramLocalParameterI4iNV" program-local-parameter-i4i-nv 2694) :void
   (target enum)
   (index uint)
   (x int)
@@ -5216,18 +5216,18 @@
   (z int)
   (w int))
 
-(defglextfun ("glProgramLocalParameterI4ivNV" program-local-parameter-i4iv-nv 2434) :void
+(defglextfun ("glProgramLocalParameterI4ivNV" program-local-parameter-i4iv-nv 2695) :void
   (target enum)
   (index uint)
   (params (:pointer int)))
 
-(defglextfun ("glProgramLocalParametersI4ivNV" program-local-parameters-i4iv-nv 2435) :void
+(defglextfun ("glProgramLocalParametersI4ivNV" program-local-parameters-i4iv-nv 2696) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer int)))
 
-(defglextfun ("glProgramLocalParameterI4uiNV" program-local-parameter-i4ui-nv 2436) :void
+(defglextfun ("glProgramLocalParameterI4uiNV" program-local-parameter-i4ui-nv 2697) :void
   (target enum)
   (index uint)
   (x uint)
@@ -5235,18 +5235,18 @@
   (z uint)
   (w uint))
 
-(defglextfun ("glProgramLocalParameterI4uivNV" program-local-parameter-i4uiv-nv 2437) :void
+(defglextfun ("glProgramLocalParameterI4uivNV" program-local-parameter-i4uiv-nv 2698) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
-(defglextfun ("glProgramLocalParametersI4uivNV" program-local-parameters-i4uiv-nv 2438) :void
+(defglextfun ("glProgramLocalParametersI4uivNV" program-local-parameters-i4uiv-nv 2699) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer uint)))
 
-(defglextfun ("glProgramEnvParameterI4iNV" program-env-parameter-i4i-nv 2439) :void
+(defglextfun ("glProgramEnvParameterI4iNV" program-env-parameter-i4i-nv 2700) :void
   (target enum)
   (index uint)
   (x int)
@@ -5254,18 +5254,18 @@
   (z int)
   (w int))
 
-(defglextfun ("glProgramEnvParameterI4ivNV" program-env-parameter-i4iv-nv 2440) :void
+(defglextfun ("glProgramEnvParameterI4ivNV" program-env-parameter-i4iv-nv 2701) :void
   (target enum)
   (index uint)
   (params (:pointer int)))
 
-(defglextfun ("glProgramEnvParametersI4ivNV" program-env-parameters-i4iv-nv 2441) :void
+(defglextfun ("glProgramEnvParametersI4ivNV" program-env-parameters-i4iv-nv 2702) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer int)))
 
-(defglextfun ("glProgramEnvParameterI4uiNV" program-env-parameter-i4ui-nv 2442) :void
+(defglextfun ("glProgramEnvParameterI4uiNV" program-env-parameter-i4ui-nv 2703) :void
   (target enum)
   (index uint)
   (x uint)
@@ -5273,253 +5273,253 @@
   (z uint)
   (w uint))
 
-(defglextfun ("glProgramEnvParameterI4uivNV" program-env-parameter-i4uiv-nv 2443) :void
+(defglextfun ("glProgramEnvParameterI4uivNV" program-env-parameter-i4uiv-nv 2704) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
-(defglextfun ("glProgramEnvParametersI4uivNV" program-env-parameters-i4uiv-nv 2444) :void
+(defglextfun ("glProgramEnvParametersI4uivNV" program-env-parameters-i4uiv-nv 2705) :void
   (target enum)
   (index uint)
   (count sizei)
   (params (:pointer uint)))
 
-(defglextfun ("glGetProgramLocalParameterIivNV" get-program-local-parameter-iiv-nv 2445) :void
+(defglextfun ("glGetProgramLocalParameterIivNV" get-program-local-parameter-iiv-nv 2706) :void
   (target enum)
   (index uint)
   (params (:pointer int)))
 
-(defglextfun ("glGetProgramLocalParameterIuivNV" get-program-local-parameter-iuiv-nv 2446) :void
+(defglextfun ("glGetProgramLocalParameterIuivNV" get-program-local-parameter-iuiv-nv 2707) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
-(defglextfun ("glGetProgramEnvParameterIivNV" get-program-env-parameter-iiv-nv 2447) :void
+(defglextfun ("glGetProgramEnvParameterIivNV" get-program-env-parameter-iiv-nv 2708) :void
   (target enum)
   (index uint)
   (params (:pointer int)))
 
-(defglextfun ("glGetProgramEnvParameterIuivNV" get-program-env-parameter-iuiv-nv 2448) :void
+(defglextfun ("glGetProgramEnvParameterIuivNV" get-program-env-parameter-iuiv-nv 2709) :void
   (target enum)
   (index uint)
   (params (:pointer uint)))
 
-(defglextfun ("glProgramSubroutineParametersuivNV" program-subroutine-parameters-uiv-nv 2449) :void
+(defglextfun ("glProgramSubroutineParametersuivNV" program-subroutine-parameters-uiv-nv 2710) :void
   (target enum)
   (count sizei)
   (params (:pointer uint)))
 
-(defglextfun ("glGetProgramSubroutineParameteruivNV" get-program-subroutine-parameter-uiv-nv 2450) :void
+(defglextfun ("glGetProgramSubroutineParameteruivNV" get-program-subroutine-parameter-uiv-nv 2711) :void
   (target enum)
   (index uint)
   (param (:pointer uint)))
 
-(defglextfun ("glVertex2hNV" vertex-2h-nv 2451) :void
+(defglextfun ("glVertex2hNV" vertex-2h-nv 2712) :void
   (x half-nv)
   (y half-nv))
 
-(defglextfun ("glVertex2hvNV" vertex-2hv-nv 2452) :void
+(defglextfun ("glVertex2hvNV" vertex-2hv-nv 2713) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertex3hNV" vertex-3h-nv 2453) :void
+(defglextfun ("glVertex3hNV" vertex-3h-nv 2714) :void
   (x half-nv)
   (y half-nv)
   (z half-nv))
 
-(defglextfun ("glVertex3hvNV" vertex-3hv-nv 2454) :void
+(defglextfun ("glVertex3hvNV" vertex-3hv-nv 2715) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertex4hNV" vertex-4h-nv 2455) :void
+(defglextfun ("glVertex4hNV" vertex-4h-nv 2716) :void
   (x half-nv)
   (y half-nv)
   (z half-nv)
   (w half-nv))
 
-(defglextfun ("glVertex4hvNV" vertex-4hv-nv 2456) :void
+(defglextfun ("glVertex4hvNV" vertex-4hv-nv 2717) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glNormal3hNV" normal-3h-nv 2457) :void
+(defglextfun ("glNormal3hNV" normal-3h-nv 2718) :void
   (nx half-nv)
   (ny half-nv)
   (nz half-nv))
 
-(defglextfun ("glNormal3hvNV" normal-3hv-nv 2458) :void
+(defglextfun ("glNormal3hvNV" normal-3hv-nv 2719) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glColor3hNV" color-3h-nv 2459) :void
+(defglextfun ("glColor3hNV" color-3h-nv 2720) :void
   (red half-nv)
   (green half-nv)
   (blue half-nv))
 
-(defglextfun ("glColor3hvNV" color-3hv-nv 2460) :void
+(defglextfun ("glColor3hvNV" color-3hv-nv 2721) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glColor4hNV" color-4h-nv 2461) :void
+(defglextfun ("glColor4hNV" color-4h-nv 2722) :void
   (red half-nv)
   (green half-nv)
   (blue half-nv)
   (alpha half-nv))
 
-(defglextfun ("glColor4hvNV" color-4hv-nv 2462) :void
+(defglextfun ("glColor4hvNV" color-4hv-nv 2723) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glTexCoord1hNV" tex-coord-1h-nv 2463) :void
+(defglextfun ("glTexCoord1hNV" tex-coord-1h-nv 2724) :void
   (s half-nv))
 
-(defglextfun ("glTexCoord1hvNV" tex-coord-1hv-nv 2464) :void
+(defglextfun ("glTexCoord1hvNV" tex-coord-1hv-nv 2725) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glTexCoord2hNV" tex-coord-2h-nv 2465) :void
+(defglextfun ("glTexCoord2hNV" tex-coord-2h-nv 2726) :void
   (s half-nv)
   (tee half-nv))
 
-(defglextfun ("glTexCoord2hvNV" tex-coord-2hv-nv 2466) :void
+(defglextfun ("glTexCoord2hvNV" tex-coord-2hv-nv 2727) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glTexCoord3hNV" tex-coord-3h-nv 2467) :void
+(defglextfun ("glTexCoord3hNV" tex-coord-3h-nv 2728) :void
   (s half-nv)
   (tee half-nv)
   (r half-nv))
 
-(defglextfun ("glTexCoord3hvNV" tex-coord-3hv-nv 2468) :void
+(defglextfun ("glTexCoord3hvNV" tex-coord-3hv-nv 2729) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glTexCoord4hNV" tex-coord-4h-nv 2469) :void
+(defglextfun ("glTexCoord4hNV" tex-coord-4h-nv 2730) :void
   (s half-nv)
   (tee half-nv)
   (r half-nv)
   (q half-nv))
 
-(defglextfun ("glTexCoord4hvNV" tex-coord-4hv-nv 2470) :void
+(defglextfun ("glTexCoord4hvNV" tex-coord-4hv-nv 2731) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glMultiTexCoord1hNV" multi-tex-coord-1h-nv 2471) :void
+(defglextfun ("glMultiTexCoord1hNV" multi-tex-coord-1h-nv 2732) :void
   (target enum)
   (s half-nv))
 
-(defglextfun ("glMultiTexCoord1hvNV" multi-tex-coord-1hv-nv 2472) :void
+(defglextfun ("glMultiTexCoord1hvNV" multi-tex-coord-1hv-nv 2733) :void
   (target enum)
   (v (:pointer half-nv)))
 
-(defglextfun ("glMultiTexCoord2hNV" multi-tex-coord-2h-nv 2473) :void
+(defglextfun ("glMultiTexCoord2hNV" multi-tex-coord-2h-nv 2734) :void
   (target enum)
   (s half-nv)
   (tee half-nv))
 
-(defglextfun ("glMultiTexCoord2hvNV" multi-tex-coord-2hv-nv 2474) :void
+(defglextfun ("glMultiTexCoord2hvNV" multi-tex-coord-2hv-nv 2735) :void
   (target enum)
   (v (:pointer half-nv)))
 
-(defglextfun ("glMultiTexCoord3hNV" multi-tex-coord-3h-nv 2475) :void
+(defglextfun ("glMultiTexCoord3hNV" multi-tex-coord-3h-nv 2736) :void
   (target enum)
   (s half-nv)
   (tee half-nv)
   (r half-nv))
 
-(defglextfun ("glMultiTexCoord3hvNV" multi-tex-coord-3hv-nv 2476) :void
+(defglextfun ("glMultiTexCoord3hvNV" multi-tex-coord-3hv-nv 2737) :void
   (target enum)
   (v (:pointer half-nv)))
 
-(defglextfun ("glMultiTexCoord4hNV" multi-tex-coord-4h-nv 2477) :void
+(defglextfun ("glMultiTexCoord4hNV" multi-tex-coord-4h-nv 2738) :void
   (target enum)
   (s half-nv)
   (tee half-nv)
   (r half-nv)
   (q half-nv))
 
-(defglextfun ("glMultiTexCoord4hvNV" multi-tex-coord-4hv-nv 2478) :void
+(defglextfun ("glMultiTexCoord4hvNV" multi-tex-coord-4hv-nv 2739) :void
   (target enum)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttrib1hNV" vertex-attrib-1h-nv 2479) :void
+(defglextfun ("glVertexAttrib1hNV" vertex-attrib-1h-nv 2740) :void
   (index uint)
   (x half-nv))
 
-(defglextfun ("glVertexAttrib1hvNV" vertex-attrib-1hv-nv 2480) :void
+(defglextfun ("glVertexAttrib1hvNV" vertex-attrib-1hv-nv 2741) :void
   (index uint)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttrib2hNV" vertex-attrib-2h-nv 2481) :void
+(defglextfun ("glVertexAttrib2hNV" vertex-attrib-2h-nv 2742) :void
   (index uint)
   (x half-nv)
   (y half-nv))
 
-(defglextfun ("glVertexAttrib2hvNV" vertex-attrib-2hv-nv 2482) :void
+(defglextfun ("glVertexAttrib2hvNV" vertex-attrib-2hv-nv 2743) :void
   (index uint)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttrib3hNV" vertex-attrib-3h-nv 2483) :void
+(defglextfun ("glVertexAttrib3hNV" vertex-attrib-3h-nv 2744) :void
   (index uint)
   (x half-nv)
   (y half-nv)
   (z half-nv))
 
-(defglextfun ("glVertexAttrib3hvNV" vertex-attrib-3hv-nv 2484) :void
+(defglextfun ("glVertexAttrib3hvNV" vertex-attrib-3hv-nv 2745) :void
   (index uint)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttrib4hNV" vertex-attrib-4h-nv 2485) :void
+(defglextfun ("glVertexAttrib4hNV" vertex-attrib-4h-nv 2746) :void
   (index uint)
   (x half-nv)
   (y half-nv)
   (z half-nv)
   (w half-nv))
 
-(defglextfun ("glVertexAttrib4hvNV" vertex-attrib-4hv-nv 2486) :void
+(defglextfun ("glVertexAttrib4hvNV" vertex-attrib-4hv-nv 2747) :void
   (index uint)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttribs1hvNV" vertex-attribs-1hv-nv 2487) :void
-  (index uint)
-  (n sizei)
-  (v (:pointer half-nv)))
-
-(defglextfun ("glVertexAttribs2hvNV" vertex-attribs-2hv-nv 2488) :void
+(defglextfun ("glVertexAttribs1hvNV" vertex-attribs-1hv-nv 2748) :void
   (index uint)
   (n sizei)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttribs3hvNV" vertex-attribs-3hv-nv 2489) :void
+(defglextfun ("glVertexAttribs2hvNV" vertex-attribs-2hv-nv 2749) :void
   (index uint)
   (n sizei)
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexAttribs4hvNV" vertex-attribs-4hv-nv 2490) :void
+(defglextfun ("glVertexAttribs3hvNV" vertex-attribs-3hv-nv 2750) :void
   (index uint)
   (n sizei)
   (v (:pointer half-nv)))
 
-(defglextfun ("glFogCoordhNV" fog-coord-h-nv 2491) :void
+(defglextfun ("glVertexAttribs4hvNV" vertex-attribs-4hv-nv 2751) :void
+  (index uint)
+  (n sizei)
+  (v (:pointer half-nv)))
+
+(defglextfun ("glFogCoordhNV" fog-coord-h-nv 2752) :void
   (fog half-nv))
 
-(defglextfun ("glFogCoordhvNV" fog-coord-hv-nv 2492) :void
+(defglextfun ("glFogCoordhvNV" fog-coord-hv-nv 2753) :void
   (fog (:pointer half-nv)))
 
-(defglextfun ("glSecondaryColor3hNV" secondary-color-3h-nv 2493) :void
+(defglextfun ("glSecondaryColor3hNV" secondary-color-3h-nv 2754) :void
   (red half-nv)
   (green half-nv)
   (blue half-nv))
 
-(defglextfun ("glSecondaryColor3hvNV" secondary-color-3hv-nv 2494) :void
+(defglextfun ("glSecondaryColor3hvNV" secondary-color-3hv-nv 2755) :void
   (v (:pointer half-nv)))
 
-(defglextfun ("glVertexWeighthNV" vertex-weight-h-nv 2495) :void
+(defglextfun ("glVertexWeighthNV" vertex-weight-h-nv 2756) :void
   (weight half-nv))
 
-(defglextfun ("glVertexWeighthvNV" vertex-weight-hv-nv 2496) :void
+(defglextfun ("glVertexWeighthvNV" vertex-weight-hv-nv 2757) :void
   (weight (:pointer half-nv)))
 
-(defglextfun ("glRenderGpuMaskNV" render-gpu-mask-nv 2497) :void
+(defglextfun ("glRenderGpuMaskNV" render-gpu-mask-nv 2758) :void
   (mask bitfield))
 
-(defglextfun ("glMulticastBufferSubDataNV" multicast-buffer-sub-data-nv 2498) :void
+(defglextfun ("glMulticastBufferSubDataNV" multicast-buffer-sub-data-nv 2759) :void
   (gpuMask bitfield)
   (buffer uint)
   (offset intptr)
   (size sizeiptr)
   (data (:pointer :void)))
 
-(defglextfun ("glMulticastCopyBufferSubDataNV" multicast-copy-buffer-sub-data-nv 2499) :void
+(defglextfun ("glMulticastCopyBufferSubDataNV" multicast-copy-buffer-sub-data-nv 2760) :void
   (readGpu uint)
   (writeGpuMask bitfield)
   (readBuffer uint)
@@ -5528,7 +5528,7 @@
   (writeOffset intptr)
   (size sizeiptr))
 
-(defglextfun ("glMulticastCopyImageSubDataNV" multicast-copy-image-sub-data-nv 2500) :void
+(defglextfun ("glMulticastCopyImageSubDataNV" multicast-copy-image-sub-data-nv 2761) :void
   (srcGpu uint)
   (dstGpuMask bitfield)
   (srcName uint)
@@ -5547,7 +5547,7 @@
   (srcHeight sizei)
   (srcDepth sizei))
 
-(defglextfun ("glMulticastBlitFramebufferNV" multicast-blit-framebuffer-nv 2501) :void
+(defglextfun ("glMulticastBlitFramebufferNV" multicast-blit-framebuffer-nv 2762) :void
   (srcGpu uint)
   (dstGpu uint)
   (srcX0 int)
@@ -5561,65 +5561,65 @@
   (mask ClearBufferMask)
   (filter enum))
 
-(defglextfun ("glMulticastFramebufferSampleLocationsfvNV" multicast-framebuffer-sample-locations-fv-nv 2502) :void
+(defglextfun ("glMulticastFramebufferSampleLocationsfvNV" multicast-framebuffer-sample-locations-fv-nv 2763) :void
   (gpu uint)
   (framebuffer uint)
   (start uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glMulticastBarrierNV" multicast-barrier-nv 2503) :void)
+(defglextfun ("glMulticastBarrierNV" multicast-barrier-nv 2764) :void)
 
-(defglextfun ("glMulticastWaitSyncNV" multicast-wait-sync-nv 2504) :void
+(defglextfun ("glMulticastWaitSyncNV" multicast-wait-sync-nv 2765) :void
   (signalGpu uint)
   (waitGpuMask bitfield))
 
-(defglextfun ("glMulticastGetQueryObjectivNV" multicast-get-query-object-iv-nv 2505) :void
+(defglextfun ("glMulticastGetQueryObjectivNV" multicast-get-query-object-iv-nv 2766) :void
   (gpu uint)
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glMulticastGetQueryObjectuivNV" multicast-get-query-object-uiv-nv 2506) :void
+(defglextfun ("glMulticastGetQueryObjectuivNV" multicast-get-query-object-uiv-nv 2767) :void
   (gpu uint)
   (id uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glMulticastGetQueryObjecti64vNV" multicast-get-query-object-i64v-nv 2507) :void
+(defglextfun ("glMulticastGetQueryObjecti64vNV" multicast-get-query-object-i64v-nv 2768) :void
   (gpu uint)
   (id uint)
   (pname enum)
   (params (:pointer int64)))
 
-(defglextfun ("glMulticastGetQueryObjectui64vNV" multicast-get-query-object-ui64v-nv 2508) :void
+(defglextfun ("glMulticastGetQueryObjectui64vNV" multicast-get-query-object-ui64v-nv 2769) :void
   (gpu uint)
   (id uint)
   (pname enum)
   (params (:pointer uint64)))
 
-(defglextfun ("glUploadGpuMaskNVX" upload-gpu-mask-nvx 2509) :void
+(defglextfun ("glUploadGpuMaskNVX" upload-gpu-mask-nvx 2770) :void
   (mask bitfield))
 
-(defglextfun ("glMulticastViewportArrayvNVX" multicast-viewport-array-v-nvx 2510) :void
+(defglextfun ("glMulticastViewportArrayvNVX" multicast-viewport-array-v-nvx 2771) :void
   (gpu uint)
   (first uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glMulticastViewportPositionWScaleNVX" multicast-viewport-position-w-scale-nvx 2511) :void
+(defglextfun ("glMulticastViewportPositionWScaleNVX" multicast-viewport-position-w-scale-nvx 2772) :void
   (gpu uint)
   (index uint)
   (xcoeff float)
   (ycoeff float))
 
-(defglextfun ("glMulticastScissorArrayvNVX" multicast-scissor-array-v-nvx 2512) :void
+(defglextfun ("glMulticastScissorArrayvNVX" multicast-scissor-array-v-nvx 2773) :void
   (gpu uint)
   (first uint)
   (count sizei)
   (v (:pointer int)))
 
-(defglextfun ("glAsyncCopyBufferSubDataNVX" async-copy-buffer-sub-data-nvx 2513) uint
+(defglextfun ("glAsyncCopyBufferSubDataNVX" async-copy-buffer-sub-data-nvx 2774) uint
   (waitSemaphoreCount sizei)
   (waitSemaphoreArray (:pointer uint))
   (fenceValueArray (:pointer uint64))
@@ -5634,7 +5634,7 @@
   (signalSemaphoreArray (:pointer uint))
   (signalValueArray (:pointer uint64)))
 
-(defglextfun ("glAsyncCopyImageSubDataNVX" async-copy-image-sub-data-nvx 2514) uint
+(defglextfun ("glAsyncCopyImageSubDataNVX" async-copy-image-sub-data-nvx 2775) uint
   (waitSemaphoreCount sizei)
   (waitSemaphoreArray (:pointer uint))
   (waitValueArray (:pointer uint64))
@@ -5659,89 +5659,89 @@
   (signalSemaphoreArray (:pointer uint))
   (signalValueArray (:pointer uint64)))
 
-(defglextfun ("glCreateProgressFenceNVX" create-progress-fence-nvx 2515) uint)
+(defglextfun ("glCreateProgressFenceNVX" create-progress-fence-nvx 2776) uint)
 
-(defglextfun ("glSignalSemaphoreui64NVX" signal-semaphore-ui64-nvx 2516) :void
+(defglextfun ("glSignalSemaphoreui64NVX" signal-semaphore-ui64-nvx 2777) :void
   (signalGpu uint)
   (fenceObjectCount sizei)
   (semaphoreArray (:pointer uint))
   (fenceValueArray (:pointer uint64)))
 
-(defglextfun ("glWaitSemaphoreui64NVX" wait-semaphore-ui64-nvx 2517) :void
+(defglextfun ("glWaitSemaphoreui64NVX" wait-semaphore-ui64-nvx 2778) :void
   (waitGpu uint)
   (fenceObjectCount sizei)
   (semaphoreArray (:pointer uint))
   (fenceValueArray (:pointer uint64)))
 
-(defglextfun ("glClientWaitSemaphoreui64NVX" client-wait-semaphore-ui64-nvx 2518) :void
+(defglextfun ("glClientWaitSemaphoreui64NVX" client-wait-semaphore-ui64-nvx 2779) :void
   (fenceObjectCount sizei)
   (semaphoreArray (:pointer uint))
   (fenceValueArray (:pointer uint64)))
 
-(defglextfun ("glGenOcclusionQueriesNV" gen-occlusion-queries-nv 2519) :void
+(defglextfun ("glGenOcclusionQueriesNV" gen-occlusion-queries-nv 2780) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glDeleteOcclusionQueriesNV" delete-occlusion-queries-nv 2520) :void
+(defglextfun ("glDeleteOcclusionQueriesNV" delete-occlusion-queries-nv 2781) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glIsOcclusionQueryNV" is-occlusion-query-nv 2521) boolean
+(defglextfun ("glIsOcclusionQueryNV" is-occlusion-query-nv 2782) boolean
   (id uint))
 
-(defglextfun ("glBeginOcclusionQueryNV" begin-occlusion-query-nv 2522) :void
+(defglextfun ("glBeginOcclusionQueryNV" begin-occlusion-query-nv 2783) :void
   (id uint))
 
-(defglextfun ("glEndOcclusionQueryNV" end-occlusion-query-nv 2523) :void)
+(defglextfun ("glEndOcclusionQueryNV" end-occlusion-query-nv 2784) :void)
 
-(defglextfun ("glGetOcclusionQueryivNV" get-occlusion-query-iv-nv 2524) :void
+(defglextfun ("glGetOcclusionQueryivNV" get-occlusion-query-iv-nv 2785) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetOcclusionQueryuivNV" get-occlusion-query-uiv-nv 2525) :void
+(defglextfun ("glGetOcclusionQueryuivNV" get-occlusion-query-uiv-nv 2786) :void
   (id uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glProgramBufferParametersfvNV" program-buffer-parameters-fv-nv 2526) :void
+(defglextfun ("glProgramBufferParametersfvNV" program-buffer-parameters-fv-nv 2787) :void
   (target enum)
   (bindingIndex uint)
   (wordIndex uint)
   (count sizei)
   (params (:pointer float)))
 
-(defglextfun ("glProgramBufferParametersIivNV" program-buffer-parameters-iiv-nv 2527) :void
+(defglextfun ("glProgramBufferParametersIivNV" program-buffer-parameters-iiv-nv 2788) :void
   (target enum)
   (bindingIndex uint)
   (wordIndex uint)
   (count sizei)
   (params (:pointer int)))
 
-(defglextfun ("glProgramBufferParametersIuivNV" program-buffer-parameters-iuiv-nv 2528) :void
+(defglextfun ("glProgramBufferParametersIuivNV" program-buffer-parameters-iuiv-nv 2789) :void
   (target enum)
   (bindingIndex uint)
   (wordIndex uint)
   (count sizei)
   (params (:pointer uint)))
 
-(defglextfun ("glPixelDataRangeNV" pixel-data-range-nv 2529) :void
+(defglextfun ("glPixelDataRangeNV" pixel-data-range-nv 2790) :void
   (target enum)
   (length sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glFlushPixelDataRangeNV" flush-pixel-data-range-nv 2530) :void
+(defglextfun ("glFlushPixelDataRangeNV" flush-pixel-data-range-nv 2791) :void
   (target enum))
 
-(defglextfun ("glPointParameteriNV" point-parameter-i-nv 2531) :void
+(defglextfun ("glPointParameteriNV" point-parameter-i-nv 2792) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glPointParameterivNV" point-parameter-iv-nv 2532) :void
+(defglextfun ("glPointParameterivNV" point-parameter-iv-nv 2793) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glPresentFrameKeyedNV" present-frame-keyed-nv 2533) :void
+(defglextfun ("glPresentFrameKeyedNV" present-frame-keyed-nv 2794) :void
   (video_slot uint)
   (minPresentTime uint64-ext)
   (beginPresentTimeId uint)
@@ -5754,7 +5754,7 @@
   (fill1 uint)
   (key1 uint))
 
-(defglextfun ("glPresentFrameDualFillNV" present-frame-dual-fill-nv 2534) :void
+(defglextfun ("glPresentFrameDualFillNV" present-frame-dual-fill-nv 2795) :void
   (video_slot uint)
   (minPresentTime uint64-ext)
   (beginPresentTimeId uint)
@@ -5769,66 +5769,66 @@
   (target3 enum)
   (fill3 uint))
 
-(defglextfun ("glGetVideoivNV" get-video-iv-nv 2535) :void
+(defglextfun ("glGetVideoivNV" get-video-iv-nv 2796) :void
   (video_slot uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVideouivNV" get-video-uiv-nv 2536) :void
+(defglextfun ("glGetVideouivNV" get-video-uiv-nv 2797) :void
   (video_slot uint)
   (pname enum)
   (params (:pointer uint)))
 
-(defglextfun ("glGetVideoi64vNV" get-video-i64v-nv 2537) :void
+(defglextfun ("glGetVideoi64vNV" get-video-i64v-nv 2798) :void
   (video_slot uint)
   (pname enum)
   (params (:pointer int64-ext)))
 
-(defglextfun ("glGetVideoui64vNV" get-video-ui64v-nv 2538) :void
+(defglextfun ("glGetVideoui64vNV" get-video-ui64v-nv 2799) :void
   (video_slot uint)
   (pname enum)
   (params (:pointer uint64-ext)))
 
-(defglextfun ("glPrimitiveRestartNV" primitive-restart-nv 2539) :void)
+(defglextfun ("glPrimitiveRestartNV" primitive-restart-nv 2800) :void)
 
-(defglextfun ("glPrimitiveRestartIndexNV" primitive-restart-index-nv 2540) :void
+(defglextfun ("glPrimitiveRestartIndexNV" primitive-restart-index-nv 2801) :void
   (index uint))
 
-(defglextfun ("glQueryResourceNV" query-resource-nv 2541) int
+(defglextfun ("glQueryResourceNV" query-resource-nv 2802) int
   (queryType enum)
   (tagId int)
   (count uint)
   (buffer (:pointer int)))
 
-(defglextfun ("glGenQueryResourceTagNV" gen-query-resource-tag-nv 2542) :void
+(defglextfun ("glGenQueryResourceTagNV" gen-query-resource-tag-nv 2803) :void
   (n sizei)
   (tagIds (:pointer int)))
 
-(defglextfun ("glDeleteQueryResourceTagNV" delete-query-resource-tag-nv 2543) :void
+(defglextfun ("glDeleteQueryResourceTagNV" delete-query-resource-tag-nv 2804) :void
   (n sizei)
   (tagIds (:pointer int)))
 
-(defglextfun ("glQueryResourceTagNV" query-resource-tag-nv 2544) :void
+(defglextfun ("glQueryResourceTagNV" query-resource-tag-nv 2805) :void
   (tagId int)
   (tagString (:pointer char)))
 
-(defglextfun ("glCombinerParameterfvNV" combiner-parameter-fv-nv 2545) :void
+(defglextfun ("glCombinerParameterfvNV" combiner-parameter-fv-nv 2806) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glCombinerParameterfNV" combiner-parameter-f-nv 2546) :void
+(defglextfun ("glCombinerParameterfNV" combiner-parameter-f-nv 2807) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glCombinerParameterivNV" combiner-parameter-iv-nv 2547) :void
+(defglextfun ("glCombinerParameterivNV" combiner-parameter-iv-nv 2808) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glCombinerParameteriNV" combiner-parameter-i-nv 2548) :void
+(defglextfun ("glCombinerParameteriNV" combiner-parameter-i-nv 2809) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glCombinerInputNV" combiner-input-nv 2549) :void
+(defglextfun ("glCombinerInputNV" combiner-input-nv 2810) :void
   (stage enum)
   (portion enum)
   (variable enum)
@@ -5836,7 +5836,7 @@
   (mapping enum)
   (componentUsage enum))
 
-(defglextfun ("glCombinerOutputNV" combiner-output-nv 2550) :void
+(defglextfun ("glCombinerOutputNV" combiner-output-nv 2811) :void
   (stage enum)
   (portion enum)
   (abOutput enum)
@@ -5848,59 +5848,59 @@
   (cdDotProduct boolean)
   (muxSum boolean))
 
-(defglextfun ("glFinalCombinerInputNV" final-combiner-input-nv 2551) :void
+(defglextfun ("glFinalCombinerInputNV" final-combiner-input-nv 2812) :void
   (variable enum)
   (input enum)
   (mapping enum)
   (componentUsage enum))
 
-(defglextfun ("glGetCombinerInputParameterfvNV" get-combiner-input-parameter-fv-nv 2552) :void
+(defglextfun ("glGetCombinerInputParameterfvNV" get-combiner-input-parameter-fv-nv 2813) :void
   (stage enum)
   (portion enum)
   (variable enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetCombinerInputParameterivNV" get-combiner-input-parameter-iv-nv 2553) :void
+(defglextfun ("glGetCombinerInputParameterivNV" get-combiner-input-parameter-iv-nv 2814) :void
   (stage enum)
   (portion enum)
   (variable enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetCombinerOutputParameterfvNV" get-combiner-output-parameter-fv-nv 2554) :void
+(defglextfun ("glGetCombinerOutputParameterfvNV" get-combiner-output-parameter-fv-nv 2815) :void
   (stage enum)
   (portion enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetCombinerOutputParameterivNV" get-combiner-output-parameter-iv-nv 2555) :void
+(defglextfun ("glGetCombinerOutputParameterivNV" get-combiner-output-parameter-iv-nv 2816) :void
   (stage enum)
   (portion enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetFinalCombinerInputParameterfvNV" get-final-combiner-input-parameter-fv-nv 2556) :void
+(defglextfun ("glGetFinalCombinerInputParameterfvNV" get-final-combiner-input-parameter-fv-nv 2817) :void
   (variable enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetFinalCombinerInputParameterivNV" get-final-combiner-input-parameter-iv-nv 2557) :void
+(defglextfun ("glGetFinalCombinerInputParameterivNV" get-final-combiner-input-parameter-iv-nv 2818) :void
   (variable enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glCombinerStageParameterfvNV" combiner-stage-parameter-fv-nv 2558) :void
+(defglextfun ("glCombinerStageParameterfvNV" combiner-stage-parameter-fv-nv 2819) :void
   (stage enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetCombinerStageParameterfvNV" get-combiner-stage-parameter-fv-nv 2559) :void
+(defglextfun ("glGetCombinerStageParameterfvNV" get-combiner-stage-parameter-fv-nv 2820) :void
   (stage enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glTexImage2DMultisampleCoverageNV" tex-image-2d-multisample-coverage-nv 2560) :void
+(defglextfun ("glTexImage2DMultisampleCoverageNV" tex-image-2d-multisample-coverage-nv 2821) :void
   (target enum)
   (coverageSamples sizei)
   (colorSamples sizei)
@@ -5909,7 +5909,7 @@
   (height sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glTexImage3DMultisampleCoverageNV" tex-image-3d-multisample-coverage-nv 2561) :void
+(defglextfun ("glTexImage3DMultisampleCoverageNV" tex-image-3d-multisample-coverage-nv 2822) :void
   (target enum)
   (coverageSamples sizei)
   (colorSamples sizei)
@@ -5919,7 +5919,7 @@
   (depth sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glTextureImage2DMultisampleNV" texture-image-2d-multisample-nv 2562) :void
+(defglextfun ("glTextureImage2DMultisampleNV" texture-image-2d-multisample-nv 2823) :void
   (texture uint)
   (target enum)
   (samples sizei)
@@ -5928,7 +5928,7 @@
   (height sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glTextureImage3DMultisampleNV" texture-image-3d-multisample-nv 2563) :void
+(defglextfun ("glTextureImage3DMultisampleNV" texture-image-3d-multisample-nv 2824) :void
   (texture uint)
   (target enum)
   (samples sizei)
@@ -5938,7 +5938,7 @@
   (depth sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glTextureImage2DMultisampleCoverageNV" texture-image-2d-multisample-coverage-nv 2564) :void
+(defglextfun ("glTextureImage2DMultisampleCoverageNV" texture-image-2d-multisample-coverage-nv 2825) :void
   (texture uint)
   (target enum)
   (coverageSamples sizei)
@@ -5948,7 +5948,7 @@
   (height sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glTextureImage3DMultisampleCoverageNV" texture-image-3d-multisample-coverage-nv 2565) :void
+(defglextfun ("glTextureImage3DMultisampleCoverageNV" texture-image-3d-multisample-coverage-nv 2826) :void
   (texture uint)
   (target enum)
   (coverageSamples sizei)
@@ -5959,49 +5959,49 @@
   (depth sizei)
   (fixedSampleLocations boolean))
 
-(defglextfun ("glBeginTransformFeedbackNV" begin-transform-feedback-nv 2566) :void
+(defglextfun ("glBeginTransformFeedbackNV" begin-transform-feedback-nv 2827) :void
   (primitiveMode enum))
 
-(defglextfun ("glEndTransformFeedbackNV" end-transform-feedback-nv 2567) :void)
+(defglextfun ("glEndTransformFeedbackNV" end-transform-feedback-nv 2828) :void)
 
-(defglextfun ("glTransformFeedbackAttribsNV" transform-feedback-attribs-nv 2568) :void
+(defglextfun ("glTransformFeedbackAttribsNV" transform-feedback-attribs-nv 2829) :void
   (count sizei)
   (attribs (:pointer int))
   (bufferMode enum))
 
-(defglextfun ("glBindBufferRangeNV" bind-buffer-range-nv 2569) :void
+(defglextfun ("glBindBufferRangeNV" bind-buffer-range-nv 2830) :void
   (target enum)
   (index uint)
   (buffer uint)
   (offset intptr)
   (size sizeiptr))
 
-(defglextfun ("glBindBufferOffsetNV" bind-buffer-offset-nv 2570) :void
+(defglextfun ("glBindBufferOffsetNV" bind-buffer-offset-nv 2831) :void
   (target enum)
   (index uint)
   (buffer uint)
   (offset intptr))
 
-(defglextfun ("glBindBufferBaseNV" bind-buffer-base-nv 2571) :void
+(defglextfun ("glBindBufferBaseNV" bind-buffer-base-nv 2832) :void
   (target enum)
   (index uint)
   (buffer uint))
 
-(defglextfun ("glTransformFeedbackVaryingsNV" transform-feedback-varyings-nv 2572) :void
+(defglextfun ("glTransformFeedbackVaryingsNV" transform-feedback-varyings-nv 2833) :void
   (program uint)
   (count sizei)
   (locations (:pointer int))
   (bufferMode enum))
 
-(defglextfun ("glActiveVaryingNV" active-varying-nv 2573) :void
+(defglextfun ("glActiveVaryingNV" active-varying-nv 2834) :void
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glGetVaryingLocationNV" get-varying-location-nv 2574) int
+(defglextfun ("glGetVaryingLocationNV" get-varying-location-nv 2835) int
   (program uint)
   (name (:pointer char)))
 
-(defglextfun ("glGetActiveVaryingNV" get-active-varying-nv 2575) :void
+(defglextfun ("glGetActiveVaryingNV" get-active-varying-nv 2836) :void
   (program uint)
   (index uint)
   (bufSize sizei)
@@ -6010,177 +6010,177 @@
   (type (:pointer enum))
   (name (:pointer char)))
 
-(defglextfun ("glGetTransformFeedbackVaryingNV" get-transform-feedback-varying-nv 2576) :void
+(defglextfun ("glGetTransformFeedbackVaryingNV" get-transform-feedback-varying-nv 2837) :void
   (program uint)
   (index uint)
   (location (:pointer int)))
 
-(defglextfun ("glTransformFeedbackStreamAttribsNV" transform-feedback-stream-attribs-nv 2577) :void
+(defglextfun ("glTransformFeedbackStreamAttribsNV" transform-feedback-stream-attribs-nv 2838) :void
   (count sizei)
   (attribs (:pointer int))
   (nbuffers sizei)
   (bufstreams (:pointer int))
   (bufferMode enum))
 
-(defglextfun ("glBindTransformFeedbackNV" bind-transform-feedback-nv 2578) :void
+(defglextfun ("glBindTransformFeedbackNV" bind-transform-feedback-nv 2839) :void
   (target enum)
   (id uint))
 
-(defglextfun ("glDeleteTransformFeedbacksNV" delete-transform-feedbacks-nv 2579) :void
+(defglextfun ("glDeleteTransformFeedbacksNV" delete-transform-feedbacks-nv 2840) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glGenTransformFeedbacksNV" gen-transform-feedbacks-nv 2580) :void
+(defglextfun ("glGenTransformFeedbacksNV" gen-transform-feedbacks-nv 2841) :void
   (n sizei)
   (ids (:pointer uint)))
 
-(defglextfun ("glIsTransformFeedbackNV" is-transform-feedback-nv 2581) boolean
+(defglextfun ("glIsTransformFeedbackNV" is-transform-feedback-nv 2842) boolean
   (id uint))
 
-(defglextfun ("glPauseTransformFeedbackNV" pause-transform-feedback-nv 2582) :void)
+(defglextfun ("glPauseTransformFeedbackNV" pause-transform-feedback-nv 2843) :void)
 
-(defglextfun ("glResumeTransformFeedbackNV" resume-transform-feedback-nv 2583) :void)
+(defglextfun ("glResumeTransformFeedbackNV" resume-transform-feedback-nv 2844) :void)
 
-(defglextfun ("glDrawTransformFeedbackNV" draw-transform-feedback-nv 2584) :void
+(defglextfun ("glDrawTransformFeedbackNV" draw-transform-feedback-nv 2845) :void
   (mode enum)
   (id uint))
 
-(defglextfun ("glVDPAUInitNV" vdpau-init-nv 2585) :void
+(defglextfun ("glVDPAUInitNV" vdpau-init-nv 2846) :void
   (vdpDevice (:pointer :void))
   (getProcAddress (:pointer :void)))
 
-(defglextfun ("glVDPAUFiniNV" vdpau-fini-nv 2586) :void)
+(defglextfun ("glVDPAUFiniNV" vdpau-fini-nv 2847) :void)
 
-(defglextfun ("glVDPAURegisterVideoSurfaceNV" vdpau-register-video-surface-nv 2587) vdpau-surface-nv
+(defglextfun ("glVDPAURegisterVideoSurfaceNV" vdpau-register-video-surface-nv 2848) vdpau-surface-nv
   (vdpSurface (:pointer :void))
   (target enum)
   (numTextureNames sizei)
   (textureNames (:pointer uint)))
 
-(defglextfun ("glVDPAURegisterOutputSurfaceNV" vdpau-register-output-surface-nv 2588) vdpau-surface-nv
+(defglextfun ("glVDPAURegisterOutputSurfaceNV" vdpau-register-output-surface-nv 2849) vdpau-surface-nv
   (vdpSurface (:pointer :void))
   (target enum)
   (numTextureNames sizei)
   (textureNames (:pointer uint)))
 
-(defglextfun ("glVDPAUIsSurfaceNV" vdpau-is-surface-nv 2589) boolean
+(defglextfun ("glVDPAUIsSurfaceNV" vdpau-is-surface-nv 2850) boolean
   (surface vdpau-surface-nv))
 
-(defglextfun ("glVDPAUUnregisterSurfaceNV" vdpau-unregister-surface-nv 2590) :void
+(defglextfun ("glVDPAUUnregisterSurfaceNV" vdpau-unregister-surface-nv 2851) :void
   (surface vdpau-surface-nv))
 
-(defglextfun ("glVDPAUGetSurfaceivNV" vdpau-get-surface-iv-nv 2591) :void
+(defglextfun ("glVDPAUGetSurfaceivNV" vdpau-get-surface-iv-nv 2852) :void
   (surface vdpau-surface-nv)
   (pname enum)
   (count sizei)
   (length (:pointer sizei))
   (values (:pointer int)))
 
-(defglextfun ("glVDPAUSurfaceAccessNV" vdpau-surface-access-nv 2592) :void
+(defglextfun ("glVDPAUSurfaceAccessNV" vdpau-surface-access-nv 2853) :void
   (surface vdpau-surface-nv)
   (access enum))
 
-(defglextfun ("glVDPAUMapSurfacesNV" vdpau-map-surfaces-nv 2593) :void
+(defglextfun ("glVDPAUMapSurfacesNV" vdpau-map-surfaces-nv 2854) :void
   (numSurfaces sizei)
   (surfaces (:pointer vdpau-surface-nv)))
 
-(defglextfun ("glVDPAUUnmapSurfacesNV" vdpau-unmap-surfaces-nv 2594) :void
+(defglextfun ("glVDPAUUnmapSurfacesNV" vdpau-unmap-surfaces-nv 2855) :void
   (numSurface sizei)
   (surfaces (:pointer vdpau-surface-nv)))
 
-(defglextfun ("glVDPAURegisterVideoSurfaceWithPictureStructureNV" vdpau-register-video-surface-with-picture-structure-nv 2595) vdpau-surface-nv
+(defglextfun ("glVDPAURegisterVideoSurfaceWithPictureStructureNV" vdpau-register-video-surface-with-picture-structure-nv 2856) vdpau-surface-nv
   (vdpSurface (:pointer :void))
   (target enum)
   (numTextureNames sizei)
   (textureNames (:pointer uint))
   (isFrameStructure boolean))
 
-(defglextfun ("glFlushVertexArrayRangeNV" flush-vertex-array-range-nv 2596) :void)
+(defglextfun ("glFlushVertexArrayRangeNV" flush-vertex-array-range-nv 2857) :void)
 
-(defglextfun ("glVertexArrayRangeNV" vertex-array-range-nv 2597) :void
+(defglextfun ("glVertexArrayRangeNV" vertex-array-range-nv 2858) :void
   (length sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glAreProgramsResidentNV" are-programs-resident-nv 2598) boolean
+(defglextfun ("glAreProgramsResidentNV" are-programs-resident-nv 2859) boolean
   (n sizei)
   (programs (:pointer uint))
   (residences (:pointer boolean)))
 
-(defglextfun ("glBindProgramNV" bind-program-nv 2599) :void
+(defglextfun ("glBindProgramNV" bind-program-nv 2860) :void
   (target enum)
   (id uint))
 
-(defglextfun ("glDeleteProgramsNV" delete-programs-nv 2600) :void
+(defglextfun ("glDeleteProgramsNV" delete-programs-nv 2861) :void
   (n sizei)
   (programs (:pointer uint)))
 
-(defglextfun ("glExecuteProgramNV" execute-program-nv 2601) :void
+(defglextfun ("glExecuteProgramNV" execute-program-nv 2862) :void
   (target enum)
   (id uint)
   (params (:pointer float)))
 
-(defglextfun ("glGenProgramsNV" gen-programs-nv 2602) :void
+(defglextfun ("glGenProgramsNV" gen-programs-nv 2863) :void
   (n sizei)
   (programs (:pointer uint)))
 
-(defglextfun ("glGetProgramParameterdvNV" get-program-parameter-dv-nv 2603) :void
+(defglextfun ("glGetProgramParameterdvNV" get-program-parameter-dv-nv 2864) :void
   (target enum)
   (index uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glGetProgramParameterfvNV" get-program-parameter-fv-nv 2604) :void
+(defglextfun ("glGetProgramParameterfvNV" get-program-parameter-fv-nv 2865) :void
   (target enum)
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetProgramivNV" get-program-iv-nv 2605) :void
+(defglextfun ("glGetProgramivNV" get-program-iv-nv 2866) :void
   (id uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetProgramStringNV" get-program-string-nv 2606) :void
+(defglextfun ("glGetProgramStringNV" get-program-string-nv 2867) :void
   (id uint)
   (pname enum)
   (program (:pointer ubyte)))
 
-(defglextfun ("glGetTrackMatrixivNV" get-track-matrix-iv-nv 2607) :void
+(defglextfun ("glGetTrackMatrixivNV" get-track-matrix-iv-nv 2868) :void
   (target enum)
   (address uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVertexAttribdvNV" get-vertex-attrib-dv-nv 2608) :void
+(defglextfun ("glGetVertexAttribdvNV" get-vertex-attrib-dv-nv 2869) :void
   (index uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glGetVertexAttribfvNV" get-vertex-attrib-fv-nv 2609) :void
+(defglextfun ("glGetVertexAttribfvNV" get-vertex-attrib-fv-nv 2870) :void
   (index uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVertexAttribivNV" get-vertex-attrib-iv-nv 2610) :void
+(defglextfun ("glGetVertexAttribivNV" get-vertex-attrib-iv-nv 2871) :void
   (index uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVertexAttribPointervNV" get-vertex-attrib-pointer-v-nv 2611) :void
+(defglextfun ("glGetVertexAttribPointervNV" get-vertex-attrib-pointer-v-nv 2872) :void
   (index uint)
   (pname enum)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glIsProgramNV" is-program-nv 2612) boolean
+(defglextfun ("glIsProgramNV" is-program-nv 2873) boolean
   (id uint))
 
-(defglextfun ("glLoadProgramNV" load-program-nv 2613) :void
+(defglextfun ("glLoadProgramNV" load-program-nv 2874) :void
   (target enum)
   (id uint)
   (len sizei)
   (program (:pointer ubyte)))
 
-(defglextfun ("glProgramParameter4dNV" program-parameter-4d-nv 2614) :void
+(defglextfun ("glProgramParameter4dNV" program-parameter-4d-nv 2875) :void
   (target enum)
   (index uint)
   (x double)
@@ -6188,12 +6188,12 @@
   (z double)
   (w double))
 
-(defglextfun ("glProgramParameter4dvNV" program-parameter-4dv-nv 2615) :void
+(defglextfun ("glProgramParameter4dvNV" program-parameter-4dv-nv 2876) :void
   (target enum)
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glProgramParameter4fNV" program-parameter-4f-nv 2616) :void
+(defglextfun ("glProgramParameter4fNV" program-parameter-4f-nv 2877) :void
   (target enum)
   (index uint)
   (x float)
@@ -6201,364 +6201,364 @@
   (z float)
   (w float))
 
-(defglextfun ("glProgramParameter4fvNV" program-parameter-4fv-nv 2617) :void
+(defglextfun ("glProgramParameter4fvNV" program-parameter-4fv-nv 2878) :void
   (target enum)
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glProgramParameters4dvNV" program-parameters-4dv-nv 2618) :void
+(defglextfun ("glProgramParameters4dvNV" program-parameters-4dv-nv 2879) :void
   (target enum)
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
-(defglextfun ("glProgramParameters4fvNV" program-parameters-4fv-nv 2619) :void
+(defglextfun ("glProgramParameters4fvNV" program-parameters-4fv-nv 2880) :void
   (target enum)
   (index uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glRequestResidentProgramsNV" request-resident-programs-nv 2620) :void
+(defglextfun ("glRequestResidentProgramsNV" request-resident-programs-nv 2881) :void
   (n sizei)
   (programs (:pointer uint)))
 
-(defglextfun ("glTrackMatrixNV" track-matrix-nv 2621) :void
+(defglextfun ("glTrackMatrixNV" track-matrix-nv 2882) :void
   (target enum)
   (address uint)
   (matrix enum)
   (transform enum))
 
-(defglextfun ("glVertexAttribPointerNV" vertex-attrib-pointer-nv 2622) :void
+(defglextfun ("glVertexAttribPointerNV" vertex-attrib-pointer-nv 2883) :void
   (index uint)
   (fsize int)
   (type enum)
   (stride sizei)
   (pointer (:pointer :void)))
 
-(defglextfun ("glVertexAttrib1dNV" vertex-attrib-1d-nv 2623) :void
+(defglextfun ("glVertexAttrib1dNV" vertex-attrib-1d-nv 2884) :void
   (index uint)
   (x double))
 
-(defglextfun ("glVertexAttrib1dvNV" vertex-attrib-1dv-nv 2624) :void
+(defglextfun ("glVertexAttrib1dvNV" vertex-attrib-1dv-nv 2885) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib1fNV" vertex-attrib-1f-nv 2625) :void
+(defglextfun ("glVertexAttrib1fNV" vertex-attrib-1f-nv 2886) :void
   (index uint)
   (x float))
 
-(defglextfun ("glVertexAttrib1fvNV" vertex-attrib-1fv-nv 2626) :void
+(defglextfun ("glVertexAttrib1fvNV" vertex-attrib-1fv-nv 2887) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib1sNV" vertex-attrib-1s-nv 2627) :void
+(defglextfun ("glVertexAttrib1sNV" vertex-attrib-1s-nv 2888) :void
   (index uint)
   (x short))
 
-(defglextfun ("glVertexAttrib1svNV" vertex-attrib-1sv-nv 2628) :void
+(defglextfun ("glVertexAttrib1svNV" vertex-attrib-1sv-nv 2889) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib2dNV" vertex-attrib-2d-nv 2629) :void
+(defglextfun ("glVertexAttrib2dNV" vertex-attrib-2d-nv 2890) :void
   (index uint)
   (x double)
   (y double))
 
-(defglextfun ("glVertexAttrib2dvNV" vertex-attrib-2dv-nv 2630) :void
+(defglextfun ("glVertexAttrib2dvNV" vertex-attrib-2dv-nv 2891) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib2fNV" vertex-attrib-2f-nv 2631) :void
+(defglextfun ("glVertexAttrib2fNV" vertex-attrib-2f-nv 2892) :void
   (index uint)
   (x float)
   (y float))
 
-(defglextfun ("glVertexAttrib2fvNV" vertex-attrib-2fv-nv 2632) :void
+(defglextfun ("glVertexAttrib2fvNV" vertex-attrib-2fv-nv 2893) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib2sNV" vertex-attrib-2s-nv 2633) :void
+(defglextfun ("glVertexAttrib2sNV" vertex-attrib-2s-nv 2894) :void
   (index uint)
   (x short)
   (y short))
 
-(defglextfun ("glVertexAttrib2svNV" vertex-attrib-2sv-nv 2634) :void
+(defglextfun ("glVertexAttrib2svNV" vertex-attrib-2sv-nv 2895) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib3dNV" vertex-attrib-3d-nv 2635) :void
+(defglextfun ("glVertexAttrib3dNV" vertex-attrib-3d-nv 2896) :void
   (index uint)
   (x double)
   (y double)
   (z double))
 
-(defglextfun ("glVertexAttrib3dvNV" vertex-attrib-3dv-nv 2636) :void
+(defglextfun ("glVertexAttrib3dvNV" vertex-attrib-3dv-nv 2897) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib3fNV" vertex-attrib-3f-nv 2637) :void
+(defglextfun ("glVertexAttrib3fNV" vertex-attrib-3f-nv 2898) :void
   (index uint)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glVertexAttrib3fvNV" vertex-attrib-3fv-nv 2638) :void
+(defglextfun ("glVertexAttrib3fvNV" vertex-attrib-3fv-nv 2899) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib3sNV" vertex-attrib-3s-nv 2639) :void
+(defglextfun ("glVertexAttrib3sNV" vertex-attrib-3s-nv 2900) :void
   (index uint)
   (x short)
   (y short)
   (z short))
 
-(defglextfun ("glVertexAttrib3svNV" vertex-attrib-3sv-nv 2640) :void
+(defglextfun ("glVertexAttrib3svNV" vertex-attrib-3sv-nv 2901) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4dNV" vertex-attrib-4d-nv 2641) :void
+(defglextfun ("glVertexAttrib4dNV" vertex-attrib-4d-nv 2902) :void
   (index uint)
   (x double)
   (y double)
   (z double)
   (w double))
 
-(defglextfun ("glVertexAttrib4dvNV" vertex-attrib-4dv-nv 2642) :void
+(defglextfun ("glVertexAttrib4dvNV" vertex-attrib-4dv-nv 2903) :void
   (index uint)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttrib4fNV" vertex-attrib-4f-nv 2643) :void
+(defglextfun ("glVertexAttrib4fNV" vertex-attrib-4f-nv 2904) :void
   (index uint)
   (x float)
   (y float)
   (z float)
   (w float))
 
-(defglextfun ("glVertexAttrib4fvNV" vertex-attrib-4fv-nv 2644) :void
+(defglextfun ("glVertexAttrib4fvNV" vertex-attrib-4fv-nv 2905) :void
   (index uint)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttrib4sNV" vertex-attrib-4s-nv 2645) :void
+(defglextfun ("glVertexAttrib4sNV" vertex-attrib-4s-nv 2906) :void
   (index uint)
   (x short)
   (y short)
   (z short)
   (w short))
 
-(defglextfun ("glVertexAttrib4svNV" vertex-attrib-4sv-nv 2646) :void
+(defglextfun ("glVertexAttrib4svNV" vertex-attrib-4sv-nv 2907) :void
   (index uint)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttrib4ubNV" vertex-attrib-4ub-nv 2647) :void
+(defglextfun ("glVertexAttrib4ubNV" vertex-attrib-4ub-nv 2908) :void
   (index uint)
   (x ubyte)
   (y ubyte)
   (z ubyte)
   (w ubyte))
 
-(defglextfun ("glVertexAttrib4ubvNV" vertex-attrib-4ubv-nv 2648) :void
+(defglextfun ("glVertexAttrib4ubvNV" vertex-attrib-4ubv-nv 2909) :void
   (index uint)
   (v (:pointer ubyte)))
 
-(defglextfun ("glVertexAttribs1dvNV" vertex-attribs-1dv-nv 2649) :void
+(defglextfun ("glVertexAttribs1dvNV" vertex-attribs-1dv-nv 2910) :void
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribs1fvNV" vertex-attribs-1fv-nv 2650) :void
+(defglextfun ("glVertexAttribs1fvNV" vertex-attribs-1fv-nv 2911) :void
   (index uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttribs1svNV" vertex-attribs-1sv-nv 2651) :void
+(defglextfun ("glVertexAttribs1svNV" vertex-attribs-1sv-nv 2912) :void
   (index uint)
   (count sizei)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribs2dvNV" vertex-attribs-2dv-nv 2652) :void
+(defglextfun ("glVertexAttribs2dvNV" vertex-attribs-2dv-nv 2913) :void
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribs2fvNV" vertex-attribs-2fv-nv 2653) :void
+(defglextfun ("glVertexAttribs2fvNV" vertex-attribs-2fv-nv 2914) :void
   (index uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttribs2svNV" vertex-attribs-2sv-nv 2654) :void
+(defglextfun ("glVertexAttribs2svNV" vertex-attribs-2sv-nv 2915) :void
   (index uint)
   (count sizei)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribs3dvNV" vertex-attribs-3dv-nv 2655) :void
+(defglextfun ("glVertexAttribs3dvNV" vertex-attribs-3dv-nv 2916) :void
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribs3fvNV" vertex-attribs-3fv-nv 2656) :void
+(defglextfun ("glVertexAttribs3fvNV" vertex-attribs-3fv-nv 2917) :void
   (index uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttribs3svNV" vertex-attribs-3sv-nv 2657) :void
+(defglextfun ("glVertexAttribs3svNV" vertex-attribs-3sv-nv 2918) :void
   (index uint)
   (count sizei)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribs4dvNV" vertex-attribs-4dv-nv 2658) :void
+(defglextfun ("glVertexAttribs4dvNV" vertex-attribs-4dv-nv 2919) :void
   (index uint)
   (count sizei)
   (v (:pointer double)))
 
-(defglextfun ("glVertexAttribs4fvNV" vertex-attribs-4fv-nv 2659) :void
+(defglextfun ("glVertexAttribs4fvNV" vertex-attribs-4fv-nv 2920) :void
   (index uint)
   (count sizei)
   (v (:pointer float)))
 
-(defglextfun ("glVertexAttribs4svNV" vertex-attribs-4sv-nv 2660) :void
+(defglextfun ("glVertexAttribs4svNV" vertex-attribs-4sv-nv 2921) :void
   (index uint)
   (count sizei)
   (v (:pointer short)))
 
-(defglextfun ("glVertexAttribs4ubvNV" vertex-attribs-4ubv-nv 2661) :void
+(defglextfun ("glVertexAttribs4ubvNV" vertex-attribs-4ubv-nv 2922) :void
   (index uint)
   (count sizei)
   (v (:pointer ubyte)))
 
-(defglextfun ("glBeginVideoCaptureNV" begin-video-capture-nv 2662) :void
+(defglextfun ("glBeginVideoCaptureNV" begin-video-capture-nv 2923) :void
   (video_capture_slot uint))
 
-(defglextfun ("glBindVideoCaptureStreamBufferNV" bind-video-capture-stream-buffer-nv 2663) :void
+(defglextfun ("glBindVideoCaptureStreamBufferNV" bind-video-capture-stream-buffer-nv 2924) :void
   (video_capture_slot uint)
   (stream uint)
   (frame_region enum)
   (offset intptr-arb))
 
-(defglextfun ("glBindVideoCaptureStreamTextureNV" bind-video-capture-stream-texture-nv 2664) :void
+(defglextfun ("glBindVideoCaptureStreamTextureNV" bind-video-capture-stream-texture-nv 2925) :void
   (video_capture_slot uint)
   (stream uint)
   (frame_region enum)
   (target enum)
   (texture uint))
 
-(defglextfun ("glEndVideoCaptureNV" end-video-capture-nv 2665) :void
+(defglextfun ("glEndVideoCaptureNV" end-video-capture-nv 2926) :void
   (video_capture_slot uint))
 
-(defglextfun ("glGetVideoCaptureivNV" get-video-capture-iv-nv 2666) :void
+(defglextfun ("glGetVideoCaptureivNV" get-video-capture-iv-nv 2927) :void
   (video_capture_slot uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVideoCaptureStreamivNV" get-video-capture-stream-iv-nv 2667) :void
+(defglextfun ("glGetVideoCaptureStreamivNV" get-video-capture-stream-iv-nv 2928) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetVideoCaptureStreamfvNV" get-video-capture-stream-fv-nv 2668) :void
+(defglextfun ("glGetVideoCaptureStreamfvNV" get-video-capture-stream-fv-nv 2929) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetVideoCaptureStreamdvNV" get-video-capture-stream-dv-nv 2669) :void
+(defglextfun ("glGetVideoCaptureStreamdvNV" get-video-capture-stream-dv-nv 2930) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glVideoCaptureNV" video-capture-nv 2670) enum
+(defglextfun ("glVideoCaptureNV" video-capture-nv 2931) enum
   (video_capture_slot uint)
   (sequence_num (:pointer uint))
   (capture_time (:pointer uint64-ext)))
 
-(defglextfun ("glVideoCaptureStreamParameterivNV" video-capture-stream-parameter-iv-nv 2671) :void
+(defglextfun ("glVideoCaptureStreamParameterivNV" video-capture-stream-parameter-iv-nv 2932) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glVideoCaptureStreamParameterfvNV" video-capture-stream-parameter-fv-nv 2672) :void
+(defglextfun ("glVideoCaptureStreamParameterfvNV" video-capture-stream-parameter-fv-nv 2933) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glVideoCaptureStreamParameterdvNV" video-capture-stream-parameter-dv-nv 2673) :void
+(defglextfun ("glVideoCaptureStreamParameterdvNV" video-capture-stream-parameter-dv-nv 2934) :void
   (video_capture_slot uint)
   (stream uint)
   (pname enum)
   (params (:pointer double)))
 
-(defglextfun ("glHintPGI" hint-pgi 2674) :void
+(defglextfun ("glHintPGI" hint-pgi 2935) :void
   (target enum)
   (mode int))
 
-(defglextfun ("glDetailTexFuncSGIS" detail-tex-func-sgis 2675) :void
+(defglextfun ("glDetailTexFuncSGIS" detail-tex-func-sgis 2936) :void
   (target enum)
   (n sizei)
   (points (:pointer float)))
 
-(defglextfun ("glGetDetailTexFuncSGIS" get-detail-tex-func-sgis 2676) :void
+(defglextfun ("glGetDetailTexFuncSGIS" get-detail-tex-func-sgis 2937) :void
   (target enum)
   (points (:pointer float)))
 
-(defglextfun ("glFogFuncSGIS" fog-func-sgis 2677) :void
+(defglextfun ("glFogFuncSGIS" fog-func-sgis 2938) :void
   (n sizei)
   (points (:pointer float)))
 
-(defglextfun ("glGetFogFuncSGIS" get-fog-func-sgis 2678) :void
+(defglextfun ("glGetFogFuncSGIS" get-fog-func-sgis 2939) :void
   (points (:pointer float)))
 
-(defglextfun ("glSampleMaskSGIS" sample-mask-sgis 2679) :void
+(defglextfun ("glSampleMaskSGIS" sample-mask-sgis 2940) :void
   (value clampf)
   (invert boolean))
 
-(defglextfun ("glSamplePatternSGIS" sample-pattern-sgis 2680) :void
+(defglextfun ("glSamplePatternSGIS" sample-pattern-sgis 2941) :void
   (pattern enum))
 
-(defglextfun ("glPixelTexGenParameteriSGIS" pixel-tex-gen-parameter-i-sgis 2681) :void
+(defglextfun ("glPixelTexGenParameteriSGIS" pixel-tex-gen-parameter-i-sgis 2942) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glPixelTexGenParameterivSGIS" pixel-tex-gen-parameter-iv-sgis 2682) :void
+(defglextfun ("glPixelTexGenParameterivSGIS" pixel-tex-gen-parameter-iv-sgis 2943) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glPixelTexGenParameterfSGIS" pixel-tex-gen-parameter-f-sgis 2683) :void
+(defglextfun ("glPixelTexGenParameterfSGIS" pixel-tex-gen-parameter-f-sgis 2944) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glPixelTexGenParameterfvSGIS" pixel-tex-gen-parameter-fv-sgis 2684) :void
+(defglextfun ("glPixelTexGenParameterfvSGIS" pixel-tex-gen-parameter-fv-sgis 2945) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetPixelTexGenParameterivSGIS" get-pixel-tex-gen-parameter-iv-sgis 2685) :void
+(defglextfun ("glGetPixelTexGenParameterivSGIS" get-pixel-tex-gen-parameter-iv-sgis 2946) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetPixelTexGenParameterfvSGIS" get-pixel-tex-gen-parameter-fv-sgis 2686) :void
+(defglextfun ("glGetPixelTexGenParameterfvSGIS" get-pixel-tex-gen-parameter-fv-sgis 2947) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glPointParameterfSGIS" point-parameter-f-sgis 2687) :void
+(defglextfun ("glPointParameterfSGIS" point-parameter-f-sgis 2948) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glPointParameterfvSGIS" point-parameter-fv-sgis 2688) :void
+(defglextfun ("glPointParameterfvSGIS" point-parameter-fv-sgis 2949) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glSharpenTexFuncSGIS" sharpen-tex-func-sgis 2689) :void
+(defglextfun ("glSharpenTexFuncSGIS" sharpen-tex-func-sgis 2950) :void
   (target enum)
   (n sizei)
   (points (:pointer float)))
 
-(defglextfun ("glGetSharpenTexFuncSGIS" get-sharpen-tex-func-sgis 2690) :void
+(defglextfun ("glGetSharpenTexFuncSGIS" get-sharpen-tex-func-sgis 2951) :void
   (target enum)
   (points (:pointer float)))
 
-(defglextfun ("glTexImage4DSGIS" tex-image-4d-sgis 2691) :void
+(defglextfun ("glTexImage4DSGIS" tex-image-4d-sgis 2952) :void
   (target enum)
   (level int)
   (internalformat enum)
@@ -6571,7 +6571,7 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTexSubImage4DSGIS" tex-sub-image-4d-sgis 2692) :void
+(defglextfun ("glTexSubImage4DSGIS" tex-sub-image-4d-sgis 2953) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -6586,186 +6586,186 @@
   (type enum)
   (pixels (:pointer :void)))
 
-(defglextfun ("glTextureColorMaskSGIS" texture-color-mask-sgis 2693) :void
+(defglextfun ("glTextureColorMaskSGIS" texture-color-mask-sgis 2954) :void
   (red boolean)
   (green boolean)
   (blue boolean)
   (alpha boolean))
 
-(defglextfun ("glGetTexFilterFuncSGIS" get-tex-filter-func-sgis 2694) :void
+(defglextfun ("glGetTexFilterFuncSGIS" get-tex-filter-func-sgis 2955) :void
   (target enum)
   (filter enum)
   (weights (:pointer float)))
 
-(defglextfun ("glTexFilterFuncSGIS" tex-filter-func-sgis 2695) :void
+(defglextfun ("glTexFilterFuncSGIS" tex-filter-func-sgis 2956) :void
   (target enum)
   (filter enum)
   (n sizei)
   (weights (:pointer float)))
 
-(defglextfun ("glAsyncMarkerSGIX" async-marker-sgix 2696) :void
+(defglextfun ("glAsyncMarkerSGIX" async-marker-sgix 2957) :void
   (marker uint))
 
-(defglextfun ("glFinishAsyncSGIX" finish-async-sgix 2697) int
+(defglextfun ("glFinishAsyncSGIX" finish-async-sgix 2958) int
   (markerp (:pointer uint)))
 
-(defglextfun ("glPollAsyncSGIX" poll-async-sgix 2698) int
+(defglextfun ("glPollAsyncSGIX" poll-async-sgix 2959) int
   (markerp (:pointer uint)))
 
-(defglextfun ("glGenAsyncMarkersSGIX" gen-async-markers-sgix 2699) uint
+(defglextfun ("glGenAsyncMarkersSGIX" gen-async-markers-sgix 2960) uint
   (range sizei))
 
-(defglextfun ("glDeleteAsyncMarkersSGIX" delete-async-markers-sgix 2700) :void
+(defglextfun ("glDeleteAsyncMarkersSGIX" delete-async-markers-sgix 2961) :void
   (marker uint)
   (range sizei))
 
-(defglextfun ("glIsAsyncMarkerSGIX" is-async-marker-sgix 2701) boolean
+(defglextfun ("glIsAsyncMarkerSGIX" is-async-marker-sgix 2962) boolean
   (marker uint))
 
-(defglextfun ("glFlushRasterSGIX" flush-raster-sgix 2702) :void)
+(defglextfun ("glFlushRasterSGIX" flush-raster-sgix 2963) :void)
 
-(defglextfun ("glFragmentColorMaterialSGIX" fragment-color-material-sgix 2703) :void
+(defglextfun ("glFragmentColorMaterialSGIX" fragment-color-material-sgix 2964) :void
   (face enum)
   (mode enum))
 
-(defglextfun ("glFragmentLightfSGIX" fragment-light-f-sgix 2704) :void
+(defglextfun ("glFragmentLightfSGIX" fragment-light-f-sgix 2965) :void
   (light enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glFragmentLightfvSGIX" fragment-light-fv-sgix 2705) :void
+(defglextfun ("glFragmentLightfvSGIX" fragment-light-fv-sgix 2966) :void
   (light enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glFragmentLightiSGIX" fragment-light-i-sgix 2706) :void
+(defglextfun ("glFragmentLightiSGIX" fragment-light-i-sgix 2967) :void
   (light enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glFragmentLightivSGIX" fragment-light-iv-sgix 2707) :void
+(defglextfun ("glFragmentLightivSGIX" fragment-light-iv-sgix 2968) :void
   (light enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFragmentLightModelfSGIX" fragment-light-model-f-sgix 2708) :void
+(defglextfun ("glFragmentLightModelfSGIX" fragment-light-model-f-sgix 2969) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glFragmentLightModelfvSGIX" fragment-light-model-fv-sgix 2709) :void
+(defglextfun ("glFragmentLightModelfvSGIX" fragment-light-model-fv-sgix 2970) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glFragmentLightModeliSGIX" fragment-light-model-i-sgix 2710) :void
+(defglextfun ("glFragmentLightModeliSGIX" fragment-light-model-i-sgix 2971) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glFragmentLightModelivSGIX" fragment-light-model-iv-sgix 2711) :void
+(defglextfun ("glFragmentLightModelivSGIX" fragment-light-model-iv-sgix 2972) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFragmentMaterialfSGIX" fragment-material-f-sgix 2712) :void
+(defglextfun ("glFragmentMaterialfSGIX" fragment-material-f-sgix 2973) :void
   (face enum)
   (pname enum)
   (param float))
 
-(defglextfun ("glFragmentMaterialfvSGIX" fragment-material-fv-sgix 2713) :void
+(defglextfun ("glFragmentMaterialfvSGIX" fragment-material-fv-sgix 2974) :void
   (face enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glFragmentMaterialiSGIX" fragment-material-i-sgix 2714) :void
+(defglextfun ("glFragmentMaterialiSGIX" fragment-material-i-sgix 2975) :void
   (face enum)
   (pname enum)
   (param int))
 
-(defglextfun ("glFragmentMaterialivSGIX" fragment-material-iv-sgix 2715) :void
+(defglextfun ("glFragmentMaterialivSGIX" fragment-material-iv-sgix 2976) :void
   (face enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetFragmentLightfvSGIX" get-fragment-light-fv-sgix 2716) :void
+(defglextfun ("glGetFragmentLightfvSGIX" get-fragment-light-fv-sgix 2977) :void
   (light enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetFragmentLightivSGIX" get-fragment-light-iv-sgix 2717) :void
+(defglextfun ("glGetFragmentLightivSGIX" get-fragment-light-iv-sgix 2978) :void
   (light enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glGetFragmentMaterialfvSGIX" get-fragment-material-fv-sgix 2718) :void
+(defglextfun ("glGetFragmentMaterialfvSGIX" get-fragment-material-fv-sgix 2979) :void
   (face enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetFragmentMaterialivSGIX" get-fragment-material-iv-sgix 2719) :void
+(defglextfun ("glGetFragmentMaterialivSGIX" get-fragment-material-iv-sgix 2980) :void
   (face enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glLightEnviSGIX" light-env-i-sgix 2720) :void
+(defglextfun ("glLightEnviSGIX" light-env-i-sgix 2981) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glFrameZoomSGIX" frame-zoom-sgix 2721) :void
+(defglextfun ("glFrameZoomSGIX" frame-zoom-sgix 2982) :void
   (factor int))
 
-(defglextfun ("glIglooInterfaceSGIX" igloo-interface-sgix 2722) :void
+(defglextfun ("glIglooInterfaceSGIX" igloo-interface-sgix 2983) :void
   (pname enum)
   (params (:pointer :void)))
 
-(defglextfun ("glGetInstrumentsSGIX" get-instruments-sgix 2723) int)
+(defglextfun ("glGetInstrumentsSGIX" get-instruments-sgix 2984) int)
 
-(defglextfun ("glInstrumentsBufferSGIX" instruments-buffer-sgix 2724) :void
+(defglextfun ("glInstrumentsBufferSGIX" instruments-buffer-sgix 2985) :void
   (size sizei)
   (buffer (:pointer int)))
 
-(defglextfun ("glPollInstrumentsSGIX" poll-instruments-sgix 2725) int
+(defglextfun ("glPollInstrumentsSGIX" poll-instruments-sgix 2986) int
   (marker_p (:pointer int)))
 
-(defglextfun ("glReadInstrumentsSGIX" read-instruments-sgix 2726) :void
+(defglextfun ("glReadInstrumentsSGIX" read-instruments-sgix 2987) :void
   (marker int))
 
-(defglextfun ("glStartInstrumentsSGIX" start-instruments-sgix 2727) :void)
+(defglextfun ("glStartInstrumentsSGIX" start-instruments-sgix 2988) :void)
 
-(defglextfun ("glStopInstrumentsSGIX" stop-instruments-sgix 2728) :void
+(defglextfun ("glStopInstrumentsSGIX" stop-instruments-sgix 2989) :void
   (marker int))
 
-(defglextfun ("glGetListParameterfvSGIX" get-list-parameter-fv-sgix 2729) :void
+(defglextfun ("glGetListParameterfvSGIX" get-list-parameter-fv-sgix 2990) :void
   (list uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetListParameterivSGIX" get-list-parameter-iv-sgix 2730) :void
+(defglextfun ("glGetListParameterivSGIX" get-list-parameter-iv-sgix 2991) :void
   (list uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glListParameterfSGIX" list-parameter-f-sgix 2731) :void
+(defglextfun ("glListParameterfSGIX" list-parameter-f-sgix 2992) :void
   (list uint)
   (pname enum)
   (param float))
 
-(defglextfun ("glListParameterfvSGIX" list-parameter-fv-sgix 2732) :void
+(defglextfun ("glListParameterfvSGIX" list-parameter-fv-sgix 2993) :void
   (list uint)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glListParameteriSGIX" list-parameter-i-sgix 2733) :void
+(defglextfun ("glListParameteriSGIX" list-parameter-i-sgix 2994) :void
   (list uint)
   (pname enum)
   (param int))
 
-(defglextfun ("glListParameterivSGIX" list-parameter-iv-sgix 2734) :void
+(defglextfun ("glListParameterivSGIX" list-parameter-iv-sgix 2995) :void
   (list uint)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glPixelTexGenSGIX" pixel-tex-gen-sgix 2735) :void
+(defglextfun ("glPixelTexGenSGIX" pixel-tex-gen-sgix 2996) :void
   (mode enum))
 
-(defglextfun ("glDeformationMap3dSGIX" deformation-map-3d-sgix 2736) :void
+(defglextfun ("glDeformationMap3dSGIX" deformation-map-3d-sgix 2997) :void
   (target enum)
   (u1 double)
   (u2 double)
@@ -6781,7 +6781,7 @@
   (worder int)
   (points (:pointer double)))
 
-(defglextfun ("glDeformationMap3fSGIX" deformation-map-3f-sgix 2737) :void
+(defglextfun ("glDeformationMap3fSGIX" deformation-map-3f-sgix 2998) :void
   (target enum)
   (u1 float)
   (u2 float)
@@ -6797,34 +6797,34 @@
   (worder int)
   (points (:pointer float)))
 
-(defglextfun ("glDeformSGIX" deform-sgix 2738) :void
+(defglextfun ("glDeformSGIX" deform-sgix 2999) :void
   (mask FfdMaskSGIX))
 
-(defglextfun ("glLoadIdentityDeformationMapSGIX" load-identity-deformation-map-sgix 2739) :void
+(defglextfun ("glLoadIdentityDeformationMapSGIX" load-identity-deformation-map-sgix 3000) :void
   (mask FfdMaskSGIX))
 
-(defglextfun ("glReferencePlaneSGIX" reference-plane-sgix 2740) :void
+(defglextfun ("glReferencePlaneSGIX" reference-plane-sgix 3001) :void
   (equation (:pointer double)))
 
-(defglextfun ("glSpriteParameterfSGIX" sprite-parameter-f-sgix 2741) :void
+(defglextfun ("glSpriteParameterfSGIX" sprite-parameter-f-sgix 3002) :void
   (pname enum)
   (param float))
 
-(defglextfun ("glSpriteParameterfvSGIX" sprite-parameter-fv-sgix 2742) :void
+(defglextfun ("glSpriteParameterfvSGIX" sprite-parameter-fv-sgix 3003) :void
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glSpriteParameteriSGIX" sprite-parameter-i-sgix 2743) :void
+(defglextfun ("glSpriteParameteriSGIX" sprite-parameter-i-sgix 3004) :void
   (pname enum)
   (param int))
 
-(defglextfun ("glSpriteParameterivSGIX" sprite-parameter-iv-sgix 2744) :void
+(defglextfun ("glSpriteParameterivSGIX" sprite-parameter-iv-sgix 3005) :void
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glTagSampleBufferSGIX" tag-sample-buffer-sgix 2745) :void)
+(defglextfun ("glTagSampleBufferSGIX" tag-sample-buffer-sgix 3006) :void)
 
-(defglextfun ("glColorTableSGI" color-table-sgi 2746) :void
+(defglextfun ("glColorTableSGI" color-table-sgi 3007) :void
   (target enum)
   (internalformat enum)
   (width sizei)
@@ -6832,95 +6832,95 @@
   (type enum)
   (table (:pointer :void)))
 
-(defglextfun ("glColorTableParameterfvSGI" color-table-parameter-fv-sgi 2747) :void
+(defglextfun ("glColorTableParameterfvSGI" color-table-parameter-fv-sgi 3008) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glColorTableParameterivSGI" color-table-parameter-iv-sgi 2748) :void
+(defglextfun ("glColorTableParameterivSGI" color-table-parameter-iv-sgi 3009) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glCopyColorTableSGI" copy-color-table-sgi 2749) :void
+(defglextfun ("glCopyColorTableSGI" copy-color-table-sgi 3010) :void
   (target enum)
   (internalformat enum)
   (x int)
   (y int)
   (width sizei))
 
-(defglextfun ("glGetColorTableSGI" get-color-table-sgi 2750) :void
+(defglextfun ("glGetColorTableSGI" get-color-table-sgi 3011) :void
   (target enum)
   (format enum)
   (type enum)
   (table (:pointer :void)))
 
-(defglextfun ("glGetColorTableParameterfvSGI" get-color-table-parameter-fv-sgi 2751) :void
+(defglextfun ("glGetColorTableParameterfvSGI" get-color-table-parameter-fv-sgi 3012) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglextfun ("glGetColorTableParameterivSGI" get-color-table-parameter-iv-sgi 2752) :void
+(defglextfun ("glGetColorTableParameterivSGI" get-color-table-parameter-iv-sgi 3013) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglextfun ("glFinishTextureSUNX" finish-texture-sunx 2753) :void)
+(defglextfun ("glFinishTextureSUNX" finish-texture-sunx 3014) :void)
 
-(defglextfun ("glGlobalAlphaFactorbSUN" global-alpha-factor-b-sun 2754) :void
+(defglextfun ("glGlobalAlphaFactorbSUN" global-alpha-factor-b-sun 3015) :void
   (factor byte))
 
-(defglextfun ("glGlobalAlphaFactorsSUN" global-alpha-factor-s-sun 2755) :void
+(defglextfun ("glGlobalAlphaFactorsSUN" global-alpha-factor-s-sun 3016) :void
   (factor short))
 
-(defglextfun ("glGlobalAlphaFactoriSUN" global-alpha-factor-i-sun 2756) :void
+(defglextfun ("glGlobalAlphaFactoriSUN" global-alpha-factor-i-sun 3017) :void
   (factor int))
 
-(defglextfun ("glGlobalAlphaFactorfSUN" global-alpha-factor-f-sun 2757) :void
+(defglextfun ("glGlobalAlphaFactorfSUN" global-alpha-factor-f-sun 3018) :void
   (factor float))
 
-(defglextfun ("glGlobalAlphaFactordSUN" global-alpha-factor-d-sun 2758) :void
+(defglextfun ("glGlobalAlphaFactordSUN" global-alpha-factor-d-sun 3019) :void
   (factor double))
 
-(defglextfun ("glGlobalAlphaFactorubSUN" global-alpha-factor-ub-sun 2759) :void
+(defglextfun ("glGlobalAlphaFactorubSUN" global-alpha-factor-ub-sun 3020) :void
   (factor ubyte))
 
-(defglextfun ("glGlobalAlphaFactorusSUN" global-alpha-factor-us-sun 2760) :void
+(defglextfun ("glGlobalAlphaFactorusSUN" global-alpha-factor-us-sun 3021) :void
   (factor ushort))
 
-(defglextfun ("glGlobalAlphaFactoruiSUN" global-alpha-factor-ui-sun 2761) :void
+(defglextfun ("glGlobalAlphaFactoruiSUN" global-alpha-factor-ui-sun 3022) :void
   (factor uint))
 
-(defglextfun ("glDrawMeshArraysSUN" draw-mesh-arrays-sun 2762) :void
+(defglextfun ("glDrawMeshArraysSUN" draw-mesh-arrays-sun 3023) :void
   (mode enum)
   (first int)
   (count sizei)
   (width sizei))
 
-(defglextfun ("glReplacementCodeuiSUN" replacement-code-ui-sun 2763) :void
+(defglextfun ("glReplacementCodeuiSUN" replacement-code-ui-sun 3024) :void
   (code triangle-list-sun))
 
-(defglextfun ("glReplacementCodeusSUN" replacement-code-us-sun 2764) :void
+(defglextfun ("glReplacementCodeusSUN" replacement-code-us-sun 3025) :void
   (code ushort))
 
-(defglextfun ("glReplacementCodeubSUN" replacement-code-ub-sun 2765) :void
+(defglextfun ("glReplacementCodeubSUN" replacement-code-ub-sun 3026) :void
   (code ubyte))
 
-(defglextfun ("glReplacementCodeuivSUN" replacement-code-uiv-sun 2766) :void
+(defglextfun ("glReplacementCodeuivSUN" replacement-code-uiv-sun 3027) :void
   (code (:pointer uint)))
 
-(defglextfun ("glReplacementCodeusvSUN" replacement-code-usv-sun 2767) :void
+(defglextfun ("glReplacementCodeusvSUN" replacement-code-usv-sun 3028) :void
   (code (:pointer ushort)))
 
-(defglextfun ("glReplacementCodeubvSUN" replacement-code-ubv-sun 2768) :void
+(defglextfun ("glReplacementCodeubvSUN" replacement-code-ubv-sun 3029) :void
   (code (:pointer ubyte)))
 
-(defglextfun ("glReplacementCodePointerSUN" replacement-code-pointer-sun 2769) :void
+(defglextfun ("glReplacementCodePointerSUN" replacement-code-pointer-sun 3030) :void
   (type enum)
   (stride sizei)
   (pointer (:pointer (:pointer :void))))
 
-(defglextfun ("glColor4ubVertex2fSUN" color-4ub-vertex-2f-sun 2770) :void
+(defglextfun ("glColor4ubVertex2fSUN" color-4ub-vertex-2f-sun 3031) :void
   (r ubyte)
   (g ubyte)
   (b ubyte)
@@ -6928,11 +6928,11 @@
   (x float)
   (y float))
 
-(defglextfun ("glColor4ubVertex2fvSUN" color-4ub-vertex-2fv-sun 2771) :void
+(defglextfun ("glColor4ubVertex2fvSUN" color-4ub-vertex-2fv-sun 3032) :void
   (c (:pointer ubyte))
   (v (:pointer float)))
 
-(defglextfun ("glColor4ubVertex3fSUN" color-4ub-vertex-3f-sun 2772) :void
+(defglextfun ("glColor4ubVertex3fSUN" color-4ub-vertex-3f-sun 3033) :void
   (r ubyte)
   (g ubyte)
   (b ubyte)
@@ -6941,11 +6941,11 @@
   (y float)
   (z float))
 
-(defglextfun ("glColor4ubVertex3fvSUN" color-4ub-vertex-3fv-sun 2773) :void
+(defglextfun ("glColor4ubVertex3fvSUN" color-4ub-vertex-3fv-sun 3034) :void
   (c (:pointer ubyte))
   (v (:pointer float)))
 
-(defglextfun ("glColor3fVertex3fSUN" color-3f-vertex-3f-sun 2774) :void
+(defglextfun ("glColor3fVertex3fSUN" color-3f-vertex-3f-sun 3035) :void
   (r float)
   (g float)
   (b float)
@@ -6953,11 +6953,11 @@
   (y float)
   (z float))
 
-(defglextfun ("glColor3fVertex3fvSUN" color-3f-vertex-3fv-sun 2775) :void
+(defglextfun ("glColor3fVertex3fvSUN" color-3f-vertex-3fv-sun 3036) :void
   (c (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glNormal3fVertex3fSUN" normal-3f-vertex-3f-sun 2776) :void
+(defglextfun ("glNormal3fVertex3fSUN" normal-3f-vertex-3f-sun 3037) :void
   (nx float)
   (ny float)
   (nz float)
@@ -6965,11 +6965,11 @@
   (y float)
   (z float))
 
-(defglextfun ("glNormal3fVertex3fvSUN" normal-3f-vertex-3fv-sun 2777) :void
+(defglextfun ("glNormal3fVertex3fvSUN" normal-3f-vertex-3fv-sun 3038) :void
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glColor4fNormal3fVertex3fSUN" color-4f-normal-3f-vertex-3f-sun 2778) :void
+(defglextfun ("glColor4fNormal3fVertex3fSUN" color-4f-normal-3f-vertex-3f-sun 3039) :void
   (r float)
   (g float)
   (b float)
@@ -6981,23 +6981,23 @@
   (y float)
   (z float))
 
-(defglextfun ("glColor4fNormal3fVertex3fvSUN" color-4f-normal-3f-vertex-3fv-sun 2779) :void
+(defglextfun ("glColor4fNormal3fVertex3fvSUN" color-4f-normal-3f-vertex-3fv-sun 3040) :void
   (c (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord2fVertex3fSUN" tex-coord-2f-vertex-3f-sun 2780) :void
+(defglextfun ("glTexCoord2fVertex3fSUN" tex-coord-2f-vertex-3f-sun 3041) :void
   (s float)
   (tee float)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glTexCoord2fVertex3fvSUN" tex-coord-2f-vertex-3fv-sun 2781) :void
+(defglextfun ("glTexCoord2fVertex3fvSUN" tex-coord-2f-vertex-3fv-sun 3042) :void
   (tc (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord4fVertex4fSUN" tex-coord-4f-vertex-4f-sun 2782) :void
+(defglextfun ("glTexCoord4fVertex4fSUN" tex-coord-4f-vertex-4f-sun 3043) :void
   (s float)
   (tee float)
   (p float)
@@ -7007,11 +7007,11 @@
   (z float)
   (w float))
 
-(defglextfun ("glTexCoord4fVertex4fvSUN" tex-coord-4f-vertex-4fv-sun 2783) :void
+(defglextfun ("glTexCoord4fVertex4fvSUN" tex-coord-4f-vertex-4fv-sun 3044) :void
   (tc (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord2fColor4ubVertex3fSUN" tex-coord-2f-color-4ub-vertex-3f-sun 2784) :void
+(defglextfun ("glTexCoord2fColor4ubVertex3fSUN" tex-coord-2f-color-4ub-vertex-3f-sun 3045) :void
   (s float)
   (tee float)
   (r ubyte)
@@ -7022,12 +7022,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glTexCoord2fColor4ubVertex3fvSUN" tex-coord-2f-color-4ub-vertex-3fv-sun 2785) :void
+(defglextfun ("glTexCoord2fColor4ubVertex3fvSUN" tex-coord-2f-color-4ub-vertex-3fv-sun 3046) :void
   (tc (:pointer float))
   (c (:pointer ubyte))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord2fColor3fVertex3fSUN" tex-coord-2f-color-3f-vertex-3f-sun 2786) :void
+(defglextfun ("glTexCoord2fColor3fVertex3fSUN" tex-coord-2f-color-3f-vertex-3f-sun 3047) :void
   (s float)
   (tee float)
   (r float)
@@ -7037,12 +7037,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glTexCoord2fColor3fVertex3fvSUN" tex-coord-2f-color-3f-vertex-3fv-sun 2787) :void
+(defglextfun ("glTexCoord2fColor3fVertex3fvSUN" tex-coord-2f-color-3f-vertex-3fv-sun 3048) :void
   (tc (:pointer float))
   (c (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord2fNormal3fVertex3fSUN" tex-coord-2f-normal-3f-vertex-3f-sun 2788) :void
+(defglextfun ("glTexCoord2fNormal3fVertex3fSUN" tex-coord-2f-normal-3f-vertex-3f-sun 3049) :void
   (s float)
   (tee float)
   (nx float)
@@ -7052,12 +7052,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glTexCoord2fNormal3fVertex3fvSUN" tex-coord-2f-normal-3f-vertex-3fv-sun 2789) :void
+(defglextfun ("glTexCoord2fNormal3fVertex3fvSUN" tex-coord-2f-normal-3f-vertex-3fv-sun 3050) :void
   (tc (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fSUN" tex-coord-2f-color-4f-normal-3f-vertex-3f-sun 2790) :void
+(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fSUN" tex-coord-2f-color-4f-normal-3f-vertex-3f-sun 3051) :void
   (s float)
   (tee float)
   (r float)
@@ -7071,13 +7071,13 @@
   (y float)
   (z float))
 
-(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fvSUN" tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun 2791) :void
+(defglextfun ("glTexCoord2fColor4fNormal3fVertex3fvSUN" tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun 3052) :void
   (tc (:pointer float))
   (c (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fSUN" tex-coord-4f-color-4f-normal-3f-vertex-4f-sun 2792) :void
+(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fSUN" tex-coord-4f-color-4f-normal-3f-vertex-4f-sun 3053) :void
   (s float)
   (tee float)
   (p float)
@@ -7094,23 +7094,23 @@
   (z float)
   (w float))
 
-(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fvSUN" tex-coord-4f-color-4f-normal-3f-vertex-4fv-sun 2793) :void
+(defglextfun ("glTexCoord4fColor4fNormal3fVertex4fvSUN" tex-coord-4f-color-4f-normal-3f-vertex-4fv-sun 3054) :void
   (tc (:pointer float))
   (c (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiVertex3fSUN" replacement-code-ui-vertex-3f-sun 2794) :void
+(defglextfun ("glReplacementCodeuiVertex3fSUN" replacement-code-ui-vertex-3f-sun 3055) :void
   (rc triangle-list-sun)
   (x float)
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiVertex3fvSUN" replacement-code-ui-vertex-3fv-sun 2795) :void
+(defglextfun ("glReplacementCodeuiVertex3fvSUN" replacement-code-ui-vertex-3fv-sun 3056) :void
   (rc (:pointer uint))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiColor4ubVertex3fSUN" replacement-code-ui-color-4ub-vertex-3f-sun 2796) :void
+(defglextfun ("glReplacementCodeuiColor4ubVertex3fSUN" replacement-code-ui-color-4ub-vertex-3f-sun 3057) :void
   (rc triangle-list-sun)
   (r ubyte)
   (g ubyte)
@@ -7120,12 +7120,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiColor4ubVertex3fvSUN" replacement-code-ui-color-4ub-vertex-3fv-sun 2797) :void
+(defglextfun ("glReplacementCodeuiColor4ubVertex3fvSUN" replacement-code-ui-color-4ub-vertex-3fv-sun 3058) :void
   (rc (:pointer uint))
   (c (:pointer ubyte))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiColor3fVertex3fSUN" replacement-code-ui-color-3f-vertex-3f-sun 2798) :void
+(defglextfun ("glReplacementCodeuiColor3fVertex3fSUN" replacement-code-ui-color-3f-vertex-3f-sun 3059) :void
   (rc triangle-list-sun)
   (r float)
   (g float)
@@ -7134,12 +7134,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiColor3fVertex3fvSUN" replacement-code-ui-color-3f-vertex-3fv-sun 2799) :void
+(defglextfun ("glReplacementCodeuiColor3fVertex3fvSUN" replacement-code-ui-color-3f-vertex-3fv-sun 3060) :void
   (rc (:pointer uint))
   (c (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiNormal3fVertex3fSUN" replacement-code-ui-normal-3f-vertex-3f-sun 2800) :void
+(defglextfun ("glReplacementCodeuiNormal3fVertex3fSUN" replacement-code-ui-normal-3f-vertex-3f-sun 3061) :void
   (rc triangle-list-sun)
   (nx float)
   (ny float)
@@ -7148,12 +7148,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiNormal3fVertex3fvSUN" replacement-code-ui-normal-3f-vertex-3fv-sun 2801) :void
+(defglextfun ("glReplacementCodeuiNormal3fVertex3fvSUN" replacement-code-ui-normal-3f-vertex-3fv-sun 3062) :void
   (rc (:pointer uint))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fSUN" replacement-code-ui-color-4f-normal-3f-vertex-3f-sun 2802) :void
+(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fSUN" replacement-code-ui-color-4f-normal-3f-vertex-3f-sun 3063) :void
   (rc triangle-list-sun)
   (r float)
   (g float)
@@ -7166,13 +7166,13 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fvSUN" replacement-code-ui-color-4f-normal-3f-vertex-3fv-sun 2803) :void
+(defglextfun ("glReplacementCodeuiColor4fNormal3fVertex3fvSUN" replacement-code-ui-color-4f-normal-3f-vertex-3fv-sun 3064) :void
   (rc (:pointer uint))
   (c (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fSUN" replacement-code-ui-tex-coord-2f-vertex-3f-sun 2804) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fSUN" replacement-code-ui-tex-coord-2f-vertex-3f-sun 3065) :void
   (rc triangle-list-sun)
   (s float)
   (tee float)
@@ -7180,12 +7180,12 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fvSUN" replacement-code-ui-tex-coord-2f-vertex-3fv-sun 2805) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fVertex3fvSUN" replacement-code-ui-tex-coord-2f-vertex-3fv-sun 3066) :void
   (rc (:pointer uint))
   (tc (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN" replacement-code-ui-tex-coord-2f-normal-3f-vertex-3f-sun 2806) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN" replacement-code-ui-tex-coord-2f-normal-3f-vertex-3f-sun 3067) :void
   (rc triangle-list-sun)
   (s float)
   (tee float)
@@ -7196,13 +7196,13 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN" replacement-code-ui-tex-coord-2f-normal-3f-vertex-3fv-sun 2807) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN" replacement-code-ui-tex-coord-2f-normal-3f-vertex-3fv-sun 3068) :void
   (rc (:pointer uint))
   (tc (:pointer float))
   (n (:pointer float))
   (v (:pointer float)))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN" replacement-code-ui-tex-coord-2f-color-4f-normal-3f-vertex-3f-sun 2808) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN" replacement-code-ui-tex-coord-2f-color-4f-normal-3f-vertex-3f-sun 3069) :void
   (rc triangle-list-sun)
   (s float)
   (tee float)
@@ -7217,7 +7217,7 @@
   (y float)
   (z float))
 
-(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN" replacement-code-ui-tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun 2809) :void
+(defglextfun ("glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN" replacement-code-ui-tex-coord-2f-color-4f-normal-3f-vertex-3fv-sun 3070) :void
   (rc (:pointer uint))
   (tc (:pointer float))
   (c (:pointer float))

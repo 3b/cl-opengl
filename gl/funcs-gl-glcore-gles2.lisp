@@ -6,8 +6,8 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T22:38:41Z
-;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
+;;; generated 2024-08-16T20:46:56Z
+;;; from gl.xml @ git sha 4f845dc97972c72cad684cc22c7bf96e6d5319a6, 2024-08-15T14:04:09Z
 
 (defglextfun ("glGetIntegeri_v" get-integer-i-v 957) :void
   (target enum)
@@ -2212,6 +2212,14 @@
 
 (defglextfun ("glFramebufferTextureMultiviewOVR" framebuffer-texture-multiview-ovr 1352) :void
   (target enum)
+  (attachment enum)
+  (texture uint)
+  (level int)
+  (baseViewIndex int)
+  (numViews sizei))
+
+(defglextfun ("glNamedFramebufferTextureMultiviewOVR" named-framebuffer-texture-multiview-ovr 1353) :void
+  (framebuffer uint)
   (attachment enum)
   (texture uint)
   (level int)

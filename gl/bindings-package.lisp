@@ -1,5 +1,5 @@
 ;;; generated file, do not edit
-;;; glext version 20231206 ( 2023-12-06T16:19:18Z )
+;;; glext version 20240815 ( 2024-08-15T14:04:09Z )
 
 (defpackage #:cl-opengl-bindings
   (:nicknames #:%gl)
@@ -11,12 +11,12 @@
    #:*gl-get-proc-address*
    #:opengl-error
    #:check-error
+   #:with-float-traps-masked
    #:enum
    #:AttribMask
    #:ClearBufferMask
    #:ClientAttribMask
    #:BufferAccessMask
-   #:with-float-traps-masked
 
   ;; Types.
   #:char #:char-arb #:intptr #:sizeiptr #:intptr-arb #:sizeiptr-arb
@@ -1426,6 +1426,7 @@
   #:scissor-indexed-oes #:scissor-indexed-v-oes
   #:depth-range-array-fv-oes #:depth-range-indexed-f-oes
   #:get-float-i-v-oes #:framebuffer-texture-multiview-ovr
+  #:named-framebuffer-texture-multiview-ovr
   #:framebuffer-texture-multisample-multiview-ovr #:hint-pgi
   #:alpha-func-qcom #:get-driver-controls-qcom
   #:get-driver-control-string-qcom #:enable-driver-control-qcom

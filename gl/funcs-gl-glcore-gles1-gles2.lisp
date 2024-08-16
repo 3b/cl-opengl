@@ -6,14 +6,14 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T22:38:41Z
-;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
+;;; generated 2024-08-16T20:46:56Z
+;;; from gl.xml @ git sha 4f845dc97972c72cad684cc22c7bf96e6d5319a6, 2024-08-15T14:04:09Z
 
-(defglfun ("glGetPointerv" get-pointer-v) :void
+(defglfun ("glGetPointerv" get-pointer-v 1417) :void
   (pname enum)
   (params (:pointer (:pointer :void))))
 
-(defglextfun ("glDebugMessageControl" debug-message-control 1416) :void
+(defglextfun ("glDebugMessageControl" debug-message-control 1418) :void
   (source enum)
   (type enum)
   (severity enum)
@@ -21,7 +21,7 @@
   (ids (:pointer uint))
   (enabled boolean))
 
-(defglextfun ("glDebugMessageInsert" debug-message-insert 1417) :void
+(defglextfun ("glDebugMessageInsert" debug-message-insert 1419) :void
   (source enum)
   (type enum)
   (id uint)
@@ -29,11 +29,11 @@
   (length sizei)
   (buf (:pointer char)))
 
-(defglextfun ("glDebugMessageCallback" debug-message-callback 1418) :void
+(defglextfun ("glDebugMessageCallback" debug-message-callback 1420) :void
   (callback debugproc)
   (userParam (:pointer :void)))
 
-(defglextfun ("glGetDebugMessageLog" get-debug-message-log 1419) uint
+(defglextfun ("glGetDebugMessageLog" get-debug-message-log 1421) uint
   (count uint)
   (bufSize sizei)
   (sources (:pointer enum))
@@ -43,56 +43,56 @@
   (lengths (:pointer sizei))
   (messageLog (:pointer char)))
 
-(defglextfun ("glPushDebugGroup" push-debug-group 1420) :void
+(defglextfun ("glPushDebugGroup" push-debug-group 1422) :void
   (source enum)
   (id uint)
   (length sizei)
   (message (:pointer char)))
 
-(defglextfun ("glPopDebugGroup" pop-debug-group 1421) :void)
+(defglextfun ("glPopDebugGroup" pop-debug-group 1423) :void)
 
-(defglextfun ("glObjectLabel" object-label 1422) :void
+(defglextfun ("glObjectLabel" object-label 1424) :void
   (identifier enum)
   (name uint)
   (length sizei)
   (label (:pointer char)))
 
-(defglextfun ("glGetObjectLabel" get-object-label 1423) :void
+(defglextfun ("glGetObjectLabel" get-object-label 1425) :void
   (identifier enum)
   (name uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (label (:pointer char)))
 
-(defglextfun ("glObjectPtrLabel" object-ptr-label 1424) :void
+(defglextfun ("glObjectPtrLabel" object-ptr-label 1426) :void
   (ptr (:pointer :void))
   (length sizei)
   (label (:pointer char)))
 
-(defglextfun ("glGetObjectPtrLabel" get-object-ptr-label 1425) :void
+(defglextfun ("glGetObjectPtrLabel" get-object-ptr-label 1427) :void
   (ptr (:pointer :void))
   (bufSize sizei)
   (length (:pointer sizei))
   (label (:pointer char)))
 
-(defglextfun ("glInsertEventMarkerEXT" insert-event-marker-ext 1426) :void
+(defglextfun ("glInsertEventMarkerEXT" insert-event-marker-ext 1428) :void
   (length sizei)
   (marker (:pointer char)))
 
-(defglextfun ("glPushGroupMarkerEXT" push-group-marker-ext 1427) :void
+(defglextfun ("glPushGroupMarkerEXT" push-group-marker-ext 1429) :void
   (length sizei)
   (marker (:pointer char)))
 
-(defglextfun ("glPopGroupMarkerEXT" pop-group-marker-ext 1428) :void)
+(defglextfun ("glPopGroupMarkerEXT" pop-group-marker-ext 1430) :void)
 
-(defglextfun ("glTextureStorage1DEXT" texture-storage-1d-ext 1429) :void
+(defglextfun ("glTextureStorage1DEXT" texture-storage-1d-ext 1431) :void
   (texture uint)
   (target enum)
   (levels sizei)
   (internalformat enum)
   (width sizei))
 
-(defglextfun ("glTextureStorage2DEXT" texture-storage-2d-ext 1430) :void
+(defglextfun ("glTextureStorage2DEXT" texture-storage-2d-ext 1432) :void
   (texture uint)
   (target enum)
   (levels sizei)
@@ -100,7 +100,7 @@
   (width sizei)
   (height sizei))
 
-(defglextfun ("glTextureStorage3DEXT" texture-storage-3d-ext 1431) :void
+(defglextfun ("glTextureStorage3DEXT" texture-storage-3d-ext 1433) :void
   (texture uint)
   (target enum)
   (levels sizei)
@@ -109,20 +109,20 @@
   (height sizei)
   (depth sizei))
 
-(defglextfun ("glTexStorage1DEXT" tex-storage-1d-ext 1432) :void
+(defglextfun ("glTexStorage1DEXT" tex-storage-1d-ext 1434) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
   (width sizei))
 
-(defglextfun ("glTexStorage2DEXT" tex-storage-2d-ext 1433) :void
+(defglextfun ("glTexStorage2DEXT" tex-storage-2d-ext 1435) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
   (width sizei)
   (height sizei))
 
-(defglextfun ("glTexStorage3DEXT" tex-storage-3d-ext 1434) :void
+(defglextfun ("glTexStorage3DEXT" tex-storage-3d-ext 1436) :void
   (target enum)
   (levels sizei)
   (internalformat enum)
@@ -130,7 +130,7 @@
   (height sizei)
   (depth sizei))
 
-(defglextfun ("glDebugMessageControlKHR" debug-message-control-khr 1435) :void
+(defglextfun ("glDebugMessageControlKHR" debug-message-control-khr 1437) :void
   (source enum)
   (type enum)
   (severity enum)
@@ -138,7 +138,7 @@
   (ids (:pointer uint))
   (enabled boolean))
 
-(defglextfun ("glDebugMessageInsertKHR" debug-message-insert-khr 1436) :void
+(defglextfun ("glDebugMessageInsertKHR" debug-message-insert-khr 1438) :void
   (source enum)
   (type enum)
   (id uint)
@@ -146,11 +146,11 @@
   (length sizei)
   (buf (:pointer char)))
 
-(defglextfun ("glDebugMessageCallbackKHR" debug-message-callback-khr 1437) :void
+(defglextfun ("glDebugMessageCallbackKHR" debug-message-callback-khr 1439) :void
   (callback debugprockhr)
   (userParam (:pointer :void)))
 
-(defglextfun ("glGetDebugMessageLogKHR" get-debug-message-log-khr 1438) uint
+(defglextfun ("glGetDebugMessageLogKHR" get-debug-message-log-khr 1440) uint
   (count uint)
   (bufSize sizei)
   (sources (:pointer enum))
@@ -160,39 +160,39 @@
   (lengths (:pointer sizei))
   (messageLog (:pointer char)))
 
-(defglextfun ("glPushDebugGroupKHR" push-debug-group-khr 1439) :void
+(defglextfun ("glPushDebugGroupKHR" push-debug-group-khr 1441) :void
   (source enum)
   (id uint)
   (length sizei)
   (message (:pointer char)))
 
-(defglextfun ("glPopDebugGroupKHR" pop-debug-group-khr 1440) :void)
+(defglextfun ("glPopDebugGroupKHR" pop-debug-group-khr 1442) :void)
 
-(defglextfun ("glObjectLabelKHR" object-label-khr 1441) :void
+(defglextfun ("glObjectLabelKHR" object-label-khr 1443) :void
   (identifier enum)
   (name uint)
   (length sizei)
   (label (:pointer char)))
 
-(defglextfun ("glGetObjectLabelKHR" get-object-label-khr 1442) :void
+(defglextfun ("glGetObjectLabelKHR" get-object-label-khr 1444) :void
   (identifier enum)
   (name uint)
   (bufSize sizei)
   (length (:pointer sizei))
   (label (:pointer char)))
 
-(defglextfun ("glObjectPtrLabelKHR" object-ptr-label-khr 1443) :void
+(defglextfun ("glObjectPtrLabelKHR" object-ptr-label-khr 1445) :void
   (ptr (:pointer :void))
   (length sizei)
   (label (:pointer char)))
 
-(defglextfun ("glGetObjectPtrLabelKHR" get-object-ptr-label-khr 1444) :void
+(defglextfun ("glGetObjectPtrLabelKHR" get-object-ptr-label-khr 1446) :void
   (ptr (:pointer :void))
   (bufSize sizei)
   (length (:pointer sizei))
   (label (:pointer char)))
 
-(defglextfun ("glGetPointervKHR" get-pointer-v-khr 1445) :void
+(defglextfun ("glGetPointervKHR" get-pointer-v-khr 1447) :void
   (pname enum)
   (params (:pointer (:pointer :void))))
 

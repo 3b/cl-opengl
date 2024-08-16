@@ -6,149 +6,149 @@
 
 (in-package #:cl-opengl-bindings)
 
-;;; generated 2023-12-19T22:38:41Z
-;;; from gl.xml @ git sha bb9a7d9bd49408d709e7481e34b689db3b13317c, 2023-12-06T16:19:18Z
+;;; generated 2024-08-16T20:46:56Z
+;;; from gl.xml @ git sha 4f845dc97972c72cad684cc22c7bf96e6d5319a6, 2024-08-15T14:04:09Z
 
-(defglfun ("glCullFace" cull-face) :void
+(defglfun ("glCullFace" cull-face 3249) :void
   (mode enum))
 
-(defglfun ("glFrontFace" front-face) :void
+(defglfun ("glFrontFace" front-face 3250) :void
   (mode enum))
 
-(defglfun ("glHint" hint) :void
+(defglfun ("glHint" hint 3251) :void
   (target enum)
   (mode enum))
 
-(defglfun ("glLineWidth" line-width) :void
+(defglfun ("glLineWidth" line-width 3252) :void
   (width float))
 
-(defglfun ("glScissor" scissor) :void
+(defglfun ("glScissor" scissor 3253) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei))
 
-(defglfun ("glTexParameterf" tex-parameter-f) :void
+(defglfun ("glTexParameterf" tex-parameter-f 3254) :void
   (target enum)
   (pname enum)
   (param float))
 
-(defglfun ("glTexParameterfv" tex-parameter-fv) :void
+(defglfun ("glTexParameterfv" tex-parameter-fv 3255) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglfun ("glTexParameteri" tex-parameter-i) :void
+(defglfun ("glTexParameteri" tex-parameter-i 3256) :void
   (target enum)
   (pname enum)
   (param int))
 
-(defglfun ("glTexParameteriv" tex-parameter-iv) :void
+(defglfun ("glTexParameteriv" tex-parameter-iv 3257) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glClear" clear) :void
+(defglfun ("glClear" clear 3258) :void
   (mask ClearBufferMask))
 
-(defglfun ("glClearColor" clear-color) :void
+(defglfun ("glClearColor" clear-color 3259) :void
   (red float)
   (green float)
   (blue float)
   (alpha float))
 
-(defglfun ("glClearStencil" clear-stencil) :void
+(defglfun ("glClearStencil" clear-stencil 3260) :void
   (s int))
 
-(defglfun ("glStencilMask" stencil-mask) :void
+(defglfun ("glStencilMask" stencil-mask 3261) :void
   (mask uint))
 
-(defglfun ("glColorMask" color-mask) :void
+(defglfun ("glColorMask" color-mask 3262) :void
   (red boolean)
   (green boolean)
   (blue boolean)
   (alpha boolean))
 
-(defglfun ("glDepthMask" depth-mask) :void
+(defglfun ("glDepthMask" depth-mask 3263) :void
   (flag boolean))
 
-(defglfun ("glDisable" disable) :void
+(defglfun ("glDisable" disable 3264) :void
   (cap enum))
 
-(defglfun ("glEnable" enable) :void
+(defglfun ("glEnable" enable 3265) :void
   (cap enum))
 
-(defglfun ("glFinish" finish) :void)
+(defglfun ("glFinish" finish 3266) :void)
 
-(defglfun ("glFlush" flush) :void)
+(defglfun ("glFlush" flush 3267) :void)
 
-(defglfun ("glBlendFunc" blend-func) :void
+(defglfun ("glBlendFunc" blend-func 3268) :void
   (sfactor enum)
   (dfactor enum))
 
-(defglfun ("glStencilFunc" stencil-func) :void
+(defglfun ("glStencilFunc" stencil-func 3269) :void
   (func enum)
   (ref int)
   (mask uint))
 
-(defglfun ("glStencilOp" stencil-op) :void
+(defglfun ("glStencilOp" stencil-op 3270) :void
   (fail enum)
   (zfail enum)
   (zpass enum))
 
-(defglfun ("glDepthFunc" depth-func) :void
+(defglfun ("glDepthFunc" depth-func 3271) :void
   (func enum))
 
-(defglfun ("glPixelStorei" pixel-store-i) :void
+(defglfun ("glPixelStorei" pixel-store-i 3272) :void
   (pname enum)
   (param int))
 
-(defglfun ("glGetBooleanv" get-boolean-v) :void
+(defglfun ("glGetBooleanv" get-boolean-v 3273) :void
   (pname enum)
   (data (:pointer boolean)))
 
-(defglfun ("glGetError" get-error) enum)
+(defglfun ("glGetError" get-error 3274) enum)
 
-(defglfun ("glGetFloatv" get-float-v) :void
+(defglfun ("glGetFloatv" get-float-v 3275) :void
   (pname enum)
   (data (:pointer float)))
 
-(defglfun ("glGetIntegerv" get-integer-v) :void
+(defglfun ("glGetIntegerv" get-integer-v 3276) :void
   (pname enum)
   (data (:pointer int)))
 
-(defglfun ("glGetString" get-string) string
+(defglfun ("glGetString" get-string 3277) string
   (name enum))
 
-(defglfun ("glGetTexParameterfv" get-tex-parameter-fv) :void
+(defglfun ("glGetTexParameterfv" get-tex-parameter-fv 3278) :void
   (target enum)
   (pname enum)
   (params (:pointer float)))
 
-(defglfun ("glGetTexParameteriv" get-tex-parameter-iv) :void
+(defglfun ("glGetTexParameteriv" get-tex-parameter-iv 3279) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
 
-(defglfun ("glIsEnabled" is-enabled) boolean
+(defglfun ("glIsEnabled" is-enabled 3280) boolean
   (cap enum))
 
-(defglfun ("glViewport" viewport) :void
+(defglfun ("glViewport" viewport 3281) :void
   (x int)
   (y int)
   (width sizei)
   (height sizei))
 
-(defglfun ("glDrawArrays" draw-arrays) :void
+(defglfun ("glDrawArrays" draw-arrays 3282) :void
   (mode enum)
   (first int)
   (count sizei))
 
-(defglfun ("glPolygonOffset" polygon-offset) :void
+(defglfun ("glPolygonOffset" polygon-offset 3283) :void
   (factor float)
   (units float))
 
-(defglfun ("glTexSubImage2D" tex-sub-image-2d) :void
+(defglfun ("glTexSubImage2D" tex-sub-image-2d 3284) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -159,22 +159,22 @@
   (type enum)
   (pixels offset-or-pointer))
 
-(defglfun ("glBindTexture" bind-texture) :void
+(defglfun ("glBindTexture" bind-texture 3285) :void
   (target enum)
   (texture uint))
 
-(defglfun ("glGenTextures" gen-textures) :void
+(defglfun ("glGenTextures" gen-textures 3286) :void
   (n sizei)
   (textures (:pointer uint)))
 
-(defglextfun ("glActiveTexture" active-texture 2950) :void
+(defglextfun ("glActiveTexture" active-texture 3287) :void
   (texture enum))
 
-(defglextfun ("glSampleCoverage" sample-coverage 2951) :void
+(defglextfun ("glSampleCoverage" sample-coverage 3288) :void
   (value float)
   (invert boolean))
 
-(defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d 2952) :void
+(defglextfun ("glCompressedTexSubImage2D" compressed-tex-sub-image-2d 3289) :void
   (target enum)
   (level int)
   (xoffset int)
@@ -185,27 +185,27 @@
   (imageSize sizei)
   (data offset-or-pointer))
 
-(defglextfun ("glBindBuffer" bind-buffer 2953) :void
+(defglextfun ("glBindBuffer" bind-buffer 3290) :void
   (target enum)
   (buffer uint))
 
-(defglextfun ("glGenBuffers" gen-buffers 2954) :void
+(defglextfun ("glGenBuffers" gen-buffers 3291) :void
   (n sizei)
   (buffers (:pointer uint)))
 
-(defglextfun ("glBufferData" buffer-data 2955) :void
+(defglextfun ("glBufferData" buffer-data 3292) :void
   (target enum)
   (size sizeiptr)
   (data (:pointer :void))
   (usage enum))
 
-(defglextfun ("glBufferSubData" buffer-sub-data 2956) :void
+(defglextfun ("glBufferSubData" buffer-sub-data 3293) :void
   (target enum)
   (offset intptr)
   (size sizeiptr)
   (data (:pointer :void)))
 
-(defglextfun ("glGetBufferParameteriv" get-buffer-parameter-iv 2957) :void
+(defglextfun ("glGetBufferParameteriv" get-buffer-parameter-iv 3294) :void
   (target enum)
   (pname enum)
   (params (:pointer int)))
