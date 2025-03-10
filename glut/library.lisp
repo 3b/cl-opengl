@@ -37,4 +37,9 @@
   (:windows (:or "freeglut.dll" "libglut.dll" "libglut-0.dll" "libfreeglut.dll"))
   (:unix (:or "libglut.so" "libglut.so.3")))
 
+(set 'cl-user::*foreign-system-libraries*
+     (union (when (boundp 'cl-user::*foreign-system-libraries*)
+              (symbol-value 'cl-user::*foreign-system-libraries*))
+            '(glut)))
+
 (use-foreign-library glut)

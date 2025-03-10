@@ -27,5 +27,10 @@
 (define-foreign-library opengl
   (t (:or (:default "libGLESv3") (:default "libGLESv2"))))
 
+(set 'cl-user::*foreign-system-libraries*
+     (union (when (boundp 'cl-user::*foreign-system-libraries*)
+              (symbol-value 'cl-user::*foreign-system-libraries*))
+            '(opengl)))
+
 (unless (member :cl-opengl-no-preload *features*)
   (use-foreign-library opengl))

@@ -39,4 +39,9 @@
   ((:and :unix (:not :darwin)) (:or "libGLU.so.1" "libGLU.so"))
   ((:not :darwin) (:default "libGLU")))
 
+(set 'cl-user::*foreign-system-libraries*
+     (union (when (boundp 'cl-user::*foreign-system-libraries*)
+              (symbol-value 'cl-user::*foreign-system-libraries*))
+            '(glu)))
+
 (use-foreign-library glu)
