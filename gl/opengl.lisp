@@ -35,9 +35,13 @@
 ;;; 2.5 GL Errors
 ;;;
 
-(import-export %gl:get-error
-               %gl:opengl-error
+(import-export %gl:opengl-error
                %gl:check-error)
+
+(declaim (inline get-error))
+(defun get-error ()
+  (cffi:foreign-enum-keyword '%gl:enum (%gl:get-error) :errorp nil))
+(export 'get-error)
 
 ;;;
 ;;; 2.6 Begin/End Paradigm

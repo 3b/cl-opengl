@@ -107,7 +107,7 @@
   (pname enum)
   (data (:pointer boolean)))
 
-(defglfun ("glGetError" get-error 3274) enum)
+(defglfun ("glGetError" get-error 3274) uint)
 
 (defglfun ("glGetFloatv" get-float-v 3275) :void
   (pname enum)

@@ -36,3 +36,8 @@
        ;; spec.xml doesn't specify type
        (:NAME "stages" :TYPE "UseProgramStageMask")
        (:NAME "program" :TYPE "GLuint"))
+
+(:func "glGetError"
+       ;; return unsigned-int from %gl:get-error so %check-error can
+       ;; use it, and convert to %gl:enum in gl:get-error
+       "GLuint")
