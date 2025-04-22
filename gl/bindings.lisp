@@ -86,7 +86,10 @@ automatic per-call masking within that scope."
 
 (defun %check-error (&optional context)
   (declare (optimize speed))
-  (let ((error-code (foreign-funcall ("glGetError" :library opengl)
+  (let ((error-code #+nx
+                    (%gl:get-error)
+                    #-nx
+                    (foreign-funcall ("glGetError" :library opengl)
                                      :unsigned-int)))
     (unless (zerop error-code)
       (restart-case
@@ -345,7 +348,7 @@ not be used in those contexts."
 ;; restarting image
 (defparameter *thunk-generators* (make-hash-table :test 'equalp))
 
-(defun make-thunk-generator (return-type args)
+(defun make-thunk-generator (return-type args &key (check-error t))
   (let ((args (loop for i from 0
                     for (ffi-type lisp-type) in args
                     collect (list (alexandria:format-symbol nil
@@ -377,8 +380,9 @@ not be used in those contexts."
                                     collect type
                                     collect name)
                             ,return-type))
-                       #-cl-opengl-no-check-error
-                       (check-error lisp-name))))
+                       ,@(when check-error
+                           #-cl-opengl-no-check-error
+                           `((check-error lisp-name))))))
              (apply (aref *ext-thunks* index) r)))))))
 
 (defun canonicalize-types (args)
@@ -507,12 +511,17 @@ not be used in those contexts."
 
 (defun generate-gl-function/new (index foreign-name lisp-name result-type args)
   (let* ((arg-types (canonicalize-types args))
-         (sig (cons result-type (mapcar 'first arg-types))))
+         (sig (cons result-type (mapcar 'first arg-types)))
+         (check-error (not (or (eql lisp-name '%gl:get-error)
+                               (string= foreign-name "glGetError")))))
+    (unless check-error
+      (push :no-check-error sig))
     `(progn
        ,@(unless (gethash sig *thunk-generators*)
            `((eval-when (:compile-toplevel :load-toplevel :execute)
                (setf (gethash ',sig *thunk-generators*)
-                     ,(make-thunk-generator result-type arg-types)))))
+                     ,(make-thunk-generator result-type arg-types
+                                            :check-error check-error)))))
        ;; generate a thunk and store it in the thunk init vector
        (setf (aref *init-ext-thunks* ,index)
              (funcall (gethash ',sig *thunk-generators*)
