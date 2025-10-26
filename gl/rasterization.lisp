@@ -554,6 +554,7 @@
                    texture)
       #1#))
 
+  #-emscripten
   (defun get-tex-level-parameter (target level pname)
     (with-getters (%gl:get-tex-level-parameter-fv
                    %gl:get-tex-level-parameter-iv
@@ -576,6 +577,7 @@
                             :texture-buffer-offset :texture-buffer-size)
             (ints 1)))))
 
+  #-emscripten
   (defun get-texture-level-parameter (texture level pname)
     (with-getters (%gl:get-texture-level-parameter-fv
                    %gl:get-texture-level-parameter-iv

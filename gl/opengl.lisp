@@ -227,6 +227,7 @@ specified to denote the number of vertices that must be processed."
 
 (define-get-function get-buffer-parameter (target pname)
   (%gl:get-buffer-parameter-iv :int int)
+  #-emscripten
   (%gl:get-buffer-pointer-v :pointer))
 
 ;;; Offset is offset in array, buffer-offset in VBO.

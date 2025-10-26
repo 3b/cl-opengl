@@ -43,6 +43,7 @@
      (:file "constants")
      (:file "library-common")
      (:file "library")
+     (:file "bindings-common")
      (:file "bindings")
      (:file "thunks")
      (:file "types")
@@ -85,8 +86,47 @@
      (:file "constants")
      (:file "library-common")
      (:file "library-glesv2")
+     (:file "bindings-common")
      (:file "bindings")
      (:file "thunks")
+     (:file "types")
+     (:file "funcs-gl-glcore-gles1-gles2-glsc2")
+     (:file "funcs-gl-glcore-gles1-gles2")
+     (:file "funcs-gl-glcore-gles2-glsc2")
+     (:file "funcs-gl-glcore-gles2")
+     (:file "funcs-gl-gles1-gles2-glsc2")
+     (:file "funcs-gl-gles1-gles2")
+     (:file "funcs-gl-gles2-glsc2")
+     (:file "funcs-gl-gles2")
+     (:file "funcs-gles1-gles2")
+     (:file "funcs-gles2")
+     ;; Lispifications.
+     (:file "package")
+     (:file "util")
+     (:file "opengl")
+     (:file "rasterization")
+     (:file "framebuffer")
+     (:file "special")
+     (:file "state")
+     (:file "dsa")
+     (:file "extensions")))))
+
+
+;;; don't load any library, load subset of gl2 functions
+(defsystem cl-opengl/emscripten
+  :description "Common Lisp bindings to emscripten's WebGL-friendly ES2 subset."
+  :license "BSD"
+  :depends-on (cffi alexandria float-features)
+  :components
+  ((:module "gl"
+    :serial t
+    :components
+    ((:file "bindings-package")
+     (:file "constants")
+     (:file "library-emscripten")
+     (:file "bindings-common")
+     (:file "webgl-whitelist")
+     (:file "bindings-emscripten")
      (:file "types")
      (:file "funcs-gl-glcore-gles1-gles2-glsc2")
      (:file "funcs-gl-glcore-gles1-gles2")

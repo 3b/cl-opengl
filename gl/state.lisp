@@ -878,6 +878,7 @@
 (define-query-function get-integer-64 %gl:get-integer-64-v %gl:int64)
 (define-query-function get-float %gl:get-float-v %gl:float single-float)
 (define-query-function get-double %gl:get-double-v %gl:double double-float)
+#-emscripten
 (define-query-function get-pointer %gl:get-pointer-v :pointer)
 
 ;;; Define an indexed query function NAME that calls the OpenGL
