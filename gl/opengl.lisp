@@ -440,6 +440,11 @@ another buffer is bound within FORMS."
     (%gl::gen-vertex-arrays 1 array)
     (mem-aref array '%gl:uint 0)))
 
+(defun delete-vertex-array (array)
+  (with-foreign-object (p '%gl:uint 1)
+    (setf (cffi:mem-ref p '%gl:uint) array)
+    (%gl:delete-vertex-arrays 1 array)))
+
 (import-export %gl:bind-vertex-array)
 
 ;;; 10.3.2 Specifying Arrays for Generic Vertex Attributes

@@ -96,6 +96,7 @@
    #:gen-vertex-array
    #:gen-vertex-arrays
    #:delete-vertex-arrays
+   #:delete-vertex-array
    #:bind-vertex-array
    ;; 2.11.1 Controlling the Viewport
    #:depth-range
