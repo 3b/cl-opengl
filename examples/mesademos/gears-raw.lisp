@@ -81,7 +81,7 @@
                  (v (- (* r2 (sin (+ angle da))) (* r1 (sin angle))))
                  (len (sqrt (+ (* u u) (* v v)))))
             (setq u (/ u len))
-            (setq v (/ u len))
+            (setq v (/ v len))
             (gl:normal v (- u) 0.0)
             (gl:vertex (* r2 (cos (+ angle da))) (* r2 (sin (+ angle da)))
                        (* width 0.5))

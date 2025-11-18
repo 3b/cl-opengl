@@ -78,7 +78,7 @@
                  (v (- (* r2 (sin (+ angle da))) (* r1 (sin angle))))
                  (len (sqrt (+ (* u u) (* v v)))))
             (setq u (/ u len))
-            (setq v (/ u len))
+            (setq v (/ v len))
             (gl:normal v (- u) 0.0)
             (gl:vertex (* r2 (cos (+ angle da))) (* r2 (sin (+ angle da)))
                        (* width 0.5))
@@ -192,7 +192,7 @@
     (print-frame-rate window)))
 
 (defmethod glut:idle ((window gears-window))
-  (incf (slot-value window 'angle) 2.0)
+  (incf (slot-value window 'angle) 1.0)
   (glut:post-redisplay))
 
 (defmethod glut:keyboard ((window gears-window) key x y)
