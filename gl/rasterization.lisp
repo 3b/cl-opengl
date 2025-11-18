@@ -327,7 +327,7 @@
                  (,i ,target pname (truncate param)))
                 ((:texture-compare-mode :texture-compare-func)
                  (,i ,target pname (foreign-enum-value '%gl:enum param)))
-                (:texture-max-anisotropy-ext
+                ((:texture-max-anisotropy-ext :texture-max-anisotropy)
                  (,f ,target pname param))
                 (:texture-cube-map-seamless
                  (,i ,target pname (if param 1 0)))
