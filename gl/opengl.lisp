@@ -443,7 +443,7 @@ another buffer is bound within FORMS."
 (defun delete-vertex-array (array)
   (with-foreign-object (p '%gl:uint 1)
     (setf (cffi:mem-ref p '%gl:uint) array)
-    (%gl:delete-vertex-arrays 1 array)))
+    (%gl:delete-vertex-arrays 1 p)))
 
 (import-export %gl:bind-vertex-array)
 
