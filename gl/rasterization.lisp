@@ -483,9 +483,15 @@
             (dotimes (i 4)
               (setf (mem-aref p '%gl:float i) (elt value i)))
             (%gl:tex-env-fv target pname p)))
-         (:combine-rgb
+         ((:combine-rgb :combine-alpha)
           (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
-         (:combine-alpha
+         ((:rgb-scale :alpha-scale)
+          (%gl:tex-env-f target pname value))
+         ((:src0-rgb :src1-rgb :src2-rgb
+                     :source0-rgb :source1-rgb :source2-rgb)
+          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
+         ((:src0-alpha :src1-alpha :src2-alpha
+                       :source0-alpha :source1-alpha :source2-alpha)
           (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))))
 
      (:point-sprite
