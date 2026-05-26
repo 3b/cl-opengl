@@ -494,9 +494,9 @@
                        :source0-alpha :source1-alpha :source2-alpha)
           (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))))
 
-     (:point-sprite
-      (ecase pname
-        (:coord-replace (%gl:tex-env-i target pname (if value 1 0))))))))
+      (:point-sprite
+       (ecase pname
+         (:coord-replace (%gl:tex-env-i target pname (if value 1 0))))))))
 
 ;;; texture queries
 (macrolet ((with-getters ((f i &rest vars) &body body)
