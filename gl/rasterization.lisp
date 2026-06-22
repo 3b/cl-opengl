@@ -469,34 +469,33 @@
 ;;; Ye gods, have mercy!
 
 (defun tex-env (target pname value)
-  (let (pname-value)
-    (ecase target
-      (:texture-filter-control
-       (ecase pname
-         (:texture-lod-bias (%gl:tex-env-f target pname value))))
-      (:texture-env
-       (ecase pname
-         (:texture-env-mode
-          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
-         (:texture-env-color
-          (with-foreign-object (p '%gl:float 4)
-            (dotimes (i 4)
-              (setf (mem-aref p '%gl:float i) (elt value i)))
-            (%gl:tex-env-fv target pname p)))
-         ((:combine-rgb :combine-alpha)
-          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
-         ((:rgb-scale :alpha-scale)
-          (%gl:tex-env-f target pname value))
-         ((:src0-rgb :src1-rgb :src2-rgb
-                     :source0-rgb :source1-rgb :source2-rgb)
-          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
-         ((:src0-alpha :src1-alpha :src2-alpha
-                       :source0-alpha :source1-alpha :source2-alpha)
-          (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))))
+  (ecase target
+    (:texture-filter-control
+     (ecase pname
+       (:texture-lod-bias (%gl:tex-env-f target pname value))))
+    (:texture-env
+     (ecase pname
+       (:texture-env-mode
+        (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
+       (:texture-env-color
+        (with-foreign-object (p '%gl:float 4)
+          (dotimes (i 4)
+            (setf (mem-aref p '%gl:float i) (elt value i)))
+          (%gl:tex-env-fv target pname p)))
+       ((:combine-rgb :combine-alpha)
+        (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
+       ((:rgb-scale :alpha-scale)
+        (%gl:tex-env-f target pname value))
+       ((:src0-rgb :src1-rgb :src2-rgb
+                   :source0-rgb :source1-rgb :source2-rgb)
+        (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))
+       ((:src0-alpha :src1-alpha :src2-alpha
+                     :source0-alpha :source1-alpha :source2-alpha)
+        (%gl:tex-env-i target pname (foreign-enum-value '%gl:enum value)))))
 
-      (:point-sprite
-       (ecase pname
-         (:coord-replace (%gl:tex-env-i target pname (if value 1 0))))))))
+    (:point-sprite
+     (ecase pname
+       (:coord-replace (%gl:tex-env-i target pname (if value 1 0)))))))
 
 ;;; texture queries
 (macrolet ((with-getters ((f i &rest vars) &body body)
